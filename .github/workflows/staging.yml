@@ -25,7 +25,9 @@ jobs:
     - name: Get Composer Cache Directory
       id: composer-cache
       run: |
+        cd api
         echo "::set-output name=dir::$(composer config cache-files-dir)"
+        cd ..
     - uses: actions/cache@v2
       with:
         path: ${{ steps.composer-cache.outputs.dir }}
