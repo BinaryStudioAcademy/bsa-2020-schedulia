@@ -1,7 +1,7 @@
 {
     "name": "bsa/schedulia",
     "type": "project",
-    "description": "Binary Studio Academy 2020 PHP project. Schedulia is an analog of calendly which is purpose to share your time and schedules events with others",
+    "description": "Binary Studio Academy | 20202 | PHP group project. Schedulia is an analog of Сalendly which purpose is to share your time and schedule events with others",
     "keywords": [
         "laravel",
         "bsa",
