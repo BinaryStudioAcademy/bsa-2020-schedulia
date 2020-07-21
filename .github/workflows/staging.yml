@@ -48,9 +48,7 @@ jobs:
       run: heroku container:login 
 
     - name: API:Deploy
-      run: |-
-        ls
-        make run deploy-api-staging
+      run: make deploy-api-staging
 
     - name: Client:Deploy
-      run: make run deploy-client-staging
+      run: make deploy-client-staging
