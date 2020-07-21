@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Healthcheck;
+namespace App\Actions\Status;
 
 class Response
 {

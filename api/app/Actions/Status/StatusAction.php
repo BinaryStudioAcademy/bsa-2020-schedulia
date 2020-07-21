@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Actions\Healthcheck;
+namespace App\Actions\Status;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Filesystem\Filesystem;
 
-class HealthcheckAction
+class StatusAction
 {
 	private Cache $cache;
 	private Filesystem $fs;
