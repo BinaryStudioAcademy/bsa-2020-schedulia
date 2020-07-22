@@ -45,8 +45,6 @@ jobs:
     - name: Run api tests
       run: |-
         cd api
-        cp .env.testing .env
         composer install
-        php artisan key:generate
         ./vendor/bin/phpunit
 
