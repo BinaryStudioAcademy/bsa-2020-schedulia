@@ -1,13 +1,13 @@
  
-name: staging
+name: testing
 
 on:
-  push:
+  pull-request:
     branches:
     - develop
+    - master
 
 env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT }}
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
 jobs:
@@ -34,19 +34,18 @@ jobs:
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-composer-
-    # Setup gcloud CLI
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-      with:
-        version: '290.0.1'
-        project_id: ${{ secrets.GCP_PROJECT }}
-        service_account_key: ${{ secrets.GCS_SA_KEY }}
-        export_default_credentials: true
 
-    - name: Login to Heroku
-      run: heroku container:login 
+    - name: Check client
+      run: |-
+        cd client
+        npm run install
+        npm run lint
+        cd ..
 
-    - name: API:Deploy
-      run: make deploy-api-staging
+    - name: Run api tests
+      run: |-
+        cd api
+        composer install
+        docker-compose up -d
+        docker-compose exec app ./vendor/bin/phpunit        
 
-    - name: Client:Deploy
-      run: make deploy-client-staging
