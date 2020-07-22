@@ -46,5 +46,6 @@ jobs:
       run: |-
         cd api
         composer install
+        php artisan key:generate
         ./vendor/bin/phpunit
 
