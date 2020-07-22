@@ -2,7 +2,7 @@
 name: testing
 
 on:
-  pull-request:
+  pull_request:
     branches:
     - develop
     - master
@@ -11,7 +11,7 @@ env:
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
 jobs:
-  staging:
+  testing:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -38,7 +38,7 @@ jobs:
     - name: Check client
       run: |-
         cd client
-        npm run install
+        npm install
         npm run lint
         cd ..
 
@@ -46,6 +46,5 @@ jobs:
       run: |-
         cd api
         composer install
-        docker-compose up -d
-        docker-compose exec app ./vendor/bin/phpunit        
+        ./vendor/bin/phpunit
 
