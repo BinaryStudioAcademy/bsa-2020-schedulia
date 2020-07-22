@@ -47,5 +47,5 @@ jobs:
         cd api
         composer install
         docker-compose up -d
-        docker-compose exec app ./vendor/bin/phpunit        
+        docker-compose exec -T app ./vendor/bin/phpunit        
 
