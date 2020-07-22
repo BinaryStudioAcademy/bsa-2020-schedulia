@@ -38,7 +38,7 @@ jobs:
     - name: Check client
       run: |-
         cd client
-        npm run install
+        npm install
         npm run lint
         cd ..
 
