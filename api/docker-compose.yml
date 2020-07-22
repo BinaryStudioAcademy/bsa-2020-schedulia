@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: schedulia/php-dev:0.0.2
+    image: schedulia/php-dev:0.0.1
     volumes:
       - .:/app
     ports:
@@ -22,4 +22,4 @@ services:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - 8082:8080
