@@ -5,6 +5,7 @@ import statusService from '@/services/status/statusService';
 export default {
     [actions.GET_SERVICE_STATUS_BY_NAME]: async (context, serviceName) => {
         try {
+            context.commit(mutations.FETCH_SERVICE_STATUS, serviceName);
             const status = await statusService.getStatusByService(serviceName);
 
             context.commit(mutations.SET_SERVICE_STATUS, {

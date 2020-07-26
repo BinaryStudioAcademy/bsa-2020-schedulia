@@ -23,5 +23,19 @@ export default {
                 ...state.map.slice(i + 1, state.map.length)
             ];
         }
+    },
+
+    [mutations.FETCH_SERVICE_STATUS]: (state, serviceName) => {
+        if (!state.byId[serviceName]) {
+            return;
+        }
+
+        state.byId = {
+            ...state.byId,
+            [serviceName]: {
+                ...state.byId[serviceName],
+                status: null
+            }
+        };
     }
 };
