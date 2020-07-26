@@ -99,47 +99,35 @@ class StatusAction
 
 	private function getDatabaseInfo(): string
 	{
-		try {
-			$result = DB::select('select version();');
+		$result = DB::select('select version();');
 
-			if (empty($result) || !isset($result)) {
-				return '';
-			}
-
-			return $result[0]->version;
-		} catch (\Exception $e) {
-			return $e->getMessage();
+		if (empty($result) || !isset($result)) {
+			return '';
 		}
+
+		return $result[0]->version;
 	}
 
 	private function getRedisInfo(): string
 	{
-		try {
-			$redisInfo = Redis::info();
-			$this->cache->set('healthcheck', true);
-			$result = $this->cache->pull('healthcheck');
+		$redisInfo = Redis::info();
+		$this->cache->set('healthcheck', true);
+		$result = $this->cache->pull('healthcheck');
 
-			return 'Redis ' . $redisInfo['redis_version'] . ', (' . $redisInfo['os'] . ') Cache: ' . ($result === true ? 'true' : 'false');
-		} catch (\Exception $e) {
-			return $e->getMessage();
-		}
+		return 'Redis ' . $redisInfo['redis_version'] . ', (' . $redisInfo['os'] . ') Cache: ' . ($result === true ? 'true' : 'false');
 	}
 
 	private function getStorageInfo(): string
 	{
-		try {
-			if ($this->fs->exists('healthcheck.txt')) {
-				$this->fs->delete('healthcheck.txt');
-			}
-			$this->fs->put(
-				'healthcheck.txt',
-				'checked',
-			);
-			$data = $this->fs->get('healthcheck.txt');
-
-			return 'Storage: ' . config('filesystems.default') . '. Accessability: ' . $data;
-		} catch (\Exception $e) {
-			return $e->getMessage();
+		if ($this->fs->exists('healthcheck.txt')) {
+			$this->fs->delete('healthcheck.txt');
 		}
+		$this->fs->put(
+			'healthcheck.txt',
+			'checked',
+		);
+		$data = $this->fs->get('healthcheck.txt');
+
+		return 'Storage: ' . config('filesystems.default') . '. Accessability: ' . $data;
 	}
 }

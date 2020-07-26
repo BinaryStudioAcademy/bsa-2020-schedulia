@@ -1,7 +1,11 @@
 import requestService from '../requestService';
 
-const requestService = {
-	getStatus() {
-		return requestService.getStatus('/api/status');
-	}
+const statusService = {
+    async getStatusByService(serviceName) {
+        const response = await requestService.get(`/api/status/${serviceName}`);
+
+        return response?.data?.[0];
+    }
 };
+
+export default statusService;

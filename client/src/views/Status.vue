@@ -1,13 +1,14 @@
 <template>
-    <div class="status"></div>
+    <VContainer>
+        <StatusTable />
+    </VContainer>
 </template>
 <script>
-import requestService from '@/services/requestService';
-export default {
-    async mounted() {
-        const result = await requestService.get('/api/status');
+import StatusTable from '../components/status/StatusTable.vue';
 
-        console.log(result);
+export default {
+    components: {
+        StatusTable
     }
 };
 </script>

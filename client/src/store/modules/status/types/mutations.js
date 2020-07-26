@@ -1,0 +1,1 @@
+export const SET_SERVICE_STATUS = 'SET_SERVICE_STATUS';
