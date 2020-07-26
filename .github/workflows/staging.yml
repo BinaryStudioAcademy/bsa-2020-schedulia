@@ -69,6 +69,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Login to Heroku
+      run: heroku container:login 
     - name: API:Deploy
       run: make deploy-api-staging
     - name: Client:Deploy
