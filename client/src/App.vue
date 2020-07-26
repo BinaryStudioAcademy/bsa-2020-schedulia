@@ -1,32 +1,59 @@
 <template>
-    <div id="app">
-        <div id="nav">
-            <RouterLink to="/">Home</RouterLink> |
-            <RouterLink to="/about">About</RouterLink>
-        </div>
-        <RouterView />
-    </div>
+    <VApp>
+        <VAppBar app color="primary" dark>
+            <div class="d-flex align-center">
+                <VImg
+                    alt="Vuetify Logo"
+                    class="shrink mr-2"
+                    contain
+                    src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+                    transition="scale-transition"
+                    width="40"
+                />
+
+                <VImg
+                    alt="Vuetify Name"
+                    class="shrink mt-1 hidden-sm-and-down"
+                    contain
+                    min-width="100"
+                    src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
+                    width="100"
+                />
+            </div>
+
+            <VSpacer></VSpacer>
+
+            <VBtn
+                href="https://github.com/vuetifyjs/vuetify/releases/latest"
+                target="_blank"
+                text
+            >
+                <span class="mr-2">Latest Release</span>
+                <VIcon>mdi-open-in-new</VIcon>
+            </VBtn>
+        </VAppBar>
+
+        <VMain>
+            <VContainer>
+                <VRow>
+                    <VCol class="text-center">
+                        <RouterLink to="/">Home</RouterLink>
+                    </VCol>
+                    <VCol class="text-center">
+                        <RouterLink to="/about">About</RouterLink>
+                    </VCol>
+                    <VCol class="text-center">
+                        <RouterLink to="/status">Status</RouterLink>
+                    </VCol>
+                </VRow>
+            </VContainer>
+            <RouterView />
+        </VMain>
+    </VApp>
 </template>
 
-<style lang="scss">
-#app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-}
-
-#nav {
-    padding: 30px;
-
-    a {
-        font-weight: bold;
-        color: #2c3e50;
-
-        &.router-link-exact-active {
-            color: #42b983;
-        }
-    }
-}
-</style>
+<script>
+export default {
+    name: 'App'
+};
+</script>
