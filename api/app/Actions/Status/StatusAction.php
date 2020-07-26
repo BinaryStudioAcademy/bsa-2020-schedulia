@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Status;
 
 use Illuminate\Support\Facades\DB;
@@ -18,23 +20,81 @@ class StatusAction
 		$this->fs = $fileSystem;
 	}
 
-	public function execute(): Response
+	public function execute(?string $serviceName = 'all'): Response
 	{
-		$app = config('app.name');
-		$serverInfo = "PHP: " . \phpversion();
-		$databaseInfo = $this->getDatabaseInfo();
-		$redisInfo = $this->getRedisStatus();
-		$storageInfo = $this->checkStorage();
-
-		$response = new Response(
-			$app,
-			$serverInfo,
-			$databaseInfo,
-			$redisInfo,
-			$storageInfo,
-		);
+		switch($serviceName) {
+			case 'app':
+				return new Response(
+					$this->createApplicationInfo()
+				);
+			case 'server':
+				return new Response(
+					$this->createServerInfo()
+				);
+			case 'database':
+				return new Response(
+					$this->createDatabaseInfo()
+				);
+			case 'redis':
+				return new Response(
+					$this->createRedisInfo()
+				);
+			case 'storage':
+				return new Response(
+					$this->createStorageInfo()
+				);
+			case 'all':
+			default:
+				return new Response(
+					$this->createApplicationInfo(),
+					$this->createServerInfo(),
+					$this->createDatabaseInfo(),
+					$this->createRedisInfo(),
+					$this->createStorageInfo(),
+				);
+		}
 
 		return $response;
+	}
+
+	private function createApplicationInfo(): Parameter
+	{
+		return new Parameter(
+			'app',
+			config('app.name') . ' | ' . config('app.env')
+		);
+	}
+
+	private function createServerInfo(): Parameter
+	{
+		return new Parameter(
+			'server',
+			'PHP: ' . \phpversion() . ' | ' . 'IP: ' . $_SERVER['REMOTE_ADDR']
+		);
+	}
+
+	private function createDatabaseInfo(): Parameter
+	{
+		return new Parameter(
+			'database',
+			$this->getDatabaseInfo()
+		);
+	}
+
+	private function createRedisInfo(): Parameter
+	{
+		return new Parameter(
+			'redis',
+			$this->getRedisInfo()
+		);
+	}
+
+	private function createStorageInfo(): Parameter
+	{
+		return new Parameter(
+			'storage',
+			$this->getStorageInfo()
+		);
 	}
 
 	private function getDatabaseInfo(): string
@@ -52,7 +112,7 @@ class StatusAction
 		}
 	}
 
-	private function getRedisStatus(): string
+	private function getRedisInfo(): string
 	{
 		try {
 			$redisInfo = Redis::info();
@@ -65,7 +125,7 @@ class StatusAction
 		}
 	}
 
-	private function checkStorage(): string
+	private function getStorageInfo(): string
 	{
 		try {
 			if ($this->fs->exists('healthcheck.txt')) {

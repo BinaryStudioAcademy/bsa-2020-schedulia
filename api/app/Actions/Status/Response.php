@@ -4,34 +4,22 @@ namespace App\Actions\Status;
 
 class Response
 {
-	private string $app;
-	private string $server;
-	private string $database;
-	private string $redis;
-	private string $storageInfo;
+	private array $data;
 
-	public function __construct(
-		string $app,
-		string $server,
-		string $database,
-		string $redis,
-		string $storageInfo
-	) {
-		$this->app = $app;
-		$this->server = $server;
-		$this->database = $database;
-		$this->redis = $redis;
-		$this->storageInfo = $storageInfo;
+	public function __construct(?Parameter ...$values)
+	{
+		$this->data = $values;
+	}
+
+	public function add(Parameter $parameter): void
+	{
+		$this->data[] = $parameter;
 	}
 
 	public function toArray(): array
 	{
-		return [
-			"app" => $this->app,
-			"server" => $this->server,
-			"database" => $this->database,
-			"redis" => $this->redis,
-			"storage" => $this->storageInfo,
-		];
+		return collect($this->data)->map(
+			fn(Parameter $parameter) => $parameter->toArray()
+		)->toArray();
 	}
 }
