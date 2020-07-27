@@ -18,7 +18,7 @@ class StatusController extends ApiController
     {
         return $this->successResponse(
             $this->statusAction->execute(
-                $request->get('serviceName')
+                $request->route('serviceName')
             )->toArray()
         );
     }

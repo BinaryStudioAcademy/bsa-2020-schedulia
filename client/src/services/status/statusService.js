@@ -4,7 +4,7 @@ const statusService = {
     async getStatusByService(serviceName) {
         const response = await requestService.get(`/api/status/${serviceName}`);
 
-        return response?.data?.[0];
+        return response?.data?.data?.[0];
     }
 };
 
