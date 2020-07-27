@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Actions\Status\StatusAction;
-use App\Http\Controllers\Controller;
 
-class StatusController extends Controller
+class StatusController extends ApiController
 {
 	private StatusAction $statusAction;
 
@@ -17,11 +16,10 @@ class StatusController extends Controller
 
 	public function status(Request $request)
 	{
-		return response()->json(
+		return $this->successResponse(
 			$this->statusAction->execute(
-				$request->serviceName
-			)->toArray(),
-			200
+				$request->get('serviceName')
+			)->toArray()
 		);
-	} 
+	}
 }
