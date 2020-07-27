@@ -16,11 +16,10 @@ class StatusController extends ApiController
 
 	public function status(Request $request)
 	{
-		return response()->json(
+		return $this->successResponse(
 			$this->statusAction->execute(
-				$request->serviceName
-			)->toArray(),
-			200
+				$request->get('serviceName')
+			)->toArray()
 		);
-	} 
+	}
 }
