@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Actions\Status\StatusAction;
-use App\Http\Controllers\Controller;
 
-class StatusController extends Controller
+class StatusController extends ApiController
 {
 	private StatusAction $statusAction;
 
