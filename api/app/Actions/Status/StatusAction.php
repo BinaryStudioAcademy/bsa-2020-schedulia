@@ -20,32 +20,32 @@ class StatusAction
         $this->fs = $fileSystem;
     }
 
-    public function execute(?string $serviceName = 'all'): Response
+    public function execute(?string $serviceName = 'all'): StatusResponse
     {
         switch($serviceName) {
             case 'app':
-                return new Response(
+                return new StatusResponse(
                     $this->createApplicationInfo()
                 );
             case 'server':
-                return new Response(
+                return new StatusResponse(
                     $this->createServerInfo()
                 );
             case 'database':
-                return new Response(
+                return new StatusResponse(
                     $this->createDatabaseInfo()
                 );
             case 'redis':
-                return new Response(
+                return new StatusResponse(
                     $this->createRedisInfo()
                 );
             case 'storage':
-                return new Response(
+                return new StatusResponse(
                     $this->createStorageInfo()
                 );
             case 'all':
             default:
-                return new Response(
+                return new StatusResponse(
                     $this->createApplicationInfo(),
                     $this->createServerInfo(),
                     $this->createDatabaseInfo(),
@@ -53,45 +53,43 @@ class StatusAction
                     $this->createStorageInfo(),
                 );
         }
-
-        return $response;
     }
 
-    private function createApplicationInfo(): Parameter
+    private function createApplicationInfo(): StatusParameter
     {
-        return new Parameter(
+        return new StatusParameter(
             'app',
             config('app.name') . ' | ' . config('app.env')
         );
     }
 
-    private function createServerInfo(): Parameter
+    private function createServerInfo(): StatusParameter
     {
-        return new Parameter(
+        return new StatusParameter(
             'server',
             'PHP: ' . \phpversion() . ' | ' . 'IP: ' . $_SERVER['REMOTE_ADDR']
         );
     }
 
-    private function createDatabaseInfo(): Parameter
+    private function createDatabaseInfo(): StatusParameter
     {
-        return new Parameter(
+        return new StatusParameter(
             'database',
             $this->getDatabaseInfo()
         );
     }
 
-    private function createRedisInfo(): Parameter
+    private function createRedisInfo(): StatusParameter
     {
-        return new Parameter(
+        return new StatusParameter(
             'redis',
             $this->getRedisInfo()
         );
     }
 
-    private function createStorageInfo(): Parameter
+    private function createStorageInfo(): StatusParameter
     {
-        return new Parameter(
+        return new StatusParameter(
             'storage',
             $this->getStorageInfo()
         );

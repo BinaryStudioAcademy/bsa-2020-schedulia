@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\Status;
 
-class Parameter
+class StatusParameter
 {
     private string $name;
     private string $value;
