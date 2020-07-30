@@ -4,20 +4,28 @@ declare(strict_types=1);
 
 namespace App\Actions\Status;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redis;
-use Illuminate\Contracts\Cache\Repository as Cache;
-use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Cache\CacheManager;
+use Illuminate\Database\DatabaseManager;
+use Illuminate\Filesystem\FilesystemManager;
+use Illuminate\Redis\RedisManager;
 
 class StatusAction
 {
-    private Cache $cache;
-    private Filesystem $fs;
+    private DatabaseManager $databaseManager;
+    private FilesystemManager $filesystemManager;
+    private RedisManager $redisManager;
+    private CacheManager $cacheManager;
 
-    public function __construct(Cache $cache, Filesystem $fileSystem)
-    {
-        $this->cache = $cache;
-        $this->fs = $fileSystem;
+    public function __construct(
+        DatabaseManager $databaseManager,
+        FilesystemManager $filesystemManager,
+        RedisManager $redisManager,
+        CacheManager $cacheManager
+    ) {
+        $this->databaseManager = $databaseManager;
+        $this->filesystemManager = $filesystemManager;
+        $this->redisManager = $redisManager;
+        $this->cacheManager = $cacheManager;
     }
 
     public function execute(?string $serviceName = 'all'): StatusResponse
@@ -97,7 +105,7 @@ class StatusAction
 
     private function getDatabaseInfo(): string
     {
-        $result = DB::select('select version();');
+        $result = $this->databaseManager->connection()->select('select version();');
 
         if (empty($result) || !isset($result)) {
             return '';
@@ -108,24 +116,28 @@ class StatusAction
 
     private function getRedisInfo(): string
     {
-        $redisInfo = Redis::info();
-        $this->cache->set('healthcheck', true);
-        $result = $this->cache->pull('healthcheck');
+        $redisInfo = $this->redisManager->command('info');
+        $cache = $this->cacheManager->driver('redis');
+        $cache->set('healthcheck', true);
+        $result = $cache->pull('healthcheck');
 
         return 'Redis ' . $redisInfo['redis_version'] . ', (' . $redisInfo['os'] . ') Cache: ' . ($result === true ? 'true' : 'false');
     }
 
     private function getStorageInfo(): string
     {
-        if ($this->fs->exists('healthcheck.txt')) {
-            $this->fs->delete('healthcheck.txt');
+        $fs = $this->filesystemManager->drive();
+
+        if ($fs->exists('healthcheck.txt')) {
+            $fs->delete('healthcheck.txt');
         }
-        $this->fs->put(
+
+        $fs->put(
             'healthcheck.txt',
             'checked',
         );
-        $data = $this->fs->get('healthcheck.txt');
+        $data = $fs->get('healthcheck.txt');
 
-        return 'Storage: ' . config('filesystems.default') . '. Accessability: ' . $data;
+        return 'Driver: ' . $this->filesystemManager->getDefaultDriver() . '. Accessability: ' . $data;
     }
 }
