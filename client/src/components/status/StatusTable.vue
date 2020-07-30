@@ -67,8 +67,9 @@ export default {
     mounted() {
         this.getStatusByName('app');
         this.getStatusByName('server');
-        this.getStatusByName('database');
         this.getStatusByName('redis');
+        this.getStatusByName('cache');
+        this.getStatusByName('database');
         this.getStatusByName('storage');
     }
 };

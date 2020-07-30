@@ -2,16 +2,16 @@
 
 namespace App\Actions\Status;
 
-class Response
+class StatusResponse
 {
     private array $data;
 
-    public function __construct(?Parameter ...$values)
+    public function __construct(?StatusParameter ...$values)
     {
         $this->data = $values;
     }
 
-    public function add(Parameter $parameter): void
+    public function add(StatusParameter $parameter): void
     {
         $this->data[] = $parameter;
     }
@@ -19,7 +19,7 @@ class Response
     public function toArray(): array
     {
         return collect($this->data)->map(
-            fn(Parameter $parameter) => $parameter->toArray()
+            fn(StatusParameter $parameter) => $parameter->toArray()
         )->toArray();
     }
 }

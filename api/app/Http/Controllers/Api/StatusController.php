@@ -7,17 +7,10 @@ use App\Actions\Status\StatusAction;
 
 class StatusController extends ApiController
 {
-    private StatusAction $statusAction;
-
-    public function __construct(StatusAction $statusAction)
-    {
-        $this->statusAction = $statusAction;
-    }
-
-    public function status(Request $request)
+    public function status(Request $request, StatusAction $action)
     {
         return $this->successResponse(
-            $this->statusAction->execute(
+            $action->execute(
                 $request->route('serviceName')
             )->toArray()
         );

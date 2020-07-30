@@ -10,13 +10,18 @@ export default {
             statusText: 'loading ...',
             status: null
         },
-        database: {
-            name: 'Database',
+        redis: {
+            name: 'Redis',
             statusText: 'loading ...',
             status: null
         },
-        redis: {
-            name: 'Redis',
+        cache: {
+            name: 'Cache',
+            statusText: 'loading ...',
+            status: null
+        },
+        database: {
+            name: 'Database',
             statusText: 'loading ...',
             status: null
         },
@@ -26,5 +31,5 @@ export default {
             status: null
         }
     },
-    map: ['app', 'server', 'database', 'redis', 'storage']
+    map: ['app', 'server', 'redis', 'cache', 'database', 'storage']
 };
