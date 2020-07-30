@@ -39,13 +39,17 @@ class StatusAction
                 return new StatusResponse(
                     $this->createServerInfo()
                 );
-            case 'database':
-                return new StatusResponse(
-                    $this->createDatabaseInfo()
-                );
             case 'redis':
                 return new StatusResponse(
                     $this->createRedisInfo()
+                );
+            case 'cache':
+                return new StatusResponse(
+                    $this->createCacheInfo()
+                );
+            case 'database':
+                return new StatusResponse(
+                    $this->createDatabaseInfo()
                 );
             case 'storage':
                 return new StatusResponse(
@@ -56,8 +60,9 @@ class StatusAction
                 return new StatusResponse(
                     $this->createApplicationInfo(),
                     $this->createServerInfo(),
-                    $this->createDatabaseInfo(),
                     $this->createRedisInfo(),
+                    $this->createCacheInfo(),
+                    $this->createDatabaseInfo(),
                     $this->createStorageInfo(),
                 );
         }
@@ -79,19 +84,27 @@ class StatusAction
         );
     }
 
-    private function createDatabaseInfo(): StatusParameter
-    {
-        return new StatusParameter(
-            'database',
-            $this->getDatabaseInfo()
-        );
-    }
-
     private function createRedisInfo(): StatusParameter
     {
         return new StatusParameter(
             'redis',
             $this->getRedisInfo()
+        );
+    }
+
+    private function createCacheInfo(): StatusParameter
+    {
+        return new StatusParameter(
+            'cache',
+            $this->getCacheInfo()
+        );
+    }
+
+    private function createDatabaseInfo(): StatusParameter
+    {
+        return new StatusParameter(
+            'database',
+            $this->getDatabaseInfo()
         );
     }
 
@@ -117,11 +130,17 @@ class StatusAction
     private function getRedisInfo(): string
     {
         $redisInfo = $this->redisManager->command('info');
-        $cache = $this->cacheManager->driver('redis');
+
+        return 'Redis ' . $redisInfo['redis_version'] . ', (' . $redisInfo['os'] . ')';
+    }
+
+    private function getCacheInfo(): string
+    {
+        $cache = $this->cacheManager->driver();
         $cache->set('healthcheck', true);
         $result = $cache->pull('healthcheck');
 
-        return 'Redis ' . $redisInfo['redis_version'] . ', (' . $redisInfo['os'] . ') Cache: ' . ($result === true ? 'true' : 'false');
+        return 'Driver: ' . $this->cacheManager->getDefaultDriver() . '. Cache: ' . ($result === true ? 'true' : 'false');
     }
 
     private function getStorageInfo(): string
