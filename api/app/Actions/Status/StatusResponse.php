@@ -19,7 +19,7 @@ class StatusResponse
     public function toArray(): array
     {
         return collect($this->data)->map(
-            fn(StatusParameter $parameter) => $parameter->toArray()
+            fn (StatusParameter $parameter) => $parameter->toArray()
         )->toArray();
     }
 }

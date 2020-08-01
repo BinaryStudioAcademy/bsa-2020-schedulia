@@ -9,7 +9,8 @@ class StatusParameter
     private string $name;
     private string $value;
 
-    public function __construct(string $name, string $value) {
+    public function __construct(string $name, string $value)
+    {
         $this->name = $name;
         $this->value = $value;
     }
