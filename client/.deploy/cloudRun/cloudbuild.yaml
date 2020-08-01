@@ -1,0 +1,13 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: 
+  - build
+  - "--file=./.deploy/shared/Dockerfile" 
+  - "--tag=gcr.io/${PROJECT_ID}/schedulia-client"
+  - .
+
+- name: "gcr.io/cloud-builders/docker"
+  args: ["push", "gcr.io/${PROJECT_ID}/schedulia-client"]
+
+images:
+- 'gcr.io/$PROJECT_ID/schedulia-client'
