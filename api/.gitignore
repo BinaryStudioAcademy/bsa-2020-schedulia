@@ -13,3 +13,4 @@ yarn-error.log
 xdebug.log
 .vscode
 .idea
+docker-compose.override.yml
