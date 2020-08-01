@@ -18,6 +18,11 @@ Production: [schedulia.xyz](https://schedulia.xyz/)
 
 Staging: [dev.schedulia.xyz](http://dev.schedulia.xyz/)
 
+## Installation
+
+To install **backend** see: [/api/README.md](api/README.md)
+
+To install **frontend** see: [/client/README.md](client/README.md)
 
 ### Copyright and License
 
