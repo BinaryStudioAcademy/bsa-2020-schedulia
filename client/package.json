@@ -5,11 +5,15 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "d-serve": "docker-compose run --rm node npm run serve",
+    "d-install": "docker-compose run --rm node npm install",
+    "d-lint": "docker-compose run --rm node npm run lint"
   },
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
+    "lodash": "^4.17.19",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuetify": "^2.2.11",
