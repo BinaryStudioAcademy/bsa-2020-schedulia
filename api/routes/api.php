@@ -18,4 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/healthcheck', 'HealthcheckController@healthcheck');
+Route::get('/status/{serviceName?}', 'Api\StatusController@status');

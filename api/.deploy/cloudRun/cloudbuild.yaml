@@ -1,0 +1,27 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args: ['-c', 'docker pull gcr.io/$PROJECT_ID/schedulia-api || exit 0']
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: 
+  - build
+  - "--file=./.deploy/cloudRun/Dockerfile" 
+  - "--tag=gcr.io/${PROJECT_ID}/schedulia-api"
+  - .
+
+- name: "gcr.io/cloud-builders/docker"
+  args: ["push", "gcr.io/${PROJECT_ID}/schedulia-api"]
+
+- name: "gcr.io/google-appengine/exec-wrapper"
+  args: ["-i", "gcr.io/$PROJECT_ID/schedulia-api",
+         "-s", "${PROJECT_ID}:${_REGION}:schedulia-sql",
+         "--", "php", "artisan", "migrate", "--force"]
+
+- name: "gcr.io/google-appengine/exec-wrapper"
+  args: ["-i", "gcr.io/$PROJECT_ID/schedulia-api",
+         "-s", "${PROJECT_ID}:${_REGION}:schedulia-sql",
+         "--", "php", "artisan", "config:clear"]
+
+images:
+- 'gcr.io/$PROJECT_ID/schedulia-api'

@@ -1,0 +1,50 @@
+ 
+name: testing
+
+on:
+  pull_request:
+    branches:
+    - develop
+    - master
+
+env:
+  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Cache node modules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: Cache composer
+      id: composer-cache
+      run: |
+        cd api
+        echo "::set-output name=dir::$(composer config cache-files-dir)"
+        cd ..
+    - uses: actions/cache@v2
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-composer-
+
+    - name: Check client
+      run: |-
+        cd client
+        npm install
+        npm run lint
+        cd ..
+
+    - name: Run api tests
+      run: |-
+        cd api
+        composer install
+        ./vendor/bin/phpunit
+

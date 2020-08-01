@@ -1,0 +1,77 @@
+ 
+name: staging
+
+on:
+  push:
+    branches:
+    - develop
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT }}
+  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
+jobs:
+  api-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Cache composer
+      id: composer-cache
+      run: |
+        cd api
+        echo "::set-output name=dir::$(composer config cache-files-dir)"
+        cd ..
+    - uses: actions/cache@v2
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-composer-
+    # Setup gcloud CLI
+    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        version: '290.0.1'
+        project_id: ${{ secrets.GCP_PROJECT }}
+        service_account_key: ${{ secrets.GCS_SA_KEY }}
+        export_default_credentials: true
+
+    - name: Login to Heroku
+      run: heroku container:login 
+
+    - name: API:Build
+      run: make build-api-staging
+
+  client-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Cache node modules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    # Setup gcloud CLI
+    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        version: '290.0.1'
+        project_id: ${{ secrets.GCP_PROJECT }}
+        service_account_key: ${{ secrets.GCS_SA_KEY }}
+        export_default_credentials: true
+    - name: Login to Heroku
+      run: heroku container:login 
+    - name: Client:Build
+      run: make build-client-staging
+
+  deploy:
+    needs: [api-build, client-build]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Login to Heroku
+      run: heroku container:login 
+    - name: API:Deploy
+      run: make deploy-api-staging
+    - name: Client:Deploy
+      run: make deploy-client-staging
