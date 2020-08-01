@@ -1,5 +1,5 @@
  
-name: staging
+name: production
 
 on:
   push:
