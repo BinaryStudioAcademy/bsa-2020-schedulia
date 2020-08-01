@@ -109,4 +109,5 @@ curl http://localhost:8000/api/status
 ```
 
 9. Debug
+
 ![Debugger](debug_phpstorm_debugger.png)
