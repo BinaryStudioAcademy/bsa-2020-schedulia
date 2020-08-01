@@ -1,5 +1,7 @@
 # Schedulia | Frontend
 
+This is a frontend part of Schedulia application.
+
 ## Usage
 
 ### Install node
