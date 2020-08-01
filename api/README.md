@@ -8,3 +8,6 @@ This an API of Schedulia application.
 composer install
 docker-compose up -d
 ```
+
+## Debugging
+See the instructions [here](../docs/debug.md).
