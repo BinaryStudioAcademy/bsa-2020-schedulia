@@ -8,6 +8,7 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT }}
+  GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
   GCP_REGION: ${{ secrets.GCP_REGION }}
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
