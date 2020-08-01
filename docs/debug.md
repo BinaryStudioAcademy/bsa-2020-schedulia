@@ -73,3 +73,40 @@ Start the application again:
 ```bash
 docker-compose up -d
 ```
+
+## How to set up XDebug in PHPStorm
+
+1. Setup remote CLI interpreter in settings
+
+![PHP Settings](debug_phpstorm_php_settings.png)
+
+![CLI Interpreter](debug_phpstorm_cli_interpreter.png)
+
+2. Add a new server and configure folder mappings
+
+![Server Settings](debug_phpstorm_server_settings.png)
+
+3. Configure debug port
+
+![Debug Settings](debug_phpstorm_debug_settings.png)
+
+4. Add remote debug configuration
+
+![Remote Debug Config](debug_phpstorm_remote_debug_config.png)
+
+5. Set breakpoint
+
+![Breakpoint](debug_phpstorm_breakpoint.png)
+
+7. Start listening for connections
+
+![Listen For Connections](debug_phpstorm_listen.png)
+
+8. Make a request
+
+```bash
+curl http://localhost:8000/api/status
+```
+
+9. Debug
+![Debugger](debug_phpstorm_debugger.png)
