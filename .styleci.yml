@@ -1,0 +1,17 @@
+risky: false
+version: 7
+preset: psr12
+tab-width: 4
+use-tabs: false
+finder:
+  exclude:
+    - "modules"
+    - "node_modules"
+    - "storage"
+    - "vendor"
+  name: "*.php"
+  not-name:
+    - "*.blade.php"
+    - "_ide_helper.php"
+  path:
+    - "/api/"
