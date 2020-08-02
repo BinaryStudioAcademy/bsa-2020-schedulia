@@ -19,3 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/status/{serviceName?}', 'Api\StatusController@status');
+
+Route::get('/debug-sentry', function () {
+    throw new Exception('My first Sentry error!');
+});
