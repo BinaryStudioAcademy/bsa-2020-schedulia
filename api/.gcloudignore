@@ -16,3 +16,4 @@ xdebug.log
 .vscode
 .idea
 .git
+.persist

@@ -30,7 +30,7 @@ class StatusAction
 
     public function execute(?string $serviceName = 'all'): StatusResponse
     {
-        switch($serviceName) {
+        switch ($serviceName) {
             case 'app':
                 return new StatusResponse(
                     $this->createApplicationInfo()
