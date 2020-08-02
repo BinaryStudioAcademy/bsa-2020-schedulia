@@ -43,7 +43,7 @@ return [
 
         'production' => [
             'driver' => 'stack',
-            'channels' => ['google_logging', 'single'],
+            'channels' => ['google_logging', 'single', 'stderr'],
             'ignore_exceptions' => false,
         ],
 
