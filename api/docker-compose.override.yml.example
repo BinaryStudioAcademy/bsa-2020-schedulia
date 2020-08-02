@@ -1,0 +1,5 @@
+version: '3'
+services:
+  db:
+    volumes:
+      - .persist/.postgre:/var/lib/postgresql/data
