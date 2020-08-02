@@ -7,4 +7,4 @@ gcloud run deploy schedulia-api \
   	--add-cloudsql-instances ${GCP_PROJECT}:${GCP_REGION}:schedulia-sql \
   	--allow-unauthenticated \
 	--vpc-connector schedulia-net \
-	--command="/etc/entrypoint.sh"
+	--command="/etc/bootstrap.sh"
