@@ -21,7 +21,7 @@ Just keep versions of installed software to be consistent with the team and prod
 ```bash
 cp .env.example .env
 docker-compose up -d
-docker-compose exec app composer install
+docker-compose run -rm composer composer install
 docker-compose exec app php artisan key:generate
 docker-compose exec app php artisan migrate
 ```
