@@ -32,6 +32,10 @@ cp .env.example .env.local
 npm run serve
 
 # docker
+
+# First time re-name docker-compose.override.yml.example
+cp docker-compose.override.yml.example compose.override.yml
+
 npm run d-serve
 ```
 

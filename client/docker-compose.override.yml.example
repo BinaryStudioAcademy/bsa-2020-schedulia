@@ -1,0 +1,5 @@
+version: '3'
+services:
+  node:
+    ports:
+      - 8080:8080
