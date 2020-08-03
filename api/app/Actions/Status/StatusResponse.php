@@ -1,25 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Status;
+
+use Illuminate\Support\Collection;
 
 class StatusResponse
 {
-    private array $data;
+    private array $parameters;
 
     public function __construct(?StatusParameter ...$values)
     {
-        $this->data = $values;
+        $this->parameters = $values;
     }
 
-    public function add(StatusParameter $parameter): void
+    public function getStatusParameters(): Collection
     {
-        $this->data[] = $parameter;
-    }
-
-    public function toArray(): array
-    {
-        return collect($this->data)->map(
-            fn (StatusParameter $parameter) => $parameter->toArray()
-        )->toArray();
+        return collect($this->parameters);
     }
 }

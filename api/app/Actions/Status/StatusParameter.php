@@ -15,11 +15,13 @@ class StatusParameter
         $this->value = $value;
     }
 
-    public function toArray(): array
+    public function getName()
     {
-        return [
-            "name" => $this->name,
-            "value" => $this->value
-        ];
+        return $this->name;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
     }
 }
