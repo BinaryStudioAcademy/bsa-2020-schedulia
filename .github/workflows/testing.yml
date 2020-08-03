@@ -39,7 +39,7 @@ jobs:
       run: |-
         cd client
         npm install
-        npm run lint
+        npm run lint -- --no-fix --max-warnings 0
         cd ..
 
     - name: Run api tests
