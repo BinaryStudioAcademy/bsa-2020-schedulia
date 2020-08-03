@@ -34,7 +34,7 @@ npm run serve
 # docker
 
 # First time re-name docker-compose.override.yml.example
-cp docker-compose.override.yml.example compose.override.yml
+cp docker-compose.override.yml.example docker-compose.override.yml
 
 npm run d-serve
 ```
