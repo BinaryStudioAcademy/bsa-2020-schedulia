@@ -8,6 +8,15 @@ const requestService = {
             params,
             headers
         });
+    },
+    post(url, body = {}, config = {}) {
+        return axios.post(API_URL + url, body, config);
+    },
+    put(url, body = {}, config = {}) {
+        return axios.put(API_URL + url, body, config);
+    },
+    delete(url, config = {}) {
+        return axios.delete(API_URL + url, config);
     }
 };
 
