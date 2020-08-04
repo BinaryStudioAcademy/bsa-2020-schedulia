@@ -2,28 +2,20 @@ import requestService from '@/services/requestService';
 
 const authService = {
     async signIn(userLoginData) {
-        try {
-            const response = await requestService.post(
-                '/auth/login',
-                userLoginData
-            );
-            this.saveToken(response.access_token);
-            return response;
-        } catch (error) {
-            return Promise.reject(error);
-        }
+        const response = await requestService.post(
+            '/auth/login',
+            userLoginData
+        );
+        this.saveToken(response.access_token);
+        return response;
     },
     async signUp(userRegisterData) {
         return await requestService.post('/auth/register', userRegisterData);
     },
     async signOut() {
-        try {
-            const response = await requestService.post('/auth/logout');
-            this.removeToken();
-            return response;
-        } catch (error) {
-            return Promise.reject(error);
-        }
+        const response = await requestService.post('/auth/logout');
+        this.removeToken();
+        return response;
     },
     async fetchLoggedUser() {
         return await requestService.get('/users/me');
