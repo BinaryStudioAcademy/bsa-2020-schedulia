@@ -6,10 +6,10 @@ namespace App\Action\Auth;
 
 final class RegisterRequest
 {
-    private $email;
-    private $password;
-    private $name;
-    private $timezone;
+    private string $email;
+    private string $password;
+    private string $name;
+    private string $timezone;
 
     public function __construct(
         string $email,
