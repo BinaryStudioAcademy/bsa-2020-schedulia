@@ -6,8 +6,8 @@ const authService = {
             '/auth/login',
             userLoginData
         );
-        this.saveToken(response.access_token);
-        return response;
+        this.saveToken(response?.data?.data.access_token);
+        return response?.data?.data;
     },
     async signUp(userRegisterData) {
         return await requestService.post('/auth/register', userRegisterData);
@@ -15,7 +15,7 @@ const authService = {
     async signOut() {
         const response = await requestService.post('/auth/logout');
         this.removeToken();
-        return response;
+        return response?.data?.data;
     },
     async fetchLoggedUser() {
         return await requestService.get('/users/me');
