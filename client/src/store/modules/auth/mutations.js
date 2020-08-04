@@ -1,16 +1,10 @@
 import * as mutations from './types/mutations';
 
 export default {
-    [mutations.USER_LOGIN]: (state, loginData) => {
-        localStorage.setItem('auth.accessToken', loginData.accessToken);
-        localStorage.setItem('auth.tokenType', loginData.tokenType);
-        state.token = loginData.accessToken;
+    [mutations.USER_LOGIN]: state => {
         state.isLoggedIn = true;
     },
     [mutations.USER_LOGOUT]: state => {
-        localStorage.removeItem('auth.accessToken');
-        localStorage.removeItem('auth.tokenType');
-        state.token = '';
         state.isLoggedIn = false;
         state.user = {};
     },
