@@ -42,9 +42,8 @@ final class AuthController extends ApiController
         )->getUser();
 
         return $this->successResponse($this->presenter->present($response));
-
     }
-    
+
     public function login(
         LoginHttpRequest $httpRequest,
         LoginAction $action,

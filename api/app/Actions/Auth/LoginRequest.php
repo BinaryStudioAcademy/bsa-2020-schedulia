@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Actions\Auth;
-
 
 final class LoginRequest
 {
@@ -26,5 +24,4 @@ final class LoginRequest
     {
         return $this->password;
     }
-
 }
