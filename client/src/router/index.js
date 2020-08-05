@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import UserDataProvider from '@/components/guard/UserDataProvider';
+import LoginGuard from '@/components/guard/LoginGuard';
 
 Vue.use(VueRouter);
 
@@ -29,6 +30,14 @@ const routes = [
                 path: 'profile',
                 name: 'profile',
                 component: () => import('../views/Profile.vue')
+            },
+            {
+                path: '',
+                name: 'LoginGuard',
+                component: LoginGuard,
+                children: [
+                    // There must be routes which need logged user
+                ]
             }
         ]
     }
