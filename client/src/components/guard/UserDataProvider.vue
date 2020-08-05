@@ -13,7 +13,7 @@ export default {
         if (!store.state.auth.user && authService.hasToken()) {
             try {
                 await store.dispatch('auth/' + actions.FETCH_LOGGED_USER);
-                next({ path: to});
+                next();
             } catch (error) {
                 console.log(error);
                 next(false);
