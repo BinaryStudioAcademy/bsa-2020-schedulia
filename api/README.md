@@ -21,7 +21,7 @@ Just keep versions of installed software to be consistent with the team and prod
 ```bash
 cp .env.example .env
 docker-compose up -d
-docker-compose exec app composer install
+docker-compose run --rm composer composer install
 docker-compose exec app php artisan key:generate
 docker-compose exec app php artisan migrate
 ```
@@ -30,7 +30,7 @@ API is available on [http://localhost:8000](http://localhost:8000).
 
 In case you use your own environment, make sure you configured services correctly in the `.env` file.
 
-Also, to be sure you have enabled all required php extensions, for more details see base [Dockerfile](.config/docker/php-base/Dockerfile).
+Also, to be sure you have enabled all required php extensions, for more details see base [Dockerfile](/.config/docker/php-base/Dockerfile).
 
 If you would like to preserve Postgres data on your computer, you should rename `docker-compose.override.yml.example` to `docker-compose.override.yml`. It won't work for Windows users, but for *nix it should work fine.
 

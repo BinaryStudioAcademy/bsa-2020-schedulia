@@ -5,5 +5,3 @@ services:
     working_dir: /app
     volumes:
       - .:/app
-    ports:
-      - 8080:8080

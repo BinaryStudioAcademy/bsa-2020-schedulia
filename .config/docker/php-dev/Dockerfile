@@ -1,4 +1,4 @@
-FROM schedulia/php-base:0.0.1
+FROM schedulia/php-base:0.0.2
 
 USER root
 

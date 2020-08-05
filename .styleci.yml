@@ -3,6 +3,8 @@ version: 7
 preset: psr12
 tab-width: 4
 use-tabs: false
+enabled:
+  - no_extra_consecutive_blank_lines
 finder:
   exclude:
     - "modules"

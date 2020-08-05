@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: schedulia/php-dev:0.0.1
+    image: schedulia/php-dev:0.0.2
     volumes:
       - .:/app
     ports:
@@ -10,6 +10,12 @@ services:
     environment:
       XDEBUG_CONFIG: "remote_host=172.17.0.1 remote_port=9001 remote_log=/app/xdebug.log"
     command: php artisan serve --host=0.0.0.0 --port=8000
+  composer:
+    image: schedulia/php-dev:0.0.1
+    volumes:
+      - .:/app
+    environment:
+      COMPOSER_MEMORY_LIMIT: -1
   db:
     image: postgres:12
     restart: always

@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "d-serve": "docker-compose run --rm node npm run serve",
+    "d-serve": "docker-compose run --rm --service-ports node npm run serve",
     "d-install": "docker-compose run --rm node npm install",
     "d-lint": "docker-compose run --rm node npm run lint"
   },
