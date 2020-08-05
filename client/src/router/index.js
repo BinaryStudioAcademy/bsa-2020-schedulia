@@ -27,6 +27,11 @@ const routes = [
                 component: () => import('../views/Status.vue')
             },
             {
+                path: 'profile',
+                name: 'profile',
+                component: () => import('../views/Profile.vue')
+            },
+            {
                 path: '',
                 name: 'LoginGuard',
                 component: LoginGuard,
