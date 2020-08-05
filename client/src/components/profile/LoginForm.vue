@@ -7,7 +7,6 @@
                 </Vcol>
                 <VCol cols="12">
                     <VTextField
-                        ref="email"
                         v-model="email"
                         :rules="[rules.email]"
                         label="E-mail"
@@ -18,13 +17,12 @@
                 </VCol>
                 <VCol cols="12">
                     <VTextField
-                        ref="password"
                         v-model="password"
                         :type="showPassword ? 'text' : 'password'"
                         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="showPassword = !showPassword"
                         label="Password"
-                        required
+                        readonly
                         solo
                         outlined
                     ></VTextField>
