@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Actions\Auth\LoginAction;
 use App\Actions\Auth\LoginRequest;
+use App\Actions\Auth\LogoutAction;
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Controllers\Controller;
 use App\Http\Presenters\AuthenticationResponseArrayPresenter;
 use App\Http\Requests\Api\Auth\LoginHttpRequest;
 use Illuminate\Http\JsonResponse;
@@ -33,8 +33,10 @@ final class AuthController extends ApiController
         return $this->successResponse($authenticationResponseArrayPresenter->present($response));
     }
 
-    public function logout()
+    public function logout(LogoutAction $action): JsonResponse
     {
+        $action->execute();
 
+        return $this->emptyResponse();
     }
 }
