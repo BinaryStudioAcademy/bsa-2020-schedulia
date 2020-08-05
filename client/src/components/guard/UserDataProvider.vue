@@ -21,6 +21,7 @@ export default {
                 next(false);
             }
         }
+        next({ path: to });
     }
 };
 </script>
