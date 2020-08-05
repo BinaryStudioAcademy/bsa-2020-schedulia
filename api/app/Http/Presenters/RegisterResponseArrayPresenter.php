@@ -14,7 +14,7 @@ final class RegisterResponseArrayPresenter
             'user_id' => $user->getId(),
             'email' => $user->getEmail(),
             'name' => $user->getName(),
-//            'timezone' => $user->getTimezone(),
+            'timezone' => $user->getTimezone(),
         ];
     }
 }

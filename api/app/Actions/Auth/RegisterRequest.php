@@ -9,18 +9,18 @@ final class RegisterRequest
     private string $email;
     private string $password;
     private string $name;
-//    private string $timezone;
+    private string $timezone;
 
     public function __construct(
         string $email,
         string $password,
-        string $name
-//        string $timezone
+        string $name,
+        string $timezone
     ) {
         $this->email = $email;
         $this->password = $password;
         $this->name = $name;
-//        $this->timezone = $timezone;
+        $this->timezone = $timezone;
     }
 
     public function getEmail(): string
@@ -38,8 +38,8 @@ final class RegisterRequest
         return $this->name;
     }
 
-//    public function getTimezone(): string
-//    {
-//        return $this->timezone;
-//    }
+    public function getTimezone(): string
+    {
+        return $this->timezone;
+    }
 }

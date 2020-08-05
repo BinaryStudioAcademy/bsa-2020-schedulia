@@ -29,7 +29,7 @@ class AuthController extends ApiController
                 $request->get('email'),
                 $request->get('password'),
                 $request->get('name'),
-//                $request->get('timezone'),
+                $request->get('timezone'),
             )
         )->getUser();
 

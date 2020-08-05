@@ -22,7 +22,7 @@ final class RegisterAction
         $user->email = $request->getEmail();
         $user->password = $request->getPassword();
         $user->name = $request->getName();
-//        $user->timezone = $request->getTimezone();
+        $user->timezone = $request->getTimezone();
 
         $user = $this->userRepository->save($user);
 

@@ -21,7 +21,7 @@ final class RegisterHttpRequest extends ApiFormRequest
             'email' => 'required|email|unique:users|max:50',
             'name' => 'required|string|between:2,100',
             'password' => 'required|confirmed|min:8|string',
-//            'timezone' => 'required'
+            'timezone' => 'required'
         ];
     }
 }
