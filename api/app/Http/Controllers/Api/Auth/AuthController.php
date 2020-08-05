@@ -11,7 +11,6 @@ use App\Http\Requests\Api\Auth\LoginHttpRequest;
 use Illuminate\Http\JsonResponse;
 use App\Actions\Auth\RegisterAction;
 use App\Actions\Auth\RegisterRequest;
-use App\Http\Controllers\Api\ApiController;
 use App\Http\Presenters\UserArrayPresenter;
 use App\Http\Requests\Auth\RegisterHttpRequest;
 use Illuminate\Http\Request;
