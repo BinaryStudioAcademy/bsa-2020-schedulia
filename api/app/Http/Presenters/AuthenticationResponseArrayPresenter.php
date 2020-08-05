@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Presenters;
 
 use App\Actions\Auth\AuthenticationResponse;
