@@ -1,6 +1,19 @@
 import axios from 'axios';
+import authService from '@/services/auth/authService';
 
 const API_URL = process.env.VUE_APP_API_URL;
+
+axios.interceptors.request.use(
+    config => {
+        if (authService.getToken()) {
+            config.headers[
+                'Authorization'
+            ] = `Bearer ${authService.getToken()}`;
+        }
+        return config;
+    },
+    error => Promise.reject(error)
+);
 
 const requestService = {
     get(url, params = {}, headers = {}) {

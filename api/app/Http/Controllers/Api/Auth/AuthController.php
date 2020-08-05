@@ -9,15 +9,42 @@ use App\Http\Controllers\Api\ApiController;
 use App\Http\Presenters\AuthenticationResponseArrayPresenter;
 use App\Http\Requests\Api\Auth\LoginHttpRequest;
 use Illuminate\Http\JsonResponse;
+use App\Actions\Auth\RegisterAction;
+use App\Actions\Auth\RegisterRequest;
+use App\Http\Controllers\Api\ApiController;
+use App\Http\Presenters\UserArrayPresenter;
+use App\Http\Requests\Auth\RegisterHttpRequest;
 use Illuminate\Http\Request;
 
 final class AuthController extends ApiController
 {
-    public function __construct()
-    {
+    private RegisterAction $registerAction;
+    private $presenter;
+
+    public function __construct(
+        RegisterAction $registerAction,
+        UserArrayPresenter $registerResponseArrayPresenter
+    ) {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->registerAction = $registerAction;
+        $this->presenter = $registerResponseArrayPresenter;
     }
 
+    public function register(RegisterHttpRequest $request)
+    {
+        $response = $this->registerAction->execute(
+            new RegisterRequest(
+                $request->get('email'),
+                $request->get('password'),
+                $request->get('name'),
+                $request->get('timezone'),
+            )
+        )->getUser();
+
+        return $this->successResponse($this->presenter->present($response));
+
+    }
+    
     public function login(
         LoginHttpRequest $httpRequest,
         LoginAction $action,

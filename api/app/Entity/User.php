@@ -17,7 +17,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'timezone',
     ];
 
     /**
@@ -38,6 +38,26 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getTimezone(): string
+    {
+        return $this->timezone;
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -46,5 +66,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function eventTypes()
+    {
+        return $this->hasMany(EventType::class, 'owner_id', 'id');
     }
 }
