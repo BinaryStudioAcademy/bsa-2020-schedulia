@@ -28,6 +28,9 @@ const authService = {
     },
     getToken() {
         return localStorage.getItem('auth.accessToken');
+    },
+    hasToken() {
+        return !!localStorage.getItem('auth.accessToken');
     }
 };
 
