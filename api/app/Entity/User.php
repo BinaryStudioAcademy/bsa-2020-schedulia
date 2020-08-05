@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -37,6 +38,11 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function refreshToken(): HasMany
+    {
+        return $this->hasMany(JWTRefreshToken::class, 'user_id', 'id');
+    }
 
     public function getId(): int
     {
