@@ -6,7 +6,7 @@ namespace App\Http\Presenters;
 
 use App\Entity\User;
 
-final class RegisterResponseArrayPresenter
+final class UserArrayPresenter
 {
     public function present(User $user): array
     {

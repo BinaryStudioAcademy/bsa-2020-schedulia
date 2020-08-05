@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Actions\Auth\RegisterAction;
 use App\Actions\Auth\RegisterRequest;
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Presenters\RegisterResponseArrayPresenter;
+use App\Http\Presenters\UserArrayPresenter;
 use App\Http\Requests\Auth\RegisterHttpRequest;
 use Illuminate\Http\Request;
 
@@ -16,7 +16,7 @@ class AuthController extends ApiController
 
     public function __construct(
         RegisterAction $registerAction,
-        RegisterResponseArrayPresenter $registerResponseArrayPresenter
+        UserArrayPresenter $registerResponseArrayPresenter
     ) {
         $this->registerAction = $registerAction;
         $this->presenter = $registerResponseArrayPresenter;
