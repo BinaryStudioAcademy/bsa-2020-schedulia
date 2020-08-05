@@ -1,4 +1,4 @@
-FROM schedulia/php-nginx:0.0.2
+FROM schedulia/php-nginx:0.0.3
 
 COPY .deploy/shared/nginx-site.conf /etc/nginx/sites-enabled/default
 COPY --chown=$USERNAME:$USERNAME ./ /app
