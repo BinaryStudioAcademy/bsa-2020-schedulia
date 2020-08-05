@@ -15,7 +15,6 @@ export default {
         if (!store.state.auth.user && authService.getToken()) {
             try {
                 await store.dispatch('auth/' + actions.FETCH_LOGGED_USER);
-                next({ path: to });
             } catch (error) {
                 console.log(error.message);
                 next(false);
