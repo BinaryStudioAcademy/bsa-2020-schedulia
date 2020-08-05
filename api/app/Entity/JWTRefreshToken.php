@@ -20,5 +20,4 @@ class JWTRefreshToken extends Model
     {
         return $this->token;
     }
-
 }
