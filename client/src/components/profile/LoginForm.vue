@@ -5,9 +5,12 @@
                 <Vcol cols="12">
                     You log in with an email address and password.
                 </Vcol>
+                <Vcol cols="12">
+                    <VSubheader>Email</VSubheader>
+                </Vcol>
                 <VCol cols="12">
                     <VTextField
-                        v-model="email"
+                        v-bind:value="email"
                         :rules="[rules.email]"
                         label="E-mail"
                         readonly
@@ -15,9 +18,12 @@
                         outlined
                     ></VTextField>
                 </VCol>
+                <Vcol cols="12">
+                    <VSubheader>Password</VSubheader>
+                </Vcol>
                 <VCol cols="12">
                     <VTextField
-                        v-model="password"
+                        v-bind:value="password"
                         :type="showPassword ? 'text' : 'password'"
                         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="showPassword = !showPassword"
