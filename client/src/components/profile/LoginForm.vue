@@ -1,16 +1,14 @@
 <template>
     <VForm>
         <VContainer>
-            <Vrow>
-                <Vcol cols="12">
-                    You log in with an email address and password.
-                </Vcol>
-                <Vcol cols="12">
-                    <VSubheader>Email</VSubheader>
-                </Vcol>
+            <VRow>
                 <VCol cols="12">
+                    You log in with an email address and password.
+                </VCol>
+                <VCol cols="12">
+                    <VSubheader>Email</VSubheader>
                     <VTextField
-                        v-bind:value="email"
+                        :value="email"
                         :rules="[rules.email]"
                         label="E-mail"
                         readonly
@@ -18,12 +16,10 @@
                         outlined
                     ></VTextField>
                 </VCol>
-                <Vcol cols="12">
-                    <VSubheader>Password</VSubheader>
-                </Vcol>
                 <VCol cols="12">
+                    <VSubheader>Password</VSubheader>
                     <VTextField
-                        v-bind:value="password"
+                        :value="password"
                         :type="showPassword ? 'text' : 'password'"
                         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="showPassword = !showPassword"
@@ -34,9 +30,9 @@
                     ></VTextField>
                 </VCol>
                 <VCol>
-                    <ChangePasswordForm/>
+                    <ChangePasswordForm />
                 </VCol>
-            </Vrow>
+            </VRow>
         </VContainer>
     </VForm>
 </template>
