@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class JWTRefreshToken extends Model
 {
     protected $fillable = [
-        'user_id', 'token',
+        'user_id', 'token', 'expires_at',
     ];
 
     public function user(): BelongsTo
@@ -19,5 +19,10 @@ class JWTRefreshToken extends Model
     public function getToken(): string
     {
         return $this->token;
+    }
+
+    public function getExpiresAt(): string
+    {
+        return $this->expires_at;
     }
 }
