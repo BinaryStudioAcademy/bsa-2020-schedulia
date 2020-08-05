@@ -21,7 +21,6 @@ class EventTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -32,7 +31,6 @@ class EventTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  EventType $eventType
      * @return \Illuminate\Http\Response
      */
 
@@ -44,8 +42,6 @@ class EventTypeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  EventType $eventType
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, EventType $eventType)
@@ -56,7 +52,6 @@ class EventTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param   EventType $eventType
      * @return \Illuminate\Http\Response
      */
     public function destroy(EventType $eventType)
