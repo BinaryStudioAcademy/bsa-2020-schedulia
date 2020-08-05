@@ -31,7 +31,7 @@ export default {
     name: 'Tabs',
     props: {
         tabs: {
-            type: Object,
+            type: Array,
             required: true
         }
     },

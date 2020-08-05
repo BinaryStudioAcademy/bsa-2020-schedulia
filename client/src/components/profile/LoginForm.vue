@@ -1,13 +1,14 @@
 <template>
     <VForm>
         <VContainer>
-            <Vrow>
-                <Vcol cols="12">
-                    You log in with an email address and password.
-                </Vcol>
+            <VRow>
                 <VCol cols="12">
+                    You log in with an email address and password.
+                </VCol>
+                <VCol cols="12">
+                    <VSubheader>Email</VSubheader>
                     <VTextField
-                        v-model="email"
+                        :value="email"
                         :rules="[rules.email]"
                         label="E-mail"
                         readonly
@@ -16,8 +17,9 @@
                     ></VTextField>
                 </VCol>
                 <VCol cols="12">
+                    <VSubheader>Password</VSubheader>
                     <VTextField
-                        v-model="password"
+                        :value="password"
                         :type="showPassword ? 'text' : 'password'"
                         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="showPassword = !showPassword"
@@ -28,18 +30,21 @@
                     ></VTextField>
                 </VCol>
                 <VCol>
-                    <VBtn depressed color="primary">
-                        Change password
-                    </VBtn>
+                    <ChangePasswordForm />
                 </VCol>
-            </Vrow>
+            </VRow>
         </VContainer>
     </VForm>
 </template>
 
 <script>
+import ChangePasswordForm from './ChangePasswordForm.vue';
+
 export default {
     name: 'LoginForm',
+    components: {
+        ChangePasswordForm
+    },
     data: () => ({
         email: 'john.doe@gmail.com',
         password: 'password',
