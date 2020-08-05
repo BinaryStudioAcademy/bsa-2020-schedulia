@@ -13,8 +13,8 @@ export default new Vuetify({
                 accent: '#18A0FB' /*from figma maybe should to shange */,
                 error: '#FF3E1D' /*from figma  red*/,
                 info: '#8B90A0' /*from figma  dark background and info text*/,
-                success: '#4CAF50' /*standard*/,
-                warning: '#FFD67A' /*standard*/
+                success: '#4CAF50' /*standard we need set it proper*/,
+                warning: '#FFD67A' /*from figma */
             }
         }
     }
