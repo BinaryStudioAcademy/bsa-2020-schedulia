@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
+import UserDataProvider from '@/components/guard/UserDataProvider';
 
 Vue.use(VueRouter);
 
@@ -8,7 +9,7 @@ const routes = [
     {
         path: '/',
         name: 'UserDataProvider',
-        component: () => import('@/components/guard/UserDataProvider'),
+        component: UserDataProvider,
         children: [
             {
                 path: '',
