@@ -34,9 +34,7 @@
                     ></VTextField>
                 </VCol>
                 <VCol>
-                    <VBtn depressed color="primary">
-                        Change password
-                    </VBtn>
+                    <ChangePasswordForm/>
                 </VCol>
             </Vrow>
         </VContainer>
@@ -44,8 +42,13 @@
 </template>
 
 <script>
+import ChangePasswordForm from './ChangePasswordForm.vue';
+
 export default {
     name: 'LoginForm',
+    components: {
+        ChangePasswordForm
+    },
     data: () => ({
         email: 'john.doe@gmail.com',
         password: 'password',
