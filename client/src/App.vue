@@ -46,7 +46,9 @@
                         <RouterLink to="/status">Status</RouterLink>
                     </VCol>
                     <VCol class="text-center">
-                        <RouterLink :to="{name: 'profile'}">Profile</RouterLink>
+                        <RouterLink :to="{ name: 'profile' }"
+                            >Profile</RouterLink
+                        >
                     </VCol>
                 </VRow>
             </VContainer>

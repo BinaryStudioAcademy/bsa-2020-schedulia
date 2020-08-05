@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    export default {
-        name: "ProfileForm"
-    };
+export default {
+    name: 'ProfileForm'
+};
 </script>

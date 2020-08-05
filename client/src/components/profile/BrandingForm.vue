@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    export default {
-        name: "BrandingForm"
-    };
+export default {
+    name: 'BrandingForm'
+};
 </script>

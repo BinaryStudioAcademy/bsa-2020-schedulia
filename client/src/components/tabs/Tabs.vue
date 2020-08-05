@@ -14,7 +14,9 @@
                     <VCol cols="6">
                         <VCard>
                             <VCardText>
-                                <Component v-bind:is="item.component"></Component>
+                                <Component
+                                    v-bind:is="item.component"
+                                ></Component>
                             </VCardText>
                         </VCard>
                     </VCol>
@@ -25,16 +27,16 @@
 </template>
 
 <script>
-    export default {
-        name: "Tabs",
-        props: {
-            tabs: {
-                type: Object,
-                required: true,
-            },
-        },
-        data: () => ({
-            tab: null,
-        })
-    };
+export default {
+    name: 'Tabs',
+    props: {
+        tabs: {
+            type: Object,
+            required: true
+        }
+    },
+    data: () => ({
+        tab: null
+    })
+};
 </script>
