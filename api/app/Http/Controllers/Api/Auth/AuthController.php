@@ -33,6 +33,6 @@ class AuthController extends ApiController
             )
         )->getUser();
 
-        return $this->successResponse($this->presenter->present($response));
+        return $this->successResponse($this->presenter->present($response), 201);
     }
 }
