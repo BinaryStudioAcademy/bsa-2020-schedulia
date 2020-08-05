@@ -9,11 +9,6 @@ use App\Repositories\BaseRepository;
 
 final class JWTRefreshTokenRepository extends BaseRepository implements JWTRefreshTokenRepositoryInterface
 {
-    public function getById(int $id): ?JWTRefreshToken
-    {
-        return JWTRefreshToken::find($id);
-    }
-
     public function getByUserId(int $userId): ?JWTRefreshToken
     {
         return JWTRefreshToken::firstWhere('user_id', $userId);
