@@ -3,9 +3,8 @@ import * as mutations from './types/mutations';
 import authService from '@/services/auth/authService';
 
 export default {
-    [actions.SIGN_IN]: async ({ commit }, loginData) => {
+    [actions.SIGN_IN]: async (context, loginData) => {
         await authService.signIn(loginData);
-        commit(mutations.USER_LOGIN);
     },
     [actions.SIGN_UP]: async (context, registerData) => {
         await authService.signUp(registerData);
