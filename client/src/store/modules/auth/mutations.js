@@ -6,7 +6,7 @@ export default {
     },
     [mutations.USER_LOGOUT]: state => {
         state.isLoggedIn = false;
-        state.user = {};
+        state.user = null;
     },
     [mutations.SET_LOGGED_USER]: (state, userData) => {
         state.isLoggedIn = true;
