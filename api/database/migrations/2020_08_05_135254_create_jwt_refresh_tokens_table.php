@@ -18,6 +18,7 @@ class CreateJwtRefreshTokensTable extends Migration
             $table->timestamps();
             $table->string('token');
             $table->unsignedBigInteger('user_id');
+            $table->timestamp('expires_at');
 
             $table->foreign('user_id')
                 ->references('id')
