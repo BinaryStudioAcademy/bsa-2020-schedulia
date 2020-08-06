@@ -41,7 +41,7 @@ final class AuthController extends ApiController
             )
         )->getUser();
 
-        return $this->successResponse($this->presenter->present($response), JsonResponse::HTTP_UNAUTHORIZED);
+        return $this->successResponse($this->presenter->present($response), JsonResponse::HTTP_CREATED);
     }
 
     public function login(
