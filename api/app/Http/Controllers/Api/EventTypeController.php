@@ -80,6 +80,6 @@ class EventTypeController extends ApiController
     {
         $action->execute(new DeleteEventTypeRequest((int)$id));
 
-        return $this->emptyResponse( 200);
+        return $this->emptyResponse(200);
     }
 }
