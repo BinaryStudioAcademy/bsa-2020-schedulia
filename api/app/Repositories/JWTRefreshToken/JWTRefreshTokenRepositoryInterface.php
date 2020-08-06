@@ -9,7 +9,6 @@ use App\Entity\JWTRefreshToken;
 interface JWTRefreshTokenRepositoryInterface
 {
     public function getById(int $id): ?JWTRefreshToken;
-    public function getByUserId(int $userId): ?JWTRefreshToken;
     public function save(JWTRefreshToken $JWTRefreshToken): JWTRefreshToken;
     public function deleteById(int $id): void;
 }
