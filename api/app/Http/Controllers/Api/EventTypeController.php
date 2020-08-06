@@ -2,60 +2,84 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Entity\EventType;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Actions\EventType\AddEventTypeAction;
+use App\Actions\EventType\AddEventTypeRequest;
+use App\Actions\EventType\DeleteEventTypeAction;
+use App\Actions\EventType\DeleteEventTypeRequest;
+use App\Actions\EventType\GetEventTypeByIdAction;
+use App\Actions\EventType\GetEventTypeCollectionAction;
+use App\Actions\EventType\UpdateEventTypeAction;
+use App\Actions\EventType\UpdateEventTypeRequest;
+use App\Actions\GetByIdRequest;
+use App\Http\Presenters\EventTypePresenter;
+use App\Http\Requests\Api\EventType\EventTypeRequest;
+use Illuminate\Http\JsonResponse;
 
-class EventTypeController extends Controller
+class EventTypeController extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    private $presenter;
+
+    public function __construct(EventTypePresenter $presenter)
     {
-        //
+        $this->presenter = $presenter;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function index(GetEventTypeCollectionAction $action)
     {
-        //
+        $response = $action->execute()->getEventTypeCollection();
+
+        return $this->successResponse($this->presenter->presentCollection($response));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function show(EventType $eventType)
+    public function store(EventTypeRequest $request, AddEventTypeAction $action): JsonResponse
     {
-        //
+        $response = $action
+            ->execute(new AddEventTypeRequest(
+                $request->get('name'),
+                $request->get('description'),
+                $request->get('slug'),
+                $request->get('color'),
+                (int)$request->get('duration'),
+                $request->get('timezone'),
+                (bool)$request->get('disabled'),
+            ))
+            ->getEventType();
+
+        return $this->successResponse($this->presenter->present($response));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, EventType $eventType)
+    public function getEventTypeById(string $id, GetEventTypeByIdAction $action): JsonResponse
     {
-        //
+        $eventType = $action
+            ->execute(new GetByIdRequest((int)$id))
+            ->getEventType();
+
+        return $this->successResponse($this->presenter->present($eventType));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(EventType $eventType)
+    public function update(string $id, EventTypeRequest $request, UpdateEventTypeAction $action): JsonResponse
     {
-        //
+        $eventType = $action
+            ->execute(
+                new UpdateEventTypeRequest(
+                    (int)$id,
+                    $request->get('name'),
+                    $request->get('description'),
+                    $request->get('slug'),
+                    $request->get('color'),
+                    (int)$request->get('duration'),
+                    $request->get('timezone'),
+                    (bool)$request->get('disabled'),
+                )
+            )->getEventType();
+
+        return $this->successResponse($this->presenter->present($eventType));
+    }
+
+    public function destroy(string $id, DeleteEventTypeAction $action): JsonResponse
+    {
+        $action->execute(new DeleteEventTypeRequest((int)$id));
+
+        return $this->emptyResponse( 200);
     }
 }
