@@ -2,17 +2,18 @@
     <VSnackbar v-model="alertVisible" :color="color">
         {{ message }}
         <RouterLink :to="{ path: '/login' }" v-if="isSuccessLogin">
-            Sign In
+            {{ lang.LOG_IN }}
         </RouterLink>
         <template v-slot:action="{ attrs }">
             <VBtn color="white" text v-bind="attrs" @click="closeAlert">
-                Close
+                {{ lang.CLOSE }}
             </VBtn>
         </template>
     </VSnackbar>
 </template>
 
 <script>
+import enLang from '@/store/modules/i18n/en';
 export default {
     name: 'Alert',
     props: {
@@ -27,6 +28,7 @@ export default {
         }
     },
     data: () => ({
+        lang: enLang,
         alertVisible: false
     }),
     computed: {

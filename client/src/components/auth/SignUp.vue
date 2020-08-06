@@ -111,23 +111,44 @@ export default {
             password_confirmation: ''
         },
         nameRules: [
-            v => !!v || 'Name is required',
-            v => v.length >= 2 || 'Name must be more than 2 characters',
-            v => v.length <= 100 || 'Name must be less than 100 characters'
+            v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', enLang.NAME),
+            v =>
+                v.length >= 2 ||
+                enLang.NAME +
+                    enLang.FIELD_MUST_BE_MORE_THAN_VALUE.replace('value', 2),
+            v =>
+                v.length <= 100 ||
+                enLang.EMAIL +
+                    enLang.FIELD_MUST_BE_LESS_THAN_VALUE.replace('value', 100)
         ],
         emailRules: [
-            v => !!v || 'Email is required',
+            v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', enLang.EMAIL),
             v =>
-                /([a-zA-Z0-9_.-]+)@(.+)[.](.+)/.test(v) || 'Wrong email format',
-            v => v.length <= 50 || 'Email must be less than 50 characters'
+                /([a-zA-Z0-9_.-]+)@(.+)[.](.+)/.test(v) ||
+                enLang.WRONG_EMAIL_FORMAT,
+            v =>
+                v.length <= 50 ||
+                enLang.EMAIL +
+                    enLang.FIELD_MUST_BE_LESS_THAN_VALUE.replace('value', 50)
         ],
         passwordRules: [
-            v => !!v || 'Password is required',
-            v => v.length >= 8 || 'Password must be min 8 characters length'
+            v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', 'Password'),
+            v =>
+                v.length >= 8 ||
+                enLang.PASSWORD +
+                    enLang.FIELD_MUST_BE_MORE_THAN_VALUE.replace('value', 8)
         ],
         passwordConfirmationRules: [
-            v => !!v || 'Password confirmation is required',
-            v => v.length >= 8 || 'Password must be min 8 characters length'
+            v =>
+                !!v ||
+                enLang.FIELD_IS_REQUIRED.replace(
+                    'field',
+                    enLang.CONFIRM_PASSWORD
+                ),
+            v =>
+                v.length >= 8 ||
+                enLang.PASSWORD +
+                    enLang.FIELD_MUST_BE_MORE_THAN_VALUE.replace('value', 8)
         ],
         alert: {
             visible: false,

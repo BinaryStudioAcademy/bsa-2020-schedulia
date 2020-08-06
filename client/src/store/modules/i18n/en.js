@@ -39,7 +39,8 @@ export default {
     SIGN_UP: 'Sign Up',
     SUCCESSFULLY_REGISTERED: 'Successfully registered! Now you can authorize!',
     PASSWORDS_DONT_MATCH: "Passwords don't match",
-    fieldIsRequired(field = '') {
-        return field + ' is required';
-    }
+    FIELD_IS_REQUIRED: 'field is required.',
+    FIELD_MUST_BE_MORE_THAN_VALUE: ' must be more than value characters',
+    FIELD_MUST_BE_LESS_THAN_VALUE: ' must be less than value characters',
+    WRONG_EMAIL_FORMAT: 'Wrong Email format'
 };
