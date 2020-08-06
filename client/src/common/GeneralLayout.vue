@@ -1,11 +1,6 @@
 <template>
     <VCard>
-        <VAppBar
-            color="deep-purple accent-4"
-            dark
-            app
-            height="90"
-        >
+        <VAppBar color="deep-purple accent-4" dark height="90">
             <VContainer>
                 <VRow>
                     <VCol class="text-left">
@@ -19,11 +14,7 @@
                 </VRow>
             </VContainer>
         </VAppBar>
-        <VAppBar
-                color="white"
-                dark
-            >
-        </VAppBar>
+        <VAppBar color="white" dark> </VAppBar>
     </VCard>
 </template>
 
