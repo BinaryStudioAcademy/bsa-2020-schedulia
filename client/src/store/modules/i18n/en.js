@@ -28,5 +28,21 @@ export default {
     NEW_PASSWORD: 'New password',
 
     YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD:
-        'You log in with an email address and password'
+        'You log in with an email address and password',
+
+    CREATE_AN_ACCOUNT: 'Create an account',
+    ALREADY_REGISTERED: 'Already registered?',
+    LOG_IN: 'Log in',
+    FULL_NAME: 'Full Name',
+    NAME: 'Name',
+    CONFIRM_PASSWORD: 'Confirm Password',
+    SIGN_UP: 'Sign Up',
+    SUCCESSFULLY_REGISTERED: 'Successfully registered! Now you can authorize!',
+    PASSWORDS_DONT_MATCH: "Passwords don't match",
+    fieldIsRequired(field = '') {
+        return field + ' is required';
+    },
+    valueMustBeMore(field = '', value = '') {
+        return field + ' must be more than ' + value + ' characters!';
+    }
 };
