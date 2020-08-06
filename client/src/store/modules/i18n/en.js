@@ -1,4 +1,6 @@
 export default {
+    BRANDING: 'Branding',
+
     CHARACTERS: 'Characters',
     CHANGE_PASSWORD: 'Change password',
     CLOSE: 'Close',
@@ -11,11 +13,14 @@ export default {
 
     PASSWORD: 'Password',
     PASSWORD_DOESNT_MATCH: "Password doesn't match confirmation",
+    PROFILE: 'Profile',
 
     REQUIRED: 'Required',
     REPEAT_NEW_PASSWORD: 'Repeat new password',
 
     SAVE: 'Save',
+
+    LOGIN: 'Login',
 
     MAX: 'Max',
     MIN: 'Min',
