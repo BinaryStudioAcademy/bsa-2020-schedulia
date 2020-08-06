@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Actions\Auth;
-
 
 use App\Entity\User;
 
