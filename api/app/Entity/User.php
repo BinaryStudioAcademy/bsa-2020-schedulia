@@ -39,7 +39,7 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function refreshToken(): HasMany
+    public function refreshTokens(): HasMany
     {
         return $this->hasMany(JWTRefreshToken::class, 'user_id', 'id');
     }
