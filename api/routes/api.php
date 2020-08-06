@@ -22,4 +22,3 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Api\\Auth'], function () {
 });
 
 Route::get('/status/{serviceName?}', 'Api\StatusController@status');
-
