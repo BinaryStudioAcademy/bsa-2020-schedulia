@@ -25,7 +25,6 @@ final class AuthController extends ApiController
         RegisterAction $registerAction,
         UserArrayPresenter $registerResponseArrayPresenter
     ) {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
         $this->registerAction = $registerAction;
         $this->presenter = $registerResponseArrayPresenter;
     }
