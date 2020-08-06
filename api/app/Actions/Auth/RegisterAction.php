@@ -6,6 +6,7 @@ namespace App\Actions\Auth;
 
 use App\Entity\User;
 use App\Repositories\User\UserRepository;
+use Illuminate\Support\Facades\Hash;
 
 final class RegisterAction
 {
@@ -20,7 +21,7 @@ final class RegisterAction
     {
         $user = new User();
         $user->email = $request->getEmail();
-        $user->password = $request->getPassword();
+        $user->password = Hash::make($request->getPassword());
         $user->name = $request->getName();
         $user->timezone = $request->getTimezone();
 
