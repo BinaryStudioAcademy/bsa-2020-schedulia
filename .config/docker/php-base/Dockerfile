@@ -39,6 +39,7 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
 	libmcrypt-dev \
 	libzip-dev \
 	zip \
+	unzip \
     && docker-php-ext-install pdo_pgsql bcmath sockets gd zip opcache \
     && docker-php-ext-enable redis \
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*

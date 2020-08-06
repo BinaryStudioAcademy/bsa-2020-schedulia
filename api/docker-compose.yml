@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: schedulia/php-dev:0.0.1
+    image: schedulia/php-dev:0.0.2
     volumes:
       - .:/app
     ports:
