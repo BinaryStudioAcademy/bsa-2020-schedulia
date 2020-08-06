@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Actions\Auth\GetAuthenticatedUserAction;
 use App\Actions\Auth\LoginAction;
 use App\Actions\Auth\LoginRequest;
 use App\Actions\Auth\LogoutAction;
@@ -63,5 +64,12 @@ final class AuthController extends ApiController
         $action->execute();
 
         return $this->emptyResponse();
+    }
+
+    public function me(GetAuthenticatedUserAction $action, UserArrayPresenter $userArrayPresenter): JsonResponse
+    {
+        $response = $action->execute();
+
+        return $this->successResponse($userArrayPresenter->present($response->getUser()));
     }
 }
