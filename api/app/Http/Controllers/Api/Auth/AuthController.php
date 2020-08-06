@@ -66,8 +66,7 @@ final class AuthController extends ApiController
         return $this->emptyResponse();
     }
 
-    public function me(GetAuthenticatedUserAction $action, UserArrayPresenter
-    $userArrayPresenter): JsonResponse
+    public function me(GetAuthenticatedUserAction $action, UserArrayPresenter $userArrayPresenter): JsonResponse
     {
         $response = $action->execute();
 
