@@ -78,11 +78,12 @@
                 {{ lang.SIGN_UP }}
             </VBtn>
         </div>
+
         <Alert
+            :type="alert.type"
             :message="alert.message"
             :visibility="alert.visible"
-            :type="alert.type"
-            @alert-closed="onAlertClose"
+            @user-deleted="onAlertClose"
         />
     </div>
 </template>
@@ -90,8 +91,8 @@
 <script>
 import * as actions from '@/store/modules/auth/types/actions';
 import { mapActions } from 'vuex';
-import Alert from '@/components/alert/Alert';
 import enLang from '@/store/modules/i18n/en';
+import Alert from '@/components/alert/Alert';
 
 export default {
     name: 'SignUp',
@@ -199,5 +200,9 @@ export default {
     border-radius: 5px;
     text-transform: none;
     font-size: 20px;
+}
+.v-snack__content a {
+    color: #fff;
+    font-weight: bold;
 }
 </style>

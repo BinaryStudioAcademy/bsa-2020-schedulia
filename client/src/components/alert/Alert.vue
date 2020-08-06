@@ -1,5 +1,5 @@
 <template>
-    <VSnackbar v-model="visibility" :color="color">
+    <VSnackbar v-model="alertVisible" :color="color">
         {{ message }}
         <RouterLink :to="{ path: '/login' }" v-if="isSuccessLogin">
             Sign In
@@ -20,13 +20,15 @@ export default {
             type: String
         },
         message: {
-            required: true,
-            type: String
+            required: true
         },
         visibility: {
             required: true
         }
     },
+    data: () => ({
+        alertVisible: false
+    }),
     computed: {
         color() {
             if (this.type.includes('success')) {
@@ -42,7 +44,14 @@ export default {
     },
     methods: {
         closeAlert() {
-            this.$emit('alert-closed');
+            this.alertVisible = false;
+            this.$emit('user-deleted');
+        }
+    },
+    watch: {
+        visibility(value) {
+            this.alertVisible = false;
+            this.alertVisible = value;
         }
     }
 };
