@@ -41,8 +41,5 @@ export default {
     PASSWORDS_DONT_MATCH: "Passwords don't match",
     fieldIsRequired(field = '') {
         return field + ' is required';
-    },
-    valueMustBeMore(field = '', value = '') {
-        return field + ' must be more than ' + value + ' characters!';
     }
 };
