@@ -6,16 +6,8 @@
                     <VSubheader>
                         {{ lang.LOGO }}
                         <Tooltip>
-                            <p>
-                                Use this setting to add your logo to all of your
-                                Calendly scheduling pages.
-                            </p>
-                            <p>
-                                Your logo will appear in the top left corner of
-                                your Event Type page. We recommend using an
-                                image that is 440px x 220px for the best
-                                display.
-                            </p>
+                            <p>{{ lang.PROFILE_USE_THIS_SETTING_LOGO_TEXT }}</p>
+                            <p>{{ lang.PROFILE_YOU_LOGO_WILL_APPEAR_TEXT }}</p>
                         </Tooltip>
                     </VSubheader>
                 </VCol>
