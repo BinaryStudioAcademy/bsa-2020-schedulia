@@ -14,7 +14,7 @@ export default {
 
     async updatePassword(context, password) {
         try {
-            //TODO Send request to update user password
+
             console.log(password);
             return Promise.resolve();
         } catch (error) {
