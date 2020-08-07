@@ -69,7 +69,10 @@
                 </VCardText>
                 <VCardActions>
                     <VSpacer></VSpacer>
-                    <VBtn color="blue darken-1" @click="update"
+                    <VBtn
+                        color="blue darken-1"
+                        :disabled="!validateForm"
+                        @click="update"
                         >{{ lang.SAVE }}
                     </VBtn>
                     <VBtn color="primary" @click="dialog = false"
@@ -100,6 +103,16 @@ export default {
         }
     }),
 
+    computed: {
+        validateForm() {
+            return (
+                this.confirmPassword() === true &&
+                this.min(this.newPassword) === true &&
+                this.max(this.newPassword) === true
+            );
+        }
+    },
+
     methods: {
         ...mapActions('profile', ['checkUserPassword', 'updatePassword']),
 
@@ -129,8 +142,8 @@ export default {
 
         async update() {
             try {
-                if (this.validateForm()) {
-                    await this.updatePassword(this.newPassword);
+                if (this.validateForm) {
+                    await this.updatePassword(this.newPassword, this.password);
                     this.dialog = false;
                 } else {
                     this.showErrorMessage(
@@ -144,14 +157,6 @@ export default {
 
         showErrorMessage(message) {
             this.errorMessage = message;
-        },
-
-        validateForm() {
-            return (
-                this.confirmPassword() === true &&
-                this.min(this.newPassword) === true &&
-                this.max(this.newPassword) === true
-            );
         }
     }
 };
