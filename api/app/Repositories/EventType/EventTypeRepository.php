@@ -10,9 +10,9 @@ use Illuminate\Support\Collection;
 
 final class EventTypeRepository extends BaseRepository
 {
-    public function getById(int $id): EventType
+    public function getById(int $id): ?EventType
     {
-        return EventType::findOrFail($id);
+        return EventType::find($id);
     }
 
     public function save(EventType $eventType): EventType
@@ -22,9 +22,9 @@ final class EventTypeRepository extends BaseRepository
         return $eventType;
     }
 
-    public function delete(EventType $eventType): ?bool
+    public function deleteById(int $id): void
     {
-        return $eventType->delete();
+        EventType::destroy($id);
     }
 
     public function getEventTypesByOwnerId(int $id): Collection

@@ -7,12 +7,11 @@ namespace App\Actions\EventType;
 use App\Exceptions\EventTypeNotFoundException;
 use App\Repositories\EventType\EventTypeRepository;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 
 final class DeleteEventTypeAction
 {
-    private $eventTypeRepository;
+    private EventTypeRepository $eventTypeRepository;
 
     public function __construct(EventTypeRepository $eventTypeRepository)
     {
@@ -21,16 +20,16 @@ final class DeleteEventTypeAction
 
     public function execute(DeleteEventTypeRequest $request): void
     {
-        try {
-            $eventType = $this->eventTypeRepository->getById($request->getId());
-        } catch (ModelNotFoundException $ex) {
-            throw new EventTypeNotFoundException();
+        $eventType = $this->eventTypeRepository->getById($request->getId());
+
+        if (is_null($eventType)) {
+            throw new EventTypeNotFoundException('Event Type not found.', 404);
         }
 
         if ($eventType->owner_id !== Auth::id()) {
             throw new AuthorizationException();
         }
 
-        $this->eventTypeRepository->delete($eventType);
+        $this->eventTypeRepository->deleteById($eventType->id);
     }
 }

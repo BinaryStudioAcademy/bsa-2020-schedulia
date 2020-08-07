@@ -9,16 +9,16 @@ use Illuminate\Support\Facades\Auth;
 
 final class GetEventTypeCollectionAction
 {
-    private $repository;
+    private EventTypeRepository $eventTypeRepository;
 
-    public function __construct(EventTypeRepository $repository)
+    public function __construct(EventTypeRepository $eventTypeRepository)
     {
-        $this->repository = $repository;
+        $this->eventTypeRepository = $eventTypeRepository;
     }
 
     public function execute()
     {
-        $response = $this->repository->getEventTypesByOwnerId(Auth::id());
+        $response = $this->eventTypeRepository->getEventTypesByOwnerId(Auth::id());
 
         return new GetEventTypeCollectionResponse($response);
     }

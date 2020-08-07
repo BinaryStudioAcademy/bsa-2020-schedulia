@@ -8,7 +8,7 @@ use App\Entity\EventType;
 
 final class AddEventTypeResponse
 {
-    private $eventType;
+    private EventType $eventType;
 
     public function __construct(EventType $eventType)
     {

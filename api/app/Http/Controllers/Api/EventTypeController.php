@@ -17,18 +17,18 @@ use Illuminate\Http\JsonResponse;
 
 class EventTypeController extends ApiController
 {
-    private $presenter;
+    private EventTypePresenter $eventTypePresenter;
 
-    public function __construct(EventTypePresenter $presenter)
+    public function __construct(EventTypePresenter $eventTypePresenter)
     {
-        $this->presenter = $presenter;
+        $this->eventTypePresenter = $eventTypePresenter;
     }
 
     public function index(GetEventTypeCollectionAction $action)
     {
         $response = $action->execute()->getEventTypeCollection();
 
-        return $this->successResponse($this->presenter->presentCollection($response));
+        return $this->successResponse($this->eventTypePresenter->presentCollection($response));
     }
 
     public function store(EventTypeRequest $request, AddEventTypeAction $action): JsonResponse
@@ -45,7 +45,7 @@ class EventTypeController extends ApiController
             ))
             ->getEventType();
 
-        return $this->successResponse($this->presenter->present($response));
+        return $this->successResponse($this->eventTypePresenter->present($response));
     }
 
     public function getEventTypeById(string $id, GetEventTypeByIdAction $action): JsonResponse
@@ -54,7 +54,7 @@ class EventTypeController extends ApiController
             ->execute(new GetByIdRequest((int)$id))
             ->getEventType();
 
-        return $this->successResponse($this->presenter->present($eventType));
+        return $this->successResponse($this->eventTypePresenter->present($eventType));
     }
 
     public function update(string $id, EventTypeRequest $request, UpdateEventTypeAction $action): JsonResponse
@@ -73,13 +73,13 @@ class EventTypeController extends ApiController
                 )
             )->getEventType();
 
-        return $this->successResponse($this->presenter->present($eventType));
+        return $this->successResponse($this->eventTypePresenter->present($eventType));
     }
 
     public function destroy(string $id, DeleteEventTypeAction $action): JsonResponse
     {
         $action->execute(new DeleteEventTypeRequest((int)$id));
 
-        return $this->emptyResponse(200);
+        return $this->emptyResponse();
     }
 }

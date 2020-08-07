@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 final class AddEventTypeAction
 {
-    private $eventTypeRepository;
+    private EventTypeRepository $eventTypeRepository;
 
     public function __construct(EventTypeRepository $eventTypeRepository)
     {

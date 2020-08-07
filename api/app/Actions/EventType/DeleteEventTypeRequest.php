@@ -6,7 +6,7 @@ namespace App\Actions\EventType;
 
 final class DeleteEventTypeRequest
 {
-    private $id;
+    private int $id;
 
     public function __construct(int $id)
     {

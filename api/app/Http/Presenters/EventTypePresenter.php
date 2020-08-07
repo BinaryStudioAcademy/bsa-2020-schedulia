@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 
 final class EventTypePresenter
 {
-    private $userPresenter;
+    private UserArrayPresenter $userPresenter;
 
     public function __construct(UserArrayPresenter $userPresenter)
     {

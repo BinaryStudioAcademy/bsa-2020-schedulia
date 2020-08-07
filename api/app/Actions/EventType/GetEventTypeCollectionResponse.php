@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 final class GetEventTypeCollectionResponse
 {
-    private $eventType;
+    private Collection $eventType;
 
     public function __construct(Collection $eventType)
     {

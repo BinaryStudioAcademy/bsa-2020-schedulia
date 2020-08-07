@@ -23,11 +23,6 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Api\\Auth'], function () {
 
 Route::get('/status/{serviceName?}', 'Api\StatusController@status');
 
-Route::group(['prefix' => 'auth', 'namespace' => 'Api\\Auth'], function () {
-    Route::post('/login', 'AuthController@login');
-    Route::post('/logout', 'AuthController@logout');
-});
-
 Route::group([
     'middleware' => 'auth:api',
     'namespace' => 'Api\\'

@@ -6,13 +6,13 @@ namespace App\Actions\EventType;
 
 final class AddEventTypeRequest
 {
-    private $name;
-    private $description;
-    private $slug;
-    private $color;
-    private $duration;
-    private $timezone;
-    private $disabled;
+    private string $name;
+    private ?string $description;
+    private string $slug;
+    private string $color;
+    private int $duration;
+    private string $timezone;
+    private bool $disabled;
 
     public function __construct(
         string $name,
@@ -21,7 +21,7 @@ final class AddEventTypeRequest
         string $color,
         int $duration,
         string $timezone,
-        int $disabled
+        bool $disabled
     ) {
         $this->name = $name;
         $this->description = $description;
@@ -62,7 +62,7 @@ final class AddEventTypeRequest
         return $this->timezone;
     }
 
-    public function getDisabled(): int
+    public function getDisabled(): bool
     {
         return $this->disabled;
     }

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 final class UpdateEventTypeAction
 {
-    private $eventTypeRepository;
+    private EventTypeRepository $eventTypeRepository;
 
     public function __construct(EventTypeRepository $eventTypeRepository)
     {
@@ -21,10 +21,10 @@ final class UpdateEventTypeAction
 
     public function execute(UpdateEventTypeRequest $request): UpdateEventTypeResponse
     {
-        try {
-            $eventType = $this->eventTypeRepository->getById($request->getId());
-        } catch (ModelNotFoundException $ex) {
-            throw new EventTypeNotFoundException('User not found.', 404);
+        $eventType = $this->eventTypeRepository->getById($request->getId());
+
+        if (is_null($eventType)) {
+            throw new EventTypeNotFoundException('Event Type not found.', 404);
         }
 
         if ($eventType->owner_id !== Auth::id()) {

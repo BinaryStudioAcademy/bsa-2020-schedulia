@@ -6,14 +6,14 @@ namespace App\Actions\EventType;
 
 final class UpdateEventTypeRequest
 {
-    private $id;
-    private $name;
-    private $description;
-    private $slug;
-    private $color;
-    private $duration;
-    private $timezone;
-    private $disabled;
+    private int $id;
+    private string $name;
+    private ?string $description;
+    private string $slug;
+    private string $color;
+    private int $duration;
+    private string $timezone;
+    private bool $disabled;
 
     public function __construct(
         int $id,
