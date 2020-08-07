@@ -1,4 +1,5 @@
 import uploadFileService from '@/services/upload/fileService';
+import { UPDATE_BRANDING_LOGO } from './types/mutations';
 
 export default {
     async checkUserPassword(context, password) {
@@ -21,21 +22,13 @@ export default {
         }
     },
 
-    async uploadBrandingLogo(context, logo) {
+    async saveBranding({ commit }, logo) {
         try {
             const response = await uploadFileService.upload(logo);
 
-            console.log('Upload logo image');
-            return Promise.resolve(response);
-        } catch (error) {
-            return Promise.reject(error);
-        }
-    },
+            commit(UPDATE_BRANDING_LOGO, response.logo.url);
 
-    async saveBranding() {
-        try {
-            console.log('Saving branding');
-            return Promise.resolve();
+            return Promise.resolve(response);
         } catch (error) {
             return Promise.reject(error);
         }

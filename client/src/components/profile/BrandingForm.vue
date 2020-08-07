@@ -17,7 +17,9 @@
                             <VImg :src="newLogo"></VImg>
                         </div>
                         <div v-else>
-                            <VImg src="@/assets/images/no-image.png"></VImg>
+                            <VImg
+                                :src="require('@/assets/images/no-image.png')"
+                            ></VImg>
                         </div>
                     </div>
                     <div class="text-center">
@@ -40,7 +42,11 @@
                             />
                         </label>
 
-                        <VBtn class="ma2" v-if="logo" tile @click="removeImage"
+                        <VBtn
+                            class="ma2"
+                            :disabled="!newLogo"
+                            tile
+                            @click="removeImage"
                             >{{ lang.REMOVE }}
                         </VBtn>
                         <VAlert cols="12" type="error" v-if="errorMessage">
@@ -61,7 +67,7 @@
                             outlined
                             color="blue darken-1"
                             @click="save"
-                            :disabled=logoIsNew
+                            :disabled="logoIsNew"
                             >{{ lang.SAVE }}
                         </VBtn>
                         <VBtn class="ma2" tile outlined @click="resetChanges">
@@ -75,9 +81,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import enLang from '@/store/modules/i18n/en.js';
-import uploadFileService from '@/services/upload/fileService';
 import Tooltip from '@/components/tooltip/TooltipIcon.vue';
 
 export default {
@@ -88,17 +93,19 @@ export default {
     data: () => ({
         lang: enLang,
         file: null,
-        logo: null,
         newLogo: null,
         errorMessage: ''
     }),
 
-    async mounted() {
-        const response = await uploadFileService.getFile();
-        this.logo = this.newLogo = response.data.file;
+    mounted() {
+        this.newLogo = this.logo;
     },
 
     computed: {
+        ...mapGetters('profile', {
+            logo: 'getBrandingLogo'
+        }),
+
         logoIsNew() {
             return this.logo === this.newLogo;
         }
@@ -122,9 +129,7 @@ export default {
 
         async save() {
             try {
-                
-                await this.uploadBrandingLogo(this.file);
-                await this.saveBranding();
+                await this.saveBranding(this.file);
             } catch (error) {
                 this.showErrorMessage(error.message);
             }

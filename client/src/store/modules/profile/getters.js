@@ -1,5 +1,5 @@
 export default {
     getProfile: state => state.profile,
     getPassword: state => state.profile.password,
-    getBrandingImage: state => state.profile.brandingImage
+    getBrandingLogo: state => state.profile.brandingLogo
 };
