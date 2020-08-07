@@ -23,8 +23,18 @@ export default {
 
     async uploadBrandingLogo(context, logo) {
         try {
-            await uploadFileService.upload(logo);
+            const response = await uploadFileService.upload(logo);
 
+            console.log('Upload logo image');
+            return Promise.resolve(response);
+        } catch (error) {
+            return Promise.reject(error);
+        }
+    },
+
+    async saveBranding() {
+        try {
+            console.log('Saving branding');
             return Promise.resolve();
         } catch (error) {
             return Promise.reject(error);

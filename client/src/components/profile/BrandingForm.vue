@@ -35,25 +35,25 @@
                             class="ma-2"
                             tile
                             color="blue darken-1"
-                            @click="uploadImage"
-                            >{{ lang.UPDATE }}</VBtn
+                            @click="$refs.inputUpload.click()"
                         >
+                            {{ lang.UPDATE }}
+                        </VBtn>
 
-                        <VFileInput
+                        <input
+                            v-show="false"
+                            ref="inputUpload"
+                            type="file"
                             accept="image/*"
-                            label="Logo"
-                            prepend-icon="mdi-camera"
-                            :hide-input="true"
-                        >
-                        </VFileInput>
+                            @change="updateImage"
+                        />
 
-                        <VBtn
-                            class="ma2"
-                            v-if="logo"
-                            tile
-                            @click="removeImage"
-                            >{{ lang.REMOVE }}</VBtn
-                        >
+                        <VBtn class="ma2" v-if="logo" tile @click="removeImage"
+                            >{{ lang.REMOVE }}
+                        </VBtn>
+                        <VAlert cols="12" type="error" v-if="errorMessage">
+                            {{ errorMessage }}
+                        </VAlert>
                     </div>
                 </VCol>
                 <VCol cols="12">
@@ -68,11 +68,12 @@
                             tile
                             outlined
                             color="blue darken-1"
-                            >{{ lang.SAVE }}</VBtn
-                        >
-                        <VBtn class="ma2" @click="resetChanges" tile outlined>{{
-                            lang.CANCEL
-                        }}</VBtn>
+                            @click="save"
+                            >{{ lang.SAVE }}
+                        </VBtn>
+                        <VBtn class="ma2" tile outlined @click="resetChanges">
+                            {{ lang.CANCEL }}
+                        </VBtn>
                     </div>
                 </VCol>
             </VRow>
@@ -81,6 +82,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import enLang from '@/store/modules/i18n/en.js';
 import uploadFileService from '@/services/upload/fileService';
 import Tooltip from '@/components/tooltip/TooltipIcon.vue';
@@ -92,8 +94,10 @@ export default {
     },
     data: () => ({
         lang: enLang,
+        file: null,
         logo: null,
-        newLogo: null
+        newLogo: null,
+        errorMessage: ''
     }),
 
     async mounted() {
@@ -102,6 +106,8 @@ export default {
     },
 
     methods: {
+        ...mapActions('profile', ['uploadBrandingLogo', 'saveBranding']),
+
         resetChanges() {
             this.newLogo = this.logo;
         },
@@ -110,16 +116,26 @@ export default {
             this.newLogo = null;
         },
 
-        async uploadImage() {
+        updateImage(event) {
+            this.file = event.target.files[0];
+            this.newLogo = URL.createObjectURL(this.file);
+        },
+
+        async save() {
             try {
-                const response = await uploadFileService.upload(this.newLogo);
-                this.newLogo = response.data.file;
-            } catch (e) {
-                console.log(e);
+                if (this.logo === this.newLogo) {
+                    return;
+                }
+                await this.uploadBrandingLogo(this.file);
+                await this.saveBranding();
+            } catch (error) {
+                this.showErrorMessage(error.message);
             }
         },
 
-        async save() {}
+        showErrorMessage(msg) {
+            this.errorMessage = msg;
+        }
     }
 };
 </script>
