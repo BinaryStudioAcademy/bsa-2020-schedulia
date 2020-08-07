@@ -59,7 +59,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->email;
     }
 
-    public function getTimezone(): ?string
+    public function getTimezone(): string
     {
         return $this->timezone;
     }
