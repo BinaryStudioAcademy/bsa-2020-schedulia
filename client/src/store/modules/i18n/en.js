@@ -4,8 +4,11 @@ export default {
     CANCEL: 'Cancel',
     CHARACTERS: 'Characters',
     CHANGE_PASSWORD: 'Change password',
+    COUNTRY: 'Country',
     CLOSE: 'Close',
     CURRENT_PASSWORD: 'Current password',
+
+    DATE_FORMAT: 'Date format',
 
     EMAIL: 'Email',
 
@@ -21,14 +24,19 @@ export default {
     REPEAT_NEW_PASSWORD: 'Repeat new password',
     REMOVE: 'Remove',
 
-    SAVE: 'Save',
+    SAVE: 'Save changes',
 
+    TIME_FORMAT: 'Time format',
+    TIME_ZONE: 'Time zone',
+
+    LANGUAGE: 'Language',
     LOGIN: 'Login',
     LOGO: 'Logo',
 
     MAX: 'Max',
     MIN: 'Min',
 
+    NAME: 'Name',
     NEW_PASSWORD: 'New password',
 
     UPDATE: 'UPDATE',
@@ -36,11 +44,12 @@ export default {
     YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD:
         'You log in with an email address and password',
 
+    WELCOME_MESSAGE: 'Welcome message',
+
     CREATE_AN_ACCOUNT: 'Create an account',
     ALREADY_REGISTERED: 'Already registered?',
     LOG_IN: 'Log in',
     FULL_NAME: 'Full Name',
-    NAME: 'Name',
     CONFIRM_PASSWORD: 'Confirm Password',
     SIGN_UP: 'Sign Up',
     SUCCESSFULLY_REGISTERED: 'Successfully registered! Now you can authorize!',
