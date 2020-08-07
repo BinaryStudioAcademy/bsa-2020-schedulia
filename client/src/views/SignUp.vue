@@ -7,8 +7,9 @@
 <script>
 import LayoutMainPage from '../components/auth/LayoutMainPage';
 import SignUp from '../components/auth/SignUp';
+
 export default {
-    name: 'Login',
+    name: 'SignUpView',
     components: {
         LayoutMainPage,
         SignUp

@@ -30,7 +30,7 @@
         <VRow>
             <VCol class="secondary col-2"></VCol>
             <VCol class="secondary col-4">
-                <VRow align="start" justify="start">
+                <VRow class="mt-16">
                     <slot></slot>
                 </VRow>
             </VCol>

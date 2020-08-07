@@ -1,15 +1,17 @@
 <template>
     <LayoutMainPage>
-        We return all
+        <Login></Login>
     </LayoutMainPage>
 </template>
 
 <script>
 import LayoutMainPage from '../components/auth/LayoutMainPage';
+import Login from '../components/auth/Login';
 export default {
-    name: 'Login',
+    name: 'LoginView',
     components: {
-        LayoutMainPage
+        LayoutMainPage,
+        Login
     }
 };
 </script>
