@@ -15,6 +15,9 @@ export default new Vuetify({
                 success: '#4CAF50',
                 warning: '#FFD67A'
             }
+        },
+        options: {
+            customProperties: true
         }
     }
 });
