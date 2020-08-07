@@ -61,6 +61,7 @@
                             outlined
                             color="blue darken-1"
                             @click="save"
+                            :disabled=logoIsNew
                             >{{ lang.SAVE }}
                         </VBtn>
                         <VBtn class="ma2" tile outlined @click="resetChanges">
@@ -97,6 +98,12 @@ export default {
         this.logo = this.newLogo = response.data.file;
     },
 
+    computed: {
+        logoIsNew() {
+            return this.logo === this.newLogo;
+        }
+    },
+
     methods: {
         ...mapActions('profile', ['uploadBrandingLogo', 'saveBranding']),
 
@@ -115,9 +122,7 @@ export default {
 
         async save() {
             try {
-                if (this.logo === this.newLogo) {
-                    return;
-                }
+                
                 await this.uploadBrandingLogo(this.file);
                 await this.saveBranding();
             } catch (error) {
