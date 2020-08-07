@@ -11,7 +11,7 @@ final class UserArrayPresenter
     public function present(User $user): array
     {
         return [
-            'user_id' => $user->getId(),
+            'id' => $user->getId(),
             'email' => $user->getEmail(),
             'name' => $user->getName(),
             'timezone' => $user->getTimezone(),

@@ -3,27 +3,27 @@
         <VContainer>
             <VRow>
                 <VCol cols="12">
-                    You log in with an email address and password.
+                    {{ lang.YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD }}
                 </VCol>
                 <VCol cols="12">
-                    <VSubheader>Email</VSubheader>
+                    <VSubheader>{{ lang.EMAIL }}</VSubheader>
                     <VTextField
                         :value="email"
-                        :rules="[rules.email]"
-                        label="E-mail"
+                        :rules="[validEmail]"
+                        :label="lang.EMAIL"
                         readonly
                         solo
                         outlined
                     ></VTextField>
                 </VCol>
                 <VCol cols="12">
-                    <VSubheader>Password</VSubheader>
+                    <VSubheader>{{ lang.PASSWORD }}</VSubheader>
                     <VTextField
                         :value="password"
                         :type="showPassword ? 'text' : 'password'"
                         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="showPassword = !showPassword"
-                        label="Password"
+                        :label="lang.PASSWORD"
                         readonly
                         solo
                         outlined
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import enLang from '@/store/modules/i18n/en.js';
 import ChangePasswordForm from './ChangePasswordForm.vue';
 
 export default {
@@ -46,15 +47,17 @@ export default {
         ChangePasswordForm
     },
     data: () => ({
+        lang: enLang,
         email: 'john.doe@gmail.com',
         password: 'password',
-        showPassword: false,
-        rules: {
-            email: value => {
-                const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                return pattern.test(value) || 'Invalid e-mail.';
-            }
+        showPassword: false
+    }),
+
+    methods: {
+        validEmail(value) {
+            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return pattern.test(value) || this.lang.INVALID_EMAIL;
         }
-    })
+    }
 };
 </script>
