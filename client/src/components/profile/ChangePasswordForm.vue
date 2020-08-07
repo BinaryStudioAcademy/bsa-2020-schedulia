@@ -13,6 +13,9 @@
                 <VCardText>
                     <VContainer>
                         <VRow>
+                            <VCol cols="12" v-if="errorMessage">
+                                <div class="error has-text-danger" >{{ errorMessage }}</div>
+                            </VCol>
                             <VCol cols="12">
                                 <VSubheader>{{
                                     lang.CURRENT_PASSWORD
@@ -89,6 +92,7 @@ export default {
         newPassword: '',
         matchPassword: '',
         dialog: false,
+        errorMessage: '',
         rules: {
             min: 8,
             max: 255
@@ -120,9 +124,17 @@ export default {
             );
         },
 
-        updatePassword() {
-            //TODO action to handle save password
-            this.dialog = false;
+        async updatePassword() {
+            try {
+
+                this.dialog = false;
+            } catch (error) {
+                this.showErrorMessage(error.message);
+            }
+        }
+
+        showErrorMessage(message) {
+            this.errorMessage(message);
         }
     }
 };

@@ -1,6 +1,7 @@
 export default {
     BRANDING: 'Branding',
 
+    CANCEL: 'Cancel',
     CHARACTERS: 'Characters',
     CHANGE_PASSWORD: 'Change password',
     CLOSE: 'Close',
@@ -17,15 +18,19 @@ export default {
 
     REQUIRED: 'Required',
     REPEAT_NEW_PASSWORD: 'Repeat new password',
+    REMOVE: 'Remove',
 
     SAVE: 'Save',
 
     LOGIN: 'Login',
+    LOGO: 'Logo',
 
     MAX: 'Max',
     MIN: 'Min',
 
     NEW_PASSWORD: 'New password',
+
+    UPDATE: 'UPDATE',
 
     YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD:
         'You log in with an email address and password'
