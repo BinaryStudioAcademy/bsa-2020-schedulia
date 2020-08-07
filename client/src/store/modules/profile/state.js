@@ -1,6 +1,6 @@
 export default {
     profile: {
         password: null,
-        brandingImage: null,
+        brandingImage: null
     }
 };

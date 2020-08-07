@@ -17,9 +17,7 @@
                             <VImg :src="newLogo"></VImg>
                         </div>
                         <div v-else>
-                            <VImg
-                                src="https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
-                            ></VImg>
+                            <VImg src="@/assets/images/no-image.png"></VImg>
                         </div>
                     </div>
                     <div class="text-center">
