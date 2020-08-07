@@ -32,30 +32,28 @@
                     </div>
                     <div class="text-center">
                         <VBtn
-                                class="ma-2"
-                                tile
-                                color="blue darken-1"
-                                @click="uploadImage"
-                        >{{
-                            lang.UPDATE
-                        }}</VBtn>
+                            class="ma-2"
+                            tile
+                            color="blue darken-1"
+                            @click="uploadImage"
+                            >{{ lang.UPDATE }}</VBtn
+                        >
 
                         <VFileInput
                             accept="image/*"
                             label="Logo"
                             prepend-icon="mdi-camera"
-                            :hide-input=true
+                            :hide-input="true"
                         >
                         </VFileInput>
 
                         <VBtn
-                                class="ma2"
-                                v-if="logo"
-                                tile
-                                @click="removeImage"
-                        >{{
-                            lang.REMOVE
-                        }}</VBtn>
+                            class="ma2"
+                            v-if="logo"
+                            tile
+                            @click="removeImage"
+                            >{{ lang.REMOVE }}</VBtn
+                        >
                     </div>
                 </VCol>
                 <VCol cols="12">
@@ -65,9 +63,13 @@
                 </VCol>
                 <VCol>
                     <div class="text-center">
-                        <VBtn class="ma-2" tile outlined color="blue darken-1">{{
-                            lang.SAVE
-                        }}</VBtn>
+                        <VBtn
+                            class="ma-2"
+                            tile
+                            outlined
+                            color="blue darken-1"
+                            >{{ lang.SAVE }}</VBtn
+                        >
                         <VBtn class="ma2" @click="resetChanges" tile outlined>{{
                             lang.CANCEL
                         }}</VBtn>
@@ -117,9 +119,7 @@ export default {
             }
         },
 
-        async save() {
-
-        }
+        async save() {}
     }
 };
 </script>

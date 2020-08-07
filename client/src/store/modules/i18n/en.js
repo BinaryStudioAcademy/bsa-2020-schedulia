@@ -14,6 +14,7 @@ export default {
 
     PASSWORD: 'Password',
     PASSWORD_DOESNT_MATCH: "Password doesn't match confirmation",
+    PLEASE_FILL_ALL_FORM_FIELDS: 'Please fill all form fields correctly',
     PROFILE: 'Profile',
 
     REQUIRED: 'Required',
