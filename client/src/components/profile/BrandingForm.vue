@@ -30,13 +30,15 @@
                             {{ lang.UPDATE }}
                         </VBtn>
 
-                        <input
-                            v-show="false"
-                            ref="inputUpload"
-                            type="file"
-                            accept="image/*"
-                            @change="updateImage"
-                        />
+                        <label>
+                            <input
+                                v-show="false"
+                                ref="inputUpload"
+                                type="file"
+                                accept="image/*"
+                                @change="updateImage"
+                            />
+                        </label>
 
                         <VBtn class="ma2" v-if="logo" tile @click="removeImage"
                             >{{ lang.REMOVE }}
