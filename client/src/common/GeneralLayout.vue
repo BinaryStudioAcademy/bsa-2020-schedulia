@@ -1,20 +1,127 @@
 <template>
     <VCard>
-        <VAppBar color="deep-purple accent-4" dark height="90">
+        <VAppBar color="#281AC8" height="85" >
             <VContainer>
                 <VRow>
                     <VCol class="text-left">
-                        <VToolbarTitle>Page title</VToolbarTitle>
+                        <VToolbarTitle class="logo">
+                            <svg
+                                width="50"
+                                height="52"
+                                viewBox="0 0 50 52"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <circle
+                                    cx="25"
+                                    cy="26"
+                                    r="24.3194"
+                                    fill="white"
+                                />
+                                <mask
+                                    id="mask0"
+                                    mask-type="alpha"
+                                    maskUnits="userSpaceOnUse"
+                                    x="0"
+                                    y="1"
+                                    width="50"
+                                    height="50"
+                                >
+                                    <circle
+                                        cx="25"
+                                        cy="26"
+                                        r="24.3194"
+                                        fill="white"
+                                    />
+                                </mask>
+                                <g mask="url(#mask0)">
+                                    <rect
+                                        x="-126.689"
+                                        y="-276.967"
+                                        width="573.792"
+                                        height="371.944"
+                                        rx="15.7361"
+                                        fill="#FFD67A"
+                                        stroke="#F0F0F0"
+                                        stroke-width="2.86111"
+                                    />
+                                    <rect
+                                        x="254.943"
+                                        y="-448.403"
+                                        width="570.931"
+                                        height="369.083"
+                                        rx="14.3056"
+                                        transform="rotate(71.9185 254.943 -448.403)"
+                                        fill="#FF8A7A"
+                                        fill-opacity="0.6"
+                                    />
+                                    <rect
+                                        x="-77.3039"
+                                        y="-443.806"
+                                        width="570.931"
+                                        height="369.083"
+                                        rx="14.3056"
+                                        transform="rotate(27.0734 -77.3039 -443.806)"
+                                        fill="#FF8A7A"
+                                        fill-opacity="0.6"
+                                    />
+                                </g>
+                                <path
+                                    d="M29.2714 20.4615H34.3311C34.258 16.0114 30.6003 12.9389 25.0407 12.9389C19.5663 12.9389 15.5551 15.9626 15.5795 20.4981C15.5673 24.1802 18.1642 26.2894 22.3828 27.3014L25.1016 27.9841C27.8205 28.6425 29.3323 29.4228 29.3445 31.1054C29.3323 32.9342 27.601 34.1778 24.9187 34.1778C22.1755 34.1778 20.2003 32.9098 20.0296 30.4104H14.9211C15.0552 35.8116 18.9202 38.6036 24.9797 38.6036C31.0758 38.6036 34.6603 35.6896 34.6725 31.1175C34.6603 26.96 31.5269 24.7532 27.1865 23.7778L24.9431 23.2414C22.7729 22.7415 20.9563 21.9368 20.9928 20.1445C20.9928 18.5352 22.4193 17.3525 25.0041 17.3525C27.5279 17.3525 29.0763 18.4986 29.2714 20.4615Z"
+                                    fill="#281AC8"
+                                />
+                            </svg>
+                            <span class="logo-text">Schedulia</span>
+                        </VToolbarTitle>
                     </VCol>
-                    <VCol class="text-right">
-                        <VBtn icon>
-                            <VIcon>mdi-heart</VIcon>
-                        </VBtn>
+                    <VCol class="text-right" align-self="center">
+                        <VAvatar size="36">
+                            <img
+                                src="https://cdn.vuetifyjs.com/images/john.jpg"
+                                alt="John"
+                            />
+                        </VAvatar>
+                        <VMenu
+                            v-model="value"
+                            :close-on-click="true"
+                            :close-on-content-click="true"
+                            :offset-y="true"
+                        >
+                            <template v-slot:activator="{ on, attrs }">
+                                <VBtn
+                                    :ripple="false"
+                                    class="user-button"
+                                    flat
+                                    text
+                                    v-bind="attrs"
+                                    v-on="on"
+                                >
+                                    My Account
+                                    <FaIcon icon="caret-down"/>
+                                </VBtn>
+                            </template>
+                            <VList>
+                                <VListItem>
+                                    <VListItemTitle>
+                                        account settings
+                                    </VListItemTitle>
+                                </VListItem>
+                                <VListItem>
+                                    <VListItemTitle>
+                                        logout
+                                    </VListItemTitle>
+                                </VListItem>
+                            </VList>
+                        </VMenu>
                     </VCol>
                 </VRow>
             </VContainer>
         </VAppBar>
-        <VAppBar color="white" dark> </VAppBar>
+        <VAppBar color="white" rounded="false">
+            <VContainer>
+                <h1>Title</h1>
+            </VContainer>
+        </VAppBar>
     </VCard>
 </template>
 
@@ -23,3 +130,30 @@ export default {
     name: 'GeneralLayout'
 };
 </script>
+
+<style scoped>
+.logo {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 36px;
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+}
+
+.logo-text {
+    margin-left: 10px;
+}
+
+.user-button > span.v-btn__content {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px!important;
+    line-height: 17px;
+    text-transform: none;
+    color: #FFFEFE;
+}
+</style>
