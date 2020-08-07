@@ -2,19 +2,8 @@ import uploadFileService from '@/services/upload/fileService';
 import { UPDATE_BRANDING_LOGO } from './types/mutations';
 
 export default {
-    async checkUserPassword(context, password) {
-        try {
-            //TODO Send request to check user password
-            console.log(password);
-            return Promise.resolve();
-        } catch (error) {
-            return Promise.reject(error);
-        }
-    },
-
     async updatePassword(context, password) {
         try {
-
             console.log(password);
             return Promise.resolve();
         } catch (error) {

@@ -130,7 +130,6 @@ export default {
         async update() {
             try {
                 if (this.validateForm()) {
-                    await this.checkUserPassword(this.password);
                     await this.updatePassword(this.newPassword);
                     this.dialog = false;
                 } else {
