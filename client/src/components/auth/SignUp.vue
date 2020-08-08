@@ -108,7 +108,9 @@ export default {
             name: '',
             email: '',
             password: '',
-            password_confirmation: ''
+            password_confirmation: '',
+            timezone_name: '',
+            timezone_offset: ''
         },
         nameRules: [
             v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', enLang.NAME),
@@ -164,6 +166,9 @@ export default {
             this.$refs.form.validate();
             if (this.formValid) {
                 try {
+                    this.registerData.timezone_name = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    this.registerData.timezone_offset =
+                        'GMT +' + Math.abs(new Date().getTimezoneOffset()) / 60;
                     await this.signUp(this.registerData);
                     this.showMessage(
                         this.lang.SUCCESSFULLY_REGISTERED,
