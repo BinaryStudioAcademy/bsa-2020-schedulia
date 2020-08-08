@@ -18,12 +18,12 @@ class GetAuthUserDataTest extends TestCase
             'timezone' => 'Europe/Amsterdam'
         ]);
 
-        $this->json('POST','/api/v1/auth/login', [
+        $this->json('POST', '/api/v1/auth/login', [
             'email' => $user->email,
             'password' => $password
         ]);
 
-        $response = $this->json('GET','/api/v1/auth/me');
+        $response = $this->json('GET', '/api/v1/auth/me');
 
         $response->assertStatus(200)
             ->assertJsonStructure(['data'=>['email', 'name', 'timezone']]);
@@ -37,7 +37,7 @@ class GetAuthUserDataTest extends TestCase
 
     public function test_unauthenticated_request_return_correct_status()
     {
-        $response = $this->json('GET','/api/v1/auth/me');
+        $response = $this->json('GET', '/api/v1/auth/me');
 
         $response->assertStatus(401);
     }
