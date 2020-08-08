@@ -1,6 +1,6 @@
 <template>
-    <VContainer>
-        <VRow class="rowHeight-70">
+    <div>
+        <VRow class="row-height-70">
             <VCol class="secondary col-2"> </VCol>
             <VCol class="secondary col-4">
                 <VRow align-="center" justify="start">
@@ -16,7 +16,7 @@
             </VCol>
             <VCol class="primary col-6"> </VCol>
         </VRow>
-        <VRow class="rowHeight-70">
+        <VRow class="row-height-70">
             <VCol class="secondary col-6"></VCol>
             <VCol class="primary col-5"></VCol>
             <VCol class="primary col-1">
@@ -44,7 +44,7 @@
                 </VRow>
             </VCol>
         </VRow>
-        <VRow class="rowHeight-200">
+        <VRow class="row-height-200">
             <VCol class="secondary col-6">
                 <VRow align="start" justify="space-between">
                     <img
@@ -61,7 +61,7 @@
             </VCol>
             <VCol class="primary col-6"> </VCol>
         </VRow>
-    </VContainer>
+    </div>
 </template>
 
 <script>
@@ -94,10 +94,10 @@ export default {
     height: 565px;
     width: 464px;
 }
-.rowHeight-70 {
+.row-height-70 {
     height: 70px;
 }
-.rowHeight-200 {
+.row-height-200 {
     height: 200px;
 }
 </style>

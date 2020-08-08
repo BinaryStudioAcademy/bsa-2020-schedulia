@@ -1,6 +1,6 @@
 <template>
     <div class="signup container">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <h1 class="header">{{ lang.CREATE_AN_ACCOUNT }}</h1>
             <p class="hint">
                 {{ lang.ALREADY_REGISTERED }}
