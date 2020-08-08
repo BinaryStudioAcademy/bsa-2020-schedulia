@@ -1,15 +1,18 @@
+import requestService from '@/services/requestService';
+
 export default {
-    upload(file) {
+    async upload(file) {
         let formData = new FormData();
 
         formData.append('file', file);
 
-        //TODO change to the real endpoint
-        return { data: { file: 'https://via.placeholder.com/100x50' } };
+        const response = await requestService.post('/files', formData);
+
+        return response?.data?.data;
     },
 
-    getFile() {
-        //TODO change to the real endpoint
-        return { data: { file: 'https://via.placeholder.com/200x100' } };
+    async getFile(name) {
+        const response = await requestService.get('/files', name);
+        return response?.data?.data;
     }
 };

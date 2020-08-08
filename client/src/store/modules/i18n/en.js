@@ -19,6 +19,14 @@ export default {
     PASSWORD_DOESNT_MATCH: "Password doesn't match confirmation",
     PLEASE_FILL_ALL_FORM_FIELDS: 'Please fill all form fields correctly',
     PROFILE: 'Profile',
+    PROFILE_USE_THIS_SETTING_LOGO_TEXT:
+        'Use this setting to add your logo to all of your\n' +
+        'Calendly scheduling pages.',
+    PROFILE_YOU_LOGO_WILL_APPEAR_TEXT:
+        'Your logo will appear in the top left corner of\n' +
+        '                                your Event Type page. We recommend using an\n' +
+        '                                image that is 440px x 220px for the best\n' +
+        '                                display.',
 
     REQUIRED: 'Required',
     REPEAT_NEW_PASSWORD: 'Repeat new password',

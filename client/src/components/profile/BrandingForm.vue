@@ -6,16 +6,8 @@
                     <VSubheader>
                         {{ lang.LOGO }}
                         <Tooltip>
-                            <p>
-                                Use this setting to add your logo to all of your
-                                Calendly scheduling pages.
-                            </p>
-                            <p>
-                                Your logo will appear in the top left corner of
-                                your Event Type page. We recommend using an
-                                image that is 440px x 220px for the best
-                                display.
-                            </p>
+                            <p>{{ lang.PROFILE_USE_THIS_SETTING_LOGO_TEXT }}</p>
+                            <p>{{ lang.PROFILE_YOU_LOGO_WILL_APPEAR_TEXT }}</p>
                         </Tooltip>
                     </VSubheader>
                 </VCol>
@@ -26,29 +18,31 @@
                         </div>
                         <div v-else>
                             <VImg
-                                src="https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
+                                :src="require('@/assets/images/no-image.png')"
                             ></VImg>
                         </div>
                     </div>
                     <div class="text-center">
-                        <VBtn
-                            class="ma-2"
-                            tile
-                            color="blue darken-1"
-                            @click="$refs.inputUpload.click()"
+                        <label
+                            for="fileInput"
+                            class="ma-2 v-btn v-btn--contained v-btn--tile theme--light v-size--default blue darken-1 pointer"
                         >
                             {{ lang.UPDATE }}
-                        </VBtn>
+                        </label>
 
                         <input
                             v-show="false"
-                            ref="inputUpload"
+                            id="fileInput"
                             type="file"
                             accept="image/*"
                             @change="updateImage"
                         />
 
-                        <VBtn class="ma2" v-if="logo" tile @click="removeImage"
+                        <VBtn
+                            class="ma2"
+                            :disabled="!newLogo"
+                            tile
+                            @click="removeImage"
                             >{{ lang.REMOVE }}
                         </VBtn>
                         <VAlert cols="12" type="error" v-if="errorMessage">
@@ -69,6 +63,7 @@
                             outlined
                             color="blue darken-1"
                             @click="save"
+                            :disabled="logoIsNew"
                             >{{ lang.SAVE }}
                         </VBtn>
                         <VBtn class="ma2" tile outlined @click="resetChanges">
@@ -82,9 +77,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import enLang from '@/store/modules/i18n/en.js';
-import uploadFileService from '@/services/upload/fileService';
 import Tooltip from '@/components/tooltip/TooltipIcon.vue';
 
 export default {
@@ -95,14 +89,22 @@ export default {
     data: () => ({
         lang: enLang,
         file: null,
-        logo: null,
         newLogo: null,
         errorMessage: ''
     }),
 
-    async mounted() {
-        const response = await uploadFileService.getFile();
-        this.logo = this.newLogo = response.data.file;
+    mounted() {
+        this.newLogo = this.logo;
+    },
+
+    computed: {
+        ...mapGetters('profile', {
+            logo: 'getBrandingLogo'
+        }),
+
+        logoIsNew() {
+            return this.logo === this.newLogo;
+        }
     },
 
     methods: {
@@ -123,11 +125,7 @@ export default {
 
         async save() {
             try {
-                if (this.logo === this.newLogo) {
-                    return;
-                }
-                await this.uploadBrandingLogo(this.file);
-                await this.saveBranding();
+                await this.saveBranding(this.file);
             } catch (error) {
                 this.showErrorMessage(error.message);
             }
@@ -139,3 +137,9 @@ export default {
     }
 };
 </script>
+
+<style lang="scss" scoped>
+.pointer {
+    cursor: pointer;
+}
+</style>
