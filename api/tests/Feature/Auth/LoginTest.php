@@ -54,12 +54,17 @@ class LoginTest extends TestCase
     public function test_token_expired()
     {
         $user = factory(User::class)->create([
-            'password' => Hash::make($password = '12345678'),
             'timezone' => 'Europe/Amsterdam'
         ]);
 
-        $this->expectException(TokenExpiredException::class);
-        auth()->setTTL(0)->attempt(['email' => $user->email, 'password' => $password]);
+        $token = \JWTAuth::customClaims(['exp' => time() + 1])->fromUser($user);
+        sleep(1);
 
+        $response = $this->json('GET','/api/v1/auth/me', [], [
+            'Authorization' => 'Bearer ' . $token
+        ]);
+
+        $response->assertStatus(401)
+            ->assertJson(['error'=>['message' => 'Unauthenticated.']]);
     }
 }
