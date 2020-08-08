@@ -6,8 +6,6 @@ use App\Entity\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\JWTAuth;
 
 class LoginTest extends TestCase
 {
@@ -20,7 +18,7 @@ class LoginTest extends TestCase
             'timezone' => 'Europe/Amsterdam'
         ]);
 
-        $response = $this->json('POST','/api/v1/auth/login', [
+        $response = $this->json('POST', '/api/v1/auth/login', [
             'email' => $user->email,
             'password' => $password
         ]);
@@ -32,7 +30,8 @@ class LoginTest extends TestCase
         $responseData =  json_decode($response->getContent(), true);
 
         $this->assertNotNull(
-            $responseData['data']['access_token']);
+            $responseData['data']['access_token']
+        );
     }
 
     public function test_login_with_invalid_data_return_error()
@@ -42,7 +41,7 @@ class LoginTest extends TestCase
             'timezone' => 'Europe/Amsterdam'
         ]);
 
-        $response = $this->json('POST','/api/v1/auth/login', [
+        $response = $this->json('POST', '/api/v1/auth/login', [
             'email' => $user->email,
             'password' => '12345678910'
         ]);
@@ -60,7 +59,7 @@ class LoginTest extends TestCase
         $token = \JWTAuth::customClaims(['exp' => time() + 1])->fromUser($user);
         sleep(1);
 
-        $response = $this->json('GET','/api/v1/auth/me', [], [
+        $response = $this->json('GET', '/api/v1/auth/me', [], [
             'Authorization' => 'Bearer ' . $token
         ]);
 
