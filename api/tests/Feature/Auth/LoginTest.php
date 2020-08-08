@@ -20,7 +20,7 @@ class LoginTest extends TestCase
             'timezone' => 'Europe/Amsterdam'
         ]);
 
-        $response = $this->json('POST','/api/v1/auth/login', [
+        $response = $this->json('POST', '/api/v1/auth/login', [
             'email' => $user->email,
             'password' => $password
         ]);
@@ -32,7 +32,8 @@ class LoginTest extends TestCase
         $responseData =  json_decode($response->getContent(), true);
 
         $this->assertNotNull(
-            $responseData['data']['access_token']);
+            $responseData['data']['access_token']
+        );
     }
 
     public function test_login_with_invalid_data_return_error()
@@ -42,7 +43,7 @@ class LoginTest extends TestCase
             'timezone' => 'Europe/Amsterdam'
         ]);
 
-        $response = $this->json('POST','/api/v1/auth/login', [
+        $response = $this->json('POST', '/api/v1/auth/login', [
             'email' => $user->email,
             'password' => '12345678910'
         ]);
@@ -54,12 +55,17 @@ class LoginTest extends TestCase
     public function test_token_expired()
     {
         $user = factory(User::class)->create([
-            'password' => Hash::make($password = '12345678'),
             'timezone' => 'Europe/Amsterdam'
         ]);
 
-        $this->expectException(TokenExpiredException::class);
-        auth()->setTTL(0)->attempt(['email' => $user->email, 'password' => $password]);
+        $token = \JWTAuth::customClaims(['exp' => time() + 1])->fromUser($user);
+        sleep(1);
 
+        $response = $this->json('GET', '/api/v1/auth/me', [], [
+            'Authorization' => 'Bearer ' . $token
+        ]);
+
+        $response->assertStatus(401)
+            ->assertJson(['error'=>['message' => 'Unauthenticated.']]);
     }
 }
