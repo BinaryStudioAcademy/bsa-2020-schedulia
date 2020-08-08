@@ -1,6 +1,6 @@
 <template>
     <div class="signup container">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <h1 class="header">{{ lang.CREATE_AN_ACCOUNT }}</h1>
             <p class="hint">
                 {{ lang.ALREADY_REGISTERED }}
@@ -9,7 +9,7 @@
                 </RouterLink>
             </p>
             <VForm v-model="formValid" ref="form">
-                <VCol cols="12" sm="12" md="6" class="pa-0">
+                <VCol cols="12" sm="12" md="8" class="pa-0">
                     <label for="full-name">{{ lang.FULL_NAME }}</label>
                     <VTextField
                         id="full-name"
@@ -21,7 +21,7 @@
                         :rules="nameRules"
                     ></VTextField>
                 </VCol>
-                <VCol cols="12" sm="12" md="6" class="pa-0">
+                <VCol cols="12" sm="12" md="8" class="pa-0">
                     <label for="email">{{ lang.EMAIL }}</label>
                     <VTextField
                         id="email"
@@ -33,7 +33,7 @@
                         :rules="emailRules"
                     ></VTextField>
                 </VCol>
-                <VCol cols="12" sm="12" md="6" class="pa-0">
+                <VCol cols="12" sm="12" md="8" class="pa-0">
                     <label for="password">{{ lang.PASSWORD }}</label>
                     <VTextField
                         id="password"
@@ -47,7 +47,7 @@
                         :rules="passwordRules"
                     ></VTextField>
                 </VCol>
-                <VCol cols="12" sm="12" md="6" class="pa-0">
+                <VCol cols="12" sm="12" md="8" class="pa-0">
                     <label for="password_confirmation">
                         {{ lang.CONFIRM_PASSWORD }}
                     </label>
