@@ -108,7 +108,8 @@ export default {
             name: '',
             email: '',
             password: '',
-            password_confirmation: ''
+            password_confirmation: '',
+            timezone: ''
         },
         nameRules: [
             v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', enLang.NAME),
@@ -164,6 +165,7 @@ export default {
             this.$refs.form.validate();
             if (this.formValid) {
                 try {
+                    this.registerData.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
                     await this.signUp(this.registerData);
                     this.showMessage(
                         this.lang.SUCCESSFULLY_REGISTERED,
