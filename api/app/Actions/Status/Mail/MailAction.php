@@ -12,7 +12,9 @@ class MailAction
     public function execute(MailRequest $request): void
     {
         Mail::to($request->getEmail())->send(
-			new TestMail($request->getMessage()
-		));
+            new TestMail(
+                $request->getMessage()
+            )
+        );
     }
 }

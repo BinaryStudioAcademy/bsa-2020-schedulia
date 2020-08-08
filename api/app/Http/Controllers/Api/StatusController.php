@@ -27,9 +27,8 @@ class StatusController extends ApiController
 
     public function mail(
         Request $request,
-        MailAction $action 
-    )
-    {
+        MailAction $action
+    ) {
         $response = $action->execute(new MailRequest(
             $request->email,
             $request->message
