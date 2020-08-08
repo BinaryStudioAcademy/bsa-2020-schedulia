@@ -8,7 +8,7 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    public function actingAsAuthUser($user)
+    public function withJwt($user)
     {
         $token = \JWTAuth::fromUser($user);
 
