@@ -6,13 +6,13 @@ export default {
 
         formData.append('file', file);
 
-        const response = await requestService.post('/file/upload', formData);
+        const response = await requestService.post('/files', formData);
 
         return response?.data?.data;
     },
 
-    async getFile() {
-        const response = await requestService.get('/file', name);
+    async getFile(name) {
+        const response = await requestService.get('/files', name);
         return response?.data?.data;
     }
 };

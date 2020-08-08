@@ -23,24 +23,20 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <VBtn
-                            class="ma-2"
-                            tile
-                            color="blue darken-1"
-                            @click="$refs.inputUpload.click()"
+                        <label
+                            for="fileInput"
+                            class="ma-2 v-btn v-btn--contained v-btn--tile theme--light v-size--default blue darken-1 pointer"
                         >
                             {{ lang.UPDATE }}
-                        </VBtn>
-
-                        <label>
-                            <input
-                                v-show="false"
-                                ref="inputUpload"
-                                type="file"
-                                accept="image/*"
-                                @change="updateImage"
-                            />
                         </label>
+
+                        <input
+                            v-show="false"
+                            id="fileInput"
+                            type="file"
+                            accept="image/*"
+                            @change="updateImage"
+                        />
 
                         <VBtn
                             class="ma2"
@@ -141,3 +137,9 @@ export default {
     }
 };
 </script>
+
+<style lang="scss" scoped>
+.pointer {
+    cursor: pointer;
+}
+</style>
