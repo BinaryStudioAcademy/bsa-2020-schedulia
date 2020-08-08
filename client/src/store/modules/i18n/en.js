@@ -62,5 +62,6 @@ export default {
     NEW_HERE: 'New here?',
     OR_LOGIN_WITH: 'Or Log in with',
     GOOGLE_ICON: 'G',
-    FACEBOOK_ICON: 'F'
+    FACEBOOK_ICON: 'F',
+    SCHEDULIA: 'Schedulia'
 };

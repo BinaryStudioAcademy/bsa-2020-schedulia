@@ -10,7 +10,7 @@
                         class="iconCircle"
                     />
                     <h2 class="primary--text ml-3 mt-1">
-                        {{ lang.SITE_NAME }}
+                        {{ lang.SCHEDULIA }}
                     </h2>
                 </VRow>
             </VCol>
