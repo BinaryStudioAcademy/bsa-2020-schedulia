@@ -58,5 +58,9 @@ export default {
     FIELD_MUST_BE_LESS_THAN_VALUE: ' must be less than value characters',
     WRONG_EMAIL_FORMAT: 'Wrong Email format',
     SITE_NAME: 'Shedulia',
-    WELCOME: 'Welcome'
+    WELCOME: 'Welcome',
+    NEW_HERE: 'New here?',
+    OR_LOGIN_WITH: 'Or Log in with',
+    GOOGLE_ICON: 'G',
+    FACEBOOK_ICON: 'F'
 };
