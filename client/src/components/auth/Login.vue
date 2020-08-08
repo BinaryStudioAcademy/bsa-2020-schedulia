@@ -1,11 +1,13 @@
 <template>
     <VCard width="380" elevation="0" flat="true" tile>
-        <VCardTitle class="primary--text font-weight-black heading"
-            >{{ lang.WELCOME }}</VCardTitle
-        >
+        <VCardTitle class="primary--text font-weight-black heading">{{
+            lang.WELCOME
+        }}</VCardTitle>
         <VCardSubtitle>
             <span class="info--text">{{ lang.NEW_HERE }}</span>
-            <RouterLink :to="{ path: 'signup' }">{{ lang.CREATE_AN_ACCOUNT }} </RouterLink>
+            <RouterLink :to="{ path: 'signup' }"
+                >{{ lang.CREATE_AN_ACCOUNT }}
+            </RouterLink>
         </VCardSubtitle>
         <VCardText>
             <VTextField label="email" placeholder="user@gmail.com" outlined>
