@@ -1,13 +1,16 @@
 <template>
-    <VContainer>
-        <VToolbar color="white" flat>
-            <VTabs v-model="tab">
-                <VTab v-for="item in tabs" :key="item.tab">
-                    {{ item.title }}
-                </VTab>
-            </VTabs>
-        </VToolbar>
-
+    <div class="tabs">
+        <div class="tabs__list">
+            <VContainer class="tabs__container">
+                <VToolbar color="white" flat>
+                    <VTabs v-model="tab">
+                        <VTab v-for="item in tabs" :key="item.tab">
+                            {{ item.title }}
+                        </VTab>
+                    </VTabs>
+                </VToolbar>
+            </VContainer>
+        </div>
         <VContainer>
             <VTabsItems v-model="tab">
                 <VTabItem v-for="item in tabs" :key="item.tab">
@@ -23,7 +26,7 @@
                 </VTabItem>
             </VTabsItems>
         </VContainer>
-    </VContainer>
+    </div>
 </template>
 
 <script>
@@ -40,3 +43,16 @@ export default {
     })
 };
 </script>
+
+<style lang="scss" scoped>
+.tabs {
+    &__list {
+        width: 100%;
+        background: var(--v-background-lighten1);
+    }
+
+    &__container {
+        padding: 0;
+    }
+}
+</style>

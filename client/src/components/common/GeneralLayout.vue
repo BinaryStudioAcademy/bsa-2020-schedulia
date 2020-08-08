@@ -1,18 +1,20 @@
 <template>
     <VApp>
         <Header />
-        <!-- <VMain>
-            <VAppBar color="#FFF" absolute app>
-                <VContainer>
-                    <h1>Title</h1>
+        <VMain class="main">
+            <div class="title">
+                <VContainer class="title__content">
+                    <VRow>
+                        <VCol class="title__content-column title__content-column--no-padding">
+                            <h1 class="title__text">Title</h1>
+                        </VCol>
+                    </VRow>
                 </VContainer>
-            </VAppBar>
-            <VContent style="background-color: #CCC; margin-top: 30px;" app>
-                <VContainer style="background-color: #FFF">
-                    Some text
-                </VContainer>
-            </VContent>
-        </VMain> -->
+            </div>
+            <div class="content">
+                <RouterView />
+            </div>
+        </VMain>
     </VApp>
 </template>
 
@@ -28,13 +30,28 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.title {
+    width: 100%;
+    background: var(--v-background-lighten1);
+ 
+    &__text {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 36px;
+        padding: 32px 0;
+    }
 
-.container h1 {
-    font-family: Inter;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 36px;
+    &__content-column,
+    &__content {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+.main {
+    background-color: var(--v-background-base);
 }
 </style>

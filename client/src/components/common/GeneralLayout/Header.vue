@@ -1,5 +1,5 @@
 <template>
-    <VAppBar class="light primary header" height="85" flat app absolute>
+    <VAppBar class="light primary header" height="85" app flat absolute>
         <VContainer>
             <VRow>
                 <VCol class="text-left" align-self="center">
@@ -19,7 +19,6 @@
                         />
                     </VAvatar>
                     <VMenu
-                        v-model="value"
                         :close-on-click="true"
                         :close-on-content-click="true"
                         :offset-y="true"
@@ -29,7 +28,6 @@
                                 :ripple="false"
                                 :hover="false"
                                 class="user-button"
-                                flat
                                 text
                                 v-bind="attrs"
                                 v-on="on"
@@ -79,8 +77,8 @@ export default {
 		color: #fff;
 		vertical-align: text-bottom;
 
-		padding: 0 10px;
-		margin-left: -10px;
+		// padding: 0 10px;
+		// margin-left: -10px;
 	}
 
 	&__image {
