@@ -129,14 +129,16 @@ final class EventTypeApiTest extends TestCase
         $response
             ->assertStatus(JsonResponse::HTTP_CREATED)
             ->assertJson(['data' => self::DATA])
-            ->assertJson(['data' => [
-                'owner' => [
-                    'id' => $user->id,
-                    'email' => $user->email,
-                    'name' => $user->name,
-                    'timezone' => $user->timezone,
+            ->assertJson([
+                'data' => [
+                    'owner' => [
+                        'id' => $user->id,
+                        'email' => $user->email,
+                        'name' => $user->name,
+                        'timezone' => $user->timezone,
+                    ]
                 ]
-            ]])
+            ])
             ->assertJsonStructure(['data' => self::STRUCTURE]);
     }
 
@@ -152,10 +154,12 @@ final class EventTypeApiTest extends TestCase
 
         $response
             ->assertStatus(422)
-            ->assertJsonStructure(['error' => [
-                'message',
-                'validator',
-            ]]);
+            ->assertJsonStructure([
+                'error' => [
+                    'message',
+                    'validator',
+                ]
+            ]);
     }
 
     public function test_update_event_type_by_id()
@@ -175,20 +179,22 @@ final class EventTypeApiTest extends TestCase
         $response
             ->assertStatus(JsonResponse::HTTP_OK)
             ->assertJson(['data' => self::DATA])
-            ->assertJson(['data' => [
-                'owner' => [
-                    'id' => $user->id,
-                    'email' => $user->email,
-                    'name' => $user->name,
-                    'timezone' => $user->timezone,
+            ->assertJson([
+                'data' => [
+                    'owner' => [
+                        'id' => $user->id,
+                        'email' => $user->email,
+                        'name' => $user->name,
+                        'timezone' => $user->timezone,
+                    ]
                 ]
-            ]])
+            ])
             ->assertJsonStructure(['data' => self::STRUCTURE]);
     }
 
     public function test_update_event_type_by_id_forbidden()
     {
-        $users = factory(User::class,2)->create([
+        $users = factory(User::class, 2)->create([
             'timezone' => 'Europe/Kiev'
         ]);
 
@@ -244,7 +250,7 @@ final class EventTypeApiTest extends TestCase
 
     public function test_delete_event_type_by_id_forbidden()
     {
-        $users = factory(User::class,2)->create([
+        $users = factory(User::class, 2)->create([
             'timezone' => 'Europe/Kiev'
         ]);
 
