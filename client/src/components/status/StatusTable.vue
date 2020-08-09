@@ -1,27 +1,37 @@
 <template>
-    <VDataTable
-        :headers="headers"
-        :items="items"
-        :disable-pagination="true"
-        :hide-default-footer="true"
-        disable-sort
-    >
-        <template v-slot:item.status="{ item }">
-            <VIcon v-if="item.status === true" color="success">mdi-check</VIcon>
-            <VIcon v-else-if="item.status === false" color="error">
-                mdi-skull-crossbones-outline
-            </VIcon>
-            <VProgressCircular v-else indeterminate color="primary" />
-        </template>
-    </VDataTable>
+    <div>
+        <BorderBottom />
+        <VContainer class="container-content">
+            <VDataTable
+                :headers="headers"
+                :items="items"
+                :disable-pagination="true"
+                :hide-default-footer="true"
+                disable-sort
+            >
+                <template v-slot:item.status="{ item }">
+                    <VIcon v-if="item.status === true" color="success"
+                        >mdi-check</VIcon
+                    >
+                    <VIcon v-else-if="item.status === false" color="error">
+                        mdi-skull-crossbones-outline
+                    </VIcon>
+                    <VProgressCircular v-else indeterminate color="primary" />
+                </template>
+            </VDataTable>
+        </VContainer>
+    </div>
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import * as statusGetters from '@/store/modules/status/types/getters';
 import * as statusActions from '@/store/modules/status/types/actions';
+import BorderBottom from '../common/GeneralLayout/BorderBottom';
 
 export default {
-    components: {},
+    components: {
+        BorderBottom
+    },
 
     data() {
         return {
