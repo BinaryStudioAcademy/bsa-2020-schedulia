@@ -40,11 +40,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.v-btn:not(.v-btn--round).v-size--default {
-    padding: 0;
-    margin-left: 20px;
-}
-
 .user-menu {
     &__link {
         color: #2c2c2c;

@@ -16,8 +16,7 @@ export default {
 <style lang="scss" scoped>
 .logo {
     &__link {
-        font-family: Inter;
-        font-style: normal;
+        font-family: $body-font-family;
         font-weight: bold;
         font-size: 24px;
         text-decoration: none;
