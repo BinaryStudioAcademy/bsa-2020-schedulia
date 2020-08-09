@@ -32,3 +32,18 @@ Route::get('/debug-sentry', function () {
 
 Route::get('/status/{serviceName?}', 'Api\StatusController@status');
 Route::post('/mail', 'Api\StatusController@mail');
+
+Route::group([
+    'middleware' => 'auth:api',
+    'namespace' => 'Api\\'
+], function () {
+    Route::group([
+        'prefix' => '/event-types',
+    ], function () {
+        Route::get('/', 'EventTypeController@index');
+        Route::post('/', 'EventTypeController@store');
+        Route::get('/{id}', 'EventTypeController@getEventTypeById');
+        Route::put('/{id}', 'EventTypeController@update');
+        Route::delete('/{id}', 'EventTypeController@destroy');
+    });
+});
