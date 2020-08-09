@@ -1,7 +1,5 @@
 <template>
-    <VContainer>
-        <StatusTable />
-    </VContainer>
+    <StatusTable />
 </template>
 <script>
 import StatusTable from '../components/status/StatusTable.vue';

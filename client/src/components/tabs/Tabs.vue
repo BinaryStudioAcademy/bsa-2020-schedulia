@@ -11,6 +11,7 @@
                 </VToolbar>
             </VContainer>
         </div>
+        <BorderBottom />
         <VContainer>
             <VTabsItems v-model="tab">
                 <VTabItem v-for="item in tabs" :key="item.tab">
@@ -30,8 +31,13 @@
 </template>
 
 <script>
+import BorderBottom from "../common/GeneralLayout/BorderBottom";
+
 export default {
     name: 'Tabs',
+    components: {
+        BorderBottom
+    },
     props: {
         tabs: {
             type: Array,
