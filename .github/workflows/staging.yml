@@ -63,15 +63,5 @@ jobs:
       run: heroku container:login 
     - name: Client:Build
       run: make build-client-staging
-
-  deploy:
-    needs: [api-build, client-build]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Login to Heroku
-      run: heroku container:login 
-    - name: API:Deploy
-      run: make deploy-api-staging
     - name: Client:Deploy
       run: make deploy-client-staging

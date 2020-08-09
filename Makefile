@@ -35,3 +35,5 @@ build-client-production:
 deploy-client-production:
 	make deploy SOURCE=client PROVIDER=cloudRun
 
+worker-logs:
+	heroku logs -a schedulia-api --dyno=worker --tail

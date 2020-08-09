@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class TestMail extends Mailable
+class TestMail extends Mailable implements ShouldQueue
 {
     use Queueable;
     use SerializesModels;
@@ -23,7 +23,7 @@ class TestMail extends Mailable
     {
         return $this->view('emails.test')
             ->from(config('mail.from.address'), config('mail.from.name'))
-            ->subject('This is a demo!')
+            ->subject('Schedulia | Test | ' . config('app.env'))
             ->with([ 'test_message' => $this->message ]);
     }
 }
