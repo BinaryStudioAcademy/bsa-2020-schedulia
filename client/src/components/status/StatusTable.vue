@@ -19,7 +19,11 @@
                     <VProgressCircular v-else indeterminate color="primary" />
                 </template>
             </VDataTable>
+
+            <VBtn @click="this.showErrorMessage">Open message</VBtn>
         </VContainer>
+
+        <AlertMessage />
     </div>
 </template>
 <script>
@@ -27,11 +31,15 @@ import { mapGetters, mapActions } from 'vuex';
 import * as statusGetters from '@/store/modules/status/types/getters';
 import * as statusActions from '@/store/modules/status/types/actions';
 import BorderBottom from '../common/GeneralLayout/BorderBottom';
+import AlertMessage from '../common/AlertMessage/AlertMessage';
 
 export default {
     components: {
-        BorderBottom
+        BorderBottom,
+        AlertMessage
     },
+
+    mixins: [AlertMessage],
 
     data() {
         return {
