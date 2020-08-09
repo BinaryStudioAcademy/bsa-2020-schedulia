@@ -3,14 +3,14 @@
 </template>
 
 <script>
-    export default {
-        name: "BorderBottom"
-    };
+export default {
+    name: 'BorderBottom'
+};
 </script>
 
 <style scoped>
 .general-layout-border-bottom {
-    border-bottom: 1px solid #D8D8D8;
+    border-bottom: 1px solid #d8d8d8;
     width: 100%;
 }
 </style>

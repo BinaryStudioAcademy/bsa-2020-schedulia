@@ -1,18 +1,18 @@
 <template>
     <VMenu
-            :close-on-click="true"
-            :close-on-content-click="true"
-            :offset-y="true"
-            class="user-menu"
+        :close-on-click="true"
+        :close-on-content-click="true"
+        :offset-y="true"
+        class="user-menu"
     >
         <template v-slot:activator="{ on, attrs }">
             <VBtn
-                    :ripple="false"
-                    :hover="false"
-                    class="user-menu__button"
-                    text
-                    v-bind="attrs"
-                    v-on="on"
+                :ripple="false"
+                :hover="false"
+                class="user-menu__button"
+                text
+                v-bind="attrs"
+                v-on="on"
             >
                 My Account
                 <VIcon>mdi-menu-down</VIcon>
@@ -34,16 +34,16 @@
 </template>
 
 <script>
-    export default {
-        name: "UserMenu"
-    };
+export default {
+    name: 'UserMenu'
+};
 </script>
 
 <style lang="scss" scoped>
 .v-btn:not(.v-btn--round).v-size--default {
-        padding: 0;
-        margin-left: 20px;
-    }
+    padding: 0;
+    margin-left: 20px;
+}
 
 .user-menu {
     &__link {

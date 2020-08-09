@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import Logo from "./Logo";
-import Avatar from "./Avatar";
-import UserMenu from "./UserMenu";
+import Logo from './Logo';
+import Avatar from './Avatar';
+import UserMenu from './UserMenu';
 
 export default {
     name: 'Header',

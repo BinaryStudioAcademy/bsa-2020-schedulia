@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import BorderBottom from "../common/GeneralLayout/BorderBottom";
+import BorderBottom from '../common/GeneralLayout/BorderBottom';
 
 export default {
     name: 'Tabs',

@@ -10,7 +10,9 @@
                 disable-sort
             >
                 <template v-slot:item.status="{ item }">
-                    <VIcon v-if="item.status === true" color="success">mdi-check</VIcon>
+                    <VIcon v-if="item.status === true" color="success"
+                        >mdi-check</VIcon
+                    >
                     <VIcon v-else-if="item.status === false" color="error">
                         mdi-skull-crossbones-outline
                     </VIcon>
@@ -24,7 +26,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import * as statusGetters from '@/store/modules/status/types/getters';
 import * as statusActions from '@/store/modules/status/types/actions';
-import BorderBottom from "../common/GeneralLayout/BorderBottom";
+import BorderBottom from '../common/GeneralLayout/BorderBottom';
 
 export default {
     components: {

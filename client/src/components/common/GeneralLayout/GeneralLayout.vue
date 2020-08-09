@@ -12,7 +12,7 @@
 
 <script>
 import Header from './Header';
-import Title from "./Title";
+import Title from './Title';
 
 export default {
     name: 'GeneralLayout',
