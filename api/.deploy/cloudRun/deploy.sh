@@ -16,5 +16,6 @@ gcloud run deploy schedulia-worker \
   	--add-cloudsql-instances ${GCP_PROJECT}:${GCP_REGION}:schedulia-sql \
   	--allow-unauthenticated \
 	--vpc-connector schedulia-net \
-	--command="php artisan queue:work --tries=5"
+	--command="php"
+	--args="artisan,queue:work,--tries=5"
 
