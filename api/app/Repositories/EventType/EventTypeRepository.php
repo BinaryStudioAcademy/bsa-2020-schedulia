@@ -8,7 +8,7 @@ use App\Entity\EventType;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Collection;
 
-final class EventTypeRepository extends BaseRepository
+final class EventTypeRepository extends BaseRepository implements EventTypeRepositoryInterface
 {
     public function getById(int $id): ?EventType
     {

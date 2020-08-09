@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace App\Actions\EventType;
 
 use App\Exceptions\EventTypeNotFoundException;
-use App\Repositories\EventType\EventTypeRepository;
+use App\Repositories\EventType\EventTypeRepositoryInterface;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 
 final class UpdateEventTypeAction
 {
-    private EventTypeRepository $eventTypeRepository;
+    private EventTypeRepositoryInterface $eventTypeRepository;
 
-    public function __construct(EventTypeRepository $eventTypeRepository)
+    public function __construct(EventTypeRepositoryInterface $eventTypeRepository)
     {
         $this->eventTypeRepository = $eventTypeRepository;
     }

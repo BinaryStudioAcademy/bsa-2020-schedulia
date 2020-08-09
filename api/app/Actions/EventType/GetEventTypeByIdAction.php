@@ -6,13 +6,13 @@ namespace App\Actions\EventType;
 
 use App\Actions\GetByIdRequest;
 use App\Exceptions\EventTypeNotFoundException;
-use App\Repositories\EventType\EventTypeRepository;
+use App\Repositories\EventType\EventTypeRepositoryInterface;
 
 final class GetEventTypeByIdAction
 {
-    private EventTypeRepository $eventTypeRepository;
+    private EventTypeRepositoryInterface $eventTypeRepository;
 
-    public function __construct(EventTypeRepository $eventTypeRepository)
+    public function __construct(EventTypeRepositoryInterface $eventTypeRepository)
     {
         $this->eventTypeRepository = $eventTypeRepository;
     }
