@@ -10,12 +10,10 @@ gcloud run deploy schedulia-api \
 	--command="/etc/entrypoint.sh"
 
 gcloud run deploy schedulia-worker \
-	--image gcr.io/$GCP_PROJECT/schedulia-api \
+	--image gcr.io/$GCP_PROJECT/schedulia-worker \
 	--platform managed \
 	--region=$GCP_REGION \
   	--add-cloudsql-instances ${GCP_PROJECT}:${GCP_REGION}:schedulia-sql \
   	--allow-unauthenticated \
 	--vpc-connector schedulia-net \
-	--command="php"
-	--args="artisan,queue:work,--tries=5"
-
+	--command="/etc/entrypoint.sh"
