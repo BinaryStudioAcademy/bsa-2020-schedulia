@@ -40,6 +40,11 @@
 </script>
 
 <style lang="scss" scoped>
+.v-btn:not(.v-btn--round).v-size--default {
+        padding: 0;
+        margin-left: 20px;
+    }
+
 .user-menu {
     &__link {
         color: #2c2c2c;
@@ -55,7 +60,6 @@
             line-height: 17px;
             text-transform: none;
             color: #fffefe;
-            margin-left: 8px;
         }
     }
 

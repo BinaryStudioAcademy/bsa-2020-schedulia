@@ -30,3 +30,11 @@ export default {
     }
 };
 </script>
+
+<style lang="scss" scoped>
+@media screen and (max-width: 767px) {
+    .spacer {
+        flex-grow: 0 !important;
+    }
+}
+</style>

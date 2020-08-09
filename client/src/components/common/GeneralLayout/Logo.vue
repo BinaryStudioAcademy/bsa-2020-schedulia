@@ -41,5 +41,11 @@
             height: 52px;
             vertical-align: top;
         }
+
+        @media screen and (max-width: 767px) {
+            &__text {
+                display: none;
+            }
+        }
     }
 </style>
