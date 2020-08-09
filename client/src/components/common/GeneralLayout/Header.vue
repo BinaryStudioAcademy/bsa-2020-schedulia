@@ -32,6 +32,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.header::v-deep > .v-toolbar__content {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
 @media screen and (max-width: 767px) {
     .spacer {
         flex-grow: 0 !important;

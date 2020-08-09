@@ -12,7 +12,7 @@
             </VContainer>
         </div>
         <BorderBottom />
-        <VContainer>
+        <VContainer class="container-content">
             <VTabsItems v-model="tab">
                 <VTabItem v-for="item in tabs" :key="item.tab">
                     <VCol cols="6">

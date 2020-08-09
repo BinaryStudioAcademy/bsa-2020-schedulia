@@ -1,7 +1,7 @@
 <template>
     <div>
         <BorderBottom />
-        <VContainer>
+        <VContainer class="container-content">
             <VDataTable
                 :headers="headers"
                 :items="items"
