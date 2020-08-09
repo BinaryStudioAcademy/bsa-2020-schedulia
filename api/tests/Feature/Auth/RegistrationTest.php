@@ -89,4 +89,27 @@ class RegistrationTest extends TestCase
             'timezone' => $user['timezone'],
         ]);
     }
+
+    public function test_registration_with_invalid_password_confirmation()
+    {
+        $user = [
+            'email' => $this->faker->email,
+            'name' => $this->faker->name,
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'password_confirmation' => 'invalid',
+            'timezone' => $this->faker->timezone,
+        ];
+
+        $response = $this->json('POST', '/api/v1/auth/register', $user);
+
+        $response->assertStatus(422)
+            ->assertJson(['error'=>['message' => 'The given data was invalid.']])
+            ->assertJson(['error'=>['validator' => ['password' => ['The password confirmation does not match.']]]]);
+
+        $this->assertDatabaseMissing('users', [
+            'email' => $user['email'],
+            'name' => $user['name'],
+            'timezone' => $user['timezone'],
+        ]);
+    }
 }
