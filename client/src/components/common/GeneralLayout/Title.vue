@@ -5,7 +5,9 @@
                 <VCol
                     class="title__content-column title__content-column--no-padding"
                 >
-                    <h1 class="title__text">Title</h1>
+                    <h1 class="title__text">
+                        <slot></slot>
+                    </h1>
                 </VCol>
             </VRow>
         </VContainer>

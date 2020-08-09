@@ -2,9 +2,11 @@
     <VApp>
         <Header />
         <VMain class="main">
-            <Title />
+            <Title>
+                <slot name="title"></slot>
+            </Title>
             <div class="content">
-                <RouterView />
+                <slot></slot>
             </div>
         </VMain>
     </VApp>
