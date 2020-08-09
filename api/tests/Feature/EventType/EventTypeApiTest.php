@@ -35,6 +35,8 @@ final class EventTypeApiTest extends TestCase
         'timezone',
         'disabled',
         'owner' => [
+            'id',
+            'email',
             'name',
             'timezone'
         ]
@@ -129,6 +131,8 @@ final class EventTypeApiTest extends TestCase
             ->assertJson(['data' => self::DATA])
             ->assertJson(['data' => [
                 'owner' => [
+                    'id' => $user->id,
+                    'email' => $user->email,
                     'name' => $user->name,
                     'timezone' => $user->timezone,
                 ]
@@ -173,6 +177,8 @@ final class EventTypeApiTest extends TestCase
             ->assertJson(['data' => self::DATA])
             ->assertJson(['data' => [
                 'owner' => [
+                    'id' => $user->id,
+                    'email' => $user->email,
                     'name' => $user->name,
                     'timezone' => $user->timezone,
                 ]
