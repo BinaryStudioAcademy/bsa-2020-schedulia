@@ -1,10 +1,9 @@
 <template>
-    <VContainer>
-        <Tabs :tabs="tabs"></Tabs>
-    </VContainer>
+    <Tabs :tabs="tabs"></Tabs>
 </template>
 
 <script>
+import enLang from '@/store/modules/i18n/en.js';
 import Tabs from '@/components/tabs/Tabs.vue';
 import ProfileForm from './ProfileForm.vue';
 import BrandingForm from './BrandingForm.vue';
@@ -17,9 +16,9 @@ export default {
     },
     data: () => ({
         tabs: [
-            { title: 'Profile', component: ProfileForm },
-            { title: 'Branding', component: BrandingForm },
-            { title: 'Login', component: LoginForm }
+            { title: enLang.PROFILE, component: ProfileForm },
+            { title: enLang.BRANDING, component: BrandingForm },
+            { title: enLang.LOGIN, component: LoginForm }
         ]
     })
 };

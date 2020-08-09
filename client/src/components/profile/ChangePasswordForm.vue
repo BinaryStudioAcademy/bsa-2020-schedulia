@@ -3,37 +3,43 @@
         <VDialog v-model="dialog" persistent max-width="600px">
             <template v-slot:activator="{ on, attrs }">
                 <VBtn color="primary" dark v-bind="attrs" v-on="on">
-                    Change password
+                    {{ lang.CHANGE_PASSWORD }}
                 </VBtn>
             </template>
             <VCard>
                 <VCardTitle>
-                    <span class="headline">Change password</span>
+                    <span class="headline">{{ lang.CHANGE_PASSWORD }}</span>
                 </VCardTitle>
                 <VCardText>
                     <VContainer>
                         <VRow>
+                            <VAlert cols="12" type="error" v-if="errorMessage">
+                                {{ errorMessage }}
+                            </VAlert>
                             <VCol cols="12">
-                                <VSubheader>Current password</VSubheader>
+                                <VSubheader
+                                    >{{ lang.CURRENT_PASSWORD }}
+                                </VSubheader>
                                 <VTextField
                                     v-model="password"
-                                    placeholder="Current password *"
+                                    :placeholder="lang.CURRENT_PASSWORD + ' *'"
                                     type="password"
-                                    :rules="[rules.required]"
+                                    :rules="[required]"
                                     required
                                     solo
                                     outlined
                                 ></VTextField>
                             </VCol>
                             <VCol cols="12">
-                                <VSubheader>New password</VSubheader>
+                                <VSubheader>{{ lang.NEW_PASSWORD }}</VSubheader>
                                 <VTextField
                                     v-model="newPassword"
-                                    placeholder="New password *"
+                                    :placeholder="lang.NEW_PASSWORD + ' *'"
                                     type="password"
                                     :rules="[
-                                        rules.min,
-                                        rules.max,
+                                        required,
+                                        min,
+                                        max,
                                         confirmPassword
                                     ]"
                                     required
@@ -42,11 +48,14 @@
                                 ></VTextField>
                                 <VTextField
                                     v-model="matchPassword"
-                                    placeholder="Repeat new password *"
+                                    :placeholder="
+                                        lang.REPEAT_NEW_PASSWORD + ' *'
+                                    "
                                     type="password"
                                     :rules="[
-                                        rules.min,
-                                        rules.max,
+                                        required,
+                                        min,
+                                        max,
                                         confirmPassword
                                     ]"
                                     required
@@ -56,14 +65,19 @@
                             </VCol>
                         </VRow>
                     </VContainer>
-                    <small>*indicates required field</small>
+                    <small>* {{ lang.INDICATES_REQUIRED_FIELD }}</small>
                 </VCardText>
                 <VCardActions>
                     <VSpacer></VSpacer>
-                    <VBtn color="blue darken-1" @click="dialog = false"
-                        >Save</VBtn
-                    >
-                    <VBtn color="primary" @click="updatePassword">Close</VBtn>
+                    <VBtn
+                        color="blue darken-1"
+                        :disabled="!validateForm"
+                        @click="update"
+                        >{{ lang.SAVE }}
+                    </VBtn>
+                    <VBtn color="primary" @click="dialog = false"
+                        >{{ lang.CLOSE }}
+                    </VBtn>
                 </VCardActions>
             </VCard>
         </VDialog>
@@ -71,34 +85,78 @@
 </template>
 
 <script>
+import enLang from '@/store/modules/i18n/en';
+import { mapActions } from 'vuex';
+
 export default {
     name: 'LoginForm',
     data: () => ({
+        lang: enLang,
         password: 'password',
         newPassword: '',
         matchPassword: '',
         dialog: false,
-        passwordRules: [],
+        errorMessage: '',
         rules: {
-            required: value => !!value || 'Required.',
-            min: value => value.length >= 8 || 'Min 8 characters',
-            max: value => value.length <= 255 || 'Max 255 characters'
+            min: 8,
+            max: 255
         }
     }),
 
     computed: {
-        confirmPassword() {
+        validateForm() {
             return (
-                this.newPassword === this.matchPassword ||
-                "Password doesn't match confirmation"
+                this.confirmPassword() === true &&
+                this.min(this.newPassword) === true &&
+                this.max(this.newPassword) === true
             );
         }
     },
 
     methods: {
-        updatePassword() {
-            //TODO action to handle save password
-            this.dialog = false;
+        ...mapActions('profile', ['checkUserPassword', 'updatePassword']),
+
+        confirmPassword() {
+            return (
+                this.newPassword === this.matchPassword ||
+                this.lang.PASSWORD_DOESNT_MATCH
+            );
+        },
+        required(value) {
+            return !!value || this.lang.REQUIRED;
+        },
+        min(value, min = this.rules.min) {
+            return (
+                value.length >= min ||
+                `${this.lang.MIN} ${min} ${this.lang.CHARACTERS.toLowerCase()}`
+            );
+        },
+        max(value, max = this.rules.max) {
+            return (
+                value.length <= max ||
+                `${
+                    this.lang.MAX
+                } ${max} ${this.lang.CHARACTERS.toLocaleLowerCase()}`
+            );
+        },
+
+        async update() {
+            try {
+                if (this.validateForm) {
+                    await this.updatePassword(this.newPassword, this.password);
+                    this.dialog = false;
+                } else {
+                    this.showErrorMessage(
+                        this.lang.PLEASE_FILL_ALL_FORM_FIELDS
+                    );
+                }
+            } catch (error) {
+                this.showErrorMessage(error.message);
+            }
+        },
+
+        showErrorMessage(message) {
+            this.errorMessage = message;
         }
     }
 };
