@@ -13,6 +13,20 @@ env:
 jobs:
   testing:
     runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:12
+        env:
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: secret
+          POSTGRES_DB: laravel_testing
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
     - uses: actions/checkout@v2
     - name: Cache node modules
@@ -47,4 +61,3 @@ jobs:
         cd api
         composer install
         ./vendor/bin/phpunit
-
