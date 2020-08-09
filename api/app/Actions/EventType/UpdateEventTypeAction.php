@@ -26,12 +26,12 @@ final class UpdateEventTypeAction
             throw new EventTypeNotFoundException('Event Type not found.', 404);
         }
 
-        if ($eventType->owner_id !== Auth::id()) {
+        if ((int)$eventType->owner_id !== Auth::id()) {
             throw new AuthorizationException();
         }
 
         $eventType->name = $request->getName() ?: $eventType->email;
-        $eventType->description = $request->getDescription() ?: $eventType->description;
+        $eventType->description = $request->getDescription();
         $eventType->slug = $request->getSlug() ?: $eventType->slug;
         $eventType->color = $request->getColor() ?: $eventType->color;
         $eventType->duration = $request->getDuration() ?: $eventType->duration;

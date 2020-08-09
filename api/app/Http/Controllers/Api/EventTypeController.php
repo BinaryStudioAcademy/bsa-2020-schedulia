@@ -45,7 +45,7 @@ class EventTypeController extends ApiController
             ))
             ->getEventType();
 
-        return $this->successResponse($this->eventTypePresenter->present($response));
+        return $this->successResponse($this->eventTypePresenter->present($response), JsonResponse::HTTP_CREATED);
     }
 
     public function getEventTypeById(string $id, GetEventTypeByIdAction $action): JsonResponse
