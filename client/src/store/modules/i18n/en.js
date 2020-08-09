@@ -56,5 +56,8 @@ export default {
     FIELD_IS_REQUIRED: 'field is required.',
     FIELD_MUST_BE_MORE_THAN_VALUE: ' must be more than value characters',
     FIELD_MUST_BE_LESS_THAN_VALUE: ' must be less than value characters',
-    WRONG_EMAIL_FORMAT: 'Wrong Email format'
+    WRONG_EMAIL_FORMAT: 'Wrong Email format',
+
+    LOGO_TITLE: 'Schedulia',
+    USER_MENU_BUTTON: 'My Account'
 };
