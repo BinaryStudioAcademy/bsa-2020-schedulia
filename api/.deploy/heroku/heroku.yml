@@ -1,0 +1,9 @@
+build:
+  docker:
+    web: api/Dockerfile
+run:
+  web: /etc/entrypoint.sh
+  worker:
+    command:
+      - php artisan queue:work --tries=5
+    image: web
