@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      db:
+      postgres:
         image: postgres:12
         env:
           POSTGRES_USER: test_user
@@ -26,6 +26,8 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        ports:
+          - 5432:5432
 
     steps:
     - uses: actions/checkout@v2
@@ -60,4 +62,4 @@ jobs:
       run: |-
         cd api
         composer install
-        ./vendor/bin/phpunit
+        ./vendor/bin/phpunit -c phpunit.github.xml
