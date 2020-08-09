@@ -36,7 +36,7 @@ jobs:
         export_default_credentials: true
 
     - name: Login to Heroku
-      run: heroku container:login 
+      run: heroku login
 
     - name: API:Build
       run: make build-api-staging
