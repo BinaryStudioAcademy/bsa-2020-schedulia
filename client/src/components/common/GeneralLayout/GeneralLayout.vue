@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import Header from './GeneralLayout/Header';
+import Header from './Header';
 
 export default {
     name: 'GeneralLayout',
@@ -34,7 +34,7 @@ export default {
 .title {
     width: 100%;
     background: var(--v-background-lighten1);
- 
+
     &__text {
         font-family: Inter;
         font-style: normal;
