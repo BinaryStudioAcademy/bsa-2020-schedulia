@@ -22,7 +22,6 @@ class RegistrationTest extends TestCase
         $this->faker = Faker::create();
     }
 
-
     public function test_registration_with_valid_data()
     {
         $user = [
