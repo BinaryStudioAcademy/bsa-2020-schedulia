@@ -14,7 +14,7 @@
                 v-bind="attrs"
                 v-on="on"
             >
-                My Account
+                {{ lang.USER_MENU_BUTTON }}
                 <VIcon>mdi-menu-down</VIcon>
             </VBtn>
         </template>
@@ -34,8 +34,14 @@
 </template>
 
 <script>
+import enLang from '@/store/modules/i18n/en';
+
 export default {
-    name: 'UserMenu'
+    name: 'UserMenu',
+
+    data: () => ({
+        lang: enLang
+    })
 };
 </script>
 

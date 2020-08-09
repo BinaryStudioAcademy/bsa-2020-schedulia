@@ -2,14 +2,20 @@
     <VToolbarTitle class="logo">
         <RouterLink class="logo__link" :to="{ name: 'Home' }">
             <img class="logo__image" :src="require('@/assets/logo.svg')" />
-            <span class="logo__text">Schedulia</span>
+            <span class="logo__text">{{ lang.LOGO_TITLE }}</span>
         </RouterLink>
     </VToolbarTitle>
 </template>
 
 <script>
+import enLang from '@/store/modules/i18n/en';
+
 export default {
-    name: 'Logo'
+    name: 'Logo',
+
+    data: () => ({
+        lang: enLang
+    })
 };
 </script>
 
