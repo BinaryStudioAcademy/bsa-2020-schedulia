@@ -15,14 +15,15 @@ export default {
     name: 'AlertMessage',
 
     data: () => ({
-        snackbar: true,
+        snackbar: false,
         text: 'My timeout is set to 2000.'
     }),
 
     methods: {
         showErrorMessage() {
-            alert('Go go go');
+            alert(this.snackbar);
             this.snackbar = true;
+            alert(this.snackbar);
         }
     }
 };
