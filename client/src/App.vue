@@ -1,18 +1,18 @@
 <template>
     <VApp>
         <RouterView />
-        <AlertMessage />
+        <Notification />
     </VApp>
 </template>
 
 <script>
-import AlertMessage from './components/common/AlertMessage/AlertMessage';
+import Notification from './components/common/Notification/Notification';
 
 export default {
     name: 'App',
 
     components: {
-        AlertMessage
+        Notification
     }
 };
 </script>
