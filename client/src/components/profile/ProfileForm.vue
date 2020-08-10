@@ -3,6 +3,14 @@
         <VContainer>
             <VRow>
                 <VCol cols="12">
+                    <VRow justify="center" align="center">
+                        <VAvatar color="indigo" size="144">
+                            <VIcon dark>mdi-account-circle</VIcon>
+                        </VAvatar>
+                        <VBtn text small>Update</VBtn>
+                    </VRow>
+                </VCol>
+                <VCol cols="12">
                     <VSubheader>{{ lang.NAME }}</VSubheader>
                     <VTextField
                         v-model="userProfile.name"
@@ -74,15 +82,10 @@
                 </VCol>
                 <VCol>
                     <div>
-                        <VBtn class="ma2 cancel" @click="resetChanges">
+                        <VBtn class="ma2" @click="resetChanges">
                             {{ lang.CANCEL }}
                         </VBtn>
-                        <VBtn
-                            class="ma-2 save"
-                            tile
-                            outlined
-                            color="blue darken-1"
-                            @click="save"
+                        <VBtn class="ma-2" color="primary" dark @click="save"
                             >{{ lang.SAVE }}
                         </VBtn>
                     </div>
