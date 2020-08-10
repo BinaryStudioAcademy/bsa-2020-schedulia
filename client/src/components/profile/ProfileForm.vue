@@ -5,9 +5,23 @@
                 <VCol cols="12">
                     <VRow justify="center" align="center">
                         <VAvatar color="indigo" size="144">
-                            <VIcon dark>mdi-account-circle</VIcon>
+                            <img v-if="avatar" src="avatar">
+                            <VIcon v-else dark>mdi-account-circle</VIcon>
                         </VAvatar>
-                        <VBtn text small>Update</VBtn>
+                        <label
+                                for="fileInput"
+                                class="updateAvatar pointer"
+                        >
+                            {{ lang.UPDATE }}
+                        </label>
+
+                        <input
+                                v-show="false"
+                                id="fileInput"
+                                type="file"
+                                accept="image/*"
+                                @change="updateImage"
+                        />
                     </VRow>
                 </VCol>
                 <VCol cols="12">
@@ -32,17 +46,17 @@
                 </VCol>
                 <VCol cols="12">
                     <VSubheader>{{ lang.LANGUAGE }}</VSubheader>
-                    <VTextField
-                        v-model="userProfile.language"
-                        :placeholder="lang.LANGUAGE + ' *'"
-                        required
-                        solo
-                        outlined
-                    ></VTextField>
+                    <VSelect
+                            v-model="language"
+                            :items="languages"
+                            :label="lang.LANGUAGE"
+                            solo
+                    ></VSelect>
                 </VCol>
                 <VCol cols="6">
                     <VSubheader>{{ lang.DATE_FORMAT }}</VSubheader>
                     <VSelect
+                        v-model="dateFormat"
                         :items="dateFormats"
                         :label="lang.DATE_FORMAT"
                         solo
@@ -51,6 +65,7 @@
                 <VCol cols="6">
                     <VSubheader>{{ lang.TIME_FORMAT }}</VSubheader>
                     <VSelect
+                        v-model="timeFormat"
                         :items="timeFormats"
                         :label="lang.TIME_FORMAT"
                         solo
@@ -68,18 +83,22 @@
                 </VCol>
                 <VCol cols="12">
                     <VSubheader>{{ lang.TIME_ZONE }}</VSubheader>
-                    <VTextField
-                        v-model="userProfile.timeZone"
-                        :placeholder="lang.TIME_ZONE + ' *'"
-                        required
-                        solo
-                        outlined
-                    ></VTextField>
+                    <VSelect
+                            v-model="userProfile.timeZone"
+                            :items="timeZones"
+                            :label="lang.TIME_ZONE"
+                            solo
+                            outlined
+                            required
+                    ></VSelect>
                 </VCol>
                 <VCol cols="12">
                     <VSpacer></VSpacer>
                     <VSpacer></VSpacer>
                 </VCol>
+                <VAlert cols="12" type="error" v-if="errorMessage">
+                    {{ errorMessage }}
+                </VAlert>
                 <VCol>
                     <div>
                         <VBtn class="ma2" @click="resetChanges">
@@ -97,13 +116,33 @@
 
 <script>
 import enLang from '@/store/modules/i18n/en';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'ProfileForm',
     data: () => ({
         lang: enLang,
-        dateFormats: [],
-        timeFormats: [],
+        file: null,
+        newAvatar: null,
+        errorMessage: '',
+
+
+        language: enLang.ENGLISH,
+        languages: [
+            enLang.ENGLISH,
+            enLang.GERMAN,
+            enLang.UKRAINIAN,
+        ],
+        dateFormat: 'rcf-1123',
+        dateFormats: [
+            {value: 'rcf-1123', text: 'Mon, 10 Aug 2020 14:38:15 +0000'},
+            {utc: 'utc' , text: '2020-08-10T14:38:15Z'},
+            {value: 'iso-8601' , text: '2020-08-10T14:38:15+0000'},
+        ],
+        timeFormat: '12h',
+        timeFormats: ['12h', '24h'],
+        timeZone: null,
+        timeZones: [],
         userProfile: {
             name: null,
             welcome: null,
@@ -113,10 +152,40 @@ export default {
         }
     }),
 
+    computed: {
+        ...mapGetters('profile', {
+            avatar: 'getAvatar'
+        }),
+
+        avatarIsNew() {
+            return this.avatar === this.newAvatar;
+        }
+    },
+
     methods: {
         save() {},
 
-        resetChanges() {}
+        updateImage(event) {
+            this.file = event.target.files[0];
+            // this.avatar = URL.createObjectURL(this.file);
+            // console.log(this.file);
+        },
+
+        resetChanges() {},
+
+        showErrorMessage(msg) {
+            this.errorMessage = msg;
+        }
     }
 };
 </script>
+
+<style lang="scss" scoped>
+    .pointer {
+        cursor: pointer;
+    }
+
+    .updateAvatar {
+        padding-left: 10px;
+    }
+</style>

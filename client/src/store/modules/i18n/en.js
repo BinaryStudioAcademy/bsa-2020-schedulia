@@ -13,6 +13,9 @@ export default {
     DATE_FORMAT: 'Date format',
 
     EMAIL: 'Email',
+    ENGLISH: 'English',
+
+    GERMAN: 'German',
 
     INDICATES_REQUIRED_FIELD: 'Indicates required field',
     INVALID_EMAIL: 'Invalid email',
@@ -50,6 +53,7 @@ export default {
     NEW_PASSWORD: 'New password',
 
     UPDATE: 'UPDATE',
+    UKRAINIAN: 'Ukrainian',
 
     YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD:
         'You log in with an email address and password',
