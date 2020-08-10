@@ -1,1 +1,0 @@
-export const GET_NOTIFICATION = 'GET_NOTIFICATION';

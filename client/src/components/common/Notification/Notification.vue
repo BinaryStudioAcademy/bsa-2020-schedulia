@@ -4,6 +4,7 @@
         :color="notification.type"
         :timeout="timeout"
         :top="top"
+        :style="`top: ${index * 80 + 15}px`"
     >
         <VRow>
             <VCol>
@@ -17,20 +18,25 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
-    name: 'notification',
+    name: 'Notification',
+
+    props: {
+        notification: {
+            type: Object,
+            required: true
+        },
+        index: {
+            type: Number,
+            required: true
+        }
+    },
 
     data() {
         return {
             top: true,
-            timeout: 2500
+            timeout: 1500
         };
-    },
-
-    computed: {
-        ...mapState('notification', ['notification'])
     },
 
     methods: {
@@ -42,8 +48,8 @@ export default {
 </script>
 
 <style scoped>
-    .close::v-deep {
-        font-size: 16px;
-        cursor: pointer;
-    }
+.close::v-deep {
+    font-size: 16px;
+    cursor: pointer;
+}
 </style>
