@@ -47,3 +47,10 @@ Route::group([
         Route::delete('/{id}', 'EventTypeController@destroy');
     });
 });
+
+Route::group([
+    'namespace' => 'Api\\',
+    'prefix' => '/events'
+], function () {
+    Route::post('/', 'EventController@store');
+});
