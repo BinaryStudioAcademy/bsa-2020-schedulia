@@ -20,7 +20,7 @@
                             <VCard outlined>
                                 <VCardText>
                                     <Component
-                                            v-bind:is="item.component"
+                                        v-bind:is="item.component"
                                     ></Component>
                                 </VCardText>
                             </VCard>
@@ -54,7 +54,6 @@ export default {
 
 <style lang="scss" scoped>
 .tabs {
-
     .form-holder {
         justify-content: center;
         border: 0;

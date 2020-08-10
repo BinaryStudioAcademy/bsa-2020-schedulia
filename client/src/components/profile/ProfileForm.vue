@@ -5,86 +5,85 @@
                 <VCol cols="12">
                     <VSubheader>{{ lang.NAME }}</VSubheader>
                     <VTextField
-                            v-model="userProfile.name"
-                            :placeholder="lang.NAME + ' *'"
-                            required
-                            solo
-                            outlined
+                        v-model="userProfile.name"
+                        :placeholder="lang.NAME + ' *'"
+                        required
+                        solo
+                        outlined
                     ></VTextField>
                 </VCol>
                 <VCol cols="12">
                     <VSubheader>{{ lang.WELCOME_MESSAGE }}</VSubheader>
                     <VTextarea
-                            v-model="userProfile.welcome"
-                            :placeholder="lang.WELCOME_MESSAGE + ' *'"
-                            required
-                            solo
-                            outlined
+                        v-model="userProfile.welcome"
+                        :placeholder="lang.WELCOME_MESSAGE + ' *'"
+                        required
+                        solo
+                        outlined
                     ></VTextarea>
                 </VCol>
                 <VCol cols="12">
                     <VSubheader>{{ lang.LANGUAGE }}</VSubheader>
                     <VTextField
-                            v-model="userProfile.language"
-                            :placeholder="lang.LANGUAGE + ' *'"
-                            required
-                            solo
-                            outlined
+                        v-model="userProfile.language"
+                        :placeholder="lang.LANGUAGE + ' *'"
+                        required
+                        solo
+                        outlined
                     ></VTextField>
                 </VCol>
                 <VCol cols="6">
                     <VSubheader>{{ lang.DATE_FORMAT }}</VSubheader>
                     <VSelect
-                            :items="dateFormats"
-                            :label="lang.DATE_FORMAT"
-                            solo
+                        :items="dateFormats"
+                        :label="lang.DATE_FORMAT"
+                        solo
                     ></VSelect>
                 </VCol>
                 <VCol cols="6">
                     <VSubheader>{{ lang.TIME_FORMAT }}</VSubheader>
                     <VSelect
-                            :items="timeFormats"
-                            :label="lang.TIME_FORMAT"
-                            solo
+                        :items="timeFormats"
+                        :label="lang.TIME_FORMAT"
+                        solo
                     ></VSelect>
                 </VCol>
                 <VCol cols="12">
                     <VSubheader>{{ lang.COUNTRY }}</VSubheader>
                     <VTextField
-                            v-model="userProfile.country"
-                            :placeholder="lang.COUNTRY + ' *'"
-                            required
-                            solo
-                            outlined
+                        v-model="userProfile.country"
+                        :placeholder="lang.COUNTRY + ' *'"
+                        required
+                        solo
+                        outlined
                     ></VTextField>
                 </VCol>
                 <VCol cols="12">
                     <VSubheader>{{ lang.TIME_ZONE }}</VSubheader>
                     <VTextField
-                            v-model="userProfile.timeZone"
-                            :placeholder="lang.TIME_ZONE + ' *'"
-                            required
-                            solo
-                            outlined
+                        v-model="userProfile.timeZone"
+                        :placeholder="lang.TIME_ZONE + ' *'"
+                        required
+                        solo
+                        outlined
                     ></VTextField>
                 </VCol>
                 <VCol cols="12">
                     <VSpacer></VSpacer>
-                    <VDivider></VDivider>
                     <VSpacer></VSpacer>
                 </VCol>
                 <VCol>
-                    <div class="text-center">
-                        <VBtn class="ma2" tile outlined @click="resetChanges">
+                    <div>
+                        <VBtn class="ma2 cancel" @click="resetChanges">
                             {{ lang.CANCEL }}
                         </VBtn>
                         <VBtn
-                                class="ma-2"
-                                tile
-                                outlined
-                                color="blue darken-1"
-                                @click="save"
-                        >{{ lang.SAVE }}
+                            class="ma-2 save"
+                            tile
+                            outlined
+                            color="blue darken-1"
+                            @click="save"
+                            >{{ lang.SAVE }}
                         </VBtn>
                     </div>
                 </VCol>
@@ -112,15 +111,9 @@ export default {
     }),
 
     methods: {
+        save() {},
 
-        save() {
-
-        },
-
-        resetChanges() {
-
-        }
+        resetChanges() {}
     }
-
 };
 </script>

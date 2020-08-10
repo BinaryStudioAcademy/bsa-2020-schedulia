@@ -23,7 +23,7 @@ export default {
     PROFILE: 'Profile',
     PROFILE_USE_THIS_SETTING_LOGO_TEXT:
         'Use this setting to add your logo to all of your\n' +
-        'Calendly scheduling pages.',
+        'Schedulia scheduling pages.',
     PROFILE_YOU_LOGO_WILL_APPEAR_TEXT:
         'Your logo will appear in the top left corner of\n' +
         '                                your Event Type page. We recommend using an\n' +

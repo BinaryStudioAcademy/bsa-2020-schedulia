@@ -20,7 +20,7 @@ export default {
     },
 
     data: () => ({
-        lang: enLang,
+        lang: enLang
     })
 };
 </script>
