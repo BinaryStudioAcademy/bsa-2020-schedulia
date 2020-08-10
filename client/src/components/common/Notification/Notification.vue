@@ -7,11 +7,15 @@
         :style="`top: ${index * 80 + 15}px`"
     >
         <VRow>
-            <VCol>
+            <VCol cols="12" md="11">
                 {{ notification.text }}
             </VCol>
-            <VCol class="text-right" align-self="center">
-                <span class="close" @click="closeSnackbar">x</span>
+            <VCol class="text-right" align-self="center" cols="12" md="1">
+                <span class="close" @click="closeSnackbar">
+                    <VIcon size="14">
+                        mdi-close
+                    </VIcon>
+                </span>
             </VCol>
         </VRow>
     </VSnackbar>
@@ -35,7 +39,7 @@ export default {
     data() {
         return {
             top: true,
-            timeout: 1500
+            timeout: -1
         };
     },
 
@@ -51,5 +55,9 @@ export default {
 .close::v-deep {
     font-size: 16px;
     cursor: pointer;
+}
+
+.col-12::v-deep {
+    padding: 0 5px;
 }
 </style>

@@ -29,7 +29,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import * as statusGetters from '@/store/modules/status/types/getters';
 import * as statusActions from '@/store/modules/status/types/actions';
-import * as notifocationActions from '@/store/modules/notifocation/types/actions';
+import * as notificationActions from '@/store/modules/notification/types/actions';
 import BorderBottom from '../common/GeneralLayout/BorderBottom';
 
 export default {
@@ -78,7 +78,7 @@ export default {
         }),
 
         ...mapActions('notification', {
-            setErrorNotification: notifocationActions.SET_ERROR_NOTIFICATION
+            setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
         })
     },
 
