@@ -39,7 +39,7 @@ export default {
     data() {
         return {
             top: true,
-            timeout: -1
+            timeout: 1500
         };
     },
 
