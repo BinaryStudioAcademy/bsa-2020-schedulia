@@ -13,10 +13,13 @@
                 <VCardText>
                     <VContainer>
                         <VRow>
+                            <VAlert cols="12" type="error" v-if="errorMessage">
+                                {{ errorMessage }}
+                            </VAlert>
                             <VCol cols="12">
-                                <VSubheader>{{
-                                    lang.CURRENT_PASSWORD
-                                }}</VSubheader>
+                                <VSubheader
+                                    >{{ lang.CURRENT_PASSWORD }}
+                                </VSubheader>
                                 <VTextField
                                     v-model="password"
                                     :placeholder="lang.CURRENT_PASSWORD + ' *'"
@@ -66,12 +69,15 @@
                 </VCardText>
                 <VCardActions>
                     <VSpacer></VSpacer>
-                    <VBtn color="blue darken-1" @click="dialog = false">{{
-                        lang.SAVE
-                    }}</VBtn>
-                    <VBtn color="primary" @click="updatePassword">{{
-                        lang.CLOSE
-                    }}</VBtn>
+                    <VBtn
+                        color="blue darken-1"
+                        :disabled="!validateForm"
+                        @click="update"
+                        >{{ lang.SAVE }}
+                    </VBtn>
+                    <VBtn color="primary" @click="dialog = false"
+                        >{{ lang.CLOSE }}
+                    </VBtn>
                 </VCardActions>
             </VCard>
         </VDialog>
@@ -80,6 +86,7 @@
 
 <script>
 import enLang from '@/store/modules/i18n/en';
+import { mapActions } from 'vuex';
 
 export default {
     name: 'LoginForm',
@@ -89,13 +96,26 @@ export default {
         newPassword: '',
         matchPassword: '',
         dialog: false,
+        errorMessage: '',
         rules: {
             min: 8,
             max: 255
         }
     }),
 
+    computed: {
+        validateForm() {
+            return (
+                this.confirmPassword() === true &&
+                this.min(this.newPassword) === true &&
+                this.max(this.newPassword) === true
+            );
+        }
+    },
+
     methods: {
+        ...mapActions('profile', ['checkUserPassword', 'updatePassword']),
+
         confirmPassword() {
             return (
                 this.newPassword === this.matchPassword ||
@@ -120,9 +140,23 @@ export default {
             );
         },
 
-        updatePassword() {
-            //TODO action to handle save password
-            this.dialog = false;
+        async update() {
+            try {
+                if (this.validateForm) {
+                    await this.updatePassword(this.newPassword, this.password);
+                    this.dialog = false;
+                } else {
+                    this.showErrorMessage(
+                        this.lang.PLEASE_FILL_ALL_FORM_FIELDS
+                    );
+                }
+            } catch (error) {
+                this.showErrorMessage(error.message);
+            }
+        },
+
+        showErrorMessage(message) {
+            this.errorMessage = message;
         }
     }
 };

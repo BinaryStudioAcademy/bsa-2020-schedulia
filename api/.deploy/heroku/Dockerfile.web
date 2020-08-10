@@ -1,0 +1,3 @@
+FROM schedulia/staging:latest
+
+ENTRYPOINT ["/etc/entrypoint.sh"]
