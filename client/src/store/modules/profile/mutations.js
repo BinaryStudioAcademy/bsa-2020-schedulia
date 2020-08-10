@@ -1,7 +1,4 @@
-import {
-    UPDATE_BRANDING_LOGO,
-    UPDATE_AVATAR
-} from './types/mutations';
+import { UPDATE_BRANDING_LOGO, UPDATE_AVATAR } from './types/mutations';
 
 export default {
     [UPDATE_BRANDING_LOGO]: (state, logo) => {

@@ -57,17 +57,11 @@
                 </VCol>
                 <VCol>
                     <div class="text-center">
-                        <VBtn
-                            class="ma-2"
-                            tile
-                            outlined
-                            color="blue darken-1"
-                            @click="save"
-                            :disabled="logoIsNew"
-                            >{{ lang.SAVE }}
-                        </VBtn>
-                        <VBtn class="ma2" tile outlined @click="resetChanges">
+                        <VBtn class="ma2" @click="resetChanges">
                             {{ lang.CANCEL }}
+                        </VBtn>
+                        <VBtn class="ma-2" color="primary" dark @click="save"
+                            >{{ lang.SAVE }}
                         </VBtn>
                     </div>
                 </VCol>

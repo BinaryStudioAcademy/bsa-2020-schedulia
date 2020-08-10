@@ -12,7 +12,7 @@ export default {
         return await requestService.patch('/profiles/', { logo: url });
     },
 
-    async uploadAvatar() {},
-
-    async updateProfile() {}
+    async updateProfile(data) {
+        return await requestService.put('/profiles/my', { data });
+    }
 };
