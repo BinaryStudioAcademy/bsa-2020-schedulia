@@ -2,7 +2,7 @@
 
 namespace App\Constants;
 
-class EventConstants
+class EventStatus
 {
     public const SCHEDULED = 'scheduled';
 }
