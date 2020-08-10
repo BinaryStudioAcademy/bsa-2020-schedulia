@@ -13,7 +13,7 @@ class Availability extends Model
         'end_date',
     ];
 
-    public function owner()
+    public function eventType()
     {
         return $this->belongsTo(EventType::class);
     }
