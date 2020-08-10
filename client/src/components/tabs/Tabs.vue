@@ -52,6 +52,7 @@ export default {
 
 <style lang="scss" scoped>
 .tabs {
+
     &__list {
         width: 100%;
         background: var(--v-background-lighten1);
@@ -60,5 +61,14 @@ export default {
     &__container {
         padding: 0;
     }
+
+    .v-tab {
+        text-transform: capitalize;
+        padding: 0 0 19px 5px;
+        justify-content: left;
+        align-items: flex-end;
+    }
+
+
 }
 </style>
