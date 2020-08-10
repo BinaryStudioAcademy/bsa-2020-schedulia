@@ -1,4 +1,6 @@
 export default {
+    ACCOUNT_SETTING: 'Account setting',
+
     BRANDING: 'Branding',
 
     CANCEL: 'Cancel',
