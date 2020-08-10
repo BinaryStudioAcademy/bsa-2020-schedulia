@@ -1,14 +1,18 @@
 <template>
-    <VContainer>
-        <VToolbar color="white" flat>
-            <VTabs v-model="tab">
-                <VTab v-for="item in tabs" :key="item.tab">
-                    {{ item.title }}
-                </VTab>
-            </VTabs>
-        </VToolbar>
-
-        <VContainer>
+    <div class="tabs">
+        <div class="tabs__list">
+            <VContainer class="tabs__container">
+                <VToolbar color="white" flat>
+                    <VTabs v-model="tab">
+                        <VTab v-for="item in tabs" :key="item.tab">
+                            {{ item.title }}
+                        </VTab>
+                    </VTabs>
+                </VToolbar>
+            </VContainer>
+        </div>
+        <BorderBottom />
+        <VContainer class="container-content">
             <VTabsItems v-model="tab">
                 <VTabItem v-for="item in tabs" :key="item.tab">
                     <VCol cols="6">
@@ -23,12 +27,17 @@
                 </VTabItem>
             </VTabsItems>
         </VContainer>
-    </VContainer>
+    </div>
 </template>
 
 <script>
+import BorderBottom from '../common/GeneralLayout/BorderBottom';
+
 export default {
     name: 'Tabs',
+    components: {
+        BorderBottom
+    },
     props: {
         tabs: {
             type: Array,
@@ -40,3 +49,16 @@ export default {
     })
 };
 </script>
+
+<style lang="scss" scoped>
+.tabs {
+    &__list {
+        width: 100%;
+        background: var(--v-background-lighten1);
+    }
+
+    &__container {
+        padding: 0;
+    }
+}
+</style>
