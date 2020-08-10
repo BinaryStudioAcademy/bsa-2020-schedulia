@@ -6,7 +6,9 @@
                     <VRow justify="center" align="center">
                         <VAvatar color="indigo" size="144">
                             <VImg v-if="newAvatar" :src="newAvatar"></VImg>
-                            <VIcon v-else dark>mdi-account-circle</VIcon>
+                            <VIcon size="144" v-else dark
+                                >mdi-account-circle</VIcon
+                            >
                         </VAvatar>
                         <label for="fileAvatar" class="updateAvatar pointer">
                             {{ lang.UPDATE }}
