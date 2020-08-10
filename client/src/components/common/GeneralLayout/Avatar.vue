@@ -1,11 +1,20 @@
 <template>
     <VAvatar size="36">
-        <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+        <VImg v-if="avatar" :src="avatar"></VImg>
+        <VIcon v-else dark>mdi-account-circle</VIcon>
     </VAvatar>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-    name: 'Avatar'
+    name: 'Avatar',
+
+    computed: {
+        ...mapGetters('profile', {
+            avatar: 'getAvatar'
+        }),
+    }
 };
 </script>
