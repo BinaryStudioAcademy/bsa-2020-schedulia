@@ -1,7 +1,7 @@
 <template>
     <VAvatar size="36">
         <VImg v-if="avatar" :src="avatar"></VImg>
-        <VIcon v-else dark>mdi-account-circle</VIcon>
+        <VIcon v-else dark size="36">mdi-account-circle</VIcon>
     </VAvatar>
 </template>
 
@@ -14,7 +14,7 @@ export default {
     computed: {
         ...mapGetters('profile', {
             avatar: 'getAvatar'
-        }),
+        })
     }
 };
 </script>
