@@ -1,30 +1,17 @@
 <template>
-    <VSnackbar v-model="this.snackbar">
-        {{ text }}
-
-        <template v-slot:action="{ attrs }">
-            <VBtn color="blue" text v-bind="attrs" @click="snackbar = false">
-                Close
-            </VBtn>
-        </template>
+    <VSnackbar v-model="snackbar.showing" color="error" timeout="10000">
+        {{ snackbar.text }}
     </VSnackbar>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
     name: 'AlertMessage',
 
-    data: () => ({
-        snackbar: false,
-        text: 'My timeout is set to 2000.'
-    }),
-
-    methods: {
-        showErrorMessage() {
-            alert(this.snackbar);
-            this.snackbar = true;
-            alert(this.snackbar);
-        }
+    computed: {
+        ...mapState(['snackbar'])
     }
 };
 </script>

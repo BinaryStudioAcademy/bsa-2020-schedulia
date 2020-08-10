@@ -1,10 +1,19 @@
 <template>
-    <RouterView />
+    <VApp>
+        <RouterView />
+        <AlertMessage />
+    </VApp>
 </template>
 
 <script>
+import AlertMessage from './components/common/AlertMessage/AlertMessage';
+
 export default {
-    name: 'App'
+    name: 'App',
+
+    components: {
+        AlertMessage
+    }
 };
 </script>
 
