@@ -1,2 +1,2 @@
 #/bin/bash
-heroku container:release web --app schedulia-api
+heroku container:release web worker --app schedulia-api

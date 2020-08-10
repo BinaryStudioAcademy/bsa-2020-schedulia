@@ -1,0 +1,3 @@
+FROM schedulia/staging:latest
+
+CMD ["php", "artisan", "queue:work", "--tries=5"]
