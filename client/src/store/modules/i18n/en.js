@@ -44,5 +44,6 @@ export default {
     FIELD_MUST_BE_LESS_THAN_VALUE: ' must be less than value characters',
     WRONG_EMAIL_FORMAT: 'Wrong Email format',
     SCHEDULIA: 'Shedulia',
-    WELCOME: 'Welcome'
+    WELCOME: 'Welcome',
+
 };
