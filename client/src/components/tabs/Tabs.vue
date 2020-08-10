@@ -15,15 +15,17 @@
         <VContainer class="container-content">
             <VTabsItems v-model="tab">
                 <VTabItem v-for="item in tabs" :key="item.tab">
-                    <VCol cols="6">
-                        <VCard>
-                            <VCardText>
-                                <Component
-                                    v-bind:is="item.component"
-                                ></Component>
-                            </VCardText>
-                        </VCard>
-                    </VCol>
+                    <VRow class="form-holder">
+                        <VCol cols="6">
+                            <VCard outlined>
+                                <VCardText>
+                                    <Component
+                                            v-bind:is="item.component"
+                                    ></Component>
+                                </VCardText>
+                            </VCard>
+                        </VCol>
+                    </VRow>
                 </VTabItem>
             </VTabsItems>
         </VContainer>
@@ -53,6 +55,11 @@ export default {
 <style lang="scss" scoped>
 .tabs {
 
+    .form-holder {
+        justify-content: center;
+        border: 0;
+    }
+
     &__list {
         width: 100%;
         background: var(--v-background-lighten1);
@@ -69,6 +76,8 @@ export default {
         align-items: flex-end;
     }
 
-
+    .v-card {
+        border: none;
+    }
 }
 </style>
