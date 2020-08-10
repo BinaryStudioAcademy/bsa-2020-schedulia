@@ -58,6 +58,6 @@ export default {
     FIELD_MUST_BE_LESS_THAN_VALUE: ' must be less than value characters',
     WRONG_EMAIL_FORMAT: 'Wrong Email format',
 
-    LOGO_TITLE: 'Schedulia',
+    SCHEDULIA: 'Schedulia',
     USER_MENU_BUTTON: 'My Account'
 };
