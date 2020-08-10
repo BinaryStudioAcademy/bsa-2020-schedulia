@@ -1,67 +1,67 @@
 <template>
     <VApp>
-    <VContainer>
-        <VRow no-gutters="true">
-            <VCol class="main-parts secondary">
-                <VRow no-gutters="true">
-                    <VCol class="col-4 first-column">
-                        <img
-                                :src="
-                                require('@/assets/auth/icon_circle_mark_rotated.svg')
-                            "
-                                alt="rotated ok sign"
-                                class="rotated-ok-image "
-                        />
-                    </VCol>
-                    <VCol class="col-8 second-column">
-                        <VRow no-gutters="true">
+        <VContainer>
+            <VRow no-gutters="true">
+                <VCol class="main-parts secondary">
+                    <VRow no-gutters="true">
+                        <VCol class="col-4 first-column">
                             <img
                                 :src="
-                                    require('@/assets/auth/icon_circle_letter_s.svg')
+                                    require('@/assets/auth/icon_circle_mark_rotated.svg')
                                 "
-                                alt="logo of schedulia"
-                                class="logo-image"
+                                alt="rotated ok sign"
+                                class="rotated-ok-image "
                             />
-                            <h2 class="primary--text logo-text">
-                                {{ lang.SCHEDULIA }}
-                            </h2>
-                        </VRow>
-                        <VRow no-gutters="true">
-                            <VCol class="place-for-form-vcol">
-                                <slot></slot>
-                            </VCol>
-                        </VRow>
-                        <VRow></VRow>
-                    </VCol>
-                </VRow>
-            </VCol>
-            <VCol class="main-parts primary">
-                <VRow no-gutters="true" justify="end">
-                    <img
-                        :src="
-                            require('@/assets/auth/icon_circle_mark_normal.svg')
-                        "
-                        alt="icon in circle ok mark normal"
-                        class="normal-ok-sign "
-                    />
-                </VRow>
-                <VRow no-gutters="true">
-                    <Img
-                        :src="require('@/assets/auth/office_worker.svg')"
-                        alt="collage office employee at work"
-                        class="office-worker-image"
-                    />
-                </VRow>
-                <VRow>
-                    <img
-                        :src="require('@/assets/auth/icon_circle_mail.svg')"
-                        alt="envelop sign"
-                        class="envelop-image"
-                    />
-                </VRow>
-            </VCol>
-        </VRow>
-    </VContainer>
+                        </VCol>
+                        <VCol class="col-8 second-column">
+                            <VRow no-gutters="true">
+                                <img
+                                    :src="
+                                        require('@/assets/auth/icon_circle_letter_s.svg')
+                                    "
+                                    alt="logo of schedulia"
+                                    class="logo-image"
+                                />
+                                <h2 class="primary--text logo-text">
+                                    {{ lang.SCHEDULIA }}
+                                </h2>
+                            </VRow>
+                            <VRow no-gutters="true">
+                                <VCol class="place-for-form-vcol">
+                                    <slot></slot>
+                                </VCol>
+                            </VRow>
+                            <VRow></VRow>
+                        </VCol>
+                    </VRow>
+                </VCol>
+                <VCol class="main-parts primary">
+                    <VRow no-gutters="true" justify="end">
+                        <img
+                            :src="
+                                require('@/assets/auth/icon_circle_mark_normal.svg')
+                            "
+                            alt="icon in circle ok mark normal"
+                            class="normal-ok-sign "
+                        />
+                    </VRow>
+                    <VRow no-gutters="true">
+                        <Img
+                            :src="require('@/assets/auth/office_worker.png')"
+                            alt="collage office employee at work"
+                            class="office-worker-image"
+                        />
+                    </VRow>
+                    <VRow>
+                        <img
+                            :src="require('@/assets/auth/icon_circle_mail.svg')"
+                            alt="envelop sign"
+                            class="envelop-image"
+                        />
+                    </VRow>
+                </VCol>
+            </VRow>
+        </VContainer>
     </VApp>
 </template>
 
@@ -115,12 +115,12 @@ export default {
 }
 
 .office-worker-image {
-    height: 565px;
-    width: 464px;
+    height: 464px;
     margin-top: 80px;
     margin-left: 200px;
 }
 .envelop-image {
+    margin-top: 64px;
     margin-left: -30px;
 }
 </style>
