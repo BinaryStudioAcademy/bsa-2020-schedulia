@@ -34,7 +34,7 @@ Route::get('/status/{serviceName?}', 'Api\StatusController@status');
 Route::post('/mail', 'Api\StatusController@mail');
 
 Route::group([
-    'middleware' => 'auth:api',
+//    'middleware' => 'auth:api',
     'namespace' => 'Api\\'
 ], function () {
     Route::group([

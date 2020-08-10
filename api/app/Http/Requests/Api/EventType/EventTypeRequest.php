@@ -16,6 +16,23 @@ class EventTypeRequest extends FormRequest
             'duration' => 'required|integer',
             'timezone' => 'required|string',
             'disabled' => 'required|boolean',
+            "availabilities" => [
+                'required',
+                'array',
+                'min:1'
+            ],
+            "availabilities.*.type" => [
+                'required',
+                'string',
+            ],
+            "availabilities.*.start_date" => [
+                'required',
+                'string',
+            ],
+            "availabilities.*.end_date" => [
+                'required',
+                'string',
+            ],
         ];
     }
 }
