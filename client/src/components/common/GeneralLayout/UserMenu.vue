@@ -24,6 +24,16 @@
             </VListItem>
             <VListItem>
                 <VListItemTitle align-self="center">
+                    <RouterLink
+                        :to="{ name: 'profile' }"
+                        class="user-menu__link"
+                    >
+                        <VIcon>mdi-account</VIcon> Profile
+                    </RouterLink>
+                </VListItemTitle>
+            </VListItem>
+            <VListItem>
+                <VListItemTitle align-self="center">
                     <RouterLink :to="{ name: 'Home' }" class="user-menu__link">
                         <VIcon>mdi-logout-variant</VIcon>Logout
                     </RouterLink>
