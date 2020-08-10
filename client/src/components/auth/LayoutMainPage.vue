@@ -1,4 +1,5 @@
 <template>
+    <VApp>
     <VContainer>
         <VRow no-gutters="true">
             <VCol class="main-parts secondary">
@@ -61,6 +62,7 @@
             </VCol>
         </VRow>
     </VContainer>
+    </VApp>
 </template>
 
 <script>
