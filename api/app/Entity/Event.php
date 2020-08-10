@@ -17,7 +17,7 @@ class Event extends Model
     ];
 
     protected $attributes = [
-        'status' => EventConstants::DEFAULT_STATUS,
+        'status' => EventConstants::SCHEDULED,
     ];
 
     public function eventType()
