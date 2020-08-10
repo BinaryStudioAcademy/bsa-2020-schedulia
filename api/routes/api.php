@@ -47,3 +47,9 @@ Route::group([
         Route::delete('/{id}', 'EventTypeController@destroy');
     });
 });
+
+Route::group([
+    'namespace' => 'Api\\'
+], function() {
+    Route::post('/events', 'EventController@store');
+});
