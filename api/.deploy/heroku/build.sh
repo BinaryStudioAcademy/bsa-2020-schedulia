@@ -1,37 +1,13 @@
 #/bin/bash
-set -e
-
 cd ../..
 
-echo "[INFO] Preparing files"
+gsutil cp gs://schedulia-access/.env.staging .env
+composer install --no-dev --optimize-autoloader
 
-gsutil cp gs://schedulia-access/.env.staging .env.staging
-cp ./.deploy/heroku/Dockerfile Dockerfile
-cp ./.deploy/heroku/heroku.yml ../heroku.yml
+docker build -f ./.deploy/heroku/Dockerfile -t schedulia/staging:latest .
 
-cd ..
+docker build -f ./.deploy/heroku/Dockerfile.web -t registry.heroku.com/schedulia-api/web .
+docker push registry.heroku.com/schedulia-api/web
 
-echo "[INFO] Setting up heroku"
-
-heroku git:remote -a schedulia-api
-heroku stack:set container
-
-LAST_COMMIT=$(git rev-parse HEAD)
-CURRENT_BRANCH=$(git branch --show-current)
-
-git add .
-git commit -m "deploy_staging"
-
-echo "[INFO] Deploying..."
-
-git push heroku $CURRENT_BRANCH:master --force
-
-echo "[INFO] Rollback changes"
-
-rm heroku.yml
-rm api/Dockerfile
-rm api/.env.staging
-
-git reset $LAST_COMMIT
-
-echo "[INFO] Finished"
+docker build -f ./.deploy/heroku/Dockerfile.worker -t registry.heroku.com/schedulia-api/worker .
+docker push registry.heroku.com/schedulia-api/worker
