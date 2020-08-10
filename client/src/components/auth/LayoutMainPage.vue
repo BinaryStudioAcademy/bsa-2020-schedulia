@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
     <div>
         <VRow class="row-height-70">
             <VCol class="secondary col-2"> </VCol>
@@ -63,7 +62,6 @@
             <VCol class="primary col-6"> </VCol>
         </VRow>
     </div>
-=======
     <VApp>
         <VContainer>
             <VRow no-gutters="true">
@@ -128,7 +126,6 @@
             </VRow>
         </VContainer>
     </VApp>
->>>>>>> develop
 </template>
 
 <script>
@@ -179,7 +176,6 @@ export default {
     margin-top: 61px;
     margin-right: 67px;
 }
-<<<<<<< HEAD
 .officeWorker {
     height: 565px;
     width: 464px;
@@ -189,7 +185,6 @@ export default {
 }
 .row-height-200 {
     height: 200px;
-=======
 
 .office-worker-image {
     height: 464px;
@@ -199,6 +194,5 @@ export default {
 .envelop-image {
     margin-top: 64px;
     margin-left: -30px;
->>>>>>> develop
 }
 </style>
