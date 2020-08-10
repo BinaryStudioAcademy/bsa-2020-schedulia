@@ -178,9 +178,13 @@ export default {
 
         async onSaveHandle() {
             try {
-                const response = await this.updateAvatar(this.avatar);
-                const avatar = response?.avatar?.url;
-                await this.updateProfile({ ...this.userProfile, avatar });
+                if (this.avatarIsNew) {
+                    const response = await this.updateAvatar(this.avatar);
+                    const avatar = response?.avatar?.url;
+                    this.userProfile = avatar;
+                }
+
+                await this.updateProfile(this.userProfile);
             } catch (error) {
                 this.showErrorMessage(error.message);
             }
