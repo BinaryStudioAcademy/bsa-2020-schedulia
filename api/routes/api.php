@@ -49,7 +49,8 @@ Route::group([
 });
 
 Route::group([
-    'namespace' => 'Api\\'
+    'namespace' => 'Api\\',
+    'prefix' => '/events'
 ], function() {
-    Route::post('/events', 'EventController@store');
+    Route::post('/', 'EventController@store');
 });
