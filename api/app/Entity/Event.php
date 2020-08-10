@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Constants\EventConstants;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
@@ -16,7 +17,7 @@ class Event extends Model
     ];
 
     protected $attributes = [
-        'status' => 'scheduled',
+        'status' => EventConstants::DEFAULT_STATUS,
     ];
 
     public function eventType()
