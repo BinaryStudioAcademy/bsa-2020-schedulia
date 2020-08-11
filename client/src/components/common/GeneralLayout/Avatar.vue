@@ -18,3 +18,9 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.v-avatar::v-deep {
+    margin-right: 15px;
+}
+</style>

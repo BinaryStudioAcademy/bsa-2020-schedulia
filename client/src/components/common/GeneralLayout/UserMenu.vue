@@ -14,6 +14,7 @@
                 v-bind="attrs"
                 v-on="on"
             >
+                <Avatar />
                 {{ lang.USER_MENU_BUTTON }}
                 <VIcon>mdi-menu-down</VIcon>
             </VBtn>
@@ -35,13 +36,18 @@
 
 <script>
 import enLang from '@/store/modules/i18n/en';
+import Avatar from './Avatar';
 
 export default {
     name: 'UserMenu',
 
     data: () => ({
         lang: enLang
-    })
+    }),
+
+    components: {
+        Avatar
+    }
 };
 </script>
 
