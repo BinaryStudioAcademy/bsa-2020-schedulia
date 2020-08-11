@@ -22,9 +22,8 @@ class EventCreatedNotification extends Notification
     /**
      * Create a new notification instance.
      *
-     * @param Event $event
      */
-    public function __construct(Event  $event)
+    public function __construct(Event $event)
     {
         $this->event = $event;
         $this->eventType = $event->eventType;
@@ -34,7 +33,6 @@ class EventCreatedNotification extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
      * @return array
      */
     public function via($notifiable)
@@ -45,12 +43,11 @@ class EventCreatedNotification extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
                     ->subject("New Event: {$this->event->invitee_name},
                     {$this->event->start_date}, {$this->eventType->name}")
                     ->line("Hi {$this->user->name},")
@@ -62,7 +59,7 @@ class EventCreatedNotification extends Notification
                     ->line(new HtmlString("<b>Invitee Email:</b>"))
                     ->line($this->event->invitee_email)
                     ->line(new HtmlString("<b>Event Date/Time::</b>"))
-                    ->line($this->event->start_date .', '. $this->event->timezone)
+                    ->line($this->event->start_date . ', ' . $this->event->timezone)
                     ->line(new HtmlString("<b>Invitee TimeZone:</b>"))
                     ->line($this->event->timezone)
                     ->action('Go to Schedulia!', url(env('APP_URL')));
@@ -71,7 +68,6 @@ class EventCreatedNotification extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
      * @return array
      */
     public function toArray($notifiable)
