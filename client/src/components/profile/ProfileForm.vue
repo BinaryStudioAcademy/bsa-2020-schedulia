@@ -26,7 +26,8 @@
                 <VCol cols="12">
                     <VSubheader>{{ lang.NAME }}</VSubheader>
                     <VTextField
-                        v-model="userProfile.name"
+                        :value="name"
+                        @input="onNameChange"
                         :placeholder="lang.NAME + ' *'"
                         required
                         solo
@@ -129,6 +130,7 @@ export default {
         newAvatar: null,
         errorMessage: '',
         userProfile: {
+            avatar: null,
             name: '',
             welcome: '',
             language: 'en',
@@ -156,28 +158,60 @@ export default {
 
     created() {
         this.userProfile = {
-            ...this.user
+            // ...this.user
         };
 
-        this.newAvatar = this.avatar;
+        this.newAvatar = this.userProfile.avatar;
     },
 
     computed: {
-        ...mapGetters('profile', {
-            avatar: 'getAvatar'
-        }),
-
         ...mapGetters('auth', {
             user: 'getLoggedUser'
         }),
 
+        avatar() {
+            return this.userProfile.avatar || this.user.avatar;
+        },
+
+        name() {
+            return this.userProfile.name || this.user.name;
+        },
+
+        welcome() {
+            return this.userProfile.welcome || this.user.welcome;
+        },
+
+        language() {
+            return this.userProfile.language || this.user.language;
+        },
+
+        dateFormat() {
+            return this.userProfile.dateFormat || this.user.dateFormat;
+        },
+
+        timeFormat() {
+            return this.userProfile.timeFormat || this.user.timeFormat;
+        },
+
+        country() {
+            return this.userProfile.country || this.user.country;
+        },
+
+        timeZone() {
+            return this.userProfile.timeZone || this.user.timeZone;
+        },
+
         avatarIsNew() {
-            return this.avatar === this.newAvatar;
+            return this.userProfile.avatar === this.newAvatar;
         }
     },
 
     methods: {
         ...mapActions('profile', ['updateAvatar', 'updateProfile']),
+
+        onNameChange(value) {
+            this.userProfile.name = value;
+        },
 
         updateImage(event) {
             this.file = event.target.files[0];
@@ -187,12 +221,14 @@ export default {
         async onSaveHandle() {
             try {
                 if (this.avatarIsNew) {
-                    const response = await this.updateAvatar(this.avatar);
-                    const avatar = response?.avatar?.url;
-                    this.userProfile.avatar = avatar;
+                    const response = await this.updateAvatar(this.file);
+                    const url = response?.avatar?.url;
+                    this.userProfile.avatar = url;
                 }
 
-                await this.updateProfile(this.userProfile);
+                await this.updateProfile({ ...this.user, ...this.userProfile });
+
+                this.userProfile = {};
             } catch (error) {
                 this.showErrorMessage(error.message);
             }
