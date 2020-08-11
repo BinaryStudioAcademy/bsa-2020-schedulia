@@ -4,7 +4,7 @@
             <h1 class="header">{{ lang.CREATE_AN_ACCOUNT }}</h1>
             <p class="hint">
                 {{ lang.ALREADY_REGISTERED }}
-                <RouterLink :to="{ path: 'login' }">
+                <RouterLink :to="{ path: 'signin' }">
                     {{ lang.LOG_IN }}
                 </RouterLink>
             </p>
@@ -172,7 +172,7 @@ export default {
                         'success.login'
                     );
                     setTimeout(
-                        () => this.$router.push({ path: '/login' }),
+                        () => this.$router.push({ path: '/signin' }),
                         2000
                     );
                 } catch (error) {
