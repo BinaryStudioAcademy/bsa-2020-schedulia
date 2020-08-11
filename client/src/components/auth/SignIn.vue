@@ -79,12 +79,6 @@
                 </VCol>
             </VCardActions>
         </VForm>
-        <Alert
-            :type="alert.type"
-            :message="alert.message"
-            :visibility="alert.visible"
-            @user-deleted="onAlertClose"
-        />
     </VCard>
 </template>
 
@@ -92,13 +86,11 @@
 import * as actions from '@/store/modules/auth/types/actions';
 import { mapActions } from 'vuex';
 import enLang from '@/store/modules/i18n/en';
-import Alert from '@/components/alert/Alert';
+import * as notificationActions from '@/store/modules/notification/types/actions';
 
 export default {
     name: 'SingIn',
-    components: {
-        Alert
-    },
+    components: {},
     data: () => ({
         lang: enLang,
         formValid: false,
@@ -128,6 +120,9 @@ export default {
         ...mapActions('auth', {
             signIn: actions.SIGN_IN
         }),
+        ...mapActions('notification', {
+            setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
+        }),
         async onSignIn() {
             this.$refs.form.validate();
             if (this.formValid) {
@@ -143,17 +138,10 @@ export default {
                         2000
                     );
                 } catch (error) {
-                    this.showMessage(error, 'error');
+                    console.log('error happen');
+                    this.setErrorNotification(error);
                 }
             }
-        },
-        onAlertClose() {
-            this.alert.visible = false;
-        },
-        showMessage(message, type = '') {
-            this.alert.message = message;
-            this.alert.type = type;
-            this.alert.visible = true;
         }
     }
 };
