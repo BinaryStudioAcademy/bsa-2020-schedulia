@@ -54,3 +54,10 @@ Route::group([
 ], function () {
     Route::post('/', 'EventController@store');
 });
+
+Route::group([
+    'namespace' => 'Api\\',
+    'prefix' => '/profiles',
+], function () {
+   Route::put('/me', 'ProfileController@store');
+});
