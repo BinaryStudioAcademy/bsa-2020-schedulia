@@ -42,6 +42,7 @@ class EventTypeController extends ApiController
                 (int)$request->get('duration'),
                 $request->get('timezone'),
                 (bool)$request->get('disabled'),
+                $request->get('availabilities'),
             ))
             ->getEventType();
 
@@ -70,6 +71,7 @@ class EventTypeController extends ApiController
                     (int)$request->get('duration'),
                     $request->get('timezone'),
                     (bool)$request->get('disabled'),
+                    $request->get('availabilities'),
                 )
             )->getEventType();
 
