@@ -9,7 +9,10 @@ export default {
     },
 
     [mutations.CLOSE_NOTIFICATION]: (state, id) => {
-        state.notifications[id].showing = false;
+        state.notifications = {
+            ...state.notifications,
+            [id]: { ...state.notifications[id], showing: false }
+        };
     },
 
     [mutations.REMOVE_NOTIFICATION]: (state, id) => {
