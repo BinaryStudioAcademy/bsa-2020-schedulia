@@ -1,9 +1,9 @@
 <template>
-    <VCard elevation="0" flat="true" tile class="secondary">
+    <VCard elevation="0" :flat="true" tile class="secondary">
         <VCardTitle class="title-of-card ">{{ lang.WELCOME }}</VCardTitle>
         <VCardSubtitle class="info-text-in-title ">
             <span class="info--text">{{ lang.NEW_HERE }} </span>
-            <RouterLink :to="{ path: 'signup' }">
+            <RouterLink :to="{ name: 'SignUp' }">
                 {{ lang.CREATE_AN_ACCOUNT }}
             </RouterLink>
         </VCardSubtitle>
@@ -93,6 +93,8 @@ import * as actions from '@/store/modules/auth/types/actions';
 import { mapActions } from 'vuex';
 import enLang from '@/store/modules/i18n/en';
 import Alert from '@/components/alert/Alert';
+import * as getters from '@/store/modules/auth/types/getters';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'SingIn',
@@ -120,21 +122,16 @@ export default {
     }),
     methods: {
         ...mapActions('auth', {
-            signIn: actions.SIGN_IN
+            signIn: actions.SIGN_IN,
+            fetchLoggedUser: actions.FETCH_LOGGED_USER
         }),
         async onSignIn() {
             this.$refs.form.validate();
             if (this.formValid) {
                 try {
                     await this.signIn(this.loginData);
-                    this.showMessage(
-                        this.lang.SUCCESSFULLY_REGISTERED,
-                        'success.login'
-                    );
-                    setTimeout(
-                        () => this.$router.push({ path: '/SingIn' }),
-                        2000
-                    );
+                    await this.fetchLoggedUser();
+                    this.$router.push({ name: 'Profile' });
                 } catch (error) {
                     this.showMessage(error, 'error');
                 }
@@ -148,6 +145,14 @@ export default {
             this.alert.type = type;
             this.alert.visible = true;
         }
+    },
+    mounted() {
+        console.log(this.$store.getters['auth/getLoggedUser']);
+    },
+    computed: {
+        ...mapGetters('auth', {
+            loggedUser: getters.GET_LOGGED_USER
+        })
     }
 };
 </script>
