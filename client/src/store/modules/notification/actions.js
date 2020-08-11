@@ -13,6 +13,7 @@ export default {
     },
 
     [actions.REMOVE_ERROR_NOTIFICATION]: async ({ commit }, id) => {
+        commit(mutations.CLOSE_NOTIFICATION, id);
         commit(mutations.REMOVE_NOTIFICATION, id);
     }
 };
