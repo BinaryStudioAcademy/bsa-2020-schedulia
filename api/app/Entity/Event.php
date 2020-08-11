@@ -20,6 +20,10 @@ class Event extends Model
         'status' => EventStatus::SCHEDULED,
     ];
 
+    protected $with = [
+        'eventType'
+    ];
+
     public function eventType()
     {
         return $this->belongsTo(EventType::class, 'event_type_id', 'id');
