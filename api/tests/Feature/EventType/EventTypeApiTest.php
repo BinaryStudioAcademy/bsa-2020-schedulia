@@ -65,7 +65,7 @@ final class EventTypeApiTest extends TestCase
             'owner_id' => $user->id,
         ])->each(function ($eventType) {
             $eventType->availabilities()->saveMany(
-                factory(Availability::class,2)
+                factory(Availability::class, 2)
             );
         });
 
@@ -113,7 +113,7 @@ final class EventTypeApiTest extends TestCase
             'owner_id' => $user->id,
         ]);
 
-        factory(Availability::class,2)->create([
+        factory(Availability::class, 2)->create([
             'event_type_id' => $eventType->id,
         ]);
 
@@ -194,7 +194,7 @@ final class EventTypeApiTest extends TestCase
             'owner_id' => $user->id,
         ]);
 
-        factory(Availability::class,2)->create([
+        factory(Availability::class, 2)->create([
             'event_type_id' => $eventType->id,
         ]);
 
