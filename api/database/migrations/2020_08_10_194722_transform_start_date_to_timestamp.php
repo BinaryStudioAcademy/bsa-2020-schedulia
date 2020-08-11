@@ -28,6 +28,5 @@ class TransformStartDateToTimestamp extends Migration
      */
     public function down()
     {
-
     }
 }

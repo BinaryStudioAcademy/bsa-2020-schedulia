@@ -18,8 +18,7 @@ final class AddEventRequest
         string $inviteeEmail,
         string $startDate,
         string $timezone
-    )
-    {
+    ) {
         $this->eventTypeId = $eventTypeId;
         $this->inviteeName = $inviteeName;
         $this->inviteeEmail = $inviteeEmail;

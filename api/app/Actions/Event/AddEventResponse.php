@@ -6,5 +6,4 @@ namespace App\Actions\Event;
 
 final class AddEventResponse
 {
-
 }
