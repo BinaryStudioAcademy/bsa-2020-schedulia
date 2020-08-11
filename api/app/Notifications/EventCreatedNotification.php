@@ -9,9 +9,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\HtmlString;
 
-class EventCreatedNotification extends Notification
+class EventCreatedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -20,7 +19,7 @@ class EventCreatedNotification extends Notification
     private User $user;
 
     /**
-     * Create a new notification instance.
+     * Create a new notifications instance.
      *
      */
     public function __construct(Event $event)
@@ -31,7 +30,7 @@ class EventCreatedNotification extends Notification
     }
 
     /**
-     * Get the notification's delivery channels.
+     * Get the notifications's delivery channels.
      *
      * @return array
      */
@@ -41,32 +40,24 @@ class EventCreatedNotification extends Notification
     }
 
     /**
-     * Get the mail representation of the notification.
+     * Get the mail representation of the notifications.
      *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage())
-                    ->subject("New Event: {$this->event->invitee_name},
+            ->subject("New Event: {$this->event->invitee_name},
                     {$this->event->start_date}, {$this->eventType->name}")
-                    ->line("Hi {$this->user->name},")
-                    ->line("A new event was scheduled.")
-                    ->line(new HtmlString("<b>Event Type:</b>"))
-                    ->line($this->eventType->name)
-                    ->line(new HtmlString("<b>Invitee:</b>"))
-                    ->line($this->event->invitee_name)
-                    ->line(new HtmlString("<b>Invitee Email:</b>"))
-                    ->line($this->event->invitee_email)
-                    ->line(new HtmlString("<b>Event Date/Time::</b>"))
-                    ->line($this->event->start_date . ', ' . $this->event->timezone)
-                    ->line(new HtmlString("<b>Invitee TimeZone:</b>"))
-                    ->line($this->event->timezone)
-                    ->action('Go to Schedulia!', url(env('APP_URL')));
+            ->markdown('notifications.event_created', [
+                'event' => $this->event,
+                'eventType' => $this->eventType,
+                'user' => $this->user
+            ]);
     }
 
     /**
-     * Get the array representation of the notification.
+     * Get the array representation of the notifications.
      *
      * @return array
      */
