@@ -64,8 +64,8 @@ class EventCreatedNotification extends Notification
                     ->line(new HtmlString("<b>Event Date/Time::</b>"))
                     ->line($this->event->start_date .', '. $this->event->timezone)
                     ->line(new HtmlString("<b>Invitee TimeZone:</b>"))
-                    ->line($this->event->timezon)
-                    ->action('Go to Schedulia!', url('http://localhost:8085'));
+                    ->line($this->event->timezone)
+                    ->action('Go to Schedulia!', url(env('APP_URL')));
     }
 
     /**
