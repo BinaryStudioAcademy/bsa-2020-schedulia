@@ -30,6 +30,7 @@ class TransformStartDateToTimestamp extends Migration
     {
         Schema::table('events', function (Blueprint $table) {
             $table->dropColumn('start_date');
+            $table->string('start_date');
         });
     }
 }
