@@ -6,7 +6,6 @@ namespace App\Actions\Event;
 
 use App\Entity\Event;
 use App\Events\EventCreated;
-use App\Notifications\EventCreatedNotification;
 use App\Repositories\Event\EventRepository;
 use App\Repositories\Event\EventRepositoryInterface;
 
@@ -31,8 +30,6 @@ final class AddEventAction
 
         $this->eventRepository->save($event);
 
-        $event->eventType->owner->notify(new EventCreatedNotification($event));
-
-        event(new EventCreated());
+        event(new EventCreated($event));
     }
 }
