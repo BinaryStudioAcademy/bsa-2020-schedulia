@@ -2,7 +2,6 @@
 
 namespace App\Http\Presenters;
 
-
 use App\Actions\Auth\RefreshTokenResponse;
 
 final class RefreshTokenResponseArrayPresenter
