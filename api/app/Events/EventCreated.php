@@ -41,6 +41,6 @@ class EventCreated
      */
     public function broadcastOn()
     {
-        return new Channel('events');
+        return new Channel('public-events');
     }
 }
