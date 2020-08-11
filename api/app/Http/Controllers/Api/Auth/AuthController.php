@@ -71,4 +71,18 @@ final class AuthController extends ApiController
 
         return $this->successResponse($userArrayPresenter->present($response->getUser()));
     }
+
+    public function refresh()
+    {
+        return $this->createNewToken(auth()->refresh());
+    }
+
+    protected function createNewToken($token)
+    {
+        return response()->json([
+                                    'access_token' => $token,
+                                    'token_type' => 'bearer',
+                                    'expires_in' => auth()->factory()->getTTL() * 60
+                                ]);
+    }
 }
