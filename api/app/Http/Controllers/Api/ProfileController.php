@@ -17,7 +17,6 @@ class ProfileController extends ApiController
     public function __construct(
         UpdateProfileAction $updateProfileAction,
         ProfilePresenter $profilePresenter
-
     ) {
         $this->updateProfileAction = $updateProfileAction;
         $this->profilePresenter = $profilePresenter;

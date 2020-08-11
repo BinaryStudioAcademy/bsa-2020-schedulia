@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 final class UpdateProfileAction
 {
-private UserRepository $profileRepository;
+    private UserRepository $profileRepository;
 
     public function __construct(UserRepository $profileRepository)
     {

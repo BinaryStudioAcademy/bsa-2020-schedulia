@@ -8,7 +8,7 @@ use App\Entity\User;
 
 final class UpdateProfileResponse
 {
-private User $profile;
+    private User $profile;
 
     public function __construct(User $profile)
     {

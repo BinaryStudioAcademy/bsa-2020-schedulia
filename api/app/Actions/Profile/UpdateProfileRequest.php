@@ -24,8 +24,7 @@ final class UpdateProfileRequest
         bool $time_format_12h,
         ?string $country,
         string $timezone
-    )
-    {
+    ) {
         $this->avatar = $avatar;
         $this->name = $name;
         $this->welcome_message = $welcome_message;

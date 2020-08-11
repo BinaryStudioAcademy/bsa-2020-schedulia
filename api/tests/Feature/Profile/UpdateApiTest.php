@@ -8,7 +8,6 @@ use Tests\TestCase;
 
 class UpdateApiTest extends TestCase
 {
-
     use RefreshDatabase;
 
     public function testUnauthenticated()
@@ -66,5 +65,4 @@ class UpdateApiTest extends TestCase
 
         $this->assertDatabaseHas('users', array_merge($user->attributesToArray(), $dataToUpdate));
     }
-
 }
