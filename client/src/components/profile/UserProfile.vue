@@ -1,7 +1,5 @@
 <template>
-    <VContainer>
-        <Tabs :tabs="tabs"></Tabs>
-    </VContainer>
+    <Tabs :tabs="tabs"></Tabs>
 </template>
 
 <script>

@@ -23,5 +23,13 @@ steps:
          "-s", "${PROJECT_ID}:${_REGION}:schedulia-sql",
          "--", "php", "artisan", "config:clear"]
 
+- name: 'gcr.io/cloud-builders/docker'
+  args: 
+  - build
+  - "--file=./.deploy/cloudRun/worker/Dockerfile" 
+  - "--tag=gcr.io/${PROJECT_ID}/schedulia-worker"
+  - .
+
 images:
 - 'gcr.io/$PROJECT_ID/schedulia-api'
+- 'gcr.io/${PROJECT_ID}/schedulia-worker'

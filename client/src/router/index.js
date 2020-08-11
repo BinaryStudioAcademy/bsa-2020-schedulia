@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+
 import UserDataProvider from '@/components/guard/UserDataProvider';
 import LoginGuard from '@/components/guard/LoginGuard';
 
@@ -15,7 +15,7 @@ const routes = [
             {
                 path: '',
                 name: 'Home',
-                component: Home
+                component: () => import('../views/Login.vue')
             },
             {
                 path: 'about',
@@ -38,6 +38,16 @@ const routes = [
                 children: [
                     // There must be routes which need logged user
                 ]
+            },
+            {
+                path: 'signup',
+                name: 'SignUp',
+                component: () => import('../views/SignUp')
+            },
+            {
+                path: 'login',
+                name: 'Login',
+                component: () => import('../views/Login.vue')
             }
         ]
     }
