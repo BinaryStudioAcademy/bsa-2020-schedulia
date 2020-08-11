@@ -38,6 +38,12 @@ const routes = [
                 children: [
                     // There must be routes which need logged user
                 ]
+            },
+
+            {
+                path: 'new-event',
+                name: 'new-event',
+                component: () => import('../views/NewEventType')
             }
         ]
     }
