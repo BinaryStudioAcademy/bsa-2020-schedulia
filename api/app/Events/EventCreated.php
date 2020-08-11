@@ -44,6 +44,6 @@ class EventCreated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('public-events');
+        return new PrivateChannel('events');
     }
 }
