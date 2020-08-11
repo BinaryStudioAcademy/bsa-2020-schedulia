@@ -20,7 +20,7 @@
             </VBtn>
         </template>
         <VList dense>
-            <VListItem>
+            <VListItem class="v-list-item--link">
                 <VListItemTitle align-self="center">
                     <RouterLink
                         :to="{ name: 'profile' }"
@@ -30,7 +30,7 @@
                     </RouterLink>
                 </VListItemTitle>
             </VListItem>
-            <VListItem>
+            <VListItem class="v-list-item--link">
                 <VListItemTitle align-self="center">
                     <RouterLink :to="{ name: 'Home' }" class="user-menu__link">
                         <VIcon>mdi-logout-variant</VIcon>Logout
