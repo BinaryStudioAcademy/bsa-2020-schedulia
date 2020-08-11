@@ -23,12 +23,8 @@ export default {
 
     computed: {
         ...mapGetters('notification', {
-            getNotifications: notificationGetters.GET_NOTIFICATIONS
-        }),
-
-        notifications() {
-            return this.getNotifications;
-        }
+            notifications: notificationGetters.GET_NOTIFICATIONS
+        })
     }
 };
 </script>
