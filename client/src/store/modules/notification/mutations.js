@@ -16,6 +16,8 @@ export default {
     },
 
     [mutations.REMOVE_NOTIFICATION]: (state, id) => {
-        delete state.notifications[id];
+        const notifications = { ...state.notifications };
+        delete notifications[id];
+        state.notifications = notifications;
     }
 };
