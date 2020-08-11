@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\EventType;
 
+use App\Entity\Availability;
 use App\Entity\EventType;
 use App\Entity\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -24,6 +25,13 @@ final class EventTypeApiTest extends TestCase
         'duration' => 30,
         'timezone' => 'Europe/Kiev',
         'disabled' => true,
+        'availabilities' => [
+            [
+                'type' => 'day',
+                'start_date' => '2020-08-06 11:00:00',
+                'end_date' => '2020-08-06 22:00:00',
+            ]
+        ],
     ];
 
     private const STRUCTURE = [
@@ -39,18 +47,27 @@ final class EventTypeApiTest extends TestCase
             'email',
             'name',
             'timezone'
-        ]
+        ],
+        'availabilities',
+    ];
+
+    private const STRUCTURE_AVAILABILITIES = [
+        'type',
+        'start_date',
+        'end_date'
     ];
 
     public function test_get_event_type_collection()
     {
-        $user = factory(User::class)->create([
-            'timezone' => 'Europe/Kiev'
-        ]);
+        $user = factory(User::class)->create();
 
         factory(EventType::class, 3)->create([
             'owner_id' => $user->id,
-        ]);
+        ])->each(function ($eventType) {
+            $eventType->availabilities()->saveMany(
+                factory(Availability::class,2)
+            );
+        });
 
         $response = $this
             ->actingAs($user)
@@ -59,14 +76,17 @@ final class EventTypeApiTest extends TestCase
         $response
             ->assertStatus(JsonResponse::HTTP_OK)
             ->assertJsonCount(3, 'data')
-            ->assertJsonStructure(['data' => ['*' => self::STRUCTURE]]);
+            ->assertJsonStructure(['data' => ['*' => self::STRUCTURE]])
+            ->assertJsonStructure(['data' => [
+                '*' => [
+                    "availabilities" => ['*' => self::STRUCTURE_AVAILABILITIES]
+                ]
+            ]]);
     }
 
     public function test_get_empty_event_type_collection()
     {
-        $user = factory(User::class)->create([
-            'timezone' => 'Europe/Kiev'
-        ]);
+        $user = factory(User::class)->create();
 
         $response = $this
             ->actingAs($user)
@@ -87,12 +107,14 @@ final class EventTypeApiTest extends TestCase
 
     public function test_get_event_type_by_id()
     {
-        $user = factory(User::class)->create([
-            'timezone' => 'Europe/Kiev'
-        ]);
+        $user = factory(User::class)->create();
 
         $eventType = factory(EventType::class)->create([
             'owner_id' => $user->id,
+        ]);
+
+        factory(Availability::class,2)->create([
+            'event_type_id' => $eventType->id,
         ]);
 
         $response = $this
@@ -101,14 +123,16 @@ final class EventTypeApiTest extends TestCase
 
         $response
             ->assertStatus(JsonResponse::HTTP_OK)
-            ->assertJsonStructure(['data' => self::STRUCTURE]);
+            ->assertJsonStructure(['data' => self::STRUCTURE])
+            ->assertJsonStructure(['data' => [
+                    "availabilities" => ['*' => self::STRUCTURE_AVAILABILITIES]
+                ]
+            ]);
     }
 
     public function test_get_event_type_by_id_not_found()
     {
-        $user = factory(User::class)->create([
-            'timezone' => 'Europe/Kiev'
-        ]);
+        $user = factory(User::class)->create();
 
         $this
             ->actingAs($user)
@@ -118,9 +142,7 @@ final class EventTypeApiTest extends TestCase
 
     public function test_add_event_type()
     {
-        $user = factory(User::class)->create([
-            'timezone' => 'Europe/Kiev'
-        ]);
+        $user = factory(User::class)->create();
 
         $response = $this
             ->actingAs($user)
@@ -139,14 +161,16 @@ final class EventTypeApiTest extends TestCase
                     ]
                 ]
             ])
-            ->assertJsonStructure(['data' => self::STRUCTURE]);
+            ->assertJsonStructure(['data' => self::STRUCTURE])
+            ->assertJsonStructure(['data' => [
+                "availabilities" => ['*' => self::STRUCTURE_AVAILABILITIES]
+            ]
+            ]);
     }
 
     public function test_add_event_type_invalid_request_params()
     {
-        $user = factory(User::class)->create([
-            'timezone' => 'Europe/Kiev'
-        ]);
+        $user = factory(User::class)->create();
 
         $response = $this
             ->actingAs($user)
@@ -164,12 +188,14 @@ final class EventTypeApiTest extends TestCase
 
     public function test_update_event_type_by_id()
     {
-        $user = factory(User::class)->create([
-            'timezone' => 'Europe/Kiev'
-        ]);
+        $user = factory(User::class)->create();
 
         $eventType = factory(EventType::class)->create([
             'owner_id' => $user->id,
+        ]);
+
+        factory(Availability::class,2)->create([
+            'event_type_id' => $eventType->id,
         ]);
 
         $response = $this
@@ -189,30 +215,31 @@ final class EventTypeApiTest extends TestCase
                     ]
                 ]
             ])
-            ->assertJsonStructure(['data' => self::STRUCTURE]);
+            ->assertJsonStructure(['data' => self::STRUCTURE])
+            ->assertJsonStructure(['data' => [
+                    "availabilities" => ['*' => self::STRUCTURE_AVAILABILITIES]
+                ]
+            ]);
     }
 
     public function test_update_event_type_by_id_forbidden()
     {
-        $users = factory(User::class, 2)->create([
-            'timezone' => 'Europe/Kiev'
-        ]);
+        $authorizedUser = factory(User::class)->create();
+        $anotherUser = factory(User::class)->create();
 
         $eventType = factory(EventType::class)->create([
-            'owner_id' => $users[0]['id'],
+            'owner_id' => $anotherUser->id,
         ]);
 
         $this
-            ->actingAs($users[1])
+            ->actingAs($authorizedUser)
             ->json('PUT', self::API_URL . '/' . $eventType->id, self::DATA)
             ->assertStatus(JsonResponse::HTTP_FORBIDDEN);
     }
 
     public function test_update_event_type_by_id_not_found()
     {
-        $user = factory(User::class)->create([
-            'timezone' => 'Europe/Kiev'
-        ]);
+        $user = factory(User::class)->create();
 
         $this
             ->actingAs($user)
@@ -222,9 +249,7 @@ final class EventTypeApiTest extends TestCase
 
     public function test_delete_event_type_by_id()
     {
-        $user = factory(User::class)->create([
-            'timezone' => 'Europe/Kiev'
-        ]);
+        $user = factory(User::class)->create();
 
         $eventType = factory(EventType::class)->create([
             'owner_id' => $user->id,
@@ -233,14 +258,12 @@ final class EventTypeApiTest extends TestCase
         $this
             ->actingAs($user)
             ->json('DELETE', self::API_URL . '/' . $eventType->id)
-            ->assertStatus(204);
+            ->assertStatus(JsonResponse::HTTP_NO_CONTENT);
     }
 
     public function test_delete_event_type_by_id_not_found()
     {
-        $user = factory(User::class)->create([
-            'timezone' => 'Europe/Kiev'
-        ]);
+        $user = factory(User::class)->create();
 
         $this
             ->actingAs($user)
@@ -250,16 +273,15 @@ final class EventTypeApiTest extends TestCase
 
     public function test_delete_event_type_by_id_forbidden()
     {
-        $users = factory(User::class, 2)->create([
-            'timezone' => 'Europe/Kiev'
-        ]);
+        $authorizedUser = factory(User::class)->create();
+        $anotherUser = factory(User::class)->create();
 
         $eventType = factory(EventType::class)->create([
-            'owner_id' => $users[0]['id'],
+            'owner_id' => $anotherUser->id,
         ]);
 
         $this
-            ->actingAs($users[1])
+            ->actingAs($authorizedUser)
             ->json('DELETE', self::API_URL . '/' . $eventType->id, self::DATA)
             ->assertStatus(JsonResponse::HTTP_FORBIDDEN);
     }

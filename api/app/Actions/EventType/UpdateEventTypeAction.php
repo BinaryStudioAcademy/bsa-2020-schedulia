@@ -26,7 +26,7 @@ final class UpdateEventTypeAction
             throw new EventTypeNotFoundException('Event Type not found.', 404);
         }
 
-        if ((int)$eventType->owner_id !== Auth::id()) {
+        if ($eventType->owner_id !== Auth::id()) {
             throw new AuthorizationException();
         }
 
