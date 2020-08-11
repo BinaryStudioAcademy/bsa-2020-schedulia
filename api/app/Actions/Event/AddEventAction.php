@@ -17,7 +17,7 @@ final class AddEventAction
         $this->eventRepository = $eventRepository;
     }
 
-    public function execute(AddEventRequest $request): AddEventResponse
+    public function execute(AddEventRequest $request): void
     {
         $event = new Event();
 
@@ -28,7 +28,5 @@ final class AddEventAction
         $event->timezone = $request->getTimezone();
 
         $this->eventRepository->save($event);
-
-        return new AddEventResponse();
     }
 }
