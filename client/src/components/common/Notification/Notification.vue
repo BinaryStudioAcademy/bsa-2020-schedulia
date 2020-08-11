@@ -32,10 +32,6 @@ export default {
         notification: {
             type: Object,
             required: true,
-            id: String,
-            text: String,
-            showing: Boolean,
-            typeSnackbar: String
         },
         index: {
             type: Number,
