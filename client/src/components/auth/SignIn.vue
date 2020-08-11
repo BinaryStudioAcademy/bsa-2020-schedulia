@@ -1,8 +1,8 @@
 <template>
-    <VCard elevation="0" flat="true" tile class="secondary">
+    <VCard elevation="0" flat tile class="secondary">
         <VCardTitle class="title-of-card ">{{ lang.WELCOME }}</VCardTitle>
-        <VCardSubtitle class="info-text-in-title ">
-            <span class="info--text">{{ lang.NEW_HERE }} </span>
+        <VCardSubtitle class="info-text-in-title mt-1">
+            <span>{{ lang.NEW_HERE }} </span>
             <RouterLink :to="{ path: 'signup' }">
                 {{ lang.CREATE_AN_ACCOUNT }}
             </RouterLink>
@@ -29,9 +29,9 @@
                         <label for="password">{{ lang.PASSWORD }} </label>
                         <RouterLink
                             :to="{ path: 'restore' }"
-                            class="forgot-password-a "
+                            class="forgot-password-a"
                         >
-                            Forgot Password?
+                            {{ lang.FORGOT_PASSWORD }}
                         </RouterLink>
                     </VRow>
                 </VCol>
@@ -59,13 +59,13 @@
                                 class="login-button  primary"
                                 depressed
                                 @click="onSignIn"
-                                >Log in
+                                >{{ lang.LOG_IN }}
                             </VBtn>
                         </VCol>
                         <VCol>
                             <span class="info--text  text-center">
-                                {{ lang.OR_LOGIN_WITH }}</span
-                            >
+                                {{ lang.OR_LOGIN_WITH }}
+                            </span>
                         </VCol>
                         <VCol>
                             <VBtn class="ma-1 social-button" outlined fab>
@@ -108,10 +108,16 @@ export default {
             password: ''
         },
         emailRules: [
-            v => !!v || 'E-mail is required',
-            v => /.+@.+/.test(v) || 'E-mail must be valid'
+            v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', enLang.EMAIL),
+            v =>
+                /([a-zA-Z0-9_.-]+)@(.+)[.](.+)/.test(v) ||
+                enLang.WRONG_EMAIL_FORMAT
         ],
-        passwordRules: [v => !!v || 'Password is required'],
+        passwordRules: [
+            v =>
+                !!v ||
+                enLang.FIELD_IS_REQUIRED.replace('field', enLang.PASSWORD)
+        ],
         alert: {
             visible: false,
             message: '',
@@ -126,13 +132,14 @@ export default {
             this.$refs.form.validate();
             if (this.formValid) {
                 try {
+                    console.log(this.loginData);
                     await this.signIn(this.loginData);
                     this.showMessage(
-                        this.lang.SUCCESSFULLY_REGISTERED,
+                        this.lang.SUCCESSFULLY_SIGNINED,
                         'success.login'
                     );
                     setTimeout(
-                        () => this.$router.push({ path: '/SingIn' }),
+                        () => this.$router.push({ path: '/profile' }),
                         2000
                     );
                 } catch (error) {
@@ -151,7 +158,6 @@ export default {
     }
 };
 </script>
-
 <style scoped>
 .title-of-card {
     color: var(--v-primary-base);
@@ -163,7 +169,7 @@ export default {
 .info-text-in-title {
     font-style: normal;
     font-weight: 500;
-    font-size: 13px;
+    font-size: small;
     line-height: 16px;
 }
 a {
@@ -172,14 +178,12 @@ a {
 label {
     font-style: normal;
     font-weight: 500;
-    font-size: 13px;
-    line-height: 16px;
+    font-size: small;
     color: #2c2c2c;
     display: block;
 }
 .forgot-password-a {
-    font-size: 9px;
-    line-height: 16px;
+    font-size: x-small;
     letter-spacing: 0.4px;
     color: var(--v-primary-base);
 }

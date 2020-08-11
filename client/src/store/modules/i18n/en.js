@@ -63,5 +63,7 @@ export default {
     GOOGLE_ICON: 'G',
     FACEBOOK_ICON: 'f',
     SCHEDULIA: 'Schedulia',
-    USER_MENU_BUTTON: 'My Account'
+    USER_MENU_BUTTON: 'My Account',
+    SUCCESSFULLY_SIGNINED: 'Successfully sign in! ',
+    FORGOT_PASSWORD: 'Forgot Password?'
 };
