@@ -6,8 +6,10 @@ use App\Actions\Auth\GetAuthenticatedUserAction;
 use App\Actions\Auth\LoginAction;
 use App\Actions\Auth\LoginRequest;
 use App\Actions\Auth\LogoutAction;
+use App\Actions\Auth\RefreshTokenAction;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Presenters\AuthenticationResponseArrayPresenter;
+use App\Http\Presenters\RefreshTokenResponseArrayPresenter;
 use App\Http\Requests\Api\Auth\LoginHttpRequest;
 use Illuminate\Http\JsonResponse;
 use App\Actions\Auth\RegisterAction;
@@ -19,14 +21,20 @@ use Illuminate\Http\Request;
 final class AuthController extends ApiController
 {
     private RegisterAction $registerAction;
+    private RefreshTokenAction $refreshTokenAction;
+    private RefreshTokenResponseArrayPresenter $refreshTokenPresenter;
     private $presenter;
 
     public function __construct(
         RegisterAction $registerAction,
-        UserArrayPresenter $registerResponseArrayPresenter
+        RefreshTokenAction $refreshTokenAction,
+        UserArrayPresenter $registerResponseArrayPresenter,
+        RefreshTokenResponseArrayPresenter $refreshTokenPresenter
     ) {
         $this->registerAction = $registerAction;
+        $this->refreshTokenAction = $refreshTokenAction;
         $this->presenter = $registerResponseArrayPresenter;
+        $this->refreshTokenPresenter = $refreshTokenPresenter;
     }
 
     public function register(RegisterHttpRequest $request)
@@ -74,15 +82,8 @@ final class AuthController extends ApiController
 
     public function refresh()
     {
-        return $this->createNewToken(auth()->refresh());
-    }
+        $response = $this->refreshTokenAction->execute();
 
-    protected function createNewToken($token)
-    {
-        return response()->json([
-                                    'access_token' => $token,
-                                    'token_type' => 'bearer',
-                                    'expires_in' => auth()->factory()->getTTL() * 60
-                                ]);
+        return $this->successResponse($this->refreshTokenPresenter->present($response));
     }
 }
