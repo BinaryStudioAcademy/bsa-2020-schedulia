@@ -21,7 +21,14 @@
         </template>
         <VList dense>
             <VListItem>
-                <VListItemTitle>Account settings</VListItemTitle>
+                <VListItemTitle align-self="center">
+                    <RouterLink
+                        :to="{ name: 'profile' }"
+                        class="user-menu__link"
+                    >
+                        <VIcon>mdi-account</VIcon> Profile
+                    </RouterLink>
+                </VListItemTitle>
             </VListItem>
             <VListItem>
                 <VListItemTitle align-self="center">
