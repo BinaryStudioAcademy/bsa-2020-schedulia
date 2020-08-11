@@ -22,7 +22,6 @@ export default {
     },
 
     computed: {
-        // ...mapState('notification', ['notifications'])
         ...mapGetters('notification', {
             getNotifications: notificationGetters.GET_NOTIFICATIONS
         }),
