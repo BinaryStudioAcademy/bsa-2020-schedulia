@@ -19,7 +19,7 @@ class AddProfileFieldsToUsersTable extends Migration
             $table->string('welcome_message', 255)->nullable();
             $table->string('language', 100)->default('en');
             $table->string('date_format')->default('american');
-            $table->bool('time_format_12h')->default(true);
+            $table->boolean('time_format_12h')->default(true);
             $table->string('country', 100)->nullable();
         });
     }
