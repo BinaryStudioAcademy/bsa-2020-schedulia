@@ -36,7 +36,7 @@ export default {
     },
 
     mounted() {
-        setTimeout(() => this.closeSnackbar(), 20000);
+        setTimeout(() => this.closeSnackbar(), 1500);
     },
 
     data() {

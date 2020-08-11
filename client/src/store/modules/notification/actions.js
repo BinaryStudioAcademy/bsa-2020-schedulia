@@ -13,7 +13,6 @@ export default {
     },
 
     [actions.REMOVE_ERROR_NOTIFICATION]: async ({ commit }, id) => {
-        console.log('Delete with ' + id);
         commit(mutations.REMOVE_NOTIFICATION, id);
     }
 };
