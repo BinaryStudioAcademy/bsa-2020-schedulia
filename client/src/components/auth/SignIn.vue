@@ -127,7 +127,6 @@ export default {
             this.$refs.form.validate();
             if (this.formValid) {
                 try {
-                    console.log(this.loginData);
                     await this.signIn(this.loginData);
                     this.showMessage(
                         this.lang.SUCCESSFULLY_SIGNINED,
@@ -138,7 +137,6 @@ export default {
                         2000
                     );
                 } catch (error) {
-                    console.log('error happen');
                     this.setErrorNotification(error);
                 }
             }
