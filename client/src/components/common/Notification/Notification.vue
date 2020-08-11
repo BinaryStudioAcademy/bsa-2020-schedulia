@@ -1,6 +1,6 @@
 <template>
     <VSnackbar
-        v-model="notification.showing"
+        :value="notification.showing"
         :color="notification.type"
         :timeout="timeout"
         :top="top"
