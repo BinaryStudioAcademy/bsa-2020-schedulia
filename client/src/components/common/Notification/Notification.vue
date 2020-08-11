@@ -4,8 +4,8 @@
         :color="notification.type"
         :timeout="timeout"
         :top="top"
-        :style="`top: ${index * 60 + 15}px`"
     >
+<!--        :style="`top: ${index * 60 + 15}px`"-->
         <VRow>
             <VCol cols="12" md="11">
                 {{ notification.text }}
@@ -32,15 +32,11 @@ export default {
         notification: {
             type: Object,
             required: true
-        },
-        index: {
-            type: Number,
-            required: true
         }
     },
 
     mounted() {
-        setTimeout(() => this.closeSnackbar(), 10000);
+        setTimeout(() => this.closeSnackbar(), 20000);
     },
 
     data() {
@@ -56,7 +52,7 @@ export default {
         }),
 
         closeSnackbar() {
-            this.removeErrorNotification(this.index);
+            this.removeErrorNotification(this.notification.id);
         }
     }
 };
