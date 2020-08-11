@@ -21,9 +21,6 @@
         </template>
         <VList dense>
             <VListItem>
-                <VListItemTitle>Account settings</VListItemTitle>
-            </VListItem>
-            <VListItem>
                 <VListItemTitle align-self="center">
                     <RouterLink
                         :to="{ name: 'profile' }"
