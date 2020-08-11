@@ -12,7 +12,8 @@ use Illuminate\Queue\SerializesModels;
 
 class EventCreatedMail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     public Event $event;
     public EventType $eventType;
