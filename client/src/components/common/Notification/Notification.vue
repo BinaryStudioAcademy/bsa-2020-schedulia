@@ -6,7 +6,6 @@
         :top="top"
         :style="`top: ${index * 60 + 15}px`"
     >
-
         <VRow>
             <VCol cols="12" md="11">
                 {{ notification.text }}
@@ -24,7 +23,7 @@
 
 <script>
 import * as notificationActions from '@/store/modules/notification/types/actions';
-import {mapActions} from "vuex";
+import { mapActions } from 'vuex';
 
 export default {
     name: 'Notification',
@@ -45,7 +44,7 @@ export default {
     },
 
     mounted() {
-       this.timoutID = setTimeout(() => this.closeSnackbar(), 10500);
+        this.timoutID = setTimeout(() => this.closeSnackbar(), 10500);
     },
 
     data() {
@@ -58,7 +57,8 @@ export default {
 
     methods: {
         ...mapActions('notification', {
-            removeErrorNotification: notificationActions.REMOVE_ERROR_NOTIFICATION
+            removeErrorNotification:
+                notificationActions.REMOVE_ERROR_NOTIFICATION
         }),
 
         closeSnackbar() {
