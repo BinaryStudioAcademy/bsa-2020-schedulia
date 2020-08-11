@@ -41,13 +41,14 @@ export default {
     },
 
     mounted() {
-        setTimeout(() => this.closeSnackbar(), 10500);
+       this.timoutID = setTimeout(() => this.closeSnackbar(), 1500);
     },
 
     data() {
         return {
             top: true,
-            timeout: -1
+            timeout: -1,
+            timoutID: null
         };
     },
 
@@ -57,6 +58,7 @@ export default {
         }),
 
         closeSnackbar() {
+            clearTimeout(this.timoutID);
             this.removeErrorNotification(this.notification.id);
         }
     }
