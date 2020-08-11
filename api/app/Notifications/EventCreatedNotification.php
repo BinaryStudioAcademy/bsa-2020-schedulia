@@ -5,6 +5,7 @@ namespace App\Notifications;
 use App\Entity\Event;
 use App\Entity\EventType;
 use App\Entity\User;
+use App\Mail\EventCreatedMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -42,18 +43,10 @@ class EventCreatedNotification extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notifications.
      *
-     * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage())
-            ->subject("New Event: {$this->event->invitee_name},
-                    {$this->event->start_date}, {$this->eventType->name}")
-            ->markdown('notifications.event_created', [
-                'event' => $this->event,
-                'eventType' => $this->eventType,
-                'user' => $this->user
-            ]);
+        return new EventCreatedMail($this->event);
     }
 
     /**
