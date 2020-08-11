@@ -7,8 +7,8 @@
                         <VAvatar color="indigo" size="144">
                             <VImg v-if="newAvatar" :src="newAvatar"></VImg>
                             <VIcon size="144" v-else dark
-                                >mdi-account-circle</VIcon
-                            >
+                                >mdi-account-circle
+                            </VIcon>
                         </VAvatar>
                         <label for="fileAvatar" class="updateAvatar pointer">
                             {{ lang.UPDATE }}
@@ -131,20 +131,26 @@ export default {
         userProfile: {
             name: '',
             welcome: '',
-            language: enLang.ENGLISH,
-            dateFormat: 'rcf-1123',
-            timeFormat: '12h',
+            language: 'en',
+            dateFormat: 'american',
+            timeFormat: '12',
             country: '',
             timeZone: null
         },
 
-        languages: [enLang.ENGLISH, enLang.GERMAN, enLang.UKRAINIAN],
-        dateFormats: [
-            { value: 'rcf-1123', text: 'Mon, 10 Aug 2020 14:38:15 +0000' },
-            { utc: 'utc', text: '2020-08-10T14:38:15Z' },
-            { value: 'iso-8601', text: '2020-08-10T14:38:15+0000' }
+        languages: [
+            { value: 'en', text: enLang.ENGLISH },
+            { value: 'de', text: enLang.GERMAN },
+            { value: 'ua', text: enLang.UKRAINIAN }
         ],
-        timeFormats: ['12h', '24h'],
+        dateFormats: [
+            { value: 'american', text: 'MM/DD/YYYY' },
+            { value: 'european_standard', text: 'DD/MM/YYYY' }
+        ],
+        timeFormats: [
+            { value: '12', text: '12h' },
+            { value: '24', text: '24h' }
+        ],
         timeZones: []
     }),
 
@@ -183,7 +189,7 @@ export default {
                 if (this.avatarIsNew) {
                     const response = await this.updateAvatar(this.avatar);
                     const avatar = response?.avatar?.url;
-                    this.userProfile = avatar;
+                    this.userProfile.avatar = avatar;
                 }
 
                 await this.updateProfile(this.userProfile);
