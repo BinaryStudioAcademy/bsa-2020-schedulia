@@ -12,7 +12,6 @@ class EventRequest extends ApiFormRequest
         return [
             'invitee_name' => 'required|string|between:2,50',
             'invitee_email' => 'required|email|max:50',
-            'custom_field' => 'string',
             'start_date' => 'required',
             'timezone' => 'required|timezone'
         ];
