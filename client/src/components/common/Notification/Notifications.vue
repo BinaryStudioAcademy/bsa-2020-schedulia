@@ -4,7 +4,7 @@
             v-for="(notification, index) in notifications.filter(
                 s => s.showing
             )"
-            :key="notification.text + Math.random()"
+            :key="index"
         >
             <Notification :index="index" :notification="notification" />
         </div>
