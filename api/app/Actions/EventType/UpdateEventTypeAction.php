@@ -40,6 +40,9 @@ final class UpdateEventTypeAction
 
         $eventType = $this->eventTypeRepository->save($eventType);
 
+        $this->eventTypeRepository->deleteAvailabilities($eventType);
+        $this->eventTypeRepository->saveAvailabilities($eventType, $request->getAvailabilities());
+
         return new UpdateEventTypeResponse($eventType);
     }
 }

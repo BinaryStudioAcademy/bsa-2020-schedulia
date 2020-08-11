@@ -32,10 +32,16 @@ class EventType extends Model
      */
     protected $with = [
         'owner',
+        'availabilities',
     ];
 
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id', 'id');
+    }
+
+    public function availabilities()
+    {
+        return $this->hasMany(Availability::class, 'event_type_id');
     }
 }
