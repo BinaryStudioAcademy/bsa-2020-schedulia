@@ -41,6 +41,13 @@ class RegistrationTest extends TestCase
             'email' => $user['email'],
             'name' => $user['name'],
             'timezone' => $user['timezone'],
+            null,
+            null,
+            null,
+            'en',
+            'american',
+            true,
+            null
         ]);
     }
 
