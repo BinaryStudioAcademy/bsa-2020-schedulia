@@ -14,13 +14,13 @@ class AddProfileFieldsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('branding_logo', 255);
-            $table->string('avatar', 255);
-            $table->string('welcome_message', 255);
-            $table->string('language', 100)->default('English');
-            $table->string('date_format')->default('utc');
-            $table->tinyInteger('time_format')->default(24);
-            $table->string('country', 100);
+            $table->string('branding_logo', 255)->nullable();
+            $table->string('avatar', 255)->nullable();
+            $table->string('welcome_message', 255)->nullable();
+            $table->string('language', 100)->default('en');
+            $table->string('date_format')->default('american');
+            $table->bool('time_format_12h')->default(true);
+            $table->string('country', 100)->nullable();
         });
     }
 
@@ -37,7 +37,7 @@ class AddProfileFieldsToUsersTable extends Migration
             $table->dropColumn('welcome_message');
             $table->dropColumn('language');
             $table->dropColumn('date_format');
-            $table->dropColumn('time_format');
+            $table->dropColumn('time_format_12h');
             $table->dropColumn('country');
         });
     }
