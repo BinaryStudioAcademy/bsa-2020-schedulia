@@ -31,7 +31,7 @@ export default {
     props: {
         notification: {
             type: Object,
-            required: true,
+            required: true
         },
         index: {
             type: Number,
