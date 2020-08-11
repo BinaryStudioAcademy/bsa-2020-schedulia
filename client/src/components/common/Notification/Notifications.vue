@@ -1,18 +1,17 @@
 <template>
     <div>
         <div
-            v-for="(notification, index) in notifications.filter(
-                s => s.showing
-            )"
-            :key="index"
+            v-for="notification in notifications"
+            :key="notification.id"
         >
-            <Notification :index="index" :notification="notification" />
+            <Notification :notification="notification" />
         </div>
     </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
+import * as notificationGetters from '@/store/modules/notification/types/getters';
 import Notification from './Notification';
 
 export default {
@@ -23,7 +22,14 @@ export default {
     },
 
     computed: {
-        ...mapState('notification', ['notifications'])
+        // ...mapState('notification', ['notifications'])
+        ...mapGetters('notification', {
+            getNotifications: notificationGetters.GET_NOTIFICATIONS
+        }),
+
+        notifications() {
+            return this.getNotifications;
+        }
     }
 };
 </script>
