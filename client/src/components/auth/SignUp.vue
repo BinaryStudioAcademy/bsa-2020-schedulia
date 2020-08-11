@@ -182,7 +182,6 @@ export default {
                     );
                 } catch (error) {
                     this.setErrorNotification(error);
-                    //this.showMessage(error, 'error');
                 }
             }
         },
