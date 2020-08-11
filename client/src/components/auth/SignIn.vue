@@ -107,7 +107,6 @@ export default {
             email: '',
             password: ''
         },
-        valid: false,
         emailRules: [
             v => !!v || 'E-mail is required',
             v => /.+@.+/.test(v) || 'E-mail must be valid'
@@ -133,7 +132,7 @@ export default {
                         'success.login'
                     );
                     setTimeout(
-                        () => this.$router.push({ path: '/login' }),
+                        () => this.$router.push({ path: '/SingIn' }),
                         2000
                     );
                 } catch (error) {
@@ -189,7 +188,7 @@ label {
 }
 .social-button {
     font-weight: 700;
-    font-size: x-large;
+    font-size: large;
     color: var(--v-primary-base);
     text-transform: none;
 }
