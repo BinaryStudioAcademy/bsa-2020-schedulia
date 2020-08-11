@@ -14,6 +14,7 @@ final class UpdateEventTypeRequest
     private int $duration;
     private string $timezone;
     private bool $disabled;
+    private array $availabilities;
 
     public function __construct(
         int $id,
@@ -23,7 +24,8 @@ final class UpdateEventTypeRequest
         string $color,
         int $duration,
         string $timezone,
-        bool $disabled
+        bool $disabled,
+        array $availabilities
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -33,6 +35,7 @@ final class UpdateEventTypeRequest
         $this->duration = $duration;
         $this->timezone = $timezone;
         $this->disabled = $disabled;
+        $this->availabilities = $availabilities;
     }
 
     public function getId(): int
@@ -73,5 +76,10 @@ final class UpdateEventTypeRequest
     public function getDisabled(): bool
     {
         return $this->disabled;
+    }
+
+    public function getAvailabilities(): array
+    {
+        return $this->availabilities;
     }
 }

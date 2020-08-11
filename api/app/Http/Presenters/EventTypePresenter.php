@@ -10,10 +10,12 @@ use Illuminate\Support\Collection;
 final class EventTypePresenter
 {
     private UserArrayPresenter $userPresenter;
+    private AvailabilityArrayPresenter $availabilityPresenter;
 
-    public function __construct(UserArrayPresenter $userPresenter)
+    public function __construct(UserArrayPresenter $userPresenter, AvailabilityArrayPresenter $availabilityPresenter)
     {
         $this->userPresenter = $userPresenter;
+        $this->availabilityPresenter = $availabilityPresenter;
     }
 
     public function presentCollection(Collection $eventTypeCollection): array
@@ -34,6 +36,9 @@ final class EventTypePresenter
             'duration' => $eventType->duration,
             'disabled' => $eventType->disabled,
             'owner' => $this->userPresenter->present($eventType->owner),
+            'availabilities' => $eventType->availabilities()->get()->map(function ($availability) {
+                return $this->availabilityPresenter->present($availability);
+            }),
         ];
     }
 }
