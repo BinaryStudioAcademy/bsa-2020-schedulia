@@ -44,7 +44,7 @@ export default {
     },
 
     mounted() {
-        this.timoutID = setTimeout(() => this.closeSnackbar(), 10500);
+        this.timoutID = setTimeout(() => this.closeSnackbar(), 1500);
     },
 
     data() {
