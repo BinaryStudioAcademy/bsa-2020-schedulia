@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Actions\Event;
 
 use App\Entity\Event;
+use App\Notifications\EventCreatedNotification;
 use App\Repositories\Event\EventRepository;
 use App\Repositories\Event\EventRepositoryInterface;
+use Illuminate\Mail\Mailer;
 
 final class AddEventAction
 {
@@ -28,5 +30,7 @@ final class AddEventAction
         $event->timezone = $request->getTimezone();
 
         $this->eventRepository->save($event);
+
+        $event->eventType->owner->notify(new EventCreatedNotification($event));
     }
 }
