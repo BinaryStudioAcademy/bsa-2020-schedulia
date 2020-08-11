@@ -8,7 +8,6 @@ use App\Entity\Event;
 use App\Notifications\EventCreatedNotification;
 use App\Repositories\Event\EventRepository;
 use App\Repositories\Event\EventRepositoryInterface;
-use Illuminate\Mail\Mailer;
 
 final class AddEventAction
 {
