@@ -14,13 +14,21 @@
                 v-bind="attrs"
                 v-on="on"
             >
+                <Avatar />
                 {{ lang.USER_MENU_BUTTON }}
                 <VIcon>mdi-menu-down</VIcon>
             </VBtn>
         </template>
         <VList dense>
             <VListItem>
-                <VListItemTitle>Account settings</VListItemTitle>
+                <VListItemTitle align-self="center">
+                    <RouterLink
+                        :to="{ name: 'profile' }"
+                        class="user-menu__link"
+                    >
+                        <VIcon>mdi-account</VIcon> Profile
+                    </RouterLink>
+                </VListItemTitle>
             </VListItem>
             <VListItem>
                 <VListItemTitle align-self="center">
@@ -35,13 +43,18 @@
 
 <script>
 import enLang from '@/store/modules/i18n/en';
+import Avatar from './Avatar';
 
 export default {
     name: 'UserMenu',
 
     data: () => ({
         lang: enLang
-    })
+    }),
+
+    components: {
+        Avatar
+    }
 };
 </script>
 

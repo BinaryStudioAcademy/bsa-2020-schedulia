@@ -7,7 +7,6 @@
                 </VCol>
                 <VSpacer></VSpacer>
                 <VCol class="text-right" align-self="center">
-                    <Avatar />
                     <UserMenu />
                 </VCol>
             </VRow>
@@ -17,7 +16,6 @@
 
 <script>
 import Logo from './Logo';
-import Avatar from './Avatar';
 import UserMenu from './UserMenu';
 
 export default {
@@ -25,7 +23,6 @@ export default {
 
     components: {
         Logo,
-        Avatar,
         UserMenu
     }
 };

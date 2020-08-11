@@ -31,4 +31,18 @@ final class EventTypeRepository extends BaseRepository implements EventTypeRepos
     {
         return EventType::where('owner_id', $id)->get();
     }
+
+    public function saveAvailabilities(EventType $eventType, array $availabilities): void
+    {
+        $eventType
+            ->availabilities()
+            ->createMany($availabilities);
+    }
+
+    public function deleteAvailabilities(EventType $eventType): void
+    {
+        $eventType
+            ->availabilities()
+            ->delete();
+    }
 }
