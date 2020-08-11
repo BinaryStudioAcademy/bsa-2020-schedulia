@@ -7,7 +7,7 @@ use App\Notifications\EventCreatedNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SendEventCreatedNotificationListener implements ShouldQueue
+class SendEventCreatedNotification implements ShouldQueue
 {
     /**
      * Create the event listener.
