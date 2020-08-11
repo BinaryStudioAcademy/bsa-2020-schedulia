@@ -78,15 +78,14 @@ export default {
     }
 
     &__button::v-deep:before {
-       background-color: transparent;
+        background-color: transparent;
     }
 
-    &__button::v-deep:hover span.v-btn__content {
-        opacity: 0.9;
-    }
-
-    &__button::v-deep[aria-expanded='true'] span{
-        opacity: 0.9;
+    &__button::v-deep:hover,
+    &__button::v-deep[aria-expanded='true'] {
+        span.v-btn__content {
+            opacity: 0.9;
+        }
     }
 
     &__button[aria-expanded='true'] i {
