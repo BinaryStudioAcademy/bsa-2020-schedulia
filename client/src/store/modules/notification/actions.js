@@ -8,7 +8,7 @@ export default {
             id: uuidv4(),
             showing: true,
             text: text,
-            type: 'error'
+            typeSnackbar: 'error'
         });
     },
 

@@ -1,7 +1,7 @@
 <template>
     <VSnackbar
         :value="notification.showing"
-        :color="notification.type"
+        :color="notification.typeSnackbar"
         :timeout="timeout"
         :top="top"
         :style="`top: ${index * 60 + 15}px`"
@@ -32,7 +32,11 @@ export default {
     props: {
         notification: {
             type: Object,
-            required: true
+            required: true,
+            id: String,
+            text: String,
+            showing: Boolean,
+            typeSnackbar: String
         },
         index: {
             type: Number,
@@ -41,7 +45,7 @@ export default {
     },
 
     mounted() {
-       this.timoutID = setTimeout(() => this.closeSnackbar(), 1500);
+       this.timoutID = setTimeout(() => this.closeSnackbar(), 10500);
     },
 
     data() {
