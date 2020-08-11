@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Entity\Event;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -14,14 +15,16 @@ class EventCreated implements ShouldBroadcast
     use InteractsWithSockets;
     use SerializesModels;
 
+    public Event $event;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Event $event)
     {
-        //
+        $this->event = $event;
     }
 
     /**
