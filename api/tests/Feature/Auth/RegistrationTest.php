@@ -41,6 +41,13 @@ class RegistrationTest extends TestCase
             'email' => $user['email'],
             'name' => $user['name'],
             'timezone' => $user['timezone'],
+            'branding_logo' => null,
+            'avatar' => null,
+            'welcome_message' => null,
+            'language' => 'en',
+            'date_format' => 'american',
+            'time_format_12h' => true,
+            'country' => null
         ]);
     }
 
