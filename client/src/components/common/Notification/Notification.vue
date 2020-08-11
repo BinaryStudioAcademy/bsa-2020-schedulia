@@ -4,7 +4,7 @@
         :color="notification.type"
         :timeout="timeout"
         :top="top"
-        :style="`top: ${index * 80 + 15}px`"
+        :style="`top: ${index * 60 + 15}px`"
     >
         <VRow>
             <VCol cols="12" md="11">
@@ -22,6 +22,9 @@
 </template>
 
 <script>
+import * as notificationActions from '@/store/modules/notification/types/actions';
+import {mapActions} from "vuex";
+
 export default {
     name: 'Notification',
 
@@ -36,16 +39,24 @@ export default {
         }
     },
 
+    mounted() {
+        setTimeout(() => this.closeSnackbar(), 10000);
+    },
+
     data() {
         return {
             top: true,
-            timeout: 1500
+            timeout: -1
         };
     },
 
     methods: {
+        ...mapActions('notification', {
+            removeErrorNotification: notificationActions.REMOVE_ERROR_NOTIFICATION
+        }),
+
         closeSnackbar() {
-            this.notification.showing = false;
+            this.removeErrorNotification(this.index);
         }
     }
 };

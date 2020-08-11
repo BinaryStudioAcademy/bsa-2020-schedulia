@@ -8,5 +8,9 @@ export default {
             text: text,
             type: 'error'
         });
+    },
+
+    [actions.REMOVE_ERROR_NOTIFICATION]: async ({ commit }, id) => {
+        commit(mutations.REMOVE_NOTIFICATION, id);
     }
 };
