@@ -6,5 +6,5 @@ use App\Entity\Event;
 
 interface EventRepositoryInterface
 {
-    public function save(Event $event);
+    public function save(Event $event): Event;
 }
