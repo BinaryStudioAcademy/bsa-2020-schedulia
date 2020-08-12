@@ -25,7 +25,7 @@
                                 require('@/assets/auth/icon_circle_mark_normal.svg')
                             "
                             alt="icon in circle ok mark normal"
-                            class="normal-ok-sign "
+                            class="normal-ok-image "
                         />
                     </VRow>
                     <VRow no-gutters justify="center">
@@ -105,7 +105,6 @@ export default {
     })
 };
 </script>
-
 <style>
 html {
     overflow-y: auto !important;
@@ -113,7 +112,6 @@ html {
 }
 </style>
 <style scoped>
-/*block styling*/
 .secondary-vcol {
     height: 100vh;
     background-color: var(--v-secondary-base);
@@ -139,7 +137,7 @@ html {
     display: none;
     margin-top: 1.7vh;
 }
-/*main visual break out*/
+
 @media screen and (max-width: 960px) {
     .primary-vcol {
         order: 0;
@@ -151,7 +149,7 @@ html {
     .envelop-image {
         display: none;
     }
-    .normal-ok-sign {
+    .normal-ok-image {
         display: none;
     }
     .first-column-in-secondary {
@@ -162,21 +160,20 @@ html {
         min-height: 50vmin;
     }
     .logo-primary-div {
-        display: block !important;
+        display: block;
     }
     .logo-secondary-div {
         display: none;
     }
     .place-for-form-vcol {
-        margin-top: 9vh !important;
+        margin-top: 9vh;
     }
 }
-/*image styles*/
 .logo-image {
     height: 52px;
     width: 49px;
 }
-.normal-ok-sign {
+.normal-ok-image {
     height: 6.3vh;
     min-height: 30px;
     z-index: 20;
@@ -200,7 +197,6 @@ html {
     margin-left: 4vw;
     margin-top: 65vh;
 }
-/*text formats*/
 h5 {
     font-style: normal;
     font-weight: bold;
