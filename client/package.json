@@ -72,9 +72,10 @@
       ],
       "vue/eqeqeq": "error",
       "semi": "error",
-      "no-console": "off",
-      "no-debugger": "off",
-      "eqeqeq": "error"
+      "no-console": "warn",
+      "no-debugger": "warn",
+      "eqeqeq": "error",
+      "curly": "error"
     }
   },
   "browserslist": [
