@@ -20,7 +20,7 @@
             </VBtn>
         </template>
         <VList dense>
-            <VListItem>
+            <VListItem class="v-list-item--link">
                 <VListItemTitle align-self="center">
                     <RouterLink
                         :to="{ name: 'profile' }"
@@ -30,7 +30,7 @@
                     </RouterLink>
                 </VListItemTitle>
             </VListItem>
-            <VListItem>
+            <VListItem class="v-list-item--link">
                 <VListItemTitle align-self="center">
                     <RouterLink :to="{ name: 'Home' }" class="user-menu__link">
                         <VIcon>mdi-logout-variant</VIcon>Logout
@@ -79,6 +79,13 @@ export default {
 
     &__button::v-deep:before {
         background-color: transparent;
+    }
+
+    &__button::v-deep:hover,
+    &__button::v-deep[aria-expanded='true'] {
+        span.v-btn__content {
+            opacity: 0.9;
+        }
     }
 
     &__button[aria-expanded='true'] i {

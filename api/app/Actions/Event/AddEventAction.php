@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions\Event;
 
 use App\Entity\Event;
+use App\Events\EventCreated;
 use App\Repositories\Event\EventRepository;
 use App\Repositories\Event\EventRepositoryInterface;
 
@@ -28,5 +29,7 @@ final class AddEventAction
         $event->timezone = $request->getTimezone();
 
         $this->eventRepository->save($event);
+
+        event(new EventCreated($event));
     }
 }
