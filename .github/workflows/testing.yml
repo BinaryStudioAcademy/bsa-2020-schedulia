@@ -1,4 +1,4 @@
- 
+
 name: testing
 
 on:
@@ -62,4 +62,5 @@ jobs:
       run: |-
         cd api
         composer install
+        cp .env.testing.example .env.testing
         ./vendor/bin/phpunit -c phpunit.github.xml

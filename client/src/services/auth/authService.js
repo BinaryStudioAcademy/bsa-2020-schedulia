@@ -18,7 +18,8 @@ const authService = {
         return response?.data?.data;
     },
     async fetchLoggedUser() {
-        return await requestService.get('/users/me');
+        const response = await requestService.get('/auth/me');
+        return response?.data?.data;
     },
     saveToken(token) {
         localStorage.setItem('auth.accessToken', token);

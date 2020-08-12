@@ -30,6 +30,7 @@ final class AddEventTypeAction
         $eventType->disabled = $request->getDisabled();
 
         $eventType = $this->eventTypeRepository->save($eventType);
+        $this->eventTypeRepository->saveAvailabilities($eventType, $request->getAvailabilities());
 
         return new AddEventTypeResponse($eventType);
     }
