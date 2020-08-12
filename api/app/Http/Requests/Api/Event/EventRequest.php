@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Api\Event;
 
 use App\Http\Requests\ApiFormRequest;
-use Illuminate\Foundation\Http\FormRequest;
 
 class EventRequest extends ApiFormRequest
 {
@@ -13,7 +12,8 @@ class EventRequest extends ApiFormRequest
             'invitee_name' => 'required|string|between:2,50',
             'invitee_email' => 'required|email|max:50',
             'start_date' => 'required',
-            'timezone' => 'required|timezone'
+            'timezone' => 'required|timezone',
+            'event_type_id' => 'required|exists:event_types,id'
         ];
     }
 }
