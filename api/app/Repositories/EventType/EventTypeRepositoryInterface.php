@@ -13,4 +13,6 @@ interface EventTypeRepositoryInterface
     public function save(EventType $eventType): EventType;
     public function deleteById(int $id): void;
     public function getEventTypesByOwnerId(int $id): Collection;
+    public function saveAvailabilities(EventType $eventType, array $availabilities): void;
+    public function deleteAvailabilities(EventType $eventType): void;
 }

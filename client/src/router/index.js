@@ -9,35 +9,12 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: '/',
-        name: 'UserDataProvider',
         component: UserDataProvider,
         children: [
             {
                 path: '',
-                name: 'Home',
-                component: () => import('../views/Login.vue')
-            },
-            {
-                path: 'about',
-                name: 'About',
-                component: () => import('../views/About.vue')
-            },
-            {
-                path: 'status',
-                component: () => import('../views/Status.vue')
-            },
-            {
-                path: 'profile',
-                name: 'profile',
-                component: () => import('../views/Profile.vue')
-            },
-            {
-                path: '',
-                name: 'LoginGuard',
-                component: LoginGuard,
-                children: [
-                    // There must be routes which need logged user
-                ]
+                name: 'SignIn',
+                component: () => import('../views/SignIn')
             },
             {
                 path: 'signup',
@@ -45,14 +22,48 @@ const routes = [
                 component: () => import('../views/SignUp')
             },
             {
-                path: 'login',
-                name: 'Login',
-                component: () => import('../views/Login.vue')
-            },
-            {
-                path: 'event',
-                name: 'Event',
-                component: () => import('../views/Event.vue')
+                path: '',
+                component: LoginGuard,
+                children: [
+                    // There must be routes which need logged user
+                    {
+                        path: 'home',
+                        name: 'Home',
+                        component: () => import('../views/Home')
+                    },
+                    {
+                        path: 'status',
+                        name: 'Status',
+                        component: () => import('../views/Status')
+                    },
+                    {
+                        path: 'about',
+                        name: 'About',
+                        component: () => import('../views/About')
+                    },
+                    {
+                        path: 'profile',
+                        name: 'Profile',
+                        component: () => import('../views/Profile')
+                    },
+
+                    {
+                        path: 'event-types',
+                        name: 'EventTypes',
+                        component: () => import('../views/EventTypes')
+                    },
+
+                    {
+                        path: 'new-event',
+                        name: 'new-event',
+                        component: () => import('../views/NewEventType')
+                    },
+                    {
+                        path: 'event',
+                        name: 'Event',
+                        component: () => import('../views/Event.vue')
+                    }
+                ]
             }
         ]
     }

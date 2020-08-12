@@ -31,7 +31,7 @@ final class UpdateEventTypeAction
         }
 
         $eventType->name = $request->getName() ?: $eventType->email;
-        $eventType->description = $request->getDescription() ?: $eventType->description;
+        $eventType->description = $request->getDescription();
         $eventType->slug = $request->getSlug() ?: $eventType->slug;
         $eventType->color = $request->getColor() ?: $eventType->color;
         $eventType->duration = $request->getDuration() ?: $eventType->duration;
@@ -39,6 +39,9 @@ final class UpdateEventTypeAction
         $eventType->disabled = $request->getDisabled() ?: $eventType->disabled;
 
         $eventType = $this->eventTypeRepository->save($eventType);
+
+        $this->eventTypeRepository->deleteAvailabilities($eventType);
+        $this->eventTypeRepository->saveAvailabilities($eventType, $request->getAvailabilities());
 
         return new UpdateEventTypeResponse($eventType);
     }

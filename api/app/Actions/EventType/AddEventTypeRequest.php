@@ -13,6 +13,7 @@ final class AddEventTypeRequest
     private int $duration;
     private string $timezone;
     private bool $disabled;
+    private array $availabilities;
 
     public function __construct(
         string $name,
@@ -21,7 +22,8 @@ final class AddEventTypeRequest
         string $color,
         int $duration,
         string $timezone,
-        bool $disabled
+        bool $disabled,
+        array $availabilities
     ) {
         $this->name = $name;
         $this->description = $description;
@@ -30,6 +32,7 @@ final class AddEventTypeRequest
         $this->duration = $duration;
         $this->timezone = $timezone;
         $this->disabled = $disabled;
+        $this->availabilities = $availabilities;
     }
 
     public function getName(): string
@@ -65,5 +68,10 @@ final class AddEventTypeRequest
     public function getDisabled(): bool
     {
         return $this->disabled;
+    }
+
+    public function getAvailabilities(): array
+    {
+        return $this->availabilities;
     }
 }
