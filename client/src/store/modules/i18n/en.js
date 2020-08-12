@@ -63,5 +63,35 @@ export default {
     GOOGLE_ICON: 'G',
     FACEBOOK_ICON: 'F',
     SCHEDULIA: 'Schedulia',
-    USER_MENU_BUTTON: 'My Account'
+    USER_MENU_BUTTON: 'My Account',
+
+    ET_MENU: 'Menu',
+    ET_MENU_HOME: 'Home',
+    ET_MENU_EDIT_EVENT_TYPE: 'Edit event type',
+    ET_BACK: 'Back',
+
+    ET_CONFIRM_DATE: 'Confirm',
+    ET_SELECT_DATE_AND_TIME: 'Select a date and time',
+
+    ET_MIN: 'min',
+    ET_JAN: 'January',
+    ET_FEB: 'February',
+    ET_MAR: 'March',
+    ET_APR: 'April',
+    ET_MAY: 'May',
+    ET_JUN: 'June',
+    ET_JUL: 'July',
+    ET_AUG: 'August',
+    ET_SEP: 'September',
+    ET_OCT: 'October',
+    ET_NOV: 'November',
+    ET_DEC: 'December',
+
+    ET_WEEK_DAY_MON: 'Mon',
+    ET_WEEK_DAY_TUE: 'Tue',
+    ET_WEEK_DAY_WED: 'Wed',
+    ET_WEEK_DAY_THU: 'Thu',
+    ET_WEEK_DAY_FRI: 'Fri',
+    ET_WEEK_DAY_SAT: 'Sat',
+    ET_WEEK_DAY_SUN: 'Sun'
 };
