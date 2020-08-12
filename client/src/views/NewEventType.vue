@@ -1,6 +1,6 @@
 <template>
     <GeneralLayout>
-        <NewEventTypeCard/>
+        <CreateEventTypeForm/>
         <template v-slot:title>
             <NewEventTypeTitle />
         </template>
@@ -10,13 +10,13 @@
 <script>
 import GeneralLayout from '@/components/common/GeneralLayout/GeneralLayout';
 import NewEventTypeTitle from '@/components/events/NewEventTypeTitle';
-import NewEventTypeCard from '@/components/events/NewEventTypeCard';
+import CreateEventTypeForm from '@/components/events/CreateEventTypeForm';
 export default {
     name: 'NewEventType',
     components: {
         GeneralLayout,
         NewEventTypeTitle,
-        NewEventTypeCard
+        CreateEventTypeForm
     }
 };
 </script>

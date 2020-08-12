@@ -11,7 +11,7 @@
                         alt=""
                     />
                     <span class="back-button">
-                        Back
+                        {{ lang.BACK}}
                     </span>
                 </VBtn>
             </VCol>
@@ -22,7 +22,7 @@
             </VCol>
             <VCol cols="3">
                 <VFlex row class="align-center justify-end">
-                    <VSubheader>Your event type is {{ eventSwitch ? 'On' : 'Off' }}</VSubheader>
+                    <VSubheader>{{ lang.YOUR_EVENT_TYPE_IS }} {{ eventSwitch ? 'On' : 'Off' }}</VSubheader>
                     <VSwitch v-model="eventSwitch"></VSwitch>
                 </VFlex>
             </VCol>
@@ -31,11 +31,13 @@
 </template>
 
 <script>
+import enLang from '@/store/modules/i18n/en.js';
 export default {
     name: 'NewEventTypeCard',
 
     data() {
         return {
+            lang: enLang,
             eventSwitch: ''
         };
     }

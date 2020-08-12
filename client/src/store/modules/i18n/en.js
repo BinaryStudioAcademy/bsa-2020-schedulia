@@ -59,5 +59,21 @@ export default {
     WRONG_EMAIL_FORMAT: 'Wrong Email format',
 
     LOGO_TITLE: 'Schedulia',
-    USER_MENU_BUTTON: 'My Account'
+    USER_MENU_BUTTON: 'My Account',
+
+    CREATE_EVENT_TYPE_TITLE: 'What even is this?',
+    CREATE_EVENT_TYPE_SUBTITLE: 'Sales manager',
+    EVENT_NAME_LABEL: 'Event Name',
+    LOCATION_LABEL: 'Location',
+    DESCRIPTION_LABEL: 'Description/Instructions',
+    EVENT_LINK_LABEL: 'Event Link',
+    EVENT_COLOR_LABEL: 'Event Color',
+    YOUR_EVENT_TYPE_IS: 'Your event type is',
+
+    PROVIDE_EVENT_NAME: 'Please provide an event name',
+    PROVIDE_EVENT_LINK: 'Please provide an event link',
+    EVENT_LINK_VALID_SYMBOLS: 'Please use lowercase only \'a-z\', \'0-9\', \'-\', or \'_\' characters',
+
+    NEXT: 'Next',
+    BACK: 'Back',
 };
