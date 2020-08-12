@@ -32,6 +32,7 @@ Route::get('/debug-sentry', function () {
 
 Route::get('/status/{serviceName?}', 'Api\StatusController@status');
 Route::post('/mail', 'Api\StatusController@mail');
+Route::post('/broadcast', 'Api\StatusController@event');
 
 Route::group([
     'middleware' => 'auth:api',
