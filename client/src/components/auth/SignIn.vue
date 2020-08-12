@@ -1,9 +1,9 @@
 <template>
-    <VCard elevation="0" flat tile class="secondary">
+    <VCard elevation="0" :flat="true" tile class="secondary">
         <VCardTitle class="title-of-card ">{{ lang.WELCOME }}</VCardTitle>
         <VCardSubtitle class="info-text-in-title mt-1">
             <span>{{ lang.NEW_HERE }} </span>
-            <RouterLink :to="{ path: 'signup' }">
+            <RouterLink :to="{ name: 'SignUp' }">
                 {{ lang.CREATE_AN_ACCOUNT }}
             </RouterLink>
         </VCardSubtitle>
@@ -29,7 +29,7 @@
                         <label for="password">{{ lang.PASSWORD }} </label>
                         <RouterLink
                             :to="{ path: 'restore' }"
-                            class="forgot-password-a"
+                            class="forgot-password-a "
                         >
                             {{ lang.FORGOT_PASSWORD }}
                         </RouterLink>
@@ -86,6 +86,8 @@
 import * as actions from '@/store/modules/auth/types/actions';
 import { mapActions } from 'vuex';
 import enLang from '@/store/modules/i18n/en';
+import * as getters from '@/store/modules/auth/types/getters';
+import { mapGetters } from 'vuex';
 import * as notificationActions from '@/store/modules/notification/types/actions';
 
 export default {
@@ -118,7 +120,8 @@ export default {
     }),
     methods: {
         ...mapActions('auth', {
-            signIn: actions.SIGN_IN
+            signIn: actions.SIGN_IN,
+            fetchLoggedUser: actions.FETCH_LOGGED_USER
         }),
         ...mapActions('notification', {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
@@ -128,19 +131,21 @@ export default {
             if (this.formValid) {
                 try {
                     await this.signIn(this.loginData);
-                    this.showMessage(
-                        this.lang.SUCCESSFULLY_SIGNINED,
-                        'success.login'
-                    );
-                    setTimeout(
-                        () => this.$router.push({ path: '/profile' }),
-                        2000
-                    );
+                    await this.fetchLoggedUser();
+                    this.$router.push({ name: 'Profile' });
                 } catch (error) {
                     this.setErrorNotification(error);
                 }
             }
         }
+    },
+    mounted() {
+        console.log(this.$store.getters['auth/getLoggedUser']);
+    },
+    computed: {
+        ...mapGetters('auth', {
+            loggedUser: getters.GET_LOGGED_USER
+        })
     }
 };
 </script>

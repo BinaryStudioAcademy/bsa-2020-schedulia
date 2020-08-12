@@ -9,35 +9,12 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: '/',
-        name: 'UserDataProvider',
         component: UserDataProvider,
         children: [
             {
                 path: '',
-                name: 'Home',
-                component: () => import('../views/SignIn.vue')
-            },
-            {
-                path: 'about',
-                name: 'About',
-                component: () => import('../views/About.vue')
-            },
-            {
-                path: 'status',
-                component: () => import('../views/Status.vue')
-            },
-            {
-                path: 'profile',
-                name: 'profile',
-                component: () => import('../views/Profile.vue')
-            },
-            {
-                path: '',
-                name: 'LoginGuard',
-                component: LoginGuard,
-                children: [
-                    // There must be routes which need logged user
-                ]
+                name: 'SignIn',
+                component: () => import('../views/SignIn')
             },
             {
                 path: 'signup',
@@ -45,9 +22,31 @@ const routes = [
                 component: () => import('../views/SignUp')
             },
             {
-                path: 'signin',
-                name: 'SignIn',
-                component: () => import('../views/SignIn.vue')
+                path: 'home',
+                name: 'Home',
+                component: () => import('../views/Home')
+            },
+            {
+                path: 'status',
+                name: 'Status',
+                component: () => import('../views/Status')
+            },
+            {
+                path: 'about',
+                name: 'About',
+                component: () => import('../views/About')
+            },
+            {
+                path: 'profile',
+                name: 'Profile',
+                component: () => import('../views/Profile')
+            },
+            {
+                path: '',
+                component: LoginGuard,
+                children: [
+                    // There must be routes which need logged user
+                ]
             }
         ]
     }
