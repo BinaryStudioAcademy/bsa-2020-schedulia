@@ -16,7 +16,7 @@ export default new Vuetify({
                 warning: '#FFD67A',
                 background: '#F9F9F9',
                 validationError: '#FFE9E9',
-                eventColor: '#18A0FB',
+                eventColor: '#18A0FB'
             }
         },
         options: {

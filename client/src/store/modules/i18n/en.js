@@ -71,7 +71,8 @@ export default {
 
     PROVIDE_EVENT_NAME: 'Please provide an event name',
     PROVIDE_EVENT_LINK: 'Please provide an event link',
-    EVENT_LINK_VALID_SYMBOLS: 'Please use lowercase only \'a-z\', \'0-9\', \'-\', or \'_\' characters',
+    EVENT_LINK_VALID_SYMBOLS:
+        "Please use lowercase only 'a-z', '0-9', '-', or '_' characters",
 
     NEXT: 'Next',
     BACK: 'Back',
@@ -85,5 +86,4 @@ export default {
     USER_MENU_BUTTON: 'My Account',
     SUCCESSFULLY_SIGNINED: 'Successfully sign in! ',
     FORGOT_PASSWORD: 'Forgot Password?'
-
 };

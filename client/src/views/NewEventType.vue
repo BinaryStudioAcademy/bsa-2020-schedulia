@@ -1,6 +1,6 @@
 <template>
     <GeneralLayout>
-        <CreateEventTypeForm/>
+        <CreateEventTypeForm />
         <template v-slot:title>
             <NewEventTypeTitle />
         </template>
@@ -20,5 +20,4 @@ export default {
     }
 };
 </script>
-<style scoped>
-</style>
+<style scoped></style>

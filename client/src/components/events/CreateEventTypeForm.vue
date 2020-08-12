@@ -95,20 +95,25 @@
                                         class="mr-7 ml-3 image-circle"
                                         v-on:click="setColor(id)"
                                     >
-                                        <VOverlay absolute :value="color === id" class="rounded-circle" color="eventColor">
-                                            <img :src="require('@/assets/images/icon_check.png')" alt="">
+                                        <VOverlay
+                                            absolute
+                                            :value="color === id"
+                                            class="rounded-circle"
+                                            color="eventColor"
+                                        >
+                                            <img
+                                                :src="
+                                                    require('@/assets/images/icon_check.png')
+                                                "
+                                                alt=""
+                                            />
                                         </VOverlay>
                                     </VImg>
                                 </div>
                             </VRow>
                         </div>
                         <div>
-                            <VBtn
-                                text
-                                outlined
-                                width="114"
-                                class="mr-3"
-                            >
+                            <VBtn text outlined width="114" class="mr-3">
                                 {{ lang.CANCEL }}
                             </VBtn>
                             <VBtn
@@ -160,16 +165,46 @@ export default {
             colors: ['yellow', 'red', 'blue', 'green'],
             nameRules: [
                 v => !!v || this.lang.PROVIDE_EVENT_NAME,
-                v => v.length >= 2 || this.lang.EVENT_NAME_LABEL +' '+ this.lang.FIELD_MUST_BE_MORE_THAN_VALUE.replace('value', 2),
-                v => v.length <= 55 || this.lang.EVENT_NAME_LABEL +' '+ this.lang.FIELD_MUST_BE_LESS_THAN_VALUE.replace('value', 55),
+                v =>
+                    v.length >= 2 ||
+                    this.lang.EVENT_NAME_LABEL +
+                        ' ' +
+                        this.lang.FIELD_MUST_BE_MORE_THAN_VALUE.replace(
+                            'value',
+                            2
+                        ),
+                v =>
+                    v.length <= 55 ||
+                    this.lang.EVENT_NAME_LABEL +
+                        ' ' +
+                        this.lang.FIELD_MUST_BE_LESS_THAN_VALUE.replace(
+                            'value',
+                            55
+                        )
             ],
             eventLinkRules: [
                 v => !!v || this.lang.PROVIDE_EVENT_LINK,
-                v => v.length <= 250 || this.lang.EVENT_LINK_LABEL +' '+ this.lang.FIELD_MUST_BE_LESS_THAN_VALUE.replace('value', 250),
-                v => /[a-z]|[0-9]|-|_/.test(v) || this.lang.EVENT_LINK_VALID_SYMBOLS
+                v =>
+                    v.length <= 250 ||
+                    this.lang.EVENT_LINK_LABEL +
+                        ' ' +
+                        this.lang.FIELD_MUST_BE_LESS_THAN_VALUE.replace(
+                            'value',
+                            250
+                        ),
+                v =>
+                    /[a-z]|[0-9]|-|_/.test(v) ||
+                    this.lang.EVENT_LINK_VALID_SYMBOLS
             ],
             descRules: [
-                v => v.length <= 1000 || this.lang.DESCRIPTION_LABEL +' '+ this.lang.FIELD_MUST_BE_LESS_THAN_VALUE.replace('value', 1000)
+                v =>
+                    v.length <= 1000 ||
+                    this.lang.DESCRIPTION_LABEL +
+                        ' ' +
+                        this.lang.FIELD_MUST_BE_LESS_THAN_VALUE.replace(
+                            'value',
+                            1000
+                        )
             ]
         };
     },
@@ -183,7 +218,7 @@ export default {
     methods: {
         setColor(id) {
             this.color = this.colorById[id].id;
-        },
+        }
     }
 };
 </script>
@@ -197,16 +232,15 @@ export default {
     text-transform: none;
 }
 
-.app-textfield.error--text::v-deep .v-input__slot
-{
+.app-textfield.error--text::v-deep .v-input__slot {
     background-color: var(--v-validationError-base);
 }
 
-.image-circle{
+.image-circle {
     cursor: pointer;
 }
 
-.image-circle:hover{
+.image-circle:hover {
     opacity: 0.9;
 }
 </style>
