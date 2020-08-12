@@ -2,37 +2,51 @@
 
 declare(strict_types=1);
 
-namespace App\Actions\Profile;
+namespace App\Actions\User;
 
-final class UpdateProfileRequest
+final class UpdateUserRequest
 {
+    private int $userId;
     private ?string $avatar;
+    private ?string $brandingLogo;
     private string $name;
-    private ?string $welcome_message;
+    private ?string $welcomeMessage;
     private string $language;
-    private string $date_format;
-    private bool $time_format_12h;
+    private string $dateFormat;
+    private bool $timeFormat12h;
     private ?string $country;
     private string $timezone;
 
     public function __construct(
+        int $userId,
         ?string $avatar,
+        ?string $brandingLogo,
         string $name,
-        ?string $welcome_message,
+        ?string $welcomeMessage,
         string $language,
-        string $date_format,
-        bool $time_format_12h,
+        string $dateFormat,
+        bool $timeFormat12h,
         ?string $country,
         string $timezone
     ) {
+        $this->userId = $userId;
         $this->avatar = $avatar;
+        $this->brandingLogo = $brandingLogo;
         $this->name = $name;
-        $this->welcome_message = $welcome_message;
+        $this->welcomeMessage = $welcomeMessage;
         $this->language = $language;
-        $this->date_format = $date_format;
-        $this->time_format_12h = $time_format_12h;
+        $this->dateFormat = $dateFormat;
+        $this->timeFormat12h = $timeFormat12h;
         $this->country = $country;
         $this->timezone = $timezone;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->userId;
     }
 
     /**
@@ -41,6 +55,14 @@ final class UpdateProfileRequest
     public function getAvatar()
     {
         return $this->avatar;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getBrandingLogo()
+    {
+        return $this->brandingLogo;
     }
 
     /**
@@ -56,7 +78,7 @@ final class UpdateProfileRequest
      */
     public function getDateFormat()
     {
-        return $this->date_format;
+        return $this->dateFormat;
     }
 
     /**
@@ -80,7 +102,7 @@ final class UpdateProfileRequest
      */
     public function isTimeFormat12h()
     {
-        return $this->time_format_12h;
+        return $this->timeFormat12h;
     }
 
     /**
@@ -96,6 +118,6 @@ final class UpdateProfileRequest
      */
     public function getWelcomeMessage()
     {
-        return $this->welcome_message;
+        return $this->welcomeMessage;
     }
 }

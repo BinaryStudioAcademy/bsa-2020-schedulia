@@ -2,30 +2,33 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Actions\Profile\UpdateProfileAction;
-use App\Actions\Profile\UpdateProfileRequest;
-use App\Http\Presenters\ProfilePresenter;
+use App\Actions\User\UpdateUserAction;
+use App\Actions\User\UpdateUserRequest;
+use App\Http\Presenters\UserArrayPresenter;
 use App\Http\Requests\Api\Profile\UpdateProfileRequest as ProfileRequest;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends ApiController
 {
-    private $updateProfileAction;
-    private $profilePresenter;
+    private UpdateUserAction $updateUserAction;
+    private UserArrayPresenter $userArrayPresenter;
 
     public function __construct(
-        UpdateProfileAction $updateProfileAction,
-        ProfilePresenter $profilePresenter
+        UpdateUserAction $updateUserAction,
+        UserArrayPresenter $userArrayPresenter
     ) {
-        $this->updateProfileAction = $updateProfileAction;
-        $this->profilePresenter = $profilePresenter;
+        $this->updateUserAction = $updateUserAction;
+        $this->userArrayPresenter = $userArrayPresenter;
     }
 
     public function store(ProfileRequest $request): JsonResponse
     {
-        $response = $this->updateProfileAction->execute(new UpdateProfileRequest(
+        $response = $this->updateUserAction->execute(new UpdateUserRequest(
+            Auth::id(),
             $request->get('avatar'),
+            $request->get('branding_logo'),
             $request->get('name'),
             $request->get('welcome_message'),
             $request->get('language'),
@@ -35,7 +38,7 @@ class ProfileController extends ApiController
             $request->get('timezone')
         ));
 
-        return $this->successResponse($this->profilePresenter->present($response->getProfile()));
+        return $this->successResponse($this->userArrayPresenter->present($response->getProfile()));
     }
 
     public function delete($id)

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Actions\Profile;
+namespace App\Actions\User;
 
 use App\Entity\User;
 
-final class UpdateProfileResponse
+final class UpdateUserResponse
 {
     private User $profile;
 
