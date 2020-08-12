@@ -27,7 +27,6 @@ class UploadFileApiTest extends TestCase
             'file' => $uploadedFile,
             'type' => $type
         ];
-        
         $response = $this->json("POST", "/api/v1/files", $data);
 
         $response->assertStatus(401)
@@ -60,7 +59,6 @@ class UploadFileApiTest extends TestCase
             'file' => $uploadedFile,
             'type' => $type
         ];
-
         $response = $this->actingAs($user)->json("POST", "/api/v1/files", $data);
 
         $content = $response->assertStatus(201)
