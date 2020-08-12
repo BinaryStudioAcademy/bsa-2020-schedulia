@@ -22,30 +22,30 @@ const routes = [
                 component: () => import('../views/SignUp')
             },
             {
-                path: 'home',
-                name: 'Home',
-                component: () => import('../views/Home')
-            },
-            {
-                path: 'status',
-                name: 'Status',
-                component: () => import('../views/Status')
-            },
-            {
-                path: 'about',
-                name: 'About',
-                component: () => import('../views/About')
-            },
-            {
-                path: 'profile',
-                name: 'Profile',
-                component: () => import('../views/Profile')
-            },
-            {
                 path: '',
                 component: LoginGuard,
                 children: [
                     // There must be routes which need logged user
+                    {
+                        path: 'home',
+                        name: 'Home',
+                        component: () => import('../views/Home')
+                    },
+                    {
+                        path: 'status',
+                        name: 'Status',
+                        component: () => import('../views/Status')
+                    },
+                    {
+                        path: 'about',
+                        name: 'About',
+                        component: () => import('../views/About')
+                    },
+                    {
+                        path: 'profile',
+                        name: 'Profile',
+                        component: () => import('../views/Profile')
+                    }
                 ]
             }
         ]
