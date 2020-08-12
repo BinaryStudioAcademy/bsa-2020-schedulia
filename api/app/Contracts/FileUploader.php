@@ -1,10 +1,10 @@
 <?php
 namespace App\Contracts;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use App\User;
+use Illuminate\Http\UploadedFile;
 
-interface FileUploader {
-    public function upload(UploadedFile $file, User $uploadedBy, $type);
-    public function remove($fileName);
+interface FileUploader
+{
+    public function upload(UploadedFile $file, int $userId, string $type): string;
+    public function remove(string $fileName): string;
 }

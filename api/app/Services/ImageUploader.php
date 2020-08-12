@@ -3,15 +3,15 @@
 namespace App\Services;
 
 use App\Contracts\FileUploader;
-use App\User;
 use Illuminate\Config\Repository;
 use Illuminate\Filesystem\FilesystemManager;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Arr;
 
 final class ImageUploader implements FileUploader
 {
-private FilesystemManager $fileSystemManager;
-
-private Repository $config;
+    private FilesystemManager $fileSystemManager;
+    private Repository $config;
 
     public function __construct(
         FilesystemManager $filesystemManager,
@@ -21,15 +21,17 @@ private Repository $config;
         $this->config = $config;
     }
 
-    public function upload(
-        UploadedFile $file,
-        User $uploadedBy,
-        $type
-    ) {
+    public function upload(UploadedFile $file, int $userId, string $type): string
+    {
         $fileContent = file_get_contents($file->getRealPath());
 
         $options = $this->config->get('imageUploader.' . $type);
-        $fileName = $options['folder'] .'/'.$uploadedBy->id.'/'. $this->generateFileName($file).'.'.$file->getClientOriginalExtension();
+
+        $fileName = $this->config->get('imageUploader.root') .
+            '/' . $options['folder'] . '/' .
+            $userId . '/' .
+            $this->generateFileName($file->getFilename()) . '.' . $file->getClientOriginalExtension();
+
         $defaultDisk = $this->config->get('imageUploader.disk');
 
         $this->fileSystemManager
@@ -39,14 +41,14 @@ private Repository $config;
         return $fileName;
     }
 
-    public function remove($fileName)
+    public function remove(string $fileName): string
     {
         $this->fileSystemManager->delete($fileName);
         return $fileName;
     }
 
-    private function generateFileName($file){
-        return md5(uniqid().$file);
+    private function generateFileName(string $fileName): string
+    {
+        return md5(uniqid() . $fileName);
     }
-
 }

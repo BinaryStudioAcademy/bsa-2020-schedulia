@@ -2,6 +2,8 @@
 return [
     'disk' => 'local',
 
+    'root' => 'files',
+
     'branding' => [
         'folder' => 'branding',
     ],

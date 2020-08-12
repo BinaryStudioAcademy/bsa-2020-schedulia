@@ -62,3 +62,11 @@ Route::group([
 ], function () {
     Route::put('/me', 'UserController@store');
 });
+
+Route::group([
+    'middleware' => 'auth:api',
+    'namespace' => 'Api\\',
+    'prefix' => '/files',
+], function () {
+    Route::post('/', 'UploadController@store');
+});
