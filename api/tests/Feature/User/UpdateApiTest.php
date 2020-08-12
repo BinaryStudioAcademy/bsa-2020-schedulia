@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Profile;
+namespace Tests\Feature\User;
 
 use App\Entity\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -29,7 +29,9 @@ class UpdateApiTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user)->json("PUT", "/api/v1/profiles/me", []);
+        $response = $this->actingAs($user)->json("PUT", "/api/v1/profiles/me", [
+            "name" => "jo"
+        ]);
 
         $response->assertStatus(422)
             ->assertHeader('Content-Type', 'application/json');
@@ -52,7 +54,7 @@ class UpdateApiTest extends TestCase
             "name" => "John Doe",
             "language" => "de",
             "date_format" => "european_standard",
-            "time_format_12h" => false,
+            "time_format_12h" => true,
             "timezone" => "America/Los_Angeles",
             "country" => "USA",
             "welcome_message" => "new message"

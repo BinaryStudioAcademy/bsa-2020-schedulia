@@ -60,5 +60,5 @@ Route::group([
     'namespace' => 'Api\\',
     'prefix' => '/profiles',
 ], function () {
-    Route::put('/me', 'ProfileController@store');
+    Route::put('/me', 'UserController@store');
 });

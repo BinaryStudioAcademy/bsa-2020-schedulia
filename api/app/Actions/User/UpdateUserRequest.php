@@ -9,25 +9,25 @@ final class UpdateUserRequest
     private int $userId;
     private ?string $avatar;
     private ?string $brandingLogo;
-    private string $name;
+    private ?string $name;
     private ?string $welcomeMessage;
-    private string $language;
-    private string $dateFormat;
-    private bool $timeFormat12h;
+    private ?string $language;
+    private ?string $dateFormat;
+    private ?bool $timeFormat12h;
     private ?string $country;
-    private string $timezone;
+    private ?string $timezone;
 
     public function __construct(
         int $userId,
         ?string $avatar,
         ?string $brandingLogo,
-        string $name,
+        ?string $name,
         ?string $welcomeMessage,
-        string $language,
-        string $dateFormat,
-        bool $timeFormat12h,
+        ?string $language,
+        ?string $dateFormat,
+        ?bool $timeFormat12h,
         ?string $country,
-        string $timezone
+        ?string $timezone
     ) {
         $this->userId = $userId;
         $this->avatar = $avatar;
@@ -41,82 +41,52 @@ final class UpdateUserRequest
         $this->timezone = $timezone;
     }
 
-    /**
-     * @return int
-     */
-    public function getUserId()
+    public function getUserId(): int
     {
         return $this->userId;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getAvatar()
+    public function getAvatar(): ?string
     {
         return $this->avatar;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getBrandingLogo()
+    public function getBrandingLogo(): ?string
     {
         return $this->brandingLogo;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getCountry()
+    public function getCountry(): ?string
     {
         return $this->country;
     }
 
-    /**
-     * @return string
-     */
-    public function getDateFormat()
+    public function getDateFormat(): ?string
     {
         return $this->dateFormat;
     }
 
-    /**
-     * @return string
-     */
-    public function getLanguage()
+    public function getLanguage(): ?string
     {
         return $this->language;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @return bool
-     */
-    public function isTimeFormat12h()
+    public function isTimeFormat12h(): ?bool
     {
         return $this->timeFormat12h;
     }
 
-    /**
-     * @return string
-     */
-    public function getTimezone()
+    public function getTimezone(): ?string
     {
         return $this->timezone;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getWelcomeMessage()
+    public function getWelcomeMessage(): ?string
     {
         return $this->welcomeMessage;
     }

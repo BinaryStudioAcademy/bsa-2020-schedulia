@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Actions\User\UpdateUserAction;
 use App\Actions\User\UpdateUserRequest;
 use App\Http\Presenters\UserArrayPresenter;
-use App\Http\Requests\Api\Profile\UpdateProfileRequest as ProfileRequest;
+use App\Http\Requests\Api\User\UpdateUserRequest as UserRequest;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
-class ProfileController extends ApiController
+class UserController extends ApiController
 {
     private UpdateUserAction $updateUserAction;
     private UserArrayPresenter $userArrayPresenter;
@@ -23,7 +23,7 @@ class ProfileController extends ApiController
         $this->userArrayPresenter = $userArrayPresenter;
     }
 
-    public function store(ProfileRequest $request): JsonResponse
+    public function store(UserRequest $request): JsonResponse
     {
         $response = $this->updateUserAction->execute(new UpdateUserRequest(
             Auth::id(),
