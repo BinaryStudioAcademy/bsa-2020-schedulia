@@ -23,10 +23,20 @@
             <VListItem class="v-list-item--link">
                 <VListItemTitle align-self="center">
                     <RouterLink
-                        :to="{ name: 'profile' }"
+                        :to="{ name: 'Profile' }"
                         class="user-menu__link"
                     >
                         <VIcon>mdi-account</VIcon> Profile
+                    </RouterLink>
+                </VListItemTitle>
+            </VListItem>
+            <VListItem class="v-list-item--link">
+                <VListItemTitle align-self="center">
+                    <RouterLink
+                        :to="{ name: 'EventTypes' }"
+                        class="user-menu__link"
+                    >
+                        <VIcon>mdi-calendar</VIcon> Event Types
                     </RouterLink>
                 </VListItemTitle>
             </VListItem>

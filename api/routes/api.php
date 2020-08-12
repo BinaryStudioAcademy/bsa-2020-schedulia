@@ -54,3 +54,11 @@ Route::group([
 ], function () {
     Route::post('/', 'EventController@store');
 });
+
+Route::group([
+    'middleware' => 'auth:api',
+    'namespace' => 'Api\\',
+    'prefix' => '/profiles',
+], function () {
+    Route::put('/me', 'UserController@store');
+});
