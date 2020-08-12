@@ -52,6 +52,12 @@ const routes = [
                         name: 'new-event',
                         component: () => import('../views/NewEventType')
                     },
+
+                    {
+                        path: 'event-types',
+                        name: 'EventTypes',
+                        component: () => import('../views/EventTypes')
+                    }
                 ]
             },
         ]
