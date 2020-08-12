@@ -50,7 +50,7 @@
                 </VCol>
             </VCardText>
             <VCardActions>
-                <VCol cols="12" sm="12" md="8" class="pa-0">
+                <VCol cols="12" sm="12" md="9" class="pa-0">
                     <VRow align="center" justify="space-between">
                         <VCol>
                             <VBtn
@@ -68,10 +68,10 @@
                             </span>
                         </VCol>
                         <VCol>
-                            <VBtn class="ma-1 social-button" outlined fab>
+                            <VBtn class="social-button" outlined fab>
                                 {{ lang.GOOGLE_ICON }}
                             </VBtn>
-                            <VBtn class="ma-1 social-button" outlined fab>
+                            <VBtn class="social-button" outlined fab>
                                 {{ lang.FACEBOOK_ICON }}
                             </VBtn>
                         </VCol>
@@ -183,7 +183,9 @@ label {
 }
 .social-button {
     font-weight: 700;
-    font-size: large;
+    font-size: xx-large;
+    margin-left: 4px;
+    margin-right: 0;
     color: var(--v-primary-base);
     text-transform: none;
 }
