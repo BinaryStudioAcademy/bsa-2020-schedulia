@@ -22,10 +22,6 @@ final class UpdateProfileAction
     {
         $user = Auth::user();
 
-        if (!$user) {
-            throw new AuthenticationException();
-        }
-
         $profile = $this->profileRepository->getById($user->id);
 
         if (!$profile) {
