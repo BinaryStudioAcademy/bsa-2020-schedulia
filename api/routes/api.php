@@ -56,6 +56,7 @@ Route::group([
 });
 
 Route::group([
+    'middleware' => 'auth:api',
     'namespace' => 'Api\\',
     'prefix' => '/profiles',
 ], function () {
