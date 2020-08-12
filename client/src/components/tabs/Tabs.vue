@@ -13,9 +13,15 @@
         </div>
         <BorderBottom />
         <VContainer class="container-content">
-            <VTabsItems v-model="tab">
+            <VTabsItems
+                v-model="tab"
+                :class="{ 'background-none': isEventTypesPage }"
+            >
                 <VTabItem v-for="item in tabs" :key="item.tab">
-                    <VCol cols="6">
+                    <VCol cols="12" v-if="isEventTypesPage">
+                        <Component v-bind:is="item.component"></Component>
+                    </VCol>
+                    <VCol cols="6" v-else>
                         <VCard>
                             <VCardText>
                                 <Component
@@ -42,11 +48,20 @@ export default {
         tabs: {
             type: Array,
             required: true
+        },
+        pageType: {
+            type: String,
+            required: false
         }
     },
     data: () => ({
         tab: null
-    })
+    }),
+    computed: {
+        isEventTypesPage() {
+            return this.pageType === 'event-types-page';
+        }
+    }
 };
 </script>
 
@@ -60,5 +75,11 @@ export default {
     &__container {
         padding: 0;
     }
+}
+.v-tab {
+    text-transform: none;
+}
+.background-none {
+    background: none;
 }
 </style>
