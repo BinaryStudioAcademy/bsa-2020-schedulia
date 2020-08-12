@@ -87,8 +87,6 @@ import * as actions from '@/store/modules/auth/types/actions';
 import { mapActions } from 'vuex';
 import enLang from '@/store/modules/i18n/en';
 import * as getters from '@/store/modules/auth/types/getters';
-import { mapGetters } from 'vuex';
-import * as notificationActions from '@/store/modules/notification/types/actions';
 
 export default {
     name: 'SingIn',
@@ -138,14 +136,6 @@ export default {
                 }
             }
         }
-    },
-    mounted() {
-        console.log(this.$store.getters['auth/getLoggedUser']);
-    },
-    computed: {
-        ...mapGetters('auth', {
-            loggedUser: getters.GET_LOGGED_USER
-        })
     }
 };
 </script>
