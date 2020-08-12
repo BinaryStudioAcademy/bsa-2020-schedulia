@@ -51,7 +51,7 @@
                             md="8"
                             cols="11"
                         >
-                            <RouterLink :to="{ path: 'signin' }">
+                            <RouterLink :to="{ name: 'SignIn' }">
                                 <VRow no-gutters>
                                     <img
                                         :src="
