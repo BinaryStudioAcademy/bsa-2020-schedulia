@@ -1,8 +1,8 @@
 <template>
     <VCard elevation="0" :flat="true" tile class="secondary">
         <VCardTitle class="title-of-card ">{{ lang.WELCOME }}</VCardTitle>
-        <VCardSubtitle class="info-text-in-title ">
-            <span class="info--text">{{ lang.NEW_HERE }} </span>
+        <VCardSubtitle class="info-text-in-title mt-1">
+            <span>{{ lang.NEW_HERE }} </span>
             <RouterLink :to="{ name: 'SignUp' }">
                 {{ lang.CREATE_AN_ACCOUNT }}
             </RouterLink>
@@ -31,7 +31,7 @@
                             :to="{ path: 'restore' }"
                             class="forgot-password-a "
                         >
-                            Forgot Password?
+                            {{ lang.FORGOT_PASSWORD }}
                         </RouterLink>
                     </VRow>
                 </VCol>
@@ -50,7 +50,7 @@
                 </VCol>
             </VCardText>
             <VCardActions>
-                <VCol cols="12" sm="12" md="8" class="pa-0">
+                <VCol cols="12" sm="12" md="9" class="pa-0">
                     <VRow align="center" justify="space-between">
                         <VCol>
                             <VBtn
@@ -59,19 +59,19 @@
                                 class="login-button  primary"
                                 depressed
                                 @click="onSignIn"
-                                >Log in
+                                >{{ lang.LOG_IN }}
                             </VBtn>
                         </VCol>
                         <VCol>
                             <span class="info--text  text-center">
-                                {{ lang.OR_LOGIN_WITH }}</span
-                            >
+                                {{ lang.OR_LOGIN_WITH }}
+                            </span>
                         </VCol>
                         <VCol>
-                            <VBtn class="ma-1 social-button" outlined fab>
+                            <VBtn class="social-button" outlined fab>
                                 {{ lang.GOOGLE_ICON }}
                             </VBtn>
-                            <VBtn class="ma-1 social-button" outlined fab>
+                            <VBtn class="social-button" outlined fab>
                                 {{ lang.FACEBOOK_ICON }}
                             </VBtn>
                         </VCol>
@@ -79,12 +79,6 @@
                 </VCol>
             </VCardActions>
         </VForm>
-        <Alert
-            :type="alert.type"
-            :message="alert.message"
-            :visibility="alert.visible"
-            @user-deleted="onAlertClose"
-        />
     </VCard>
 </template>
 
@@ -92,13 +86,11 @@
 import * as actions from '@/store/modules/auth/types/actions';
 import { mapActions } from 'vuex';
 import enLang from '@/store/modules/i18n/en';
-import Alert from '@/components/alert/Alert';
+import * as notificationActions from '@/store/modules/notification/types/actions';
 
 export default {
     name: 'SingIn',
-    components: {
-        Alert
-    },
+    components: {},
     data: () => ({
         lang: enLang,
         formValid: false,
@@ -108,10 +100,16 @@ export default {
             password: ''
         },
         emailRules: [
-            v => !!v || 'E-mail is required',
-            v => /.+@.+/.test(v) || 'E-mail must be valid'
+            v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', enLang.EMAIL),
+            v =>
+                /([a-zA-Z0-9_.-]+)@(.+)[.](.+)/.test(v) ||
+                enLang.WRONG_EMAIL_FORMAT
         ],
-        passwordRules: [v => !!v || 'Password is required'],
+        passwordRules: [
+            v =>
+                !!v ||
+                enLang.FIELD_IS_REQUIRED.replace('field', enLang.PASSWORD)
+        ],
         alert: {
             visible: false,
             message: '',
@@ -123,6 +121,9 @@ export default {
             signIn: actions.SIGN_IN,
             fetchLoggedUser: actions.FETCH_LOGGED_USER
         }),
+        ...mapActions('notification', {
+            setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
+        }),
         async onSignIn() {
             this.$refs.form.validate();
             if (this.formValid) {
@@ -131,22 +132,13 @@ export default {
                     await this.fetchLoggedUser();
                     this.$router.push({ name: 'Profile' });
                 } catch (error) {
-                    this.showMessage(error, 'error');
+                    this.setErrorNotification(error);
                 }
             }
-        },
-        onAlertClose() {
-            this.alert.visible = false;
-        },
-        showMessage(message, type = '') {
-            this.alert.message = message;
-            this.alert.type = type;
-            this.alert.visible = true;
         }
     }
 };
 </script>
-
 <style scoped>
 .title-of-card {
     color: var(--v-primary-base);
@@ -158,7 +150,7 @@ export default {
 .info-text-in-title {
     font-style: normal;
     font-weight: 500;
-    font-size: 13px;
+    font-size: small;
     line-height: 16px;
 }
 a {
@@ -167,14 +159,12 @@ a {
 label {
     font-style: normal;
     font-weight: 500;
-    font-size: 13px;
-    line-height: 16px;
+    font-size: small;
     color: #2c2c2c;
     display: block;
 }
 .forgot-password-a {
-    font-size: 9px;
-    line-height: 16px;
+    font-size: x-small;
     letter-spacing: 0.4px;
     color: var(--v-primary-base);
 }
@@ -183,7 +173,9 @@ label {
 }
 .social-button {
     font-weight: 700;
-    font-size: large;
+    font-size: xx-large;
+    margin-left: 4px;
+    margin-right: 0;
     color: var(--v-primary-base);
     text-transform: none;
 }
