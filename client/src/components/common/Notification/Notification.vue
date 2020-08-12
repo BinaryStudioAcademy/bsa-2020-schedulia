@@ -7,10 +7,10 @@
         :style="`top: ${index * 60 + 15}px`"
     >
         <VRow>
-            <VCol cols="12" md="11">
+            <VCol cols="11" md="11">
                 {{ notification.text }}
             </VCol>
-            <VCol class="text-right" align-self="center" cols="12" md="1">
+            <VCol class="text-right" align-self="center" cols="1" md="1">
                 <span class="close" @click="closeSnackbar">
                     <VIcon size="14">
                         mdi-close
