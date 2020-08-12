@@ -5,7 +5,5 @@ COPY ./ /app
 RUN rm -rf .deploy && \
 	chown -R $USERNAME:$USERNAME /app && \
 	mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
-	cp .env.staging .env && \
-	composer install --no-dev --optimize-autoloader && \
 	php artisan migrate && \
 	php artisan config:clear

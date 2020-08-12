@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+
 import UserDataProvider from '@/components/guard/UserDataProvider';
 import LoginGuard from '@/components/guard/LoginGuard';
 
@@ -9,42 +9,51 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: '/',
-        name: 'UserDataProvider',
         component: UserDataProvider,
         children: [
             {
                 path: '',
-                name: 'Home',
-                component: Home
+                name: 'SignIn',
+                component: () => import('../views/SignIn')
             },
             {
-                path: 'about',
-                name: 'About',
-                component: () => import('../views/About.vue')
-            },
-            {
-                path: 'status',
-                component: () => import('../views/Status.vue')
-            },
-            {
-                path: 'profile',
-                name: 'profile',
-                component: () => import('../views/Profile.vue')
+                path: 'signup',
+                name: 'SignUp',
+                component: () => import('../views/SignUp')
             },
             {
                 path: '',
-                name: 'LoginGuard',
                 component: LoginGuard,
                 children: [
                     // There must be routes which need logged user
+                    {
+                        path: 'home',
+                        name: 'Home',
+                        component: () => import('../views/Home')
+                    },
+                    {
+                        path: 'status',
+                        name: 'Status',
+                        component: () => import('../views/Status')
+                    },
+                    {
+                        path: 'about',
+                        name: 'About',
+                        component: () => import('../views/About')
+                    },
+                    {
+                        path: 'profile',
+                        name: 'Profile',
+                        component: () => import('../views/Profile')
+                    },
+
+                    {
+                        path: 'new-event',
+                        name: 'new-event',
+                        component: () => import('../views/NewEventType')
+                    }
                 ]
             },
-
-            {
-                path: 'new-event',
-                name: 'new-event',
-                component: () => import('../views/NewEventType')
-            }
         ]
     }
 ];

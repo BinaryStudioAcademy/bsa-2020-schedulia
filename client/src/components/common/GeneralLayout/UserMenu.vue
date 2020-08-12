@@ -14,15 +14,23 @@
                 v-bind="attrs"
                 v-on="on"
             >
+                <Avatar />
                 {{ lang.USER_MENU_BUTTON }}
                 <VIcon>mdi-menu-down</VIcon>
             </VBtn>
         </template>
         <VList dense>
-            <VListItem>
-                <VListItemTitle>Account settings</VListItemTitle>
+            <VListItem class="v-list-item--link">
+                <VListItemTitle align-self="center">
+                    <RouterLink
+                        :to="{ name: 'profile' }"
+                        class="user-menu__link"
+                    >
+                        <VIcon>mdi-account</VIcon> Profile
+                    </RouterLink>
+                </VListItemTitle>
             </VListItem>
-            <VListItem>
+            <VListItem class="v-list-item--link">
                 <VListItemTitle align-self="center">
                     <RouterLink :to="{ name: 'Home' }" class="user-menu__link">
                         <VIcon>mdi-logout-variant</VIcon>Logout
@@ -35,13 +43,18 @@
 
 <script>
 import enLang from '@/store/modules/i18n/en';
+import Avatar from './Avatar';
 
 export default {
     name: 'UserMenu',
 
     data: () => ({
         lang: enLang
-    })
+    }),
+
+    components: {
+        Avatar
+    }
 };
 </script>
 
@@ -66,6 +79,13 @@ export default {
 
     &__button::v-deep:before {
         background-color: transparent;
+    }
+
+    &__button::v-deep:hover,
+    &__button::v-deep[aria-expanded='true'] {
+        span.v-btn__content {
+            opacity: 0.9;
+        }
     }
 
     &__button[aria-expanded='true'] i {

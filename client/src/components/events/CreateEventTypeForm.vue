@@ -1,129 +1,125 @@
 <template>
     <VContainer>
         <VCard class="mt-7">
-            <VRow>
-                <VCol cols="12">
-                    <VRow align="center">
-                        <div>
-                            <img
-                                :src="colorById[color].image"
-                                alt=""
-                                class="ml-10"
-                            />
-                        </div>
-                        <div>
-                            <VCardTitle>
-                                {{ lang.CREATE_EVENT_TYPE_TITLE }}
-                            </VCardTitle>
-                            <VCardSubtitle>
-                                {{ lang.CREATE_EVENT_TYPE_SUBTITLE }}
-                            </VCardSubtitle>
-                        </div>
-                    </VRow>
+            <VRow align="center">
+                <VCol cols="1">
+                    <div>
+                        <img
+                            :src="colorById[color].image"
+                            alt=""
+                            class="ml-10"
+                        />
+                    </div>
                 </VCol>
-                <VDivider class="mx-4"></VDivider>
-                <VCol cols="12">
-                    <VRow>
-                        <VCol cols="6" offset-md="2">
-                            <VForm class="mt-9 mb-16">
-                                <div class="mb-2">
-                                    <label>{{ lang.EVENT_NAME_LABEL }}</label>
-                                </div>
+                <VCol>
+                    <div>
+                        <VCardTitle>
+                            {{ lang.CREATE_EVENT_TYPE_TITLE }}
+                        </VCardTitle>
+                        <VCardSubtitle>
+                            {{ lang.CREATE_EVENT_TYPE_SUBTITLE }}
+                        </VCardSubtitle>
+                    </div>
+                </VCol>
+            </VRow>
+            <VDivider class="mx-4"></VDivider>
+            <VRow>
+                <VCol cols="6" offset-md="2">
+                    <VForm class="mt-9 mb-16">
+                        <div class="mb-2">
+                            <label>{{ lang.EVENT_NAME_LABEL }}</label>
+                        </div>
 
-                                <VTextField
-                                    v-model="eventName"
-                                    :rules="nameRules"
-                                    placeholder="Placeholder"
-                                    outlined
-                                    class="app-textfield"
-                                    value=""
-                                    dense
-                                >
-                                </VTextField>
+                        <VTextField
+                            v-model="eventName"
+                            :rules="nameRules"
+                            outlined
+                            class="app-textfield"
+                            value=""
+                            dense
+                        >
+                        </VTextField>
 
-                                <div class="mb-2">
-                                    <label>{{ lang.LOCATION_LABEL }}</label>
-                                </div>
+                        <div class="mb-2">
+                            <label>{{ lang.LOCATION_LABEL }}</label>
+                        </div>
 
-                                <VSelect
-                                    v-model="selected"
-                                    :items="items"
-                                    outlined
-                                    placeholder="Option"
-                                    dense
-                                    class="mb-3"
-                                >
-                                </VSelect>
+                        <VSelect
+                            v-model="selected"
+                            :items="items"
+                            outlined
+                            placeholder="Option"
+                            dense
+                            class="mb-3"
+                        >
+                        </VSelect>
 
-                                <div class="mb-2">
-                                    <label>{{ lang.DESCRIPTION_LABEL }}</label>
-                                </div>
+                        <div class="mb-2">
+                            <label>{{ lang.DESCRIPTION_LABEL }}</label>
+                        </div>
 
-                                <VTextarea
-                                    v-model="description"
-                                    :rules="descRules"
-                                    outlined
-                                    placeholder="Placeholder"
-                                    class="mb-3"
-                                >
-                                </VTextarea>
+                        <VTextarea
+                            v-model="description"
+                            :rules="descRules"
+                            placeholder="Placeholder"
+                            outlined
+                            class="mb-3"
+                        >
+                        </VTextarea>
 
-                                <div class="mb-2">
-                                    <label>{{ lang.EVENT_LINK_LABEL }}</label>
-                                </div>
+                        <div class="mb-2">
+                            <label>{{ lang.EVENT_LINK_LABEL }}</label>
+                        </div>
 
-                                <VTextField
-                                    :rules="eventLinkRules"
-                                    placeholder="Placeholder"
-                                    outlined
-                                    :value="eventName"
-                                    dense
-                                    class="mb-4 app-textfield"
-                                    required
-                                >
-                                </VTextField>
+                        <VTextField
+                            :rules="eventLinkRules"
+                            outlined
+                            :value="eventLinkDashed"
+                            dense
+                            class="mb-4 app-textfield"
+                            required
+                        >
+                        </VTextField>
 
-                                <div class="mb-2">
-                                    <p>{{ lang.EVENT_COLOR_LABEL }}</p>
-                                </div>
-                                <div class="mb-12">
-                                    <VRow>
-                                        <div class="d-flex">
-                                            <VImg
-                                                v-for="id in colors"
-                                                :key="id"
-                                                :src="colorById[id].image"
-                                                alt=""
-                                                class="mr-7 ml-3"
-                                                v-on:click="setColor(id)"
-                                            >
-                                                <VOverlay absolute :value="color === id" class="rounded-circle" color="eventColor">
-                                                    <img :src="require('@/assets/images/icon_check.png')" alt="">
-                                                </VOverlay>
-                                            </VImg>
-                                        </div>
-                                    </VRow>
-                                </div>
-                                <div>
-                                    <VBtn
-                                        text
-                                        outlined
-                                        width="114"
-                                        class="mr-3"
+                        <div class="mb-2">
+                            <p>{{ lang.EVENT_COLOR_LABEL }}</p>
+                        </div>
+                        <div class="mb-12">
+                            <VRow>
+                                <div class="d-flex">
+                                    <VImg
+                                        v-for="id in colors"
+                                        :key="id"
+                                        :src="colorById[id].image"
+                                        alt=""
+                                        class="mr-7 ml-3 image-circle"
+                                        v-on:click="setColor(id)"
                                     >
-                                        {{ lang.CANCEL }}
-                                    </VBtn>
-                                    <VBtn
-                                        color="primary"
-                                        class="white--text"
-                                        width="114"
-                                    >
-                                        {{ lang.NEXT }}
-                                    </VBtn>
+                                        <VOverlay absolute :value="color === id" class="rounded-circle" color="eventColor">
+                                            <img :src="require('@/assets/images/icon_check.png')" alt="">
+                                        </VOverlay>
+                                    </VImg>
                                 </div>
-                            </VForm>
-                        </VCol>
-                    </VRow>
+                            </VRow>
+                        </div>
+                        <div>
+                            <VBtn
+                                text
+                                outlined
+                                width="114"
+                                class="mr-3"
+                            >
+                                {{ lang.CANCEL }}
+                            </VBtn>
+                            <VBtn
+                                color="primary"
+                                class="white--text"
+                                width="114"
+                            >
+                                {{ lang.NEXT }}
+                            </VBtn>
+                        </div>
+                    </VForm>
                 </VCol>
             </VRow>
         </VCard>
@@ -138,9 +134,9 @@ export default {
         return {
             lang: enLang,
             eventName: '',
+            eventLink: '',
             selected: '',
             description: '',
-            imageUrl: '',
             items: ['address on the map', 'zoom', 'skype'],
             color: 'yellow',
             colorById: {
@@ -178,10 +174,16 @@ export default {
         };
     },
 
+    computed: {
+        eventLinkDashed() {
+            return this.eventName.replace(/\s/g, '-');
+        }
+    },
+
     methods: {
         setColor(id) {
             this.color = this.colorById[id].id;
-        }
+        },
     }
 };
 </script>
@@ -195,9 +197,16 @@ export default {
     text-transform: none;
 }
 
-.app-textfield.error--text,
-.app-textfield .error--text
+.app-textfield.error--text::v-deep .v-input__slot
 {
     background-color: var(--v-validationError-base);
+}
+
+.image-circle{
+    cursor: pointer;
+}
+
+.image-circle:hover{
+    opacity: 0.9;
 }
 </style>

@@ -1,15 +1,15 @@
 <template>
     <div class="signup container">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <h1 class="header">{{ lang.CREATE_AN_ACCOUNT }}</h1>
             <p class="hint">
                 {{ lang.ALREADY_REGISTERED }}
-                <RouterLink :to="{ path: 'login' }">
+                <RouterLink :to="{ name: 'SignIn' }">
                     {{ lang.LOG_IN }}
                 </RouterLink>
             </p>
             <VForm v-model="formValid" ref="form">
-                <VCol cols="12" sm="12" md="6" class="pa-0">
+                <VCol cols="12" sm="12" md="8" class="pa-0">
                     <label for="full-name">{{ lang.FULL_NAME }}</label>
                     <VTextField
                         id="full-name"
@@ -21,7 +21,7 @@
                         :rules="nameRules"
                     ></VTextField>
                 </VCol>
-                <VCol cols="12" sm="12" md="6" class="pa-0">
+                <VCol cols="12" sm="12" md="8" class="pa-0">
                     <label for="email">{{ lang.EMAIL }}</label>
                     <VTextField
                         id="email"
@@ -33,7 +33,7 @@
                         :rules="emailRules"
                     ></VTextField>
                 </VCol>
-                <VCol cols="12" sm="12" md="6" class="pa-0">
+                <VCol cols="12" sm="12" md="8" class="pa-0">
                     <label for="password">{{ lang.PASSWORD }}</label>
                     <VTextField
                         id="password"
@@ -47,7 +47,7 @@
                         :rules="passwordRules"
                     ></VTextField>
                 </VCol>
-                <VCol cols="12" sm="12" md="6" class="pa-0">
+                <VCol cols="12" sm="12" md="8" class="pa-0">
                     <label for="password_confirmation">
                         {{ lang.CONFIRM_PASSWORD }}
                     </label>
@@ -93,6 +93,7 @@ import * as actions from '@/store/modules/auth/types/actions';
 import { mapActions } from 'vuex';
 import enLang from '@/store/modules/i18n/en';
 import Alert from '@/components/alert/Alert';
+import * as notificationActions from '@/store/modules/notification/types/actions';
 
 export default {
     name: 'SignUp',
@@ -108,7 +109,8 @@ export default {
             name: '',
             email: '',
             password: '',
-            password_confirmation: ''
+            password_confirmation: '',
+            timezone: ''
         },
         nameRules: [
             v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', enLang.NAME),
@@ -157,6 +159,10 @@ export default {
         }
     }),
     methods: {
+        ...mapActions('notification', {
+            setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
+        }),
+
         ...mapActions('auth', {
             signUp: actions.SIGN_UP
         }),
@@ -164,17 +170,18 @@ export default {
             this.$refs.form.validate();
             if (this.formValid) {
                 try {
+                    this.registerData.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
                     await this.signUp(this.registerData);
                     this.showMessage(
                         this.lang.SUCCESSFULLY_REGISTERED,
                         'success.login'
                     );
                     setTimeout(
-                        () => this.$router.push({ path: '/login' }),
+                        () => this.$router.push({ path: '/signin' }),
                         2000
                     );
                 } catch (error) {
-                    this.showMessage(error, 'error');
+                    this.setErrorNotification(error);
                 }
             }
         },

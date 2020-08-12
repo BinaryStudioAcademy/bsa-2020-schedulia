@@ -22,7 +22,7 @@
             </VCol>
             <VCol cols="3">
                 <VFlex row class="align-center justify-end">
-                    <VSubheader>{{ lang.YOUR_EVENT_TYPE_IS }} {{ eventSwitch ? 'On' : 'Off' }}</VSubheader>
+                    <VSubheader class="app-subheader">{{ lang.YOUR_EVENT_TYPE_IS }} {{ eventSwitch ? 'On' : 'Off' }}</VSubheader>
                     <VSwitch v-model="eventSwitch"></VSwitch>
                 </VFlex>
             </VCol>
@@ -40,7 +40,7 @@ export default {
             lang: enLang,
             eventSwitch: ''
         };
-    }
+    },
 };
 </script>
 <style scoped>
@@ -49,6 +49,9 @@ export default {
     font-size: 13px;
     padding-left: 5px;
     padding-right: 10px;
+}
+.app-subheader {
+    min-width: 182px;
 }
 
 </style>

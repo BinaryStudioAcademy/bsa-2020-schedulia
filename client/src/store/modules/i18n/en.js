@@ -59,7 +59,6 @@ export default {
     WRONG_EMAIL_FORMAT: 'Wrong Email format',
 
     LOGO_TITLE: 'Schedulia',
-    USER_MENU_BUTTON: 'My Account',
 
     CREATE_EVENT_TYPE_TITLE: 'What even is this?',
     CREATE_EVENT_TYPE_SUBTITLE: 'Sales manager',
@@ -76,4 +75,15 @@ export default {
 
     NEXT: 'Next',
     BACK: 'Back',
+
+    WELCOME: 'Welcome',
+    NEW_HERE: 'New here?',
+    OR_LOGIN_WITH: 'Or Log in with',
+    GOOGLE_ICON: 'G',
+    FACEBOOK_ICON: 'f',
+    SCHEDULIA: 'Schedulia',
+    USER_MENU_BUTTON: 'My Account',
+    SUCCESSFULLY_SIGNINED: 'Successfully sign in! ',
+    FORGOT_PASSWORD: 'Forgot Password?'
+
 };

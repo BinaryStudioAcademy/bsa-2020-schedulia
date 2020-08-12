@@ -1,10 +1,19 @@
 <template>
-    <RouterView />
+    <VApp>
+        <RouterView />
+        <Notifications />
+    </VApp>
 </template>
 
 <script>
+import Notifications from './components/common/Notification/Notifications';
+
 export default {
-    name: 'App'
+    name: 'App',
+
+    components: {
+        Notifications
+    }
 };
 </script>
 

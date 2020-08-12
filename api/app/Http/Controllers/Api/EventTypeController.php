@@ -42,10 +42,11 @@ class EventTypeController extends ApiController
                 (int)$request->get('duration'),
                 $request->get('timezone'),
                 (bool)$request->get('disabled'),
+                $request->get('availabilities'),
             ))
             ->getEventType();
 
-        return $this->successResponse($this->eventTypePresenter->present($response));
+        return $this->successResponse($this->eventTypePresenter->present($response), JsonResponse::HTTP_CREATED);
     }
 
     public function getEventTypeById(string $id, GetEventTypeByIdAction $action): JsonResponse
@@ -70,6 +71,7 @@ class EventTypeController extends ApiController
                     (int)$request->get('duration'),
                     $request->get('timezone'),
                     (bool)$request->get('disabled'),
+                    $request->get('availabilities'),
                 )
             )->getEventType();
 
