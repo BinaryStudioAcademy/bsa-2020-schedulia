@@ -31,7 +31,7 @@ final class UpdateEventTypeAction
         }
 
         $eventType->name = $request->getName() ?: $eventType->email;
-        $eventType->description = $request->getDescription() ?: $eventType->description;
+        $eventType->description = $request->getDescription();
         $eventType->slug = $request->getSlug() ?: $eventType->slug;
         $eventType->color = $request->getColor() ?: $eventType->color;
         $eventType->duration = $request->getDuration() ?: $eventType->duration;

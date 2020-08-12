@@ -19,6 +19,9 @@
                     <VProgressCircular v-else indeterminate color="primary" />
                 </template>
             </VDataTable>
+            <VBtn @click="setErrorNotification('Error notification')"
+                >Get Alert</VBtn
+            >
         </VContainer>
     </div>
 </template>
@@ -26,6 +29,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import * as statusGetters from '@/store/modules/status/types/getters';
 import * as statusActions from '@/store/modules/status/types/actions';
+import * as notificationActions from '@/store/modules/notification/types/actions';
 import BorderBottom from '../common/GeneralLayout/BorderBottom';
 
 export default {
@@ -71,6 +75,10 @@ export default {
     methods: {
         ...mapActions('status', {
             getStatusByName: statusActions.GET_SERVICE_STATUS_BY_NAME
+        }),
+
+        ...mapActions('notification', {
+            setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
         })
     },
 
