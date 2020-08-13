@@ -18,7 +18,6 @@ final class UploadImageRequest
         int $userId,
         string $type,
         ?string $oldFile
-
     ) {
         $this->userId = $userId;
         $this->file = $file;

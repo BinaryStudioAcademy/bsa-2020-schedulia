@@ -29,7 +29,6 @@ final class ImageUploader implements FileUploader
             ->disk()
             ->putFileAs($path, $file, $newFileName, 'public');
 
-
         $link = $this->fileSystemManager->disk()->url($path . $newFileName);
 
         return [
@@ -40,7 +39,7 @@ final class ImageUploader implements FileUploader
 
     public function remove(string $file): void
     {
-        if($this->fileSystemManager->exists($file)){
+        if ($this->fileSystemManager->exists($file)){
             $this->fileSystemManager->delete($file);
         }
     }
