@@ -22,8 +22,8 @@ final class ImageUploader implements FileUploader
 
     public function upload(UploadedFile $file, int $userId, string $type): array
     {
-        $newFileName = $this->generateFileName($file->getFilename()).'.'.$file->getClientOriginalExtension();
-        $path = $this->config->get('filesystems.paths.' . $type).'/'.$userId;
+        $newFileName = $this->generateFileName($file->getFilename()). '.' .$file->getClientOriginalExtension();
+        $path = $this->config->get('filesystems.paths.' . $type). '/' .$userId;
 
         $result = $this->fileSystemManager
             ->disk()
@@ -39,7 +39,7 @@ final class ImageUploader implements FileUploader
 
     public function remove(string $file): void
     {
-        if ($this->fileSystemManager->exists($file)){
+        if ($this->fileSystemManager->exists($file)) {
             $this->fileSystemManager->delete($file);
         }
     }
