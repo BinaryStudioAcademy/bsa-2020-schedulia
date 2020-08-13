@@ -85,5 +85,7 @@ export default {
     SCHEDULIA: 'Schedulia',
     USER_MENU_BUTTON: 'My Account',
     SUCCESSFULLY_SIGNINED: 'Successfully sign in! ',
-    FORGOT_PASSWORD: 'Forgot Password?'
+    FORGOT_PASSWORD: 'Forgot Password?',
+
+    EVENT_SCHEDULED: 'Event scheduled'
 };
