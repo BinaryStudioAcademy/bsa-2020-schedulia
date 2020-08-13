@@ -1,4 +1,4 @@
-export const eventTypeMapper = eventType => ({
+export const EventTypeMapper = eventType => ({
     id: eventType.id,
     name: eventType.name,
     description: eventType.description,
@@ -7,18 +7,18 @@ export const eventTypeMapper = eventType => ({
     duration: eventType.duration,
     disabled: eventType.disabled,
     timezone: eventType.timezone,
-    owner: userMapper(eventType.owner),
-    availabilities: eventType.availabilities.map(availabilityMapper)
+    owner: UserMapper(eventType.owner),
+    availabilities: eventType.availabilities.map(AvailabilityMapper)
 });
 
-export const userMapper = user => ({
+export const UserMapper = user => ({
     id: user.id,
     email: user.email,
     name: user.name,
     timezone: user.timezone
 });
 
-export const availabilityMapper = availability => ({
+export const AvailabilityMapper = availability => ({
     type: availability.type,
     startDate: availability.start_date,
     endDate: availability.end_date

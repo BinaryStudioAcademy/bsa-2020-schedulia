@@ -1,4 +1,14 @@
 export default {
-    eventTypes: [],
-    eventType: {}
+    eventTypes: {
+        eventTypeById: {},
+        eventTypes: []
+    },
+    eventType: {},
+    eventTypeForm: {
+        name: '',
+        location: '',
+        description: '',
+        slug: '',
+        color: ''
+    }
 };

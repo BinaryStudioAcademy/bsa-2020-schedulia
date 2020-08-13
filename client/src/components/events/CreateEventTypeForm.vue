@@ -5,7 +5,7 @@
                 <VCol cols="1">
                     <div>
                         <img
-                            :src="colorById[color].image"
+                            :src="colorById[data.color].image"
                             alt=""
                             class="ml-10"
                         />
@@ -31,11 +31,11 @@
                         </div>
 
                         <VTextField
-                            v-model="eventName"
+                            :value="data.name"
+                            @change="changeName"
                             :rules="nameRules"
                             outlined
                             class="app-textfield"
-                            value=""
                             dense
                         >
                         </VTextField>
@@ -45,8 +45,9 @@
                         </div>
 
                         <VSelect
-                            v-model="selected"
+                            :value="data.location"
                             :items="items"
+                            @change="changeLocation"
                             outlined
                             placeholder="Option"
                             dense
@@ -59,7 +60,8 @@
                         </div>
 
                         <VTextarea
-                            v-model="description"
+                            :value="data.description"
+                            @change="changeDescription"
                             :rules="descRules"
                             placeholder="Placeholder"
                             outlined
@@ -74,7 +76,8 @@
                         <VTextField
                             :rules="eventLinkRules"
                             outlined
-                            :value="eventLinkDashed"
+                            :value="data.slug"
+                            @change="changeSlug"
                             dense
                             class="mb-4 app-textfield"
                             required
@@ -97,7 +100,7 @@
                                     >
                                         <VOverlay
                                             absolute
-                                            :value="color === id"
+                                            :value="data.color === id"
                                             class="rounded-circle"
                                             color="eventColor"
                                         >
@@ -117,6 +120,7 @@
                                 {{ lang.CANCEL }}
                             </VBtn>
                             <VBtn
+                                @click="clickNext"
                                 color="primary"
                                 class="white--text"
                                 width="114"
@@ -133,17 +137,23 @@
 
 <script>
 import enLang from '@/store/modules/i18n/en.js';
+import { mapGetters, mapMutations } from 'vuex';
+import * as eventTypeMutations from '@/store/modules/eventType/types/mutations';
+import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
+
 export default {
     name: 'CreateEventTypeForm',
     data() {
         return {
             lang: enLang,
-            eventName: '',
-            eventLink: '',
-            selected: '',
-            description: '',
+            form: {
+                name: '',
+                location: '',
+                description: '',
+                slug: '',
+                color: 'yellow'
+            },
             items: ['address on the map', 'zoom', 'skype'],
-            color: 'yellow',
             colorById: {
                 yellow: {
                     id: 'yellow',
@@ -210,14 +220,43 @@ export default {
     },
 
     computed: {
-        eventLinkDashed() {
-            return this.eventName.replace(/\s/g, '-');
+        ...mapGetters('eventType', {
+            getEventTypeForm: eventTypeGetters.GET_EVENT_TYPE_FORM
+        }),
+        data() {
+            return this.form || this.getEventTypeForm;
         }
     },
 
     methods: {
+        ...mapMutations('eventType', {
+            setEventTypeForm: eventTypeMutations.SET_EVENT_TYPE_FORM
+        }),
+        clickNext() {
+            this.setEventTypeForm(this.form);
+        },
         setColor(id) {
-            this.color = this.colorById[id].id;
+            this.form.color = this.colorById[id].id;
+        },
+        changeName(val) {
+            this.form.name = val;
+        },
+        changeLocation(val) {
+            this.form.location = val;
+        },
+        changeDescription(val) {
+            this.form.description = val;
+        },
+        changeSlug(val) {
+            this.form.slug = val;
+        }
+    },
+
+    watch: {
+        'data.name': function(val, prevVal) {
+            if (prevVal === this.form.slug || this.form.slug.length < 1) {
+                this.form.slug = val.replace(/\s/g, '-');
+            }
         }
     }
 };

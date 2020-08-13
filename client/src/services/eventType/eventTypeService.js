@@ -1,5 +1,5 @@
 import requestService from '@/services/requestService';
-const EVENT_TYPES_URL = '/api/v1/event-types';
+const EVENT_TYPES_URL = '/event-types';
 
 const eventTypeService = {
     async getEventTypeById(id) {

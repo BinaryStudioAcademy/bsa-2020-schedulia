@@ -2,15 +2,13 @@ import * as actions from './types/actions';
 import * as mutations from './types/mutations';
 import eventTypeService from '@/services/eventType/eventTypeService';
 import { SET_ERROR_NOTIFICATION } from '@/store/modules/notification/types/actions';
-import { eventTypeMapper } from '@/services/Normalizer';
+import { EventTypeMapper } from '@/services/Normalizer';
 
 export default {
     [actions.GET_EVENT_TYPE_BY_ID]: async (context, id) => {
         try {
             const eventType = await eventTypeService.getEventTypeById(id);
             context.commit(mutations.SET_EVENT_TYPE, eventType);
-
-            return Promise.resolve(eventTypeMapper(eventType));
         } catch (error) {
             context.commit(
                 SET_ERROR_NOTIFICATION,
@@ -23,7 +21,7 @@ export default {
             const eventTypes = await eventTypeService.fetchEventTypes();
             context.commit(mutations.SET_EVENT_TYPES, eventTypes);
 
-            return Promise.resolve(eventTypes.map(eventTypeMapper));
+            return Promise.resolve(eventTypes.map(EventTypeMapper));
         } catch (error) {
             context.commit(
                 SET_ERROR_NOTIFICATION,
@@ -36,7 +34,7 @@ export default {
             const eventType = await eventTypeService.addEventType(data);
             context.commit(mutations.SET_EVENT_TYPES, eventType);
 
-            return Promise.resolve(eventTypeMapper(eventType));
+            return Promise.resolve(EventTypeMapper(eventType));
         } catch (error) {
             context.commit(
                 SET_ERROR_NOTIFICATION,
@@ -49,7 +47,7 @@ export default {
             const eventType = await eventTypeService.editEventType(id, data);
             context.commit(mutations.SET_EVENT_TYPES, eventType);
 
-            return Promise.resolve(eventTypeMapper(eventType));
+            return Promise.resolve(EventTypeMapper(eventType));
         } catch (error) {
             context.commit(
                 SET_ERROR_NOTIFICATION,
