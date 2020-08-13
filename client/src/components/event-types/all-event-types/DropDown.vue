@@ -1,5 +1,10 @@
 <template>
-    <VMenu nudge-bottom="30" nudge-left="150" close-on-click :close-on-content-click="false">
+    <VMenu
+        nudge-bottom="30"
+        nudge-left="150"
+        close-on-click
+        :close-on-content-click="false"
+    >
         <template v-slot:activator="{ on, attrs }">
             <VBtn icon color="primary" v-bind="attrs" v-on="on">
                 <VIcon dark>mdi-dots-horizontal</VIcon>
@@ -51,9 +56,7 @@
             <VListItem dense>
                 <VListItemTitle>
                     <div class="switch-item">
-                        <div
-                            class="pa-0 ma-0"
-                        >
+                        <div class="pa-0 ma-0">
                             On/Off
                         </div>
                         <div class="pa-0 ma-0">
@@ -81,7 +84,7 @@ export default {
 .v-list-item {
     cursor: pointer;
 }
-.v-list-item__title a{
+.v-list-item__title a {
     text-decoration: none;
     color: #000;
 }
