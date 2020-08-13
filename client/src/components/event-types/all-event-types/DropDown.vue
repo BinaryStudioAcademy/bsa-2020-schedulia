@@ -50,7 +50,7 @@
             <VListItem dense>
                 <VListItemTitle>
                     <VIcon color="primary">mdi-delete</VIcon>
-                    Delete
+                    <DeleteConfirmDialog :eventType="eventType" />
                 </VListItemTitle>
             </VListItem>
             <VListItem dense>
@@ -76,10 +76,15 @@
 <script>
 import * as actions from '@/store/modules/eventTypes/types/actions';
 import { mapActions } from 'vuex';
+import DeleteConfirmDialog from '@/components/event-types/all-event-types/DeleteConfirmDialog';
 export default {
     name: 'DropDown',
+    components: {
+        DeleteConfirmDialog
+    },
     data: () => ({
-        disabled: ''
+        disabled: '',
+        dialog: false
     }),
     props: {
         eventType: {
