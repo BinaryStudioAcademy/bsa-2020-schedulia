@@ -10,13 +10,11 @@
         <div class="event-type-content">
             <h3>{{ eventType.name }}</h3>
             <span class="event-type-about"
-                >{{ eventType.duration }} min, one to one
+                >{{ eventType.duration }} min, {{ eventType.type }}
             </span>
         </div>
         <div class="event-type-invitee mt-9 mb-2">
-            <VAvatar color="teal" size="24">
-                <span class="white--text headline">24</span>
-            </VAvatar>
+            <Avatar :disabled="isDisabled" :size="24"></Avatar>
         </div>
         <VDivider />
         <div class="event-type-actions row">
@@ -50,6 +48,7 @@
 
 <script>
 import DropDown from '@/components/event-types/all-event-types/DropDown';
+import Avatar from '@/components/common/GeneralLayout/Avatar';
 export default {
     name: 'EventType',
     props: {
@@ -58,7 +57,8 @@ export default {
         }
     },
     components: {
-        DropDown
+        DropDown,
+        Avatar
     },
     computed: {
         isDisabled() {
@@ -106,8 +106,5 @@ export default {
 .disabled-event .event-type-about,
 .disabled-event .event-type-actions .duration span {
     color: #e5e5e5;
-}
-.disabled-event .event-type-invitee .v-avatar {
-    background-color: #e5e5e5 !important;
 }
 </style>

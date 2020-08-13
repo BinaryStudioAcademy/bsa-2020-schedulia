@@ -22,7 +22,7 @@ export default {
     },
     computed: {
         ...mapGetters('auth', {
-            avatar: getters.GET_USER_AVATAR
+            avatar: getters.GET_LOGGED_USER.avatar
         }),
         color() {
             return this.disabled ? '#e5e5e5' : 'black';
