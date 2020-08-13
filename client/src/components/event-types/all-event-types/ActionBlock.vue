@@ -2,13 +2,11 @@
     <div class="row">
         <div class="col-md-6 row">
             <div class="col-md-1 text-right">
-                <VAvatar color="teal" size="48">
-                    <span class="white--text headline">48</span>
-                </VAvatar>
+                <Avatar :size="48"></Avatar>
             </div>
 
             <div class="col">
-                <span>Name Surname</span>
+                <span class="user-name">{{ user.name }}</span>
                 <br />
                 <a>shedulia.xyz/nickname</a>
             </div>
@@ -26,9 +24,24 @@
 </template>
 
 <script>
+import * as getters from '@/store/modules/auth/types/getters';
+import { mapGetters } from 'vuex';
+import Avatar from '@/components/common/GeneralLayout/Avatar';
 export default {
-    name: 'ActionBlock'
+    name: 'ActionBlock',
+    components: {
+        Avatar
+    },
+    computed: {
+        ...mapGetters('auth', {
+            user: getters.GET_LOGGED_USER
+        })
+    }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.user-name {
+    font-weight: bold;
+}
+</style>
