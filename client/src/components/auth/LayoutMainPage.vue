@@ -108,7 +108,6 @@ export default {
 <style>
 html {
     overflow-y: auto !important;
-    font-size: 10px;
 }
 </style>
 <style scoped>
@@ -200,11 +199,11 @@ html {
 h5 {
     font-style: normal;
     font-weight: bold;
-    font-size: 2.4rem;
-    line-height: 3.6rem;
+    font-size: 24px;
+    line-height: 36px;
 }
 .logo-h5 {
-    margin-left: 0.8rem;
+    margin-left: 8px;
     color: var(--v-primary-base);
 }
 a {
