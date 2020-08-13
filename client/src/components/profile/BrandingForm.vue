@@ -10,8 +10,16 @@
                                     <VSubheader>
                                         {{ lang.LOGO }}
                                         <Tooltip>
-                                            <p>{{ lang.PROFILE_USE_THIS_SETTING_LOGO_TEXT }}</p>
-                                            <p>{{ lang.PROFILE_YOU_LOGO_WILL_APPEAR_TEXT }}</p>
+                                            <p>
+                                                {{
+                                                    lang.PROFILE_USE_THIS_SETTING_LOGO_TEXT
+                                                }}
+                                            </p>
+                                            <p>
+                                                {{
+                                                    lang.PROFILE_YOU_LOGO_WILL_APPEAR_TEXT
+                                                }}
+                                            </p>
                                         </Tooltip>
                                     </VSubheader>
                                 </VCol>
@@ -22,34 +30,40 @@
                                         </div>
                                         <div v-else>
                                             <VImg
-                                                    :src="require('@/assets/images/no-image.png')"
+                                                :src="
+                                                    require('@/assets/images/no-image.png')
+                                                "
                                             ></VImg>
                                         </div>
                                     </div>
                                     <div class="text-center">
                                         <label
-                                                for="fileInput"
-                                                class="ma-2 v-btn v-btn--contained v-btn--tile theme--light v-size--default blue darken-1 pointer"
+                                            for="fileInput"
+                                            class="ma-2 v-btn v-btn--contained v-btn--tile theme--light v-size--default blue darken-1 pointer"
                                         >
                                             {{ lang.UPDATE }}
                                         </label>
 
                                         <input
-                                                v-show="false"
-                                                id="fileInput"
-                                                type="file"
-                                                accept="image/*"
-                                                @change="updateImage"
+                                            v-show="false"
+                                            id="fileInput"
+                                            type="file"
+                                            accept="image/*"
+                                            @change="updateImage"
                                         />
 
                                         <VBtn
-                                                class="ma2"
-                                                :disabled="!newLogo"
-                                                tile
-                                                @click="removeImage"
-                                        >{{ lang.REMOVE }}
+                                            class="ma2"
+                                            :disabled="!newLogo"
+                                            tile
+                                            @click="removeImage"
+                                            >{{ lang.REMOVE }}
                                         </VBtn>
-                                        <VAlert cols="12" type="error" v-if="errorMessage">
+                                        <VAlert
+                                            cols="12"
+                                            type="error"
+                                            v-if="errorMessage"
+                                        >
                                             {{ errorMessage }}
                                         </VAlert>
                                     </div>
@@ -62,15 +76,20 @@
                                 <VCol>
                                     <div class="text-center">
                                         <VBtn
-                                                class="ma-2"
-                                                tile
-                                                outlined
-                                                color="blue darken-1"
-                                                @click="save"
-                                                :disabled="logoIsNew"
-                                        >{{ lang.SAVE }}
+                                            class="ma-2"
+                                            tile
+                                            outlined
+                                            color="blue darken-1"
+                                            @click="save"
+                                            :disabled="logoIsNew"
+                                            >{{ lang.SAVE }}
                                         </VBtn>
-                                        <VBtn class="ma2" tile outlined @click="resetChanges">
+                                        <VBtn
+                                            class="ma2"
+                                            tile
+                                            outlined
+                                            @click="resetChanges"
+                                        >
                                             {{ lang.CANCEL }}
                                         </VBtn>
                                     </div>
