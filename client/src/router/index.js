@@ -59,6 +59,12 @@ const routes = [
                         component: () => import('../views/NewEventType')
                     }
                 ]
+            },
+
+            {
+                path: 'new-event-edit',
+                name: 'new-event-edit',
+                component: () => import('../views/NewEventTypeBooking')
             }
         ]
     }
