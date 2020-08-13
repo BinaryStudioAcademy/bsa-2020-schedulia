@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'auth', 'namespace' => 'Api\\Auth'], function () {
     Route::post('/register', 'AuthController@register');
     Route::post('/refresh', 'AuthController@refresh');
-    Route::post('/login', 'AuthController@login');
+    Route::post('/login', 'AuthController@login')->name('login');
     Route::post('/logout', 'AuthController@logout')->middleware('auth:api');
     Route::get('/me', 'AuthController@me')->middleware('auth:api');
 });
@@ -32,6 +32,7 @@ Route::get('/debug-sentry', function () {
 
 Route::get('/status/{serviceName?}', 'Api\StatusController@status');
 Route::post('/mail', 'Api\StatusController@mail');
+Route::post('/broadcast', 'Api\StatusController@event');
 
 Route::group([
     'middleware' => 'auth:api',
@@ -53,4 +54,12 @@ Route::group([
     'prefix' => '/events'
 ], function () {
     Route::post('/', 'EventController@store');
+});
+
+Route::group([
+    'middleware' => 'auth:api',
+    'namespace' => 'Api\\',
+    'prefix' => '/profiles',
+], function () {
+    Route::put('/me', 'UserController@store');
 });

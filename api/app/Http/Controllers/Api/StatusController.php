@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Actions\Status\StatusAction;
 use App\Actions\Status\Mail\MailAction;
 use App\Actions\Status\Mail\MailRequest;
+use App\Actions\Status\Event\EventAction;
+use App\Actions\Status\Event\EventRequest;
 
 class StatusController extends ApiController
 {
@@ -29,8 +31,19 @@ class StatusController extends ApiController
         Request $request,
         MailAction $action
     ) {
-        $response = $action->execute(new MailRequest(
+        $action->execute(new MailRequest(
             $request->email,
+            $request->message
+        ));
+
+        return $this->emptyResponse();
+    }
+
+    public function event(
+        Request $request,
+        EventAction $action
+    ) {
+        $action->execute(new EventRequest(
             $request->message
         ));
 
