@@ -4,8 +4,7 @@ import * as mutations from './types/mutations';
 
 export default {
     [actions.FETCH_ALL_EVENT_TYPES]: async ({ commit }) => {
-        const response = await eventTypesService.fetchAllEventTypes();
-        const eventTypes = response?.data?.data;
+        const eventTypes = await eventTypesService.fetchAllEventTypes();
         commit(mutations.SET_EVENT_TYPES, eventTypes);
     },
     [actions.DISABLE_EVENT_TYPE_BY_ID]: async (
