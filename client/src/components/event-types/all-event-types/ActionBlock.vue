@@ -11,11 +11,13 @@
                 <a>shedulia.xyz/nickname</a>
             </div>
         </div>
-        <div class="col-md-6 text-right">
-            <VBtn class="ma-2" outlined color="indigo">
-                New Event Type
-                <VIcon right dark>mdi-plus</VIcon>
-            </VBtn>
+        <div class="col-md-6 text-right new-event-type-btn">
+            <RouterLink :to="{ name: 'new-event' }">
+                <VBtn class="ma-2" outlined color="indigo">
+                    New Event Type
+                    <VIcon right dark>mdi-plus</VIcon>
+                </VBtn>
+            </RouterLink>
             <VBtn class="ma-2 text-left" outlined fab small color="indigo">
                 <VIcon dark>mdi-chevron-down</VIcon>
             </VBtn>
@@ -43,5 +45,8 @@ export default {
 <style scoped>
 .user-name {
     font-weight: bold;
+}
+.new-event-type-btn a {
+    text-decoration: none;
 }
 </style>
