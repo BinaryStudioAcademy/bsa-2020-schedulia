@@ -5,9 +5,24 @@
         :style="{ 'border-bottom': '18px solid ' + borderColor }"
     >
         <div class="action-button text-right">
-            <VBtn icon color="primary">
-                <VIcon dark>mdi-dots-horizontal</VIcon>
-            </VBtn>
+            <VMenu nudge-left="75">
+                <template v-slot:activator="{ on, attrs }">
+                    <VBtn icon color="primary" v-bind="attrs" v-on="on">
+                        <VIcon dark>mdi-dots-horizontal</VIcon>
+                    </VBtn>
+                </template>
+                <VList>
+                    <VListItem>
+                        <VListItemTitle>Item1</VListItemTitle>
+                    </VListItem>
+                    <VListItem>
+                        <VListItemTitle>Item2</VListItemTitle>
+                    </VListItem>
+                    <VListItem>
+                        <VListItemTitle>Item3</VListItemTitle>
+                    </VListItem>
+                </VList>
+            </VMenu>
         </div>
         <div class="event-type-content">
             <h3>{{ eventType.name }}</h3>
