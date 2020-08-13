@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <VContainer class="container-content background-none">
         <div class="row">
             <VCol cols="3" sm="12" md="3" class="pa-0">
                 <VTextField
@@ -23,7 +23,7 @@
                 <EventType :eventType="eventType" />
             </div>
         </div>
-    </div>
+    </VContainer>
 </template>
 
 <script>
@@ -108,5 +108,3 @@ export default {
     })
 };
 </script>
-
-<style scoped></style>
