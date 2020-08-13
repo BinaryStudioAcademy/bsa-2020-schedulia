@@ -2,7 +2,8 @@ import requestService from '@/services/requestService';
 
 const eventTypesService = {
     async fetchAllEventTypes() {
-        return await requestService.get('/eventTypes');
+        const response = await requestService.get('/eventTypes');
+        return response?.data?.data;
     },
     async changeDisabledEventTypeById(updateData) {
         return await requestService.put(
@@ -11,7 +12,10 @@ const eventTypesService = {
         );
     },
     async deleteEventTypeById(eventTypeId) {
-        return await requestService.delete('/event-types/' + eventTypeId);
+        return await requestService.delete('/eventTypes/' + eventTypeId);
+    },
+    async createEventType(eventTypeData) {
+        return await requestService.post('/eventTypes', eventTypeData);
     }
 };
 
