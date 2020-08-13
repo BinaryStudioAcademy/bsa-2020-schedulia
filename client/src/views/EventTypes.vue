@@ -3,7 +3,7 @@
         <template v-slot:title>
             My Events
         </template>
-        <Tabs :tabs="tabs" page-type="event-types-page"></Tabs>
+        <Tabs :tabs="tabs"></Tabs>
     </GeneralLayout>
 </template>
 

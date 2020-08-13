@@ -13,7 +13,7 @@ class EventRequest extends ApiFormRequest
             'invitee_email' => 'required|email|max:50',
             'start_date' => 'required',
             'timezone' => 'required|timezone',
-            'event_type_id' => 'required|exists:event_types,id'
+            'event_type_id' => 'required|integer|exists:event_types,id'
         ];
     }
 }
