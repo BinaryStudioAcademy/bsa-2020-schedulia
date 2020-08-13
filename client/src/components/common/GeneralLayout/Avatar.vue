@@ -1,20 +1,33 @@
 <template>
-    <VAvatar size="36">
+    <VAvatar :size="avatarSize">
         <VImg v-if="avatar" :src="avatar"></VImg>
-        <VIcon v-else dark size="36">mdi-account-circle</VIcon>
+        <VIcon v-else dark :size="avatarSize" :color="color">mdi-account-circle</VIcon>
     </VAvatar>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-
+import * as getters from '@/store/modules/auth/types/getters';
 export default {
     name: 'Avatar',
-
+    props: {
+        disabled: {
+            required: false
+        },
+        size: {
+            required: false
+        }
+    },
     computed: {
-        ...mapGetters('profile', {
-            avatar: 'getAvatar'
-        })
+        ...mapGetters('auth', {
+            avatar: getters.GET_USER_AVATAR
+        }),
+        color() {
+            return this.disabled ? '#e5e5e5' : 'black';
+        },
+        avatarSize() {
+            return this.size ? this.size : 36;
+        }
     }
 };
 </script>
