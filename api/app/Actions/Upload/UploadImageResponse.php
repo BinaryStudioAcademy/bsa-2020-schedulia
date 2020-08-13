@@ -6,15 +6,20 @@ namespace App\Actions\Upload;
 
 class UploadImageResponse
 {
-    private UploadData $data;
+    private array $data;
 
-    public function __construct(UploadData $uploadData)
+    public function __construct(array $data)
     {
-        $this->data = $uploadData;
+        $this->data = $data;
     }
 
     public function getUrl(): string
     {
-        return $this->data->getUrl();
+        return $this->data['url'];
+    }
+
+    public function getPath(): string
+    {
+        return $this->data['path'];
     }
 }

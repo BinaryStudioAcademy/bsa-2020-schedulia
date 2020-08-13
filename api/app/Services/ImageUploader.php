@@ -6,7 +6,6 @@ use App\Contracts\FileUploader;
 use Illuminate\Config\Repository;
 use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Arr;
 
 final class ImageUploader implements FileUploader
 {
@@ -21,30 +20,29 @@ final class ImageUploader implements FileUploader
         $this->config = $config;
     }
 
-    public function upload(UploadedFile $file, int $userId, string $type): string
+    public function upload(UploadedFile $file, int $userId, string $type): array
     {
-        $fileContent = file_get_contents($file->getRealPath());
+        $newFileName = $this->generateFileName($file->getFilename()).'.'.$file->getClientOriginalExtension();
+        $path = $this->config->get('filesystems.paths.' . $type).'/'.$userId;
 
-        $options = $this->config->get('imageUploader.' . $type);
+        $result = $this->fileSystemManager
+            ->disk()
+            ->putFileAs($path, $file, $newFileName, 'public');
 
-        $fileName = $this->config->get('imageUploader.root') .
-            '/' . $options['folder'] . '/' .
-            $userId . '/' .
-            $this->generateFileName($file->getFilename()) . '.' . $file->getClientOriginalExtension();
 
-        $defaultDisk = $this->config->get('imageUploader.disk');
+        $link = $this->fileSystemManager->disk()->url($path . $newFileName);
 
-        $this->fileSystemManager
-            ->disk(Arr::get($options, 'disk', $defaultDisk))
-            ->put($fileName, $fileContent);
-
-        return $fileName;
+        return [
+            'url' => $link,
+            'path' => $result
+        ];
     }
 
-    public function remove(string $fileName): string
+    public function remove(string $file): void
     {
-        $this->fileSystemManager->delete($fileName);
-        return $fileName;
+        if($this->fileSystemManager->exists($file)){
+            $this->fileSystemManager->delete($file);
+        }
     }
 
     private function generateFileName(string $fileName): string

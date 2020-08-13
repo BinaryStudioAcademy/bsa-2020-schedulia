@@ -8,6 +8,8 @@ use App\Services\ImageUploader;
 
 final class UploadImageAction
 {
+    private ImageUploader $imageUploader;
+
     public function __construct(ImageUploader $imageUploader)
     {
         $this->imageUploader = $imageUploader;
@@ -17,6 +19,10 @@ final class UploadImageAction
     {
         $result = $this->imageUploader->upload($request->getFile(), $request->getUserId(), $request->getType());
 
-        return new UploadImageResponse(new UploadData($result));
+        if($request->getOldFile()) {
+            $this->imageUploader->remove($request->getOldFile());
+        }
+
+        return new UploadImageResponse($result);
     }
 }
