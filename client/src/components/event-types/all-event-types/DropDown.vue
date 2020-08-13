@@ -60,7 +60,11 @@
                             On/Off
                         </div>
                         <div class="pa-0 ma-0">
-                            <VSwitch inset></VSwitch>
+                            <VSwitch
+                                inset
+                                v-model="disabled"
+                                @change="onSwitch"
+                            ></VSwitch>
                         </div>
                     </div>
                 </VListItemTitle>
@@ -70,11 +74,30 @@
 </template>
 
 <script>
+import * as actions from '@/store/modules/eventTypes/types/actions';
+import { mapActions } from 'vuex';
 export default {
     name: 'DropDown',
+    data: () => ({
+        disabled: ''
+    }),
     props: {
         eventType: {
             required: true
+        }
+    },
+    created() {
+        this.disabled = this.eventType.disabled;
+    },
+    methods: {
+        ...mapActions('eventTypes', {
+            disableEventType: actions.DISABLE_EVENT_TYPE_BY_ID
+        }),
+        async onSwitch() {
+            await this.disableEventType({
+                id: this.eventType.id,
+                disabled: this.disabled
+            });
         }
     }
 };
