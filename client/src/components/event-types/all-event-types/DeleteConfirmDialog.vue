@@ -1,22 +1,25 @@
 <template>
     <VDialog v-model="dialog" persistent max-width="500">
         <template v-slot:activator="{ on, attrs }">
-            <span
-                v-bind="attrs"
-                v-on="on"
-            >
-                Delete
+            <span v-bind="attrs" v-on="on">
+                {{ lang.DELETE }}
             </span>
         </template>
         <VCard>
-            <VCardTitle class="headline text-danger">Delete {{ eventType.name }}?</VCardTitle>
+            <VCardTitle class="headline text-danger"
+                >Delete {{ eventType.name }}?</VCardTitle
+            >
             <VCardText>
-                Users will be unable to schedule further meetings with deleted event types. Meetings previously scheduled will be affected.
+                {{ lang.DIALOG_EVENT_TYPE_DELETE_CONFIRM }}
             </VCardText>
             <VCardActions>
                 <VSpacer></VSpacer>
-                <VBtn color="darken-1" text @click="dialog = false">Cancel</VBtn>
-                <VBtn color="red darken-1" @click="onDelete">Yes</VBtn>
+                <VBtn color="darken-1" text @click="dialog = false">{{
+                    lang.CANCEL
+                }}</VBtn>
+                <VBtn color="red darken-1" @click="onDelete">{{
+                    lang.YES
+                }}</VBtn>
             </VCardActions>
         </VCard>
     </VDialog>
@@ -25,9 +28,11 @@
 <script>
 import * as actions from '@/store/modules/eventTypes/types/actions';
 import { mapActions } from 'vuex';
+import enLang from '@/store/modules/i18n/en';
 export default {
     name: 'DeleteConfirmDialog',
     data: () => ({
+        lang: enLang,
         dialog: false
     }),
     props: {
@@ -47,6 +52,4 @@ export default {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -29,7 +29,7 @@
                     :color="eventType.color"
                     :disabled="isDisabled"
                 >
-                    Copy Link
+                    {{ lang.COPY_LINK }}
                     <VIcon right dark>mdi-vector-arrange-below </VIcon>
                 </VBtn>
                 <VBtn
@@ -49,8 +49,13 @@
 <script>
 import DropDown from '@/components/event-types/all-event-types/DropDown';
 import Avatar from '@/components/common/GeneralLayout/Avatar';
+import enLang from '@/store/modules/i18n/en';
+
 export default {
     name: 'EventType',
+    data: () => ({
+        lang: enLang
+    }),
     props: {
         eventType: {
             required: true

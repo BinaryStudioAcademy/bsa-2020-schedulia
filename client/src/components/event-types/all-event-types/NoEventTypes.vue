@@ -1,19 +1,22 @@
 <template>
     <div class="text-center pt-5">
         <h3>
-            You don't have any event types yet.
+            {{ lang.YOU_DONT_HAVE_ANY_EVENT_TYPES }}
         </h3>
         <br />
         <p>
-            You'll want to add an event type to allow people to schedule with
-            you.
+            {{ lang.YOU_WILL_WANT_TO_ADD_EVENT_TYPE }}
         </p>
     </div>
 </template>
 
 <script>
+import enLang from '@/store/modules/i18n/en';
 export default {
-    name: 'NoEventTypes'
+    name: 'NoEventTypes',
+    data: () => ({
+        lang: enLang
+    })
 };
 </script>
 

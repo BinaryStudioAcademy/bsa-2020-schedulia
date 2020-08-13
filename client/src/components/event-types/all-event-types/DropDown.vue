@@ -14,37 +14,37 @@
             <VListItem dense>
                 <VListItemTitle>
                     <VIcon color="primary">mdi-calculator</VIcon>
-                    Manage availability
+                    {{ lang.MANAGE_AVAILABILITY }}
                 </VListItemTitle>
             </VListItem>
             <VListItem dense>
                 <VListItemTitle>
                     <VIcon color="primary">mdi-pencil</VIcon>
-                    Edit
+                    {{ lang.EDIT }}
                 </VListItemTitle>
             </VListItem>
             <VListItem dense>
                 <VListItemTitle>
                     <VIcon color="primary">mdi-file-outline</VIcon>
-                    Add Internal Note
+                    {{ lang.ADD_INTERNAL_NOTE }}
                 </VListItemTitle>
             </VListItem>
             <VListItem dense>
                 <VListItemTitle>
                     <VIcon color="primary">mdi-content-copy</VIcon>
-                    Clone
+                    {{ lang.CLONE }}
                 </VListItemTitle>
             </VListItem>
             <VListItem dense>
                 <VListItemTitle>
                     <VIcon color="primary">mdi-plus-minus-box</VIcon>
-                    Save to Template
+                    {{ lang.SAVE_TO_TEMPLATE }}
                 </VListItemTitle>
             </VListItem>
             <VListItem dense>
                 <VListItemTitle>
                     <VIcon color="primary">mdi-xml</VIcon>
-                    Add to WebSite
+                    {{ lang.ADD_TO_WEBSITE }}
                 </VListItemTitle>
             </VListItem>
             <VListItem dense>
@@ -57,7 +57,7 @@
                 <VListItemTitle>
                     <div class="switch-item">
                         <div class="pa-0 ma-0">
-                            On/Off
+                            {{ lang.ON }}/{{ lang.OFF }}
                         </div>
                         <div class="pa-0 ma-0">
                             <VSwitch
@@ -77,12 +77,15 @@
 import * as actions from '@/store/modules/eventTypes/types/actions';
 import { mapActions } from 'vuex';
 import DeleteConfirmDialog from '@/components/event-types/all-event-types/DeleteConfirmDialog';
+import enLang from '@/store/modules/i18n/en';
+
 export default {
     name: 'DropDown',
     components: {
         DeleteConfirmDialog
     },
     data: () => ({
+        lang: enLang,
         disabled: '',
         dialog: false
     }),

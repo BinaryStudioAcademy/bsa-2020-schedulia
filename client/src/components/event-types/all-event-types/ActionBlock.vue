@@ -14,7 +14,7 @@
         <div class="col-md-6 text-right new-event-type-btn">
             <RouterLink :to="{ name: 'new-event' }">
                 <VBtn class="ma-2" outlined color="indigo">
-                    New Event Type
+                    {{ lang.NEW_EVENT_TYPE }}
                     <VIcon right dark>mdi-plus</VIcon>
                 </VBtn>
             </RouterLink>
@@ -29,8 +29,12 @@
 import * as getters from '@/store/modules/auth/types/getters';
 import { mapGetters } from 'vuex';
 import Avatar from '@/components/common/GeneralLayout/Avatar';
+import enLang from '@/store/modules/i18n/en';
 export default {
     name: 'ActionBlock',
+    data: () => ({
+        lang: enLang
+    }),
     components: {
         Avatar
     },
