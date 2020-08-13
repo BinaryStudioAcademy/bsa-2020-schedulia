@@ -39,12 +39,13 @@ Route::group([
     'namespace' => 'Api\\'
 ], function () {
     Route::group([
-        'prefix' => '/event-types',
+        'prefix' => '/eventTypes',
     ], function () {
         Route::get('/', 'EventTypeController@index');
         Route::post('/', 'EventTypeController@store');
         Route::get('/{id}', 'EventTypeController@getEventTypeById');
         Route::put('/{id}', 'EventTypeController@update');
+        Route::put('/{id}/disabled', 'EventTypeController@changeDisabledById');
         Route::delete('/{id}', 'EventTypeController@destroy');
     });
 });
