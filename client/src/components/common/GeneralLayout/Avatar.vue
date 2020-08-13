@@ -1,7 +1,9 @@
 <template>
     <VAvatar :size="avatarSize">
         <VImg v-if="avatar" :src="avatar"></VImg>
-        <VIcon v-else dark :size="avatarSize" :color="color">mdi-account-circle</VIcon>
+        <VIcon v-else dark :size="avatarSize" :color="color">
+            mdi-account-circle
+        </VIcon>
     </VAvatar>
 </template>
 
