@@ -1,18 +1,18 @@
 <template>
     <GeneralLayout>
-        <EventType />
+        <EventTypeDetails />
     </GeneralLayout>
 </template>
 
 <script>
 import GeneralLayout from '@/components/public/calendar/GeneralLayout';
-import EventType from '@/components/public/calendar/EventType';
+import EventTypeDetails from '@/components/public/calendar/EventTypeDetails';
 
 export default {
-    name: 'PublicEvent',
+    name: 'PublicEventDetails',
     components: {
         GeneralLayout,
-        EventType
+        EventTypeDetails
     }
 };
 </script>

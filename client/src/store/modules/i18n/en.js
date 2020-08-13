@@ -115,6 +115,17 @@ export default {
     ET_WEEK_DAY_SAT: 'Sat',
     ET_WEEK_DAY_SUN: 'Sun',
 
+    ENTER_DETAILS: 'Enter Details',
+    SCHEDULE_EVENT: 'Schedule Event',
+    ADDITIONAL_INFO: 'Additional Info',
+    ADDITIONAL_INFO_DESCRIPTION:
+        'Please share anything that will help prepare for our meeting',
+
+    CONFIRMED: 'Confirmed',
+    YOU_ARE_SCHEDULED_WITH: 'You are scheduled with',
+    CALENDAR_INVITATION_HAS_BEEN_SENT:
+        'A calendar invitation has been sent to your email addres',
+
     SUCCESSFULLY_SIGNINED: 'Successfully sign in! ',
     FORGOT_PASSWORD: 'Forgot Password?'
 };
