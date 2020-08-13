@@ -31,6 +31,7 @@ $factory->define(User::class, function (Faker $faker) {
         'language' => 'en',
         'date_format' => 'american',
         'time_format_12h' => $faker->boolean(50),
-        'country' => $faker->country
+        'country' => $faker->country,
+        'timezone' => $faker->timezone
     ];
 });
