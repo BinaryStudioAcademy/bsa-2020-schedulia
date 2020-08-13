@@ -1,129 +1,157 @@
 <template>
-    <VForm>
-        <VContainer>
-            <VRow>
-                <VCol cols="12">
-                    <VRow justify="center" align="center">
-                        <VAvatar color="indigo" size="144">
-                            <VImg v-if="newAvatar" :src="newAvatar"></VImg>
-                            <VIcon size="144" v-else dark
-                                >mdi-account-circle
-                            </VIcon>
-                        </VAvatar>
-                        <label for="fileAvatar" class="updateAvatar pointer">
-                            {{ lang.UPDATE }}
-                        </label>
+    <VContainer class="container-content">
+        <VRow justify="center">
+            <VCol cols="6">
+                <VForm>
+                    <VContainer>
+                        <VRow>
+                            <VCol cols="12">
+                                <VRow justify="center" align="center">
+                                    <VAvatar color="indigo" size="144">
+                                        <VImg
+                                            v-if="newAvatar"
+                                            :src="newAvatar"
+                                        ></VImg>
+                                        <VIcon size="144" v-else dark
+                                            >mdi-account-circle
+                                        </VIcon>
+                                    </VAvatar>
+                                    <label
+                                        for="fileAvatar"
+                                        class="updateAvatar pointer"
+                                    >
+                                        {{ lang.UPDATE }}
+                                    </label>
 
-                        <input
-                            v-show="false"
-                            id="fileAvatar"
-                            type="file"
-                            accept="image/*"
-                            @change="updateImage"
-                        />
-                    </VRow>
-                </VCol>
-                <VCol cols="12">
-                    <VSubheader>{{ lang.NAME }}</VSubheader>
-                    <VTextField
-                        :value="name"
-                        @input="onNameChange"
-                        :placeholder="lang.NAME + ' *'"
-                        required
-                        solo
-                        outlined
-                    ></VTextField>
-                </VCol>
-                <VCol cols="12">
-                    <VSubheader>{{ lang.WELCOME_MESSAGE }}</VSubheader>
-                    <VTextarea
-                        v-model="userProfile.welcome"
-                        :placeholder="lang.WELCOME_MESSAGE + ' *'"
-                        required
-                        solo
-                        outlined
-                    ></VTextarea>
-                </VCol>
-                <VCol cols="12">
-                    <VSubheader>{{ lang.LANGUAGE }}</VSubheader>
-                    <VSelect
-                        v-model="userProfile.language"
-                        :items="languages"
-                        :label="lang.LANGUAGE"
-                        solo
-                    ></VSelect>
-                </VCol>
-                <VCol cols="6">
-                    <VSubheader>{{ lang.DATE_FORMAT }}</VSubheader>
-                    <VSelect
-                        v-model="userProfile.dateFormat"
-                        :items="dateFormats"
-                        :label="lang.DATE_FORMAT"
-                        solo
-                    ></VSelect>
-                </VCol>
-                <VCol cols="6">
-                    <VSubheader>{{ lang.TIME_FORMAT }}</VSubheader>
-                    <VSelect
-                        v-model="userProfile.timeFormat"
-                        :items="timeFormats"
-                        :label="lang.TIME_FORMAT"
-                        solo
-                    ></VSelect>
-                </VCol>
-                <VCol cols="12">
-                    <VSubheader>{{ lang.COUNTRY }}</VSubheader>
-                    <VTextField
-                        v-model="userProfile.country"
-                        :placeholder="lang.COUNTRY"
-                        required
-                        solo
-                        outlined
-                    ></VTextField>
-                </VCol>
-                <VCol cols="12">
-                    <VSubheader>{{ lang.TIME_ZONE }}</VSubheader>
-                    <VSelect
-                        v-model="userProfile.timeZone"
-                        :items="timeZones"
-                        :label="lang.TIME_ZONE"
-                        solo
-                        outlined
-                        required
-                    ></VSelect>
-                </VCol>
-                <VCol cols="12">
-                    <VSpacer></VSpacer>
-                    <VSpacer></VSpacer>
-                </VCol>
-                <VAlert cols="12" type="error" v-if="errorMessage">
-                    {{ errorMessage }}
-                </VAlert>
-                <VCol>
-                    <div>
-                        <VBtn class="ma2" @click="resetChanges">
-                            {{ lang.CANCEL }}
-                        </VBtn>
-                        <VBtn
-                            class="ma-2"
-                            color="primary"
-                            dark
-                            @click="onSaveHandle"
-                            >{{ lang.SAVE }}
-                        </VBtn>
-                    </div>
-                </VCol>
-            </VRow>
-        </VContainer>
-    </VForm>
+                                    <input
+                                        v-show="false"
+                                        id="fileAvatar"
+                                        type="file"
+                                        accept="image/*"
+                                        @change="updateImage"
+                                    />
+                                </VRow>
+                            </VCol>
+
+                            <VCol cols="12">
+                                <ProfileTextField
+                                    :label="lang.NAME"
+                                    :value="userProfile.name"
+                                    :defaultValue="user.name"
+                                    @change="onChangeHandle('name', $event)"
+                                />
+                            </VCol>
+
+                            <VCol cols="12">
+                                <ProfileTextArea
+                                    :label="lang.WELCOME_MESSAGE"
+                                    :value="userProfile.welcome_message"
+                                    :defaultValue="user.welcome_message"
+                                    @change="
+                                        onChangeHandle(
+                                            'welcome_message',
+                                            $event
+                                        )
+                                    "
+                                />
+                            </VCol>
+
+                            <VCol cols="12">
+                                <ProfileSelect
+                                    :label="lang.LANGUAGE"
+                                    :value="userProfile.language"
+                                    :defaultValue="user.language"
+                                    :items="languages"
+                                    @change="onChangeHandle('language', $event)"
+                                />
+                            </VCol>
+
+                            <VCol cols="6">
+                                <ProfileSelect
+                                    :label="lang.DATE_FORMAT"
+                                    :value="userProfile.date_format"
+                                    :defaultValue="user.date_format"
+                                    :items="dateFormats"
+                                    @change="
+                                        onChangeHandle('date_format', $event)
+                                    "
+                                />
+                            </VCol>
+
+                            <VCol cols="6">
+                                <ProfileSelect
+                                    :label="lang.TIME_FORMAT"
+                                    :value="userProfile.time_format"
+                                    :defaultValue="user.time_format"
+                                    :items="timeFormats"
+                                    @change="
+                                        onChangeHandle('time_format', $event)
+                                    "
+                                />
+                            </VCol>
+
+                            <VCol cols="12">
+                                <ProfileTextField
+                                    :label="lang.COUNTRY"
+                                    :value="userProfile.country"
+                                    :defaultValue="user.country"
+                                    @change="onChangeHandle('country', $event)"
+                                ></ProfileTextField>
+                            </VCol>
+
+                            <VCol cols="12">
+                                <ProfileSelect
+                                    :label="lang.TIME_ZONE"
+                                    :value="userProfile.timezone"
+                                    :defaultValue="user.timezone"
+                                    :items="timeZones"
+                                    @change="onChangeHandle('timezone', $event)"
+                                />
+                            </VCol>
+
+                            <VCol cols="12">
+                                <VSpacer></VSpacer>
+                                <VSpacer></VSpacer>
+                            </VCol>
+                            <VAlert cols="12" type="error" v-if="errorMessage">
+                                {{ errorMessage }}
+                            </VAlert>
+                            <VCol>
+                                <div>
+                                    <VBtn class="ma2" @click="resetChanges">
+                                        {{ lang.CANCEL }}
+                                    </VBtn>
+                                    <VBtn
+                                        class="ma-2"
+                                        color="primary"
+                                        dark
+                                        @click="onSaveHandle"
+                                        >{{ lang.SAVE }}
+                                    </VBtn>
+                                </div>
+                            </VCol>
+                        </VRow>
+                    </VContainer>
+                </VForm>
+            </VCol>
+        </VRow>
+    </VContainer>
 </template>
 
 <script>
 import enLang from '@/store/modules/i18n/en';
 import { mapActions, mapGetters } from 'vuex';
+import ProfileTextField from './ProfileTextField.vue';
+import ProfileTextArea from './ProfileTextArea.vue';
+import ProfileSelect from './ProfileSelect.vue';
 
 export default {
     name: 'ProfileForm',
+    components: {
+        ProfileTextField,
+        ProfileTextArea,
+        ProfileSelect
+    },
     data: () => ({
         lang: enLang,
         file: null,
@@ -132,10 +160,10 @@ export default {
         userProfile: {
             avatar: null,
             name: '',
-            welcome: '',
+            welcome_message: '',
             language: 'en',
-            dateFormat: 'american',
-            timeFormat: '12',
+            date_format: 'american',
+            time_format: '12',
             country: '',
             timeZone: null
         },
@@ -157,11 +185,7 @@ export default {
     }),
 
     created() {
-        this.userProfile = {
-            // ...this.user
-        };
-
-        this.newAvatar = this.userProfile.avatar;
+        this.newAvatar = this.user.avatar;
     },
 
     computed: {
@@ -169,48 +193,16 @@ export default {
             user: 'getLoggedUser'
         }),
 
-        avatar() {
-            return this.userProfile.avatar || this.user.avatar;
-        },
-
-        name() {
-            return this.userProfile.name || this.user.name;
-        },
-
-        welcome() {
-            return this.userProfile.welcome || this.user.welcome;
-        },
-
-        language() {
-            return this.userProfile.language || this.user.language;
-        },
-
-        dateFormat() {
-            return this.userProfile.dateFormat || this.user.dateFormat;
-        },
-
-        timeFormat() {
-            return this.userProfile.timeFormat || this.user.timeFormat;
-        },
-
-        country() {
-            return this.userProfile.country || this.user.country;
-        },
-
-        timeZone() {
-            return this.userProfile.timeZone || this.user.timeZone;
-        },
-
         avatarIsNew() {
-            return this.userProfile.avatar === this.newAvatar;
+            return this.newAvatar !== this.userProfile.avatar;
         }
     },
 
     methods: {
         ...mapActions('profile', ['updateAvatar', 'updateProfile']),
 
-        onNameChange(value) {
-            this.userProfile.name = value;
+        onChangeHandle(property, value) {
+            this.userProfile[property] = value;
         },
 
         updateImage(event) {
@@ -226,9 +218,12 @@ export default {
                     this.userProfile.avatar = url;
                 }
 
-                await this.updateProfile({ ...this.user, ...this.userProfile });
+                const userData = await this.updateProfile({
+                    ...this.user,
+                    ...this.userProfile
+                });
 
-                this.userProfile = {};
+                this.userProfile = { ...userData };
             } catch (error) {
                 this.showErrorMessage(error.message);
             }

@@ -3,13 +3,29 @@
         <VContainer fluid pa-0>
             <VRow no-gutters>
                 <VCol class="primary-vcol" xl="6" lg="6" md="6" cols="12">
+                    <div class="logo-primary-div">
+                        <RouterLink :to="{ name: 'SignIn' }">
+                            <VRow no-gutters align="center" justify="center">
+                                <img
+                                    :src="
+                                        require('@/assets/auth/icon_circle_letter_s.svg')
+                                    "
+                                    alt="logo of schedulia"
+                                    class="logo-image"
+                                />
+                                <h5 class="logo-h5 secondary--text">
+                                    {{ lang.SCHEDULIA }}
+                                </h5>
+                            </VRow>
+                        </RouterLink>
+                    </div>
                     <VRow no-gutters justify="end">
                         <img
                             :src="
                                 require('@/assets/auth/icon_circle_mark_normal.svg')
                             "
                             alt="icon in circle ok mark normal"
-                            class="normal-ok-sign "
+                            class="normal-ok-image "
                         />
                     </VRow>
                     <VRow no-gutters justify="center">
@@ -51,26 +67,27 @@
                             md="8"
                             cols="11"
                         >
-                            <RouterLink :to="{ path: 'login' }">
-                                <VRow no-gutters>
-                                    <img
-                                        :src="
-                                            require('@/assets/auth/icon_circle_letter_s.svg')
-                                        "
-                                        alt="logo of schedulia"
-                                        class="logo-image"
-                                    />
-                                    <h2 class="logo-text">
-                                        {{ lang.SCHEDULIA }}
-                                    </h2>
-                                </VRow>
-                            </RouterLink>
-                            <VRow no-gutters>
+                            <div class="logo-secondary-div ">
+                                <RouterLink :to="{ name: 'SignIn' }">
+                                    <VRow no-gutters align="center">
+                                        <img
+                                            :src="
+                                                require('@/assets/auth/icon_circle_letter_s.svg')
+                                            "
+                                            alt="logo of schedulia"
+                                            class="logo-image"
+                                        />
+                                        <h5 class="logo-h5 ">
+                                            {{ lang.SCHEDULIA }}
+                                        </h5>
+                                    </VRow>
+                                </RouterLink>
+                            </div>
+                            <VRow no-gutters justify="start" align="start">
                                 <VCol class="place-for-form-vcol">
                                     <slot></slot>
                                 </VCol>
                             </VRow>
-                            <VRow></VRow>
                         </VCol>
                     </VRow>
                 </VCol>
@@ -88,7 +105,6 @@ export default {
     })
 };
 </script>
-
 <style>
 html {
     overflow-y: auto !important;
@@ -110,64 +126,87 @@ html {
 .second-column-in-secondary {
     width: 100%;
 }
+.place-for-form-vcol {
+    margin-top: 15vh;
+}
+.logo-secondary-div {
+    margin-top: 1.7vh;
+}
+.logo-primary-div {
+    display: none;
+    margin-top: 1.7vh;
+}
+
 @media screen and (max-width: 960px) {
     .primary-vcol {
         order: 0;
-        height: 80vmax;
+        height: 100vh;
     }
     .secondary-vcol {
-        height: 80vmax;
+        height: 100vh;
     }
     .envelop-image {
+        display: none;
+    }
+    .normal-ok-image {
         display: none;
     }
     .first-column-in-secondary {
         display: none;
     }
     .office-worker-image {
-        margin-top: 10px;
+        margin-top: 5vmin;
         min-height: 50vmin;
     }
+    .logo-primary-div {
+        display: block;
+    }
+    .logo-secondary-div {
+        display: none;
+    }
+    .place-for-form-vcol {
+        margin-top: 9vh;
+    }
 }
-.place-for-form-vcol {
-    margin-top: 150px;
-}
-
 .logo-image {
     height: 52px;
     width: 49px;
-    margin-top: 16px;
 }
-.logo-text {
-    margin-top: 24px;
-    margin-left: 8px;
-    font-weight: bold;
-    color: var(--v-primary-base);
-}
-a {
-    text-decoration: none;
-}
-.normal-ok-sign {
-    height: 59px;
-    width: 59px;
+.normal-ok-image {
+    height: 6.3vh;
+    min-height: 30px;
     z-index: 20;
-    margin-top: 61px;
-    margin-right: 67px;
+    margin-top: 6.6vh;
+    margin-right: 3.6vw;
 }
 .office-worker-image {
     height: 50vmin;
-    min-height: 400px;
-    margin-top: 80px;
+    min-height: 200px;
+    margin-top: 8.6vh;
 }
 .envelop-image {
-    margin-top: 64px;
+    margin-top: 7vh;
     margin-left: -46px;
+    z-index: 20;
 }
 .rotated-ok-image {
     height: 33px;
     width: 33px;
     z-index: 20;
-    margin-left: 82px;
-    margin-top: 600px;
+    margin-left: 4vw;
+    margin-top: 65vh;
+}
+h5 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 36px;
+}
+.logo-h5 {
+    margin-left: 8px;
+    color: var(--v-primary-base);
+}
+a {
+    text-decoration: none;
 }
 </style>

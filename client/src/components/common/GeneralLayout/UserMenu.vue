@@ -20,17 +20,27 @@
             </VBtn>
         </template>
         <VList dense>
-            <VListItem>
+            <VListItem class="v-list-item--link">
                 <VListItemTitle align-self="center">
                     <RouterLink
-                        :to="{ name: 'profile' }"
+                        :to="{ name: 'Profile' }"
                         class="user-menu__link"
                     >
                         <VIcon>mdi-account</VIcon> Profile
                     </RouterLink>
                 </VListItemTitle>
             </VListItem>
-            <VListItem>
+            <VListItem class="v-list-item--link">
+                <VListItemTitle align-self="center">
+                    <RouterLink
+                        :to="{ name: 'EventTypes' }"
+                        class="user-menu__link"
+                    >
+                        <VIcon>mdi-calendar</VIcon> Event Types
+                    </RouterLink>
+                </VListItemTitle>
+            </VListItem>
+            <VListItem class="v-list-item--link">
                 <VListItemTitle align-self="center">
                     <RouterLink :to="{ name: 'Home' }" class="user-menu__link">
                         <VIcon>mdi-logout-variant</VIcon>Logout
@@ -79,6 +89,13 @@ export default {
 
     &__button::v-deep:before {
         background-color: transparent;
+    }
+
+    &__button::v-deep:hover,
+    &__button::v-deep[aria-expanded='true'] {
+        span.v-btn__content {
+            opacity: 0.9;
+        }
     }
 
     &__button[aria-expanded='true'] i {

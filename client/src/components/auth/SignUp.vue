@@ -4,7 +4,7 @@
             <h1 class="header">{{ lang.CREATE_AN_ACCOUNT }}</h1>
             <p class="hint">
                 {{ lang.ALREADY_REGISTERED }}
-                <RouterLink :to="{ path: 'login' }">
+                <RouterLink :to="{ name: 'SignIn' }">
                     {{ lang.LOG_IN }}
                 </RouterLink>
             </p>
@@ -93,6 +93,7 @@ import * as actions from '@/store/modules/auth/types/actions';
 import { mapActions } from 'vuex';
 import enLang from '@/store/modules/i18n/en';
 import Alert from '@/components/alert/Alert';
+import * as notificationActions from '@/store/modules/notification/types/actions';
 
 export default {
     name: 'SignUp',
@@ -158,6 +159,10 @@ export default {
         }
     }),
     methods: {
+        ...mapActions('notification', {
+            setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
+        }),
+
         ...mapActions('auth', {
             signUp: actions.SIGN_UP
         }),
@@ -172,11 +177,11 @@ export default {
                         'success.login'
                     );
                     setTimeout(
-                        () => this.$router.push({ path: '/login' }),
+                        () => this.$router.push({ path: '/signin' }),
                         2000
                     );
                 } catch (error) {
-                    this.showMessage(error, 'error');
+                    this.setErrorNotification(error);
                 }
             }
         },

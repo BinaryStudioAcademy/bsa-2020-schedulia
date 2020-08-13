@@ -1,7 +1,7 @@
-import state from '@/store/modules/auth/state';
-import getters from '@/store/modules/status/getters';
-import actions from '@/store/modules/auth/actions';
-import mutations from '@/store/modules/auth/mutations';
+import state from './state';
+import getters from './getters';
+import actions from './actions';
+import mutations from './mutations';
 
 export default {
     namespaced: true,

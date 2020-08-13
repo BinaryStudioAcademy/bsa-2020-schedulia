@@ -12,23 +12,11 @@
             </VContainer>
         </div>
         <BorderBottom />
-        <VContainer class="container-content">
-            <VTabsItems v-model="tab">
-                <VTabItem v-for="item in tabs" :key="item.tab">
-                    <VRow class="form-holder">
-                        <VCol cols="6">
-                            <VCard outlined>
-                                <VCardText>
-                                    <Component
-                                        v-bind:is="item.component"
-                                    ></Component>
-                                </VCardText>
-                            </VCard>
-                        </VCol>
-                    </VRow>
-                </VTabItem>
-            </VTabsItems>
-        </VContainer>
+        <VTabsItems v-model="tab">
+            <VTabItem v-for="item in tabs" :key="item.tab">
+                <Component v-bind:is="item.component"></Component>
+            </VTabItem>
+        </VTabsItems>
     </div>
 </template>
 
@@ -78,5 +66,12 @@ export default {
     .v-card {
         border: none;
     }
+}
+.v-tab {
+    text-transform: none;
+}
+
+.v-tabs-items::v-deep {
+    background: none;
 }
 </style>

@@ -13,6 +13,6 @@ export default {
     },
 
     async updateProfile(data) {
-        return await requestService.put('/profiles/my', { data });
+        return await requestService.put('/profiles/me', data);
     }
 };

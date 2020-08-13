@@ -35,6 +35,7 @@ final class EventTypePresenter
             'color' => $eventType->color,
             'duration' => $eventType->duration,
             'disabled' => $eventType->disabled,
+            'timezone' => $eventType->timezone,
             'owner' => $this->userPresenter->present($eventType->owner),
             'availabilities' => $eventType->availabilities()->get()->map(function ($availability) {
                 return $this->availabilityPresenter->present($availability);

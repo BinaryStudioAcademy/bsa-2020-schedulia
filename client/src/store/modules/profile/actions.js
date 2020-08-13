@@ -2,7 +2,7 @@ import uploadFileService from '@/services/upload/fileService';
 import profileService from '@/services/profile/profileService';
 import {
     UPDATE_BRANDING_LOGO,
-    UPDATE_PROFILE,
+    UPDATE_USER,
     UPDATE_AVATAR
 } from './types/mutations';
 
@@ -26,7 +26,7 @@ export default {
     },
 
     async updateAvatar({ commit }, avatar) {
-        const response = uploadFileService.upload(avatar);
+        const response = await uploadFileService.upload(avatar);
 
         const url = response?.data?.data?.avatar?.url;
 
@@ -36,10 +36,12 @@ export default {
     },
 
     async updateProfile({ commit }, profile) {
-        const response = profileService.updateProfile(profile);
+        const response = await profileService.updateProfile(profile);
 
-        commit(UPDATE_PROFILE, profile);
+        const userData = response?.data?.data;
 
-        return response?.data?.data;
+        commit(UPDATE_USER, userData);
+
+        return userData;
     }
 };
