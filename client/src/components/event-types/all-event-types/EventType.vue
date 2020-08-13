@@ -5,24 +5,7 @@
         :style="{ 'border-bottom': '18px solid ' + borderColor }"
     >
         <div class="action-button text-right">
-            <VMenu nudge-left="75">
-                <template v-slot:activator="{ on, attrs }">
-                    <VBtn icon color="primary" v-bind="attrs" v-on="on">
-                        <VIcon dark>mdi-dots-horizontal</VIcon>
-                    </VBtn>
-                </template>
-                <VList>
-                    <VListItem>
-                        <VListItemTitle>Item1</VListItemTitle>
-                    </VListItem>
-                    <VListItem>
-                        <VListItemTitle>Item2</VListItemTitle>
-                    </VListItem>
-                    <VListItem>
-                        <VListItemTitle>Item3</VListItemTitle>
-                    </VListItem>
-                </VList>
-            </VMenu>
+            <DropDown :eventType="eventType" />
         </div>
         <div class="event-type-content">
             <h3>{{ eventType.name }}</h3>
@@ -31,10 +14,9 @@
             </span>
         </div>
         <div class="event-type-invitee mt-9 mb-2">
-            <VAvatar color="teal" size="24" v-if="eventType.invitee">
+            <VAvatar color="teal" size="24">
                 <span class="white--text headline">24</span>
             </VAvatar>
-            <div v-else class="pb-6"></div>
         </div>
         <VDivider />
         <div class="event-type-actions row">
@@ -67,12 +49,16 @@
 </template>
 
 <script>
+import DropDown from '@/components/event-types/all-event-types/DropDown';
 export default {
     name: 'EventType',
     props: {
         eventType: {
             required: true
         }
+    },
+    components: {
+        DropDown
     },
     computed: {
         isDisabled() {
