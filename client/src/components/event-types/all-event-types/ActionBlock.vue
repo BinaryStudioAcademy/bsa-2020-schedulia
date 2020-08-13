@@ -8,7 +8,7 @@
             <div class="col">
                 <span class="user-name">{{ user.name }}</span>
                 <br />
-                <a>shedulia.xyz/nickname</a>
+                <a href="">shedulia.xyz/nickname</a>
             </div>
         </div>
         <div class="col-md-6 text-right new-event-type-btn">
