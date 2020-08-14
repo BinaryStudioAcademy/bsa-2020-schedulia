@@ -243,6 +243,7 @@ export default {
         },
         changeName(val) {
             this.form.name = val;
+            this.changeSlug(val);
         },
         changeLocation(val) {
             this.form.location = val;
@@ -252,14 +253,6 @@ export default {
         },
         changeSlug(val) {
             this.form.slug = val.replace(/\s/g, '-');
-        }
-    },
-
-    watch: {
-        'data.name': function(val, prevVal) {
-            if (prevVal === this.form.slug || this.form.slug.length < 1) {
-                this.form.slug = val.replace(/\s/g, '-');
-            }
         }
     }
 };
