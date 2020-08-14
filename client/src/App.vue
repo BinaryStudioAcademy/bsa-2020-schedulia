@@ -2,7 +2,11 @@
     <VApp>
         <RouterView />
         <Notifications />
-        <Alert :visibility="alert.visible" :type="alert.type" :message="alert.message" />
+        <Alert
+            :visibility="alert.visible"
+            :type="alert.type"
+            :message="alert.message"
+        />
     </VApp>
 </template>
 
