@@ -67,7 +67,7 @@
                                 {{ lang.OR_LOGIN_WITH }}
                             </span>
                         </VCol>
-                        <VCol>
+                        <VCol style="visibility: hidden">
                             <VBtn class="social-button" outlined fab>
                                 {{ lang.GOOGLE_ICON }}
                             </VBtn>
