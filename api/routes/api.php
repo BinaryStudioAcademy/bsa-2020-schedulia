@@ -45,6 +45,7 @@ Route::group([
         Route::post('/', 'EventTypeController@store');
         Route::get('/{id}', 'EventTypeController@getEventTypeById');
         Route::put('/{id}', 'EventTypeController@update');
+        Route::put('/{id}/disabled', 'EventTypeController@changeDisabledById');
         Route::delete('/{id}', 'EventTypeController@destroy');
     });
 });
@@ -62,4 +63,12 @@ Route::group([
     'prefix' => '/profiles',
 ], function () {
     Route::put('/me', 'UserController@store');
+});
+
+Route::group([
+    'middleware' => 'auth:api',
+    'namespace' => 'Api\\',
+    'prefix' => '/files',
+], function () {
+    Route::post('/', 'UploadController@store');
 });
