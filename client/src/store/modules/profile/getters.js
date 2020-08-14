@@ -1,3 +1,4 @@
 export default {
-    getBrandingLogo: state => state.brandingLogo
+    getBrandingLogo: state => state.brandingLogo,
+    getAvatar: state => state.avatar
 };

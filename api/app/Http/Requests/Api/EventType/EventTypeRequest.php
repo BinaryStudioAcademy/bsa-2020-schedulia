@@ -10,7 +10,7 @@ class EventTypeRequest extends FormRequest
     {
         return [
             'name' => 'required|min:2|string',
-            'color' => 'required|min:4|string',
+            'color' => 'required|min:3|string',
             'description' => 'nullable|min:4|string',
             'slug' => 'required|min:2|string',
             'duration' => 'required|integer',
@@ -28,10 +28,12 @@ class EventTypeRequest extends FormRequest
             "availabilities.*.start_date" => [
                 'required',
                 'string',
+                'date_format:Y-m-d H:i:s'
             ],
             "availabilities.*.end_date" => [
                 'required',
                 'string',
+                'date_format:Y-m-d H:i:s'
             ],
         ];
     }
