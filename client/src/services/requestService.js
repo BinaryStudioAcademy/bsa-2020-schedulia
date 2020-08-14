@@ -1,5 +1,6 @@
 import axios from 'axios';
 import authService from '@/services/auth/authService';
+import { EventEmitter, TOKEN_EXPIRED_EVENT } from '@/services/EventEmmiter';
 
 const API_URL = process.env.VUE_APP_API_URL;
 
@@ -13,6 +14,15 @@ axios.interceptors.request.use(
         return config;
     },
     error => Promise.reject(error)
+);
+
+axios.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.message.includes('401')) {
+            EventEmitter.$emit(TOKEN_EXPIRED_EVENT);
+        }
+    }
 );
 
 const requestService = {
