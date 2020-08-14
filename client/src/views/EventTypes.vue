@@ -11,7 +11,7 @@
 import GeneralLayout from '@/components/common/GeneralLayout/GeneralLayout';
 import Tabs from '@/components/tabs/Tabs.vue';
 import EventTypesList from '@/components/event-types/EventTypesList';
-import EventScheduledList from '@/components/event-types/EventScheduledList';
+import EventScheduledList from '@/components/event-scheduled/EventScheduledList';
 import enLang from '@/store/modules/i18n/en.js';
 
 export default {
@@ -24,7 +24,6 @@ export default {
         tabs: [
             { title: 'Event Types', component: EventTypesList },
             { title: enLang.EVENT_SCHEDULED, component: EventScheduledList }
-
         ]
     })
 };
