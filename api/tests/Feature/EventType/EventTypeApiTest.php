@@ -140,6 +140,21 @@ final class EventTypeApiTest extends TestCase
             ->assertNotFound();
     }
 
+    public function test_get_event_type_by_id_forbidden()
+    {
+        $authorizedUser = factory(User::class)->create();
+        $anotherUser = factory(User::class)->create();
+
+        $eventType = factory(EventType::class)->create([
+            'owner_id' => $anotherUser->id,
+        ]);
+
+        $this
+            ->actingAs($authorizedUser)
+            ->json('GET', self::API_URL . '/' . $eventType->id)
+            ->assertStatus(JsonResponse::HTTP_FORBIDDEN);
+    }
+
     public function test_add_event_type()
     {
         $user = factory(User::class)->create();
@@ -175,6 +190,33 @@ final class EventTypeApiTest extends TestCase
         $response = $this
             ->actingAs($user)
             ->json('POST', self::API_URL, []);
+
+        $response
+            ->assertStatus(422)
+            ->assertJsonStructure([
+                'error' => [
+                    'message',
+                    'validator',
+                ]
+            ]);
+    }
+
+    public function test_add_event_type_invalid_availability_request_params()
+    {
+        $user = factory(User::class)->create();
+
+        $data = self::DATA;
+        $data['availabilities'] = [
+            [
+                'type' => 'week',
+                'start_date' => 'string',
+                'end_date' => 'string',
+            ]
+        ];
+
+        $response = $this
+            ->actingAs($user)
+            ->json('POST', self::API_URL, $data);
 
         $response
             ->assertStatus(422)
