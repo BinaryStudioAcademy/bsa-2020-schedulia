@@ -5,11 +5,15 @@ export default {
         state.eventTypes = eventTypes;
     },
     [mutations.DISABLE_EVENT_TYPE_BY_ID]: (state, data) => {
-        const eventType = state.eventTypes.find(eventType => {
+        const index = state.eventTypes.findIndex(eventType => {
             return eventType.id === data.id;
         });
-        if (eventType) {
-            eventType.disabled = data.disabled;
+        if (index !== -1) {
+            state.eventTypes = [
+                ...state.eventTypes.slice(0, index),
+                { ...state.eventTypes[index], disabled: data.disabled },
+                ...state.eventTypes.slice(index, 1)
+            ];
         }
     },
     [mutations.DELETE_EVENT_TYPE_BY_ID]: (state, id) => {
