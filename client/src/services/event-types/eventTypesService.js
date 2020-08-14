@@ -2,20 +2,20 @@ import requestService from '@/services/requestService';
 
 const eventTypesService = {
     async fetchAllEventTypes() {
-        const response = await requestService.get('/eventTypes');
+        const response = await requestService.get('/event-types');
         return response?.data?.data;
     },
     async changeDisabledEventTypeById(updateData) {
         return await requestService.put(
-            '/eventTypes/' + updateData.id + '/disabled',
+            '/event-types/' + updateData.id + '/disabled',
             { disabled: updateData.disabled }
         );
     },
     async deleteEventTypeById(eventTypeId) {
-        return await requestService.delete('/eventTypes/' + eventTypeId);
+        return await requestService.delete('/event-types/' + eventTypeId);
     },
     async createEventType(eventTypeData) {
-        return await requestService.post('/eventTypes', eventTypeData);
+        return await requestService.post('/event-types', eventTypeData);
     }
 };
 

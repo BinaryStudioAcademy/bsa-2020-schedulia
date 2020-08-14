@@ -39,7 +39,7 @@ Route::group([
     'namespace' => 'Api\\'
 ], function () {
     Route::group([
-        'prefix' => '/eventTypes',
+        'prefix' => '/event-types',
     ], function () {
         Route::get('/', 'EventTypeController@index');
         Route::post('/', 'EventTypeController@store');
