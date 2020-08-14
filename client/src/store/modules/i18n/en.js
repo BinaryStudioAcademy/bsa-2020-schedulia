@@ -87,5 +87,9 @@ export default {
     SUCCESSFULLY_SIGNINED: 'Successfully sign in! ',
     FORGOT_PASSWORD: 'Forgot Password?',
 
-    EVENT_SCHEDULED: 'Event scheduled'
+    EVENT_SCHEDULED: 'Event scheduled',
+    UPCOMING: 'Upcoming',
+    PENDING: 'Pending',
+    PAST: 'Past',
+    DATE_RANGE: 'Date Range'
 };

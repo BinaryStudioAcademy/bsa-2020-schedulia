@@ -2,12 +2,19 @@
     <div class="tabs">
         <div class="tabs__list">
             <VContainer class="tabs__container">
-                <VToolbar color="white" flat>
-                    <VTabs v-model="tab">
-                        <VTab v-for="item in tabs" :key="item.tab">
-                            {{ item.title }}
-                        </VTab>
-                    </VTabs>
+                <VToolbar color="white" dense flat>
+                    <VRow align="end">
+                        <VCol class="text-left">
+                            <VTabs v-model="tab">
+                                <VTab v-for="item in tabs" :key="item.tab">
+                                    {{ item.title }}
+                                </VTab>
+                            </VTabs>
+                        </VCol>
+                        <VCol class="text-right" align-self="center">
+                            <slot name="right-side"></slot>
+                        </VCol>
+                    </VRow>
                 </VToolbar>
             </VContainer>
         </div>
@@ -42,6 +49,10 @@ export default {
 
 <style lang="scss" scoped>
 .tabs {
+    .col::v-deep {
+        padding: 0;
+    }
+
     &__list {
         width: 100%;
         background: var(--v-background-lighten1);
