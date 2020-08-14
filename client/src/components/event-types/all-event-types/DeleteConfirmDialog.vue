@@ -7,7 +7,7 @@
         </template>
         <VCard>
             <VCardTitle class="headline text-danger"
-                >Delete {{ eventType.name }}?</VCardTitle
+                >{{ lang.DELETE }} {{ eventType.name }}?</VCardTitle
             >
             <VCardText>
                 {{ lang.DIALOG_EVENT_TYPE_DELETE_CONFIRM }}
