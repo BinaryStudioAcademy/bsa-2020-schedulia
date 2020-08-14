@@ -27,10 +27,6 @@ final class GetEventTypeByIdAction
             throw new EventTypeNotFoundException('Event Type not found.', 404);
         }
 
-        if ($eventType->owner_id !== Auth::id()) {
-            throw new AuthorizationException();
-        }
-
         return new GetEventTypeByIdResponse($eventType);
     }
 }
