@@ -156,7 +156,7 @@ html {
     }
     .office-worker-image {
         margin-top: 5vmin;
-        min-height: 50vmin;
+        height: 95vmin !important;
     }
     .logo-primary-div {
         display: block;
@@ -181,7 +181,6 @@ html {
 }
 .office-worker-image {
     height: 50vmin;
-    min-height: 200px;
     margin-top: 8.6vh;
 }
 .envelop-image {
