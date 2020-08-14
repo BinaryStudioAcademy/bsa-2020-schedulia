@@ -11,8 +11,7 @@ final class ProfileImagePresenter
     public function present(UploadImageResponse $uploadImageResponse): array
     {
         return [
-            'url' => $uploadImageResponse->getUrl(),
-            'path' => $uploadImageResponse->getPath()
+            'url' => $uploadImageResponse->getUrl()
         ];
     }
 }

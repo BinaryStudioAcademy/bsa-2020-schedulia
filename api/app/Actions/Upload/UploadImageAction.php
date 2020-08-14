@@ -19,6 +19,6 @@ final class UploadImageAction
     {
         $result = $this->imageUploader->upload($request->getFile(), $request->getUserId(), $request->getType());
 
-        return new UploadImageResponse($result['url'], $result['path']);
+        return new UploadImageResponse($result);
     }
 }

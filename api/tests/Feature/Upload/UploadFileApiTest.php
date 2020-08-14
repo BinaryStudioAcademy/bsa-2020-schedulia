@@ -65,11 +65,12 @@ class UploadFileApiTest extends TestCase
             ->assertHeader('Content-Type', 'application/json')
             ->assertJsonStructure([
                 'data' => [
-                    'url',
-                    'path'
+                    'url'
                 ]
             ])->decodeResponseJson('data');
 
-        Storage::disk('local')->assertExists($content['path']);
+        $path = str_replace('/storage/', '', $content['url']);
+        
+        Storage::disk('local')->assertExists($path);
     }
 }
