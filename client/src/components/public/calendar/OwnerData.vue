@@ -1,29 +1,39 @@
 <template>
     <div class="event-info-content">
-        <VAvatar size="70px">
-            <img
-                src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"
-                alt="Avatar"
-            />
+        <VImg
+            :max-width="60"
+            :max-height="40"
+            :src="companyLogo"
+            class="company-logo"
+        />
+        <VAvatar :size="70">
+            <img :src="avatar" alt="Avatar" />
         </VAvatar>
-        <h4>Michael Scott</h4>
-        <p>Sales manager</p>
+        <h4>{{ name }} | {{ company }}</h4>
+        <p>{{ specialty }}</p>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'OwnerData'
+    name: 'OwnerData',
+    props: ['companyLogo', 'avatar', 'name', 'company', 'specialty']
 };
 </script>
 
-<style>
+<style scoped>
 .event-info-content {
-    margin-top: -50px;
-    padding-left: 50px;
+    margin-top: -70px;
+    padding-left: 30px;
+    padding-right: 10px;
 }
 
 .event-info-content h4 {
     margin-top: 15px;
+}
+
+.company-logo {
+    margin-bottom: -10px;
+    margin-left: 80px;
 }
 </style>

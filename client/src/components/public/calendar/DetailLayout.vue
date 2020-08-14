@@ -1,7 +1,13 @@
 <template>
     <div>
         <div class="event-info-top"></div>
-        <OwnerData />
+        <OwnerData
+            :companyLogo="companyLogo"
+            :avatar="avatar"
+            :name="name"
+            :company="company"
+            :specialty="specialty"
+        />
         <div class="event-info-details">
             <slot></slot>
         </div>
@@ -15,17 +21,18 @@ export default {
     name: 'DatailLayout',
     components: {
         OwnerData
-    }
+    },
+    props: ['companyLogo', 'avatar', 'name', 'company', 'specialty']
 };
 </script>
 
-<style>
+<style scoped>
 .event-info-top {
     height: 100px;
     background-color: rgb(243, 247, 247);
 }
 .event-info-details {
-    padding-left: 50px;
+    padding-left: 30px;
     padding-right: 10px;
 }
 </style>
