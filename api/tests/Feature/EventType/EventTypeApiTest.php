@@ -140,21 +140,6 @@ final class EventTypeApiTest extends TestCase
             ->assertNotFound();
     }
 
-    public function test_get_event_type_by_id_forbidden()
-    {
-        $authorizedUser = factory(User::class)->create();
-        $anotherUser = factory(User::class)->create();
-
-        $eventType = factory(EventType::class)->create([
-            'owner_id' => $anotherUser->id,
-        ]);
-
-        $this
-            ->actingAs($authorizedUser)
-            ->json('GET', self::API_URL . '/' . $eventType->id)
-            ->assertStatus(JsonResponse::HTTP_FORBIDDEN);
-    }
-
     public function test_add_event_type()
     {
         $user = factory(User::class)->create();
