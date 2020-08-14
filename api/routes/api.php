@@ -45,6 +45,7 @@ Route::group([
         Route::post('/', 'EventTypeController@store');
         Route::get('/{id}', 'EventTypeController@getEventTypeById');
         Route::put('/{id}', 'EventTypeController@update');
+        Route::put('/{id}/disabled', 'EventTypeController@changeDisabledById');
         Route::delete('/{id}', 'EventTypeController@destroy');
     });
 });

@@ -100,5 +100,23 @@ export default {
     SCHEDULIA: 'Schedulia',
     USER_MENU_BUTTON: 'My Account',
     SUCCESSFULLY_SIGNINED: 'Successfully sign in! ',
-    FORGOT_PASSWORD: 'Forgot Password?'
+    FORGOT_PASSWORD: 'Forgot Password?',
+    NEW_EVENT_TYPE: 'New Event Type',
+    DELETE: 'Delete',
+    DIALOG_EVENT_TYPE_DELETE_CONFIRM:
+        'Users will be unable to schedule further meetings with deleted event types. Meetings previously scheduled will be affected.',
+    YES: 'Yes',
+    MANAGE_AVAILABILITY: 'Manage availability',
+    EDIT: 'Edit',
+    ADD_INTERNAL_NOTE: 'Add Internal Note',
+    CLONE: 'Clone',
+    SAVE_TO_TEMPLATE: 'Save to Template',
+    ADD_TO_WEBSITE: 'Add to Website',
+    ON: 'On',
+    OFF: 'Off',
+    COPY_LINK: 'Copy Link',
+    YOU_DONT_HAVE_ANY_EVENT_TYPES: "You don't have any event types yet.",
+    YOU_WILL_WANT_TO_ADD_EVENT_TYPE:
+        "You'll want to add an event type to allow people to schedule with\n" +
+        '            you.'
 };
