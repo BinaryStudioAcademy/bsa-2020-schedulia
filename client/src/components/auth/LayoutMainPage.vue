@@ -28,7 +28,7 @@
                             class="normal-ok-image "
                         />
                     </VRow>
-                    <VRow no-gutters justify="center">
+                    <VRow no-gutters justify="center" align="end">
                         <Img
                             :src="require('@/assets/auth/office_worker.png')"
                             alt="collage office employee at work"
@@ -155,8 +155,8 @@ html {
         display: none;
     }
     img.office-worker-image {
-        margin-top: 5vmin;
         width: 95vmin;
+        margin-top: 10vh;
     }
     .logo-primary-div {
         display: block;
