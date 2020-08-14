@@ -1,104 +1,103 @@
 <template>
     <VContainer>
         <VCard class="mt-7">
-        <VRow justify="center">
-            <VCol cols="6">
-                <VForm>
-                    <VContainer>
-                        <VRow>
-                            <VCol cols="12">
-                                <VSubheader>
-                                    {{ lang.LOGO }}
-                                    <Tooltip>
-                                        <p>
-                                            {{
-                                                lang.PROFILE_USE_THIS_SETTING_LOGO_TEXT
-                                            }}
-                                        </p>
-                                        <p>
-                                            {{
-                                                lang.PROFILE_YOU_LOGO_WILL_APPEAR_TEXT
-                                            }}
-                                        </p>
-                                    </Tooltip>
-                                </VSubheader>
-                            </VCol>
-                            <VCol cols="12">
-                                <div>
-                                    <div v-if="newLogo">
-                                        <VImg :src="newLogo"></VImg>
-                                    </div>
-                                    <div v-else>
-                                        <VImg
-                                            :src="
-                                                require('@/assets/images/no-image.png')
-                                            "
-                                        ></VImg>
-                                    </div>
-                                </div>
+            <VRow justify="center">
+                <VCol cols="6">
+                    <VForm>
+                        <VContainer>
+                            <VRow>
                                 <VCol cols="12">
-                                    <VDivider></VDivider>
+                                    <VSubheader>
+                                        {{ lang.LOGO }}
+                                        <Tooltip>
+                                            <p>
+                                                {{
+                                                    lang.PROFILE_USE_THIS_SETTING_LOGO_TEXT
+                                                }}
+                                            </p>
+                                            <p>
+                                                {{
+                                                    lang.PROFILE_YOU_LOGO_WILL_APPEAR_TEXT
+                                                }}
+                                            </p>
+                                        </Tooltip>
+                                    </VSubheader>
                                 </VCol>
-                                <div>
-                                    <VBtn
+                                <VCol cols="12">
+                                    <div>
+                                        <div v-if="newLogo">
+                                            <VImg :src="newLogo"></VImg>
+                                        </div>
+                                        <div v-else>
+                                            <VImg
+                                                :src="
+                                                    require('@/assets/images/no-image.png')
+                                                "
+                                            ></VImg>
+                                        </div>
+                                    </div>
+                                    <VCol cols="12">
+                                        <VDivider></VDivider>
+                                    </VCol>
+                                    <div>
+                                        <VBtn
                                             class="text mr-2 cancel v-btn--flat v-btn--outlined"
                                             :disabled="!newLogo"
                                             @click="removeImage"
-                                    >{{ lang.REMOVE }}
-                                    </VBtn>
-                                    <label
-                                        for="fileInput"
-                                        class="mr-3 primary v-btn v-btn--depressed theme--light v-size--default pointer"
-                                    >
-                                        {{ lang.UPDATE }}
-                                    </label>
+                                            >{{ lang.REMOVE }}
+                                        </VBtn>
+                                        <label
+                                            for="fileInput"
+                                            class="mr-3 primary v-btn v-btn--depressed theme--light v-size--default pointer"
+                                        >
+                                            {{ lang.UPDATE }}
+                                        </label>
 
-                                    <input
-                                        v-show="false"
-                                        id="fileInput"
-                                        type="file"
-                                        accept="image/*"
-                                        @change="updateImage"
-                                    />
+                                        <input
+                                            v-show="false"
+                                            id="fileInput"
+                                            type="file"
+                                            accept="image/*"
+                                            @change="updateImage"
+                                        />
 
-
-                                    <VAlert
-                                        cols="12"
-                                        type="error"
-                                        v-if="errorMessage"
-                                    >
-                                        {{ errorMessage }}
-                                    </VAlert>
-                                </div>
-                            </VCol>
-                            <VCol cols="12">
-                                <VSpacer></VSpacer>
-                                <VDivider></VDivider>
-                                <VSpacer></VSpacer>
-                            </VCol>
-                            <VCol>
-                                <div>
-                                    <VBtn
+                                        <VAlert
+                                            cols="12"
+                                            type="error"
+                                            v-if="errorMessage"
+                                        >
+                                            {{ errorMessage }}
+                                        </VAlert>
+                                    </div>
+                                </VCol>
+                                <VCol cols="12">
+                                    <VSpacer></VSpacer>
+                                    <VDivider></VDivider>
+                                    <VSpacer></VSpacer>
+                                </VCol>
+                                <VCol>
+                                    <div>
+                                        <VBtn
                                             class="text cancel v-btn--flat v-btn--outlined"
                                             @click="resetChanges"
-                                    >
-                                        {{ lang.CANCEL }}
-                                    </VBtn>
-                                    <VBtn
-                                        :disabled="logoIsNew"
-                                        class="ma-2"
-                                        depressed
-                                        color="primary"
-                                        @click="save"
-                                        >{{ lang.SAVE }}
-                                    </VBtn>
-                                </div>
-                            </VCol>
-                        </VRow>
-                    </VContainer>
-                </VForm>
-            </VCol>
-        </VRow>
+                                        >
+                                            {{ lang.CANCEL }}
+                                        </VBtn>
+                                        <VBtn
+                                            :disabled="logoIsNew"
+                                            class="ma-2"
+                                            depressed
+                                            color="primary"
+                                            @click="save"
+                                            >{{ lang.SAVE }}
+                                        </VBtn>
+                                    </div>
+                                </VCol>
+                            </VRow>
+                        </VContainer>
+                    </VForm>
+                </VCol>
+            </VRow>
         </VCard>
     </VContainer>
 </template>
@@ -121,7 +120,6 @@ export default {
     }),
 
     mounted() {
-        console.log(this.logo);
         this.newLogo = this.logo;
     },
 
@@ -174,16 +172,14 @@ export default {
 .pointer {
     cursor: pointer;
 }
-    .v-btn {
-        font-size: 13px;
-        text-transform: none;
+.v-btn {
+    font-size: 13px;
+    text-transform: none;
 
-        &.cancel {
-            border-color: rgba(0, 0, 0, 0.12);
-            background: none;
-            box-shadow: none;
-        }
+    &.cancel {
+        border-color: rgba(0, 0, 0, 0.12);
+        background: none;
+        box-shadow: none;
     }
-
-
+}
 </style>

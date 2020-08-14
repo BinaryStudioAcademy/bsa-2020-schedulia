@@ -18,7 +18,7 @@ export default {
 
         const url = response?.url;
 
-        if(url) {
+        if (url) {
             profileService.saveBranding(url);
             commit(UPDATE_BRANDING_LOGO, url);
         }
