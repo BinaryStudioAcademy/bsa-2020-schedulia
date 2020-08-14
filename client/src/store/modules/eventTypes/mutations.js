@@ -12,7 +12,7 @@ export default {
             state.eventTypes = [
                 ...state.eventTypes.slice(0, index),
                 { ...state.eventTypes[index], disabled: data.disabled },
-                ...state.eventTypes.slice(index, 1)
+                ...state.eventTypes.slice(index + 1)
             ];
         }
     },
