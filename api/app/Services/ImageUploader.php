@@ -23,7 +23,7 @@ final class ImageUploader implements FileUploader
     public function upload(UploadedFile $file, int $userId, string $type): string
     {
         $newFileName = $this->generateFileName($file->getFilename()) . '.' . $file->getClientOriginalExtension();
-        $path = $this->config->get('filesystems.paths.' . $type) . '/' . $userId.'/';
+        $path = $this->config->get('filesystems.paths.' . $type) . '/' . $userId. '/';
 
         $this->fileSystemManager
             ->disk()
