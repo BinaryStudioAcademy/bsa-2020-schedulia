@@ -267,5 +267,10 @@ export default {
 
 .updateAvatar {
     padding-left: 10px;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    color: #281AC8;
+    cursor: pointer;
 }
 </style>
