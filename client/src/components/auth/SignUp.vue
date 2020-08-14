@@ -177,7 +177,7 @@ export default {
                         'success.login'
                     );
                     setTimeout(
-                        () => this.$router.push({ path: '/signin' }),
+                        () => this.$router.push({ name: 'SignIn' }),
                         2000
                     );
                 } catch (error) {
