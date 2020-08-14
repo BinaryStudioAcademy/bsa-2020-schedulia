@@ -144,6 +144,7 @@ import { mapActions, mapGetters } from 'vuex';
 import ProfileTextField from './ProfileTextField.vue';
 import ProfileTextArea from './ProfileTextArea.vue';
 import ProfileSelect from './ProfileSelect.vue';
+import momentTimezone from 'moment-timezone';
 
 export default {
     name: 'ProfileForm',
@@ -181,7 +182,7 @@ export default {
             { value: '12', text: '12h' },
             { value: '24', text: '24h' }
         ],
-        timeZones: []
+        timeZones: momentTimezone.tz.names()
     }),
 
     created() {
