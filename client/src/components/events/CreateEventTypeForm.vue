@@ -224,7 +224,7 @@ export default {
             getEventTypeForm: eventTypeGetters.GET_EVENT_TYPE_FORM
         }),
         data() {
-            return this.form || this.getEventTypeForm;
+            return Object.keys(this.form).some(el => !!this.form[el]) ? this.form : this.getEventTypeForm;
         }
     },
 
