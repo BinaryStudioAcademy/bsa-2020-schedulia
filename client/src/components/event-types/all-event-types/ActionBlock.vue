@@ -1,234 +1,56 @@
 <template>
-    <div class="signup container">
-        <div class="col-md-12">
-            <h1 class="header">{{ lang.CREATE_AN_ACCOUNT }}</h1>
-            <p class="hint">
-                {{ lang.ALREADY_REGISTERED }}
-                <RouterLink :to="{ name: 'SignIn' }">
-                    {{ lang.LOG_IN }}
-                </RouterLink>
-            </p>
-            <VForm v-model="formValid" ref="form">
-                <VCol cols="12" sm="12" md="8" class="pa-0">
-                    <label for="full-name">{{ lang.FULL_NAME }}</label>
-                    <VTextField
-                        id="full-name"
-                        :placeholder="lang.NAME"
-                        outlined
-                        dense
-                        type="text"
-                        v-model="registerData.name"
-                        :rules="nameRules"
-                    ></VTextField>
-                </VCol>
-                <VCol cols="12" sm="12" md="8" class="pa-0">
-                    <label for="email">{{ lang.EMAIL }}</label>
-                    <VTextField
-                        id="email"
-                        placeholder="name@gmail.com"
-                        outlined
-                        dense
-                        type="email"
-                        v-model="registerData.email"
-                        :rules="emailRules"
-                    ></VTextField>
-                </VCol>
-                <VCol cols="12" sm="12" md="8" class="pa-0">
-                    <label for="password">{{ lang.PASSWORD }}</label>
-                    <VTextField
-                        id="password"
-                        :type="passVisible ? 'text' : 'password'"
-                        :append-icon="passVisible ? 'mdi-eye' : 'mdi-eye-off'"
-                        @click:append="passVisible = !passVisible"
-                        solo
-                        outlined
-                        dense
-                        v-model="registerData.password"
-                        :rules="passwordRules"
-                    ></VTextField>
-                </VCol>
-                <VCol cols="12" sm="12" md="8" class="pa-0">
-                    <label for="password_confirmation">
-                        {{ lang.CONFIRM_PASSWORD }}
-                    </label>
-                    <VTextField
-                        id="password_confirmation"
-                        :type="passConfirmVisible ? 'text' : 'password'"
-                        :append-icon="
-                            passConfirmVisible ? 'mdi-eye' : 'mdi-eye-off'
-                        "
-                        @click:append="passConfirmVisible = !passConfirmVisible"
-                        solo
-                        outlined
-                        dense
-                        v-model="registerData.password_confirmation"
-                        :rules="passwordConfirmationRules"
-                        ref="password_confirmation"
-                        :error-messages="passConfirmationError"
-                    ></VTextField>
-                </VCol>
-            </VForm>
-            <VBtn
-                depressed
-                large
-                color="primary"
-                @click="onSignUp"
-                class="pa-8 text-white"
-            >
-                {{ lang.SIGN_UP }}
+    <div class="row">
+        <div class="col-md-6 row">
+            <div class="col-md-1 text-right">
+                <Avatar :size="48"></Avatar>
+            </div>
+
+            <div class="col">
+                <span class="user-name">{{ user.name }}</span>
+                <br />
+                <a href="">shedulia.xyz/nickname</a>
+            </div>
+        </div>
+        <div class="col-md-6 text-right new-event-type-btn">
+            <RouterLink :to="{ name: 'new-event' }">
+                <VBtn class="ma-2" outlined color="indigo">
+                    {{ lang.NEW_EVENT_TYPE }}
+                    <VIcon right dark>mdi-plus</VIcon>
+                </VBtn>
+            </RouterLink>
+            <VBtn class="ma-2 text-left" outlined fab small color="indigo">
+                <VIcon dark>mdi-chevron-down</VIcon>
             </VBtn>
         </div>
-
-        <Alert
-            :type="alert.type"
-            :message="alert.message"
-            :visibility="alert.visible"
-            @user-deleted="onAlertClose"
-        />
     </div>
 </template>
 
 <script>
-import * as actions from '@/store/modules/auth/types/actions';
-import { mapActions } from 'vuex';
+import * as getters from '@/store/modules/auth/types/getters';
+import { mapGetters } from 'vuex';
+import Avatar from '@/components/common/GeneralLayout/Avatar';
 import enLang from '@/store/modules/i18n/en';
-import Alert from '@/components/alert/Alert';
-import * as notificationActions from '@/store/modules/notification/types/actions';
 export default {
-    name: 'SignUp',
-    components: {
-        Alert
-    },
+    name: 'ActionBlock',
     data: () => ({
-        lang: enLang,
-        formValid: false,
-        passVisible: false,
-        passConfirmVisible: false,
-        registerData: {
-            name: '',
-            email: '',
-            password: '',
-            password_confirmation: '',
-            timezone: ''
-        },
-        nameRules: [
-            v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', enLang.NAME),
-            v =>
-                v.length >= 2 ||
-                enLang.NAME +
-                enLang.FIELD_MUST_BE_MORE_THAN_VALUE.replace('value', 2),
-            v =>
-                v.length <= 100 ||
-                enLang.EMAIL +
-                enLang.FIELD_MUST_BE_LESS_THAN_VALUE.replace('value', 100)
-        ],
-        emailRules: [
-            v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', enLang.EMAIL),
-            v =>
-                /([a-zA-Z0-9_.-]+)@(.+)[.](.+)/.test(v) ||
-                enLang.WRONG_EMAIL_FORMAT,
-            v =>
-                v.length <= 50 ||
-                enLang.EMAIL +
-                enLang.FIELD_MUST_BE_LESS_THAN_VALUE.replace('value', 50)
-        ],
-        passwordRules: [
-            v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', 'Password'),
-            v =>
-                v.length >= 8 ||
-                enLang.PASSWORD +
-                enLang.FIELD_MUST_BE_MORE_THAN_VALUE.replace('value', 8)
-        ],
-        passwordConfirmationRules: [
-            v =>
-                !!v ||
-                enLang.FIELD_IS_REQUIRED.replace(
-                    'field',
-                    enLang.CONFIRM_PASSWORD
-                ),
-            v =>
-                v.length >= 8 ||
-                enLang.PASSWORD +
-                enLang.FIELD_MUST_BE_MORE_THAN_VALUE.replace('value', 8)
-        ],
-        alert: {
-            visible: false,
-            message: '',
-            type: ''
-        }
+        lang: enLang
     }),
-    methods: {
-        ...mapActions('notification', {
-            setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
-        }),
-        ...mapActions('auth', {
-            signUp: actions.SIGN_UP
-        }),
-        async onSignUp() {
-            this.$refs.form.validate();
-            if (this.formValid) {
-                try {
-                    this.registerData.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                    await this.signUp(this.registerData);
-                    this.showMessage(
-                        this.lang.SUCCESSFULLY_REGISTERED,
-                        'success.login'
-                    );
-                    setTimeout(
-                        () => this.$router.push({ path: '/signin' }),
-                        2000
-                    );
-                } catch (error) {
-                    this.setErrorNotification(error);
-                }
-            }
-        },
-        onAlertClose() {
-            this.alert.visible = false;
-        },
-        showMessage(message, type = '') {
-            this.alert.message = message;
-            this.alert.type = type;
-            this.alert.visible = true;
-        }
+    components: {
+        Avatar
     },
     computed: {
-        passConfirmationError() {
-            return this.registerData.password ===
-            this.registerData.password_confirmation
-                ? ''
-                : this.lang.PASSWORDS_DONT_MATCH;
-        }
+        ...mapGetters('auth', {
+            user: getters.GET_LOGGED_USER
+        })
     }
 };
 </script>
 
 <style scoped>
-* {
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-}
-.header {
-    color: var(--v-primary-base);
-    font-weight: 900;
-    font-size: 34px;
-    line-height: 44px;
-}
-.hint {
-    color: var(--v-secondary-darken4);
+.user-name {
     font-weight: bold;
 }
-.hint a {
-    color: var(--v-primary-base);
+.new-event-type-btn a {
     text-decoration: none;
-}
-.v-btn {
-    border-radius: 5px;
-    text-transform: none;
-    font-size: 20px;
-}
-.v-snack__content a {
-    color: #fff;
-    font-weight: bold;
 }
 </style>
