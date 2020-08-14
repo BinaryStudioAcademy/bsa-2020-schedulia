@@ -19,6 +19,10 @@
                     <VProgressCircular v-else indeterminate color="primary" />
                 </template>
             </VDataTable>
+            <VBtn @click="setErrorNotification('Error notification')"
+                >Get Alert</VBtn
+            >
+            <VBtn @click="sendNotification">Broadcast</VBtn>
         </VContainer>
     </div>
 </template>
@@ -26,7 +30,10 @@
 import { mapGetters, mapActions } from 'vuex';
 import * as statusGetters from '@/store/modules/status/types/getters';
 import * as statusActions from '@/store/modules/status/types/actions';
+import * as notificationActions from '@/store/modules/notification/types/actions';
 import BorderBottom from '../common/GeneralLayout/BorderBottom';
+import broadcastService from '@/services/broadcastService';
+import requestService from '@/services/requestService';
 
 export default {
     components: {
@@ -71,7 +78,16 @@ export default {
     methods: {
         ...mapActions('status', {
             getStatusByName: statusActions.GET_SERVICE_STATUS_BY_NAME
-        })
+        }),
+
+        ...mapActions('notification', {
+            setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION,
+            setInfoNotification: notificationActions.SET_INFO_NOTIFICATION
+        }),
+
+        sendNotification() {
+            requestService.post('/broadcast', { message: 'Test message' });
+        }
     },
 
     mounted() {
@@ -81,6 +97,10 @@ export default {
         this.getStatusByName('cache');
         this.getStatusByName('database');
         this.getStatusByName('storage');
+
+        broadcastService.subscribe('test-channel').bind('test-event', data => {
+            this.setInfoNotification(data.message);
+        });
     }
 };
 </script>

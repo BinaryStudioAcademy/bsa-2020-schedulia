@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Actions\EventType\AddEventTypeAction;
 use App\Actions\EventType\AddEventTypeRequest;
+use App\Actions\EventType\ChangeDisabledByIdAction;
+use App\Actions\EventType\ChangeDisabledByIdRequest;
 use App\Actions\EventType\DeleteEventTypeAction;
 use App\Actions\EventType\DeleteEventTypeRequest;
 use App\Actions\EventType\GetEventTypeByIdAction;
@@ -12,6 +14,7 @@ use App\Actions\EventType\UpdateEventTypeAction;
 use App\Actions\EventType\UpdateEventTypeRequest;
 use App\Actions\GetByIdRequest;
 use App\Http\Presenters\EventTypePresenter;
+use App\Http\Requests\Api\EventType\ChangeDisabledEventTypeRequest;
 use App\Http\Requests\Api\EventType\EventTypeRequest;
 use Illuminate\Http\JsonResponse;
 
@@ -42,10 +45,11 @@ class EventTypeController extends ApiController
                 (int)$request->get('duration'),
                 $request->get('timezone'),
                 (bool)$request->get('disabled'),
+                $request->get('availabilities'),
             ))
             ->getEventType();
 
-        return $this->successResponse($this->eventTypePresenter->present($response));
+        return $this->successResponse($this->eventTypePresenter->present($response), JsonResponse::HTTP_CREATED);
     }
 
     public function getEventTypeById(string $id, GetEventTypeByIdAction $action): JsonResponse
@@ -70,6 +74,7 @@ class EventTypeController extends ApiController
                     (int)$request->get('duration'),
                     $request->get('timezone'),
                     (bool)$request->get('disabled'),
+                    $request->get('availabilities'),
                 )
             )->getEventType();
 
@@ -80,6 +85,18 @@ class EventTypeController extends ApiController
     {
         $action->execute(new DeleteEventTypeRequest((int)$id));
 
+        return $this->emptyResponse();
+    }
+
+    public function changeDisabledById(
+        string $id,
+        ChangeDisabledEventTypeRequest $request,
+        ChangeDisabledByIdAction $action
+    ): JsonResponse {
+        $action->execute(new ChangeDisabledByIdRequest(
+            (int)$id,
+            (bool)$request->disabled
+        ));
         return $this->emptyResponse();
     }
 }

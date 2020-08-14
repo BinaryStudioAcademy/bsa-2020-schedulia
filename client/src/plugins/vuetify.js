@@ -14,7 +14,9 @@ export default new Vuetify({
                 info: '#8B90A0',
                 success: '#4CAF50',
                 warning: '#FFD67A',
-                background: '#F9F9F9'
+                background: '#F9F9F9',
+                validationError: '#FFE9E9',
+                eventColor: '#18A0FB'
             }
         },
         options: {

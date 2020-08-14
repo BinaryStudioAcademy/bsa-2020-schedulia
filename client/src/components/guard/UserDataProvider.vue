@@ -15,7 +15,6 @@ export default {
                 await store.dispatch('auth/' + actions.FETCH_LOGGED_USER);
                 next();
             } catch (error) {
-                console.log(error);
                 next(false);
             }
         } else {

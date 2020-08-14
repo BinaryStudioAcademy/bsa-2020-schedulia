@@ -16,6 +16,10 @@
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "lodash": "^4.17.19",
+    "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
+    "pusher-js": "^7.0.0",
+    "uuid": "^8.3.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuetify": "^2.2.11",
@@ -71,9 +75,10 @@
       ],
       "vue/eqeqeq": "error",
       "semi": "error",
-      "no-console": "off",
-      "no-debugger": "off",
-      "eqeqeq": "error"
+      "no-console": "warn",
+      "no-debugger": "warn",
+      "eqeqeq": "error",
+      "curly": "error"
     }
   },
   "browserslist": [
