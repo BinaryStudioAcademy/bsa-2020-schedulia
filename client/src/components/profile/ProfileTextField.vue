@@ -5,9 +5,9 @@
             :value="inputValue"
             @input="onChange"
             :placeholder="label"
-            required
-            solo
             outlined
+            dense
+            required
         ></VTextField>
     </div>
 </template>
@@ -38,4 +38,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+    .v-input__slot {
+        box-shadow: none;
+    }
+</style>
