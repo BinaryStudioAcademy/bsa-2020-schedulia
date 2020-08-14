@@ -270,7 +270,7 @@ export default {
     font-weight: 500;
     font-size: 15px;
     line-height: 18px;
-    color: #281AC8;
+    color: #281ac8;
     cursor: pointer;
 }
 </style>
