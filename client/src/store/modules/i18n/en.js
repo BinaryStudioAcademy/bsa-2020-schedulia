@@ -52,7 +52,7 @@ export default {
     NAME: 'Name',
     NEW_PASSWORD: 'New password',
 
-    UPDATE: 'UPDATE',
+    UPDATE: 'Update',
     UKRAINIAN: 'Ukrainian',
 
     YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD:
