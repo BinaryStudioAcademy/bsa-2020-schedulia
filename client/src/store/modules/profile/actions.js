@@ -14,21 +14,22 @@ export default {
     },
 
     async saveBranding({ commit }, logo) {
-        const response = await uploadFileService.upload(logo);
+        const response = await uploadFileService.upload(logo, 'branding');
 
-        const url = response?.data?.data?.logo?.url;
+        const url = response?.url;
 
-        profileService.saveBranding(url);
+        if(url) {
+            profileService.saveBranding(url);
+            commit(UPDATE_BRANDING_LOGO, url);
+        }
 
-        commit(UPDATE_BRANDING_LOGO, url);
-
-        return response?.data?.data;
+        return response?.url;
     },
 
     async updateAvatar({ commit }, avatar) {
-        const response = await uploadFileService.upload(avatar);
+        const response = await uploadFileService.upload(avatar, 'avatar');
 
-        const url = response?.data?.data?.avatar?.url;
+        const url = response?.data?.data?.url;
 
         commit(UPDATE_AVATAR, url);
 

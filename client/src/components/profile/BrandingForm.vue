@@ -1,5 +1,6 @@
 <template>
-    <VContainer class="container-content">
+    <VContainer>
+        <VCard class="mt-7">
         <VRow justify="center">
             <VCol cols="6">
                 <VForm>
@@ -35,10 +36,19 @@
                                         ></VImg>
                                     </div>
                                 </div>
-                                <div class="text-center">
+                                <VCol cols="12">
+                                    <VDivider></VDivider>
+                                </VCol>
+                                <div>
+                                    <VBtn
+                                            class="text mr-2 cancel v-btn--flat v-btn--outlined"
+                                            :disabled="!newLogo"
+                                            @click="removeImage"
+                                    >{{ lang.REMOVE }}
+                                    </VBtn>
                                     <label
                                         for="fileInput"
-                                        class="ma-2 v-btn v-btn--contained v-btn--tile theme--light v-size--default blue darken-1 pointer"
+                                        class="mr-3 primary v-btn v-btn--depressed theme--light v-size--default pointer"
                                     >
                                         {{ lang.UPDATE }}
                                     </label>
@@ -51,13 +61,7 @@
                                         @change="updateImage"
                                     />
 
-                                    <VBtn
-                                        class="ma2"
-                                        :disabled="!newLogo"
-                                        tile
-                                        @click="removeImage"
-                                        >{{ lang.REMOVE }}
-                                    </VBtn>
+
                                     <VAlert
                                         cols="12"
                                         type="error"
@@ -73,16 +77,18 @@
                                 <VSpacer></VSpacer>
                             </VCol>
                             <VCol>
-                                <div class="text-center">
-                                    <VBtn class="ma2" @click="resetChanges">
+                                <div>
+                                    <VBtn
+                                            class="text cancel v-btn--flat v-btn--outlined"
+                                            @click="resetChanges"
+                                    >
                                         {{ lang.CANCEL }}
                                     </VBtn>
                                     <VBtn
                                         :disabled="logoIsNew"
-                                        class="ma-2 login-button  primary"
+                                        class="ma-2"
                                         depressed
                                         color="primary"
-                                        dark
                                         @click="save"
                                         >{{ lang.SAVE }}
                                     </VBtn>
@@ -93,6 +99,7 @@
                 </VForm>
             </VCol>
         </VRow>
+        </VCard>
     </VContainer>
 </template>
 
@@ -114,13 +121,18 @@ export default {
     }),
 
     mounted() {
+        console.log(this.logo);
         this.newLogo = this.logo;
     },
 
     computed: {
-        ...mapGetters('profile', {
-            logo: 'getBrandingLogo'
+        ...mapGetters('auth', {
+            user: 'getLoggedUser'
         }),
+
+        logo() {
+            return this.user.branding_logo;
+        },
 
         logoIsNew() {
             return this.logo === this.newLogo;
@@ -128,14 +140,14 @@ export default {
     },
 
     methods: {
-        ...mapActions('profile', ['uploadBrandingLogo', 'saveBranding']),
+        ...mapActions('profile', ['saveBranding']),
 
         resetChanges() {
             this.newLogo = this.logo;
         },
 
         removeImage() {
-            this.newLogo = null;
+            this.newLogo = '';
         },
 
         updateImage(event) {
@@ -162,4 +174,16 @@ export default {
 .pointer {
     cursor: pointer;
 }
+    .v-btn {
+        font-size: 13px;
+        text-transform: none;
+
+        &.cancel {
+            border-color: rgba(0, 0, 0, 0.12);
+            background: none;
+            box-shadow: none;
+        }
+    }
+
+
 </style>
