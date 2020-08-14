@@ -19,10 +19,6 @@ final class UploadImageAction
     {
         $result = $this->imageUploader->upload($request->getFile(), $request->getUserId(), $request->getType());
 
-        if ($request->getOldFile()) {
-            $this->imageUploader->remove($request->getOldFile());
-        }
-
-        return new UploadImageResponse($result);
+        return new UploadImageResponse($result['url'], $result['path']);
     }
 }
