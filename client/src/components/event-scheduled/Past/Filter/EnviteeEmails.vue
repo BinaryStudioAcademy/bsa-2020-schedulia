@@ -66,7 +66,11 @@
                                 ></VCheckbox>
                             </VContainer>
                             <VContainer class="filter-button">
-                                <VBtn class="cancel-button" outlined>
+                                <VBtn
+                                    @click="closeMenu"
+                                    class="cancel-button"
+                                    outlined
+                                >
                                     Cancel
                                 </VBtn>
                                 <VBtn class="apply-button primary">
@@ -85,6 +89,18 @@
 
 <script>
 export default {
-    name: 'EnviteeEmails'
+    name: 'EnviteeEmails',
+
+    data() {
+        return {
+            menu: false
+        };
+    },
+
+    methods: {
+        closeMenu() {
+            this.menu = false;
+        }
+    }
 };
 </script>
