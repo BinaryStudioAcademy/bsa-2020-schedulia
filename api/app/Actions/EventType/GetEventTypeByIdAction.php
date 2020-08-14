@@ -7,6 +7,8 @@ namespace App\Actions\EventType;
 use App\Actions\GetByIdRequest;
 use App\Exceptions\EventTypeNotFoundException;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\Auth;
 
 final class GetEventTypeByIdAction
 {

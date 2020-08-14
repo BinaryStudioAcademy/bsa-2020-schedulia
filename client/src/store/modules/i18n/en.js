@@ -1,13 +1,21 @@
 export default {
+    ACCOUNT_SETTING: 'Account setting',
+
     BRANDING: 'Branding',
 
     CANCEL: 'Cancel',
     CHARACTERS: 'Characters',
     CHANGE_PASSWORD: 'Change password',
+    COUNTRY: 'Country',
     CLOSE: 'Close',
     CURRENT_PASSWORD: 'Current password',
 
+    DATE_FORMAT: 'Date format',
+
     EMAIL: 'Email',
+    ENGLISH: 'English',
+
+    GERMAN: 'German',
 
     INDICATES_REQUIRED_FIELD: 'Indicates required field',
     INVALID_EMAIL: 'Invalid email',
@@ -18,7 +26,7 @@ export default {
     PROFILE: 'Profile',
     PROFILE_USE_THIS_SETTING_LOGO_TEXT:
         'Use this setting to add your logo to all of your\n' +
-        'Calendly scheduling pages.',
+        'Schedulia scheduling pages.',
     PROFILE_YOU_LOGO_WILL_APPEAR_TEXT:
         'Your logo will appear in the top left corner of\n' +
         '                                your Event Type page. We recommend using an\n' +
@@ -29,26 +37,33 @@ export default {
     REPEAT_NEW_PASSWORD: 'Repeat new password',
     REMOVE: 'Remove',
 
-    SAVE: 'Save',
+    SAVE: 'Save changes',
 
+    TIME_FORMAT: 'Time format',
+    TIME_ZONE: 'Time zone',
+
+    LANGUAGE: 'Language',
     LOGIN: 'Login',
     LOGO: 'Logo',
 
     MAX: 'Max',
     MIN: 'Min',
 
+    NAME: 'Name',
     NEW_PASSWORD: 'New password',
 
     UPDATE: 'UPDATE',
+    UKRAINIAN: 'Ukrainian',
 
     YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD:
         'You log in with an email address and password',
+
+    WELCOME_MESSAGE: 'Welcome message',
 
     CREATE_AN_ACCOUNT: 'Create an account',
     ALREADY_REGISTERED: 'Already registered?',
     LOG_IN: 'Log in',
     FULL_NAME: 'Full Name',
-    NAME: 'Name',
     CONFIRM_PASSWORD: 'Confirm Password',
     SIGN_UP: 'Sign Up',
     SUCCESSFULLY_REGISTERED: 'Successfully registered! Now you can authorize!',

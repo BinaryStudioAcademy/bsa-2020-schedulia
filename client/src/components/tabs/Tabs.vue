@@ -49,10 +49,6 @@ export default {
 
 <style lang="scss" scoped>
 .tabs {
-    .col::v-deep {
-        padding: 0;
-    }
-
     &__list {
         width: 100%;
         background: var(--v-background-lighten1);
