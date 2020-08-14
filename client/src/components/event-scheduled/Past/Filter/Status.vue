@@ -35,6 +35,7 @@
                                 color="#2C2C2C"
                                 background-color="rgba(224, 224, 224, 0.3)"
                                 label="Search"
+                                clearable
                                 prepend-inner-icon="mdi-magnify"
                             ></VTextField>
                             <VContainer fluid>
