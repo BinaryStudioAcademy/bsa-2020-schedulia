@@ -23,3 +23,13 @@ export default {
     })
 };
 </script>
+
+<style scoped>
+/deep/ .v-subheader {
+    padding: 0;
+    color: #2c2c2c;
+    font-size: 13px;
+    line-height: 16px;
+    height: 38px;
+}
+</style>

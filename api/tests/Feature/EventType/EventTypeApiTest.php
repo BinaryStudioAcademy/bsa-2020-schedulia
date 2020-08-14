@@ -186,6 +186,33 @@ final class EventTypeApiTest extends TestCase
             ]);
     }
 
+    public function test_add_event_type_invalid_availability_request_params()
+    {
+        $user = factory(User::class)->create();
+
+        $data = self::DATA;
+        $data['availabilities'] = [
+            [
+                'type' => 'week',
+                'start_date' => 'string',
+                'end_date' => 'string',
+            ]
+        ];
+
+        $response = $this
+            ->actingAs($user)
+            ->json('POST', self::API_URL, $data);
+
+        $response
+            ->assertStatus(422)
+            ->assertJsonStructure([
+                'error' => [
+                    'message',
+                    'validator',
+                ]
+            ]);
+    }
+
     public function test_update_event_type_by_id()
     {
         $user = factory(User::class)->create();
