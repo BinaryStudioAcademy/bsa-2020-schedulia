@@ -10,11 +10,8 @@ export default {
         }).disabled = data.disabled;
     },
     [mutations.DELETE_EVENT_TYPE_BY_ID]: (state, id) => {
-        const index = state.eventTypes.findIndex(eventType => {
-            return eventType.id === id;
+        state.eventTypes = state.eventTypes.filter(eventType => {
+            return eventType.id !== id;
         });
-        if (index !== -1) {
-            state.eventTypes.splice(index, 1);
-        }
     }
 };
