@@ -2,7 +2,7 @@ import * as actions from './types/actions';
 import * as mutations from './types/mutations';
 import eventTypeService from '@/services/eventType/eventTypeService';
 import { SET_ERROR_NOTIFICATION } from '@/store/modules/notification/types/actions';
-import { EventTypeMapper } from '@/services/eventType/Normalizer';
+import { EventTypeMapper } from '@/store/modules/eventType/Normalizer';
 
 export default {
     [actions.GET_EVENT_TYPE_BY_ID]: async (context, id) => {

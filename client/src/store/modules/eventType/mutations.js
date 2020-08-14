@@ -1,5 +1,5 @@
 import * as mutations from './types/mutations';
-import { EventTypeMapper } from '@/services/eventType/Normalizer';
+import { EventTypeMapper } from '@/store/modules/eventType/Normalizer';
 import _ from 'lodash';
 
 export default {

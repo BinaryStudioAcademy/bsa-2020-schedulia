@@ -224,7 +224,10 @@ export default {
             getEventTypeForm: eventTypeGetters.GET_EVENT_TYPE_FORM
         }),
         data() {
-            return Object.keys(this.form).some(el => !!this.form[el]) ? this.form : this.getEventTypeForm;
+            return {
+                ...this.getEventTypeForm,
+                ...this.form
+            };
         }
     },
 
@@ -248,7 +251,7 @@ export default {
             this.form.description = val;
         },
         changeSlug(val) {
-            this.form.slug = val;
+            this.form.slug = val.replace(/\s/g, '-');
         }
     },
 
