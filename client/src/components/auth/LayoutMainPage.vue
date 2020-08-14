@@ -137,7 +137,7 @@ html {
     margin-top: 1.7vh;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 959px) {
     .primary-vcol {
         order: 0;
         height: 100vh;
@@ -154,9 +154,9 @@ html {
     .first-column-in-secondary {
         display: none;
     }
-    .office-worker-image {
+    img.office-worker-image {
         margin-top: 5vmin;
-        height: 95vmin !important;
+        width: 95vmin;
     }
     .logo-primary-div {
         display: block;
@@ -180,7 +180,7 @@ html {
     margin-right: 3.6vw;
 }
 .office-worker-image {
-    height: 50vmin;
+    width: 60vmin;
     margin-top: 8.6vh;
 }
 .envelop-image {
