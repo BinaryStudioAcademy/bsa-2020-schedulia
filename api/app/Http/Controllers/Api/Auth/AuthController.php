@@ -6,9 +6,12 @@ use App\Actions\Auth\GetAuthenticatedUserAction;
 use App\Actions\Auth\LoginAction;
 use App\Actions\Auth\LoginRequest;
 use App\Actions\Auth\LogoutAction;
+use App\Actions\Auth\sendLinkForgotPasswordAction;
+use App\Actions\Auth\sendLinkForgotPasswordRequest;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Presenters\AuthenticationResponseArrayPresenter;
 use App\Http\Requests\Api\Auth\LoginHttpRequest;
+use App\Http\Requests\Api\Auth\sendLinkForgotPasswordHttpRequest;
 use Illuminate\Http\JsonResponse;
 use App\Actions\Auth\RegisterAction;
 use App\Actions\Auth\RegisterRequest;
@@ -70,5 +73,17 @@ final class AuthController extends ApiController
         $response = $action->execute();
 
         return $this->successResponse($userArrayPresenter->present($response->getUser()));
+    }
+
+    public  function sendLinkForgotPassword(sendLinkForgotPasswordHttpRequest $httpRequest, sendLinkForgotPasswordAction $action):JsonResponse
+    {
+        $request = new sendLinkForgotPasswordRequest($httpRequest->email);
+        $response = $action->execute($request)->getData();
+        if ($response['status'] == 400) {
+            return $this->errorResponse("User with this email does not exist please check and try");
+    }
+        return $this->successResponse(['msg'=>'Letter with reset link was send', 'email'=>$httpRequest->email]);
+
+
     }
 }
