@@ -101,8 +101,8 @@ export default {
         ...mapActions('eventTypes', {
             disableEventType: actions.DISABLE_EVENT_TYPE_BY_ID
         }),
-        async onSwitch() {
-            await this.disableEventType({
+        onSwitch() {
+            this.disableEventType({
                 id: this.eventType.id,
                 disabled: this.disabled
             });
