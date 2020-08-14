@@ -14,7 +14,7 @@
                     <label for="email">{{ lang.EMAIL }}</label>
                     <VTextField
                         id="email"
-                        placeholder="user@gmail.com"
+                        placeholder="Email address"
                         outlined
                         dense
                         type="email"
@@ -67,14 +67,7 @@
                                 {{ lang.OR_LOGIN_WITH }}
                             </span>
                         </VCol>
-                        <VCol style="visibility: hidden">
-                            <VBtn class="social-button" outlined fab>
-                                {{ lang.GOOGLE_ICON }}
-                            </VBtn>
-                            <VBtn class="social-button" outlined fab>
-                                {{ lang.FACEBOOK_ICON }}
-                            </VBtn>
-                        </VCol>
+                        <VCol> </VCol>
                     </VRow>
                 </VCol>
             </VCardActions>
