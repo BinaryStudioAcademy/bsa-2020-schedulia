@@ -15,7 +15,7 @@ final class EventTypeApiTest extends TestCase
 {
     use RefreshDatabase;
 
-    private const API_URL = 'api/v1/eventTypes';
+    private const API_URL = 'api/v1/event-types';
 
     private const DATA = [
         'name' => 'EventType',
