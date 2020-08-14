@@ -7,7 +7,10 @@
             :placeholder="label"
             outlined
             dense
-            required
+            readonly
+            :type="showPassword ? 'text' : 'password'"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="showPassword = !showPassword"
         ></VTextField>
     </div>
 </template>
@@ -15,6 +18,10 @@
 <script>
 export default {
     name: 'ProfileTextField',
+    data: () => ({
+        password: 'password',
+        showPassword: false
+    }),
     props: {
         label: {
             type: String,

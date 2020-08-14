@@ -6,6 +6,7 @@
             @input="onChange"
             :placeholder="label"
             outlined
+            readonly
             dense
             required
         ></VTextField>
@@ -14,7 +15,7 @@
 
 <script>
 export default {
-    name: 'ProfileTextField',
+    name: 'ProfileDisabledField',
     props: {
         label: {
             type: String,

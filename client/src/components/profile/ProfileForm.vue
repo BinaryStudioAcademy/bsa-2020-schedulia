@@ -112,7 +112,10 @@
                             </VAlert>
                             <VCol>
                                 <div>
-                                    <VBtn class="text cancel v-btn--flat v-btn--outlined" @click="resetChanges">
+                                    <VBtn
+                                        class="text cancel v-btn--flat v-btn--outlined"
+                                        @click="resetChanges"
+                                    >
                                         {{ lang.CANCEL }}
                                     </VBtn>
                                     <VBtn
