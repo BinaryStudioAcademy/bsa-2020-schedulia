@@ -156,7 +156,8 @@ class StatusAction
             'checked',
         );
         $data = $fs->get('healthcheck.txt');
+        $url = $fs->url('healthcheck.txt');
 
-        return 'Driver: ' . $this->filesystemManager->getDefaultDriver() . '. Accessability: ' . $data;
+        return 'Driver: ' . $this->filesystemManager->getDefaultDriver() . '. Accessability: ' . $data . '. Url: ' . $url;
     }
 }
