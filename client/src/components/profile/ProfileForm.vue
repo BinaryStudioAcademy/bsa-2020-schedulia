@@ -1,7 +1,7 @@
 <template>
     <VContainer class="container-content">
-        <VRow justify="center">
-            <VCol cols="6">
+        <VRow>
+            <VCol offset-md="3" md="6" lg="4" sm="12">
                 <VForm>
                     <VContainer>
                         <VRow>
@@ -40,9 +40,7 @@
                                     :defaultValue="user.name"
                                     @change="onChangeHandle('name', $event)"
                                 />
-                            </VCol>
 
-                            <VCol cols="12">
                                 <ProfileTextArea
                                     :label="lang.WELCOME_MESSAGE"
                                     :value="userProfile.welcome_message"
@@ -54,9 +52,7 @@
                                         )
                                     "
                                 />
-                            </VCol>
 
-                            <VCol cols="12">
                                 <ProfileSelect
                                     :label="lang.LANGUAGE"
                                     :value="userProfile.language"
@@ -66,7 +62,7 @@
                                 />
                             </VCol>
 
-                            <VCol cols="6">
+                            <VCol lg="6" md="12">
                                 <ProfileSelect
                                     :label="lang.DATE_FORMAT"
                                     :value="userProfile.date_format"
@@ -78,7 +74,7 @@
                                 />
                             </VCol>
 
-                            <VCol cols="6">
+                            <VCol lg="6" md="12">
                                 <ProfileSelect
                                     :label="lang.TIME_FORMAT"
                                     :value="userProfile.time_format"
@@ -97,9 +93,7 @@
                                     :defaultValue="user.country"
                                     @change="onChangeHandle('country', $event)"
                                 ></ProfileTextField>
-                            </VCol>
 
-                            <VCol cols="12">
                                 <ProfileSelect
                                     :label="lang.TIME_ZONE"
                                     :value="userProfile.timezone"
@@ -118,7 +112,10 @@
                             </VAlert>
                             <VCol>
                                 <div>
-                                    <VBtn class="ma2" @click="resetChanges">
+                                    <VBtn
+                                        class="text cancel v-btn--flat v-btn--outlined"
+                                        @click="resetChanges"
+                                    >
                                         {{ lang.CANCEL }}
                                     </VBtn>
                                     <VBtn
@@ -214,8 +211,7 @@ export default {
         async onSaveHandle() {
             try {
                 if (this.avatarIsNew) {
-                    const response = await this.updateAvatar(this.file);
-                    const url = response?.avatar?.url;
+                    const url = await this.updateAvatar(this.file);
                     this.userProfile.avatar = url;
                 }
 
@@ -248,7 +244,33 @@ export default {
     cursor: pointer;
 }
 
+.v-input {
+    max-height: 32px;
+}
+
+.v-btn {
+    font-size: 13px;
+    text-transform: none;
+
+    &.cancel {
+        border-color: rgba(0, 0, 0, 0.12);
+        background: none;
+        box-shadow: none;
+    }
+}
+
+.v-subheader {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16;
+}
+
 .updateAvatar {
     padding-left: 10px;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    color: #281ac8;
+    cursor: pointer;
 }
 </style>

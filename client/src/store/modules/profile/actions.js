@@ -29,11 +29,11 @@ export default {
     async updateAvatar({ commit }, avatar) {
         const response = await uploadFileService.upload(avatar, 'avatar');
 
-        const url = response?.data?.data?.url;
+        const url = response?.url;
 
         commit(UPDATE_AVATAR, url);
 
-        return response?.data?.data;
+        return response?.url;
     },
 
     async updateProfile({ commit }, profile) {
