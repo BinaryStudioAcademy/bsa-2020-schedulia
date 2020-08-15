@@ -1,6 +1,5 @@
 import axios from 'axios';
 import authService from '@/services/auth/authService';
-import { EventEmitter, TOKEN_EXPIRED_EVENT } from '@/services/EventEmmiter';
 
 const API_URL = process.env.VUE_APP_API_URL;
 
