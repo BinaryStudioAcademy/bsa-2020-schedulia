@@ -10,28 +10,33 @@
                 </VLayout>
                 <h3 class="text-center mt-5 mb-2">{{ lang.CONFIRMED }}</h3>
                 <p class="text-center">
-                    {{ lang.YOU_ARE_SCHEDULED_WITH }} {{ owner.name }} |
-                    {{ owner.company }}
+                    {{ lang.YOU_ARE_SCHEDULED_WITH }} {{ owner.name }}
                 </p>
             </div>
             <VDivider></VDivider>
             <div class="detail-content-main mt-3 mb-3">
                 <div class="event-info">
-                    <VIcon color="green">mdi-circle</VIcon>
-                    <h3 class="d-inline">{{ owner.specialty }}</h3>
+                    <VImg
+                        :src="colorById[meetingData.color].image"
+                        alt="event color"
+                        :max-width="27"
+                        class="mr-2"
+                    />
+                    <h3 class="d-inline">{{ meetingData.name }}</h3>
                 </div>
                 <div class="event-info">
                     <VIcon dark color="primary">mdi-calendar-blank</VIcon>
-                    {{ meetingDate }}
+                    {{ meetingData.date }}
                 </div>
                 <div class="event-info">
                     <VIcon dark color="primary">mdi-earth</VIcon>
-                    {{ timezone }}
+                    {{ meetingData.timezone }}
                 </div>
                 <div class="event-info">
                     <VIcon dark color="primary">mdi-map-marker</VIcon>
-                    {{ meetingLocation }}
+                    {{ meetingData.location }}
                 </div>
+                <div class="event-info">{{ meetingData.description }}</div>
             </div>
             <div class="detail-content-bottom mt-5">
                 <p class="text-center">
@@ -51,15 +56,36 @@ export default {
     data: () => ({
         lang: enLang,
         owner: {
-            name: 'Michael Scott',
-            avatar:
-                'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-            company: 'Dunder Mifflin',
-            specialty: 'Sales manager'
+            name: 'Michael Scott | Dunder Mifflin',
+            avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'
         },
-        meetingDate: '10:00-10:15, Monday, July 20, 2020',
-        timezone: 'Eastern European Time',
-        meetingLocation: 'Scranton, Pennsylvania'
+        colorById: {
+            yellow: {
+                id: 'yellow',
+                image: require('@/assets/images/yellow_circle.png')
+            },
+            red: {
+                id: 'red',
+                image: require('@/assets/images/red_circle.png')
+            },
+            blue: {
+                id: 'blue',
+                image: require('@/assets/images/blue_circle.png')
+            },
+            green: {
+                id: 'green',
+                image: require('@/assets/images/green_circle.png')
+            }
+        },
+
+        meetingData: {
+            date: '10:00-10:15, Monday, July 20, 2020',
+            name: 'Sales manager',
+            timezone: 'Eastern European Time',
+            location: 'Scranton, Pennsylvania',
+            description: '',
+            color: 'green'
+        }
     })
 };
 </script>

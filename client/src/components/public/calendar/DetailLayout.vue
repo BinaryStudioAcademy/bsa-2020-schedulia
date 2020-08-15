@@ -5,8 +5,7 @@
             :companyLogo="companyLogo"
             :avatar="avatar"
             :name="name"
-            :company="company"
-            :specialty="specialty"
+            :eventName="eventName"
         />
         <div class="event-info-details">
             <slot></slot>
@@ -22,7 +21,12 @@ export default {
     components: {
         OwnerData
     },
-    props: ['companyLogo', 'avatar', 'name', 'company', 'specialty']
+    props: {
+        companyLogo: String,
+        avatar: String,
+        name: String,
+        eventName: String
+    }
 };
 </script>
 

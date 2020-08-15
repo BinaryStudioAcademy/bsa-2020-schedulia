@@ -9,15 +9,20 @@
         <VAvatar :size="70">
             <img :src="avatar" alt="Avatar" />
         </VAvatar>
-        <h4>{{ name }} | {{ company }}</h4>
-        <p>{{ specialty }}</p>
+        <h4>{{ name }}</h4>
+        <p>{{ eventName }}</p>
     </div>
 </template>
 
 <script>
 export default {
     name: 'OwnerData',
-    props: ['companyLogo', 'avatar', 'name', 'company', 'specialty']
+    props: {
+        companyLogo: String,
+        avatar: String,
+        name: String,
+        eventName: String
+    }
 };
 </script>
 

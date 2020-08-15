@@ -5,8 +5,7 @@
                 :companyLogo="owner.companyLogo"
                 :avatar="owner.avatar"
                 :name="owner.name"
-                :company="owner.company"
-                :specialty="owner.specialty"
+                :eventName="meetingData.name"
             >
                 <div class="event-info">
                     <VIcon dark color="primary">mdi-clock-outline</VIcon>
@@ -16,12 +15,13 @@
                     <VIcon dark color="primary">mdi-map-marker</VIcon>
                     {{ meetingData.location }}
                 </div>
+                <div class="event-info">{{ meetingData.description }}</div>
             </DetailLayout>
         </VCol>
 
         <VDivider vertical class="hidden-md-and-down"></VDivider>
 
-        <VCol sm="12" md="6" lg="5" class="calendar-container col-12">
+        <VCol sm="12" md="6" lg="5" class="calendar-container col-12 ma-0">
             <div class="calendar-content">
                 <h3>{{ lang.SELECT_DATE_AND_TIME }}</h3>
                 <VDatePicker
@@ -100,21 +100,21 @@ export default {
         date: '',
         selectedTime: null,
         meetingData: {
+            name: 'Sales manager',
             duration: 20,
-            location: 'Scranton, Pennsylvania'
+            location: 'Scranton, Pennsylvania',
+            description: ''
         },
         availability: {
             startDate: '08:00',
             endDate: '18:00'
         },
         owner: {
-            name: 'Michael Scott',
+            name: 'Michael Scott | Dunder Mifflin',
             avatar:
                 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-            company: 'Dunder Mifflin',
             companyLogo:
-                'https://i.etsystatic.com/16438614/r/il/c31bd2/1806659071/il_570xN.1806659071_pn8j.jpg',
-            specialty: 'Sales manager'
+                'https://i.etsystatic.com/16438614/r/il/c31bd2/1806659071/il_570xN.1806659071_pn8j.jpg'
         },
         availableTimes: [
             '9:00',
@@ -156,8 +156,23 @@ export default {
     methods: {
         dateFormat(date) {
             const [year, month] = date.split('-');
+            const months = [
+                this.lang.JAN,
+                this.lang.FEB,
+                this.lang.MAR,
+                this.lang.APR,
+                this.lang.MAY,
+                this.lang.JUN,
+                this.lang.JUL,
+                this.lang.AUG,
+                this.lang.SEP,
+                this.lang.OCT,
+                this.lang.NOV,
+                this.lang.DEC
+            ];
+
             if (month) {
-                return this.lang.MONTHS[month - 1] + ' ' + year;
+                return months[month - 1] + ' ' + year;
             } else {
                 return year;
             }
@@ -166,8 +181,17 @@ export default {
             this.selectedTime = index;
         },
         getDay(date) {
+            const weekDays = [
+                this.lang.SUN,
+                this.lang.MON,
+                this.lang.TUE,
+                this.lang.WED,
+                this.lang.THU,
+                this.lang.FRI,
+                this.lang.SAT
+            ];
             let i = new Date(date).getDay(date);
-            return this.lang.WEEK_DAYS[i];
+            return weekDays[i];
         }
     }
 };
@@ -190,7 +214,6 @@ export default {
 
 .calendar-container {
     min-width: 350px;
-    margin: 0;
 }
 
 .calendar-content {
