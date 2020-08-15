@@ -101,4 +101,9 @@ return [
         public_path('storage') => storage_path('app/public'),
     ],
 
+    'paths' => [
+        'avatar' => 'files/avatar',
+        'branding' => 'files/branding'
+    ]
+
 ];

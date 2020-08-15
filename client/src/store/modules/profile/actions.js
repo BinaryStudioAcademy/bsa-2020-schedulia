@@ -1,6 +1,10 @@
 import uploadFileService from '@/services/upload/fileService';
 import profileService from '@/services/profile/profileService';
-import { UPDATE_BRANDING_LOGO } from './types/mutations';
+import {
+    UPDATE_BRANDING_LOGO,
+    UPDATE_USER,
+    UPDATE_AVATAR
+} from './types/mutations';
 
 export default {
     async updatePassword(context, password, oldPassword) {
@@ -10,22 +14,35 @@ export default {
     },
 
     async saveBranding({ commit }, logo) {
-        const response = await uploadFileService.upload(logo);
+        const response = await uploadFileService.upload(logo, 'branding');
 
-        const url = response?.data?.data?.logo?.url;
+        const url = response?.url;
 
-        profileService.saveBranding(url);
+        if (url) {
+            profileService.saveBranding(url);
+            commit(UPDATE_BRANDING_LOGO, url);
+        }
 
-        commit(UPDATE_BRANDING_LOGO, url);
-
-        return response?.data?.data;
+        return response?.url;
     },
 
-    async uploadAvatar(context, avatar) {
-        const response = uploadFileService.upload(avatar);
+    async updateAvatar({ commit }, avatar) {
+        const response = await uploadFileService.upload(avatar, 'avatar');
 
-        return response?.data?.data;
+        const url = response?.url;
+
+        commit(UPDATE_AVATAR, url);
+
+        return response?.url;
     },
 
-    async updateProfile() {}
+    async updateProfile({ commit }, profile) {
+        const response = await profileService.updateProfile(profile);
+
+        const userData = response?.data?.data;
+
+        commit(UPDATE_USER, userData);
+
+        return userData;
+    }
 };

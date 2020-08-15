@@ -1,3 +1,1 @@
-export default {
-    getBrandingLogo: state => state.brandingLogo
-};
+export default {};
