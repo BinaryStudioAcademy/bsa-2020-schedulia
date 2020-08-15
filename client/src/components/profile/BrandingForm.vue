@@ -2,7 +2,7 @@
     <VContainer>
         <VCard class="mt-7">
             <VRow justify="center">
-                <VCol cols="6">
+                <VCol md="6" sm="12">
                     <VForm>
                         <VContainer>
                             <VRow>

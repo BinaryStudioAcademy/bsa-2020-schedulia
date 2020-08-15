@@ -1,28 +1,24 @@
 <template>
     <div>
         <VSubheader>{{ label }}</VSubheader>
-        <VSelect
+        <VTextField
             :value="inputValue"
-            :items="items"
+            @input="onChange"
             :placeholder="label"
-            @change="onChange"
+            outlined
+            readonly
             dense
             required
-            outlined
-        ></VSelect>
+        ></VTextField>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'ProfileTextArea',
+    name: 'ProfileDisabledField',
     props: {
         label: {
             type: String,
-            required: true
-        },
-        items: {
-            type: Array,
             required: true
         },
         value: {},
@@ -43,4 +39,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.v-input__slot {
+    box-shadow: none;
+}
+</style>
