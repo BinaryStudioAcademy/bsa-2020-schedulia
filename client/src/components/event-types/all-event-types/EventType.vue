@@ -10,18 +10,18 @@
         <div class="event-type-content">
             <h3>{{ eventType.name }}</h3>
             <span class="event-type-about"
-                >{{ eventType.duration }} min, {{ eventType.type }}
+                >{{ eventType.duration }} mins, {{ eventType.type }}
             </span>
         </div>
         <div class="event-type-invitee mt-9 mb-2">
             <Avatar :disabled="isDisabled" :size="24"></Avatar>
         </div>
         <VDivider />
-        <div class="event-type-actions row">
-            <div class="col-lg-3 col-md-3 col-sm-6 duration text-left">
-                <span>/{{ eventType.duration }} min</span>
-            </div>
-            <div class="col-md-9 col-md-9 col-sm-6 text-right">
+        <VRow class="event-type-actions">
+            <VCol class="duration text-left" cols="4">
+                <span>/{{ eventType.slug }}</span>
+            </VCol>
+            <VCol class="text-right" cols="8">
                 <VBtn
                     class="ma-2"
                     outlined
@@ -41,8 +41,8 @@
                 >
                     <VIcon dark>mdi-chevron-down</VIcon>
                 </VBtn>
-            </div>
-        </div>
+            </VCol>
+        </VRow>
     </div>
 </template>
 
