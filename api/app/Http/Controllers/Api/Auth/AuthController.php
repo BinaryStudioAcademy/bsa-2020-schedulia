@@ -79,11 +79,6 @@ final class AuthController extends ApiController
     {
         $request = new sendLinkForgotPasswordRequest($httpRequest->email);
         $response = $action->execute($request)->getData();
-        if ($response['status'] == 400) {
-            return $this->errorResponse("User with this email does not exist please check and try");
-    }
-        return $this->successResponse(['msg'=>'Letter with reset link was send', 'email'=>$httpRequest->email]);
-
-
+        return $this->successResponse(['msg'=>'Letter with reset link was send', 'email'=>$response['email']]);
     }
 }

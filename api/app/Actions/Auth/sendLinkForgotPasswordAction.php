@@ -2,6 +2,7 @@
 
 namespace App\Actions\Auth;
 
+use App\Exceptions\Auth\UserWithThisEmailDoesNotExist;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Password;
 
@@ -15,14 +16,12 @@ final class sendLinkForgotPasswordAction
     }
     public function execute(sendLinkForgotPasswordRequest $request)
     {
-        if ($this->userRepository->getByEmail($request->getEmail()))
+        if (!$this->userRepository->getByEmail($request->getEmail()))
         {
-            $credentials = ['email' =>$request->getEmail()];
-            Password::sendResetLink($credentials);
-            return (new sendLinkForgotPasswordResponse( ['email' =>$request->getEmail(), 'status'=>200]));
+            throw new UserWithThisEmailDoesNotExist($request->getEmail());
         }
-        return (new sendLinkForgotPasswordResponse( ['email' =>$request->getEmail(), 'status'=>400]));
-
-
+        $credentials = ['email' =>$request->getEmail()];
+        Password::sendResetLink($credentials);
+        return (new sendLinkForgotPasswordResponse( ['email' =>$request->getEmail(), 'status'=>200]));
     }
 }
