@@ -6,7 +6,8 @@
             @input="onChange"
             :placeholder="label"
             required
-            solo
+            dense
+            no-resize
             outlined
         ></VTextarea>
     </div>
