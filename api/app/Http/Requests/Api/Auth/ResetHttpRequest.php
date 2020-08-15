@@ -6,7 +6,6 @@ namespace App\Http\Requests\Api\Auth;
 
 use App\Http\Requests\ApiFormRequest;
 
-
 final class ResetHttpRequest extends ApiFormRequest
 {
     public function rules(): array

@@ -9,7 +9,6 @@ use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 
-
 final class ResetAction
 {
     private UserRepository $userRepository;
@@ -19,18 +18,20 @@ final class ResetAction
         $this->userRepository = $userRepository;
     }
 
-    public function execute(ResetRequest $request):ResetResponse
+    public function execute(ResetRequest $request): ResetResponse
     {
         $credentials =[
             'email' => $request->getEmail(),
             'password' => Hash::make($request->getPassword()),
             'token'  =>  $request->getToken()
         ];
-        $reset_password_status = Password::reset($credentials,
+        $reset_password_status = Password::reset(
+            $credentials,
             function ($user, $password) {
                 $user->password = $password;
                 $this->userRepository->save($user);
-            });
+            }
+        );
         if ($reset_password_status != Password::PASSWORD_RESET) {
             throw new InvalidTokenOrUser();
         }

@@ -81,9 +81,10 @@ final class AuthController extends ApiController
         return $this->successResponse($userArrayPresenter->present($response->getUser()));
     }
 
-    public  function sendLinkForgotPassword(
+    public function sendLinkForgotPassword(
         sendLinkForgotPasswordHttpRequest $httpRequest,
-        sendLinkForgotPasswordAction $action):JsonResponse
+        sendLinkForgotPasswordAction $action
+    ): JsonResponse
     {
         $request = new sendLinkForgotPasswordRequest($httpRequest->email);
         $response = $action->execute($request)->getData();
