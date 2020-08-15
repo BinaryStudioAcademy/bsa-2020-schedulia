@@ -56,9 +56,4 @@ export default {
 .new-event-type-btn a {
     text-decoration: none;
 }
-@media (max-width: 600px) {
-    .new-event-type-btn {
-        text-align: center !important;
-    }
-}
 </style>
