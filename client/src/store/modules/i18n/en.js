@@ -121,5 +121,6 @@ export default {
         '            you.',
     LOGOUT: 'Logout',
     EVENT_TYPES: 'Event Types',
-    SEARCH: 'Search'
+    SEARCH: 'Search',
+    MINS: 'mins'
 };

@@ -1,7 +1,7 @@
 <template>
-    <VContainer class="container-content background-none">
-        <div class="row">
-            <VCol cols="3" sm="12" md="3" class="pa-0">
+    <VContainer class="background-none">
+        <div class="row ma-0">
+            <VCol cols="12" sm="12" md="3" class="pa-0">
                 <VTextField
                     type="text"
                     :label="lang.SEARCH"
@@ -16,13 +16,16 @@
         <ActionBlock />
         <VDivider />
         <div class="event-types-block row" v-if="searchedEventTypes.length">
-            <div
-                class="col-md-3 col-lg-3 col-sm-12"
+            <VCol
+                cols="12"
+                md="4"
+                lg="3"
+                sm="6"
                 v-for="eventType in searchedEventTypes"
                 :key="eventType.id"
             >
                 <EventType :eventType="eventType" />
-            </div>
+            </VCol>
         </div>
         <NoEventTypes v-else />
     </VContainer>
