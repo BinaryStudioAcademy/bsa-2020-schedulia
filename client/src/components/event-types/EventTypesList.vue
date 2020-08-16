@@ -4,7 +4,7 @@
             <VCol cols="12" sm="12" md="3" class="pa-0">
                 <VTextField
                     type="text"
-                    label="Search"
+                    :label="lang.SEARCH"
                     prepend-inner-icon="mdi-magnify"
                     dense
                     filled
@@ -38,6 +38,8 @@ import NoEventTypes from '@/components/event-types/all-event-types/NoEventTypes'
 import * as actions from '@/store/modules/eventTypes/types/actions';
 import * as getters from '@/store/modules/eventTypes/types/getters';
 import { mapActions, mapGetters } from 'vuex';
+import enLang from '@/store/modules/i18n/en';
+
 export default {
     name: 'EventTypesList',
     components: {
@@ -46,7 +48,8 @@ export default {
         NoEventTypes
     },
     data: () => ({
-        search: ''
+        search: '',
+        lang: enLang
     }),
     methods: {
         ...mapActions('eventTypes', {

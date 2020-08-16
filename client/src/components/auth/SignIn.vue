@@ -123,7 +123,7 @@ export default {
                 try {
                     await this.signIn(this.loginData);
                     await this.fetchLoggedUser();
-                    this.$router.push({ name: 'Profile' });
+                    this.$router.push({ name: 'EventTypes' });
                 } catch (error) {
                     this.setErrorNotification(error);
                 }

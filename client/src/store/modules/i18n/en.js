@@ -119,5 +119,8 @@ export default {
     YOU_WILL_WANT_TO_ADD_EVENT_TYPE:
         "You'll want to add an event type to allow people to schedule with\n" +
         '            you.',
+    LOGOUT: 'Logout',
+    EVENT_TYPES: 'Event Types',
+    SEARCH: 'Search',
     MINS: 'mins'
 };
