@@ -22,6 +22,11 @@ const routes = [
                 component: () => import('../views/SignUp')
             },
             {
+                path: 'forgot',
+                name: 'ForgotPassword',
+                component: () => import('../views/ForgotPassword')
+            },
+            {
                 path: '',
                 component: LoginGuard,
                 children: [

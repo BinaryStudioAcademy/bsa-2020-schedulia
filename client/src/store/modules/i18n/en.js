@@ -122,5 +122,8 @@ export default {
     LOGOUT: 'Logout',
     EVENT_TYPES: 'Event Types',
     SEARCH: 'Search',
-    MINS: 'mins'
+    MINS: 'mins',
+    ENTER_YOUR_EMAIL_ADDRESS: 'Enter your email address',
+    SEND_RESET_INSTRUCTION: 'Send reset instruction',
+    REMEMBERED_PASSWORD: 'Remembered password?'
 };
