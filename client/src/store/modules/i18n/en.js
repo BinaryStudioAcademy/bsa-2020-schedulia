@@ -118,5 +118,6 @@ export default {
     YOU_DONT_HAVE_ANY_EVENT_TYPES: "You don't have any event types yet.",
     YOU_WILL_WANT_TO_ADD_EVENT_TYPE:
         "You'll want to add an event type to allow people to schedule with\n" +
-        '            you.'
+        '            you.',
+    MINS: 'mins'
 };

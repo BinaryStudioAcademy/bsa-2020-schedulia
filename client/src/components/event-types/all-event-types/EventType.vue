@@ -10,7 +10,7 @@
         <div class="event-type-content">
             <h3>{{ eventType.name }}</h3>
             <span class="event-type-about"
-                >{{ eventType.duration }} mins, {{ eventType.type }}
+                >{{ eventType.duration }} {{ lang.MINS }}, {{ eventType.type }}
             </span>
         </div>
         <div class="event-type-invitee mt-9 mb-2">
