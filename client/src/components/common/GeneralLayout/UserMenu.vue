@@ -68,8 +68,8 @@ export default {
         ...mapActions('auth', {
             signOut: actions.SIGN_OUT
         }),
-        onSignOut() {
-            this.signOut();
+        async onSignOut() {
+            await this.signOut();
             this.$router.push({ name: 'SignIn' });
         }
     }
