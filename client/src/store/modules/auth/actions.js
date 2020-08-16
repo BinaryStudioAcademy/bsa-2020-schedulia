@@ -5,12 +5,8 @@ import router from '@/router';
 import * as notifyActions from '@/store/modules/notification/types/actions';
 
 export default {
-    [actions.SIGN_IN]: async ({ dispatch }, loginData) => {
-        try {
-            await authService.signIn(loginData);
-        } catch (error) {
-            dispatch(actions.CHECK_IF_UNAUTHORIZED, error);
-        }
+    [actions.SIGN_IN]: async (context, loginData) => {
+        await authService.signIn(loginData);
     },
     [actions.SIGN_UP]: async (context, registerData) => {
         await authService.signUp(registerData);
