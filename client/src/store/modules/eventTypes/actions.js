@@ -9,7 +9,9 @@ export default {
             const eventTypes = await eventTypesService.fetchAllEventTypes();
             commit(mutations.SET_EVENT_TYPES, eventTypes);
         } catch (error) {
-            dispatch('auth/' + authAction.CHECK_IF_UNAUTHORIZED, error, { root: true });
+            dispatch('auth/' + authAction.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
         }
     },
     [actions.DISABLE_EVENT_TYPE_BY_ID]: async (
@@ -17,21 +19,31 @@ export default {
         { id, disabled }
     ) => {
         try {
-            await eventTypesService.changeDisabledEventTypeById({ id, disabled });
+            await eventTypesService.changeDisabledEventTypeById({
+                id,
+                disabled
+            });
             commit(mutations.DISABLE_EVENT_TYPE_BY_ID, {
                 id,
                 disabled
             });
         } catch (error) {
-            dispatch('auth/' + authAction.CHECK_IF_UNAUTHORIZED, error, { root: true });
+            dispatch('auth/' + authAction.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
         }
     },
-    [actions.DELETE_EVENT_TYPE_BY_ID]: async ({ commit, dispatch }, eventTypeId) => {
+    [actions.DELETE_EVENT_TYPE_BY_ID]: async (
+        { commit, dispatch },
+        eventTypeId
+    ) => {
         try {
             await eventTypesService.deleteEventTypeById(eventTypeId);
             commit(mutations.DELETE_EVENT_TYPE_BY_ID, eventTypeId);
         } catch (error) {
-            dispatch('auth/' + authAction.CHECK_IF_UNAUTHORIZED, error, { root: true});
+            dispatch('auth/' + authAction.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
         }
     }
 };
