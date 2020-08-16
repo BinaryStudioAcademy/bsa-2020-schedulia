@@ -11,12 +11,7 @@ export default {
     name: 'UserDataProvider',
     async beforeRouteEnter(to, from, next) {
         if (!store.state.auth.user && authService.hasToken()) {
-            try {
-                await store.dispatch('auth/' + actions.FETCH_LOGGED_USER);
-                next();
-            } catch (error) {
-                next(false);
-            }
+            await store.dispatch('auth/' + actions.FETCH_LOGGED_USER);
         } else {
             next();
         }
