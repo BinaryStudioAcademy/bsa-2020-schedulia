@@ -68,6 +68,6 @@ class UpdateApiTest extends TestCase
                 $dataToUpdate
             );
 
-        $this->assertDatabaseHas('users', array_merge($user->attributesToArray(), $dataToUpdate));
+        $this->assertDatabaseHas('users', $dataToUpdate);
     }
 }
