@@ -19,7 +19,7 @@ const eventTypesService = {
     },
     async searchEventTypes(searchString) {
         const searchResponse = await requestService.get(
-            '/event-types/search?searchString=' + searchString
+            '/event-types?searchString=' + searchString
         );
         return searchResponse?.data?.data;
     }
