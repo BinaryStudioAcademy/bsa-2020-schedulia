@@ -7,6 +7,7 @@ export default {
     CHARACTERS: 'Characters',
     CHANGE_PASSWORD: 'Change password',
     COUNTRY: 'Country',
+    CONFIRM: 'Confirm',
     CLOSE: 'Close',
     CURRENT_PASSWORD: 'Current password',
 

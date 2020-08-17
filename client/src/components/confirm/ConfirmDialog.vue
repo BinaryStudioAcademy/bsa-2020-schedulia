@@ -21,10 +21,10 @@
                 <VCardActions>
                     <VSpacer></VSpacer>
                     <VBtn color="primary" text @click="confirm">
-                        Confirm
+                        {{ lang.CONFIRM }}
                     </VBtn>
                     <VBtn text @click="dialog = false">
-                        Cancel
+                        {{ lang.CANCEL }}
                     </VBtn>
                 </VCardActions>
             </VCard>
@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import enLang from '@/store/modules/i18n/en.js';
+
 export default {
     name: 'ConfirmDialog',
     props: {
@@ -50,7 +52,8 @@ export default {
         }
     },
     data: () => ({
-        dialog: false
+        dialog: false,
+        lang: enLang
     }),
 
     methods: {
