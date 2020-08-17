@@ -29,11 +29,11 @@ final class DeleteUserAction
             throw new UserNotFoundException();
         }
 
-        if($user->avatar) {
+        if ($user->avatar) {
             $this->imageUploader->remove($user->avatar);
         }
 
-        if($user->branding_logo) {
+        if ($user->branding_logo) {
             $this->imageUploader->remove($user->branding_logo);
         }
 

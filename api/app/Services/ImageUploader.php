@@ -30,7 +30,6 @@ final class ImageUploader implements FileUploader
             ->putFileAs($path, $file, $newFileName, 'public');
 
         return $storagePath;
-
     }
 
     public function remove(string $file): void

@@ -68,8 +68,8 @@ class UpdateApiTest extends TestCase
                 array_merge(
                     $dataToUpdate,
                     [
-                        'avatar' => '/storage/'.$dataToUpdate['avatar'],
-                        'branding_logo' => '/storage/'.$dataToUpdate['branding_logo'],
+                        'avatar' => '/storage/' . $dataToUpdate['avatar'],
+                        'branding_logo' => '/storage/' . $dataToUpdate['branding_logo'],
                     ]
                 )
             );
