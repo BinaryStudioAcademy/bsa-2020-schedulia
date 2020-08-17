@@ -22,7 +22,7 @@ final class NameCriterion implements EloquentCriterion
         return $builder->where(
             DB::raw('LOWER(name)'),
             'like',
-            $this->searchString . '%'
+            '%' . $this->searchString . '%'
         );
     }
 }

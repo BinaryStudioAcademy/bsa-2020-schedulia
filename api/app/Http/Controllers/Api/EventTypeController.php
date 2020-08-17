@@ -33,9 +33,13 @@ class EventTypeController extends ApiController
     {
         $response = $action->execute(
             new GetEventTypeCollectionRequest($request->searchString)
-        )->getEventTypeCollection();
+        );
 
-        return $this->successResponse($this->eventTypePresenter->presentCollection($response));
+        return $this->successResponse(
+            $this->eventTypePresenter->presentCollection(
+                $response->getEventTypeCollection()
+            )
+        );
     }
 
     public function store(EventTypeRequest $request, AddEventTypeAction $action): JsonResponse
