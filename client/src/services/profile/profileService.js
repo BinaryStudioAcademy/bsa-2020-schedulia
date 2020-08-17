@@ -9,7 +9,7 @@ export default {
     },
 
     async saveBranding(url) {
-        return await requestService.patch('/profiles/', { logo: url });
+        return await requestService.put('/profiles/me', { branding_logo: url });
     },
 
     async updateProfile(data) {

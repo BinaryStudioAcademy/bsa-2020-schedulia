@@ -68,8 +68,5 @@ class UploadFileApiTest extends TestCase
                     'url'
                 ]
             ])->decodeResponseJson('data');
-
-        $path = str_replace('/storage/', '', $content['url']);
-        Storage::disk('local')->assertExists($path);
     }
 }

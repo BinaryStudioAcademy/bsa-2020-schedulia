@@ -1,28 +1,30 @@
 <template>
     <div>
         <VSubheader>{{ label }}</VSubheader>
-        <VSelect
+        <VTextField
             :value="inputValue"
-            :items="items"
+            @input="onChange"
             :placeholder="label"
-            @change="onChange"
-            dense
-            required
             outlined
-        ></VSelect>
+            dense
+            readonly
+            :type="showPassword ? 'text' : 'password'"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="showPassword = !showPassword"
+        ></VTextField>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'ProfileTextArea',
+    name: 'ProfileTextField',
+    data: () => ({
+        password: 'password',
+        showPassword: false
+    }),
     props: {
         label: {
             type: String,
-            required: true
-        },
-        items: {
-            type: Array,
             required: true
         },
         value: {},
@@ -43,4 +45,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.v-input__slot {
+    box-shadow: none;
+}
+</style>

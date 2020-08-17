@@ -52,7 +52,7 @@ export default {
     NAME: 'Name',
     NEW_PASSWORD: 'New password',
 
-    UPDATE: 'UPDATE',
+    UPDATE: 'Update',
     UKRAINIAN: 'Ukrainian',
 
     YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD:
@@ -99,6 +99,48 @@ export default {
     FACEBOOK_ICON: 'f',
     SCHEDULIA: 'Schedulia',
     USER_MENU_BUTTON: 'My Account',
+
+    MENU: 'Menu',
+    MENU_HOME: 'Home',
+    MENU_EDIT_EVENT_TYPE: 'Edit event type',
+
+    CONFIRM_DATE: 'Confirm',
+    SELECT_DATE_AND_TIME: 'Select a date and time',
+
+    DURATION_MIN: 'min',
+
+    SUN: 'Sun',
+    MON: 'Mon',
+    TUE: 'Tue',
+    WED: 'Wed',
+    THU: 'Thu',
+    FRI: 'Fri',
+    SAT: 'Sat',
+
+    JAN: 'Jan',
+    FEB: 'Feb',
+    MAR: 'Mar',
+    APR: 'Apr',
+    MAY: 'May',
+    JUN: 'Jun',
+    JUL: 'Jul',
+    AUG: 'Aug',
+    SEP: 'Sep',
+    OCT: 'Oct',
+    NOV: 'Nov',
+    DEC: 'Dec',
+
+    ENTER_DETAILS: 'Enter Details',
+    SCHEDULE_EVENT: 'Schedule Event',
+    ADDITIONAL_INFO: 'Additional Info',
+    ADDITIONAL_INFO_DESCRIPTION:
+        'Please share anything that will help prepare for our meeting',
+
+    CONFIRMED: 'Confirmed',
+    YOU_ARE_SCHEDULED_WITH: 'You are scheduled with',
+    CALENDAR_INVITATION_HAS_BEEN_SENT:
+        'A calendar invitation has been sent to your email addres',
+
     SUCCESSFULLY_SIGNINED: 'Successfully sign in! ',
     FORGOT_PASSWORD: 'Forgot Password?',
     NEW_EVENT_TYPE: 'New Event Type',
@@ -119,7 +161,7 @@ export default {
     YOU_WILL_WANT_TO_ADD_EVENT_TYPE:
         "You'll want to add an event type to allow people to schedule with\n" +
         '            you.',
-
+    
     WHEN_CAN_PEOPLE_BOOK_EVENT: 'When can people book this event?',
     EVENT_DURATION: 'Event Duration',
     CUSTOM_DURATION: 'Custom Duration',
@@ -171,4 +213,9 @@ export default {
         'Your invitees will be offered\n' +
         '                                        availability for a number of days into\n' +
         '                                        the future.'
+
+    LOGOUT: 'Logout',
+    EVENT_TYPES: 'Event Types',
+    SEARCH: 'Search',
+    MINS: 'mins'
 };
