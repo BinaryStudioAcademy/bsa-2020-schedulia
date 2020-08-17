@@ -49,8 +49,8 @@ class UpdateApiTest extends TestCase
         $user = factory(User::class)->create();
 
         $dataToUpdate = [
-            "avatar" => "https://lorempixel.com/400/400",
-            "branding_logo" => "https://lorempixel.com/200/400",
+            "avatar" => "avatar.jpg",
+            "branding_logo" => "branding.jpg",
             "name" => "John Doe",
             "language" => "de",
             "date_format" => "european_standard",
@@ -65,7 +65,13 @@ class UpdateApiTest extends TestCase
         $response->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
             ->assertJsonFragment(
-                $dataToUpdate
+                array_merge(
+                    $dataToUpdate,
+                    [
+                        'avatar' => '/storage/'.$dataToUpdate['avatar'],
+                        'branding_logo' => '/storage/'.$dataToUpdate['branding_logo'],
+                    ]
+                )
             );
 
         $this->assertDatabaseHas('users', $dataToUpdate);
