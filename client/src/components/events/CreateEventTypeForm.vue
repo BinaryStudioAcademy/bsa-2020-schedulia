@@ -27,12 +27,12 @@
                 <VCol cols="6" offset-md="2">
                     <VForm class="mt-9 mb-16">
                         <div class="mb-2">
-                            <label>{{ lang.EVENT_NAME_LABEL }}</label>
+                            <label>{{ lang.EVENT_NAME_LABEL }}*</label>
                         </div>
 
                         <VTextField
                             :value="data.name"
-                            @change="changeName"
+                            @input="changeName"
                             :rules="nameRules"
                             outlined
                             class="app-textfield"
@@ -70,14 +70,14 @@
                         </VTextarea>
 
                         <div class="mb-2">
-                            <label>{{ lang.EVENT_LINK_LABEL }}</label>
+                            <label>{{ lang.EVENT_LINK_LABEL }}*</label>
                         </div>
 
                         <VTextField
                             :rules="eventLinkRules"
                             outlined
                             :value="data.slug"
-                            @change="changeSlug"
+                            @input="changeSlug"
                             dense
                             class="mb-4 app-textfield"
                             required
@@ -124,6 +124,7 @@
                                 color="primary"
                                 class="white--text"
                                 width="114"
+                                :to="{ name: 'new-event-edit' }"
                             >
                                 {{ lang.NEXT }}
                             </VBtn>

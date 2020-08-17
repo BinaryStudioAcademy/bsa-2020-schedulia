@@ -2,7 +2,7 @@ import requestService from '@/services/requestService';
 
 export default {
     async updatePassword(password, oldPassword) {
-        return await requestService.patch('/profiles/', {
+        return await requestService.put('/profiles/me/password', {
             password: password,
             oldPassword: oldPassword
         });
@@ -14,5 +14,9 @@ export default {
 
     async updateProfile(data) {
         return await requestService.put('/profiles/me', data);
+    },
+
+    async deleteProfile() {
+        return await requestService.delete('/profiles/me');
     }
 };

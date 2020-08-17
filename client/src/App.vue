@@ -7,10 +7,8 @@
 
 <script>
 import Notifications from './components/common/Notification/Notifications';
-
 export default {
     name: 'App',
-
     components: {
         Notifications
     }
