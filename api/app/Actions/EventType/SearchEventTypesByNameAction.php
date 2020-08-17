@@ -19,7 +19,6 @@ final class SearchEventTypesByNameAction
 
     public function execute(SearchEventTypesByNameRequest $request): SearchEventTypesByNameResponse
     {
-
         $searchedEventTypes =
             $request->getSearchString()
                 ? $this->repository->getByString($request->getSearchString())
