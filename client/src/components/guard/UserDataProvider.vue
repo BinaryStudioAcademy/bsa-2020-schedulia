@@ -12,6 +12,7 @@ export default {
     async beforeRouteEnter(to, from, next) {
         if (!store.state.auth.user && authService.hasToken()) {
             await store.dispatch('auth/' + actions.FETCH_LOGGED_USER);
+            next();
         } else {
             next();
         }
