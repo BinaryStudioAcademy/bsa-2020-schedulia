@@ -27,7 +27,7 @@
                 <VCol cols="6" offset-md="2">
                     <VForm class="mt-9 mb-16">
                         <div class="mb-2">
-                            <label>{{ lang.EVENT_NAME_LABEL }}</label>
+                            <label>{{ lang.EVENT_NAME_LABEL }}*</label>
                         </div>
 
                         <VTextField
@@ -70,7 +70,7 @@
                         </VTextarea>
 
                         <div class="mb-2">
-                            <label>{{ lang.EVENT_LINK_LABEL }}</label>
+                            <label>{{ lang.EVENT_LINK_LABEL }}*</label>
                         </div>
 
                         <VTextField

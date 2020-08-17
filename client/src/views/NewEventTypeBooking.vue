@@ -1,6 +1,6 @@
 <template>
     <GeneralLayout>
-        <CreateEventTypeBooking/>
+        <CreateEventTypeBooking />
         <template v-slot:title>
             <NewEventTypeTitle />
         </template>
@@ -17,11 +17,8 @@ export default {
         GeneralLayout,
         NewEventTypeTitle,
         CreateEventTypeBooking
-
     }
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
