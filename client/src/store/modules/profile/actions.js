@@ -25,15 +25,16 @@ export default {
 
     async saveBranding({ commit, dispatch }, logo) {
         try {
-            const response = await uploadFileService.upload(logo);
+            const response = await uploadFileService.upload(logo, 'branding');
 
-            const url = response?.data?.data?.logo?.url;
+            const url = response?.url;
 
-            profileService.saveBranding(url);
+            if (url) {
+                profileService.saveBranding(url);
+                commit(UPDATE_BRANDING_LOGO, url);
+            }
 
-            commit(UPDATE_BRANDING_LOGO, url);
-
-            return response?.data?.data;
+            return response?.url;
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
@@ -52,27 +53,7 @@ export default {
             });
         }
     },
-      
-    async saveBranding({ commit }, logo) {
-        try {
-            const response = await uploadFileService.upload(logo, 'branding');
-
-            const url = response?.url;
-
-            if (url) {
-                profileService.saveBranding(url);
-                commit(UPDATE_BRANDING_LOGO, url);
-            }
-
-            return response?.url;
-        } catch (error) {
-            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
-                root: true
-            });
-        }
-    },
-
-    async updateAvatar({ commit }, avatar) {
+    async updateAvatar({ commit, dispatch }, avatar) {
         try {
             const response = await uploadFileService.upload(avatar, 'avatar');
 
@@ -88,7 +69,7 @@ export default {
         }
     },
 
-    async updateProfile({ commit }, profile) {
+    async updateProfile({ commit, dispatch }, profile) {
         try {
             const response = await profileService.updateProfile(profile);
 
