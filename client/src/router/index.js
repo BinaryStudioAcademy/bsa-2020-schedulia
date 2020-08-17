@@ -81,7 +81,7 @@ const routes = [
                         component: () => import('../views/NewEventTypeBooking')
                     }
                 ]
-            },
+            }
         ]
     }
 ];

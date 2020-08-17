@@ -161,7 +161,7 @@ export default {
     YOU_WILL_WANT_TO_ADD_EVENT_TYPE:
         "You'll want to add an event type to allow people to schedule with\n" +
         '            you.',
-    
+
     WHEN_CAN_PEOPLE_BOOK_EVENT: 'When can people book this event?',
     EVENT_DURATION: 'Event Duration',
     CUSTOM_DURATION: 'Custom Duration',
@@ -212,7 +212,7 @@ export default {
     YOUR_INVITEES_WILL_BE_OFFERED:
         'Your invitees will be offered\n' +
         '                                        availability for a number of days into\n' +
-        '                                        the future.'
+        '                                        the future.',
 
     LOGOUT: 'Logout',
     EVENT_TYPES: 'Event Types',
