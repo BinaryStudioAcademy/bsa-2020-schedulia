@@ -16,6 +16,12 @@ const eventTypesService = {
     },
     async createEventType(eventTypeData) {
         return await requestService.post('/event-types', eventTypeData);
+    },
+    async searchEventTypes(searchString) {
+        const searchResponse = await requestService.get(
+            '/event-types/search?searchString=' + searchString
+        );
+        return searchResponse?.data?.data;
     }
 };
 
