@@ -124,7 +124,7 @@
                                 color="primary"
                                 class="white--text"
                                 width="114"
-                                :to="{name: 'new-event-edit'}"
+                                :to="{ name: 'new-event-edit' }"
                             >
                                 {{ lang.NEXT }}
                             </VBtn>
