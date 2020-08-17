@@ -37,5 +37,8 @@ export default {
                 { root: true }
             );
         }
+    },
+    [actions.FORGOT_PASSWORD]: async (context, forgotEmail) => {
+        return await authService.forgotPassword(forgotEmail);
     }
 };

@@ -12,6 +12,13 @@ const authService = {
     async signUp(userRegisterData) {
         return await requestService.post('/auth/register', userRegisterData);
     },
+    async forgotPassword(forgotEmail) {
+        const response = await requestService.post(
+            '/auth/forgot-password',
+            forgotEmail
+        );
+        return response?.data;
+    },
     async signOut() {
         const response = await requestService.post('/auth/logout');
         this.removeToken();
