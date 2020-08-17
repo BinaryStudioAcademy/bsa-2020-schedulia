@@ -125,5 +125,8 @@ export default {
     MINS: 'mins',
     ENTER_YOUR_EMAIL_ADDRESS: 'Enter your email address',
     SEND_RESET_INSTRUCTION: 'Send reset instruction',
-    REMEMBERED_PASSWORD: 'Remembered password?'
+    REMEMBERED_PASSWORD: 'Remembered password?',
+    RESET_YOUR_PASSWORD: 'Reset your password',
+    MUST_BE_VALID_EMAIL: 'Must be valid e-mail',
+    EMAIL_IS_REQUIRED: 'E-mail is required'
 };

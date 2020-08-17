@@ -1,14 +1,15 @@
 <template>
     <div>
-        <h4 class="title-of-card pb-4">Reset your password</h4>
-        <p class="info-text-p">{{ lang.ENTER_YOUR_EMAIL_ADDRESS }}</p>
+        <h4 class="title-of-card pb-4">{{ lang.RESET_YOUR_PASSWORD }}</h4>
+        <p class="info-text">{{ lang.ENTER_YOUR_EMAIL_ADDRESS }}</p>
         <VForm>
             <VCol cols="11" sm="11" md="8" class="pa-0 py-4">
                 <label for="email">{{ lang.EMAIL }}*</label>
                 <VTextField
                     id="email"
-                    v-bind:value="email"
+                    :value="email"
                     :error-messages="emailErrors"
+                    @input="setEmailOnInput"
                     @blur="setEmail($event.target.value)"
                     outlined
                     dense
@@ -26,7 +27,7 @@
                     </VBtn>
                     <RouterLink
                         :to="{ name: 'SignIn' }"
-                        class="remembered-password-a "
+                        class="remembered-password "
                     >
                         {{ lang.REMEMBERED_PASSWORD }}
                     </RouterLink>
@@ -56,6 +57,10 @@ export default {
         setEmail(value) {
             this.email = value;
             this.$v.email.$touch();
+        },
+        setEmailOnInput(e) {
+            this.email = e;
+            this.$v.email.$touch();
         }
     },
     computed: {
@@ -64,8 +69,8 @@ export default {
             if (!this.$v.email.$dirty) {
                 return errors;
             }
-            !this.$v.email.email && errors.push('Must be valid e-mail');
-            !this.$v.email.required && errors.push('E-mail is required');
+            !this.$v.email.email && errors.push(this.lang.MUST_BE_VALID_EMAIL);
+            !this.$v.email.required && errors.push(this.lang.EMAIL_IS_REQUIRED);
             return errors;
         }
     }
@@ -83,7 +88,7 @@ h4 {
 .title-of-card {
     color: var(--v-primary-base);
 }
-.info-text-p {
+.info-text {
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -106,7 +111,7 @@ label {
     color: #2c2c2c;
     display: block;
 }
-.remembered-password-a {
+.remembered-password {
     font-size: 0.875rem;
     color: var(--v-primary-base);
 }
