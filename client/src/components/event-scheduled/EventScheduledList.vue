@@ -2,7 +2,7 @@
     <VContainer class="container-content">
         <Tabs :tabs="tabs">
             <template v-slot:right-side>
-                <CloseButton />
+                <FilterButton />
                 <ExportButton />
             </template>
         </Tabs>
@@ -15,7 +15,7 @@ import Upcoming from './Upcoming/Upcoming';
 import Pending from './Pending/Pending';
 import Past from './Past/Past';
 import enLang from '@/store/modules/i18n/en.js';
-import CloseButton from './CloseButton';
+import FilterButton from './FilterButton';
 import ExportButton from './ExportButton';
 
 export default {
@@ -23,7 +23,7 @@ export default {
 
     components: {
         ExportButton,
-        CloseButton,
+        FilterButton,
         Tabs
     },
     data: () => ({
