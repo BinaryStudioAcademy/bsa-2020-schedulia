@@ -124,14 +124,6 @@
                                     @click="onSaveHandle"
                                     >{{ lang.SAVE }}
                                 </VBtn>
-                                <!--<VBtn-->
-                                <!--class="delete"-->
-                                <!--color="red darken-4"-->
-                                <!--dark-->
-                                <!--right-->
-                                <!--@click="onDeleteHandle"-->
-                                <!--&gt;{{ lang.DELETE_ACCOUNT }}-->
-                                <!--</VBtn>-->
                             </VCol>
                             <VCol cols="12">
                                 <ConfirmDialog
