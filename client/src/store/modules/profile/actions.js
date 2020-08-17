@@ -1,6 +1,5 @@
 import uploadFileService from '@/services/upload/fileService';
 import profileService from '@/services/profile/profileService';
-import { UPDATE_BRANDING_LOGO } from './types/mutations';
 import * as authActions from '@/store/modules/auth/types/actions';
 import {
     UPDATE_BRANDING_LOGO,
