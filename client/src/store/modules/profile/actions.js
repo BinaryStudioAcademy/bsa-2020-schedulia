@@ -1,5 +1,6 @@
 import uploadFileService from '@/services/upload/fileService';
 import profileService from '@/services/profile/profileService';
+import * as authActions from '@/store/modules/auth/types/actions';
 import {
     UPDATE_BRANDING_LOGO,
     UPDATE_USER,
@@ -7,42 +8,80 @@ import {
 } from './types/mutations';
 
 export default {
-    async updatePassword(context, password, oldPassword) {
-        const response = profileService.updatePassword(password, oldPassword);
+    async updatePassword({ dispatch }, password, oldPassword) {
+        try {
+            const response = profileService.updatePassword(
+                password,
+                oldPassword
+            );
 
-        return response?.data?.data;
-    },
-
-    async saveBranding({ commit }, logo) {
-        const response = await uploadFileService.upload(logo, 'branding');
-
-        const url = response?.url;
-
-        if (url) {
-            profileService.saveBranding(url);
-            commit(UPDATE_BRANDING_LOGO, url);
+            return response?.data?.data;
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
         }
-
-        return response?.url;
     },
 
-    async updateAvatar({ commit }, avatar) {
-        const response = await uploadFileService.upload(avatar, 'avatar');
+    async saveBranding({ commit, dispatch }, logo) {
+        try {
+            const response = await uploadFileService.upload(logo, 'branding');
 
-        const url = response?.url;
+            const url = response?.url;
 
-        commit(UPDATE_AVATAR, url);
+            if (url) {
+                profileService.saveBranding(url);
+                commit(UPDATE_BRANDING_LOGO, url);
+            }
 
-        return response?.url;
+            return response?.url;
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+        }
     },
 
-    async updateProfile({ commit }, profile) {
-        const response = await profileService.updateProfile(profile);
+    async uploadAvatar({ dispatch }, avatar) {
+        try {
+            const response = uploadFileService.upload(avatar);
 
-        const userData = response?.data?.data;
+            return response?.data?.data;
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+        }
+    },
+    async updateAvatar({ commit, dispatch }, avatar) {
+        try {
+            const response = await uploadFileService.upload(avatar, 'avatar');
 
-        commit(UPDATE_USER, userData);
+            const url = response?.url;
 
-        return userData;
+            commit(UPDATE_AVATAR, url);
+
+            return response?.url;
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+        }
+    },
+
+    async updateProfile({ commit, dispatch }, profile) {
+        try {
+            const response = await profileService.updateProfile(profile);
+
+            const userData = response?.data?.data;
+
+            commit(UPDATE_USER, userData);
+
+            return userData;
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+        }
     }
 };
