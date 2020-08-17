@@ -6,24 +6,14 @@ namespace App\Repositories\EventType;
 
 use App\Entity\EventType;
 use App\Repositories\BaseRepository;
+use App\Repositories\Criteria\Criteria;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 final class EventTypeRepository extends BaseRepository implements EventTypeRepositoryInterface
 {
     public function getById(int $id): ?EventType
     {
         return EventType::find($id);
-    }
-
-    public function getEventTypesByOwnerIdOrSearchString(?string $searchString, int $ownerId): ?Collection
-    {
-        return EventType::where(
-            DB::raw('LOWER(name)'),
-            'like',
-            $searchString . '%'
-        )->where('owner_id', $ownerId)->get();
     }
 
     public function save(EventType $eventType): EventType
@@ -38,11 +28,6 @@ final class EventTypeRepository extends BaseRepository implements EventTypeRepos
         EventType::destroy($id);
     }
 
-    public function getEventTypesByOwnerId(int $id): Collection
-    {
-        return EventType::where('owner_id', $id)->get();
-    }
-
     public function saveAvailabilities(EventType $eventType, array $availabilities): void
     {
         $eventType
@@ -55,5 +40,17 @@ final class EventTypeRepository extends BaseRepository implements EventTypeRepos
         $eventType
             ->availabilities()
             ->delete();
+    }
+
+    public function findByCriteria(Criteria ...$criterias): Collection
+    {
+        $eventType = new EventType();
+        $query = $eventType->newQuery();
+
+        foreach ($criterias as $criteria) {
+            $query = $criteria->apply($query);
+        }
+
+        return $query->get();
     }
 }
