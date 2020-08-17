@@ -6,8 +6,8 @@
             :items="items"
             :placeholder="label"
             @change="onChange"
+            dense
             required
-            solo
             outlined
         ></VSelect>
     </div>

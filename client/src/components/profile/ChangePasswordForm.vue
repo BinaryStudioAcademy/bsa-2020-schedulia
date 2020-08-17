@@ -1,8 +1,14 @@
 <template>
-    <VRow justify="center">
+    <VRow>
         <VDialog v-model="dialog" persistent max-width="600px">
             <template v-slot:activator="{ on, attrs }">
-                <VBtn color="primary" dark v-bind="attrs" v-on="on">
+                <VBtn
+                    class="ma-2"
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                >
                     {{ lang.CHANGE_PASSWORD }}
                 </VBtn>
             </template>
@@ -26,11 +32,9 @@
                                     type="password"
                                     :rules="[required]"
                                     required
-                                    solo
+                                    dense
                                     outlined
                                 ></VTextField>
-                            </VCol>
-                            <VCol cols="12">
                                 <VSubheader>{{ lang.NEW_PASSWORD }}</VSubheader>
                                 <VTextField
                                     v-model="newPassword"
@@ -43,7 +47,7 @@
                                         confirmPassword
                                     ]"
                                     required
-                                    solo
+                                    dense
                                     outlined
                                 ></VTextField>
                                 <VTextField
@@ -59,7 +63,7 @@
                                         confirmPassword
                                     ]"
                                     required
-                                    solo
+                                    dense
                                     outlined
                                 ></VTextField>
                             </VCol>
@@ -70,12 +74,14 @@
                 <VCardActions>
                     <VSpacer></VSpacer>
                     <VBtn
-                        color="blue darken-1"
+                        color="primary"
                         :disabled="!validateForm"
                         @click="update"
                         >{{ lang.SAVE }}
                     </VBtn>
-                    <VBtn color="primary" @click="dialog = false"
+                    <VBtn
+                        class="text cancel v-btn--flat v-btn--outlined"
+                        @click="dialog = false"
                         >{{ lang.CLOSE }}
                     </VBtn>
                 </VCardActions>
@@ -161,3 +167,23 @@ export default {
     }
 };
 </script>
+
+<style lang="scss" scoped>
+.v-btn {
+    font-size: 13px;
+    text-transform: none;
+
+    &.cancel {
+        border-color: rgba(0, 0, 0, 0.12);
+        background: none;
+        box-shadow: none;
+    }
+}
+
+.v-subheader {
+    padding: 0;
+    color: #2c2c2c;
+    font-size: 13px;
+    line-height: 16px;
+}
+</style>

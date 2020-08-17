@@ -14,7 +14,7 @@
                     <label for="email">{{ lang.EMAIL }}</label>
                     <VTextField
                         id="email"
-                        placeholder="user@gmail.com"
+                        placeholder="Email address"
                         outlined
                         dense
                         type="email"
@@ -51,7 +51,7 @@
             </VCardText>
             <VCardActions>
                 <VCol cols="12" sm="12" md="9" class="pa-0">
-                    <VRow align="center" justify="space-between">
+                    <VRow no-gutters align="center" justify="space-between">
                         <VCol>
                             <VBtn
                                 width="158"
@@ -62,19 +62,12 @@
                                 >{{ lang.LOG_IN }}
                             </VBtn>
                         </VCol>
-                        <VCol>
-                            <span class="info--text  text-center">
+                        <VCol class="ma-1">
+                            <span class="info--text">
                                 {{ lang.OR_LOGIN_WITH }}
                             </span>
                         </VCol>
-                        <VCol>
-                            <VBtn class="social-button" outlined fab>
-                                {{ lang.GOOGLE_ICON }}
-                            </VBtn>
-                            <VBtn class="social-button" outlined fab>
-                                {{ lang.FACEBOOK_ICON }}
-                            </VBtn>
-                        </VCol>
+                        <VCol> </VCol>
                     </VRow>
                 </VCol>
             </VCardActions>
@@ -130,7 +123,7 @@ export default {
                 try {
                     await this.signIn(this.loginData);
                     await this.fetchLoggedUser();
-                    this.$router.push({ name: 'Profile' });
+                    this.$router.push({ name: 'EventTypes' });
                 } catch (error) {
                     this.setErrorNotification(error);
                 }

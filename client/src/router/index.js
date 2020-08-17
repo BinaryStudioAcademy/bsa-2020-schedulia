@@ -22,6 +22,22 @@ const routes = [
                 component: () => import('../views/SignUp')
             },
             {
+                path: 'event',
+                name: 'PublicEvent',
+                component: () => import('../views/PublicEvent.vue')
+            },
+            {
+                path: 'confirm-event',
+                name: 'PublicEventConfirm',
+                component: () => import('../views/PublicEventConfirm.vue')
+            },
+            {
+                path: 'event-details',
+                name: 'PublicEventDetails',
+                component: () => import('../views/PublicEventDetails.vue')
+            },
+
+            {
                 path: '',
                 component: LoginGuard,
                 children: [
@@ -57,6 +73,12 @@ const routes = [
                         path: 'new-event',
                         name: 'new-event',
                         component: () => import('../views/NewEventType')
+                    },
+
+                    {
+                        path: 'new-event-edit',
+                        name: 'new-event-edit',
+                        component: () => import('../views/NewEventTypeBooking')
                     }
                 ]
             }

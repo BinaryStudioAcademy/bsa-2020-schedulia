@@ -5,7 +5,7 @@
                 <VCol cols="1">
                     <div>
                         <img
-                            :src="colorById[color].image"
+                            :src="colorById[data.color].image"
                             alt=""
                             class="ml-10"
                         />
@@ -27,15 +27,15 @@
                 <VCol cols="6" offset-md="2">
                     <VForm class="mt-9 mb-16">
                         <div class="mb-2">
-                            <label>{{ lang.EVENT_NAME_LABEL }}</label>
+                            <label>{{ lang.EVENT_NAME_LABEL }}*</label>
                         </div>
 
                         <VTextField
-                            v-model="eventName"
+                            :value="data.name"
+                            @change="changeName"
                             :rules="nameRules"
                             outlined
                             class="app-textfield"
-                            value=""
                             dense
                         >
                         </VTextField>
@@ -45,8 +45,9 @@
                         </div>
 
                         <VSelect
-                            v-model="selected"
+                            :value="data.location"
                             :items="items"
+                            @change="changeLocation"
                             outlined
                             placeholder="Option"
                             dense
@@ -59,7 +60,8 @@
                         </div>
 
                         <VTextarea
-                            v-model="description"
+                            :value="data.description"
+                            @change="changeDescription"
                             :rules="descRules"
                             placeholder="Placeholder"
                             outlined
@@ -68,13 +70,14 @@
                         </VTextarea>
 
                         <div class="mb-2">
-                            <label>{{ lang.EVENT_LINK_LABEL }}</label>
+                            <label>{{ lang.EVENT_LINK_LABEL }}*</label>
                         </div>
 
                         <VTextField
                             :rules="eventLinkRules"
                             outlined
-                            :value="eventLinkDashed"
+                            :value="data.slug"
+                            @change="changeSlug"
                             dense
                             class="mb-4 app-textfield"
                             required
@@ -97,7 +100,7 @@
                                     >
                                         <VOverlay
                                             absolute
-                                            :value="color === id"
+                                            :value="data.color === id"
                                             class="rounded-circle"
                                             color="eventColor"
                                         >
@@ -117,9 +120,11 @@
                                 {{ lang.CANCEL }}
                             </VBtn>
                             <VBtn
+                                @click="clickNext"
                                 color="primary"
                                 class="white--text"
                                 width="114"
+                                :to="{ name: 'new-event-edit' }"
                             >
                                 {{ lang.NEXT }}
                             </VBtn>
@@ -133,17 +138,23 @@
 
 <script>
 import enLang from '@/store/modules/i18n/en.js';
+import { mapGetters, mapMutations } from 'vuex';
+import * as eventTypeMutations from '@/store/modules/eventType/types/mutations';
+import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
+
 export default {
     name: 'CreateEventTypeForm',
     data() {
         return {
             lang: enLang,
-            eventName: '',
-            eventLink: '',
-            selected: '',
-            description: '',
+            form: {
+                name: '',
+                location: '',
+                description: '',
+                slug: '',
+                color: 'yellow'
+            },
             items: ['address on the map', 'zoom', 'skype'],
-            color: 'yellow',
             colorById: {
                 yellow: {
                     id: 'yellow',
@@ -210,14 +221,39 @@ export default {
     },
 
     computed: {
-        eventLinkDashed() {
-            return this.eventName.replace(/\s/g, '-');
+        ...mapGetters('eventType', {
+            getEventTypeForm: eventTypeGetters.GET_EVENT_TYPE_FORM
+        }),
+        data() {
+            return {
+                ...this.getEventTypeForm,
+                ...this.form
+            };
         }
     },
 
     methods: {
+        ...mapMutations('eventType', {
+            setEventTypeForm: eventTypeMutations.SET_EVENT_TYPE_FORM
+        }),
+        clickNext() {
+            this.setEventTypeForm(this.form);
+        },
         setColor(id) {
-            this.color = this.colorById[id].id;
+            this.form.color = this.colorById[id].id;
+        },
+        changeName(val) {
+            this.form.name = val;
+            this.changeSlug(val);
+        },
+        changeLocation(val) {
+            this.form.location = val;
+        },
+        changeDescription(val) {
+            this.form.description = val;
+        },
+        changeSlug(val) {
+            this.form.slug = val.replace(/\s/g, '-');
         }
     }
 };

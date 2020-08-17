@@ -1,10 +1,11 @@
 import requestService from '@/services/requestService';
 
 export default {
-    async upload(file) {
+    async upload(file, type) {
         let formData = new FormData();
 
         formData.append('file', file);
+        formData.append('type', type);
 
         const response = await requestService.post('/files', formData);
 
