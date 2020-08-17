@@ -7,6 +7,7 @@ namespace App\Repositories\EventType;
 use App\Entity\EventType;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 final class EventTypeRepository extends BaseRepository implements EventTypeRepositoryInterface
@@ -16,9 +17,13 @@ final class EventTypeRepository extends BaseRepository implements EventTypeRepos
         return EventType::find($id);
     }
 
-    public function getByString(?string $searchString): ?Collection
+    public function getEventTypesByOwnerIdOrSearchString(?string $searchString, int $ownerId): ?Collection
     {
-        return EventType::where('name', 'like', $searchString . '%')->get();
+        return EventType::where(
+            DB::raw('LOWER(name)'),
+            'like',
+            $searchString . '%'
+        )->where('owner_id', $ownerId)->get();
     }
 
     public function save(EventType $eventType): EventType

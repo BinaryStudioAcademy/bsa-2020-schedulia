@@ -16,9 +16,12 @@ final class GetEventTypeCollectionAction
         $this->eventTypeRepository = $eventTypeRepository;
     }
 
-    public function execute()
+    public function execute(GetEventTypeCollectionRequest $request)
     {
-        $response = $this->eventTypeRepository->getEventTypesByOwnerId(Auth::id());
+        $response = $this->eventTypeRepository->getEventTypesByOwnerIdOrSearchString(
+            $request->getSearchString(),
+            Auth::id()
+        );
 
         return new GetEventTypeCollectionResponse($response);
     }

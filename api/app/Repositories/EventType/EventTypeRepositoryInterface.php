@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 interface EventTypeRepositoryInterface
 {
     public function getById(int $id): ?EventType;
-    public function getByString(?string $searchString): ?Collection;
+    public function getEventTypesByOwnerIdOrSearchString(?string $searchString, int $ownerId): ?Collection;
     public function save(EventType $eventType): EventType;
     public function deleteById(int $id): void;
     public function getEventTypesByOwnerId(int $id): Collection;
