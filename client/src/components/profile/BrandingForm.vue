@@ -1,8 +1,8 @@
 <template>
-    <VContainer class="container-content">
-        <VCol cols="6">
-            <VCard>
-                <VCardText>
+    <VContainer>
+        <VCard class="mt-7">
+            <VRow justify="center">
+                <VCol md="6" sm="12">
                     <VForm>
                         <VContainer>
                             <VRow>
@@ -36,10 +36,19 @@
                                             ></VImg>
                                         </div>
                                     </div>
-                                    <div class="text-center">
+                                    <VCol cols="12">
+                                        <VDivider></VDivider>
+                                    </VCol>
+                                    <div>
+                                        <VBtn
+                                            class="text mr-2 cancel v-btn--flat v-btn--outlined"
+                                            :disabled="!newLogo"
+                                            @click="removeImage"
+                                            >{{ lang.REMOVE }}
+                                        </VBtn>
                                         <label
                                             for="fileInput"
-                                            class="ma-2 v-btn v-btn--contained v-btn--tile theme--light v-size--default blue darken-1 pointer"
+                                            class="mr-3 primary v-btn v-btn--depressed theme--light v-size--default pointer"
                                         >
                                             {{ lang.UPDATE }}
                                         </label>
@@ -52,13 +61,6 @@
                                             @change="updateImage"
                                         />
 
-                                        <VBtn
-                                            class="ma2"
-                                            :disabled="!newLogo"
-                                            tile
-                                            @click="removeImage"
-                                            >{{ lang.REMOVE }}
-                                        </VBtn>
                                         <VAlert
                                             cols="12"
                                             type="error"
@@ -74,32 +76,29 @@
                                     <VSpacer></VSpacer>
                                 </VCol>
                                 <VCol>
-                                    <div class="text-center">
+                                    <div>
                                         <VBtn
-                                            class="ma-2"
-                                            tile
-                                            outlined
-                                            color="blue darken-1"
-                                            @click="save"
-                                            :disabled="logoIsNew"
-                                            >{{ lang.SAVE }}
-                                        </VBtn>
-                                        <VBtn
-                                            class="ma2"
-                                            tile
-                                            outlined
+                                            class="text cancel v-btn--flat v-btn--outlined"
                                             @click="resetChanges"
                                         >
                                             {{ lang.CANCEL }}
+                                        </VBtn>
+                                        <VBtn
+                                            :disabled="logoIsNew"
+                                            class="ma-2"
+                                            depressed
+                                            color="primary"
+                                            @click="save"
+                                            >{{ lang.SAVE }}
                                         </VBtn>
                                     </div>
                                 </VCol>
                             </VRow>
                         </VContainer>
                     </VForm>
-                </VCardText>
-            </VCard>
-        </VCol>
+                </VCol>
+            </VRow>
+        </VCard>
     </VContainer>
 </template>
 
@@ -125,9 +124,13 @@ export default {
     },
 
     computed: {
-        ...mapGetters('profile', {
-            logo: 'getBrandingLogo'
+        ...mapGetters('auth', {
+            user: 'getLoggedUser'
         }),
+
+        logo() {
+            return this.user.branding_logo;
+        },
 
         logoIsNew() {
             return this.logo === this.newLogo;
@@ -135,14 +138,14 @@ export default {
     },
 
     methods: {
-        ...mapActions('profile', ['uploadBrandingLogo', 'saveBranding']),
+        ...mapActions('profile', ['saveBranding']),
 
         resetChanges() {
             this.newLogo = this.logo;
         },
 
         removeImage() {
-            this.newLogo = null;
+            this.newLogo = '';
         },
 
         updateImage(event) {
@@ -168,5 +171,15 @@ export default {
 <style lang="scss" scoped>
 .pointer {
     cursor: pointer;
+}
+.v-btn {
+    font-size: 13px;
+    text-transform: none;
+
+    &.cancel {
+        border-color: rgba(0, 0, 0, 0.12);
+        background: none;
+        box-shadow: none;
+    }
 }
 </style>

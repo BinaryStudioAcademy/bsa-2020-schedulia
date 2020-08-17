@@ -1,10 +1,10 @@
 <template>
-    <VContainer class="container-content background-none">
-        <div class="row">
-            <VCol cols="3" sm="12" md="3" class="pa-0">
+    <VContainer class="background-none">
+        <div class="row ma-0">
+            <VCol cols="12" sm="12" md="3" class="pa-0">
                 <VTextField
                     type="text"
-                    label="Search"
+                    :label="lang.SEARCH"
                     prepend-inner-icon="mdi-magnify"
                     dense
                     filled
@@ -16,13 +16,16 @@
         <ActionBlock />
         <VDivider />
         <div class="event-types-block row" v-if="searchedEventTypes.length">
-            <div
-                class="col-md-3 col-lg-3 col-sm-12"
+            <VCol
+                cols="12"
+                md="4"
+                lg="3"
+                sm="6"
                 v-for="eventType in searchedEventTypes"
                 :key="eventType.id"
             >
                 <EventType :eventType="eventType" />
-            </div>
+            </VCol>
         </div>
         <NoEventTypes v-else />
     </VContainer>
@@ -35,6 +38,8 @@ import NoEventTypes from '@/components/event-types/all-event-types/NoEventTypes'
 import * as actions from '@/store/modules/eventTypes/types/actions';
 import * as getters from '@/store/modules/eventTypes/types/getters';
 import { mapActions, mapGetters } from 'vuex';
+import enLang from '@/store/modules/i18n/en';
+
 export default {
     name: 'EventTypesList',
     components: {
@@ -43,7 +48,8 @@ export default {
         NoEventTypes
     },
     data: () => ({
-        search: ''
+        search: '',
+        lang: enLang
     }),
     methods: {
         ...mapActions('eventTypes', {

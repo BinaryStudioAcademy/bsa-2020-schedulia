@@ -28,7 +28,7 @@
                             class="normal-ok-image "
                         />
                     </VRow>
-                    <VRow no-gutters justify="center">
+                    <VRow no-gutters justify="center" align="end">
                         <Img
                             :src="require('@/assets/auth/office_worker.png')"
                             alt="collage office employee at work"
@@ -108,7 +108,6 @@ export default {
 <style>
 html {
     overflow-y: auto !important;
-    font-size: 10px;
 }
 </style>
 <style scoped>
@@ -138,7 +137,7 @@ html {
     margin-top: 1.7vh;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 959px) {
     .primary-vcol {
         order: 0;
         height: 100vh;
@@ -155,9 +154,9 @@ html {
     .first-column-in-secondary {
         display: none;
     }
-    .office-worker-image {
-        margin-top: 5vmin;
-        min-height: 50vmin;
+    img.office-worker-image {
+        width: 95vmin;
+        margin-top: 10vh;
     }
     .logo-primary-div {
         display: block;
@@ -181,8 +180,7 @@ html {
     margin-right: 3.6vw;
 }
 .office-worker-image {
-    height: 50vmin;
-    min-height: 200px;
+    width: 60vmin;
     margin-top: 8.6vh;
 }
 .envelop-image {
@@ -200,11 +198,11 @@ html {
 h5 {
     font-style: normal;
     font-weight: bold;
-    font-size: 2.4rem;
-    line-height: 3.6rem;
+    font-size: 24px;
+    line-height: 36px;
 }
 .logo-h5 {
-    margin-left: 0.8rem;
+    margin-left: 8px;
     color: var(--v-primary-base);
 }
 a {
