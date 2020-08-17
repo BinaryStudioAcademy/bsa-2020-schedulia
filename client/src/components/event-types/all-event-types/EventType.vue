@@ -19,7 +19,7 @@
         <VDivider />
         <VRow class="event-type-actions">
             <VCol class="duration text-left" cols="4">
-                <span>/{{ sliceIfLongString(eventType.slug) }}</span>
+                <span>/{{ eventType.slug }}</span>
             </VCol>
             <VCol class="text-right" cols="8">
                 <VBtn
@@ -75,11 +75,6 @@ export default {
             }
             return this.eventType.color;
         }
-    },
-    methods: {
-        sliceIfLongString(string) {
-            return string.length >= 11 ? string.slice(0, 10) + '...' : string;
-        }
     }
 };
 </script>
@@ -108,6 +103,9 @@ export default {
 .duration span {
     color: var(--v-primary-base);
     font-size: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .disabled-event {
     user-select: none;
