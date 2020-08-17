@@ -148,10 +148,8 @@ export default {
     UPCOMING: 'Upcoming',
     PENDING: 'Pending',
     PAST: 'Past',
-    DATE_RANGE: 'Date Range'б
+    DATE_RANGE: 'Date Range',
 
-
-    FORGOT_PASSWORD: 'Forgot Password?',
     NEW_EVENT_TYPE: 'New Event Type',
     DELETE: 'Delete',
     DIALOG_EVENT_TYPE_DELETE_CONFIRM:
@@ -174,7 +172,6 @@ export default {
     WHEN_CAN_PEOPLE_BOOK_EVENT: 'When can people book this event?',
     EVENT_DURATION: 'Event Duration',
     CUSTOM_DURATION: 'Custom Duration',
-    DATE_RANGE: 'Date Range',
     EVENTS_CAN_BE_SCHEDULED_OVER_60_DAYS:
         'Events can be scheduled over 60 calendar days',
     EVENT_TIME_ZONE: 'Event Time Zone',
