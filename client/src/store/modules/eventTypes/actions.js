@@ -8,6 +8,7 @@ export default {
         try {
             const eventTypes = await eventTypesService.fetchAllEventTypes();
             commit(mutations.SET_EVENT_TYPES, eventTypes);
+            return eventTypes;
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
@@ -40,6 +41,18 @@ export default {
         try {
             await eventTypesService.deleteEventTypeById(eventTypeId);
             commit(mutations.DELETE_EVENT_TYPE_BY_ID, eventTypeId);
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+        }
+    },
+    [actions.SEARCH_EVENT_TYPE]: async ({ commit, dispatch }, searchString) => {
+        try {
+            const searchedEventTypes = await eventTypesService.searchEventTypes(
+                searchString
+            );
+            commit(mutations.SEARCHED_EVENT_TYPES, searchedEventTypes);
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
