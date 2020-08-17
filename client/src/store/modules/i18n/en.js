@@ -144,7 +144,7 @@ export default {
     SUCCESSFULLY_SIGNINED: 'Successfully sign in! ',
     FORGOT_PASSWORD: 'Forgot Password?',
 
-    EVENT_SCHEDULED: 'Event scheduled',
+    SCHEDULED_EVENTS: 'Scheduled events',
     UPCOMING: 'Upcoming',
     PENDING: 'Pending',
     PAST: 'Past',

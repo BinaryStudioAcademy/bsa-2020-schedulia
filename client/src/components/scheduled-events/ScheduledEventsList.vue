@@ -19,7 +19,7 @@ import FilterButton from './FilterButton';
 import ExportButton from './ExportButton';
 
 export default {
-    name: 'EventScheduledList',
+    name: 'ScheduledEventList',
 
     components: {
         ExportButton,

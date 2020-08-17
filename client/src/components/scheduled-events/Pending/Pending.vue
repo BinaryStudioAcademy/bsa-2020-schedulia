@@ -1,11 +1,12 @@
 <template>
-    <NoEvents>No Upcoming Events</NoEvents>
+    <NoEvents>No Pending Events</NoEvents>
 </template>
 
 <script>
 import NoEvents from '../NoEvents';
+
 export default {
-    name: 'Upcoming',
+    name: 'Pending',
     components: { NoEvents }
 };
 </script>

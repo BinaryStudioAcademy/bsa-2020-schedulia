@@ -1,7 +1,7 @@
 <template>
     <VBtn
-        v-if="!this.EvenFilterView"
-        @click="setEventFilterView(true)"
+        v-if="!this.scheduledEventsFilterView"
+        @click="setScheduledEventsFilterView(true)"
         class="filter-button filter-open"
         outlined
     >
@@ -18,7 +18,7 @@
 
     <VBtn
         v-else
-        @click="setEventFilterView(false)"
+        @click="setScheduledEventsFilterView(false)"
         class="filter-button primary"
         depressed
     >
@@ -36,21 +36,21 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import { GET_EVENT_FILTER_VIEW } from '@/store/modules/eventScheduled/types/getters';
-import { SET_EVENT_FILTER_VIEW } from '@/store/modules/eventScheduled/types/actions';
+import { GET_SCHEDULED_EVENT_FILTER_VIEW } from '@/store/modules/scheduledEvent/types/getters';
+import { SET_SCHEDULED_EVENT_FILTER_VIEW } from '@/store/modules/scheduledEvent/types/actions';
 
 export default {
     name: 'FilterButton',
 
     computed: {
-        ...mapGetters('eventScheduled', {
-            EvenFilterView: GET_EVENT_FILTER_VIEW
+        ...mapGetters('scheduledEvent', {
+            scheduledEventsFilterView: GET_SCHEDULED_EVENT_FILTER_VIEW
         })
     },
 
     methods: {
-        ...mapActions('eventScheduled', {
-            setEventFilterView: SET_EVENT_FILTER_VIEW
+        ...mapActions('scheduledEvent', {
+            setScheduledEventsFilterView: SET_SCHEDULED_EVENT_FILTER_VIEW
         })
     }
 };

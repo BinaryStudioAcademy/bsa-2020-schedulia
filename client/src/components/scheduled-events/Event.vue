@@ -1,7 +1,7 @@
 <template>
     <div class="event">
         <VContainer class="event-date">
-            <span>{{ event.date }}</span>
+            <span>{{ scheduledEvent.date }}</span>
         </VContainer>
         <VExpansionPanels flat tile accordion>
             <VExpansionPanel>
@@ -15,17 +15,17 @@
                                 "
                             />
                             <span class="time">
-                                {{ event.time }}
+                                {{ scheduledEvent.time }}
                             </span>
                         </VCol>
                         <VCol>
                             <div class="user-name">
-                                {{ event.name }}
+                                {{ scheduledEvent.name }}
                             </div>
                             <div class="event-type">
                                 Event type
                                 <span>
-                                    {{ event.type }}
+                                    {{ scheduledEvent.type }}
                                 </span>
                             </div>
                         </VCol>
@@ -72,29 +72,29 @@
                                 <li>
                                     Email
                                     <span>
-                                        {{ event.email }}
+                                        {{ scheduledEvent.email }}
                                     </span>
                                 </li>
                                 <li>
                                     Location
                                     <span>
-                                        {{ event.location }}
+                                        {{ scheduledEvent.location }}
                                     </span>
                                 </li>
                                 <li>
                                     Invitee time zone
                                     <span>
-                                        {{ event.timezone }}
+                                        {{ scheduledEvent.timezone }}
                                     </span>
                                 </li>
                                 <li>
                                     Questions
                                     <span>
-                                        {{ event.questions }}
+                                        {{ scheduledEvent.questions }}
                                     </span>
                                 </li>
                                 <li class="created">
-                                    Created {{ event.created_at }}
+                                    Created {{ scheduledEvent.created_at }}
                                 </li>
                             </ul>
                         </VCol>
@@ -107,7 +107,7 @@
 </template>
 
 <script>
-import BorderBottom from '../../common/GeneralLayout/BorderBottom';
+import BorderBottom from '@/components/common/GeneralLayout/BorderBottom';
 
 export default {
     name: 'Event',
@@ -117,7 +117,7 @@ export default {
     },
 
     props: {
-        event: {
+        scheduledEvent: {
             type: Object,
             required: true
         }

@@ -1,9 +1,9 @@
 import data from './scheduledEvents.json';
 
-const scheduledEventsService = {
+const scheduledEventService = {
     async getScheduledEvents() {
         return data;
     }
 };
 
-export default scheduledEventsService;
+export default scheduledEventService;

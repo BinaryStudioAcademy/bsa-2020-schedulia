@@ -1,0 +1,56 @@
+<template>
+    <div>
+        <FilterList v-if="this.scheduledEventsFilterView" />
+        <BorderBottom />
+        <div v-if="scheduledEvents">
+            <template v-for="scheduledEvent in scheduledEvents">
+                <Event :key="scheduledEvent.id" :scheduledEvent="scheduledEvent" />
+            </template>
+        </div>
+        <NoEvents v-else>No Past Events</NoEvents>
+    </div>
+</template>
+
+<script>
+import { mapGetters, mapActions } from 'vuex';
+import * as scheduledEventGetters from '@/store/modules/scheduledEvent/types/getters';
+import * as scheduledEventActions from '@/store/modules/scheduledEvent/types/actions';
+import FilterList from './Filter/FilterList';
+import BorderBottom from '../../common/GeneralLayout/BorderBottom';
+import Event from '../Event';
+import NoEvents from '../NoEvents';
+
+export default {
+    name: 'Past',
+
+    components: {
+        NoEvents,
+        Event,
+        BorderBottom,
+        FilterList
+    },
+
+    computed: {
+        ...mapGetters('scheduledEvent', {
+            scheduledEventsFilterView: scheduledEventGetters.GET_SCHEDULED_EVENT_FILTER_VIEW,
+            scheduledEvents: scheduledEventGetters.GET_SCHEDULED_EVENTS
+        })
+    },
+
+    methods: {
+        ...mapActions('scheduledEvent', {
+            setScheduledEvents: scheduledEventActions.SET_SCHEDULED_EVENTS
+        })
+    },
+
+    async created() {
+        try {
+            await this.setScheduledEvents();
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+};
+</script>
+
+<style scoped></style>

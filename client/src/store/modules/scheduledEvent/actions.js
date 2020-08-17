@@ -1,16 +1,16 @@
 import * as actions from './types/actions';
 import * as mutations from './types/mutations';
-import scheduledEventsService from '@/services/scheduled-events/scheduledEventsService';
+import scheduledEventService from '@/services/scheduled-event/scheduledEventsService';
 import { SET_ERROR_NOTIFICATION } from '@/store/modules/notification/types/actions';
 
 export default {
-    [actions.SET_EVENT_FILTER_VIEW]: async ({ commit }, eventFilterView) => {
-        commit(mutations.SET_EVENT_FILTER_VIEW, eventFilterView);
+    [actions.SET_SCHEDULED_EVENT_FILTER_VIEW]: async ({ commit }, scheduledEventFilterView) => {
+        commit(mutations.SET_SCHEDULED_EVENT_FILTER_VIEW, scheduledEventFilterView);
     },
 
     [actions.SET_SCHEDULED_EVENTS]: async ({ commit }) => {
         try {
-            const data = await scheduledEventsService.getScheduledEvents();
+            const data = await scheduledEventService.getScheduledEvents();
 
             commit(mutations.SET_SCHEDULED_EVENTS, data);
         } catch (error) {

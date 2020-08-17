@@ -5,7 +5,7 @@ import auth from './modules/auth';
 import profile from './modules/profile';
 import notification from './modules/notification';
 import eventTypes from './modules/eventTypes';
-import eventScheduled from './modules/eventScheduled';
+import scheduledEvent from './modules/scheduledEvent';
 
 Vue.use(Vuex);
 
@@ -16,7 +16,7 @@ export default new Vuex.Store({
         profile,
         notification,
         eventTypes,
-        eventScheduled
+        scheduledEvent
     },
     plugins: []
 });
