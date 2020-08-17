@@ -1,3 +1,4 @@
 export default {
-    eventFilterView: false
+    eventFilterView: false,
+    events: {}
 };

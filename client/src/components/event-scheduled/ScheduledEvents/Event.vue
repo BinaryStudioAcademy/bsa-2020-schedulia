@@ -1,12 +1,12 @@
 <template>
     <div class="event">
         <VContainer class="event-date">
-            <span>Friday, 24 July 2020</span>
+            <span>{{ event.date }}</span>
         </VContainer>
         <VExpansionPanels flat tile accordion>
             <VExpansionPanel>
                 <VExpansionPanelHeader class="event-time-name">
-                    <VRow class="mb-12" align-content="top">
+                    <VRow class="mb-12">
                         <VCol sm="3" class="text-left">
                             <img
                                 class=""
@@ -15,17 +15,17 @@
                                 "
                             />
                             <span class="time">
-                                10:30 - 11:00
+                                {{ event.time }}
                             </span>
                         </VCol>
                         <VCol>
                             <div class="user-name">
-                                Jim Halpert
+                                {{ event.name }}
                             </div>
                             <div class="event-type">
                                 Event type
                                 <span>
-                                    Sales manager
+                                    {{ event.type }}
                                 </span>
                             </div>
                         </VCol>
@@ -35,7 +35,7 @@
                 <BorderBottom />
 
                 <VExpansionPanelContent>
-                    <VRow align-content="top" class="event-detail mb-12">
+                    <VRow class="event-detail mb-12">
                         <VCol sm="3" class="text-left action-col">
                             <VBtn
                                 :ripple="false"
@@ -72,29 +72,29 @@
                                 <li>
                                     Email
                                     <span>
-                                        test@example.com
+                                        {{ event.email }}
                                     </span>
                                 </li>
                                 <li>
                                     Location
                                     <span>
-                                        Donetsk, Ukraine
+                                        {{ event.location }}
                                     </span>
                                 </li>
                                 <li>
                                     Invitee time zone
                                     <span>
-                                        Kyiv, Ukraine
+                                        {{ event.timezone }}
                                     </span>
                                 </li>
                                 <li>
                                     Questions
                                     <span>
-                                        undefined
+                                        {{ event.questions }}
                                     </span>
                                 </li>
                                 <li class="created">
-                                    Created 22 Jule 2020
+                                    Created {{ event.created_at }}
                                 </li>
                             </ul>
                         </VCol>
@@ -108,9 +108,20 @@
 
 <script>
 import BorderBottom from '../../common/GeneralLayout/BorderBottom';
+
 export default {
     name: 'Event',
-    components: { BorderBottom }
+
+    components: {
+        BorderBottom
+    },
+
+    props: {
+        event: {
+            type: Object,
+            required: true
+        }
+    }
 };
 </script>
 
