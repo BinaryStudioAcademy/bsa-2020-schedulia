@@ -3,56 +3,128 @@
         <VContainer class="event-date">
             <span>Friday, 24 July 2020</span>
         </VContainer>
-        <VContainer class="event-time-name">
-            <VExpansionPanels flat tile accordion>
-                <VExpansionPanel>
-                    <VExpansionPanelHeader>
-                        <VRow class="mb-12 text-left" align-content="top">
-                            <VCol sm="2" align-self="center" class="text-left">
-                                <img
-                                    class=""
-                                    :src="
-                                        require('@/assets/images/blue_circle.svg')
-                                    "
-                                />
-                                <span class="time">
-                                    10:30 - 11:00
+        <VExpansionPanels flat tile accordion>
+            <VExpansionPanel>
+                <VExpansionPanelHeader class="event-time-name">
+                    <VRow class="mb-12" align-content="top">
+                        <VCol sm="3" class="text-left">
+                            <img
+                                class=""
+                                :src="
+                                    require('@/assets/images/blue_circle.svg')
+                                "
+                            />
+                            <span class="time">
+                                10:30 - 11:00
+                            </span>
+                        </VCol>
+                        <VCol>
+                            <div class="user-name">
+                                Jim Halpert
+                            </div>
+                            <div class="event-type">
+                                Event type
+                                <span>
+                                    Sales manager
                                 </span>
-                            </VCol>
-                            <VCol align-self="center">
-                                <div class="user-name">
-                                    Jim Halpert
-                                </div>
-                                <div class="event-type">
-                                    Event type
+                            </div>
+                        </VCol>
+                    </VRow>
+                </VExpansionPanelHeader>
+
+                <BorderBottom />
+
+                <VExpansionPanelContent>
+                    <VRow align-content="top" class="event-detail mb-12">
+                        <VCol sm="3" class="text-left action-col">
+                            <VBtn
+                                :ripple="false"
+                                :hover="false"
+                                class="action-col__button"
+                                text
+                            >
+                                <VIcon>mdi-pencil-outline</VIcon>
+                                Edit
+                            </VBtn>
+
+                            <VBtn
+                                :ripple="false"
+                                :hover="false"
+                                class="action-col__button"
+                                text
+                            >
+                                <VIcon>mdi-filter-outline</VIcon>
+                                Filter
+                            </VBtn>
+
+                            <VBtn
+                                :ripple="false"
+                                :hover="false"
+                                class="action-col__button"
+                                text
+                            >
+                                <VIcon>mdi-refresh</VIcon>
+                                Invite Again
+                            </VBtn>
+                        </VCol>
+                        <VCol class="info-col">
+                            <ul>
+                                <li>
+                                    Email
                                     <span>
-                                        Sales manager
+                                        test@example.com
                                     </span>
-                                </div>
-                            </VCol>
-                        </VRow>
-                    </VExpansionPanelHeader>
-                    <VExpansionPanelContent>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat.
-                    </VExpansionPanelContent>
-                </VExpansionPanel>
-            </VExpansionPanels>
-        </VContainer>
+                                </li>
+                                <li>
+                                    Location
+                                    <span>
+                                        Donetsk, Ukraine
+                                    </span>
+                                </li>
+                                <li>
+                                    Invitee time zone
+                                    <span>
+                                        Kyiv, Ukraine
+                                    </span>
+                                </li>
+                                <li>
+                                    Questions
+                                    <span>
+                                        undefined
+                                    </span>
+                                </li>
+                                <li class="created">
+                                    Created 22 Jule 2020
+                                </li>
+                            </ul>
+                        </VCol>
+                    </VRow>
+                </VExpansionPanelContent>
+            </VExpansionPanel>
+        </VExpansionPanels>
+        <BorderBottom />
     </div>
 </template>
 
 <script>
+import BorderBottom from '../../common/GeneralLayout/BorderBottom';
 export default {
-    name: 'Event'
+    name: 'Event',
+    components: { BorderBottom }
 };
 </script>
 
 <style lang="scss" scoped>
 .event {
+    .mb-12::v-deep {
+        margin: 0 !important;
+    }
+
+    .col-sm-3 {
+        max-width: 20%;
+        min-width: 215px;
+    }
+
     .event-date {
         padding: 20px 55px;
         background-color: rgb(224, 224, 224, 0.2);
@@ -67,16 +139,26 @@ export default {
         }
     }
 
+    .v-expansion-panel-header::v-deep {
+        padding: 11px 55px;
+    }
+
+    .v-expansion-panel-content::v-deep {
+        padding: 23px 55px;
+
+        .v-expansion-panel-content__wrap {
+            padding: 0;
+        }
+    }
+
     .event-time-name {
-        padding: 0 55px;
+        .col {
+            padding: 0;
+        }
 
         .v-expansion-panel-header {
             padding: 0;
             height: 110px;
-        }
-
-        .mb-12::v-deep {
-            margin: 0 !important;
         }
 
         .time {
@@ -92,7 +174,6 @@ export default {
     }
 
     .user-name {
-        margin-top: 28px;
         font-weight: 600;
         font-size: 16px;
         line-height: 20px;
@@ -112,6 +193,79 @@ export default {
         span {
             color: #2c2c2c;
             font-weight: normal;
+        }
+    }
+
+    .event-detail {
+        margin-bottom: 0px !important;
+
+        .col {
+            padding: 0;
+        }
+
+        .action-col {
+            &__button::v-deep {
+                margin-bottom: 5px;
+                padding: 0px 2px;
+                display: block;
+
+                span.v-btn__content {
+                    font-family: Inter;
+                    font-style: normal;
+                    font-size: 13px;
+                    line-height: 16px;
+                    text-transform: none;
+                }
+            }
+
+            &__button i {
+                padding-right: 10px;
+                color: var(--v-primary-base);
+            }
+
+            &__button::v-deep:before {
+                background-color: transparent;
+            }
+
+            &__button::v-deep:hover,
+            &__button::v-deep[aria-expanded='true'] {
+                span.v-btn__content {
+                    opacity: 0.9;
+                }
+            }
+        }
+
+        .info-col {
+            ul {
+                padding: 0;
+            }
+
+            li {
+                margin-bottom: 24px;
+                list-style: none;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: 0.25px;
+                text-transform: capitalize;
+                color: #989898;
+
+                span {
+                    display: block;
+                    color: #2c2c2c;
+                    font-size: 16px;
+                }
+            }
+
+            .created {
+                margin-bottom: 0;
+                font-weight: normal;
+                font-size: 9px;
+                line-height: 16px;
+                letter-spacing: 0.4px;
+                color: #2c2c2c;
+            }
         }
     }
 }
