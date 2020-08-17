@@ -10,7 +10,7 @@ final class GetEventTypeCollectionRequest
 
     public function __construct(?string $searchString)
     {
-        $this->searchString = $searchString ? mb_strtolower($searchString) : '';
+        $this->searchString = $searchString;
     }
 
     public function getSearchString(): ?string

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Criteria;
+namespace App\Contracts;
 
 use Illuminate\Database\Eloquent\Builder;
 
-interface Criteria
+interface EloquentCriterion
 {
     public function apply(Builder $builder): Builder;
 }

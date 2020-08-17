@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repositories\EventType;
 
+use App\Contracts\EloquentCriterion;
 use App\Entity\EventType;
-use App\Repositories\Criteria\Criteria;
 use Illuminate\Support\Collection;
 
 interface EventTypeRepositoryInterface
@@ -15,5 +15,5 @@ interface EventTypeRepositoryInterface
     public function deleteById(int $id): void;
     public function saveAvailabilities(EventType $eventType, array $availabilities): void;
     public function deleteAvailabilities(EventType $eventType): void;
-    public function findByCriteria(Criteria ...$criterias): Collection;
+    public function findByCriteria(EloquentCriterion ...$criterias): Collection;
 }

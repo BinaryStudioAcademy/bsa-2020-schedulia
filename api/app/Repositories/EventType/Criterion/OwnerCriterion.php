@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Criteria;
+namespace App\Repositories\EventType\Criterion;
 
+use App\Contracts\EloquentCriterion;
 use Illuminate\Database\Eloquent\Builder;
 
-final class OwnerCriteria implements Criteria
+final class OwnerCriterion implements EloquentCriterion
 {
     private int $ownerId;
 

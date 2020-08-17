@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\EventType;
 
+use App\Contracts\EloquentCriterion;
 use App\Entity\EventType;
 use App\Repositories\BaseRepository;
 use App\Repositories\Criteria\Criteria;
@@ -42,13 +43,12 @@ final class EventTypeRepository extends BaseRepository implements EventTypeRepos
             ->delete();
     }
 
-    public function findByCriteria(Criteria ...$criterias): Collection
+    public function findByCriteria(EloquentCriterion ...$criteria): Collection
     {
-        $eventType = new EventType();
-        $query = $eventType->newQuery();
+        $query = EventType::query();
 
-        foreach ($criterias as $criteria) {
-            $query = $criteria->apply($query);
+        foreach ($criteria as $criterion) {
+            $query = $criterion->apply($query);
         }
 
         return $query->get();
