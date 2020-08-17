@@ -19,7 +19,7 @@
         <VDivider />
         <VRow class="event-type-actions">
             <VCol class="duration text-left" cols="4">
-                <span>/{{ eventType.slug }}</span>
+                <span>/{{ sliceIfLongString(eventType.slug) }}</span>
             </VCol>
             <VCol class="text-right" cols="8">
                 <VBtn
@@ -74,6 +74,11 @@ export default {
                 return '#e5e5e5';
             }
             return this.eventType.color;
+        }
+    },
+    methods: {
+        sliceIfLongString(string) {
+            return string.length >= 11 ? string.slice(0, 10) + '...' : string;
         }
     }
 };
