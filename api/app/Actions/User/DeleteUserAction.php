@@ -33,11 +33,11 @@ final class DeleteUserAction
             $this->imageUploader->remove($user->avatar);
         }
 
-        if($user->branding_logg) {
+        if($user->branding_logo) {
             $this->imageUploader->remove($user->branding_logo);
         }
 
-//        $user->delete();
+        $user->delete();
 
         return new DeleteUserResponse($user);
     }
