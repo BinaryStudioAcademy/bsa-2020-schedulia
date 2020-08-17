@@ -110,22 +110,36 @@
                             <VAlert cols="12" type="error" v-if="errorMessage">
                                 {{ errorMessage }}
                             </VAlert>
-                            <VCol>
-                                <div>
-                                    <VBtn
-                                        class="text cancel v-btn--flat v-btn--outlined"
-                                        @click="resetChanges"
-                                    >
-                                        {{ lang.CANCEL }}
-                                    </VBtn>
-                                    <VBtn
-                                        class="ma-2"
-                                        color="primary"
-                                        dark
-                                        @click="onSaveHandle"
-                                        >{{ lang.SAVE }}
-                                    </VBtn>
-                                </div>
+                            <VCol cols="12">
+                                <VBtn
+                                    class="text cancel v-btn--flat v-btn--outlined mr-4"
+                                    @click="resetChanges"
+                                >
+                                    {{ lang.CANCEL }}
+                                </VBtn>
+                                <VBtn
+                                    class="mr-4"
+                                    color="primary"
+                                    dark
+                                    @click="onSaveHandle"
+                                    >{{ lang.SAVE }}
+                                </VBtn>
+                                <!--<VBtn-->
+                                <!--class="delete"-->
+                                <!--color="red darken-4"-->
+                                <!--dark-->
+                                <!--right-->
+                                <!--@click="onDeleteHandle"-->
+                                <!--&gt;{{ lang.DELETE_ACCOUNT }}-->
+                                <!--</VBtn>-->
+                            </VCol>
+                            <VCol cols="12">
+                                <ConfirmDialog
+                                    :header="lang.DELETE_ACCOUNT"
+                                    :content="lang.DELETE_ACCOUNT_WARNING_TEXT"
+                                    :buttonText="lang.DELETE_ACCOUNT"
+                                    @confirm="onDeleteHandle"
+                                />
                             </VCol>
                         </VRow>
                     </VContainer>
@@ -141,6 +155,7 @@ import { mapActions, mapGetters } from 'vuex';
 import ProfileTextField from './ProfileTextField.vue';
 import ProfileTextArea from './ProfileTextArea.vue';
 import ProfileSelect from './ProfileSelect.vue';
+import ConfirmDialog from '@/components/confirm/ConfirmDialog.vue';
 import momentTimezone from 'moment-timezone';
 
 export default {
@@ -148,7 +163,8 @@ export default {
     components: {
         ProfileTextField,
         ProfileTextArea,
-        ProfileSelect
+        ProfileSelect,
+        ConfirmDialog
     },
     data: () => ({
         lang: enLang,
@@ -197,7 +213,13 @@ export default {
     },
 
     methods: {
-        ...mapActions('profile', ['updateAvatar', 'updateProfile']),
+        ...mapActions('profile', [
+            'updateAvatar',
+            'updateProfile',
+            'deleteProfile'
+        ]),
+
+        ...mapActions('auth', ['signOut']),
 
         onChangeHandle(property, value) {
             this.userProfile[property] = value;
@@ -221,6 +243,16 @@ export default {
                 });
 
                 this.userProfile = { ...userData };
+            } catch (error) {
+                this.showErrorMessage(error.message);
+            }
+        },
+
+        async onDeleteHandle() {
+            try {
+                await this.deleteProfile();
+                this.signOut();
+                this.$router.push({ name: 'SignIn' });
             } catch (error) {
                 this.showErrorMessage(error.message);
             }
