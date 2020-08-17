@@ -9,19 +9,20 @@
                     dense
                     filled
                     solo-inverted
-                    v-model="search"
+                    v-model="searchString"
+                    @input="onSearchInput"
                 ></VTextField>
             </VCol>
         </div>
         <ActionBlock />
         <VDivider />
-        <div class="event-types-block row" v-if="searchedEventTypes.length">
+        <div class="event-types-block row" v-if="eventTypes.length">
             <VCol
                 cols="12"
                 md="4"
                 lg="3"
                 sm="6"
-                v-for="eventType in searchedEventTypes"
+                v-for="eventType in eventTypes"
                 :key="eventType.id"
             >
                 <EventType :eventType="eventType" />
@@ -48,13 +49,17 @@ export default {
         NoEventTypes
     },
     data: () => ({
-        search: '',
+        searchString: '',
         lang: enLang
     }),
     methods: {
         ...mapActions('eventTypes', {
-            fetchAllEventTypes: actions.FETCH_ALL_EVENT_TYPES
-        })
+            fetchAllEventTypes: actions.FETCH_ALL_EVENT_TYPES,
+            searchEventTypes: actions.SEARCH_EVENT_TYPE
+        }),
+        async onSearchInput() {
+            await this.searchEventTypes(this.searchString);
+        }
     },
     async mounted() {
         await this.fetchAllEventTypes();
@@ -62,14 +67,7 @@ export default {
     computed: {
         ...mapGetters('eventTypes', {
             eventTypes: getters.GET_ALL_EVENT_TYPES
-        }),
-        searchedEventTypes() {
-            return this.eventTypes.filter(eventType => {
-                return eventType.name
-                    .toLowerCase()
-                    .startsWith(this.search.toLowerCase());
-            });
-        }
+        })
     }
 };
 </script>
