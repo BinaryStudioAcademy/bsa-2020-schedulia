@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions\EventType;
 
 use App\Contracts\AvailabilityServiceInterface;
+use App\Entity\Availability;
 use App\Entity\EventType;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
 use App\Services\Availability\AvailabilityService;
@@ -35,9 +36,13 @@ final class AddEventTypeAction
         $eventType->timezone = $request->getTimezone();
         $eventType->disabled = $request->getDisabled();
 
-        if ($this->availabilityService->validateAvailabilities($request->getAvailabilities())) {
+        $availabilities = collect($request->getAvailabilities())->map(function ($availability) {
+            return new Availability($availability);
+        });
+
+        if ($this->availabilityService->validateAvailabilities($availabilities, $request->getDuration())) {
             $eventType = $this->eventTypeRepository->save($eventType);
-            $this->eventTypeRepository->saveAvailabilities($eventType, $request->getAvailabilities());
+            $this->eventTypeRepository->saveAvailabilities($eventType, $availabilities->toArray());
         }
 
         return new AddEventTypeResponse($eventType);
