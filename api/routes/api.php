@@ -20,6 +20,7 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Api\\Auth'], function () {
     Route::post('/login', 'AuthController@login')->name('login');
     Route::post('/logout', 'AuthController@logout')->middleware('auth:api');
     Route::get('/me', 'AuthController@me')->middleware('auth:api');
+    Route::get('/email/verify', 'VerificationController@verify')->name('verification.verify');
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

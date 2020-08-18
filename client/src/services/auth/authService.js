@@ -32,6 +32,11 @@ const authService = {
     },
     hasToken() {
         return !!localStorage.getItem('auth.accessToken');
+    },
+
+    async verifyEmail(payload) {
+        const response = await requestService.get('/auth/email/verify', payload);
+        return response?.data?.data;
     }
 };
 

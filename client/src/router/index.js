@@ -79,8 +79,15 @@ const routes = [
                         path: 'new-event-edit',
                         name: 'new-event-edit',
                         component: () => import('../views/NewEventTypeBooking')
-                    }
+                    },
                 ]
+            },
+
+            {
+                path: 'verified-email',
+                name: 'verified-email',
+                component: () => import('../views/VerifiedEmail')
+
             }
         ]
     }
