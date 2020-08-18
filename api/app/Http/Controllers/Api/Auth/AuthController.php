@@ -6,7 +6,7 @@ use App\Actions\Auth\GetAuthenticatedUserAction;
 use App\Actions\Auth\LoginAction;
 use App\Actions\Auth\LoginRequest;
 use App\Actions\Auth\LogoutAction;
-use App\Actions\Auth\ResetAction;
+use App\Actions\Auth\ResetPasswordAction;
 use App\Actions\Auth\ResetRequest;
 use App\Actions\Auth\sendLinkForgotPasswordAction;
 use App\Actions\Auth\sendLinkForgotPasswordRequest;
@@ -26,16 +26,16 @@ final class AuthController extends ApiController
 {
     private RegisterAction $registerAction;
     private $presenter;
-    private ResetAction $resetAction;
+    private ResetPasswordAction $resetPasswordAction;
 
     public function __construct(
         RegisterAction $registerAction,
         UserArrayPresenter $registerResponseArrayPresenter,
-        ResetAction $resetAction
+        ResetPasswordAction $resetAction
     ) {
         $this->registerAction = $registerAction;
         $this->presenter = $registerResponseArrayPresenter;
-        $this->resetAction = $resetAction;
+        $this->resetPasswordAction = $resetAction;
     }
 
     public function register(RegisterHttpRequest $request)
@@ -88,12 +88,12 @@ final class AuthController extends ApiController
     {
         $request = new sendLinkForgotPasswordRequest($httpRequest->email);
         $response = $action->execute($request)->getData();
-        return $this->successResponse(['msg'=>'Letter with reset link was send', 'email'=>$response['email']]);
+        return $this->successResponse(['message'=>'Letter with reset link was sent', 'email'=>$response['email'], 'code'=>201]);
     }
 
     public function resetPassword(ResetHttpRequest $request)
     {
-        $response = $this->resetAction->execute(
+        $response = $this->resetPasswordAction->execute(
             new ResetRequest(
                 $request->get('email'),
                 $request->get('password'),
@@ -101,6 +101,6 @@ final class AuthController extends ApiController
             )
         )->getData();
 
-        return $this->successResponse(['msg'=>'Password was changed','status'=>$response['status']]);
+        return $this->successResponse(['message'=>'Password was changed','status'=>$response['status']]);
     }
 }

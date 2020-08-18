@@ -9,7 +9,7 @@ use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 
-final class ResetAction
+final class ResetPasswordAction
 {
     private UserRepository $userRepository;
 
@@ -32,7 +32,7 @@ final class ResetAction
                 $this->userRepository->save($user);
             }
         );
-        if ($reset_password_status != Password::PASSWORD_RESET) {
+        if ($reset_password_status !== Password::PASSWORD_RESET) {
             throw new InvalidTokenOrUser();
         }
         return new ResetResponse(['status'=>201]);
