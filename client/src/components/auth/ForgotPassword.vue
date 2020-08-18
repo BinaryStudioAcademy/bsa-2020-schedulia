@@ -7,7 +7,7 @@
                 <label>{{ lang.EMAIL }}*</label>
                 <VTextField
                     id="email"
-                    :value="email"
+                    :value="emailForgot"
                     :error-messages="emailErrors"
                     @input="setEmailOnInput"
                     @blur="setEmail"
@@ -36,15 +36,15 @@
             <VSpacer class="pa-4" />
             <VCol cols="11" sm="11" md="8" class="pa-0">
                 <VAlert
-                    :type="typeResultSubmitResetPassword"
+                    :type="typeResultSubmitForgotPassword"
                     dense
                     outlined
                     text
                     dismissible
-                    :value="helperVisibility"
+                    :value="helperVisibilityForgot"
                 >
-                    <h6>{{ resultOfSubmitResetPassword }}</h6>
-                    <p>{{ explanation }}</p>
+                    <h6>{{ resultSubmitForgotPassword }}</h6>
+                    <p>{{ explanationForgot }}</p>
                 </VAlert>
             </VCol>
         </VForm>
@@ -65,14 +65,14 @@ export default {
     components: {},
     data: () => ({
         lang: enLang,
-        email: '',
-        resultSubmitResetPassword: '',
-        typeResultSubmitResetPassword: '',
-        explanation: '',
-        helperVisibility: false
+        emailForgot: '',
+        resultSubmitForgotPassword: '',
+        typeResultSubmitForgotPassword: '',
+        explanationForgot: '',
+        helperVisibilityForgot: false
     }),
     validations: {
-        email: { required, email }
+        emailForgot: { required, email }
     },
     methods: {
         ...mapActions('auth', {
@@ -82,32 +82,37 @@ export default {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
         }),
         setEmail(e) {
-            this.email = e.target.value;
-            this.$v.email.$touch();
+            this.emailForgot = e.target.value;
+            this.$v.emailForgot.$touch();
+            this.helperVisibilityForgot = false;
         },
         setEmailOnInput(e) {
-            this.email = e;
-            this.$v.email.$touch();
+            this.emailForgot = e;
+            this.$v.emailForgot.$touch();
+            this.helperVisibilityForgot = false;
         },
         async onSubmit() {
             this.$v.$touch();
             if (!this.$v.$invalid) {
                 try {
-                    const dataForgot = { email: this.email };
-                    const answer = await this.forgotPassword(dataForgot);
-                    if ('error' in answer) {
-                        this.typeResultSubmitResetPassword = 'error';
-                        this.resultOfSubmitResetPassword = this.lang.THE_USER_WITH_THE_SPECIFIED_EMAIL_DOES_NOT_EXIST;
-                        this.explanation = this.lang.LETTER_EXPLANATION_EMAIL_DONOT_EXIST;
-                    } else if ('data' in answer && answer?.data?.code === 201) {
-                        this.typeResultSubmitResetPassword = 'success';
-                        this.resultOfSubmitResetPassword =
+                    const dataForgot = { email: this.emailForgot };
+                    const response = await this.forgotPassword(dataForgot);
+                    if ('error' in response) {
+                        this.resultSubmitForgotPassword = 'error';
+                        this.resultSubmitForgotPassword = this.lang.THE_USER_WITH_THE_SPECIFIED_EMAIL_DOES_NOT_EXIST;
+                        this.explanationForgot = this.lang.LETTER_EXPLANATION_EMAIL_DONOT_EXIST;
+                    } else if (
+                        'data' in response &&
+                        response?.data?.code === 201
+                    ) {
+                        this.resultSubmitForgotPassword = 'success';
+                        this.typeResultSubmitForgotPassword =
                             this.lang.LETTER_WITH_RESET_LINK_WAS_SENT +
                             ' ' +
-                            answer?.data?.email;
-                        this.explanation = this.lang.LETTER_EXPLANATION_EMAIL_EXIST;
+                            response?.data?.email;
+                        this.explanationForgot = this.lang.LETTER_EXPLANATION_EMAIL_EXIST;
                     }
-                    this.helperVisibility = true;
+                    this.helperVisibilityForgot = true;
                 } catch (error) {
                     this.setErrorNotification(error);
                 }
@@ -119,11 +124,13 @@ export default {
     computed: {
         emailErrors() {
             const errors = [];
-            if (!this.$v.email.$dirty) {
+            if (!this.$v.emailForgot.$dirty) {
                 return errors;
             }
-            !this.$v.email.email && errors.push(this.lang.MUST_BE_VALID_EMAIL);
-            !this.$v.email.required && errors.push(this.lang.EMAIL_IS_REQUIRED);
+            !this.$v.emailForgot.email &&
+                errors.push(this.lang.MUST_BE_VALID_EMAIL);
+            !this.$v.emailForgot.required &&
+                errors.push(this.lang.EMAIL_IS_REQUIRED);
             return errors;
         }
     }
