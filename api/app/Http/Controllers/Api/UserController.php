@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\User\UpdateUserPasswordAction;
+use App\Actions\User\DeleteUserAction;
+use App\Actions\User\DeleteUserRequest;
 use App\Actions\User\UpdateUserAction;
+use App\Actions\User\UpdateUserPasswordRequest;
 use App\Actions\User\UpdateUserRequest;
 use App\Http\Presenters\UserArrayPresenter;
+use App\Http\Requests\Api\User\UpdateUserPasswordRequest as UserPasswordRequest;
 use App\Http\Requests\Api\User\UpdateUserRequest as UserRequest;
 
 use Illuminate\Http\JsonResponse;
@@ -13,13 +18,19 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends ApiController
 {
     private UpdateUserAction $updateUserAction;
+    private UpdateUserPasswordAction $updateUserPasswordAction;
+    private DeleteUserAction $deleteUserAction;
     private UserArrayPresenter $userArrayPresenter;
 
     public function __construct(
         UpdateUserAction $updateUserAction,
+        UpdateUserPasswordAction $updateUserPasswordAction,
+        DeleteUserAction $deleteUserAction,
         UserArrayPresenter $userArrayPresenter
     ) {
         $this->updateUserAction = $updateUserAction;
+        $this->updateUserPasswordAction = $updateUserPasswordAction;
+        $this->deleteUserAction = $deleteUserAction;
         $this->userArrayPresenter = $userArrayPresenter;
     }
 
@@ -41,8 +52,21 @@ class UserController extends ApiController
         return $this->successResponse($this->userArrayPresenter->present($response->getProfile()));
     }
 
-    public function delete($id)
+    public function delete(): JsonResponse
     {
-        //
+        $this->deleteUserAction->execute(new DeleteUserRequest(Auth::id()));
+
+        return $this->emptyResponse();
+    }
+
+    public function updatePassword(UserPasswordRequest $request): JsonResponse
+    {
+        $this->updateUserPasswordAction->execute(new UpdateUserPasswordRequest(
+            Auth::id(),
+            $request->get('oldPassword'),
+            $request->get('password'),
+        ));
+
+        return $this->emptyResponse();
     }
 }
