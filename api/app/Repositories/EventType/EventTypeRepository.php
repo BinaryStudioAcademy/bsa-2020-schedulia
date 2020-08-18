@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Repositories\EventType;
 
+use App\Contracts\EloquentCriterion;
 use App\Entity\EventType;
 use App\Repositories\BaseRepository;
+use App\Repositories\Criteria\Criteria;
 use Illuminate\Support\Collection;
 
 final class EventTypeRepository extends BaseRepository implements EventTypeRepositoryInterface
@@ -27,11 +29,6 @@ final class EventTypeRepository extends BaseRepository implements EventTypeRepos
         EventType::destroy($id);
     }
 
-    public function getEventTypesByOwnerId(int $id): Collection
-    {
-        return EventType::where('owner_id', $id)->get();
-    }
-
     public function saveAvailabilities(EventType $eventType, array $availabilities): void
     {
         $eventType
@@ -44,5 +41,16 @@ final class EventTypeRepository extends BaseRepository implements EventTypeRepos
         $eventType
             ->availabilities()
             ->delete();
+    }
+
+    public function findByCriteria(EloquentCriterion ...$criteria): Collection
+    {
+        $query = EventType::query();
+
+        foreach ($criteria as $criterion) {
+            $query = $criterion->apply($query);
+        }
+
+        return $query->get();
     }
 }
