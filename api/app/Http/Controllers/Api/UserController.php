@@ -61,12 +61,11 @@ class UserController extends ApiController
 
     public function updatePassword(UserPasswordRequest $request): JsonResponse
     {
-
         $this->updateUserPasswordAction->execute(new UpdateUserPasswordRequest(
             Auth::id(),
             $request->get('oldPassword'),
             $request->get('password'),
-            ));
+        ));
 
         return $this->emptyResponse();
     }
