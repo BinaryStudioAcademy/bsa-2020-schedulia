@@ -4,7 +4,7 @@
         <VSelect
             :value="inputValue"
             :items="timeZones"
-            :placeholder="label"
+            :placeholder="lang.TIME_ZONE"
             @change="onChange"
             dense
             required
@@ -31,16 +31,14 @@ export default {
 
     created() {
         const timeZones = momentTimezone.tz.names();
-        let offsetTimemZones = [];
-
-        for (let i in timeZones) {
-            offsetTimemZones.push({
-                value: timeZones[i],
-                text: `(GMT ${momentTimezone.tz(timeZones[i]).format('Z')}) ${
-                    timeZones[i]
-                }`
-            });
-        }
+        const offsetTimemZones = timeZones.map(timeZone => {
+            return {
+                value: timeZone,
+                text: `(GMT ${momentTimezone
+                    .tz(timeZone)
+                    .format('Z')}) ${timeZone}`
+            };
+        });
 
         this.timeZones = offsetTimemZones;
     },
