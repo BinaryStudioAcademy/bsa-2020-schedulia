@@ -29,8 +29,7 @@ class DeleteApiTest extends TestCase
 
         $response = $this->actingAs($user)->json("DELETE", "/api/v1/profiles/me");
 
-        $response->assertStatus(200)
-            ->assertHeader('Content-Type', 'application/json');
+        $response->assertStatus(204);
 
         $this->assertDatabaseMissing('users', $user->attributesToArray());
     }
