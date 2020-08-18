@@ -51,7 +51,7 @@ class UpdatePasswordApiTest extends TestCase
 
         $response = $this->actingAs($user)->json("PUT", "/api/v1/profiles/me/password", $dataToUpdate);
 
-        $response->assertStatus(401)
+        $response->assertStatus(422)
             ->assertHeader('Content-Type', 'application/json')
             ->assertJsonFragment(['message' => 'Invalid old password has been provided']);
     }
