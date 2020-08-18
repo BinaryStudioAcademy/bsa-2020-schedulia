@@ -9,5 +9,4 @@ use Throwable;
 
 abstract class BaseException extends DomainException
 {
-
 }
