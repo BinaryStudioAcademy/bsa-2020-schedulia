@@ -3,18 +3,18 @@
 </template>
 
 <script>
-    import NoEvents from '../NoEvents';
-    import enLang from '@/store/modules/i18n/en.js';
+import NoEvents from '../NoEvents';
+import enLang from '@/store/modules/i18n/en.js';
 
-    export default {
-        name: 'Pending',
+export default {
+    name: 'Pending',
 
-        data: () => ({
-            lang: enLang
-        }),
+    data: () => ({
+        lang: enLang
+    }),
 
-        components: { NoEvents }
-    };
+    components: { NoEvents }
+};
 </script>
 
 <style scoped></style>

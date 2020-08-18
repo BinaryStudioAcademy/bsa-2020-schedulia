@@ -4,8 +4,14 @@ import scheduledEventService from '@/services/scheduled-event/scheduledEventsSer
 import { SET_ERROR_NOTIFICATION } from '@/store/modules/notification/types/actions';
 
 export default {
-    [actions.SET_SCHEDULED_EVENT_FILTER_VIEW]: async ({ commit }, scheduledEventFilterView) => {
-        commit(mutations.SET_SCHEDULED_EVENT_FILTER_VIEW, scheduledEventFilterView);
+    [actions.SET_SCHEDULED_EVENT_FILTER_VIEW]: async (
+        { commit },
+        scheduledEventFilterView
+    ) => {
+        commit(
+            mutations.SET_SCHEDULED_EVENT_FILTER_VIEW,
+            scheduledEventFilterView
+        );
     },
 
     [actions.SET_SCHEDULED_EVENTS]: async ({ commit }) => {

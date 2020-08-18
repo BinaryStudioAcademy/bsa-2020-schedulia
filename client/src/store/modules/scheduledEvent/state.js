@@ -6,6 +6,6 @@ export default {
             pageStartEventNum: 0,
             pageEndEventNum: 0,
             allEvents: 0
-        },
+        }
     }
 };

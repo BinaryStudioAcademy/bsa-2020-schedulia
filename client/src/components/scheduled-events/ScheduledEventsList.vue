@@ -20,7 +20,7 @@ import Past from './Past/Past';
 import enLang from '@/store/modules/i18n/en.js';
 import FilterButton from './FilterButton';
 import ExportButton from './ExportButton';
-import Pagination from "./Pagination";
+import Pagination from './Pagination';
 
 export default {
     name: 'ScheduledEventList',
@@ -43,7 +43,7 @@ export default {
 </script>
 
 <style scoped>
-    .container-content.pagination {
-        margin-top: 0;
-    }
+.container-content.pagination {
+    margin-top: 0;
+}
 </style>

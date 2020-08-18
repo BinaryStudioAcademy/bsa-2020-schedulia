@@ -4,7 +4,10 @@
         <BorderBottom />
         <div v-if="scheduledEvents">
             <template v-for="scheduledEvent in scheduledEvents">
-                <Event :key="scheduledEvent.id" :scheduledEvent="scheduledEvent" />
+                <Event
+                    :key="scheduledEvent.id"
+                    :scheduledEvent="scheduledEvent"
+                />
             </template>
         </div>
         <NoEvents v-else>{{ lang.NO_PAST_EVENTS }}</NoEvents>
@@ -37,7 +40,8 @@ export default {
 
     computed: {
         ...mapGetters('scheduledEvent', {
-            scheduledEventsFilterView: scheduledEventGetters.GET_SCHEDULED_EVENT_FILTER_VIEW,
+            scheduledEventsFilterView:
+                scheduledEventGetters.GET_SCHEDULED_EVENT_FILTER_VIEW,
             scheduledEvents: scheduledEventGetters.GET_SCHEDULED_EVENTS
         })
     },

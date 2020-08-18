@@ -94,7 +94,8 @@
                                     </span>
                                 </li>
                                 <li class="created">
-                                    {{ lang.CREATED }} {{ scheduledEvent.created_at }}
+                                    {{ lang.CREATED }}
+                                    {{ scheduledEvent.created_at }}
                                 </li>
                             </ul>
                         </VCol>
