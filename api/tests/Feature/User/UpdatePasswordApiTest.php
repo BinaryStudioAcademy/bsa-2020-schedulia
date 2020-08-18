@@ -3,6 +3,7 @@
 namespace Tests\Feature\User;
 
 use App\Entity\User;
+use App\Exceptions\ErrorCode;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -51,9 +52,8 @@ class UpdatePasswordApiTest extends TestCase
 
         $response = $this->actingAs($user)->json("PUT", "/api/v1/profiles/me/password", $dataToUpdate);
 
-        $response->assertStatus(422)
-            ->assertHeader('Content-Type', 'application/json')
-            ->assertJsonFragment(['message' => 'Invalid old password has been provided']);
+        $response->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json');
     }
 
     public function testValidData()
