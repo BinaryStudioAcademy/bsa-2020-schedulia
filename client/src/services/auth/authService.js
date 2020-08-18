@@ -35,7 +35,7 @@ const authService = {
     },
 
     async verifyEmail(payload) {
-        const response = await requestService.get('/auth/email/verify', payload);
+        const response = await requestService.post('/auth/email/verify', payload);
         return response?.data?.data;
     }
 };
