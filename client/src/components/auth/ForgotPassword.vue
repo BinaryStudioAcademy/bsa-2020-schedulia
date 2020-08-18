@@ -4,13 +4,13 @@
         <p class="info-text">{{ lang.ENTER_YOUR_EMAIL_ADDRESS }}</p>
         <VForm>
             <VCol cols="11" sm="11" md="8" class="pa-0 py-4">
-                <label for="email">{{ lang.EMAIL }}*</label>
+                <label>{{ lang.EMAIL }}*</label>
                 <VTextField
                     id="email"
                     :value="email"
                     :error-messages="emailErrors"
                     @input="setEmailOnInput"
-                    @blur="setEmail($event.target.value)"
+                    @blur="setEmail"
                     outlined
                     dense
                     class="rounded"
@@ -22,7 +22,7 @@
                         height="44"
                         class="login-button  primary"
                         depressed
-                        @click="onSignIn"
+                        @click="onSubmit"
                         >{{ lang.SEND_RESET_INSTRUCTION }}
                     </VBtn>
                     <RouterLink
@@ -33,14 +33,31 @@
                     </RouterLink>
                 </VRow>
             </VCol>
+            <VSpacer class="pa-4" />
+            <VCol cols="11" sm="11" md="8" class="pa-0">
+                <VAlert
+                    :type="typeResultSubmitResetPassword"
+                    dense
+                    outlined
+                    text
+                    dismissible
+                    :value="helperVisibility"
+                >
+                    <h6>{{ resultOfSubmitResetPassword }}</h6>
+                    <p>{{ explanation }}</p>
+                </VAlert>
+            </VCol>
         </VForm>
     </div>
 </template>
 
 <script>
+import * as actions from '@/store/modules/auth/types/actions';
+import { mapActions } from 'vuex';
 import enLang from '@/store/modules/i18n/en';
 import { validationMixin } from 'vuelidate';
 import { required, email } from 'vuelidate/lib/validators';
+import * as notificationActions from '@/store/modules/notification/types/actions';
 
 export default {
     name: 'ForgotPassword',
@@ -48,19 +65,55 @@ export default {
     components: {},
     data: () => ({
         lang: enLang,
-        email: ''
+        email: '',
+        resultSubmitResetPassword: '',
+        typeResultSubmitResetPassword: '',
+        explanation: '',
+        helperVisibility: false
     }),
     validations: {
         email: { required, email }
     },
     methods: {
-        setEmail(value) {
-            this.email = value;
+        ...mapActions('auth', {
+            forgotPassword: actions.FORGOT_PASSWORD
+        }),
+        ...mapActions('notification', {
+            setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
+        }),
+        setEmail(e) {
+            this.email = e.target.value;
             this.$v.email.$touch();
         },
         setEmailOnInput(e) {
             this.email = e;
             this.$v.email.$touch();
+        },
+        async onSubmit() {
+            this.$v.$touch();
+            if (!this.$v.$invalid) {
+                try {
+                    const dataForgot = { email: this.email };
+                    const answer = await this.forgotPassword(dataForgot);
+                    if ('error' in answer) {
+                        this.typeResultSubmitResetPassword = 'error';
+                        this.resultOfSubmitResetPassword = this.lang.THE_USER_WITH_THE_SPECIFIED_EMAIL_DOES_NOT_EXIST;
+                        this.explanation = this.lang.LETTER_EXPLANATION_EMAIL_DONOT_EXIST;
+                    } else if ('data' in answer && answer?.data?.code === 201) {
+                        this.typeResultSubmitResetPassword = 'success';
+                        this.resultOfSubmitResetPassword =
+                            this.lang.LETTER_WITH_RESET_LINK_WAS_SENT +
+                            ' ' +
+                            answer?.data?.email;
+                        this.explanation = this.lang.LETTER_EXPLANATION_EMAIL_EXIST;
+                    }
+                    this.helperVisibility = true;
+                } catch (error) {
+                    this.setErrorNotification(error);
+                }
+            } else {
+                this.setErrorNotification(this.lang.PLEASE_ENTER_CORRECT_DATA);
+            }
         }
     },
     computed: {
@@ -84,6 +137,12 @@ h4 {
     font-size: 34px;
     line-height: 44px;
     letter-spacing: -0.44px;
+}
+h6 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 32px;
 }
 .title-of-card {
     color: var(--v-primary-base);

@@ -38,9 +38,14 @@ const routes = [
             },
 
             {
-                path: 'forgot',
+                path: 'forgot-password',
                 name: 'ForgotPassword',
                 component: () => import('../views/ForgotPassword')
+            },
+            {
+                path: 'reset-password',
+                name: 'ResetPassword',
+                component: () => import('../views/ResetPassword')
             },
             {
                 path: '',
