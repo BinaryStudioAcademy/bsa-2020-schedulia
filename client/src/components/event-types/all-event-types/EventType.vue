@@ -103,6 +103,9 @@ export default {
 .duration span {
     color: var(--v-primary-base);
     font-size: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .disabled-event {
     user-select: none;

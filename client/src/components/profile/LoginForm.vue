@@ -18,7 +18,7 @@
                                 />
                             </VCol>
                             <VCol cols="12">
-                                <ProfilePasswordField
+                                <ProfileDisabledField
                                     :label="lang.PASSWORD"
                                     :value="password"
                                     :defaultValue="password"
@@ -40,14 +40,12 @@ import enLang from '@/store/modules/i18n/en.js';
 import { mapGetters } from 'vuex';
 import ChangePasswordForm from './ChangePasswordForm.vue';
 import ProfileDisabledField from './ProfileDisabledField.vue';
-import ProfilePasswordField from './ProfilePasswordField.vue';
 
 export default {
     name: 'LoginForm',
     components: {
         ChangePasswordForm,
-        ProfileDisabledField,
-        ProfilePasswordField
+        ProfileDisabledField
     },
     data: () => ({
         lang: enLang,
@@ -62,13 +60,7 @@ export default {
         }),
 
         password() {
-            return 'password';
-        }
-    },
-
-    methods: {
-        onChangeHandle(property, value) {
-            this.userProfile[property] = value;
+            return '******';
         }
     }
 };

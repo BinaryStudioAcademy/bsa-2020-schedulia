@@ -7,10 +7,14 @@ export default {
     CHARACTERS: 'Characters',
     CHANGE_PASSWORD: 'Change password',
     COUNTRY: 'Country',
+    CONFIRM: 'Confirm',
     CLOSE: 'Close',
     CURRENT_PASSWORD: 'Current password',
 
     DATE_FORMAT: 'Date format',
+    DELETE_ACCOUNT: 'Delete account',
+    DELETE_ACCOUNT_WARNING_TEXT:
+        'You are about to delete your Schedulia account. This will go into effect immediately and you will no longer have access to your account data.',
 
     EMAIL: 'Email',
     ENGLISH: 'English',
