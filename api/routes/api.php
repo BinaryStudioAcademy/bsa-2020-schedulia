@@ -64,6 +64,7 @@ Route::group([
 ], function () {
     Route::put('/me', 'UserController@store');
     Route::delete('/me', 'UserController@delete');
+    Route::put('/me/password', 'UserController@updatePassword');
 });
 
 Route::group([

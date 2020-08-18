@@ -56,7 +56,7 @@ export default {
     NAME: 'Name',
     NEW_PASSWORD: 'New password',
 
-    UPDATE: 'Update',
+    UPDATE: 'UPDATE',
     UKRAINIAN: 'Ukrainian',
 
     YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD:
@@ -147,6 +147,13 @@ export default {
 
     SUCCESSFULLY_SIGNINED: 'Successfully sign in! ',
     FORGOT_PASSWORD: 'Forgot Password?',
+
+    SCHEDULED_EVENTS: 'Scheduled events',
+    UPCOMING: 'Upcoming',
+    PENDING: 'Pending',
+    PAST: 'Past',
+    DATE_RANGE: 'Date Range',
+
     NEW_EVENT_TYPE: 'New Event Type',
     DELETE: 'Delete',
     DIALOG_EVENT_TYPE_DELETE_CONFIRM:
@@ -169,7 +176,6 @@ export default {
     WHEN_CAN_PEOPLE_BOOK_EVENT: 'When can people book this event?',
     EVENT_DURATION: 'Event Duration',
     CUSTOM_DURATION: 'Custom Duration',
-    DATE_RANGE: 'Date Range',
     EVENTS_CAN_BE_SCHEDULED_OVER_60_DAYS:
         'Events can be scheduled over 60 calendar days',
     EVENT_TIME_ZONE: 'Event Time Zone',
@@ -223,5 +229,19 @@ export default {
     SEARCH: 'Search',
     MINS: 'mins',
     SEARCH_FIELD_MUST_BE_LESS_THAN:
-        'Search field must be less than 250 characters length.'
+        'Search field must be less than 250 characters length.',
+    DISPLAYING: 'Displaying',
+    OF: 'of',
+    EVENTS: 'Events',
+    FILTER: 'Filter',
+    EXPORT: 'Export',
+    CREATED: 'Created',
+    QUESTIONS: 'Questions',
+    INVITEE_TIME_ZONE: 'Invitee time zone',
+    LOCATION: 'Location',
+    INVITE_AGAIN: 'Invite Again',
+    EVENT_TYPE: 'Event type',
+    NO_UPCOMING_EVENTS: 'No Upcoming Events',
+    NO_PENDING_EVENTS: 'No Pending Events',
+    NO_PAST_EVENTS: 'No Past Events'
 };
