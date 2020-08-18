@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\Auth;
 
-final class sendLinkForgotPasswordResponse
+final class ResetPasswordResponse
 {
     private array $data;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\Auth;
 
-final class ResetRequest
+final class ResetPasswordRequest
 {
     private string $email;
     private string $password;

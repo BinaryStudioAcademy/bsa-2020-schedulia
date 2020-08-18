@@ -9,7 +9,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Password;
 
-final class sendLinkForgotPasswordAction
+final class SendLinkForgotPasswordAction
 {
     private UserRepository $userRepository;
 
@@ -17,13 +17,13 @@ final class sendLinkForgotPasswordAction
     {
         $this->userRepository = $userRepository;
     }
-    public function execute(sendLinkForgotPasswordRequest $request)
+    public function execute(SendLinkForgotPasswordRequest $request)
     {
         if (!$this->userRepository->getByEmail($request->getEmail())) {
             throw new UserWithThisEmailDoesNotExist($request->getEmail());
         }
         ResetPassword::toMailUsing(function ($notifiable, $token) {
-            $linkReset = url(config('app.url') . route('password.reset', ['token' => $token, 'email' => $notifiable->getEmailForPasswordReset()], false));
+            $linkReset =env('CLIENT_APP_URL')."/?token=$token&email= ".$notifiable->getEmailForPasswordReset();
             $count = config('auth.passwords.' . config('auth.defaults.passwords') . '.expire');
             return (new MailMessage())
                 ->subject(Lang::get('Reset Password from Schedulia'))
@@ -31,6 +31,6 @@ final class sendLinkForgotPasswordAction
         });
         $credentials = ['email' =>$request->getEmail()];
         Password::sendResetLink($credentials);
-        return (new sendLinkForgotPasswordResponse(['email' =>$request->getEmail(), 'status'=>200]));
+        return (new SendLinkForgotPasswordResponse(['email' =>$request->getEmail(), 'status'=>200]));
     }
 }

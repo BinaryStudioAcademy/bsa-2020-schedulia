@@ -12,7 +12,7 @@ final class ResetHttpRequest extends ApiFormRequest
     {
         return [
             'email' => 'required|email|max:50',
-            'password' => 'required|confirmed|min:8|string',
+            'password' => 'required|min:8|string',
             'token' => 'required'
         ];
     }

@@ -2,7 +2,7 @@
 
 namespace App\Actions\Auth;
 
-final class sendLinkForgotPasswordRequest
+final class SendLinkForgotPasswordRequest
 {
     private $email;
 

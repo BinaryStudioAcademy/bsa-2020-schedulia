@@ -7,9 +7,9 @@ use App\Actions\Auth\LoginAction;
 use App\Actions\Auth\LoginRequest;
 use App\Actions\Auth\LogoutAction;
 use App\Actions\Auth\ResetPasswordAction;
-use App\Actions\Auth\ResetRequest;
-use App\Actions\Auth\sendLinkForgotPasswordAction;
-use App\Actions\Auth\sendLinkForgotPasswordRequest;
+use App\Actions\Auth\ResetPasswordRequest;
+use App\Actions\Auth\SendLinkForgotPasswordAction;
+use App\Actions\Auth\SendLinkForgotPasswordRequest;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Presenters\AuthenticationResponseArrayPresenter;
 use App\Http\Requests\Api\Auth\LoginHttpRequest;
@@ -83,10 +83,10 @@ final class AuthController extends ApiController
 
     public function sendLinkForgotPassword(
         sendLinkForgotPasswordHttpRequest $httpRequest,
-        sendLinkForgotPasswordAction $action
+        SendLinkForgotPasswordAction $action
     ): JsonResponse
     {
-        $request = new sendLinkForgotPasswordRequest($httpRequest->email);
+        $request = new SendLinkForgotPasswordRequest($httpRequest->email);
         $response = $action->execute($request)->getData();
         return $this->successResponse(['message'=>'Letter with reset link was sent', 'email'=>$response['email'], 'code'=>201]);
     }
@@ -94,13 +94,13 @@ final class AuthController extends ApiController
     public function resetPassword(ResetHttpRequest $request)
     {
         $response = $this->resetPasswordAction->execute(
-            new ResetRequest(
+            new ResetPasswordRequest(
                 $request->get('email'),
                 $request->get('password'),
                 $request->get('token'),
             )
         )->getData();
 
-        return $this->successResponse(['message'=>'Password was changed','status'=>$response['status']]);
+        return $this->successResponse(['message'=>'Password was changed','code'=>$response['code']]);
     }
 }

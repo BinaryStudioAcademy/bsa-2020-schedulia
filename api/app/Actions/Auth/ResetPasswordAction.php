@@ -18,23 +18,23 @@ final class ResetPasswordAction
         $this->userRepository = $userRepository;
     }
 
-    public function execute(ResetRequest $request): ResetResponse
+    public function execute(ResetPasswordRequest $request): ResetPasswordResponse
     {
         $credentials =[
             'email' => $request->getEmail(),
             'password' => Hash::make($request->getPassword()),
             'token'  =>  $request->getToken()
         ];
-        $reset_password_status = Password::reset(
+        $resetPasswordStatus = Password::reset(
             $credentials,
             function ($user, $password) {
                 $user->password = $password;
                 $this->userRepository->save($user);
             }
         );
-        if ($reset_password_status !== Password::PASSWORD_RESET) {
+        if ($resetPasswordStatus !== Password::PASSWORD_RESET) {
             throw new InvalidTokenOrUser();
         }
-        return new ResetResponse(['status'=>201]);
+        return new ResetPasswordResponse(['code'=>201]);
     }
 }
