@@ -23,6 +23,7 @@ import BorderBottom from '../../common/GeneralLayout/BorderBottom';
 import Event from '../Event';
 import NoEvents from '../NoEvents';
 import enLang from '@/store/modules/i18n/en.js';
+import * as notificationActions from '@/store/modules/notification/types/actions';
 
 export default {
     name: 'Past',
@@ -49,6 +50,10 @@ export default {
     methods: {
         ...mapActions('scheduledEvent', {
             setScheduledEvents: scheduledEventActions.SET_SCHEDULED_EVENTS
+        }),
+
+        ...mapActions('notification', {
+            setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
         })
     },
 
@@ -56,7 +61,7 @@ export default {
         try {
             await this.setScheduledEvents();
         } catch (error) {
-            console.error(error.message);
+            this.setErrorNotification(error.message);
         }
     }
 };
