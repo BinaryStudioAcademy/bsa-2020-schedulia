@@ -4,17 +4,23 @@ declare(strict_types=1);
 
 namespace App\Actions\EventType;
 
+use App\Contracts\AvailabilityServiceInterface;
 use App\Entity\EventType;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
+use App\Services\Availability\AvailabilityService;
 use Illuminate\Support\Facades\Auth;
 
 final class AddEventTypeAction
 {
     private EventTypeRepositoryInterface $eventTypeRepository;
+    private AvailabilityServiceInterface $availabilityService;
 
-    public function __construct(EventTypeRepositoryInterface $eventTypeRepository)
-    {
+    public function __construct(
+        EventTypeRepositoryInterface $eventTypeRepository,
+        AvailabilityService $availabilityService
+    ) {
         $this->eventTypeRepository = $eventTypeRepository;
+        $this->availabilityService = $availabilityService;
     }
 
     public function execute(AddEventTypeRequest $request): AddEventTypeResponse
@@ -29,8 +35,10 @@ final class AddEventTypeAction
         $eventType->timezone = $request->getTimezone();
         $eventType->disabled = $request->getDisabled();
 
-        $eventType = $this->eventTypeRepository->save($eventType);
-        $this->eventTypeRepository->saveAvailabilities($eventType, $request->getAvailabilities());
+        if ($this->availabilityService->validateAvailabilities($request->getAvailabilities())) {
+            $eventType = $this->eventTypeRepository->save($eventType);
+            $this->eventTypeRepository->saveAvailabilities($eventType, $request->getAvailabilities());
+        }
 
         return new AddEventTypeResponse($eventType);
     }
