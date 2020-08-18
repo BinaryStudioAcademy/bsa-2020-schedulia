@@ -56,12 +56,13 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception): Response
     {
         if ($exception instanceof BaseException) {
-            return new JsonResponse([
-                'error' => [
-                    'message' => $exception->getMessage(),
-                    'code' => $exception->getCode()
+            return new JsonResponse(
+                [
+                    'error' => [
+                        'message' => $exception->getMessage(),
+                        'code' => $exception->getCode()
+                    ],
                 ],
-            ],
                 JsonResponse::HTTP_BAD_REQUEST
             );
         }
