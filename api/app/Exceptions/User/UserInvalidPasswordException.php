@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace App\Exceptions\User;
 
 use App\Exceptions\BaseException;
-use Throwable;
+use App\Exceptions\ErrorCode;
 
 final class UserInvalidPasswordException extends BaseException
 {
-    public function __construct($message = "Invalid old password has been provided", $code = 422, Throwable $previous = null)
-    {
-        parent::__construct($message, $code, $previous);
-    }
+    protected $message = 'Invalid old password has been provided';
+    protected $code = ErrorCode::INVALID_PASSWORD_EXCEPTION;
 }
