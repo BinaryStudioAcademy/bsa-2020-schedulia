@@ -50,25 +50,34 @@
             <VListItem>
               <VListItemContent>
                 <VListItemTitle>Choose your timezone</VListItemTitle>
-                <VTextField v-model="timezoneFieldSearch" label="Enter timezone"></VTextField>
+                <VTextField
+                  v-model="timezoneFieldSearch"
+                  label="Enter timezone"
+                ></VTextField>
               </VListItemContent>
             </VListItem>
             <VDivider></VDivider>
           </template>
         </VSelect>
-        {{date}}
+        {{ date }}
         <br />
-        {{availableTimesRange}}
+        {{ availableTimesRange }}
         <br />
-        {{currentTimezoneStartTime}}
+        {{ currentTimezoneStartTime }}
         <br />
-        {{currentTimezoneAvailabilities}}
+        {{ currentTimezoneAvailabilities }}
         <br />
-        {{availableTimesRange.startTime}} | {{availableTimesRange.endTime}}
+        {{ availableTimesRange.startTime }} | {{ availableTimesRange.endTime }}
       </div>
     </VCol>
     <VDivider v-if="show" vertical class="hidden-md-and-down"></VDivider>
-    <VCol v-if="show" sm="12" md="4" lg="3" class="select-time-container col-12">
+    <VCol
+      v-if="show"
+      sm="12"
+      md="4"
+      lg="3"
+      class="select-time-container col-12"
+    >
       <h3>{{ formattedDate }}</h3>
       <div class="time-items-container">
         <div v-for="(item, i) in getAllTimes" :key="i" text>
@@ -78,7 +87,8 @@
                 <VCardText
                   dense
                   class="text-center pa-0 justify-center primary--text font-weight-bold"
-                >{{ item }}</VCardText>
+                  >{{ item }}</VCardText
+                >
               </VCard>
               <VBtn
                 class="select-time-btn"
@@ -86,7 +96,8 @@
                 color="primary"
                 dark
                 :to="{ path: 'confirm-event' }"
-              >{{ lang.CONFIRM_DATE }}</VBtn>
+                >{{ lang.CONFIRM_DATE }}</VBtn
+              >
             </div>
           </div>
           <VBtn
@@ -95,7 +106,8 @@
             outlined
             @click="selectTime(i)"
             v-else
-          >{{ item }}</VBtn>
+            >{{ item }}</VBtn
+          >
         </div>
       </div>
     </VCol>
@@ -114,7 +126,7 @@ console.log(momentTimezones.tz.guess()); /* delete */
 export default {
   name: "EventType",
   components: {
-    DetailLayout
+    DetailLayout,
   },
   data: () => ({
     lang: enLang,
@@ -140,21 +152,21 @@ export default {
         {
           type: "one to many",
           startDate: "2020-09-08 11:00:00",
-          endDate: "2020-09-18 17:00:00"
+          endDate: "2020-09-18 17:00:00",
         },
         {
           type: "one to many",
           startDate: "2020-09-20 09:00:00",
-          endDate: "2020-09-23 19:00:00"
-        }
-      ]
+          endDate: "2020-09-23 19:00:00",
+        },
+      ],
     },
 
     owner: {
       name: "Michael Scott | Dunder Mifflin",
       avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
       companyLogo:
-        "https://i.etsystatic.com/16438614/r/il/c31bd2/1806659071/il_570xN.1806659071_pn8j.jpg"
+        "https://i.etsystatic.com/16438614/r/il/c31bd2/1806659071/il_570xN.1806659071_pn8j.jpg",
     },
     availableTimes: [
       "9:00",
@@ -171,8 +183,8 @@ export default {
       "14:30",
       "15:00",
       "15:30",
-      "16:00"
-    ]
+      "16:00",
+    ],
   }),
 
   computed: {
@@ -184,7 +196,7 @@ export default {
         .format();
     },
     currentTimezoneAvailabilities() {
-      const formatTime = time => {
+      const formatTime = (time) => {
         return moment
           .tz(time, this.meetingData.timezone)
           .clone()
@@ -192,13 +204,13 @@ export default {
           .format("YYYY-MM-DD HH:mm:ss");
       };
 
-      return this.meetingData.availabilities.map(availability => ({
+      return this.meetingData.availabilities.map((availability) => ({
         startDate: formatTime(availability.startDate),
-        endDate: formatTime(availability.endDate)
+        endDate: formatTime(availability.endDate),
       }));
     },
     filterTimezones() {
-      return momentTimezones.tz.names().filter(zone => {
+      return momentTimezones.tz.names().filter((zone) => {
         //console.log(zone);
         return zone
           .toLowerCase()
@@ -222,7 +234,7 @@ export default {
       return moment(this.date).format("dddd, MMMM D");
     },
     availableTimesRange() {
-      const getCurrentDate = d => {
+      const getCurrentDate = (d) => {
         return moment(d)
           .tz(this.currentTimezone)
           .format();
@@ -292,7 +304,7 @@ export default {
       }
       console.log(times);
       return times;
-    }
+    },
   },
   methods: {
     dateFormat(date) {
@@ -309,7 +321,7 @@ export default {
         this.lang.SEP,
         this.lang.OCT,
         this.lang.NOV,
-        this.lang.DEC
+        this.lang.DEC,
       ];
 
       if (month) {
@@ -329,13 +341,13 @@ export default {
         this.lang.WED,
         this.lang.THU,
         this.lang.FRI,
-        this.lang.SAT
+        this.lang.SAT,
       ];
       let i = new Date(date).getDay(date);
       return weekDays[i];
     },
     availableDates(date) {
-      const getCurrentDate = d => {
+      const getCurrentDate = (d) => {
         return moment(d).format();
         /* return (
           moment.tz(d, this.meetingData.timezone)
@@ -371,8 +383,8 @@ export default {
           currentDate >= getCurrentDate(availability.startDate.slice(0, 10)) &&
           currentDate <= getCurrentDate(availability.endDate.slice(0, 10))
         ) {
-          console.log("ok currentShortEndDate", currentShortEndDate);
-          console.log("ok currentDate", currentDate);
+          /* console.log("ok currentShortEndDate", currentShortEndDate);
+          console.log("ok currentDate", currentDate); */
           present = true;
           break;
         } /* else {
@@ -382,8 +394,8 @@ export default {
       }
 
       return present;
-    }
-  }
+    },
+  },
 };
 </script>
 
