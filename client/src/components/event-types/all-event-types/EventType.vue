@@ -19,7 +19,9 @@
         <VDivider />
         <VRow class="event-type-actions">
             <VCol class="duration text-left" cols="4">
-                <span>/{{ eventType.slug }}</span>
+                <RouterLink :to="{ name: 'PublicEvent' }">
+                    <span>/{{ eventType.slug }}</span></RouterLink
+                >
             </VCol>
             <VCol class="text-right" cols="8">
                 <VBtn
@@ -103,6 +105,9 @@ export default {
 .duration span {
     color: var(--v-primary-base);
     font-size: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .disabled-event {
     user-select: none;

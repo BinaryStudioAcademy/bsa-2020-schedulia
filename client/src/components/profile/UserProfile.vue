@@ -18,7 +18,7 @@ export default {
         tabs: [
             { title: enLang.PROFILE, component: ProfileForm },
             { title: enLang.BRANDING, component: BrandingForm },
-            { title: enLang.LOGIN, component: LoginForm }
+            { title: enLang.CHANGE_PASSWORD, component: LoginForm }
         ]
     })
 };
