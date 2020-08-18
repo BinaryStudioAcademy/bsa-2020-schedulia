@@ -4,10 +4,9 @@ const apiEndpoint = '/event-types';
 
 const eventTypesService = {
     async fetchAllEventTypes(searchString) {
-        const eventTypesApiUrl = searchString
-            ? apiEndpoint + '?searchString=' + searchString
-            : apiEndpoint;
-        const response = await requestService.get(eventTypesApiUrl);
+        const response = await requestService.get(apiEndpoint, {
+            searchString
+        });
         return response?.data?.data;
     },
     async changeDisabledEventTypeById(updateData) {

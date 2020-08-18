@@ -58,14 +58,14 @@ export default {
     }),
     methods: {
         ...mapActions('eventTypes', {
-            fetchAllEventTypes: actions.FETCH_ALL_EVENT_TYPES
+            fetchEventTypes: actions.FETCH_EVENT_TYPES
         }),
         async onSearchInput() {
-            await this.fetchAllEventTypes(this.searchString);
+            await this.fetchEventTypes(this.searchString);
         }
     },
     async mounted() {
-        await this.fetchAllEventTypes();
+        await this.fetchEventTypes();
     },
     computed: {
         ...mapGetters('eventTypes', {

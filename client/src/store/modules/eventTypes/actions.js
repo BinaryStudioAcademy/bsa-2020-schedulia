@@ -4,7 +4,7 @@ import * as mutations from './types/mutations';
 import * as authActions from '@/store/modules/auth/types/actions';
 
 export default {
-    [actions.FETCH_ALL_EVENT_TYPES]: async (
+    [actions.FETCH_EVENT_TYPES]: async (
         { commit, dispatch },
         searchString = ''
     ) => {
