@@ -8,7 +8,6 @@
             <DropDown :eventType="eventType" />
         </div>
         <div class="event-type-content">
-            >
             <h3>{{ eventType.name }}</h3>
             <span class="event-type-about"
                 >{{ eventType.duration }} {{ lang.MINS }}, {{ eventType.type }}
@@ -20,7 +19,7 @@
         <VDivider />
         <VRow class="event-type-actions">
             <VCol class="duration text-left" cols="4">
-                <RouterLink :to="{ name: 'event' }">
+                <RouterLink :to="{ name: 'PublicEvent' }">
                     <span>/{{ eventType.slug }}</span></RouterLink
                 >
             </VCol>
