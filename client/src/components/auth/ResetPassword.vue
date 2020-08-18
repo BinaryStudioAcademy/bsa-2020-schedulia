@@ -130,20 +130,24 @@ export default {
                         token: this.$route.query.token
                     };
                     const answer = await this.resetPassword(dataPasswordReset);
-                    console.log(answer);
                     if ('error' in answer) {
                         this.typeResultOfResetPassword = 'error';
-                        this.resultOfResetPassword = this.lang.THE_USER_WITH_THE_SPECIFIED_EMAIL_DOES_NOT_EXIST;
-                        this.explanation = this.lang.LETTER_EXPLANATION_EMAIL_DONOT_EXIST;
+                        this.resultOfResetPassword = this.lang.ERROR_IN_PASSWORD_RESET;
+                        this.explanation = this.lang.EXPLANATION_ERROR_PASSWORD_RESET;
+                        this.helperVisibility = true;
+                        setTimeout(() => {
+                            this.$router.push({ name: 'ForgotPassword' });
+                        }, 9000);
                     } else if ('data' in answer && answer?.data?.code === 201) {
                         this.typeResultOfResetPassword = 'success';
-                        this.resultOfResetPassword =
-                            this.lang.LETTER_WITH_RESET_LINK_WAS_SENT +
-                            ' ' +
-                            answer?.data?.email;
-                        this.explanation = this.lang.LETTER_EXPLANATION_EMAIL_EXIST;
+                        this.resultOfResetPassword = this.lang.OK_PASSWORD_RESET;
+                        this.explanation = this.lang.EXPLANATION_PASSWORD_RESET;
+                        this.helperVisibility = true;
+                        setTimeout(() => {
+                            this.$router.push({ name: 'SignIn' });
+                        }, 9000);
                     }
-                    this.helperVisibility = true;
+                    this.helperVisibility = false;
                 } catch (error) {
                     this.setErrorNotification(error);
                 }
@@ -186,6 +190,12 @@ h4 {
     font-size: 34px;
     line-height: 44px;
     letter-spacing: -0.44px;
+}
+h6 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 32px;
 }
 .title-of-card {
     color: var(--v-primary-base);

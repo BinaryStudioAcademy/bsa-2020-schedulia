@@ -243,5 +243,11 @@ export default {
     PASSWORD_IS_REQUIRED: 'Password is required',
     PASSWORD_MUST_BE_AT_LEAST_8_CHARACTERS_LONG:
         'Password must be at least 8 characters long',
-    SET_NEW_PASSWORD: 'Set new password'
+    SET_NEW_PASSWORD: 'Set new password',
+    ERROR_IN_PASSWORD_RESET: 'Password has not been changed.',
+    EXPLANATION_ERROR_PASSWORD_RESET:
+        'Either your token has expired or you have not copied the entire request. Go to the password reset page and request the reset link again with your correct email.',
+    OK_PASSWORD_RESET: 'Password has been changed.',
+    EXPLANATION_PASSWORD_RESET:
+        'Go to the SignIn page and use your new password to authenticate on the site.'
 };
