@@ -28,7 +28,7 @@ final class UpdateUserPasswordAction
             throw new UserNotFoundException();
         }
 
-        if(!Hash::check($request->getOldPassword(), $user->password)) {
+        if (!Hash::check($request->getOldPassword(), $user->password)) {
             throw new UserInvalidPasswordException();
         }
 
