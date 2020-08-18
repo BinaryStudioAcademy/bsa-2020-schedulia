@@ -214,6 +214,7 @@ export default {
         '                                        availability for a number of days into\n' +
         '                                        the future.',
 
+    AVAILABILITY_RANGE: 'Your invitees will be offered availability within a defined range of dates.',
     LOGOUT: 'Logout',
     EVENT_TYPES: 'Event Types',
     SEARCH: 'Search',

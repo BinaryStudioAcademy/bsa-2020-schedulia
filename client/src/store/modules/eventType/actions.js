@@ -2,7 +2,7 @@ import * as actions from './types/actions';
 import * as mutations from './types/mutations';
 import eventTypeService from '@/services/eventType/eventTypeService';
 import { SET_ERROR_NOTIFICATION } from '@/store/modules/notification/types/actions';
-import { EventTypeMapper } from '@/store/modules/eventType/Normalizer';
+import { EventTypeMapper, EventTypeFormMapper } from '@/store/modules/eventType/normalizer';
 
 export default {
     [actions.GET_EVENT_TYPE_BY_ID]: async (context, id) => {
@@ -31,7 +31,7 @@ export default {
     },
     [actions.ADD_EVENT_TYPE]: async (context, data) => {
         try {
-            const eventType = await eventTypeService.addEventType(data);
+            const eventType = await eventTypeService.addEventType(EventTypeFormMapper(data));
             context.commit(mutations.SET_EVENT_TYPES, eventType);
 
             return Promise.resolve(EventTypeMapper(eventType));
