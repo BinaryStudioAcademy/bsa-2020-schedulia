@@ -9,6 +9,7 @@ on:
 
 env:
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
 jobs:
   testing:
@@ -63,4 +64,5 @@ jobs:
         cd api
         composer install
         cp .env.testing.example .env.testing
-        ./vendor/bin/phpunit -c phpunit.github.xml
+        ./vendor/bin/phpunit --coverage-clover coverage.xml -c phpunit.github.xml
+        bash <(curl -s https://codecov.io/bash)

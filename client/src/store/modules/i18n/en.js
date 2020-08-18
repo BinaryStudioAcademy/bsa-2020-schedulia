@@ -7,10 +7,14 @@ export default {
     CHARACTERS: 'Characters',
     CHANGE_PASSWORD: 'Change password',
     COUNTRY: 'Country',
+    CONFIRM: 'Confirm',
     CLOSE: 'Close',
     CURRENT_PASSWORD: 'Current password',
 
     DATE_FORMAT: 'Date format',
+    DELETE_ACCOUNT: 'Delete account',
+    DELETE_ACCOUNT_WARNING_TEXT:
+        'You are about to delete your Schedulia account. This will go into effect immediately and you will no longer have access to your account data.',
 
     EMAIL: 'Email',
     ENGLISH: 'English',
@@ -52,7 +56,7 @@ export default {
     NAME: 'Name',
     NEW_PASSWORD: 'New password',
 
-    UPDATE: 'Update',
+    UPDATE: 'UPDATE',
     UKRAINIAN: 'Ukrainian',
 
     YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD:
@@ -143,6 +147,13 @@ export default {
 
     SUCCESSFULLY_SIGNINED: 'Successfully sign in! ',
     FORGOT_PASSWORD: 'Forgot Password?',
+
+    SCHEDULED_EVENTS: 'Scheduled events',
+    UPCOMING: 'Upcoming',
+    PENDING: 'Pending',
+    PAST: 'Past',
+    DATE_RANGE: 'Date Range',
+
     NEW_EVENT_TYPE: 'New Event Type',
     DELETE: 'Delete',
     DIALOG_EVENT_TYPE_DELETE_CONFIRM:
@@ -160,5 +171,77 @@ export default {
     YOU_DONT_HAVE_ANY_EVENT_TYPES: "You don't have any event types yet.",
     YOU_WILL_WANT_TO_ADD_EVENT_TYPE:
         "You'll want to add an event type to allow people to schedule with\n" +
-        '            you.'
+        '            you.',
+
+    WHEN_CAN_PEOPLE_BOOK_EVENT: 'When can people book this event?',
+    EVENT_DURATION: 'Event Duration',
+    CUSTOM_DURATION: 'Custom Duration',
+    EVENTS_CAN_BE_SCHEDULED_OVER_60_DAYS:
+        'Events can be scheduled over 60 calendar days',
+    EVENT_TIME_ZONE: 'Event Time Zone',
+    AVAILABILITY: 'Availability',
+    HOURS: 'Hours',
+    ADVANCED: 'Advanced',
+    AVAILABILITY_INCREMENTS: 'Availability Increments',
+    SHOW_AVAILABILITY_IN_INCREMENTS_OF: 'Show availability in increments of',
+    EVENT_MAX_PER_DAY: 'Event Max Per Day',
+    MAX_NUMBER_OF_EVENTS_PER_DAY: 'Max number of events per day',
+    MINIMUM_SCHEDULING_NOTICE: 'Minimum Scheduling Notice',
+    PREVENT_EVENTS_LESS_THAN: 'Prevent events less than',
+    HOURS_AWAY: 'hours away',
+    SAVE_AND_CLOSE: 'Save & Close',
+    WHEN_CAN_EVENTS_BE_SCHEDULED: 'When can events be scheduled?',
+    HOW_FAR_INTO_THE_FUTURE: 'How far into the future?',
+    TIME_ZONE_STYLE: 'Time Zone Style',
+    LOCAL: 'Local',
+    LOCKED: 'Locked',
+    EDIT_AVAILABILITY: 'Edit Availability',
+    APPLY: 'Apply',
+    EVENT_TIME_ZONE_EXPLANATION:
+        'You are viewing times in Eastern\n' +
+        '                                            European Time. Your invitees will\n' +
+        '                                            see your availability in their local\n' +
+        '                                            time zone.',
+    LOCK_MEETING_TIME_RECOMMENDATION:
+        'To ensure you and your invitee\n' +
+        '                                                agree to the same time, we\n' +
+        '                                                recommend that you "lock" the\n' +
+        '                                                meeting time to the time zone in\n' +
+        '                                                which the meeting is held.',
+    SET_AVAILABLE_HOURS_TEXT:
+        'Set your available hours when people can schedule meetings with you.',
+    SET_THE_FREQUENCY_TIME_SLOTS_TEXT:
+        'Set the frequency of available time slots for your invitees.',
+    LIMIT_THE_NUMBER_OF_EVENTS_TEXT:
+        'Use this to limit\n' +
+        '                                               the number of events\n' +
+        '                                               that can be\n' +
+        '                                               scheduled in a day.',
+    PREVENT_LAST_MINUTE_EVENTS_TEXT:
+        'Use this setting to prevent last minute events.',
+    YOUR_INVITEES_WILL_BE_OFFERED:
+        'Your invitees will be offered\n' +
+        '                                        availability for a number of days into\n' +
+        '                                        the future.',
+
+    LOGOUT: 'Logout',
+    EVENT_TYPES: 'Event Types',
+    SEARCH: 'Search',
+    MINS: 'mins',
+    SEARCH_FIELD_MUST_BE_LESS_THAN:
+        'Search field must be less than 250 characters length.',
+    DISPLAYING: 'Displaying',
+    OF: 'of',
+    EVENTS: 'Events',
+    FILTER: 'Filter',
+    EXPORT: 'Export',
+    CREATED: 'Created',
+    QUESTIONS: 'Questions',
+    INVITEE_TIME_ZONE: 'Invitee time zone',
+    LOCATION: 'Location',
+    INVITE_AGAIN: 'Invite Again',
+    EVENT_TYPE: 'Event type',
+    NO_UPCOMING_EVENTS: 'No Upcoming Events',
+    NO_PENDING_EVENTS: 'No Pending Events',
+    NO_PAST_EVENTS: 'No Past Events'
 };
