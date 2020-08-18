@@ -40,5 +40,8 @@ export default {
     },
     [actions.FORGOT_PASSWORD]: async (context, forgotEmail) => {
         return await authService.forgotPassword(forgotEmail);
+    },
+    [actions.RESET_PASSWORD]: async (context, resetDataPassword) => {
+        return await authService.resetPassword(resetDataPassword);
     }
 };

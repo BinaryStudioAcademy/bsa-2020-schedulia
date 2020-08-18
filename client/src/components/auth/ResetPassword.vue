@@ -1,8 +1,8 @@
 <template>
     <div>
-        <h4 class="title-of-card pb-4">Change your password</h4>
+        <h4 class="title-of-card pb-4">{{ lang.CHANGE_YOUR_PASSWORD }}</h4>
         <p class="info-text">
-            Pleas enter new password for user with email:
+            {{ lang.PLEASE_ENTER_NEW_PASSWORD_FOR_USER_WITH_EMAIL }}
             <em>{{ $route.query.email }}</em>
         </p>
         <VForm>
@@ -43,7 +43,7 @@
                         class="login-button  primary"
                         depressed
                         @click="onSubmit"
-                        >Set new password
+                        >{{ lang.SET_NEW_PASSWORD }}
                     </VBtn>
                     <RouterLink
                         :to="{ name: 'SignIn' }"
@@ -52,6 +52,20 @@
                         {{ lang.REMEMBERED_PASSWORD }}
                     </RouterLink>
                 </VRow>
+            </VCol>
+            <VSpacer class="pa-4" />
+            <VCol cols="11" sm="11" md="8" class="pa-0">
+                <VAlert
+                    :type="typeResultOfResetPassword"
+                    dense
+                    outlined
+                    text
+                    dismissible
+                    :value="helperVisibility"
+                >
+                    <h6>{{ resultOfResetPassword }}</h6>
+                    <p>{{ explanation }}</p>
+                </VAlert>
             </VCol>
         </VForm>
     </div>
@@ -66,7 +80,7 @@ import { required, minLength, sameAs } from 'vuelidate/lib/validators';
 import * as notificationActions from '@/store/modules/notification/types/actions';
 
 export default {
-    name: 'ForgotPassword',
+    name: 'ResetPassword',
     mixins: [validationMixin],
     validations: {
         password: { required, minLength: minLength(8) },
@@ -75,14 +89,17 @@ export default {
     components: {},
     data: () => ({
         lang: enLang,
-        email: '',
         password: '',
         confirmPassword: '',
-        showPassword: false
+        showPassword: false,
+        resultOfResetPassword: 'error',
+        typeResultOfResetPassword: '',
+        explanation: '',
+        helperVisibility: false
     }),
     methods: {
         ...mapActions('auth', {
-            forgotPassword: actions.FORGOT_PASSWORD
+            resetPassword: actions.RESET_PASSWORD
         }),
         ...mapActions('notification', {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
@@ -107,9 +124,26 @@ export default {
             this.$v.$touch();
             if (!this.$v.$invalid) {
                 try {
-                    var answer = await this.forgotPassword(this.email);
-                    this.$router.push({ name: 'SingIn' });
+                    const dataPasswordReset = {
+                        email: this.$route.query.email,
+                        password: this.password,
+                        token: this.$route.query.token
+                    };
+                    const answer = await this.resetPassword(dataPasswordReset);
                     console.log(answer);
+                    if ('error' in answer) {
+                        this.typeResultOfResetPassword = 'error';
+                        this.resultOfResetPassword = this.lang.THE_USER_WITH_THE_SPECIFIED_EMAIL_DOES_NOT_EXIST;
+                        this.explanation = this.lang.LETTER_EXPLANATION_EMAIL_DONOT_EXIST;
+                    } else if ('data' in answer && answer?.data?.code === 201) {
+                        this.typeResultOfResetPassword = 'success';
+                        this.resultOfResetPassword =
+                            this.lang.LETTER_WITH_RESET_LINK_WAS_SENT +
+                            ' ' +
+                            answer?.data?.email;
+                        this.explanation = this.lang.LETTER_EXPLANATION_EMAIL_EXIST;
+                    }
+                    this.helperVisibility = true;
                 } catch (error) {
                     this.setErrorNotification(error);
                 }
@@ -124,9 +158,12 @@ export default {
             if (!this.$v.password.$dirty) {
                 return errors;
             }
-            !this.$v.password.required && errors.push('Password is required');
+            !this.$v.password.required &&
+                errors.push(this.lang.PASSWORD_IS_REQUIRED);
             !this.$v.password.minLength &&
-                errors.push('Password must be at least 8 characters long');
+                errors.push(
+                    this.lang.PASSWORD_MUST_BE_AT_LEAST_8_CHARACTERS_LONG
+                );
             return errors;
         },
         confirmPasswordErrors() {
@@ -135,7 +172,7 @@ export default {
                 return errors;
             }
             !this.$v.confirmPassword.sameAsPassword &&
-                errors.push("Passwords don't match");
+                errors.push(this.lang.PASSWORDS_DONT_MATCH);
             return errors;
         }
     }

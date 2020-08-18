@@ -19,6 +19,13 @@ const authService = {
         );
         return response?.data;
     },
+    async resetPassword(dataPasswordReset) {
+        const response = await requestService.post(
+            '/auth/reset-password',
+            dataPasswordReset
+        );
+        return response?.data;
+    },
     async signOut() {
         const response = await requestService.post('/auth/logout');
         this.removeToken();

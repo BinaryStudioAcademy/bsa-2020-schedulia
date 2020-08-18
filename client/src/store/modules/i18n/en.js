@@ -236,5 +236,12 @@ export default {
     THE_USER_WITH_THE_SPECIFIED_EMAIL_DOES_NOT_EXIST:
         'The user with the specified email does not exist',
     LETTER_EXPLANATION_EMAIL_DONOT_EXIST:
-        'Please check if you used this email during registration. Enter the correct one and try again.'
+        'Please check if you used this email during registration. Enter the correct one and try again.',
+    CHANGE_YOUR_PASSWORD: 'Change your password',
+    PLEASE_ENTER_NEW_PASSWORD_FOR_USER_WITH_EMAIL:
+        'Please enter new password for user with email:',
+    PASSWORD_IS_REQUIRED: 'Password is required',
+    PASSWORD_MUST_BE_AT_LEAST_8_CHARACTERS_LONG:
+        'Password must be at least 8 characters long',
+    SET_NEW_PASSWORD: 'Set new password'
 };
