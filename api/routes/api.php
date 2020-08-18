@@ -63,6 +63,7 @@ Route::group([
     'prefix' => '/profiles',
 ], function () {
     Route::put('/me', 'UserController@store');
+    Route::delete('/me', 'UserController@delete');
 });
 
 Route::group([

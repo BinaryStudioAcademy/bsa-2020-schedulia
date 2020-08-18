@@ -10,12 +10,12 @@ import {
 export default {
     async updatePassword({ dispatch }, password, oldPassword) {
         try {
-            const response = profileService.updatePassword(
+            const response = await profileService.updatePassword(
                 password,
                 oldPassword
             );
 
-            return response?.data?.data;
+            return response?.data;
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
@@ -42,17 +42,6 @@ export default {
         }
     },
 
-    async uploadAvatar({ dispatch }, avatar) {
-        try {
-            const response = uploadFileService.upload(avatar);
-
-            return response?.data?.data;
-        } catch (error) {
-            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
-                root: true
-            });
-        }
-    },
     async updateAvatar({ commit, dispatch }, avatar) {
         try {
             const response = await uploadFileService.upload(avatar, 'avatar');
@@ -78,6 +67,20 @@ export default {
             commit(UPDATE_USER, userData);
 
             return userData;
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+        }
+    },
+
+    async deleteProfile({ commit, dispatch }) {
+        try {
+            const response = await profileService.deleteProfile();
+
+            commit(UPDATE_USER, {});
+
+            return response?.data;
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true

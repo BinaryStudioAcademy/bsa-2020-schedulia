@@ -39,7 +39,7 @@
 
                                     <VTextField
                                         :value="data.name"
-                                        @change="changeName"
+                                        @input="changeName"
                                         :rules="nameRules"
                                         outlined
                                         class="app-textfield"
@@ -88,7 +88,7 @@
                                         :rules="eventLinkRules"
                                         outlined
                                         :value="data.slug"
-                                        @change="changeSlug"
+                                        @input="changeSlug"
                                         dense
                                         class="mb-4 app-textfield"
                                         required

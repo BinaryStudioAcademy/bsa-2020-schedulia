@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\User\DeleteUserAction;
+use App\Actions\User\DeleteUserRequest;
 use App\Actions\User\UpdateUserAction;
 use App\Actions\User\UpdateUserRequest;
 use App\Http\Presenters\UserArrayPresenter;
@@ -13,13 +15,16 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends ApiController
 {
     private UpdateUserAction $updateUserAction;
+    private DeleteUserAction $deleteUserAction;
     private UserArrayPresenter $userArrayPresenter;
 
     public function __construct(
         UpdateUserAction $updateUserAction,
+        DeleteUserAction $deleteUserAction,
         UserArrayPresenter $userArrayPresenter
     ) {
         $this->updateUserAction = $updateUserAction;
+        $this->deleteUserAction = $deleteUserAction;
         $this->userArrayPresenter = $userArrayPresenter;
     }
 
@@ -41,8 +46,10 @@ class UserController extends ApiController
         return $this->successResponse($this->userArrayPresenter->present($response->getProfile()));
     }
 
-    public function delete($id)
+    public function delete(): JsonResponse
     {
-        //
+        $this->deleteUserAction->execute(new DeleteUserRequest(Auth::id()));
+
+        return $this->emptyResponse();
     }
 }
