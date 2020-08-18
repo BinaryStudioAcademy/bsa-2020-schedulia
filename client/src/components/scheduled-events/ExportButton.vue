@@ -2,7 +2,7 @@
     <VBtn class="export-button" outlined>
         <VRow>
             <VCol class="text-left" align-self="center">
-                Export
+                {{ lang.EXPORT }}
             </VCol>
             <VCol class="text-right">
                 <VIcon small>mdi-export</VIcon>
@@ -12,8 +12,14 @@
 </template>
 
 <script>
+import enLang from '@/store/modules/i18n/en.js';
+
 export default {
-    name: 'ExportButton'
+    name: 'ExportButton',
+
+    data: () => ({
+        lang: enLang
+    }),
 };
 </script>
 

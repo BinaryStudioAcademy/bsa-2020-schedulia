@@ -7,7 +7,7 @@
                 <Event :key="scheduledEvent.id" :scheduledEvent="scheduledEvent" />
             </template>
         </div>
-        <NoEvents v-else>No Past Events</NoEvents>
+        <NoEvents v-else>{{ lang.NO_PAST_EVENTS }}</NoEvents>
     </div>
 </template>
 
@@ -19,9 +19,14 @@ import FilterList from './Filter/FilterList';
 import BorderBottom from '../../common/GeneralLayout/BorderBottom';
 import Event from '../Event';
 import NoEvents from '../NoEvents';
+import enLang from '@/store/modules/i18n/en.js';
 
 export default {
     name: 'Past',
+
+    data: () => ({
+        lang: enLang
+    }),
 
     components: {
         NoEvents,

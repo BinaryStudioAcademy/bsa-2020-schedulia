@@ -2,7 +2,7 @@
     <VContainer class="scheduled-pagination">
         <VRow>
             <VCol class="text-right">
-                Displaying {{ eventsPagination.pageStartEventNum }} – {{ eventsPagination.pageEndEventNum }} of {{ eventsPagination.allEvents }} Events
+                {{ lang.DISPLAYING }} {{ eventsPagination.pageStartEventNum }} – {{ eventsPagination.pageEndEventNum }} {{ lang.OF }} {{ eventsPagination.allEvents }} {{ lang.EVENTS }}
             </VCol>
         </VRow>
     </VContainer>
@@ -10,10 +10,15 @@
 
 <script>
     import { mapGetters } from 'vuex';
+    import enLang from '@/store/modules/i18n/en.js';
     import { GET_SCHEDULED_EVENTS_PAGINATION } from '@/store/modules/scheduledEvent/types/getters';
 
     export default {
         name: "Pagination",
+
+        data: () => ({
+            lang: enLang
+        }),
 
         computed: {
             ...mapGetters('scheduledEvent', {

@@ -7,7 +7,7 @@
     >
         <VRow>
             <VCol class="text-left" align-self="center">
-                Filter
+                {{ lang.FILTER }}
             </VCol>
             <VSpacer></VSpacer>
             <VCol class="text-right">
@@ -24,7 +24,7 @@
     >
         <VRow>
             <VCol class="text-left" align-self="center">
-                Close
+                {{ lang.CLOSE }}
             </VCol>
             <VSpacer></VSpacer>
             <VCol class="text-right">
@@ -36,11 +36,16 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import enLang from '@/store/modules/i18n/en.js';
 import { GET_SCHEDULED_EVENT_FILTER_VIEW } from '@/store/modules/scheduledEvent/types/getters';
 import { SET_SCHEDULED_EVENT_FILTER_VIEW } from '@/store/modules/scheduledEvent/types/actions';
 
 export default {
     name: 'FilterButton',
+
+    data: () => ({
+        lang: enLang
+    }),
 
     computed: {
         ...mapGetters('scheduledEvent', {

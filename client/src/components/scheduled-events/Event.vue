@@ -23,7 +23,7 @@
                                 {{ scheduledEvent.name }}
                             </div>
                             <div class="event-type">
-                                Event type
+                                {{ lang.EVENT_TYPE }}
                                 <span>
                                     {{ scheduledEvent.type }}
                                 </span>
@@ -44,7 +44,7 @@
                                 text
                             >
                                 <VIcon>mdi-pencil-outline</VIcon>
-                                Edit
+                                {{ lang.EDIT }}
                             </VBtn>
 
                             <VBtn
@@ -54,7 +54,7 @@
                                 text
                             >
                                 <VIcon>mdi-filter-outline</VIcon>
-                                Filter
+                                {{ lang.FILTER }}
                             </VBtn>
 
                             <VBtn
@@ -64,37 +64,37 @@
                                 text
                             >
                                 <VIcon>mdi-refresh</VIcon>
-                                Invite Again
+                                {{ lang.INVITE_AGAIN }}
                             </VBtn>
                         </VCol>
                         <VCol class="info-col">
                             <ul>
                                 <li>
-                                    Email
+                                    {{ lang.EMAIL }}
                                     <span>
                                         {{ scheduledEvent.email }}
                                     </span>
                                 </li>
                                 <li>
-                                    Location
+                                    {{ lang.LOCATION }}
                                     <span>
                                         {{ scheduledEvent.location }}
                                     </span>
                                 </li>
                                 <li>
-                                    Invitee time zone
+                                    {{ lang.INVITEE_TIME_ZONE }}
                                     <span>
                                         {{ scheduledEvent.timezone }}
                                     </span>
                                 </li>
                                 <li>
-                                    Questions
+                                    {{ lang.QUESTIONS }}
                                     <span>
                                         {{ scheduledEvent.questions }}
                                     </span>
                                 </li>
                                 <li class="created">
-                                    Created {{ scheduledEvent.created_at }}
+                                    {{ lang.CREATED }} {{ scheduledEvent.created_at }}
                                 </li>
                             </ul>
                         </VCol>
@@ -108,9 +108,14 @@
 
 <script>
 import BorderBottom from '@/components/common/GeneralLayout/BorderBottom';
+import enLang from '@/store/modules/i18n/en.js';
 
 export default {
     name: 'Event',
+
+    data: () => ({
+        lang: enLang
+    }),
 
     components: {
         BorderBottom
