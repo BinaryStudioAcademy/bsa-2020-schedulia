@@ -6,7 +6,7 @@
         <VExpansionPanels flat tile accordion>
             <VExpansionPanel>
                 <VExpansionPanelHeader class="event-time-name">
-                    <VRow class="mb-12">
+                    <VRow>
                         <VCol sm="3" class="text-left">
                             <img
                                 class=""
@@ -35,7 +35,7 @@
                 <BorderBottom />
 
                 <VExpansionPanelContent>
-                    <VRow class="event-detail mb-12">
+                    <VRow class="event-detail">
                         <VCol sm="3" class="text-left action-col">
                             <VBtn
                                 :ripple="false"
@@ -133,8 +133,8 @@ export default {
 
 <style lang="scss" scoped>
 .event {
-    .mb-12::v-deep {
-        margin: 0 !important;
+    .row::v-deep {
+        margin: 0;
     }
 
     .col-sm-3 {
@@ -227,7 +227,7 @@ export default {
                 display: block;
 
                 span.v-btn__content {
-                    font-family: Inter;
+                    font-family: $body-font-family;
                     font-style: normal;
                     font-size: 13px;
                     line-height: 16px;

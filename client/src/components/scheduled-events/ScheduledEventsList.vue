@@ -2,7 +2,7 @@
     <div>
         <Pagination />
         <VContainer class="container-content pagination">
-            <Tabs :tabs="tabs">
+            <Tabs class="scheduled-tabs" :tabs="tabs">
                 <template v-slot:right-side>
                     <FilterButton />
                     <ExportButton />
@@ -45,5 +45,17 @@ export default {
 <style scoped>
 .container-content.pagination {
     margin-top: 0;
+}
+
+.scheduled-tabs::v-deep .v-tabs-bar {
+    height: 87px !important;
+}
+
+.scheduled-tabs::v-deep .v-toolbar__content {
+    height: 87px !important;
+}
+
+.scheduled-tabs::v-deep .v-sheet {
+    height: 87px !important;
 }
 </style>

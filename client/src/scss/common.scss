@@ -5,10 +5,6 @@
   border: 1px solid #E0E0E0;
   border-radius: 4px;
 
-  .v-tabs-bar, .v-toolbar__content, .v-sheet {
-    height: 87px!important;
-  }
-
   .tabs__container {
     padding-left: 36px;
     padding-right: 50px;
@@ -21,7 +17,7 @@
 }
 
 .filter-title {
-  font-family: Inter;
+  font-family: $body-font-family;
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
@@ -38,7 +34,7 @@
 
   &__button.v-btn {
     span.v-btn__content {
-      font-family: Inter;
+      font-family: $body-font-family;
       font-style: normal;
       font-size: 16px;
       line-height: 24px;
