@@ -156,7 +156,7 @@ export default {
                 if (this.validateForm) {
                     await this.updatePassword({
                         password: this.newPassword,
-                        oldPassword: this.password,
+                        oldPassword: this.password
                     });
                     this.dialog = false;
                 } else {
