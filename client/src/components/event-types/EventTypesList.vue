@@ -11,6 +11,7 @@
                     solo-inverted
                     v-model="searchString"
                     @input="onSearchInput"
+                    :rules="searchRules"
                 ></VTextField>
             </VCol>
         </div>
@@ -50,7 +51,10 @@ export default {
     },
     data: () => ({
         searchString: '',
-        lang: enLang
+        lang: enLang,
+        searchRules: [
+            v => v.length <= 250 || enLang.SEARCH_FIELD_MUST_BE_LESS_THAN
+        ]
     }),
     methods: {
         ...mapActions('eventTypes', {
