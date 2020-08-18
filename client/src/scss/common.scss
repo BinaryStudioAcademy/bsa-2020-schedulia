@@ -64,6 +64,47 @@
   }
 }
 
+.filter-form {
+    .v-btn:not(.v-btn--round).v-size--default {
+      padding: 0;
+      height: auto;
+      min-width: auto;
+    }
+
+    .v-btn:not(.v-btn--round).v-size--default.more {
+      padding-top: 10px;
+    }
+
+    &__button.v-btn {
+      span.v-btn__content {
+        font-family: $body-font-family;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 16px;
+        letter-spacing: 0.44px;
+        text-transform: none;
+        color: var(--v-anchor-base);
+      }
+    }
+
+    &__button.v-btn:before {
+      background-color: transparent;
+    }
+
+    &__button.v-btn:hover,
+    &__button.v-btn[aria-expanded='true'] {
+      span.v-btn__content {
+        opacity: 0.9;
+      }
+    }
+
+  &__checkbox {
+    height: 210px;
+    overflow: auto;
+  }
+}
+
 .v-input--selection-controls {
   margin-top: 10px;
 }
