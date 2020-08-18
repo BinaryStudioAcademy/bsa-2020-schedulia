@@ -14,9 +14,6 @@ final class AvailabilityService implements AvailabilityServiceInterface
 {
     public function validateAvailabilities(Collection $availabilities, int $duration)
     {
-        foreach ($availabilities as $availability) {
-            $this->validateAvailability($availability, $duration);
-        }
         $availabilities->map(function ($availability) use ($duration) {
             return $this->validateAvailability($availability, $duration);
         });

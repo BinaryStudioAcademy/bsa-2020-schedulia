@@ -18,7 +18,7 @@ final class AddEventTypeAction
 
     public function __construct(
         EventTypeRepositoryInterface $eventTypeRepository,
-        AvailabilityService $availabilityService
+        AvailabilityServiceInterface $availabilityService
     ) {
         $this->eventTypeRepository = $eventTypeRepository;
         $this->availabilityService = $availabilityService;
