@@ -221,5 +221,7 @@ export default {
     LOGOUT: 'Logout',
     EVENT_TYPES: 'Event Types',
     SEARCH: 'Search',
-    MINS: 'mins'
+    MINS: 'mins',
+    SEARCH_FIELD_MUST_BE_LESS_THAN:
+        'Search field must be less than 250 characters length.'
 };

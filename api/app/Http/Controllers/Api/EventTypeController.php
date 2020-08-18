@@ -10,6 +10,7 @@ use App\Actions\EventType\DeleteEventTypeAction;
 use App\Actions\EventType\DeleteEventTypeRequest;
 use App\Actions\EventType\GetEventTypeByIdAction;
 use App\Actions\EventType\GetEventTypeCollectionAction;
+use App\Actions\EventType\GetEventTypeCollectionRequest;
 use App\Actions\EventType\UpdateEventTypeAction;
 use App\Actions\EventType\UpdateEventTypeRequest;
 use App\Actions\GetByIdRequest;
@@ -17,6 +18,7 @@ use App\Http\Presenters\EventTypePresenter;
 use App\Http\Requests\Api\EventType\ChangeDisabledEventTypeRequest;
 use App\Http\Requests\Api\EventType\EventTypeRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class EventTypeController extends ApiController
 {
@@ -27,11 +29,17 @@ class EventTypeController extends ApiController
         $this->eventTypePresenter = $eventTypePresenter;
     }
 
-    public function index(GetEventTypeCollectionAction $action)
+    public function index(Request $request, GetEventTypeCollectionAction $action)
     {
-        $response = $action->execute()->getEventTypeCollection();
+        $response = $action->execute(
+            new GetEventTypeCollectionRequest($request->searchString)
+        );
 
-        return $this->successResponse($this->eventTypePresenter->presentCollection($response));
+        return $this->successResponse(
+            $this->eventTypePresenter->presentCollection(
+                $response->getEventTypeCollection()
+            )
+        );
     }
 
     public function store(EventTypeRequest $request, AddEventTypeAction $action): JsonResponse
