@@ -12,6 +12,8 @@ export default {
         try {
             const data = await scheduledEventService.getScheduledEvents();
 
+            console.log(data);
+
             commit(mutations.SET_SCHEDULED_EVENTS, data);
         } catch (error) {
             commit(

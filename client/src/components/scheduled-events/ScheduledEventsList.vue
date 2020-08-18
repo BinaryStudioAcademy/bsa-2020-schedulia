@@ -1,12 +1,15 @@
 <template>
-    <VContainer class="container-content">
-        <Tabs :tabs="tabs">
-            <template v-slot:right-side>
-                <FilterButton />
-                <ExportButton />
-            </template>
-        </Tabs>
-    </VContainer>
+    <div>
+        <Pagination />
+        <VContainer class="container-content pagination">
+            <Tabs :tabs="tabs">
+                <template v-slot:right-side>
+                    <FilterButton />
+                    <ExportButton />
+                </template>
+            </Tabs>
+        </VContainer>
+    </div>
 </template>
 
 <script>
@@ -17,11 +20,13 @@ import Past from './Past/Past';
 import enLang from '@/store/modules/i18n/en.js';
 import FilterButton from './FilterButton';
 import ExportButton from './ExportButton';
+import Pagination from "./Pagination";
 
 export default {
     name: 'ScheduledEventList',
 
     components: {
+        Pagination,
         ExportButton,
         FilterButton,
         Tabs
@@ -37,4 +42,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+    .container-content.pagination {
+        margin-top: 0;
+    }
+</style>

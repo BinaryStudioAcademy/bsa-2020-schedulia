@@ -5,7 +5,7 @@ export default {
         state.scheduledEventsFilterView = scheduledEventFilterView;
     },
 
-    [mutations.SET_SCHEDULED_EVENTS]: (state, scheduledEvents) => {
-        state.scheduledEvents = scheduledEvents;
+    [mutations.SET_SCHEDULED_EVENTS]: (state, data) => {
+        state.scheduledEvents = data;
     }
 };
