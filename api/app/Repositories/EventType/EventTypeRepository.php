@@ -7,7 +7,6 @@ namespace App\Repositories\EventType;
 use App\Contracts\EloquentCriterion;
 use App\Entity\EventType;
 use App\Repositories\BaseRepository;
-use App\Repositories\Criteria\Criteria;
 use Illuminate\Support\Collection;
 
 final class EventTypeRepository extends BaseRepository implements EventTypeRepositoryInterface
