@@ -54,11 +54,10 @@ export default {
     }),
     methods: {
         ...mapActions('eventTypes', {
-            fetchAllEventTypes: actions.FETCH_ALL_EVENT_TYPES,
-            searchEventTypes: actions.SEARCH_EVENT_TYPE
+            fetchAllEventTypes: actions.FETCH_ALL_EVENT_TYPES
         }),
         async onSearchInput() {
-            await this.searchEventTypes(this.searchString);
+            await this.fetchAllEventTypes(this.searchString);
         }
     },
     async mounted() {

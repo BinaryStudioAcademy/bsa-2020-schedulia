@@ -20,8 +20,5 @@ export default {
         state.eventTypes = state.eventTypes.filter(eventType => {
             return eventType.id !== id;
         });
-    },
-    [mutations.SEARCHED_EVENT_TYPES]: (state, searchedEventTypes) => {
-        state.eventTypes = searchedEventTypes;
     }
 };
