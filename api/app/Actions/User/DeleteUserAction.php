@@ -21,7 +21,7 @@ final class DeleteUserAction
         $this->imageUploader = $imageUploader;
     }
 
-    public function execute(DeleteUserRequest $request): DeleteUserResponse
+    public function execute(DeleteUserRequest $request): void
     {
         $user = $this->userRepository->getById($request->getUserId());
 
@@ -38,7 +38,5 @@ final class DeleteUserAction
         }
 
         $user->delete();
-
-        return new DeleteUserResponse($user);
     }
 }

@@ -80,12 +80,12 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(EventType::class, 'owner_id', 'id');
     }
 
-    public function getAvatarUrl()
+    public function getAvatarUrl(): ?string
     {
         return $this->avatar ? Storage::disk()->url($this->avatar) : null;
     }
 
-    public function getBrandingLogoUrl()
+    public function getBrandingLogoUrl(): ?string
     {
         return $this->branding_logo ? Storage::disk()->url($this->branding_logo) : null;
     }

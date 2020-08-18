@@ -46,10 +46,10 @@ class UserController extends ApiController
         return $this->successResponse($this->userArrayPresenter->present($response->getProfile()));
     }
 
-    public function delete()
+    public function delete(): JsonResponse
     {
-        $response = $this->deleteUserAction->execute(new DeleteUserRequest(Auth::id()));
+        $this->deleteUserAction->execute(new DeleteUserRequest(Auth::id()));
 
-        return $this->successResponse($this->userArrayPresenter->present($response->getUser()));
+        return $this->successResponse([]);
     }
 }
