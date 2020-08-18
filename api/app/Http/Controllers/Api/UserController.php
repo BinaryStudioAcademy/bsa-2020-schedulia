@@ -50,6 +50,6 @@ class UserController extends ApiController
     {
         $this->deleteUserAction->execute(new DeleteUserRequest(Auth::id()));
 
-        return $this->successResponse([]);
+        return $this->emptyResponse();
     }
 }
