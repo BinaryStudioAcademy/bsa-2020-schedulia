@@ -60,8 +60,10 @@ class Handler extends ExceptionHandler
                 'error' => [
                     'message' => $exception->getMessage(),
                     'code' => $exception->getCode()
-                ]
-            ]);
+                ],
+            ],
+                JsonResponse::HTTP_BAD_REQUEST
+            );
         }
 
         return parent::render($request, $exception);
