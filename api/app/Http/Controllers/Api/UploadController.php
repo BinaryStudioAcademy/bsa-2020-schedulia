@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Actions\Upload\UploadImageAction;
 use App\Actions\Upload\UploadImageRequest;
-use App\Entity\User;
 use App\Http\Presenters\ProfileImagePresenter;
+use App\Http\Requests\Api\Uploader\UploadImageRequest as ImageRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UploadController extends ApiController
@@ -23,10 +22,10 @@ class UploadController extends ApiController
         $this->uploadImageAction = $uploadImageAction;
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(ImageRequest $request): JsonResponse
     {
         $user = Auth::user();
-        $type = $request->type;
+        $type = $request->get('type');
 
         $response = $this->uploadImageAction->execute(new UploadImageRequest(
             $request->file('file'),
