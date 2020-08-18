@@ -1,7 +1,7 @@
 <template>
     <GeneralLayout>
         <template v-slot:title>
-            My Schedulia
+            My Events
         </template>
         <Tabs :tabs="tabs"></Tabs>
     </GeneralLayout>
@@ -11,6 +11,8 @@
 import GeneralLayout from '@/components/common/GeneralLayout/GeneralLayout';
 import Tabs from '@/components/tabs/Tabs.vue';
 import EventTypesList from '@/components/event-types/EventTypesList';
+import ScheduledEventsList from '@/components/scheduled-events/ScheduledEventsList';
+import enLang from '@/store/modules/i18n/en.js';
 
 export default {
     name: 'EventTypes',
@@ -19,7 +21,10 @@ export default {
         Tabs
     },
     data: () => ({
-        tabs: [{ title: 'Event Types', component: EventTypesList }]
+        tabs: [
+            { title: 'Event Types', component: EventTypesList },
+            { title: enLang.SCHEDULED_EVENTS, component: ScheduledEventsList }
+        ]
     })
 };
 </script>
