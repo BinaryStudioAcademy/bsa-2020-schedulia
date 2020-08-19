@@ -108,16 +108,16 @@ export default {
             this.setPasswordState(e.target.value);
             this.$v.resetPasswordData['password'].$touch();
         },
-        setPasswordOnInput(e) {
-            this.setPasswordState(e);
+        setPasswordOnInput(value) {
+            this.setPasswordState(value);
             this.$v.resetPasswordData['password'].$touch();
         },
         setConfirmedPassword(e) {
             this.setPasswordConfirm(e.target.value);
             this.$v.resetPasswordData['confirmPassword'].$touch();
         },
-        setConfirmedPasswordOnInput(e) {
-            this.setPasswordConfirm(e);
+        setConfirmedPasswordOnInput(value) {
+            this.setPasswordConfirm(value);
             this.$v.resetPasswordData['confirmPassword'].$touch();
         },
         async onSubmit() {

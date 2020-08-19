@@ -85,8 +85,8 @@ export default {
             this.setEmailForgot(e.target.value);
             this.$v.forgotPasswordData['email'].$touch();
         },
-        setEmailOnInput(e) {
-            this.setEmailForgot(e);
+        setEmailOnInput(value) {
+            this.setEmailForgot(value);
             this.$v.forgotPasswordData['email'].$touch();
             this.changeHelperVisibilityForgot(false);
         },
