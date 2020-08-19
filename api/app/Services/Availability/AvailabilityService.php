@@ -14,9 +14,10 @@ final class AvailabilityService implements AvailabilityServiceInterface
 {
     public function validateAvailabilities(Collection $availabilities, int $duration)
     {
-        $availabilities->map(function ($availability) use ($duration) {
-            return $this->validateAvailability($availability, $duration);
-        });
+        foreach ($availabilities as $availability) {
+            $this->validateAvailability($availability, $duration);
+        }
+        $this->checkAvailabilitiesOnOverlapping($availabilities);
         return true;
     }
 
@@ -40,6 +41,30 @@ final class AvailabilityService implements AvailabilityServiceInterface
             $endDate = explode(" ", $availability->end_date)[0];
             if ($startDate !== $endDate) {
                 throw new AvailabilityValidationException(400, "Date for Availability with type '{$availability->type}' must be from one day!");
+            }
+        }
+    }
+
+    private function checkAvailabilitiesOnOverlapping(Collection $availabilities)
+    {
+        $availabilities = $availabilities->sortBy('type')->values();
+        foreach ($availabilities as $index => $availability) {
+            if ($index > 0 && $availability->type === $availabilities[$index - 1]->type) {
+                if (
+                    $availability->start_date > $availabilities[$index - 1]->start_date
+                    &&
+                    $availability->start_date < $availabilities[$index - 1]->end_date
+                ) {
+                    throw new AvailabilityValidationException(400, "Intervals are overlapping!");
+                }
+
+                if (
+                    $availability->end_date < $availabilities[$index - 1]->end_date
+                    &&
+                    $availability->end_date > $availabilities[$index - 1]->start_date
+                ) {
+                    throw new AvailabilityValidationException(400, "Intervals are overlapping!");
+                }
             }
         }
     }
