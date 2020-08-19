@@ -1,5 +1,6 @@
 import responseScheduledPastEventsFirstPage from './responseScheduledPastEventsFirstPage.json';
 import responseFilterScheduledEventsTypes from './responseFilterScheduledEventsTypes.json';
+import responseFilterScheduledEventsTypesSearch from './responseFilterScheduledEventsTypesSearch.json';
 
 const scheduledEventService = {
     async getScheduledEvents() {
@@ -8,8 +9,12 @@ const scheduledEventService = {
         return response?.[0];
     },
 
-    async getFilterScheduledEventsTypes() {
-        return responseFilterScheduledEventsTypes;
+    async getFilterScheduledEventsTypes(eventTypesSearch) {
+        if (eventTypesSearch) {
+            return responseFilterScheduledEventsTypesSearch;
+        } else {
+            return responseFilterScheduledEventsTypes;
+        }
     }
 };
 

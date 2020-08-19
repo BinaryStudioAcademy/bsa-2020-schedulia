@@ -35,11 +35,13 @@
                                 hide-details
                                 dense
                                 flat
+                                v-model="eventTypesSearch"
                                 color="#2C2C2C"
                                 background-color="rgba(224, 224, 224, 0.3)"
                                 label="Search"
                                 clearable
                                 prepend-inner-icon="mdi-magnify"
+                                :change="setFilterScheduledEventsTypes(eventTypesSearch)"
                             ></VTextField>
                             <VContainer class="filter-form" fluid>
                                 <VBtn
@@ -139,6 +141,7 @@ export default {
     data() {
         return {
             menu: false,
+            eventTypesSearch: '',
             eventTypes: [],
             moreEventTypes: false
         };

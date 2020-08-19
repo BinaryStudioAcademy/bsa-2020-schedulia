@@ -27,9 +27,10 @@ export default {
         }
     },
 
-    [actions.SET_FILTER_SCHEDULED_EVENTS_TYPES]: async ({ commit }) => {
+    [actions.SET_FILTER_SCHEDULED_EVENTS_TYPES]: async ({ commit }, eventTypesSearch = '') => {
         try {
-            const data = await scheduledEventService.getFilterScheduledEventsTypes();
+            console.log(eventTypesSearch);
+            const data = await scheduledEventService.getFilterScheduledEventsTypes(eventTypesSearch);
 
             commit(mutations.SET_FILTER_SCHEDULED_EVENTS_TYPES, data);
         } catch (error) {
