@@ -1,7 +1,7 @@
 <template>
     <div class="text-left filter-menu">
         <div class="filter-title">
-            Event Types
+            {{ lang.EVENT_TYPES }}
         </div>
         <VMenu
             v-model="menu"
@@ -19,10 +19,11 @@
                     v-on="on"
                 >
                     <span v-if="!scheduledEventFilter.eventTypes.length">
-                        All Event Types
+                        {{ lang.ALL_EVENT_TYPES }}
                     </span>
                     <span v-else>
-                        {{ scheduledEventFilter.eventTypes.length }} Event Types
+                        {{ scheduledEventFilter.eventTypes.length }}
+                        {{ lang.EVENT_TYPES }}
                     </span>
                     <VIcon>mdi-chevron-down</VIcon>
                 </VBtn>
@@ -53,7 +54,7 @@
                                     text
                                     @click="selectAll"
                                 >
-                                    select all
+                                    {{ lang.SELECT_ALL }}
                                 </VBtn>
                                 \
                                 <VBtn
@@ -63,7 +64,7 @@
                                     text
                                     @click="clearSelectAll"
                                 >
-                                    clear
+                                    {{ lang.CLEAR }}
                                 </VBtn>
                                 <div class="filter-form__checkbox">
                                     <div
@@ -87,7 +88,7 @@
                                         v-if="!moreEventTypes"
                                         @click="showMoreEventTypes"
                                     >
-                                        Show more
+                                        {{ lang.SHOW_MORE }}
                                     </VBtn>
                                 </div>
                             </VContainer>
@@ -97,13 +98,13 @@
                                     class="cancel-button"
                                     outlined
                                 >
-                                    Cancel
+                                    {{ lang.CANCEL }}
                                 </VBtn>
                                 <VBtn
                                     class="apply-button primary"
                                     @click="filterScheduledEvent"
                                 >
-                                    Apply
+                                    {{ lang.APPLY }}
                                 </VBtn>
                             </VContainer>
                         </VListItemContent>
@@ -121,6 +122,7 @@ import { mapGetters, mapActions } from 'vuex';
 import { GET_FILTER_SCHEDULED_EVENTS_TYPES } from '@/store/modules/scheduledEvent/types/getters';
 import * as scheduledEventActions from '@/store/modules/scheduledEvent/types/actions';
 import * as notificationActions from '@/store/modules/notification/types/actions';
+import enLang from '@/store/modules/i18n/en.js';
 
 export default {
     name: 'EventTypes',
@@ -133,7 +135,8 @@ export default {
             moreEventTypes: false,
             scheduledEventFilter: {
                 eventTypes: []
-            }
+            },
+            lang: enLang
         };
     },
 

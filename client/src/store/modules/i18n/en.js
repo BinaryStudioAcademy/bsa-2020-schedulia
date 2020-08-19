@@ -243,5 +243,10 @@ export default {
     EVENT_TYPE: 'Event type',
     NO_UPCOMING_EVENTS: 'No Upcoming Events',
     NO_PENDING_EVENTS: 'No Pending Events',
-    NO_PAST_EVENTS: 'No Past Events'
+    NO_PAST_EVENTS: 'No Past Events',
+
+    ALL_EVENT_TYPES: 'All Event Types',
+    SELECT_ALL: 'select all',
+    CLEAR: 'clear',
+    SHOW_MORE: 'Show more'
 };
