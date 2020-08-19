@@ -25,5 +25,18 @@ export default {
                 error?.response?.data?.message || error.message
             );
         }
+    },
+
+    [actions.SET_FILTER_SCHEDULED_EVENTS_TYPES]: async ({ commit }) => {
+        try {
+            const data = await scheduledEventService.getFilterScheduledEventsTypes();
+
+            commit(mutations.SET_FILTER_SCHEDULED_EVENTS_TYPES, data);
+        } catch (error) {
+            commit(
+                    SET_ERROR_NOTIFICATION,
+                    error?.response?.data?.message || error.message
+            );
+        }
     }
 };

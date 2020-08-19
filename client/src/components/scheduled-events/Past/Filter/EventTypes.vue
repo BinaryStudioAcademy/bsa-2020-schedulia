@@ -62,36 +62,29 @@
                                     clear
                                 </VBtn>
                                 <div class="filter-form__checkbox">
-                                    <VCheckbox
-                                        hide-details
-                                        label="15 Minute Meeting"
-                                        v-model="eventTypes"
-                                        value="1"
-                                    ></VCheckbox>
-                                    <VCheckbox
-                                        hide-details
-                                        label="30 Minute Meeting"
-                                        v-model="eventTypes"
-                                        value="2"
-                                    ></VCheckbox>
-                                    <VCheckbox
-                                        hide-details
-                                        label="60 Minute Meeting"
-                                        v-model="eventTypes"
-                                        value="3"
-                                    ></VCheckbox>
-                                    <VCheckbox
-                                        hide-details
-                                        label="Day meeting"
-                                        v-model="eventTypes"
-                                        value="4"
-                                    ></VCheckbox>
-                                    <VCheckbox
-                                        hide-details
-                                        label="Skype call"
-                                        v-model="eventTypes"
-                                        value="5"
-                                    ></VCheckbox>
+                                    <div v-for="(FilterScheduledEventsType, index) in FilterScheduledEventsTypes"
+                                         :key="FilterScheduledEventsType.id"
+                                    >
+                                        <div v-if="index < 5">
+                                            <VCheckbox
+                                                    hide-details
+                                                    :label="FilterScheduledEventsType.name"
+                                                    v-model="eventTypes"
+                                                    :value="FilterScheduledEventsType.id"
+
+                                            ></VCheckbox>
+                                        </div>
+                                        <div v-else>
+                                            <VCheckbox
+                                                    v-show="moreEventTypes"
+                                                    hide-details
+                                                    :label="FilterScheduledEventsType.name"
+                                                    v-model="eventTypes"
+                                                    :value="FilterScheduledEventsType.id"
+
+                                            ></VCheckbox>
+                                        </div>
+                                    </div>
                                     <VBtn
                                             :ripple="false"
                                             :hover="false"
@@ -102,20 +95,6 @@
                                     >
                                         Show more
                                     </VBtn>
-                                    <div v-else>
-                                        <VCheckbox
-                                                hide-details
-                                                label="Viber call"
-                                                v-model="eventTypes"
-                                                value="6"
-                                        ></VCheckbox>
-                                        <VCheckbox
-                                                hide-details
-                                                label="Phone call"
-                                                v-model="eventTypes"
-                                                value="7"
-                                        ></VCheckbox>
-                                    </div>
                                 </div>
                             </VContainer>
                             <VContainer class="filter-button">
@@ -141,6 +120,11 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+import { GET_FILTER_SCHEDULED_EVENTS_TYPES } from '@/store/modules/scheduledEvent/types/getters';
+import { SET_FILTER_SCHEDULED_EVENTS_TYPES } from '@/store/modules/scheduledEvent/types/actions';
+import * as notificationActions from '@/store/modules/notification/types/actions';
+
 export default {
     name: 'EventTypes',
 
@@ -152,7 +136,29 @@ export default {
         };
     },
 
+    async created() {
+        try {
+            await this.setFilterScheduledEventsTypes();
+        } catch (error) {
+            this.setErrorNotification(error.message);
+        }
+    },
+
+    computed: {
+        ...mapGetters('scheduledEvent', {
+            FilterScheduledEventsTypes: GET_FILTER_SCHEDULED_EVENTS_TYPES
+        })
+    },
+
     methods: {
+        ...mapActions('scheduledEvent', {
+            setFilterScheduledEventsTypes: SET_FILTER_SCHEDULED_EVENTS_TYPES
+        }),
+
+        ...mapActions('notification', {
+            setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
+        }),
+
         closeMenu() {
             this.menu = false;
         },
