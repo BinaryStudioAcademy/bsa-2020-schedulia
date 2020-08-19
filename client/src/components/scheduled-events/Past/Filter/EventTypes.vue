@@ -161,7 +161,7 @@ export default {
             if (this.moreEventTypes) {
                 return this.filterScheduledEventsTypes;
             } else {
-                return this.filterScheduledEventsTypes.slice(0, 5);
+                return this.filterScheduledEventsTypes.slice(0, 6);
             }
         }
     },
