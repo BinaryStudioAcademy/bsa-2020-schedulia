@@ -899,65 +899,8 @@ export default {
     data() {
         return {
             lang: enLang,
-            dates: ['2019-09-10', '2019-09-20'],
-            eventDuration: [
-                {
-                    id: 1,
-                    value: 15,
-                    label: '15 min'
-                },
-                {
-                    id: 2,
-                    value: 30,
-                    label: '30 min'
-                },
-                {
-                    id: 3,
-                    value: 45,
-                    label: '45 min'
-                },
-                {
-                    id: 4,
-                    value: 60,
-                    label: '60 min'
-                }
-            ],
             customDuration: '',
-            radioTimeZone: ['Local', 'Locked'],
-            radioTimeZoneChecked: 'Local',
-            availabilityItems: [
-                {
-                    value: 'period',
-                    label: 'Over a period fo rolling days'
-                },
-                {
-                    value: 'range',
-                    label: 'Over a date range'
-                },
-                {
-                    value: 'indefinitely',
-                    label: 'Indefinitely'
-                }
-            ],
-            daysFormatItems: [
-                {
-                    value: 'calendar',
-                    label: 'calendar days'
-                },
-                {
-                    value: 'business',
-                    label: 'business days'
-                }
-            ],
             availabilityDialog: false,
-            availabilityIncrementsItems: [
-                '5 min',
-                '10 min',
-                '15 min',
-                '20 min',
-                '25 min',
-                '30min'
-            ],
             availabilityIncrementsSelected: '',
             maxEventsPerDay: '',
             preventEventsHours: '',
@@ -1101,6 +1044,80 @@ export default {
             }
 
             return endTime;
+        },
+
+        radioTimeZone() {
+            return [this.lang.LOCAL, this.lang.LOCKED];
+        },
+
+        radioTimeZoneChecked() {
+            return this.lang.LOCAL;
+        },
+
+        availabilityIncrementsItems() {
+            return [
+                this.lang.FIVE_MIN,
+                this.lang.TEN_MIN,
+                this.lang.FIFTEEN_MIN,
+                this.lang.TWENTY_MIN,
+                this.lang.TWENTY_FIVE_MIN,
+                this.lang.THIRTY_MIN
+            ];
+        },
+
+        eventDuration() {
+            return [
+                {
+                    id: 1,
+                    value: 15,
+                    label: this.lang.FIFTEEN_MIN
+                },
+                {
+                    id: 2,
+                    value: 30,
+                    label: this.lang.THIRTY_MIN
+                },
+                {
+                    id: 3,
+                    value: 45,
+                    label: this.lang.FORTY_FIVE_MIN
+                },
+                {
+                    id: 4,
+                    value: 60,
+                    label: this.lang.SIXTY_MIN
+                }
+            ];
+        },
+
+        availabilityItems() {
+            return [
+                {
+                    value: 'period',
+                    label: this.lang.AVAILABILITY_ITEMS.PERIOD
+                },
+                {
+                    value: 'range',
+                    label: this.lang.AVAILABILITY_ITEMS.RANGE
+                },
+                {
+                    value: 'indefinitely',
+                    label: this.lang.AVAILABILITY_ITEMS.INDEFINITELY
+                }
+            ];
+        },
+
+        daysFormatItems() {
+            return [
+                {
+                    value: 'calendar',
+                    label: this.lang.DAYS_FORMAT_ITEMS.CALENDAR
+                },
+                {
+                    value: 'business',
+                    label: this.lang.DAYS_FORMAT_ITEMS.BUSINESS
+                }
+            ];
         }
     },
 
