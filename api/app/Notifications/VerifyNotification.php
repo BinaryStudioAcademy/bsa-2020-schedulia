@@ -4,10 +4,7 @@ namespace App\Notifications;
 
 use App\Mail\AccountVerificationMail;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Lang;
-
 
 class VerifyNotification extends Notification
 {

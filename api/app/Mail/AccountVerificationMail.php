@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Lang;
 
 class AccountVerificationMail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     public function __construct()
     {
