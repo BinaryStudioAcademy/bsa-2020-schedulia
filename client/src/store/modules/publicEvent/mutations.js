@@ -1,9 +1,13 @@
 import * as mutations from './types/mutations';
-import { EventTypeMapper } from './normalizer';
+import { userMapper, availabilityMapper } from './normalizer';
 
 export default {
     [mutations.SET_EVENT_TYPE]: (state, eventType) => {
-        state.eventType = EventTypeMapper(eventType);
+        state.eventType = {
+            ...eventType,
+            owner: userMapper(eventType.owner),
+            availabilities: availabilityMapper(eventType.availabilities)
+        };
     },
     [mutations.SET_PUBLIC_EVENT]: (state, publicEvent) => {
         state.publicEvent = publicEvent;

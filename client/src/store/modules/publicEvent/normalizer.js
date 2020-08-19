@@ -1,17 +1,4 @@
-export const EventTypeMapper = EventType => ({
-    id: EventType.id,
-    name: EventType.name,
-    description: EventType.description,
-    slug: EventType.slug,
-    color: EventType.color,
-    duration: EventType.duration,
-    disabled: EventType.disabled,
-    timezone: EventType.timezone,
-    owner: UserMapper(EventType.owner),
-    availabilities: EventType.availabilities.map(AvailabilityMapper)
-});
-
-export const UserMapper = User => ({
+export const userMapper = User => ({
     id: User.id,
     email: User.email,
     name: User.name,
@@ -21,7 +8,7 @@ export const UserMapper = User => ({
     timeFormat12h: User.time_format_12h
 });
 
-export const AvailabilityMapper = Availability => ({
+export const availabilityMapper = Availability => ({
     type: Availability.type,
     startDate: Availability.start_date,
     endDate: Availability.end_date

@@ -9,10 +9,7 @@ export default {
             const eventType = await publicEventService.getEventTypeById(id);
             context.commit(mutations.SET_EVENT_TYPE, eventType);
         } catch (error) {
-            context.commit(
-                SET_ERROR_NOTIFICATION,
-                error?.response?.data?.message || error.message
-            );
+            context.commit(SET_ERROR_NOTIFICATION, error.message);
         }
     },
     [actions.ADD_PUBLIC_EVENT]: async (context, data) => {
@@ -20,10 +17,7 @@ export default {
             const publicEvent = await publicEventService.addPublicEvent(data);
             context.commit(mutations.SET_PUBLIC_EVENT, publicEvent);
         } catch (error) {
-            context.commit(
-                SET_ERROR_NOTIFICATION,
-                error?.response?.data?.message || error.message
-            );
+            context.commit(SET_ERROR_NOTIFICATION, error.message);
         }
     }
 };
