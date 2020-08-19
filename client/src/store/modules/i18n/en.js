@@ -55,6 +55,7 @@ export default {
 
     NAME: 'Name',
     NEW_PASSWORD: 'New password',
+    NICKNAME: 'Nickname',
 
     UPDATE: 'UPDATE',
     UKRAINIAN: 'Ukrainian',
@@ -133,6 +134,8 @@ export default {
     OCT: 'Oct',
     NOV: 'Nov',
     DEC: 'Dec',
+
+    CHOOSE_YOUR_TIMEZONE: 'Choose your timezone',
 
     ENTER_DETAILS: 'Enter Details',
     SCHEDULE_EVENT: 'Schedule Event',
@@ -224,6 +227,8 @@ export default {
         '                                        availability for a number of days into\n' +
         '                                        the future.',
 
+    AVAILABILITY_RANGE:
+        'Your invitees will be offered availability within a defined range of dates.',
     LOGOUT: 'Logout',
     EVENT_TYPES: 'Event Types',
     SEARCH: 'Search',
@@ -244,6 +249,22 @@ export default {
     NO_UPCOMING_EVENTS: 'No Upcoming Events',
     NO_PENDING_EVENTS: 'No Pending Events',
     NO_PAST_EVENTS: 'No Past Events',
+
+    FIVE_MIN: '5 min',
+    TEN_MIN: '10 min',
+    FIFTEEN_MIN: '15 min',
+    TWENTY_MIN: '20 min',
+    TWENTY_FIVE_MIN: '25 min',
+    THIRTY_MIN: '30 min',
+    FORTY_FIVE_MIN: '45 min',
+    SIXTY_MIN: '60 min',
+
+    AVAILABILITY_ITEMS_PERIOD: 'Over a period fo rolling days',
+    AVAILABILITY_ITEMS_RANGE: 'Over a date range',
+    AVAILABILITY_ITEMS_INDEFINITELY: 'Indefinitely',
+
+    DAYS_FORMAT_ITEMS_CALENDAR: 'calendar days',
+    DAYS_FORMAT_ITEMS_BUSINESS: 'business days'
 
     ALL_EVENT_TYPES: 'All Event Types',
     SELECT_ALL: 'select all',
