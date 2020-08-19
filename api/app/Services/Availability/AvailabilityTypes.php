@@ -17,6 +17,7 @@ final class AvailabilityTypes
     public const WEEKEND = 'weekend';
     public const EXACT_DATE = 'exact_date';
     public const EVERY_DAY = 'every_day';
+    public const DATE_RANGE = 'date_range';
 
     public const EVERY_MONDAY_PRIORITY = 2;
     public const EVERY_TUESDAY_PRIORITY = 2;
@@ -44,6 +45,7 @@ final class AvailabilityTypes
             self::WEEKEND,
             self::EXACT_DATE,
             self::EVERY_DAY,
+            self::DATE_RANGE
         ];
     }
 
@@ -67,6 +69,7 @@ final class AvailabilityTypes
     {
         return [
             self::EXACT_DATE,
+            self::DATE_RANGE
         ];
     }
 }

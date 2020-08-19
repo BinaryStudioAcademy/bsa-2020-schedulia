@@ -6,6 +6,7 @@ namespace App\Services\Availability;
 
 use App\Contracts\AvailabilityServiceInterface;
 use App\Entity\Availability;
+use App\Entity\EventType;
 use App\Exceptions\Availability\AvailabilityValidationException;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
@@ -13,6 +14,7 @@ use Illuminate\Support\Collection;
 final class AvailabilityService implements AvailabilityServiceInterface
 {
     private const MIDNIGHT_TIME = "00:00:00";
+
     public function validateAvailabilities(Collection $availabilities, int $duration)
     {
         foreach ($availabilities as $availability) {
@@ -22,11 +24,23 @@ final class AvailabilityService implements AvailabilityServiceInterface
         return true;
     }
 
+    public function getAvailableDaysByEventType(EventType $eventType)
+    {
+        $availabilities = $eventType->availabilities;
+    }
+
     private function validateAvailability(Availability $availability, int $duration)
     {
-        $startDate = explode(" ", $availability->start_date)[0];
-        $endDate = explode(" ", $availability->end_date)[0];
-        $endTime = explode(" ", $availability->end_date)[1];
+        $startDateTime = new Carbon($availability->start_date);
+        $endDateTime = new Carbon($availability->end_date);
+
+        $startDate = new Carbon($startDateTime->toDateString());
+        $endDate = new Carbon($endDateTime->toDateString());
+
+        $differenceInDays = $endDate->diffInDays($startDate);
+
+        $startTime = $startDateTime->toTimeString();
+        $endTime = $endDateTime->toTimeString();
 
         if ($availability->start_date > $availability->end_date) {
             throw new AvailabilityValidationException(400, "Your end time cannot be before your start time!");
@@ -34,15 +48,17 @@ final class AvailabilityService implements AvailabilityServiceInterface
             $startDateWithDuration = new Carbon($availability->start_date);
             $startDateWithDuration->addMinutes($duration);
             $startDateWithDuration = $startDateWithDuration->format('Y-m-d H:i:s');
-            if ($startDateWithDuration > $availability->end_date) {
+            if ($startDateWithDuration > $availability->end_date && $endTime !== self::MIDNIGHT_TIME) {
                 throw new AvailabilityValidationException(400, "Intervals must be at least {$duration} minutes!");
             }
         }
 
         if (!in_array($availability->type, AvailabilityTypes::getTypes())) {
             throw new AvailabilityValidationException(400, "Unknown Availability type!");
-        } else {
-            if ($startDate !== $endDate && $endTime !== self::MIDNIGHT_TIME) {
+        }
+
+        if ($availability->type !== AvailabilityTypes::DATE_RANGE && $differenceInDays >= 1) {
+            if ($differenceInDays === 1 && $endTime !== self::MIDNIGHT_TIME) {
                 throw new AvailabilityValidationException(400, "Date for Availability with type '{$availability->type}' must be from one day!");
             }
         }
