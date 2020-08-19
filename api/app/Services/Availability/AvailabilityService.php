@@ -39,7 +39,8 @@ final class AvailabilityService implements AvailabilityServiceInterface
         } else {
             $startDate = explode(" ", $availability->start_date)[0];
             $endDate = explode(" ", $availability->end_date)[0];
-            if ($startDate !== $endDate) {
+            $endTime = explode(" ", $availability->end_date)[1];
+            if ($startDate !== $endDate && $endTime !== '00:00:00') {
                 throw new AvailabilityValidationException(400, "Date for Availability with type '{$availability->type}' must be from one day!");
             }
         }
