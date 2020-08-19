@@ -46,7 +46,8 @@ class UserController extends ApiController
             $request->get('date_format'),
             $request->get('time_format_12h'),
             $request->get('country'),
-            $request->get('timezone')
+            $request->get('timezone'),
+            $request->get('nickname')
         ));
 
         return $this->successResponse($this->userArrayPresenter->present($response->getProfile()));
