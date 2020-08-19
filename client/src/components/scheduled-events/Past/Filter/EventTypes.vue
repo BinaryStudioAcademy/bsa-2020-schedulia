@@ -64,6 +64,7 @@
                                     clear
                                 </VBtn>
                                 <div class="filter-form__checkbox">
+                                    {{ eventTypes }}
                                     <div
                                         v-for="(FilterScheduledEventsType,
                                         index) in FilterScheduledEventsTypes"
@@ -93,12 +94,6 @@
                                                 "
                                         ></VCheckbox>
                                     </div>
-                                    <VCheckbox
-                                            hide-details
-                                            label="test"
-                                            v-model="eventTypes"
-                                            value="77"
-                                    ></VCheckbox>
                                     <VBtn
                                         :ripple="false"
                                         :hover="false"
@@ -203,9 +198,9 @@ export default {
         },
 
         searchEventTypes(eventTypesSearch) {
-            this.setFilterScheduledEventsTypes(eventTypesSearch);
-
             this.clearSelectAll();
+
+            this.setFilterScheduledEventsTypes(eventTypesSearch);
         }
     }
 };
