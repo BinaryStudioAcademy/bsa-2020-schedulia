@@ -2,6 +2,7 @@
 
 namespace App\Actions\Auth;
 
+use App\Exceptions\AccountVerificationException;
 use App\Repositories\User\UserRepository;
 use Illuminate\Http\JsonResponse;
 
@@ -14,26 +15,18 @@ final class EmailVerificationAction
         $this->userRepository = $userRepository;
     }
 
-    public function execute(EmailVerificationRequest $request): JsonResponse
+    public function execute(EmailVerificationRequest $request)
     {
         $user = $this->userRepository->getById($request->getId());
 
         if (!hash_equals((string) $request->getHash(), sha1($user->getEmailForVerification()))) {
-            return response()->json([
-                'message' => 'Unauthorized'
-            ]);
+            throw new AccountVerificationException('Unauthorized');
         }
 
         if (!$user->hasVerifiedEmail()) {
             $this->userRepository->markUserEmail($user);
         } else {
-            return response()->json([
-                'message' => 'User already verified!'
-            ]);
+            throw new AccountVerificationException('User already verified!');
         }
-
-        return response()->json([
-            'message' => 'Email verified successfully!'
-        ]);
     }
 }

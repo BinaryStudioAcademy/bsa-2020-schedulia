@@ -16,6 +16,8 @@ class EmailVerificationController extends Controller
             $request->hash
         );
 
-        return $action->execute($emailVerificationRequest);
+        $action->execute($emailVerificationRequest);
+
+        return '';
     }
 }

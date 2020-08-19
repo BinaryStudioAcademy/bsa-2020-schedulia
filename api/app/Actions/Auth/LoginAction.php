@@ -3,6 +3,7 @@
 namespace App\Actions\Auth;
 
 use App\Entity\User;
+use App\Exceptions\AccountVerificationException;
 use App\Repositories\User\UserRepository;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ final class LoginAction
         $user = $this->userRepository->getByVerifiedEmail($request->getEmail());
 
         if (!$user) {
-            throw new AuthenticationException('Email is not verified');
+            throw new AccountVerificationException('Email is not verified');
         }
 
         $token = Auth::attempt([
