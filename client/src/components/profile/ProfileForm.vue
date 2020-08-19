@@ -77,8 +77,8 @@
                             <VCol lg="6" md="12">
                                 <ProfileSelect
                                     :label="lang.TIME_FORMAT"
-                                    :value="userProfile.time_format"
-                                    :defaultValue="user.time_format"
+                                    :value="userProfile.time_format_12h"
+                                    :defaultValue="user.time_format_12h"
                                     :items="timeFormats"
                                     @change="
                                         onChangeHandle('time_format', $event)
@@ -94,11 +94,9 @@
                                     @change="onChangeHandle('country', $event)"
                                 ></ProfileTextField>
 
-                                <ProfileSelect
-                                    :label="lang.TIME_ZONE"
+                                <TimeZoneSelect
                                     :value="userProfile.timezone"
                                     :defaultValue="user.timezone"
-                                    :items="timeZones"
                                     @change="onChangeHandle('timezone', $event)"
                                 />
                             </VCol>
@@ -147,8 +145,8 @@ import { mapActions, mapGetters } from 'vuex';
 import ProfileTextField from './ProfileTextField.vue';
 import ProfileTextArea from './ProfileTextArea.vue';
 import ProfileSelect from './ProfileSelect.vue';
+import TimeZoneSelect from '@/components/common/form/TimeZoneSelect.vue';
 import ConfirmDialog from '@/components/confirm/ConfirmDialog.vue';
-import momentTimezone from 'moment-timezone';
 
 export default {
     name: 'ProfileForm',
@@ -156,7 +154,8 @@ export default {
         ProfileTextField,
         ProfileTextArea,
         ProfileSelect,
-        ConfirmDialog
+        ConfirmDialog,
+        TimeZoneSelect
     },
     data: () => ({
         lang: enLang,
@@ -169,7 +168,7 @@ export default {
             welcome_message: '',
             language: 'en',
             date_format: 'american',
-            time_format: '12',
+            time_format_12h: true,
             country: '',
             timeZone: null
         },
@@ -184,10 +183,9 @@ export default {
             { value: 'european_standard', text: 'DD/MM/YYYY' }
         ],
         timeFormats: [
-            { value: '12', text: '12h' },
-            { value: '24', text: '24h' }
-        ],
-        timeZones: momentTimezone.tz.names()
+            { value: true, text: '12h' },
+            { value: false, text: '24h' }
+        ]
     }),
 
     created() {
