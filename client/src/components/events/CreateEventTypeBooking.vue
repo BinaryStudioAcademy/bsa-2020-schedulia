@@ -925,7 +925,7 @@ export default {
                 location: '',
                 description: '',
                 slug: '',
-                color: 'yellow',
+                color: '',
                 duration: 30,
                 customDuration: 0,
                 disabled: true,
@@ -1011,8 +1011,8 @@ export default {
         }),
         data() {
             return {
-                ...this.getEventTypeForm,
-                ...this.form
+                ...this.form,
+                ...this.getEventTypeForm
             };
         },
 
