@@ -1094,15 +1094,15 @@ export default {
             return [
                 {
                     value: 'period',
-                    label: this.lang.AVAILABILITY_ITEMS.PERIOD
+                    label: this.lang.AVAILABILITY_ITEMS_PERIOD
                 },
                 {
                     value: 'range',
-                    label: this.lang.AVAILABILITY_ITEMS.RANGE
+                    label: this.lang.AVAILABILITY_ITEMS_RANGE
                 },
                 {
                     value: 'indefinitely',
-                    label: this.lang.AVAILABILITY_ITEMS.INDEFINITELY
+                    label: this.lang.AVAILABILITY_ITEMS_INDEFINITELY
                 }
             ];
         },
@@ -1111,11 +1111,11 @@ export default {
             return [
                 {
                     value: 'calendar',
-                    label: this.lang.DAYS_FORMAT_ITEMS.CALENDAR
+                    label: this.lang.DAYS_FORMAT_ITEMS_CALENDAR
                 },
                 {
                     value: 'business',
-                    label: this.lang.DAYS_FORMAT_ITEMS.BUSINESS
+                    label: this.lang.DAYS_FORMAT_ITEMS_BUSINESS
                 }
             ];
         }

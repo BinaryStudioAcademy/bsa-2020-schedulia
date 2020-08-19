@@ -247,7 +247,6 @@ export default {
     NO_PENDING_EVENTS: 'No Pending Events',
     NO_PAST_EVENTS: 'No Past Events',
 
-    /*  =================  Time  ================= */
     FIVE_MIN: '5 min',
     TEN_MIN: '10 min',
     FIFTEEN_MIN: '15 min',
@@ -256,17 +255,11 @@ export default {
     THIRTY_MIN: '30 min',
     FORTY_FIVE_MIN: '45 min',
     SIXTY_MIN: '60 min',
-    /* ================= end  ================= */
 
-    /*  =================  AVAILABILITY  ================= */
-    AVAILABILITY_ITEMS: {
-        PERIOD: 'Over a period fo rolling days',
-        RANGE: 'Over a date range',
-        INDEFINITELY: 'Indefinitely'
-    },
-    DAYS_FORMAT_ITEMS: {
-        CALENDAR: 'calendar days',
-        BUSINESS: 'business days'
-    }
-    /* ================= end  ================= */
+    AVAILABILITY_ITEMS_PERIOD: 'Over a period fo rolling days',
+    AVAILABILITY_ITEMS_RANGE: 'Over a date range',
+    AVAILABILITY_ITEMS_INDEFINITELY: 'Indefinitely',
+
+    DAYS_FORMAT_ITEMS_CALENDAR: 'calendar days',
+    DAYS_FORMAT_ITEMS_BUSINESS: 'business days'
 };
