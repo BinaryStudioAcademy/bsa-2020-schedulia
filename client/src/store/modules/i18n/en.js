@@ -55,6 +55,7 @@ export default {
 
     NAME: 'Name',
     NEW_PASSWORD: 'New password',
+    NICKNAME: 'Nickname',
 
     UPDATE: 'UPDATE',
     UKRAINIAN: 'Ukrainian',
