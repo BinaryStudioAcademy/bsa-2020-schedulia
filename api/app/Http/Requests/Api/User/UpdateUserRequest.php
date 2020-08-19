@@ -18,6 +18,7 @@ final class UpdateUserRequest extends ApiFormRequest
             'time_format_12h' => 'boolean',
             'country' => 'nullable|string',
             'timezone' => 'nullable|string',
+            'nickname' => 'nullable|string|unique:users,nickname',
         ];
     }
 }
