@@ -15,7 +15,7 @@ final class AvailabilityService implements AvailabilityServiceInterface
 {
     private const MIDNIGHT_TIME = "00:00:00";
 
-    public function validateAvailabilities(Collection $availabilities, int $duration)
+    public function validateAvailabilities(Collection $availabilities, int $duration): bool
     {
         foreach ($availabilities as $availability) {
             $this->validateAvailability($availability, $duration);
@@ -24,12 +24,12 @@ final class AvailabilityService implements AvailabilityServiceInterface
         return true;
     }
 
-    public function getAvailableDaysByEventType(EventType $eventType)
+    public function getAvailableDaysByEventType(EventType $eventType):void
     {
         $availabilities = $eventType->availabilities;
     }
 
-    private function validateAvailability(Availability $availability, int $duration)
+    private function validateAvailability(Availability $availability, int $duration): void
     {
         $startDateTime = new Carbon($availability->start_date);
         $endDateTime = new Carbon($availability->end_date);
@@ -39,7 +39,6 @@ final class AvailabilityService implements AvailabilityServiceInterface
 
         $differenceInDays = $endDate->diffInDays($startDate);
 
-        $startTime = $startDateTime->toTimeString();
         $endTime = $endDateTime->toTimeString();
 
         if ($availability->start_date > $availability->end_date) {

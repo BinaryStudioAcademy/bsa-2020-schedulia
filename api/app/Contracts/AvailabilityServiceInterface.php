@@ -6,5 +6,5 @@ use Illuminate\Support\Collection;
 
 interface AvailabilityServiceInterface
 {
-    public function validateAvailabilities(Collection $availabilities, int $duration);
+    public function validateAvailabilities(Collection $availabilities, int $duration): bool;
 }
