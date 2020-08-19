@@ -10,5 +10,5 @@ export default {
         state.scheduledEvents.eventsPagination,
 
     [types.GET_FILTER_SCHEDULED_EVENTS_TYPES]: state =>
-            state.scheduledEventsTypes,
+        state.scheduledEventsTypes
 };
