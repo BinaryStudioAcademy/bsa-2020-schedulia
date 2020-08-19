@@ -271,5 +271,4 @@ export default {
 
     DAYS_FORMAT_ITEMS_CALENDAR: 'calendar days',
     DAYS_FORMAT_ITEMS_BUSINESS: 'business days'
-
 };
