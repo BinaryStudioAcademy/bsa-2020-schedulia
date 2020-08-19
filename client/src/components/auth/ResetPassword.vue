@@ -10,7 +10,7 @@
                 <label>{{ lang.PASSWORD }}*</label>
                 <VTextField
                     :type="showPassword ? 'text' : 'password'"
-                    :value="password"
+                    :value="resetPasswordData.password"
                     :error-messages="passwordErrors"
                     @input="setPasswordOnInput"
                     @blur="setPassword"
@@ -25,7 +25,7 @@
                 <label>{{ lang.PASSWORD }}*</label>
                 <VTextField
                     :type="showPassword ? 'text' : 'password'"
-                    :value="confirmPassword"
+                    :value="resetPasswordData.confirmPassword"
                     :error-messages="confirmPasswordErrors"
                     @input="setConfirmedPasswordOnInput"
                     @blur="setConfirmedPassword"
@@ -55,17 +55,12 @@
             </VCol>
             <VSpacer class="pa-4" />
             <VCol cols="11" sm="11" md="8" class="pa-0">
-                <VAlert
-                    :type="typeResultOfResetPassword"
-                    dense
-                    outlined
-                    text
-                    dismissible
-                    :value="helperVisibility"
-                >
-                    <h6>{{ resultOfResetPassword }}</h6>
-                    <p>{{ explanation }}</p>
-                </VAlert>
+                <ExplanationAlert
+                    :visibility="resetPasswordData.explanationAlertVisibility"
+                    :status="resetPasswordData.status"
+                    :shot-description="resetPasswordData.shotDescription"
+                    :explanation="resetPasswordData.explanation"
+                />
             </VCol>
         </VForm>
     </div>
@@ -73,31 +68,36 @@
 
 <script>
 import * as actions from '@/store/modules/auth/types/actions';
-import { mapActions } from 'vuex';
+import * as mutations from '@/store/modules/auth/types/mutations';
+import { mapActions, mapState, mapMutations } from 'vuex';
 import enLang from '@/store/modules/i18n/en';
 import { validationMixin } from 'vuelidate';
 import { required, minLength, sameAs } from 'vuelidate/lib/validators';
 import * as notificationActions from '@/store/modules/notification/types/actions';
+import ExplanationAlert from '../common/Alerts/ExplanationAlert';
 
 export default {
     name: 'ResetPassword',
     mixins: [validationMixin],
     validations: {
-        password: { required, minLength: minLength(8) },
-        confirmPassword: { sameAsPassword: sameAs('password') }
+        resetPasswordData: {
+            password: { required, minLength: minLength(8) },
+            confirmPassword: { sameAsPassword: sameAs('password') }
+        }
     },
-    components: {},
+    components: { ExplanationAlert },
     data: () => ({
         lang: enLang,
-        password: '',
-        confirmPassword: '',
-        showPassword: false,
-        resultOfResetPassword: 'error',
-        typeResultOfResetPassword: '',
-        explanation: '',
-        helperVisibility: false
+        showPassword: false
     }),
     methods: {
+        ...mapMutations('auth', {
+            setExplanationAlert: mutations.SET_VISIBILITY_RESET,
+            setPasswordState: mutations.SET_PASSWORD_RESET,
+            setPasswordConfirm: mutations.SET_PASSWORD_CONFIRM_RESET,
+            setEmail: mutations.SET_EMAIL_RESET,
+            setToken: mutations.SET_TOKEN_RESET
+        }),
         ...mapActions('auth', {
             resetPassword: actions.RESET_PASSWORD
         }),
@@ -105,66 +105,45 @@ export default {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
         }),
         setPassword(e) {
-            this.password = e.target.value;
-            this.$v.password.$touch();
+            this.setPasswordState(e.target.value);
+            this.$v.resetPasswordData['password'].$touch();
         },
         setPasswordOnInput(e) {
-            this.password = e;
-            this.$v.password.$touch();
+            this.setPasswordState(e);
+            this.$v.resetPasswordData['password'].$touch();
         },
         setConfirmedPassword(e) {
-            this.confirmPassword = e.target.value;
-            this.$v.confirmPassword.$touch();
+            this.setPasswordConfirm(e.target.value);
+            this.$v.resetPasswordData['confirmPassword'].$touch();
         },
         setConfirmedPasswordOnInput(e) {
-            this.confirmPassword = e;
-            this.$v.confirmPassword.$touch();
+            this.setPasswordConfirm(e);
+            this.$v.resetPasswordData['confirmPassword'].$touch();
         },
         async onSubmit() {
-            this.$v.$touch();
-            if (!this.$v.$invalid) {
-                try {
-                    const dataPasswordReset = {
-                        email: this.$route.query.email,
-                        password: this.password,
-                        token: this.$route.query.token
-                    };
-                    const answer = await this.resetPassword(dataPasswordReset);
-                    if ('error' in answer) {
-                        this.typeResultOfResetPassword = 'error';
-                        this.resultOfResetPassword = this.lang.ERROR_IN_PASSWORD_RESET;
-                        this.explanation = this.lang.EXPLANATION_ERROR_PASSWORD_RESET;
-                        this.helperVisibility = true;
-                        setTimeout(() => {
-                            this.$router.push({ name: 'ForgotPassword' });
-                        }, 9000);
-                    } else if ('data' in answer && answer?.data?.code === 201) {
-                        this.typeResultOfResetPassword = 'success';
-                        this.resultOfResetPassword = this.lang.OK_PASSWORD_RESET;
-                        this.explanation = this.lang.EXPLANATION_PASSWORD_RESET;
-                        this.helperVisibility = true;
-                        setTimeout(() => {
-                            this.$router.push({ name: 'SignIn' });
-                        }, 9000);
-                    }
-                    this.helperVisibility = false;
-                } catch (error) {
-                    this.setErrorNotification(error);
+            try {
+                this.setEmail(this.$route.query.email);
+                this.setToken(this.$route.query.token);
+                this.$v.$touch();
+                if (this.$v.$invalid) {
+                    throw new Error(this.lang.PLEASE_ENTER_CORRECT_DATA);
                 }
-            } else {
-                this.setErrorNotification(this.lang.PLEASE_ENTER_CORRECT_DATA);
+                await this.resetPassword();
+            } catch (error) {
+                this.setErrorNotification(error?.message);
             }
         }
     },
     computed: {
+        ...mapState('auth', ['resetPasswordData']),
         passwordErrors() {
             const errors = [];
-            if (!this.$v.password.$dirty) {
+            if (!this.$v.resetPasswordData['password'].$dirty) {
                 return errors;
             }
-            !this.$v.password.required &&
+            !this.$v.resetPasswordData['password'].required &&
                 errors.push(this.lang.PASSWORD_IS_REQUIRED);
-            !this.$v.password.minLength &&
+            !this.$v.resetPasswordData['password'].minLength &&
                 errors.push(
                     this.lang.PASSWORD_MUST_BE_AT_LEAST_8_CHARACTERS_LONG
                 );
@@ -172,10 +151,10 @@ export default {
         },
         confirmPasswordErrors() {
             const errors = [];
-            if (!this.$v.confirmPassword.$dirty) {
+            if (!this.$v.resetPasswordData['confirmPassword'].$dirty) {
                 return errors;
             }
-            !this.$v.confirmPassword.sameAsPassword &&
+            !this.$v.resetPasswordData['confirmPassword'].sameAsPassword &&
                 errors.push(this.lang.PASSWORDS_DONT_MATCH);
             return errors;
         }
@@ -191,12 +170,7 @@ h4 {
     line-height: 44px;
     letter-spacing: -0.44px;
 }
-h6 {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 32px;
-}
+
 .title-of-card {
     color: var(--v-primary-base);
 }

@@ -54,7 +54,7 @@ export default {
                 mutations.SET_EXPLANATION_FORGOT,
                 enLang.LETTER_EXPLANATION_EMAIL_EXIST
             );
-            context.commit(mutations.CHANGE_HELPER_VISIBILITY_FORGOT, true);
+            context.commit(mutations.SET_VISIBILITY_FORGOT, true);
         } catch (error) {
             context.commit(mutations.SET_TYPE_RESULT_SUBMIT_FORGOT, 'error');
             context.commit(
@@ -65,10 +65,38 @@ export default {
                 mutations.SET_EXPLANATION_FORGOT,
                 enLang.LETTER_EXPLANATION_EMAIL_DONOT_EXIST
             );
-            context.commit(mutations.CHANGE_HELPER_VISIBILITY_FORGOT, true);
+            context.commit(mutations.SET_VISIBILITY_FORGOT, true);
         }
     },
-    [actions.RESET_PASSWORD]: async (context, resetDataPassword) => {
-        return await authService.resetPassword(resetDataPassword);
+    [actions.RESET_PASSWORD]: async context => {
+        try {
+            const dataReset = {
+                email: context.state.resetPasswordData.email,
+                password: context.state.resetPasswordData.password,
+                token: context.state.resetPasswordData.token
+            };
+            await authService.resetPassword(dataReset);
+            context.commit(mutations.SET_STATUS_SUBMIT_RESET, 'success');
+            context.commit(
+                mutations.SET_SHORT_DESC_SUBMIT_RESET,
+                enLang.OK_PASSWORD_RESET
+            );
+            context.commit(
+                mutations.SET_EXPLANATION_RESET,
+                enLang.EXPLANATION_PASSWORD_RESET
+            );
+            context.commit(mutations.SET_VISIBILITY_RESET, true);
+        } catch (error) {
+            context.commit(mutations.SET_STATUS_SUBMIT_RESET, 'error');
+            context.commit(
+                mutations.SET_SHORT_DESC_SUBMIT_RESET,
+                enLang.ERROR_IN_PASSWORD_RESET
+            );
+            context.commit(
+                mutations.SET_EXPLANATION_RESET,
+                enLang.EXPLANATION_ERROR_PASSWORD_RESET
+            );
+            context.commit(mutations.SET_VISIBILITY_RESET, true);
+        }
     }
 };

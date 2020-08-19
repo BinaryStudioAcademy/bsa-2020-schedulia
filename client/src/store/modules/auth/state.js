@@ -1,10 +1,20 @@
 export default {
     user: null,
     forgotPasswordData: {
-        helperVisibility: false,
+        explanationVisibility: false,
         explanation: '',
         typeResultSubmitPassword: 'error',
         resultSubmitPassword: '',
         email: ''
+    },
+    resetPasswordData: {
+        email: '',
+        password: '',
+        token: '',
+        confirmPassword: '',
+        explanationAlertVisibility: false,
+        explanation: '',
+        status: 'error',
+        shotDescription: ''
     }
 };

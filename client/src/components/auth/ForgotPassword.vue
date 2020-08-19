@@ -35,17 +35,12 @@
             </VCol>
             <VSpacer class="pa-4" />
             <VCol cols="11" sm="11" md="8" class="pa-0">
-                <VAlert
-                    :type="forgotPasswordData.typeResultSubmitPassword"
-                    dense
-                    outlined
-                    text
-                    dismissible
-                    :value="forgotPasswordData.helperVisibility"
-                >
-                    <h6>{{ forgotPasswordData.resultSubmitPassword }}</h6>
-                    <p>{{ forgotPasswordData.explanation }}</p>
-                </VAlert>
+                <ExplanationAlert
+                    :visibility="forgotPasswordData.explanationVisibility"
+                    :status="forgotPasswordData.typeResultSubmitPassword"
+                    :shot-description="forgotPasswordData.resultSubmitPassword"
+                    :explanation="forgotPasswordData.explanation"
+                />
             </VCol>
         </VForm>
     </div>
@@ -59,23 +54,25 @@ import enLang from '@/store/modules/i18n/en';
 import { validationMixin } from 'vuelidate';
 import { required, email } from 'vuelidate/lib/validators';
 import * as notificationActions from '@/store/modules/notification/types/actions';
+import ExplanationAlert from '../common/Alerts/ExplanationAlert';
 
 export default {
     name: 'ForgotPassword',
     mixins: [validationMixin],
-    components: {},
-    data: () => ({
-        lang: enLang
-    }),
     validations: {
         forgotPasswordData: {
             email: { required, email }
         }
     },
+    components: {
+        ExplanationAlert
+    },
+    data: () => ({
+        lang: enLang
+    }),
     methods: {
         ...mapMutations('auth', {
-            changeHelperVisibilityForgot:
-                mutations.CHANGE_HELPER_VISIBILITY_FORGOT,
+            changeHelperVisibilityForgot: mutations.SET_VISIBILITY_FORGOT,
             setEmailForgot: mutations.SET_EMAIL_FORGOT
         }),
         ...mapActions('auth', {
@@ -129,12 +126,6 @@ h4 {
     font-size: 34px;
     line-height: 44px;
     letter-spacing: -0.44px;
-}
-h6 {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 32px;
 }
 .title-of-card {
     color: var(--v-primary-base);
