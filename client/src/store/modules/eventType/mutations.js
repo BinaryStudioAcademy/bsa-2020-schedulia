@@ -1,5 +1,5 @@
 import * as mutations from './types/mutations';
-import { EventTypeMapper } from '@/store/modules/eventType/Normalizer';
+import { eventTypeMapper } from '@/store/modules/eventType/normalizer';
 import _ from 'lodash';
 
 export default {
@@ -9,7 +9,7 @@ export default {
             ...eventTypes.reduce(
                 (prev, eventType) => ({
                     ...prev,
-                    [eventType.id]: EventTypeMapper(eventType)
+                    [eventType.id]: eventTypeMapper(eventType)
                 }),
                 {}
             )
@@ -23,12 +23,12 @@ export default {
     [mutations.ADD_EVENT_TYPE]: (state, eventType) => {
         state.eventTypes = {
             ...state.eventTypes,
-            [eventType.id]: EventTypeMapper(eventType)
+            [eventType.id]: eventTypeMapper(eventType)
         };
     },
 
     [mutations.SET_EVENT_TYPE]: (state, eventType) => {
-        state.eventType = EventTypeMapper(eventType);
+        state.eventType = eventTypeMapper(eventType);
     },
 
     [mutations.DELETE_EVENT_TYPE]: (state, id) => {
