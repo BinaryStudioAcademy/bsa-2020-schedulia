@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Actions\Auth;
-
 
 use App\Repositories\User\UserRepository;
 use Illuminate\Http\JsonResponse;
@@ -27,9 +25,7 @@ final class EmailVerificationAction
         }
 
         if (!$user->hasVerifiedEmail()) {
-
             $this->userRepository->markUserEmail($user);
-
         } else {
             return response()->json([
                 'message' => 'User already verified!'

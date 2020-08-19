@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Actions\Auth;
-
 
 class EmailVerificationRequest
 {
@@ -11,8 +9,8 @@ class EmailVerificationRequest
 
     public function __construct(int $id, string $hash)
     {
-       $this->id = $id;
-       $this->hash = $hash;
+        $this->id = $id;
+        $this->hash = $hash;
     }
 
     public function getId(): int
