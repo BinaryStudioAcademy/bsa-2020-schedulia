@@ -4,10 +4,16 @@ import * as mutations from './types/mutations';
 import * as authActions from '@/store/modules/auth/types/actions';
 
 export default {
-    [actions.FETCH_ALL_EVENT_TYPES]: async ({ commit, dispatch }) => {
+    [actions.FETCH_EVENT_TYPES]: async (
+        { commit, dispatch },
+        searchString = ''
+    ) => {
         try {
-            const eventTypes = await eventTypesService.fetchAllEventTypes();
+            const eventTypes = await eventTypesService.fetchAllEventTypes(
+                searchString
+            );
             commit(mutations.SET_EVENT_TYPES, eventTypes);
+            return eventTypes;
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true

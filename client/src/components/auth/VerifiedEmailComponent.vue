@@ -14,8 +14,8 @@ export default {
         }),
     },
 
-    created() {
-        this.verifyEmail(this.$route.query);
+    async created() {
+        await this.verifyEmail(this.$route.query);
         this.$router.push({ name: 'SignIn' });
     }
 };

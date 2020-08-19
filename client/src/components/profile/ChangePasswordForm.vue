@@ -29,8 +29,12 @@
                                 <VTextField
                                     v-model="password"
                                     :placeholder="lang.CURRENT_PASSWORD + ' *'"
-                                    type="password"
                                     :rules="[required]"
+                                    :type="showPassword ? 'text' : 'password'"
+                                    :append-icon="
+                                        showPassword ? 'mdi-eye' : 'mdi-eye-off'
+                                    "
+                                    @click:append="showPassword = !showPassword"
                                     required
                                     dense
                                     outlined
@@ -98,10 +102,11 @@ export default {
     name: 'LoginForm',
     data: () => ({
         lang: enLang,
-        password: 'password',
+        password: '',
         newPassword: '',
         matchPassword: '',
         dialog: false,
+        showPassword: false,
         errorMessage: '',
         rules: {
             min: 8,
@@ -120,7 +125,7 @@ export default {
     },
 
     methods: {
-        ...mapActions('profile', ['checkUserPassword', 'updatePassword']),
+        ...mapActions('profile', ['updatePassword']),
 
         confirmPassword() {
             return (
