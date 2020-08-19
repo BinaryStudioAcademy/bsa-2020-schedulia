@@ -18,7 +18,9 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => response,
     error => {
-        const nextError = new Error(error?.response?.data?.error?.message || error);
+        const nextError = new Error(
+            error?.response?.data?.error?.message || error
+        );
         nextError.response = error.response;
         return nextError;
     }
