@@ -8,18 +8,30 @@ export default {
         state.user = userData;
     },
     [mutations.SET_EXPLANATION_FORGOT]: (state, text) => {
-        state.explanationForgot = text;
+        state.forgotPasswordData = {
+            ...state.forgotPasswordData,
+            explanation: text
+        };
     },
     [mutations.SET_TYPE_RESULT_SUBMIT_FORGOT]: (state, text) => {
-        state.typeResultSubmitForgotPassword = text;
+        state.forgotPasswordData = {
+            ...state.forgotPasswordData,
+            typeResultSubmitPassword: text
+        };
     },
     [mutations.SET_RESULT_SUBMIT_FORGOT]: (state, text) => {
-        state.resultSubmitForgotPassword = text;
+        state.forgotPasswordData = {
+            ...state.forgotPasswordData,
+            resultSubmitPassword: text
+        };
     },
     [mutations.SET_EMAIL_FORGOT]: (state, email) => {
         state.emailForgot = email;
     },
     [mutations.CHANGE_HELPER_VISIBILITY_FORGOT]: (state, value) => {
-        state.helperVisibilityForgot = value;
+        state.forgotPasswordData = {
+            ...state.forgotPasswordData,
+            helperVisibility: value
+        };
     }
 };

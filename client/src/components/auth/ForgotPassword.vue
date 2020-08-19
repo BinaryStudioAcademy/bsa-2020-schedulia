@@ -36,15 +36,15 @@
             <VSpacer class="pa-4" />
             <VCol cols="11" sm="11" md="8" class="pa-0">
                 <VAlert
-                    :type="typeResultSubmitForgotPassword"
+                    :type="forgotPasswordData.typeResultSubmitPassword"
                     dense
                     outlined
                     text
                     dismissible
-                    :value="helperVisibilityForgot"
+                    :value="forgotPasswordData.helperVisibility"
                 >
-                    <h6>{{ resultSubmitForgotPassword }}</h6>
-                    <p>{{ explanationForgot }}</p>
+                    <h6>{{ forgotPasswordData.resultSubmitPassword }}</h6>
+                    <p>{{ forgotPasswordData.explanation }}</p>
                 </VAlert>
             </VCol>
         </VForm>
@@ -133,13 +133,7 @@ export default {
         }
     },
     computed: {
-        ...mapState('auth', [
-            'helperVisibilityForgot',
-            'explanationForgot',
-            'typeResultSubmitForgotPassword',
-            'resultSubmitForgotPassword',
-            'emailForgot'
-        ]),
+        ...mapState('auth', ['forgotPasswordData', 'emailForgot']),
         emailErrors() {
             const errors = [];
             if (!this.$v.emailForgot.$dirty) {

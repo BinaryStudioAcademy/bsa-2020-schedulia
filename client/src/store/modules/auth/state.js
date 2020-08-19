@@ -1,8 +1,11 @@
 export default {
     user: null,
-    helperVisibilityForgot: false,
-    explanationForgot: '',
-    typeResultSubmitForgotPassword: 'error',
-    resultSubmitForgotPassword: '',
-    emailForgot: ''
+
+    emailForgot: '',
+    forgotPasswordData: {
+        helperVisibility: false,
+        explanation: '',
+        typeResultSubmitPassword: 'error',
+        resultSubmitPassword: ''
+    }
 };
