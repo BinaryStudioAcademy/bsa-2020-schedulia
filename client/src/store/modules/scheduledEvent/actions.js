@@ -14,9 +14,9 @@ export default {
         );
     },
 
-    [actions.SET_SCHEDULED_EVENTS]: async ({ commit }) => {
+    [actions.SET_SCHEDULED_EVENTS]: async ({ commit }, eventFilter) => {
         try {
-            const data = await scheduledEventService.getScheduledEvents();
+            const data = await scheduledEventService.getScheduledEvents(eventFilter);
 
             commit(mutations.SET_SCHEDULED_EVENTS, data);
         } catch (error) {

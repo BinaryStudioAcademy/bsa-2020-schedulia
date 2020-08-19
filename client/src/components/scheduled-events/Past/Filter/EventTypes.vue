@@ -18,10 +18,10 @@
                     v-bind="attrs"
                     v-on="on"
                 >
-                    <span v-if="!eventTypes.length">
+                    <span v-if="!scheduledEventFilter.eventTypes.length">
                         All Event Types
                     </span>
-                    <span v-else> {{ eventTypes.length }} Event Types </span>
+                    <span v-else> {{ scheduledEventFilter.eventTypes.length }} Event Types </span>
                     <VIcon>mdi-chevron-down</VIcon>
                 </VBtn>
             </template>
@@ -64,7 +64,6 @@
                                     clear
                                 </VBtn>
                                 <div class="filter-form__checkbox">
-                                    {{ eventTypes }}
                                     <div
                                         v-for="(FilterScheduledEventsType,
                                         index) in FilterScheduledEventsTypes"
@@ -114,7 +113,10 @@
                                 >
                                     Cancel
                                 </VBtn>
-                                <VBtn class="apply-button primary">
+                                <VBtn
+                                    class="apply-button primary"
+                                    @click="filterScheduledEvent"
+                                >
                                     Apply
                                 </VBtn>
                             </VContainer>
@@ -131,7 +133,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import { GET_FILTER_SCHEDULED_EVENTS_TYPES } from '@/store/modules/scheduledEvent/types/getters';
-import { SET_FILTER_SCHEDULED_EVENTS_TYPES } from '@/store/modules/scheduledEvent/types/actions';
+import * as scheduledEventActions from '@/store/modules/scheduledEvent/types/actions';
 import * as notificationActions from '@/store/modules/notification/types/actions';
 
 export default {
@@ -142,7 +144,10 @@ export default {
             menu: false,
             eventTypesSearch: '',
             eventTypes: [],
-            moreEventTypes: false
+            moreEventTypes: false,
+            scheduledEventFilter: {
+                eventTypes: []
+            }
         };
     },
 
@@ -162,7 +167,8 @@ export default {
 
     methods: {
         ...mapActions('scheduledEvent', {
-            setFilterScheduledEventsTypes: SET_FILTER_SCHEDULED_EVENTS_TYPES
+            setFilterScheduledEventsTypes: scheduledEventActions.SET_FILTER_SCHEDULED_EVENTS_TYPES,
+            setScheduledEvents: scheduledEventActions.SET_SCHEDULED_EVENTS
         }),
 
         ...mapActions('notification', {
@@ -178,7 +184,7 @@ export default {
         },
 
         selectedEventTypes() {
-            return this.eventTypes.length;
+            return this.scheduledEventFilter.eventTypes.length;
         },
 
         selectAll() {
@@ -201,6 +207,12 @@ export default {
             this.clearSelectAll();
 
             this.setFilterScheduledEventsTypes(eventTypesSearch);
+        },
+
+        filterScheduledEvent() {
+            this.scheduledEventFilter.eventTypes = this.eventTypes;
+            this.setScheduledEvents(this.scheduledEventFilter);
+            this.closeMenu();
         }
     }
 };
