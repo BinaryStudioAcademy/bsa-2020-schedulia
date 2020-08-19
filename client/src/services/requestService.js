@@ -16,9 +16,9 @@ axios.interceptors.request.use(
 );
 
 axios.interceptors.response.use(
-    res => res,
-    err => {
-        throw new Error(err.response.data.error.message);
+    response => response,
+    error => {
+        throw new Error(error?.response?.data?.error?.message || error);
     }
 );
 

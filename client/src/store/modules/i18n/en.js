@@ -243,5 +243,9 @@ export default {
     EVENT_TYPE: 'Event type',
     NO_UPCOMING_EVENTS: 'No Upcoming Events',
     NO_PENDING_EVENTS: 'No Pending Events',
-    NO_PAST_EVENTS: 'No Past Events'
+    NO_PAST_EVENTS: 'No Past Events',
+
+    ACCOUNT_VERIFIED: 'Your account has been activated. Please, ',
+    SEND_VERIFICATION_EMAIL:
+        'We sent you an email, please, verify your account!'
 };
