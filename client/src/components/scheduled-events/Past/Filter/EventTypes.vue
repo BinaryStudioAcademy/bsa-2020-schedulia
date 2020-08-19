@@ -47,6 +47,7 @@
                                     :hover="false"
                                     class="filter-form__button"
                                     text
+                                    @click="selectAll"
                                 >
                                     select all
                                 </VBtn>
@@ -56,6 +57,7 @@
                                     :hover="false"
                                     class="filter-form__button"
                                     text
+                                    @click="clearSelectAll"
                                 >
                                     clear
                                 </VBtn>
@@ -137,7 +139,7 @@ export default {
     data() {
         return {
             menu: false,
-            eventTypes: ['1'],
+            eventTypes: [],
             moreEventTypes: false
         };
     },
@@ -175,6 +177,22 @@ export default {
 
         selectedEventTypes() {
             return this.eventTypes.length;
+        },
+
+        selectAll() {
+            let eventTypes = [];
+
+            this.showMoreEventTypes();
+
+            this.FilterScheduledEventsTypes.forEach(function (scheduledEventsType) {
+                eventTypes.push(scheduledEventsType.id);
+            });
+
+            this.eventTypes = eventTypes;
+        },
+
+        clearSelectAll() {
+            this.eventTypes = [];
         }
     }
 };
