@@ -37,5 +37,9 @@ export default {
                 { root: true }
             );
         }
+    },
+
+    [actions.VERIFY_EMAIL]: async (context, payload) => {
+        await authService.verifyEmail(payload);
     }
 };

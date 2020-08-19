@@ -15,6 +15,13 @@ axios.interceptors.request.use(
     error => Promise.reject(error)
 );
 
+axios.interceptors.response.use(
+    response => response,
+    error => {
+        throw new Error(error?.response?.data?.error?.message || error);
+    }
+);
+
 const requestService = {
     get(url, params = {}, headers = {}) {
         return axios.get(API_URL + url, {
