@@ -43,7 +43,7 @@ class VerifyNotification extends Notification
     protected function verificationUrl($notifiable)
     {
         return  env('CLIENT_APP_URL') .'/verified-email?' . http_build_query(
-                [
+            [
                     'id' => $notifiable->getKey(),
                     'hash' => sha1($notifiable->getEmailForVerification()),
                 ]
