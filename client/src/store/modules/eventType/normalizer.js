@@ -1,4 +1,4 @@
-export const EventTypeMapper = EventType => ({
+export const eventTypeMapper = EventType => ({
     id: EventType.id,
     name: EventType.name,
     description: EventType.description,
@@ -7,50 +7,50 @@ export const EventTypeMapper = EventType => ({
     duration: EventType.duration,
     disabled: EventType.disabled,
     timezone: EventType.timezone,
-    owner: UserMapper(EventType.owner),
-    availabilities: EventType.availabilities.map(AvailabilityMapper)
+    owner: userMapper(EventType.owner),
+    availabilities: EventType.availabilities.map(availabilityMapper)
 });
 
-export const UserMapper = User => ({
-    id: User.id,
-    email: User.email,
-    name: User.name,
-    timezone: User.timezone
+export const userMapper = user => ({
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    timezone: user.timezone
 });
 
-export const AvailabilityMapper = Availability => ({
-    type: Availability.type,
-    startDate: Availability.start_date,
-    endDate: Availability.end_date
+export const availabilityMapper = availability => ({
+    type: availability.type,
+    startDate: availability.start_date,
+    endDate: availability.end_date
 });
 
-export const AvailabilityApiMapper = Availability => ({
-    type: Availability.type,
-    start_date: Availability.startDate,
-    end_date: Availability.endDate
+export const availabilityApiMapper = availability => ({
+    type: availability.type,
+    start_date: availability.startDate,
+    end_date: availability.endDate
 });
 
-export const EventTypeFormMapper = EventTypeForm => ({
-    name: EventTypeForm.name,
-    location: EventTypeForm.location,
-    description: EventTypeForm.description,
-    slug: EventTypeForm.slug,
-    color: EventTypeForm.color,
-    duration: EventTypeForm.duration || EventTypeForm.customDuration,
-    disabled: EventTypeForm.disabled,
-    timezone: EventTypeForm.timezone,
-    availabilities: AvailabilitiesMapper(EventTypeForm.availabilities),
+export const eventTypeFormMapper = eventTypeForm => ({
+    name: eventTypeForm.name,
+    location: eventTypeForm.location,
+    description: eventTypeForm.description,
+    slug: eventTypeForm.slug,
+    color: eventTypeForm.color,
+    duration: eventTypeForm.duration || eventTypeForm.customDuration,
+    disabled: eventTypeForm.disabled,
+    timezone: eventTypeForm.timezone,
+    availabilities: availabilitiesMapper(eventTypeForm.availabilities)
 });
 
-export const AvailabilitiesMapper = function (Availabilities) {
-    let availabilities = [];
-    for (let index in Availabilities) {
-        Availabilities[index].each(function(availability) {
+export const availabilitiesMapper = function(availabilities) {
+    let availabilitiesData = [];
+    for (let index in availabilities) {
+        availabilities[index].each(function(availability) {
             if (availability.endDate && availability.endDate) {
-                availabilities.push(AvailabilityApiMapper(availability));
+                availabilitiesData.push(availabilityApiMapper(availability));
             }
         });
     }
 
-    return availabilities;
+    return availabilitiesData;
 };

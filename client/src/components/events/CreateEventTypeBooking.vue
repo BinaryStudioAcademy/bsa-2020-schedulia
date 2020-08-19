@@ -615,11 +615,23 @@
                                 >
                                 </VSelect>
 
-                                <VCardText class="px-0 pb-0" v-if="data.dateRange.type !== availabilityItems[1]['value']">
+                                <VCardText
+                                    class="px-0 pb-0"
+                                    v-if="
+                                        data.dateRange.type !==
+                                            availabilityItems[1]['value']
+                                    "
+                                >
                                     <p>
                                         {{ lang.YOUR_INVITEES_WILL_BE_OFFERED }}
                                     </p>
-                                    <p class="mt-5" v-if="data.dateRange.type === availabilityItems[0]['value']">
+                                    <p
+                                        class="mt-5"
+                                        v-if="
+                                            data.dateRange.type ===
+                                                availabilityItems[0]['value']
+                                        "
+                                    >
                                         {{ lang.HOW_FAR_INTO_THE_FUTURE }}
                                     </p>
                                 </VCardText>
@@ -630,7 +642,14 @@
                                     </p>
                                 </VCardText>
 
-                                <VCol cols="3" class="px-0 py-0" v-if="data.dateRange.type === availabilityItems[0]['value']">
+                                <VCol
+                                    cols="3"
+                                    class="px-0 py-0"
+                                    v-if="
+                                        data.dateRange.type ===
+                                            availabilityItems[0]['value']
+                                    "
+                                >
                                     <VTextField
                                         :value="data.dateRange.value"
                                         outlined
@@ -638,7 +657,14 @@
                                     >
                                     </VTextField>
                                 </VCol>
-                                <VCol cols="9" class="px-0 py-0" v-if="data.dateRange.type === availabilityItems[0]['value']">
+                                <VCol
+                                    cols="9"
+                                    class="px-0 py-0"
+                                    v-if="
+                                        data.dateRange.type ===
+                                            availabilityItems[0]['value']
+                                    "
+                                >
                                     <VSelect
                                         :value="data.dateRange.subType"
                                         :items="daysFormatItems"
@@ -651,12 +677,20 @@
                                     >
                                     </VSelect>
                                 </VCol>
-                                <VCol cols="11" class="px-0 py-0" v-if="data.dateRange.type === availabilityItems[1]['value']">
+                                <VCol
+                                    cols="11"
+                                    class="px-0 py-0"
+                                    v-if="
+                                        data.dateRange.type ===
+                                            availabilityItems[1]['value']
+                                    "
+                                >
                                     <VDatePicker
                                         :value="data.dateRange.date"
                                         :no-title="true"
                                         @input="changeRangeDate"
-                                        range>
+                                        range
+                                    >
                                     </VDatePicker>
                                 </VCol>
                             </VRow>
@@ -854,7 +888,7 @@
 <script>
 import enLang from '@/store/modules/i18n/en.js';
 import momentTimezone from 'moment-timezone';
-import {mapActions, mapGetters, mapMutations} from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import * as eventTypeMutations from '@/store/modules/eventType/types/mutations';
 import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
 import * as eventTypeActions from '@/store/modules/eventType/types/actions';
@@ -1041,7 +1075,8 @@ export default {
 
         rules() {
             return [
-                (this.data.duration > 0 || this.data.customDuration > 0) ||
+                this.data.duration > 0 ||
+                    this.data.customDuration > 0 ||
                     'At least one item should be selected'
             ];
         },
@@ -1049,7 +1084,9 @@ export default {
         startTime() {
             let startTime = '';
             if (this.selectedDay && this.selectedDay.date) {
-                startTime = this.data.availabilities[this.selectedDay.date][0]['startTime'];
+                startTime = this.data.availabilities[this.selectedDay.date][0][
+                    'startTime'
+                ];
             }
 
             return startTime;
@@ -1058,7 +1095,9 @@ export default {
         endTime() {
             let endTime = '';
             if (this.selectedDay && this.selectedDay.date) {
-                endTime = this.data.availabilities[this.selectedDay.date][0]['endTime'];
+                endTime = this.data.availabilities[this.selectedDay.date][0][
+                    'endTime'
+                ];
             }
 
             return endTime;
@@ -1108,7 +1147,9 @@ export default {
                 case this.availabilityItems[0]['value']:
                     this.form.dateRange.type = val;
                     this.form.dateRange.value = 60;
-                    this.form.dateRange.subType = this.daysFormatItems[0]['value'];
+                    this.form.dateRange.subType = this.daysFormatItems[0][
+                        'value'
+                    ];
                     break;
                 default:
                     this.form.dateRange.type = val;
@@ -1125,19 +1166,29 @@ export default {
             this.form.timezone = data;
         },
         changeStartTime(time) {
-            this.form.availabilities[this.selectedDay.date][0]['startTime'] = time;
-            this.form.availabilities[this.selectedDay.date][0]['startDate'] = this.selectedDay.date + ' ' + time;
+            this.form.availabilities[this.selectedDay.date][0][
+                'startTime'
+            ] = time;
+            this.form.availabilities[this.selectedDay.date][0]['startDate'] =
+                this.selectedDay.date + ' ' + time;
         },
         changeEndTime(time) {
-            this.form.availabilities[this.selectedDay.date][0]['endTime'] = time;
-            this.form.availabilities[this.selectedDay.date][0]['endDate'] = this.selectedDay.date + ' ' + time;
+            this.form.availabilities[this.selectedDay.date][0][
+                'endTime'
+            ] = time;
+            this.form.availabilities[this.selectedDay.date][0]['endDate'] =
+                this.selectedDay.date + ' ' + time;
         },
         viewEventDialog(data) {
             this.selectedDay = data;
             if (!this.form.availabilities[this.selectedDay.date]) {
                 this.form.availabilities[this.selectedDay.date] = [];
-                this.form.availabilities[this.selectedDay.date].push({...this.exampleAvailability});
-                this.form.availabilities[this.selectedDay.date][0]['date'] = this.selectedDay.date;
+                this.form.availabilities[this.selectedDay.date].push({
+                    ...this.exampleAvailability
+                });
+                this.form.availabilities[this.selectedDay.date][0][
+                    'date'
+                ] = this.selectedDay.date;
             }
             this.eventDialog = !this.eventDialog;
         },
@@ -1154,17 +1205,6 @@ export default {
             } catch (error) {
                 this.showErrorMessage(error.message);
             }
-        },
-        sortAvailabilities() {
-            let availabilities = [];
-            for (let index in this.data.availabilities) {
-                this.data.availabilities[index].map(function(availability) {
-                    if (availability.endDate && availability.endDate) {
-                        availabilities.push(availability);
-                    }
-                });
-            }
-            availabilities;
         }
     }
 };
