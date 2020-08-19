@@ -154,7 +154,10 @@ export default {
         async update() {
             try {
                 if (this.validateForm) {
-                    await this.updatePassword(this.newPassword, this.password);
+                    await this.updatePassword({
+                        password: this.newPassword,
+                        oldPassword: this.password
+                    });
                     this.dialog = false;
                 } else {
                     this.showErrorMessage(
