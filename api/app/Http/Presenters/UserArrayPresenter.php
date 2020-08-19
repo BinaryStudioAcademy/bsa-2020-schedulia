@@ -21,7 +21,8 @@ final class UserArrayPresenter
             'language' => $user->language,
             'date_format' => $user->date_format,
             'time_format_12h' => $user->time_format_12h,
-            'country' => $user->country
+            'country' => $user->country,
+            'nickname' => $user->nickname
         ];
     }
 }

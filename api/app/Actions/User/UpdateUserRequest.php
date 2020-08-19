@@ -16,6 +16,7 @@ final class UpdateUserRequest
     private ?bool $timeFormat12h;
     private ?string $country;
     private ?string $timezone;
+    private ?string $nickname;
 
     public function __construct(
         int $userId,
@@ -27,7 +28,8 @@ final class UpdateUserRequest
         ?string $dateFormat,
         ?bool $timeFormat12h,
         ?string $country,
-        ?string $timezone
+        ?string $timezone,
+        ?string $nickname
     ) {
         $this->userId = $userId;
         $this->avatar = $avatar;
@@ -39,6 +41,7 @@ final class UpdateUserRequest
         $this->timeFormat12h = $timeFormat12h;
         $this->country = $country;
         $this->timezone = $timezone;
+        $this->nickname = $nickname;
     }
 
     public function getUserId(): int
@@ -89,5 +92,10 @@ final class UpdateUserRequest
     public function getWelcomeMessage(): ?string
     {
         return $this->welcomeMessage;
+    }
+
+    public function getNickname(): ?string
+    {
+        return $this->nickname;
     }
 }
