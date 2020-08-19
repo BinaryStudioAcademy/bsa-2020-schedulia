@@ -30,12 +30,37 @@
                     :first-day-of-week="1"
                     :weekday-format="getDay"
                     :header-date-format="dateFormat"
+                    :allowed-dates="availableDates"
                     no-title
                     :full-width="true"
                     color="primary"
                     flat
                     is-inline
                 ></VDatePicker>
+                <VSelect
+                    class="timezone-selector"
+                    v-model="currentTimezone"
+                    :items="filterTimezones"
+                    attach
+                    solo
+                    prepend-icon="mdi-earth"
+                    label="Timezone"
+                >
+                    <template v-slot:prepend-item>
+                        <VListItem>
+                            <VListItemContent>
+                                <VListItemTitle>{{
+                                    lang.CHOOSE_YOUR_TIMEZONE
+                                }}</VListItemTitle>
+                                <VTextField
+                                    v-model="timezoneFieldSearch"
+                                    label="Enter timezone"
+                                ></VTextField>
+                            </VListItemContent>
+                        </VListItem>
+                        <VDivider></VDivider>
+                    </template>
+                </VSelect>
             </div>
         </VCol>
         <VDivider v-if="show" vertical class="hidden-md-and-down"></VDivider>
@@ -48,7 +73,7 @@
         >
             <h3>{{ formattedDate }}</h3>
             <div class="time-items-container">
-                <div v-for="(item, i) in availableTimes" :key="i" text>
+                <div v-for="(time, i) in availableTimes" :key="i" text>
                     <div v-if="selectedTime === i">
                         <div class="confirm-event">
                             <VCard
@@ -58,7 +83,7 @@
                                 <VCardText
                                     dense
                                     class="text-center pa-0 justify-center primary--text font-weight-bold"
-                                    >{{ item }}</VCardText
+                                    >{{ time }}</VCardText
                                 >
                             </VCard>
                             <VBtn
@@ -77,7 +102,7 @@
                         outlined
                         @click="selectTime(i)"
                         v-else
-                        >{{ item }}</VBtn
+                        >{{ time }}</VBtn
                     >
                 </div>
             </div>
@@ -87,6 +112,7 @@
 
 <script>
 import moment from 'moment';
+import momentTimezones from 'moment-timezone';
 import enLang from '@/store/modules/i18n/en';
 import DetailLayout from './DetailLayout';
 
@@ -95,47 +121,80 @@ export default {
     components: {
         DetailLayout
     },
+    watch: {
+        currentTimezone() {
+            this.date = '';
+            this.selectedTime = null;
+        }
+    },
     data: () => ({
         lang: enLang,
+        currentTimezone: momentTimezones.tz.guess(),
+        timezoneFieldSearch: '',
         date: '',
         selectedTime: null,
+        userTimeFormat: '24',
         meetingData: {
             name: 'Sales manager',
-            duration: 20,
+            duration: 30,
             location: 'Scranton, Pennsylvania',
-            description: ''
+            description: '',
+            timezone: 'Europe/Kiev',
+            startDate: '2020-09-08 11:00:00',
+            color: 'red',
+            slug: 'collaboration-with-binary-studio',
+            availabilities: [
+                {
+                    type: 'one to many',
+                    startDate: '2020-09-08 11:00:00',
+                    endDate: '2020-09-18 17:00:00'
+                },
+                {
+                    type: 'one to many',
+                    startDate: '2020-09-20 09:00:00',
+                    endDate: '2020-09-23 19:00:00'
+                }
+            ]
         },
-        availability: {
-            startDate: '08:00',
-            endDate: '18:00'
-        },
+
         owner: {
             name: 'Michael Scott | Dunder Mifflin',
             avatar:
                 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
             companyLogo:
                 'https://i.etsystatic.com/16438614/r/il/c31bd2/1806659071/il_570xN.1806659071_pn8j.jpg'
-        },
-        availableTimes: [
-            '9:00',
-            '9:30',
-            '10:00',
-            '10:30',
-            '11:00',
-            '11:30',
-            '12:00',
-            '12:30',
-            '13:00',
-            '13:30',
-            '14:00',
-            '14:30',
-            '15:00',
-            '15:30',
-            '16:00'
-        ]
+        }
     }),
 
     computed: {
+        currentTimezoneStartTime() {
+            return moment
+                .tz(this.meetingData.startDate, this.meetingData.timezone)
+                .clone()
+                .tz(this.currentTimezone)
+                .format();
+        },
+        currentTimezoneAvailabilities() {
+            const formatTime = time => {
+                return moment
+                    .tz(time, this.meetingData.timezone)
+                    .clone()
+                    .tz(this.currentTimezone)
+                    .format('YYYY-MM-DD HH:mm:ss');
+            };
+
+            return this.meetingData.availabilities.map(availability => ({
+                startDate: formatTime(availability.startDate),
+                endDate: formatTime(availability.endDate)
+            }));
+        },
+        filterTimezones() {
+            return momentTimezones.tz.names().filter(zone => {
+                return zone
+                    .toLowerCase()
+                    .includes(this.timezoneFieldSearch.toLowerCase());
+            });
+        },
         colEventInfoClass() {
             const base = 'pa-0 col-md-5 col-sm-12 col-12';
             let lgSize;
@@ -151,9 +210,124 @@ export default {
         },
         formattedDate() {
             return moment(this.date).format('dddd, MMMM D');
+        },
+        availableTimesRange() {
+            const getCurrentDate = d => {
+                return moment(d).format();
+            };
+
+            const currentDate = getCurrentDate(this.date);
+
+            let availableTime = {};
+
+            for (let availability of this.currentTimezoneAvailabilities) {
+                const currentShortStartDate = getCurrentDate(
+                    availability.startDate.slice(0, 10)
+                );
+                const currentShortEndDate = getCurrentDate(
+                    availability.endDate.slice(0, 10)
+                );
+
+                if (
+                    currentDate >= currentShortStartDate &&
+                    currentDate <= currentShortEndDate
+                ) {
+                    availableTime.startTime = moment(
+                        availability.startDate
+                    ).format('HH:mm');
+
+                    availableTime.endTime = moment(availability.endDate).format(
+                        'HH:mm'
+                    );
+
+                    break;
+                }
+            }
+            return availableTime;
+        },
+        availableTimes() {
+            let duration = this.meetingData.duration;
+            let times = [];
+
+            let start =
+                this.availableTimesRange.startTime.split(':')[0] * 60 +
+                +this.availableTimesRange.startTime.split(':')[1];
+            const initialStart = start;
+
+            let end =
+                this.availableTimesRange.endTime.split(':')[0] * 60 +
+                +this.availableTimesRange.endTime.split(':')[1];
+
+            if (start > end && 24 * 60 - start <= end) {
+                while (start > end) {
+                    let [hours, minutes] = [Math.trunc(start / 60), start % 60];
+
+                    if (24 * 60 - start + duration >= 0) {
+                        hours = hours > 23 ? hours - 24 : hours;
+                    } else {
+                        hours -= 24;
+                        start -= 24 * 60;
+                    }
+
+                    hours = String(hours).length === 2 ? hours : '0' + hours;
+                    minutes =
+                        String(minutes).length === 2 ? minutes : minutes + '0';
+                    times.push(`${hours}:${minutes}`);
+                    start += duration;
+                }
+            }
+
+            while (end - start >= duration) {
+                let [hours, minutes] = [Math.trunc(start / 60), start % 60];
+                hours = String(hours).length === 2 ? hours : '0' + hours;
+                minutes =
+                    String(minutes).length === 2 ? minutes : minutes + '0';
+                times.push(`${hours}:${minutes}`);
+                start += duration;
+            }
+
+            times.sort(
+                (prev, next) =>
+                    prev.split(':')[0] * 60 +
+                    +prev.split(':')[1] -
+                    next.split(':')[0] * 60 +
+                    +next.split(':')[1]
+            );
+
+            times = this.appropriateTimes(times, initialStart, end);
+
+            return this.convertToUserFormat(times);
         }
     },
     methods: {
+        convertToUserFormat(times) {
+            if (this.userTimeFormat === '24') {
+                return times;
+            } else {
+                return times.map(time =>
+                    moment(time, 'HHmm').format('hh:mm A')
+                );
+            }
+        },
+        appropriateTimes(times, initialStart, end) {
+            if (
+                this.currentTimezoneAvailabilities.some(date =>
+                    date.startDate.includes(this.date)
+                )
+            ) {
+                return times.filter(
+                    time => +time.split(':')[0] * 60 >= initialStart
+                );
+            } else if (
+                this.currentTimezoneAvailabilities.some(date =>
+                    date.endDate.includes(this.date)
+                )
+            ) {
+                return times.filter(time => +time.split(':')[0] * 60 < end);
+            } else {
+                return times;
+            }
+        },
         dateFormat(date) {
             const [year, month] = date.split('-');
             const months = [
@@ -192,12 +366,53 @@ export default {
             ];
             let i = new Date(date).getDay(date);
             return weekDays[i];
+        },
+        availableDates(date) {
+            const getCurrentDate = d => {
+                return moment(d).format();
+            };
+            const currentDate = getCurrentDate(date);
+
+            let present = false;
+
+            for (let availability of this.currentTimezoneAvailabilities) {
+                if (
+                    currentDate >=
+                        getCurrentDate(availability.startDate.slice(0, 10)) &&
+                    currentDate <=
+                        getCurrentDate(availability.endDate.slice(0, 10))
+                ) {
+                    present = true;
+                    break;
+                }
+            }
+
+            return present;
         }
     }
 };
 </script>
 
 <style scoped>
+.calendar-content::v-deep .v-date-picker-header {
+    margin: 0 0 25px 0;
+    justify-content: flex-start;
+}
+.calendar-content::v-deep
+    .theme--light.v-date-picker-header
+    .v-date-picker-header__value:not(.v-date-picker-header__value--disabled)
+    button:not(:hover):not(:focus) {
+    color: grey;
+    font-weight: 500;
+}
+.calendar-content::v-deep .v-date-picker-header__value {
+    flex: none;
+    padding: 0 15px;
+}
+.calendar-content::v-deep .theme--light.v-btn.v-btn--icon {
+    color: var(--v-primary-base);
+}
+
 .event-info {
     display: flex;
     padding: 6px 0 6px 0;
@@ -228,6 +443,10 @@ export default {
     margin: 50px 0 10px 0;
     width: 100%;
     padding-left: 30px;
+}
+
+.timezone-selector {
+    padding: 10px 30px;
 }
 
 .select-time-container {
