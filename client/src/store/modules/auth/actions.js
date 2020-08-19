@@ -39,6 +39,9 @@ export default {
             );
         }
     },
+    [actions.VERIFY_EMAIL]: async (context, payload) => {
+        await authService.verifyEmail(payload);
+    },
     [actions.FORGOT_PASSWORD]: async context => {
         try {
             const dataForgot = {

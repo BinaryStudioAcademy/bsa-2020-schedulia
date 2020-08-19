@@ -91,6 +91,12 @@ const routes = [
                         component: () => import('../views/NewEventTypeBooking')
                     }
                 ]
+            },
+
+            {
+                path: 'verified-email',
+                name: 'verified-email',
+                component: () => import('../views/VerifiedEmail')
             }
         ]
     }

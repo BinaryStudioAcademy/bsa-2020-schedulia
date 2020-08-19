@@ -10,5 +10,9 @@ export default {
 
     [mutations.SET_SCHEDULED_EVENTS]: (state, data) => {
         state.scheduledEvents = data;
+    },
+
+    [mutations.SET_FILTER_SCHEDULED_EVENTS_TYPES]: (state, data) => {
+        state.scheduledEventsTypes = data;
     }
 };
