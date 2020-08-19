@@ -8,6 +8,8 @@ use App\Contracts\AvailabilityServiceInterface;
 use App\Entity\Availability;
 use App\Entity\EventType;
 use App\Exceptions\Availability\AvailabilityValidationException;
+use App\Exceptions\Availability\IntervalsOverlappedException;
+use App\Exceptions\Availability\UnknownAvailabilityTypeException;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
@@ -24,7 +26,7 @@ final class AvailabilityService implements AvailabilityServiceInterface
         return true;
     }
 
-    public function getAvailableDaysByEventType(EventType $eventType):void
+    public function getAvailableDaysByEventType(EventType $eventType): void
     {
         $availabilities = $eventType->availabilities;
     }
@@ -53,7 +55,7 @@ final class AvailabilityService implements AvailabilityServiceInterface
         }
 
         if (!in_array($availability->type, AvailabilityTypes::getTypes())) {
-            throw new AvailabilityValidationException(400, "Unknown Availability type!");
+            throw new UnknownAvailabilityTypeException();
         }
 
         if ($availability->type !== AvailabilityTypes::DATE_RANGE && $differenceInDays >= 1) {
@@ -63,25 +65,21 @@ final class AvailabilityService implements AvailabilityServiceInterface
         }
     }
 
-    private function checkAvailabilitiesOnOverlapping(Collection $availabilities)
+    private function checkAvailabilitiesOnOverlapping(Collection $availabilities): void
     {
         $availabilities = $availabilities->sortBy('type')->values();
         foreach ($availabilities as $index => $availability) {
             if ($index > 0 && $availability->type === $availabilities[$index - 1]->type) {
                 if (
-                    $availability->start_date > $availabilities[$index - 1]->start_date
+                    ($availability->start_date > $availabilities[$index - 1]->start_date
                     &&
-                    $availability->start_date < $availabilities[$index - 1]->end_date
-                ) {
-                    throw new AvailabilityValidationException(400, "Intervals are overlapping!");
-                }
-
-                if (
-                    $availability->end_date < $availabilities[$index - 1]->end_date
+                    $availability->start_date < $availabilities[$index - 1]->end_date)
+                    ||
+                    ($availability->end_date < $availabilities[$index - 1]->end_date
                     &&
-                    $availability->end_date > $availabilities[$index - 1]->start_date
+                    $availability->end_date > $availabilities[$index - 1]->start_date)
                 ) {
-                    throw new AvailabilityValidationException(400, "Intervals are overlapping!");
+                    throw new IntervalsOverlappedException();
                 }
             }
         }
