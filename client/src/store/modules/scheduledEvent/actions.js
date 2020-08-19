@@ -29,7 +29,6 @@ export default {
 
     [actions.SET_FILTER_SCHEDULED_EVENTS_TYPES]: async ({ commit }, eventTypesSearch = '') => {
         try {
-            console.log(eventTypesSearch);
             const data = await scheduledEventService.getFilterScheduledEventsTypes(eventTypesSearch);
 
             commit(mutations.SET_FILTER_SCHEDULED_EVENTS_TYPES, data);

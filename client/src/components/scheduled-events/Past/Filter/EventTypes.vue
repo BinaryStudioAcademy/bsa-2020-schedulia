@@ -41,7 +41,7 @@
                                 label="Search"
                                 clearable
                                 prepend-inner-icon="mdi-magnify"
-                                :change="setFilterScheduledEventsTypes(eventTypesSearch)"
+                                @input="searchEventTypes(eventTypesSearch)"
                             ></VTextField>
                             <VContainer class="filter-form" fluid>
                                 <VBtn
@@ -196,6 +196,14 @@ export default {
 
         clearSelectAll() {
             this.eventTypes = [];
+        },
+
+        searchEventTypes(eventTypesSearch) {
+            console.log(eventTypesSearch);
+
+            this.setFilterScheduledEventsTypes(eventTypesSearch);
+
+            this.clearSelectAll();
         }
     }
 };
