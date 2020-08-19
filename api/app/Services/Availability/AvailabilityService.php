@@ -8,6 +8,7 @@ use App\Contracts\AvailabilityServiceInterface;
 use App\Entity\Availability;
 use App\Entity\EventType;
 use App\Exceptions\Availability\AvailabilityValidationException;
+use App\Exceptions\Availability\EndTimeBeforeStartTimeException;
 use App\Exceptions\Availability\IntervalsOverlappedException;
 use App\Exceptions\Availability\UnknownAvailabilityTypeException;
 use Carbon\Carbon;
@@ -44,7 +45,7 @@ final class AvailabilityService implements AvailabilityServiceInterface
         $endTime = $endDateTime->toTimeString();
 
         if ($availability->start_date > $availability->end_date) {
-            throw new AvailabilityValidationException(400, "Your end time cannot be before your start time!");
+            throw new EndTimeBeforeStartTimeException();
         } else {
             $startDateWithDuration = new Carbon($availability->start_date);
             $startDateWithDuration->addMinutes($duration);
