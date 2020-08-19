@@ -67,32 +67,16 @@
                                 </VBtn>
                                 <div class="filter-form__checkbox">
                                     <div
-                                        v-for="(FilterScheduledEventsType,
-                                        index) in FilterScheduledEventsTypes"
-                                        :key="eventTypes[index]"
+                                        v-for="(checkbox, index) in checkboxes"
+                                        :key="index"
                                     >
                                         <VCheckbox
-                                            v-if="index < 5"
                                             hide-details
-                                            :label="
-                                                FilterScheduledEventsType.name
-                                            "
-                                            v-model="eventTypes"
+                                            :label="checkbox.name"
                                             :value="
-                                                FilterScheduledEventsType.id
+                                                eventTypes.includes(checkbox.id)
                                             "
-                                        ></VCheckbox>
-                                        <VCheckbox
-                                            v-else
-                                            v-show="moreEventTypes"
-                                            hide-details
-                                            :label="
-                                                FilterScheduledEventsType.name
-                                            "
-                                            v-model="eventTypes"
-                                            :value="
-                                                FilterScheduledEventsType.id
-                                            "
+                                            @change="onChangeType(checkbox.id)"
                                         ></VCheckbox>
                                     </div>
                                     <VBtn
@@ -163,8 +147,20 @@ export default {
 
     computed: {
         ...mapGetters('scheduledEvent', {
-            FilterScheduledEventsTypes: GET_FILTER_SCHEDULED_EVENTS_TYPES
-        })
+            filterScheduledEventsTypes: GET_FILTER_SCHEDULED_EVENTS_TYPES
+        }),
+
+        checkboxes() {
+            if (!Array.isArray(this.filterScheduledEventsTypes)) {
+                return [];
+            }
+
+            if (this.moreEventTypes) {
+                return this.filterScheduledEventsTypes;
+            } else {
+                return this.filterScheduledEventsTypes.slice(0, 5);
+            }
+        }
     },
 
     methods: {
@@ -193,11 +189,7 @@ export default {
         selectAll() {
             let eventTypes = [];
 
-            this.showMoreEventTypes();
-
-            this.FilterScheduledEventsTypes.forEach(function(
-                scheduledEventsType
-            ) {
+            this.checkboxes.forEach(function(scheduledEventsType) {
                 eventTypes.push(scheduledEventsType.id);
             });
 
@@ -210,7 +202,6 @@ export default {
 
         searchEventTypes(eventTypesSearch) {
             this.clearSelectAll();
-
             this.setFilterScheduledEventsTypes(eventTypesSearch);
         },
 
@@ -218,6 +209,16 @@ export default {
             this.scheduledEventFilter.eventTypes = this.eventTypes;
             this.setScheduledEvents(this.scheduledEventFilter);
             this.closeMenu();
+        },
+
+        onChangeType(id) {
+            if (this.eventTypes.includes(id)) {
+                this.eventTypes = this.eventTypes.filter(
+                    eventType => eventType !== id
+                );
+            } else {
+                this.eventTypes = this.eventTypes.concat(id);
+            }
         }
     }
 };
