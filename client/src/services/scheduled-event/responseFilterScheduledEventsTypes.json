@@ -1,27 +1,27 @@
 [
     {
-        "_id": "1",
+        "id": "1",
         "name": "Red alert"
     }, {
-        "_id": "2",
+        "id": "2",
         "name": "Green Alert"
     }, {
-        "_id": "3",
+        "id": "3",
         "name": "Blue Alert"
     }, {
-        "_id": "4",
+        "id": "4",
         "name": "Orange Alert"
     }, {
-        "_id": "5",
+        "id": "5",
         "name": "Pink Alert"
     }, {
-        "_id": "6",
+        "id": "6",
         "name": "Grey Alert"
     }, {
-        "_id": "7",
+        "id": "7",
         "name": "White Alert"
     }, {
-        "_id": "5",
+        "id": "5",
         "name": "Dark Alert"
     }
 ]

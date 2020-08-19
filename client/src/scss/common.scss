@@ -103,6 +103,10 @@
     height: 210px;
     overflow: auto;
   }
+
+  .v-input--hide-details > .v-input__control > .v-input__slot {
+    padding-left: 8px;
+  }
 }
 
 .v-input--selection-controls {

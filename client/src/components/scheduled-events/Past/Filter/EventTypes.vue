@@ -67,10 +67,10 @@
                                     <div
                                         v-for="(FilterScheduledEventsType,
                                         index) in FilterScheduledEventsTypes"
-                                        :key="FilterScheduledEventsType.id"
+                                        :key="eventTypes[index]"
                                     >
-                                        <div v-if="index < 5">
-                                            <VCheckbox
+                                        <VCheckbox
+                                                v-if="index < 5"
                                                 hide-details
                                                 :label="
                                                     FilterScheduledEventsType.name
@@ -79,10 +79,9 @@
                                                 :value="
                                                     FilterScheduledEventsType.id
                                                 "
-                                            ></VCheckbox>
-                                        </div>
-                                        <div v-else>
-                                            <VCheckbox
+                                        ></VCheckbox>
+                                        <VCheckbox
+                                                v-else
                                                 v-show="moreEventTypes"
                                                 hide-details
                                                 :label="
@@ -92,9 +91,14 @@
                                                 :value="
                                                     FilterScheduledEventsType.id
                                                 "
-                                            ></VCheckbox>
-                                        </div>
+                                        ></VCheckbox>
                                     </div>
+                                    <VCheckbox
+                                            hide-details
+                                            label="test"
+                                            v-model="eventTypes"
+                                            value="77"
+                                    ></VCheckbox>
                                     <VBtn
                                         :ripple="false"
                                         :hover="false"
