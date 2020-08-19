@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ApiToken extends Model
 {
-    const GOOGLE_SERVICE_ID = 1001;
+    public const GOOGLE_SERVICE_ID = 1001;
 
     protected $fillable = [
         'user_id',
