@@ -80,6 +80,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(EventType::class, 'owner_id', 'id');
     }
 
+    public function apiTokens()
+    {
+        return $this->hasMany(ApiToken::class);
+    }
+
     public function getAvatarUrl(): ?string
     {
         return $this->avatar ? Storage::disk()->url($this->avatar) : null;
