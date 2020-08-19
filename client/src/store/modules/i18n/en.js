@@ -134,6 +134,8 @@ export default {
     NOV: 'Nov',
     DEC: 'Dec',
 
+    CHOOSE_YOUR_TIMEZONE: 'Choose your timezone',
+
     ENTER_DETAILS: 'Enter Details',
     SCHEDULE_EVENT: 'Schedule Event',
     ADDITIONAL_INFO: 'Additional Info',

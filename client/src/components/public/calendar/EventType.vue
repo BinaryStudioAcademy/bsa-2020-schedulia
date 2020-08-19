@@ -49,9 +49,9 @@
                     <template v-slot:prepend-item>
                         <VListItem>
                             <VListItemContent>
-                                <VListItemTitle
-                                    >Choose your timezone</VListItemTitle
-                                >
+                                <VListItemTitle>{{
+                                    lang.CHOOSE_YOUR_TIMEZONE
+                                }}</VListItemTitle>
                                 <VTextField
                                     v-model="timezoneFieldSearch"
                                     label="Enter timezone"
@@ -133,6 +133,7 @@ export default {
         timezoneFieldSearch: '',
         date: '',
         selectedTime: null,
+        userTimeFormat: '24',
         meetingData: {
             name: 'Sales manager',
             duration: 30,
@@ -293,6 +294,22 @@ export default {
                     +next.split(':')[1]
             );
 
+            times = this.appropriateTimes(times, initialStart, end);
+
+            return this.convertToUserFormat(times);
+        }
+    },
+    methods: {
+        convertToUserFormat(times) {
+            if (this.userTimeFormat === '24') {
+                return times;
+            } else {
+                return times.map(time =>
+                    moment(time, 'HHmm').format('hh:mm A')
+                );
+            }
+        },
+        appropriateTimes(times, initialStart, end) {
             if (
                 this.currentTimezoneAvailabilities.some(date =>
                     date.startDate.includes(this.date)
@@ -310,9 +327,7 @@ export default {
             } else {
                 return times;
             }
-        }
-    },
-    methods: {
+        },
         dateFormat(date) {
             const [year, month] = date.split('-');
             const months = [
