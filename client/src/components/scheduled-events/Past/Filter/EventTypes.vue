@@ -21,7 +21,9 @@
                     <span v-if="!scheduledEventFilter.eventTypes.length">
                         All Event Types
                     </span>
-                    <span v-else> {{ scheduledEventFilter.eventTypes.length }} Event Types </span>
+                    <span v-else>
+                        {{ scheduledEventFilter.eventTypes.length }} Event Types
+                    </span>
                     <VIcon>mdi-chevron-down</VIcon>
                 </VBtn>
             </template>
@@ -70,27 +72,27 @@
                                         :key="eventTypes[index]"
                                     >
                                         <VCheckbox
-                                                v-if="index < 5"
-                                                hide-details
-                                                :label="
-                                                    FilterScheduledEventsType.name
-                                                "
-                                                v-model="eventTypes"
-                                                :value="
-                                                    FilterScheduledEventsType.id
-                                                "
+                                            v-if="index < 5"
+                                            hide-details
+                                            :label="
+                                                FilterScheduledEventsType.name
+                                            "
+                                            v-model="eventTypes"
+                                            :value="
+                                                FilterScheduledEventsType.id
+                                            "
                                         ></VCheckbox>
                                         <VCheckbox
-                                                v-else
-                                                v-show="moreEventTypes"
-                                                hide-details
-                                                :label="
-                                                    FilterScheduledEventsType.name
-                                                "
-                                                v-model="eventTypes"
-                                                :value="
-                                                    FilterScheduledEventsType.id
-                                                "
+                                            v-else
+                                            v-show="moreEventTypes"
+                                            hide-details
+                                            :label="
+                                                FilterScheduledEventsType.name
+                                            "
+                                            v-model="eventTypes"
+                                            :value="
+                                                FilterScheduledEventsType.id
+                                            "
                                         ></VCheckbox>
                                     </div>
                                     <VBtn
@@ -167,7 +169,8 @@ export default {
 
     methods: {
         ...mapActions('scheduledEvent', {
-            setFilterScheduledEventsTypes: scheduledEventActions.SET_FILTER_SCHEDULED_EVENTS_TYPES,
+            setFilterScheduledEventsTypes:
+                scheduledEventActions.SET_FILTER_SCHEDULED_EVENTS_TYPES,
             setScheduledEvents: scheduledEventActions.SET_SCHEDULED_EVENTS
         }),
 
@@ -192,7 +195,9 @@ export default {
 
             this.showMoreEventTypes();
 
-            this.FilterScheduledEventsTypes.forEach(function (scheduledEventsType) {
+            this.FilterScheduledEventsTypes.forEach(function(
+                scheduledEventsType
+            ) {
                 eventTypes.push(scheduledEventsType.id);
             });
 

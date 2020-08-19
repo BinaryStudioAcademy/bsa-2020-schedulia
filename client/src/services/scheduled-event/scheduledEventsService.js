@@ -8,8 +8,7 @@ const scheduledEventService = {
         if (eventFilter) {
             const response = responseScheduledPastEventsFirstPageFilter;
             return response?.[0];
-        }
-        else {
+        } else {
             const response = responseScheduledPastEventsFirstPage;
             return response?.[0];
         }
