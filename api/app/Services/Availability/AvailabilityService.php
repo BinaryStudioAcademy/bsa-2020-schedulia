@@ -28,8 +28,7 @@ final class AvailabilityService implements AvailabilityServiceInterface
         $endDate = explode(" ", $availability->end_date)[0];
         $endTime = explode(" ", $availability->end_date)[1];
 
-        if ($availability->start_date > $availability->end_date && $endTime !== self::MIDNIGHT_TIME) {
-
+        if ($availability->start_date > $availability->end_date) {
             throw new AvailabilityValidationException(400, "Your end time cannot be before your start time!");
         } else {
             $startDateWithDuration = new Carbon($availability->start_date);
