@@ -248,5 +248,5 @@ export default {
     ACCOUNT_VERIFIED: 'Your account has been activated. Please, ',
     SEND_VERIFICATION_EMAIL:
         'We sent you an email, please, verify your account!',
-    ACCOUNT_IS_BEING_ACTIVATED: 'Your account is being activated...',
+    ACCOUNT_IS_BEING_ACTIVATED: 'Your account is being activated...'
 };

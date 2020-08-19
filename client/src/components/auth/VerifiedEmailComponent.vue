@@ -3,11 +3,10 @@
         <div>
             <p v-show="textVisible">{{ lang.ACCOUNT_IS_BEING_ACTIVATED }}</p>
         </div>
-        <div  v-if="textVisible === false" class="d-flex">
-            <p class="mr-2">{{ lang.ACCOUNT_VERIFIED }} </p>
+        <div v-if="textVisible === false" class="d-flex">
+            <p class="mr-2">{{ lang.ACCOUNT_VERIFIED }}</p>
             <RouterLink :to="{ name: 'SignIn' }">{{ lang.LOGIN }}</RouterLink>
         </div>
-
     </div>
 </template>
 
@@ -23,7 +22,7 @@ export default {
     data: () => ({
         lang: enLang,
 
-        textVisible: true,
+        textVisible: true
     }),
     methods: {
         ...mapActions('auth', {
@@ -31,7 +30,7 @@ export default {
         }),
         ...mapActions('notification', {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
-        }),
+        })
     },
 
     async created() {
@@ -45,5 +44,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
