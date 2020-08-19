@@ -18,7 +18,7 @@ class AddNicknameToUsersTable extends Migration
             $table->string('nickname', 255)->nullable();
         });
 
-        DB::table('users')->get()->each(function($user) {
+        DB::table('users')->get()->each(function ($user) {
             DB::table('users')->where('id', $user->id)->update(['nickname' => Hash::make($user->email)]);
         });
 
