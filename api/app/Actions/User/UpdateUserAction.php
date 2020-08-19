@@ -33,6 +33,7 @@ final class UpdateUserAction
         $profile->time_format_12h = $request->isTimeFormat12h() ?: $profile->time_format_12h;
         $profile->country = $request->getCountry() ?: $profile->country;
         $profile->timezone = $request->getTimezone() ?: $profile->timezone;
+        $profile->nickname = $request->getNickname() ?: $profile->nickname;
 
         $profile->save();
 
