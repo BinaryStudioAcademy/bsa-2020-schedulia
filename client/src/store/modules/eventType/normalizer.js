@@ -45,7 +45,7 @@ export const EventTypeFormMapper = EventTypeForm => ({
 export const AvailabilitiesMapper = function (Availabilities) {
     let availabilities = [];
     for (let index in Availabilities) {
-        Availabilities[index].map(function(availability) {
+        Availabilities[index].each(function(availability) {
             if (availability.endDate && availability.endDate) {
                 availabilities.push(AvailabilityApiMapper(availability));
             }
