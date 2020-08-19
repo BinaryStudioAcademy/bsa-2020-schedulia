@@ -5,7 +5,7 @@ import responseFilterScheduledEventsTypesSearch from './responseFilterScheduledE
 
 const scheduledEventService = {
     async getScheduledEvents(eventFilter) {
-        if (eventFilter) {
+        if (eventFilter.length) {
             const response = responseScheduledPastEventsFirstPageFilter;
             return response?.[0];
         } else {

@@ -182,10 +182,6 @@ export default {
             this.moreEventTypes = true;
         },
 
-        selectedEventTypes() {
-            return this.scheduledEventFilter.eventTypes.length;
-        },
-
         selectAll() {
             let eventTypes = [];
 
@@ -207,7 +203,7 @@ export default {
 
         filterScheduledEvent() {
             this.scheduledEventFilter.eventTypes = this.eventTypes;
-            this.setScheduledEvents(this.scheduledEventFilter);
+            this.setScheduledEvents(this.scheduledEventFilter.eventTypes);
             this.closeMenu();
         },
 

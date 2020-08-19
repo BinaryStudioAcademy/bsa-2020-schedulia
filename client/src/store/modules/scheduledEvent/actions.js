@@ -14,7 +14,7 @@ export default {
         );
     },
 
-    [actions.SET_SCHEDULED_EVENTS]: async ({ commit }, eventFilter) => {
+    [actions.SET_SCHEDULED_EVENTS]: async ({ commit }, eventFilter = []) => {
         try {
             const data = await scheduledEventService.getScheduledEvents(
                 eventFilter
