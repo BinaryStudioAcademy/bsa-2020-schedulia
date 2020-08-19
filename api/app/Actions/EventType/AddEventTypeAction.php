@@ -8,7 +8,6 @@ use App\Contracts\AvailabilityServiceInterface;
 use App\Entity\Availability;
 use App\Entity\EventType;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
-use App\Services\Availability\AvailabilityService;
 use Illuminate\Support\Facades\Auth;
 
 final class AddEventTypeAction
