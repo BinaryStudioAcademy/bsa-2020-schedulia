@@ -173,12 +173,8 @@ export default {
                     this.registerData.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
                     await this.signUp(this.registerData);
                     this.showMessage(
-                        this.lang.SUCCESSFULLY_REGISTERED,
-                        'success.login'
-                    );
-                    setTimeout(
-                        () => this.$router.push({ name: 'SignIn' }),
-                        2000
+                        this.lang.SEND_VERIFICATION_EMAIL,
+                        'success'
                     );
                 } catch (error) {
                     this.setErrorNotification(error);

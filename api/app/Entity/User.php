@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Notifications\VerifyNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
     use Notifiable;
 
@@ -78,6 +79,11 @@ class User extends Authenticatable implements JWTSubject
     public function eventTypes()
     {
         return $this->hasMany(EventType::class, 'owner_id', 'id');
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyNotification());
     }
 
     public function getAvatarUrl(): ?string
