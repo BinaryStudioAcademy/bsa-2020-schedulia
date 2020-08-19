@@ -7,5 +7,6 @@ export default {
             pageEndEventNum: 0,
             allEvents: 0
         }
-    }
+    },
+    scheduledEventsTypes: {}
 };
