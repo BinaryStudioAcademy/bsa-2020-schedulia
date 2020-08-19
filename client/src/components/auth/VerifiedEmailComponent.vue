@@ -9,9 +9,9 @@ export default {
     name: 'VerifiedEmailComponent',
 
     methods: {
-        ...mapActions('auth',{
+        ...mapActions('auth', {
             verifyEmail: actions.VERIFY_EMAIL
-        }),
+        })
     },
 
     async created() {
@@ -21,6 +21,4 @@ export default {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
