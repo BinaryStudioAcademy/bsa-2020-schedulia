@@ -26,7 +26,10 @@ export default {
         };
     },
     [mutations.SET_EMAIL_FORGOT]: (state, email) => {
-        state.emailForgot = email;
+        state.forgotPasswordData = {
+            ...state.forgotPasswordData,
+            email: email
+        };
     },
     [mutations.CHANGE_HELPER_VISIBILITY_FORGOT]: (state, value) => {
         state.forgotPasswordData = {

@@ -3,6 +3,7 @@ import * as mutations from './types/mutations';
 import authService from '@/services/auth/authService';
 import router from '@/router';
 import * as notifyActions from '@/store/modules/notification/types/actions';
+import enLang from '@/store/modules/i18n/en';
 
 export default {
     [actions.SIGN_IN]: async (context, loginData) => {
@@ -38,8 +39,34 @@ export default {
             );
         }
     },
-    [actions.FORGOT_PASSWORD]: async (context, forgotEmail) => {
-        return await authService.forgotPassword(forgotEmail);
+    [actions.FORGOT_PASSWORD]: async context => {
+        try {
+            const dataForgot = {
+                email: context.state.forgotPasswordData.email
+            };
+            await authService.forgotPassword(dataForgot);
+            context.commit(mutations.SET_TYPE_RESULT_SUBMIT_FORGOT, 'success');
+            context.commit(
+                mutations.SET_RESULT_SUBMIT_FORGOT,
+                enLang.LETTER_WITH_RESET_LINK_WAS_SENT
+            );
+            context.commit(
+                mutations.SET_EXPLANATION_FORGOT,
+                enLang.LETTER_EXPLANATION_EMAIL_EXIST
+            );
+            context.commit(mutations.CHANGE_HELPER_VISIBILITY_FORGOT, true);
+        } catch (error) {
+            context.commit(mutations.SET_TYPE_RESULT_SUBMIT_FORGOT, 'error');
+            context.commit(
+                mutations.SET_RESULT_SUBMIT_FORGOT,
+                enLang.THE_USER_WITH_THE_SPECIFIED_EMAIL_DOES_NOT_EXIST
+            );
+            context.commit(
+                mutations.SET_EXPLANATION_FORGOT,
+                enLang.LETTER_EXPLANATION_EMAIL_DONOT_EXIST
+            );
+            context.commit(mutations.CHANGE_HELPER_VISIBILITY_FORGOT, true);
+        }
     },
     [actions.RESET_PASSWORD]: async (context, resetDataPassword) => {
         return await authService.resetPassword(resetDataPassword);

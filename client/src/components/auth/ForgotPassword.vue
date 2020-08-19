@@ -7,7 +7,7 @@
                 <label>{{ lang.EMAIL }}*</label>
                 <VTextField
                     id="email"
-                    :value="emailForgot"
+                    :value="forgotPasswordData.email"
                     :error-messages="emailErrors"
                     @input="setEmailOnInput"
                     @blur="setEmail"
@@ -54,7 +54,7 @@
 <script>
 import * as actions from '@/store/modules/auth/types/actions';
 import * as mutations from '@/store/modules/auth/types/mutations';
-import { mapActions, mapState, mapMutations } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 import enLang from '@/store/modules/i18n/en';
 import { validationMixin } from 'vuelidate';
 import { required, email } from 'vuelidate/lib/validators';
@@ -68,15 +68,14 @@ export default {
         lang: enLang
     }),
     validations: {
-        emailForgot: { required, email }
+        forgotPasswordData: {
+            email: { required, email }
+        }
     },
     methods: {
         ...mapMutations('auth', {
             changeHelperVisibilityForgot:
                 mutations.CHANGE_HELPER_VISIBILITY_FORGOT,
-            setExplanationForgot: mutations.SET_EXPLANATION_FORGOT,
-            setTypeResultSubmitForgot: mutations.SET_TYPE_RESULT_SUBMIT_FORGOT,
-            setResultSubmitForgot: mutations.SET_RESULT_SUBMIT_FORGOT,
             setEmailForgot: mutations.SET_EMAIL_FORGOT
         }),
         ...mapActions('auth', {
@@ -87,61 +86,35 @@ export default {
         }),
         setEmail(e) {
             this.setEmailForgot(e.target.value);
-            this.$v.emailForgot.$touch();
+            this.$v.forgotPasswordData['email'].$touch();
         },
         setEmailOnInput(e) {
             this.setEmailForgot(e);
-            this.$v.emailForgot.$touch();
+            this.$v.forgotPasswordData['email'].$touch();
             this.changeHelperVisibilityForgot(false);
         },
         async onSubmit() {
-            this.$v.$touch();
-            if (!this.$v.$invalid) {
-                try {
-                    const dataForgot = { email: this.emailForgot };
-                    const response = await this.forgotPassword(dataForgot);
-                    if ('error' in response) {
-                        this.setTypeResultSubmitForgot('error');
-                        this.setResultSubmitForgot(
-                            this.lang
-                                .THE_USER_WITH_THE_SPECIFIED_EMAIL_DOES_NOT_EXIST
-                        );
-                        this.setExplanationForgot(
-                            this.lang.LETTER_EXPLANATION_EMAIL_DONOT_EXIST
-                        );
-                    } else if (
-                        'data' in response &&
-                        response?.data?.code === 201
-                    ) {
-                        this.setTypeResultSubmitForgot('success');
-                        this.setResultSubmitForgot(
-                            this.lang.LETTER_WITH_RESET_LINK_WAS_SENT +
-                                ' ' +
-                                response?.data?.email
-                        );
-                        this.setExplanationForgot(
-                            this.lang.LETTER_EXPLANATION_EMAIL_EXIST
-                        );
-                    }
-                    this.changeHelperVisibilityForgot(true);
-                } catch (error) {
-                    this.setErrorNotification(error);
+            try {
+                this.$v.$touch();
+                if (this.$v.$invalid) {
+                    throw new Error(this.lang.PLEASE_ENTER_CORRECT_DATA);
                 }
-            } else {
-                this.setErrorNotification(this.lang.PLEASE_ENTER_CORRECT_DATA);
+                await this.forgotPassword();
+            } catch (error) {
+                this.setErrorNotification(error?.message);
             }
         }
     },
     computed: {
-        ...mapState('auth', ['forgotPasswordData', 'emailForgot']),
+        ...mapState('auth', ['forgotPasswordData']),
         emailErrors() {
             const errors = [];
-            if (!this.$v.emailForgot.$dirty) {
+            if (!this.$v.forgotPasswordData['email'].$dirty) {
                 return errors;
             }
-            !this.$v.emailForgot.email &&
+            !this.$v.forgotPasswordData['email'].email &&
                 errors.push(this.lang.MUST_BE_VALID_EMAIL);
-            !this.$v.emailForgot.required &&
+            !this.$v.forgotPasswordData['email'].required &&
                 errors.push(this.lang.EMAIL_IS_REQUIRED);
             return errors;
         }

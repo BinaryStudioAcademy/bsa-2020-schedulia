@@ -17,14 +17,14 @@ const authService = {
             '/auth/forgot-password',
             forgotEmail
         );
-        return response?.data;
+        return response?.data?.data;
     },
     async resetPassword(dataPasswordReset) {
         const response = await requestService.post(
             '/auth/reset-password',
             dataPasswordReset
         );
-        return response?.data;
+        return response?.data?.data;
     },
     async signOut() {
         const response = await requestService.post('/auth/logout');

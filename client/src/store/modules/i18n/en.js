@@ -254,7 +254,8 @@ export default {
     EMAIL_IS_REQUIRED: 'E-mail is required',
     PLEASE_ENTER_CORRECT_DATA:
         'Please enter correct data according to the recommendations.',
-    LETTER_WITH_RESET_LINK_WAS_SENT: 'Letter with reset link was sent to',
+    LETTER_WITH_RESET_LINK_WAS_SENT:
+        'Letter with reset link was sent to your email',
     LETTER_EXPLANATION_EMAIL_EXIST:
         'Please check the specified email. You should receive a letter with a link by clicking on which you can change your password.',
     THE_USER_WITH_THE_SPECIFIED_EMAIL_DOES_NOT_EXIST:
