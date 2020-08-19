@@ -53,7 +53,8 @@
 
 <script>
 import * as actions from '@/store/modules/auth/types/actions';
-import { mapActions } from 'vuex';
+import * as mutations from '@/store/modules/auth/types/mutations';
+import { mapActions, mapState, mapMutations } from 'vuex';
 import enLang from '@/store/modules/i18n/en';
 import { validationMixin } from 'vuelidate';
 import { required, email } from 'vuelidate/lib/validators';
@@ -64,17 +65,20 @@ export default {
     mixins: [validationMixin],
     components: {},
     data: () => ({
-        lang: enLang,
-        emailForgot: '',
-        resultSubmitForgotPassword: '',
-        typeResultSubmitForgotPassword: '',
-        explanationForgot: '',
-        helperVisibilityForgot: false
+        lang: enLang
     }),
     validations: {
         emailForgot: { required, email }
     },
     methods: {
+        ...mapMutations('auth', {
+            changeHelperVisibilityForgot:
+                mutations.CHANGE_HELPER_VISIBILITY_FORGOT,
+            setExplanationForgot: mutations.SET_EXPLANATION_FORGOT,
+            setTypeResultSubmitForgot: mutations.SET_TYPE_RESULT_SUBMIT_FORGOT,
+            setResultSubmitForgot: mutations.SET_RESULT_SUBMIT_FORGOT,
+            setEmailForgot: mutations.SET_EMAIL_FORGOT
+        }),
         ...mapActions('auth', {
             forgotPassword: actions.FORGOT_PASSWORD
         }),
@@ -82,14 +86,13 @@ export default {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
         }),
         setEmail(e) {
-            this.emailForgot = e.target.value;
+            this.setEmailForgot(e.target.value);
             this.$v.emailForgot.$touch();
-            this.helperVisibilityForgot = false;
         },
         setEmailOnInput(e) {
-            this.emailForgot = e;
+            this.setEmailForgot(e);
             this.$v.emailForgot.$touch();
-            this.helperVisibilityForgot = false;
+            this.changeHelperVisibilityForgot(false);
         },
         async onSubmit() {
             this.$v.$touch();
@@ -98,21 +101,29 @@ export default {
                     const dataForgot = { email: this.emailForgot };
                     const response = await this.forgotPassword(dataForgot);
                     if ('error' in response) {
-                        this.resultSubmitForgotPassword = 'error';
-                        this.resultSubmitForgotPassword = this.lang.THE_USER_WITH_THE_SPECIFIED_EMAIL_DOES_NOT_EXIST;
-                        this.explanationForgot = this.lang.LETTER_EXPLANATION_EMAIL_DONOT_EXIST;
+                        this.setTypeResultSubmitForgot('error');
+                        this.setResultSubmitForgot(
+                            this.lang
+                                .THE_USER_WITH_THE_SPECIFIED_EMAIL_DOES_NOT_EXIST
+                        );
+                        this.setExplanationForgot(
+                            this.lang.LETTER_EXPLANATION_EMAIL_DONOT_EXIST
+                        );
                     } else if (
                         'data' in response &&
                         response?.data?.code === 201
                     ) {
-                        this.resultSubmitForgotPassword = 'success';
-                        this.typeResultSubmitForgotPassword =
+                        this.setTypeResultSubmitForgot('success');
+                        this.setResultSubmitForgot(
                             this.lang.LETTER_WITH_RESET_LINK_WAS_SENT +
-                            ' ' +
-                            response?.data?.email;
-                        this.explanationForgot = this.lang.LETTER_EXPLANATION_EMAIL_EXIST;
+                                ' ' +
+                                response?.data?.email
+                        );
+                        this.setExplanationForgot(
+                            this.lang.LETTER_EXPLANATION_EMAIL_EXIST
+                        );
                     }
-                    this.helperVisibilityForgot = true;
+                    this.changeHelperVisibilityForgot(true);
                 } catch (error) {
                     this.setErrorNotification(error);
                 }
@@ -122,6 +133,13 @@ export default {
         }
     },
     computed: {
+        ...mapState('auth', [
+            'helperVisibilityForgot',
+            'explanationForgot',
+            'typeResultSubmitForgotPassword',
+            'resultSubmitForgotPassword',
+            'emailForgot'
+        ]),
         emailErrors() {
             const errors = [];
             if (!this.$v.emailForgot.$dirty) {
