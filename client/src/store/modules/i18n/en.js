@@ -264,7 +264,7 @@ export default {
     AVAILABILITY_ITEMS_INDEFINITELY: 'Indefinitely',
 
     DAYS_FORMAT_ITEMS_CALENDAR: 'calendar days',
-    DAYS_FORMAT_ITEMS_BUSINESS: 'business days'
+    DAYS_FORMAT_ITEMS_BUSINESS: 'business days',
 
     ALL_EVENT_TYPES: 'All Event Types',
     SELECT_ALL: 'select all',
