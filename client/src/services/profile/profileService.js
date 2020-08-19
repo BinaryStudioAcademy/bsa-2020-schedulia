@@ -3,8 +3,8 @@ import requestService from '@/services/requestService';
 export default {
     async updatePassword(password, oldPassword) {
         return await requestService.put('/profiles/me/password', {
-            password: password,
-            oldPassword: oldPassword
+            password,
+            oldPassword
         });
     },
 

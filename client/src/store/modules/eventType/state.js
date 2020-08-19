@@ -9,6 +9,17 @@ export default {
         location: '',
         description: '',
         slug: '',
-        color: ''
+        color: '',
+        duration: null,
+        customDuration: null,
+        timezone: null,
+        disabled: null,
+        dateRange: {
+            type: '',
+            value: null,
+            subType: '',
+            date: []
+        },
+        availabilities: {}
     }
 };
