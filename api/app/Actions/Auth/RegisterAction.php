@@ -28,6 +28,8 @@ final class RegisterAction
 
         $user = $this->userRepository->save($user);
 
+        $user->sendEmailVerificationNotification();
+
         return new RegisterResponse($user);
     }
 }

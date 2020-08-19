@@ -1,7 +1,7 @@
 <template>
     <VSnackbar v-model="alertVisible" :color="color">
         {{ message }}
-        <RouterLink :to="{ path: '/login' }" v-if="isSuccessLogin">
+        <RouterLink :to="{ name: 'SignIn' }" v-if="isSuccessLogin">
             {{ lang.LOG_IN }}
         </RouterLink>
         <template v-slot:action="{ attrs }">
