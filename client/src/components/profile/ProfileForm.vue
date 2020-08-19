@@ -41,6 +41,13 @@
                                     @change="onChangeHandle('name', $event)"
                                 />
 
+                                <ProfileTextField
+                                    :label="lang.NICKNAME"
+                                    :value="userProfile.nickname"
+                                    :defaultValue="user.nickname"
+                                    @change="onChangeHandle('nickname', $event)"
+                                />
+
                                 <ProfileTextArea
                                     :label="lang.WELCOME_MESSAGE"
                                     :value="userProfile.welcome_message"
@@ -165,6 +172,7 @@ export default {
         userProfile: {
             avatar: null,
             name: '',
+            nickname: '',
             welcome_message: '',
             language: 'en',
             date_format: 'american',
