@@ -199,8 +199,6 @@ export default {
         },
 
         searchEventTypes(eventTypesSearch) {
-            console.log(eventTypesSearch);
-
             this.setFilterScheduledEventsTypes(eventTypesSearch);
 
             this.clearSelectAll();
