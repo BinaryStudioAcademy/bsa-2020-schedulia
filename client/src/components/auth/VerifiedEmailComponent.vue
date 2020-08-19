@@ -53,7 +53,7 @@ export default {
     async created() {
         try {
             await this.verifyEmail(this.$route.query);
-            setTimeout(() => (this.textVisible = false), 1000);
+            this.textVisible = false;
             this.showMessage(this.lang.ACCOUNT_VERIFIED, 'success.login');
         } catch (error) {
             this.setErrorNotification(error.message);
