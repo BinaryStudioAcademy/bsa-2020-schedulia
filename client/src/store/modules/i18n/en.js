@@ -181,6 +181,7 @@ export default {
     CUSTOM_DURATION: 'Custom Duration',
     EVENTS_CAN_BE_SCHEDULED_OVER_60_DAYS:
         'Events can be scheduled over 60 calendar days',
+    EVENTS_CAN_BE_SCHEDULED: 'Events can be scheduled ',
     EVENT_TIME_ZONE: 'Event Time Zone',
     AVAILABILITY: 'Availability',
     HOURS: 'Hours',
@@ -264,5 +265,21 @@ export default {
     AVAILABILITY_ITEMS_INDEFINITELY: 'Indefinitely',
 
     DAYS_FORMAT_ITEMS_CALENDAR: 'calendar days',
-    DAYS_FORMAT_ITEMS_BUSINESS: 'business days'
+    DAYS_FORMAT_ITEMS_BUSINESS: 'business days',
+
+    INVITEES_VIRTUAL_MEETINGS:
+        'Invitees will see your availability in\n' +
+        '                                        their time zone. Recommended for virtual\n' +
+        '                                        meetings.',
+    INVITEES_VIRTUAL_MEETINGS_CONFIGURED:
+        '(Your account settings are configured\n' +
+        'for Eastern European Time)',
+
+    INVITEES_IN_PERSON_MEETINGS:
+        'Invitees will see your availability\n' +
+        '    in a locked time zone. Recommended\n' +
+        '    for in-person meetings.',
+
+    FROM: 'From',
+    TO: 'To'
 };

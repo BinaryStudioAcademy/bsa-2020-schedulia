@@ -9,6 +9,7 @@ export default {
         location: '',
         description: '',
         slug: '',
-        color: ''
+        color: '',
+        disabled: true
     }
 };

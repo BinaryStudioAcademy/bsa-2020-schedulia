@@ -1,14 +1,14 @@
 <template>
     <VContainer>
         <VCard class="mt-7">
-            <VExpansionPanels accordion :value="1">
+            <VExpansionPanels accordion :value="0">
                 <VExpansionPanel>
                     <VExpansionPanelHeader>
                         <VRow align="center">
                             <VCol cols="1">
                                 <div>
                                     <img
-                                        :src="colorById[data.color].image"
+                                        :src="colorById[color].image"
                                         alt=""
                                         class="ml-10"
                                     />
@@ -32,13 +32,12 @@
                             <VCol cols="6" offset-md="2">
                                 <VForm class="mt-9 mb-16">
                                     <div class="mb-2">
-                                        <label
-                                            >{{ lang.EVENT_NAME_LABEL }}*</label
-                                        >
+                                        <label>
+                                            {{ lang.EVENT_NAME_LABEL }}*
+                                        </label>
                                     </div>
-
                                     <VTextField
-                                        :value="data.name"
+                                        :value="name"
                                         @input="changeName"
                                         :rules="nameRules"
                                         outlined
@@ -52,7 +51,7 @@
                                     </div>
 
                                     <VSelect
-                                        :value="data.location"
+                                        :value="location"
                                         :items="items"
                                         @change="changeLocation"
                                         outlined
@@ -69,7 +68,7 @@
                                     </div>
 
                                     <VTextarea
-                                        :value="data.description"
+                                        :value="description"
                                         @change="changeDescription"
                                         :rules="descRules"
                                         placeholder="Placeholder"
@@ -79,15 +78,15 @@
                                     </VTextarea>
 
                                     <div class="mb-2">
-                                        <label
-                                            >{{ lang.EVENT_LINK_LABEL }}*</label
-                                        >
+                                        <label>
+                                            {{ lang.EVENT_LINK_LABEL }}*
+                                        </label>
                                     </div>
 
                                     <VTextField
                                         :rules="eventLinkRules"
                                         outlined
-                                        :value="data.slug"
+                                        :value="slug"
                                         @input="changeSlug"
                                         dense
                                         class="mb-4 app-textfield"
@@ -111,9 +110,7 @@
                                                 >
                                                     <VOverlay
                                                         absolute
-                                                        :value="
-                                                            data.color === id
-                                                        "
+                                                        :value="color === id"
                                                         class="rounded-circle"
                                                         color="eventColor"
                                                     >
@@ -171,7 +168,7 @@
                                         {{ lang.WHEN_CAN_PEOPLE_BOOK_EVENT }}
                                     </VCardTitle>
                                     <VCardSubtitle>
-                                        15 min, 12 Jul - 24 Jul 2020
+                                        {{ duration }}, {{ dateDuration }}
                                     </VCardSubtitle>
                                 </div>
                             </VCol>
@@ -191,7 +188,7 @@
                                         <VRadioGroup
                                             dense
                                             row
-                                            :value="data.duration"
+                                            :value="form.duration"
                                             @change="changeDuration"
                                             class="mr-5 app-text"
                                         >
@@ -202,15 +199,14 @@
                                                 :value="n.value"
                                                 class="mr-6"
                                                 :rules="rules"
-                                            ></VRadio>
+                                            >
+                                            </VRadio>
                                         </VRadioGroup>
-
                                         <p class="mr-3 app-text">
                                             {{ lang.CUSTOM_DURATION }}
                                         </p>
-
                                         <VTextField
-                                            :value="data.customDuration"
+                                            :value="form.customDuration"
                                             @change="changeCustomDuration"
                                             outlined
                                             dense
@@ -226,9 +222,8 @@
                                     </VRow>
                                     <VRow class="mb-3" align="baseline">
                                         <p class="mr-5 app-text">
-                                            {{
-                                                lang.EVENTS_CAN_BE_SCHEDULED_OVER_60_DAYS
-                                            }}
+                                            {{ lang.EVENTS_CAN_BE_SCHEDULED }}
+                                            {{ dateDuration }}
                                         </p>
                                         <VBtn
                                             text
@@ -251,7 +246,6 @@
                                             {{
                                                 lang.EVENT_TIME_ZONE_EXPLANATION
                                             }}
-
                                             <VBtn
                                                 text
                                                 small
@@ -288,10 +282,9 @@
                                     <VRow>
                                         <VTabs v-model="tab">
                                             <VTabsSlider></VTabsSlider>
-
-                                            <VTab :href="'#tab-0'">
-                                                {{ lang.HOURS }}
-                                            </VTab>
+                                            <VTab :href="'#tab-0'">{{
+                                                lang.HOURS
+                                            }}</VTab>
                                             <VTabItem :value="'tab-0'">
                                                 <VRow class="fill-height">
                                                     <VCol>
@@ -384,7 +377,8 @@
                                                                                 alt=""
                                                                                 width="24"
                                                                                 height="24"
-                                                                            ></VImg>
+                                                                            >
+                                                                            </VImg>
                                                                         </VBtn>
                                                                     </template>
                                                                     <VDatePicker
@@ -401,8 +395,8 @@
                                                                             @click="
                                                                                 menu = false
                                                                             "
-                                                                            >Cancel</VBtn
-                                                                        >
+                                                                            >Cancel
+                                                                        </VBtn>
                                                                         <VBtn
                                                                             text
                                                                             color="primary"
@@ -411,8 +405,8 @@
                                                                                     date
                                                                                 )
                                                                             "
-                                                                            >OK</VBtn
-                                                                        >
+                                                                            >OK
+                                                                        </VBtn>
                                                                     </VDatePicker>
                                                                 </VMenu>
                                                                 <VSpacer></VSpacer>
@@ -433,14 +427,15 @@
                                                                 @click:date="
                                                                     viewEventDialog
                                                                 "
-                                                            ></VCalendar>
+                                                            >
+                                                            </VCalendar>
                                                         </VSheet>
                                                     </VCol>
                                                 </VRow>
                                             </VTabItem>
-                                            <VTab :href="'#tab-1'">
-                                                {{ lang.ADVANCED }}
-                                            </VTab>
+                                            <VTab :href="'#tab-1'">{{
+                                                lang.ADVANCED
+                                            }}</VTab>
                                             <VTabItem :value="'tab-1'">
                                                 <VRow class="pt-3">
                                                     <VCol cols="5">
@@ -584,139 +579,17 @@
             </VExpansionPanels>
         </VCard>
         <VRow justify="center">
-            <VDialog v-model="availabilityDialog" max-width="380">
-                <VCard>
-                    <VRow justify="center">
-                        <VCol cols="9">
-                            <VRow justify="center">
-                                <VCardTitle class="headline">{{
-                                    lang.AVAILABILITY
-                                }}</VCardTitle>
-                                <VRow>
-                                    <VCol cols="12">
-                                        <label class="availability-label"
-                                            >{{
-                                                lang.WHEN_CAN_EVENTS_BE_SCHEDULED
-                                            }}
-                                        </label>
-                                    </VCol>
-                                </VRow>
-
-                                <VSelect
-                                    :value="data.dateRange.type"
-                                    :items="availabilityItems"
-                                    @change="changeRangeType"
-                                    item-value="value"
-                                    item-text="label"
-                                    outlined
-                                    placeholder="Option"
-                                    dense
-                                    class="app-select"
-                                >
-                                </VSelect>
-
-                                <VCardText
-                                    class="px-0 pb-0"
-                                    v-if="
-                                        data.dateRange.type !==
-                                            availabilityItems[1]['value']
-                                    "
-                                >
-                                    <p>
-                                        {{ lang.YOUR_INVITEES_WILL_BE_OFFERED }}
-                                    </p>
-                                    <p
-                                        class="mt-5"
-                                        v-if="
-                                            data.dateRange.type ===
-                                                availabilityItems[0]['value']
-                                        "
-                                    >
-                                        {{ lang.HOW_FAR_INTO_THE_FUTURE }}
-                                    </p>
-                                </VCardText>
-
-                                <VCardText class="px-0 pb-0" v-else>
-                                    <p>
-                                        {{ lang.AVAILABILITY_RANGE }}
-                                    </p>
-                                </VCardText>
-
-                                <VCol
-                                    cols="3"
-                                    class="px-0 py-0"
-                                    v-if="
-                                        data.dateRange.type ===
-                                            availabilityItems[0]['value']
-                                    "
-                                >
-                                    <VTextField
-                                        :value="data.dateRange.value"
-                                        outlined
-                                        dense
-                                    >
-                                    </VTextField>
-                                </VCol>
-                                <VCol
-                                    cols="9"
-                                    class="px-0 py-0"
-                                    v-if="
-                                        data.dateRange.type ===
-                                            availabilityItems[0]['value']
-                                    "
-                                >
-                                    <VSelect
-                                        :value="data.dateRange.subType"
-                                        :items="daysFormatItems"
-                                        item-value="value"
-                                        item-text="label"
-                                        outlined
-                                        placeholder="Option"
-                                        dense
-                                        class="mb-3 app-select"
-                                    >
-                                    </VSelect>
-                                </VCol>
-                                <VCol
-                                    cols="11"
-                                    class="px-0 py-0"
-                                    v-if="
-                                        data.dateRange.type ===
-                                            availabilityItems[1]['value']
-                                    "
-                                >
-                                    <VDatePicker
-                                        :value="data.dateRange.date"
-                                        :no-title="true"
-                                        @input="changeRangeDate"
-                                        range
-                                    >
-                                    </VDatePicker>
-                                </VCol>
-                            </VRow>
-                        </VCol>
-                    </VRow>
-
-                    <VCardActions>
-                        <VSpacer></VSpacer>
-
-                        <VBtn
-                            color="primary"
-                            text
-                            @click="availabilityDialog = false"
-                        >
-                            {{ lang.APPLY }}
-                        </VBtn>
-
-                        <VBtn
-                            color="primary"
-                            text
-                            @click="availabilityDialog = false"
-                        >
-                            {{ lang.CANCEL }}
-                        </VBtn>
-                    </VCardActions>
-                </VCard>
+            <VDialog
+                v-model="availabilityDialog"
+                max-width="380"
+                @close="cancelDateRange"
+            >
+                <AvailabilityDialog
+                    :range="form.dateRange"
+                    @cancel="cancelDateRange"
+                    @apply="changeDateRange"
+                >
+                </AvailabilityDialog>
             </VDialog>
         </VRow>
         <VRow justify="center">
@@ -725,9 +598,9 @@
                     <VRow justify="center">
                         <VCol cols="9">
                             <VRow justify="center">
-                                <VCardTitle class="headline">{{
-                                    lang.TIME_ZONE_STYLE
-                                }}</VCardTitle>
+                                <VCardTitle class="headline">
+                                    {{ lang.TIME_ZONE_STYLE }}
+                                </VCardTitle>
                                 <VRadioGroup
                                     dense
                                     row
@@ -738,15 +611,13 @@
                                         <VRadio
                                             :label="lang.LOCAL"
                                             value="Local"
-                                        >
-                                        </VRadio>
+                                        ></VRadio>
                                     </VCol>
                                     <VCol cols="6">
                                         <VRadio
                                             :label="lang.LOCKED"
                                             value="Locked"
-                                        >
-                                        </VRadio>
+                                        ></VRadio>
                                     </VCol>
                                 </VRadioGroup>
 
@@ -754,31 +625,27 @@
                                     v-show="radioTimeZoneChecked === 'Local'"
                                     class="px-0 pb-0"
                                 >
-                                    <p>
-                                        Invitees will see your availability in
-                                        their time zone. Recommended for virtual
-                                        meetings.
-                                    </p>
+                                    <p>{{ lang.INVITEES_VIRTUAL_MEETINGS }}</p>
                                     <p class="mt-5">
-                                        (Your account settings are configured
-                                        for Eastern European Time)
+                                        {{
+                                            lang.INVITEES_VIRTUAL_MEETINGS_CONFIGURED
+                                        }}
                                     </p>
                                 </VCardText>
 
                                 <div v-show="radioTimeZoneChecked === 'Locked'">
-                                    <VCardText class="px-0 pb-0">
-                                        <p>
-                                            Invitees will see your availability
-                                            in a locked time zone. Recommended
-                                            for in-person meetings.
-                                        </p>
-                                    </VCardText>
-
+                                    <VCardText class="px-0 pb-0"
+                                        ><p>
+                                            {{
+                                                lang.INVITEES_IN_PERSON_MEETINGS
+                                            }}
+                                        </p></VCardText
+                                    >
                                     <VCol cols="12" class="px-0 py-0">
                                         <VSelect
                                             :items="timeZones"
                                             @change="changeTimezone"
-                                            :value="data.timezone"
+                                            :value="form.timezone"
                                             outlined
                                             placeholder="Option"
                                             dense
@@ -793,7 +660,6 @@
 
                     <VCardActions>
                         <VSpacer></VSpacer>
-
                         <VBtn
                             color="primary"
                             text
@@ -801,7 +667,6 @@
                         >
                             {{ lang.APPLY }}
                         </VBtn>
-
                         <VBtn
                             color="primary"
                             text
@@ -824,9 +689,9 @@
                             <VRow align="baseline">
                                 <VCol cols="4">
                                     <VRow>
-                                        <label class="availability-label"
-                                            >From
-                                        </label>
+                                        <label class="availability-label">{{
+                                            lang.FROM
+                                        }}</label>
                                     </VRow>
                                     <VRow>
                                         <VTextField
@@ -849,9 +714,9 @@
 
                                 <VCol cols="4">
                                     <VRow>
-                                        <label class="availability-label"
-                                            >To
-                                        </label>
+                                        <label class="availability-label">{{
+                                            lang.TO
+                                        }}</label>
                                     </VRow>
                                     <VRow>
                                         <VTextField
@@ -870,11 +735,9 @@
                     </VRow>
                     <VCardActions>
                         <VSpacer></VSpacer>
-
                         <VBtn color="primary" text @click="eventDialog = false">
                             {{ lang.APPLY }}
                         </VBtn>
-
                         <VBtn color="primary" text @click="eventDialog = false">
                             {{ lang.CANCEL }}
                         </VBtn>
@@ -893,9 +756,12 @@ import * as eventTypeMutations from '@/store/modules/eventType/types/mutations';
 import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
 import * as eventTypeActions from '@/store/modules/eventType/types/actions';
 import moment from 'moment';
+import AvailabilityDialog from '@/components/events/AvailabilityDialog';
 export default {
     name: 'CreateEventTypeBooking',
-
+    components: {
+        AvailabilityDialog
+    },
     data() {
         return {
             lang: enLang,
@@ -928,7 +794,6 @@ export default {
                 color: '',
                 duration: 30,
                 customDuration: 0,
-                disabled: true,
                 timezone: moment.tz.guess(),
                 dateRange: {
                     type: 'period',
@@ -1007,53 +872,41 @@ export default {
 
     computed: {
         ...mapGetters('eventType', {
-            getEventTypeForm: eventTypeGetters.GET_EVENT_TYPE_FORM
+            eventTypeForm: eventTypeGetters.GET_EVENT_TYPE_FORM
         }),
-        data() {
-            return {
-                ...this.form,
-                ...this.getEventTypeForm
-            };
-        },
-
         rules() {
             return [
-                this.data.duration > 0 ||
-                    this.data.customDuration > 0 ||
+                this.form.duration > 0 ||
+                    this.form.customDuration > 0 ||
                     'At least one item should be selected'
             ];
         },
-
         startTime() {
             let startTime = '';
             if (this.selectedDay && this.selectedDay.date) {
-                startTime = this.data.availabilities[this.selectedDay.date][0][
+                startTime = this.form.availabilities[this.selectedDay.date][0][
                     'startTime'
                 ];
             }
 
             return startTime;
         },
-
         endTime() {
             let endTime = '';
             if (this.selectedDay && this.selectedDay.date) {
-                endTime = this.data.availabilities[this.selectedDay.date][0][
+                endTime = this.form.availabilities[this.selectedDay.date][0][
                     'endTime'
                 ];
             }
 
             return endTime;
         },
-
         radioTimeZone() {
             return [this.lang.LOCAL, this.lang.LOCKED];
         },
-
         radioTimeZoneChecked() {
             return this.lang.LOCAL;
         },
-
         availabilityIncrementsItems() {
             return [
                 this.lang.FIVE_MIN,
@@ -1064,60 +917,59 @@ export default {
                 this.lang.THIRTY_MIN
             ];
         },
-
         eventDuration() {
             return [
-                {
-                    id: 1,
-                    value: 15,
-                    label: this.lang.FIFTEEN_MIN
-                },
-                {
-                    id: 2,
-                    value: 30,
-                    label: this.lang.THIRTY_MIN
-                },
-                {
-                    id: 3,
-                    value: 45,
-                    label: this.lang.FORTY_FIVE_MIN
-                },
-                {
-                    id: 4,
-                    value: 60,
-                    label: this.lang.SIXTY_MIN
-                }
+                { id: 1, value: 15, label: this.lang.FIFTEEN_MIN },
+                { id: 2, value: 30, label: this.lang.THIRTY_MIN },
+                { id: 3, value: 45, label: this.lang.FORTY_FIVE_MIN },
+                { id: 4, value: 60, label: this.lang.SIXTY_MIN }
             ];
         },
-
-        availabilityItems() {
-            return [
-                {
-                    value: 'period',
-                    label: this.lang.AVAILABILITY_ITEMS_PERIOD
-                },
-                {
-                    value: 'range',
-                    label: this.lang.AVAILABILITY_ITEMS_RANGE
-                },
-                {
-                    value: 'indefinitely',
-                    label: this.lang.AVAILABILITY_ITEMS_INDEFINITELY
-                }
-            ];
+        color() {
+            return this.form.color || this.eventTypeForm.color;
         },
+        name() {
+            return this.form.name || this.eventTypeForm.name;
+        },
+        location() {
+            return this.form.location || this.eventTypeForm.location;
+        },
+        description() {
+            return this.form.description || this.eventTypeForm.description;
+        },
+        slug() {
+            return this.form.slug || this.eventTypeForm.slug;
+        },
+        duration() {
+            return (this.form.customDuration || this.form.duration) + ' min';
+        },
+        disabled() {
+            return this.eventTypeForm.disabled;
+        },
+        dateDuration() {
+            let result = '';
+            switch (this.form.dateRange.type) {
+                case 'period':
+                    result =
+                        this.form.dateRange.value +
+                        ' ' +
+                        (this.form.dateRange.type === 'calendar'
+                            ? this.lang.DAYS_FORMAT_ITEMS_CALENDAR
+                            : this.lang.DAYS_FORMAT_ITEMS_BUSINESS);
+                    break;
+                case 'range':
+                    if (this.form.dateRange.date.length === 1) {
+                        result = this.form.dateRange.date[0];
+                    } else {
+                        result = `from ${this.form.dateRange.date[0]} to ${this.form.dateRange.date[1]}`;
+                    }
+                    break;
+                case 'indefinitely':
+                    result = 'indefinitely';
+                    break;
+            }
 
-        daysFormatItems() {
-            return [
-                {
-                    value: 'calendar',
-                    label: this.lang.DAYS_FORMAT_ITEMS_CALENDAR
-                },
-                {
-                    value: 'business',
-                    label: this.lang.DAYS_FORMAT_ITEMS_BUSINESS
-                }
-            ];
+            return result;
         }
     },
 
@@ -1154,30 +1006,6 @@ export default {
         changeCustomDuration(val) {
             this.form.duration = 0;
             this.form.customDuration = val;
-        },
-        changeRangeDate(date) {
-            this.form.dateRange.date = date;
-        },
-        changeRangeType(val) {
-            this.resetDateRange();
-            switch (val) {
-                case this.availabilityItems[0]['value']:
-                    this.form.dateRange.type = val;
-                    this.form.dateRange.value = 60;
-                    this.form.dateRange.subType = this.daysFormatItems[0][
-                        'value'
-                    ];
-                    break;
-                default:
-                    this.form.dateRange.type = val;
-                    break;
-            }
-        },
-        resetDateRange() {
-            this.form.dateRange.type = null;
-            this.form.dateRange.value = null;
-            this.form.dateRange.subType = null;
-            this.form.dateRange.date = [];
         },
         changeTimezone(data) {
             this.form.timezone = data;
@@ -1216,9 +1044,30 @@ export default {
         next() {
             this.$refs.calendar.next();
         },
+        changeDateRange(data) {
+            this.availabilityDialog = false;
+            this.form.dateRange = data;
+        },
+        cancelDateRange() {
+            this.availabilityDialog = false;
+            this.form.dateRange.type = 'period';
+            this.form.dateRange.value = 60;
+            this.form.dateRange.subType = 'calendar';
+            this.form.dateRange.date = [];
+        },
         async saveEventType() {
             try {
-                await this.addEventType(this.data);
+                await this.addEventType({
+                    ...this.form,
+                    ...{
+                        name: this.name,
+                        location: this.location,
+                        description: this.description,
+                        slug: this.slug,
+                        color: this.color,
+                        disabled: this.disabled
+                    }
+                });
             } catch (error) {
                 this.showErrorMessage(error.message);
             }
@@ -1294,5 +1143,9 @@ export default {
 
 .image-circle:hover {
     opacity: 0.9;
+}
+
+/deep/ .v-dialog {
+    overflow-x: hidden;
 }
 </style>
