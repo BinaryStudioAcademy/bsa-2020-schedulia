@@ -47,10 +47,7 @@ export default {
             const dataForgot = {
                 email: context.state.forgotPasswordData.email
             };
-            console.log('Enter fo forgot');
-            const response = await authService.forgotPassword(dataForgot);
-            console.log('After fo forgot');
-            console.log(response);
+            await authService.forgotPassword(dataForgot);
             context.commit(mutations.SET_TYPE_RESULT_SUBMIT_FORGOT, 'success');
             context.commit(
                 mutations.SET_RESULT_SUBMIT_FORGOT,
@@ -81,8 +78,7 @@ export default {
                 password: context.state.resetPasswordData.password,
                 token: context.state.resetPasswordData.token
             };
-            const respose = await authService.resetPassword(dataReset);
-            console.log(respose);
+            await authService.resetPassword(dataReset);
             context.commit(mutations.SET_STATUS_SUBMIT_RESET, 'success');
             context.commit(
                 mutations.SET_SHORT_DESC_SUBMIT_RESET,
