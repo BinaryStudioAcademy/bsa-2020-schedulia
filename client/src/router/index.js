@@ -43,6 +43,16 @@ const routes = [
             },
 
             {
+                path: 'forgot-password',
+                name: 'ForgotPassword',
+                component: () => import('../views/ForgotPassword')
+            },
+            {
+                path: 'reset-password',
+                name: 'ResetPassword',
+                component: () => import('../views/ResetPassword')
+            },
+            {
                 path: '',
                 component: LoginGuard,
                 children: [
