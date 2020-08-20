@@ -14,7 +14,7 @@ use App\Http\Controllers\Api\ApiController;
 use App\Http\Presenters\AuthenticationResponseArrayPresenter;
 use App\Http\Requests\Api\Auth\LoginHttpRequest;
 use App\Http\Requests\Api\Auth\ResetHttpRequest;
-use App\Http\Requests\Api\Auth\sendLinkForgotPasswordHttpRequest;
+use App\Http\Requests\Api\Auth\SendLinkForgotPasswordHttpRequest;
 use Illuminate\Http\JsonResponse;
 use App\Actions\Auth\RegisterAction;
 use App\Actions\Auth\RegisterRequest;
@@ -82,7 +82,7 @@ final class AuthController extends ApiController
     }
 
     public function sendLinkForgotPassword(
-        sendLinkForgotPasswordHttpRequest $httpRequest,
+        SendLinkForgotPasswordHttpRequest $httpRequest,
         SendLinkForgotPasswordAction $action
     ): JsonResponse {
         $request = new SendLinkForgotPasswordRequest($httpRequest->email);

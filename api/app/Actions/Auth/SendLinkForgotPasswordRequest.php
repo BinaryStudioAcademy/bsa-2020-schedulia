@@ -4,7 +4,7 @@ namespace App\Actions\Auth;
 
 final class SendLinkForgotPasswordRequest
 {
-    private $email;
+    private string $email;
 
     public function __construct(string $email)
     {
