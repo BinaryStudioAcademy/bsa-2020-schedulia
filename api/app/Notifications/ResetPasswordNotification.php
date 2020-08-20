@@ -33,11 +33,11 @@ class ResetPasswordNotification extends Notification
     protected function resetUrl($notifiable, $token)
     {
         return  env('CLIENT_APP_URL') . '/reset-password?' . http_build_query(
-                [
+            [
                     'token' => $token,
                     'email' => $notifiable->getEmailForPasswordReset(),
                 ]
-            );
+        );
     }
 
     public function toArray($notifiable)

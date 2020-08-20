@@ -24,5 +24,4 @@ final class SendLinkForgotPasswordAction
         $token = Password::createToken($user);
         $user->sendPasswordResetNotification($token);
     }
-
 }
