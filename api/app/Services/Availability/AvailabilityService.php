@@ -88,7 +88,7 @@ final class AvailabilityService implements AvailabilityServiceInterface
     {
         $everyDayIntervals = $eventType->availabilities
             ->where('type', $type)
-            ->map(function($availability) {
+            ->map(function ($availability) {
                 return [
                     'type' => $availability->type,
                     'start_date' => (new Carbon($availability->start_date))->toTimeString(),
