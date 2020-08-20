@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Exceptions\Auth;
-
 
 use App\Exceptions\ErrorCode;
 
