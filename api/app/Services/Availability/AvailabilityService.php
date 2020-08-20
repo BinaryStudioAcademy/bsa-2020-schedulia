@@ -19,7 +19,16 @@ final class AvailabilityService implements AvailabilityServiceInterface
 {
     private const MIDNIGHT_TIME = "00:00:00";
 
-    public function getAvailableDaysByEventType(EventType $eventType, string $monthDate)
+    public function validateAvailabilities(Collection $availabilities, int $duration): bool
+    {
+        foreach ($availabilities as $availability) {
+            $this->validateAvailability($availability, $duration);
+        }
+        $this->checkAvailabilitiesOnOverlapping($availabilities);
+        return true;
+    }
+
+    public function getAvailableDaysByEventType(EventType $eventType, string $monthDate): array
     {
         $availabilityDateRange = $eventType->availabilities
             ->whereIn('type', AvailabilityTypes::getDateRangeTypes())->first();
@@ -42,8 +51,26 @@ final class AvailabilityService implements AvailabilityServiceInterface
         }
 
         $dateTimeList = $this->processEveryDay($dateTimeList, $eventType);
+        $dateTimeList = $this->chunkDateTimeList($dateTimeList, $eventType);
 
         return $dateTimeList;
+    }
+
+    public function checkIfTimeIsAvailable(EventType $eventType, string $dateTime): bool
+    {
+        $dateObj = new Carbon($dateTime);
+        $date = $dateObj->toDateString();
+        $time = $dateObj->toTimeString();
+
+        $dateTimeList = $this->getAvailableDaysByEventType($eventType, $date);
+        if (isset($dateTimeList[$date])) {
+            foreach ($dateTimeList[$date] as $index => $pairTime) {
+                if (in_array($time, $dateTimeList[$date][$index]['times'])) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private function getPeriodForEventType(EventType $eventType, string $monthDate): CarbonPeriod
@@ -74,7 +101,7 @@ final class AvailabilityService implements AvailabilityServiceInterface
         return new CarbonPeriod($periodStart, $periodEnd);
     }
 
-    private function processEveryDay(array $dateTimeList, EventType $eventType)
+    private function processEveryDay(array $dateTimeList, EventType $eventType): array
     {
         $everyDayTypes = AvailabilityTypes::getTypesForEveryDay();
         foreach ($everyDayTypes as $type) {
@@ -84,15 +111,15 @@ final class AvailabilityService implements AvailabilityServiceInterface
         return $dateTimeList;
     }
 
-    private function processEveryDayByType($dateTimeList, EventType $eventType, string $type)
+    private function processEveryDayByType($dateTimeList, EventType $eventType, string $type): array
     {
         $everyDayIntervals = $eventType->availabilities
             ->where('type', $type)
             ->map(function ($availability) {
                 return [
                     'type' => $availability->type,
-                    'start_date' => (new Carbon($availability->start_date))->toTimeString(),
-                    'end_date' => (new Carbon($availability->end_date))->toTimeString()
+                    'start_time' => (new Carbon($availability->start_date))->toTimeString(),
+                    'end_time' => (new Carbon($availability->end_date))->toTimeString()
                 ];
             })
             ->values()
@@ -110,7 +137,7 @@ final class AvailabilityService implements AvailabilityServiceInterface
         return $dateTimeList;
     }
 
-    private function getAvailableHoursByDate(EventType $eventType, string $date)
+    private function getAvailableHoursByDate(EventType $eventType, string $date): ?array
     {
         $availabilities = $eventType->availabilities;
         $result = [];
@@ -125,33 +152,27 @@ final class AvailabilityService implements AvailabilityServiceInterface
             }
         }
 
-        return count($result) ? $result : false;
+        return count($result) ? $result : null;
     }
 
-//    public function chunkDateTimeList(array $dateTimeList, int $interval = 60)
-//    {
-//        foreach ($dateTimeList as $index => $pairTime) {
-//            foreach ($pairTime as $key => $time) {
-//                $startTime = $time[0];
-//                $endTime = $time[1];
-//                while ($startTime !== $endTime) {
-//                    $time = new Carbon($startTime);
-//                    $time->addMinutes($interval);
-//                    $startTime = $time->format('H:i:s');
-//                    $dateTimeList[$index][$key][] = $startTime;
-//                }
-//            }
-//        }
-//        return $dateTimeList;
-//    }
-
-    public function validateAvailabilities(Collection $availabilities, int $duration): bool
+    private function chunkDateTimeList(array $dateTimeList, EventType $eventType)
     {
-        foreach ($availabilities as $availability) {
-            $this->validateAvailability($availability, $duration);
+        $frequency = $eventType->duration;
+        foreach ($dateTimeList as $date => $intervals) {
+            foreach ($intervals as $key => $time) {
+                $startTime = $time['start_time'];
+                $endTime = $time['end_time'];
+                $dateTimeList[$date][$key] = [];
+                $dateTimeList[$date][$key]['type'] = $time['type'];
+                while ($startTime !== $endTime) {
+                    $time = new Carbon($startTime);
+                    $time->addMinutes($frequency);
+                    $startTime = $time->format('H:i:s');
+                    $dateTimeList[$date][$key]['times'][] = $startTime;
+                }
+            }
         }
-        $this->checkAvailabilitiesOnOverlapping($availabilities);
-        return true;
+        return $dateTimeList;
     }
 
     private function validateAvailability(Availability $availability, int $duration): void
