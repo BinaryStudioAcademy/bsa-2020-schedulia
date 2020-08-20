@@ -81,6 +81,11 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         return $this->hasMany(EventType::class, 'owner_id', 'id');
     }
 
+    public function apiTokens()
+    {
+        return $this->hasMany(ApiToken::class);
+    }
+
     public function socialAccounts()
     {
         return $this->hasMany(SocialAccount::class);
