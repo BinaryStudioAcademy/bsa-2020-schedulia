@@ -44,12 +44,16 @@ Route::group([
     Route::group([
         'prefix' => '/event-types',
     ], function () {
-        Route::get('/', 'EventTypeController@index');
         Route::post('/', 'EventTypeController@store');
-        Route::get('/{id}', 'EventTypeController@getEventTypeById');
         Route::put('/{id}', 'EventTypeController@update');
         Route::put('/{id}/disabled', 'EventTypeController@changeDisabledById');
         Route::delete('/{id}', 'EventTypeController@destroy');
+    });
+    Route::group([
+        'prefix' => '/event-types',
+    ], function () {
+        Route::get('/', 'EventTypeController@index');
+        Route::get('/{id}', 'EventTypeController@getEventTypeById');
     });
 });
 
