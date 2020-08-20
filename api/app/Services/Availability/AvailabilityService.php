@@ -110,7 +110,7 @@ final class AvailabilityService implements AvailabilityServiceInterface
         return $dateTimeList;
     }
 
-    public function getAvailableHoursByDate(EventType $eventType, string $date)
+    private function getAvailableHoursByDate(EventType $eventType, string $date)
     {
         $availabilities = $eventType->availabilities;
         $result = [];
