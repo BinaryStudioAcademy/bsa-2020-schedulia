@@ -13,11 +13,11 @@ final class AvailabilityTypes
     public const EVERY_FRIDAY = 'every_friday';
     public const EVERY_SATURDAY = 'every_saturday';
     public const EVERY_SUNDAY = 'every_sunday';
-    public const WEEKDAYS = 'weekdays';
-    public const WEEKEND = 'weekend';
     public const EXACT_DATE = 'exact_date';
-    public const EVERY_DAY = 'every_day';
+    public const DATE_RANGE_WEEKDAYS = 'date_range_weekdays';
+    public const DATE_RANGE_WEEKDAYS_INDEFINITE = 'date_range_weekdays_indefinite';
     public const DATE_RANGE = 'date_range';
+    public const DATE_RANGE_INDEFINITE = 'date_range_indefinite';
 
     public const EVERY_MONDAY_PRIORITY = 2;
     public const EVERY_TUESDAY_PRIORITY = 2;
@@ -26,10 +26,8 @@ final class AvailabilityTypes
     public const EVERY_FRIDAY_PRIORITY = 2;
     public const EVERY_SATURDAY_PRIORITY = 2;
     public const EVERY_SUNDAY_PRIORITY = 2;
-    public const WEEKDAYS_PRIORITY = 3;
-    public const WEEKEND_PRIORITY = 3;
     public const EXACT_DATE_PRIORITY = 1;
-    public const EVERY_DAY_PRIORITY = 4;
+    public const DATE_RANGE_PRIORITY = 4;
 
     public static function getTypes(): array
     {
@@ -41,15 +39,15 @@ final class AvailabilityTypes
             self::EVERY_FRIDAY,
             self::EVERY_SATURDAY,
             self::EVERY_SUNDAY,
-            self::WEEKDAYS,
-            self::WEEKEND,
             self::EXACT_DATE,
-            self::EVERY_DAY,
-            self::DATE_RANGE
+            self::DATE_RANGE,
+            self::DATE_RANGE_INDEFINITE,
+            self::DATE_RANGE_WEEKDAYS,
+            self::DATE_RANGE_WEEKDAYS_INDEFINITE,
         ];
     }
 
-    public static function getTypesInDependsOnDate(): array
+    public static function getTypesForEveryDay(): array
     {
         return [
             self::EVERY_MONDAY,
@@ -58,18 +56,25 @@ final class AvailabilityTypes
             self::EVERY_THURSDAY,
             self::EVERY_FRIDAY,
             self::EVERY_SATURDAY,
-            self::EVERY_SUNDAY,
-            self::WEEKDAYS,
-            self::WEEKEND,
-            self::EVERY_DAY,
+            self::EVERY_SUNDAY
         ];
     }
 
-    public static function getTypesDependsOnDate(): array
+    public static function getDateRangeTypes(): array
     {
         return [
-            self::EXACT_DATE,
-            self::DATE_RANGE
+            self::DATE_RANGE_WEEKDAYS,
+            self::DATE_RANGE_WEEKDAYS_INDEFINITE,
+            self::DATE_RANGE,
+            self::DATE_RANGE_INDEFINITE,
+        ];
+    }
+
+    public static function getIndefiniteTypes(): array
+    {
+        return [
+            self::DATE_RANGE_INDEFINITE,
+            self::DATE_RANGE_WEEKDAYS_INDEFINITE
         ];
     }
 }
