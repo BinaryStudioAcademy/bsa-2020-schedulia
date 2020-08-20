@@ -136,6 +136,7 @@ export default {
     DEC: 'Dec',
 
     CHOOSE_YOUR_TIMEZONE: 'Choose your timezone',
+    SORRY_THIS_EVENT_IS_DISABLED: 'SORRY, THIS EVENT IS DISABLED',
 
     ENTER_DETAILS: 'Enter Details',
     SCHEDULE_EVENT: 'Schedule Event',
