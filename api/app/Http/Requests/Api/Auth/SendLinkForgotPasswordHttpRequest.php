@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Auth;
 
 use App\Http\Requests\ApiFormRequest;
 
-final class sendLinkForgotPasswordHttpRequest extends ApiFormRequest
+final class SendLinkForgotPasswordHttpRequest extends ApiFormRequest
 {
     public function rules(): array
     {

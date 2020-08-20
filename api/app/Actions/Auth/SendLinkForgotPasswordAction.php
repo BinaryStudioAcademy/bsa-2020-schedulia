@@ -17,6 +17,7 @@ final class SendLinkForgotPasswordAction
     {
         $this->userRepository = $userRepository;
     }
+
     public function execute(SendLinkForgotPasswordRequest $request)
     {
         if (!$this->userRepository->getByEmail($request->getEmail())) {
@@ -31,6 +32,7 @@ final class SendLinkForgotPasswordAction
         });
         Password::sendResetLink(['email' =>$request->getEmail()]);
     }
+
     protected function resetUrl($notifiable, $token)
     {
         return  env('CLIENT_APP_URL') . '/reset-password?' . http_build_query(
