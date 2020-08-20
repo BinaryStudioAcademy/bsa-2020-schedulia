@@ -28,12 +28,12 @@ class EventTypeRequest extends FormRequest
             "availabilities.*.start_date" => [
                 'required',
                 'string',
-                'date_format:Y-m-d H:i'
+                'date_format:Y-m-d H:i:s'
             ],
             "availabilities.*.end_date" => [
                 'required',
                 'string',
-                'date_format:Y-m-d H:i'
+                'date_format:Y-m-d H:i:s'
             ],
         ];
     }

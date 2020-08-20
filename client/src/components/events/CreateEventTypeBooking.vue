@@ -1015,14 +1015,14 @@ export default {
                 'startTime'
             ] = time;
             this.form.availabilities[this.selectedDay.date][0]['startDate'] =
-                this.selectedDay.date + ' ' + time;
+                this.selectedDay.date + ' ' + time + ':00';
         },
         changeEndTime(time) {
             this.form.availabilities[this.selectedDay.date][0][
                 'endTime'
             ] = time;
             this.form.availabilities[this.selectedDay.date][0]['endDate'] =
-                this.selectedDay.date + ' ' + time;
+                this.selectedDay.date + ' ' + time + ':00';
         },
         viewEventDialog(data) {
             this.selectedDay = data;
