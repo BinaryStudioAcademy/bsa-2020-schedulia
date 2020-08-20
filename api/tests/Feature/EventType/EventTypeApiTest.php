@@ -27,7 +27,7 @@ final class EventTypeApiTest extends TestCase
         'disabled' => true,
         'availabilities' => [
             [
-                'type' => 'every_day',
+                'type' => 'date_range',
                 'start_date' => '2020-08-06 11:00:00',
                 'end_date' => '2020-08-06 22:00:00',
             ]
