@@ -25,6 +25,5 @@ class RemoveServiceFromApiTokenTable extends Migration
      */
     public function down()
     {
-
     }
 }
