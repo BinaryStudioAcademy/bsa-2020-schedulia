@@ -147,7 +147,7 @@ export default {
     CONFIRMED: 'Confirmed',
     YOU_ARE_SCHEDULED_WITH: 'You are scheduled with',
     CALENDAR_INVITATION_HAS_BEEN_SENT:
-        'A calendar invitation has been sent to your email addres',
+        'A calendar invitation has been sent to your email address',
 
     SUCCESSFULLY_SIGNINED: 'Successfully sign in! ',
     FORGOT_PASSWORD: 'Forgot Password?',

@@ -1,6 +1,6 @@
 <template>
     <DetailLayout
-        :companyLogo="companyLogo"
+        :brandingLogo="brandingLogo"
         :avatar="avatar"
         :name="name"
         :eventName="eventName"
@@ -35,7 +35,7 @@ export default {
     },
     props: {
         lang: Object,
-        companyLogo: String,
+        brandingLogo: String,
         avatar: String,
         name: String,
         eventName: String,

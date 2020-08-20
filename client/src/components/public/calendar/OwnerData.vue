@@ -3,7 +3,7 @@
         <VImg
             :max-width="60"
             :max-height="40"
-            :src="companyLogo"
+            :src="brandingLogo"
             class="company-logo"
         />
         <VAvatar :size="70">
@@ -18,7 +18,7 @@
 export default {
     name: 'OwnerData',
     props: {
-        companyLogo: String,
+        brandingLogo: String,
         avatar: String,
         name: String,
         eventName: String
