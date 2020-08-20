@@ -136,6 +136,7 @@ export default {
     DEC: 'Dec',
 
     CHOOSE_YOUR_TIMEZONE: 'Choose your timezone',
+    SORRY_THIS_EVENT_IS_DISABLED: 'SORRY, THIS EVENT IS DISABLED',
 
     ENTER_DETAILS: 'Enter Details',
     SCHEDULE_EVENT: 'Schedule Event',
@@ -146,7 +147,7 @@ export default {
     CONFIRMED: 'Confirmed',
     YOU_ARE_SCHEDULED_WITH: 'You are scheduled with',
     CALENDAR_INVITATION_HAS_BEEN_SENT:
-        'A calendar invitation has been sent to your email addres',
+        'A calendar invitation has been sent to your email address',
 
     SUCCESSFULLY_SIGNINED: 'Successfully sign in! ',
     FORGOT_PASSWORD: 'Forgot Password?',
@@ -250,6 +251,12 @@ export default {
     NO_PENDING_EVENTS: 'No Pending Events',
     NO_PAST_EVENTS: 'No Past Events',
 
+    ACCOUNT_VERIFIED: 'Your account has been activated. Please, ',
+    SEND_VERIFICATION_EMAIL:
+        'We sent you an email, please, verify your account!',
+
+    ACCOUNT_IS_BEING_ACTIVATED: 'Your account is being activated...',
+
     FIVE_MIN: '5 min',
     TEN_MIN: '10 min',
     FIFTEEN_MIN: '15 min',
@@ -264,5 +271,39 @@ export default {
     AVAILABILITY_ITEMS_INDEFINITELY: 'Indefinitely',
 
     DAYS_FORMAT_ITEMS_CALENDAR: 'calendar days',
-    DAYS_FORMAT_ITEMS_BUSINESS: 'business days'
+    DAYS_FORMAT_ITEMS_BUSINESS: 'business days',
+
+    ALL_EVENT_TYPES: 'All Event Types',
+    SELECT_ALL: 'select all',
+    CLEAR: 'clear',
+    SHOW_MORE: 'Show more',
+    ENTER_YOUR_EMAIL_ADDRESS: 'Enter your email address',
+    SEND_RESET_INSTRUCTION: 'Send reset instruction',
+    REMEMBERED_PASSWORD: 'Remembered password?',
+    RESET_YOUR_PASSWORD: 'Reset your password',
+    MUST_BE_VALID_EMAIL: 'Must be valid e-mail',
+    EMAIL_IS_REQUIRED: 'E-mail is required',
+    PLEASE_ENTER_CORRECT_DATA:
+        'Please enter correct data according to the recommendations.',
+    LETTER_WITH_RESET_LINK_WAS_SENT:
+        'Letter with reset link was sent to your email',
+    LETTER_EXPLANATION_EMAIL_EXIST:
+        'Please check the specified email. You should receive a letter with a link by clicking on which you can change your password.',
+    THE_USER_WITH_THE_SPECIFIED_EMAIL_DOES_NOT_EXIST:
+        'The user with the specified email does not exist',
+    LETTER_EXPLANATION_EMAIL_DONOT_EXIST:
+        'Please check if you used this email during registration. Enter the correct one and try again.',
+    CHANGE_YOUR_PASSWORD: 'Change your password',
+    PLEASE_ENTER_NEW_PASSWORD_FOR_USER_WITH_EMAIL:
+        'Please enter new password for user with email:',
+    PASSWORD_IS_REQUIRED: 'Password is required',
+    PASSWORD_MUST_BE_AT_LEAST_8_CHARACTERS_LONG:
+        'Password must be at least 8 characters long',
+    SET_NEW_PASSWORD: 'Set new password',
+    ERROR_IN_PASSWORD_RESET: 'Password has not been changed.',
+    EXPLANATION_ERROR_PASSWORD_RESET:
+        'Either your token has expired or you have not copied the entire request. Go to the password reset page and request the reset link again with your correct email.',
+    OK_PASSWORD_RESET: 'Password has been changed.',
+    EXPLANATION_PASSWORD_RESET:
+        'Go to the SignIn page and use your new password to authenticate on the site.'
 };

@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ApiToken extends Model
+class SocialAccount extends Model
 {
     public const GOOGLE_SERVICE_ID = 1001;
 

@@ -2,7 +2,7 @@
     <div>
         <div class="event-info-top"></div>
         <OwnerData
-            :companyLogo="companyLogo"
+            :brandingLogo="brandingLogo"
             :avatar="avatar"
             :name="name"
             :eventName="eventName"
@@ -22,7 +22,7 @@ export default {
         OwnerData
     },
     props: {
-        companyLogo: String,
+        brandingLogo: String,
         avatar: String,
         name: String,
         eventName: String

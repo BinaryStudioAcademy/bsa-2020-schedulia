@@ -28,7 +28,7 @@
                     <VRow no-gutters justify="space-between">
                         <label for="password">{{ lang.PASSWORD }} </label>
                         <RouterLink
-                            :to="{ path: 'restore' }"
+                            :to="{ name: 'ForgotPassword' }"
                             class="forgot-password-a "
                         >
                             {{ lang.FORGOT_PASSWORD }}
@@ -125,7 +125,7 @@ export default {
                     await this.fetchLoggedUser();
                     this.$router.push({ name: 'EventTypes' });
                 } catch (error) {
-                    this.setErrorNotification(error);
+                    this.setErrorNotification(error.message);
                 }
             }
         }
