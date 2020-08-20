@@ -1,21 +1,23 @@
 <template>
     <VRow class="ma-0 pa-0">
+        <AutoFillSpacer />
         <VCol :class="colEventInfoClass">
             <EventInfo
-                :companyLogo="owner.companyLogo"
-                :avatar="owner.avatar"
-                :name="owner.name"
-                :eventName="meetingData.name"
-                :duration="meetingData.duration"
-                :location="meetingData.location"
-                :description="meetingData.description"
+                :brandingLogo="eventType.owner.brandingLogo"
+                :avatar="eventType.owner.avatar"
+                :name="eventType.owner.name"
+                :eventName="eventType.name"
+                :duration="eventType.duration"
+                :location="eventType.location"
+                :description="eventType.description"
                 :lang="lang"
             />
         </VCol>
+        <AutoFillSpacer />
 
         <VDivider vertical class="hidden-md-and-down"></VDivider>
 
-        <VCol sm="12" md="6" lg="5" class="calendar-container col-12 ma-0">
+        <VCol sm="12" md="6" lg="5" class="calendar-container col-12 pa-0">
             <div class="calendar-content">
                 <h3>{{ lang.SELECT_DATE_AND_TIME }}</h3>
                 <VDatePicker
@@ -35,10 +37,8 @@
                     class="timezone-selector"
                     v-model="currentTimezone"
                     :items="filterTimezones"
-                    attach
                     solo
                     prepend-icon="mdi-earth"
-                    label="Timezone"
                 >
                     <template v-slot:prepend-item>
                         <VListItem>
@@ -57,13 +57,16 @@
                 </VSelect>
             </div>
         </VCol>
+
         <VDivider v-if="show" vertical class="hidden-md-and-down"></VDivider>
+
+        <VSpacer class="hidden-md-and-down"></VSpacer>
         <VCol
             v-if="show"
             sm="12"
             md="4"
             lg="3"
-            class="select-time-container col-12"
+            class="select-time-container col-12 pa-0"
         >
             <h3>{{ formattedDate }}</h3>
             <div class="time-items-container">
@@ -81,7 +84,7 @@
                                 >
                             </VCard>
                             <VBtn
-                                class="select-time-btn"
+                                class="select-time-btn text-capitalize"
                                 depressed
                                 color="primary"
                                 dark
@@ -101,6 +104,7 @@
                 </div>
             </div>
         </VCol>
+        <VSpacer class="hidden-md-and-down"></VSpacer>
     </VRow>
 </template>
 
@@ -109,26 +113,39 @@ import moment from 'moment';
 import momentTimezones from 'moment-timezone';
 import enLang from '@/store/modules/i18n/en';
 import EventInfo from './EventInfo';
+import AutoFillSpacer from './AutoFillSpacer';
 
 export default {
     name: 'EventType',
     components: {
-        EventInfo
+        EventInfo,
+        AutoFillSpacer
+    },
+    mounted() {
+        this.currentTimezoneTime = this.getFormattedTimezoneTime(
+            this.currentTimezone
+        );
     },
     watch: {
         currentTimezone() {
             this.date = '';
+            this.selectedTime = null;
+            this.currentTimezoneTime = this.getFormattedTimezoneTime(
+                this.currentTimezone
+            );
+        },
+        date() {
             this.selectedTime = null;
         }
     },
     data: () => ({
         lang: enLang,
         currentTimezone: momentTimezones.tz.guess(),
+        currentTimezoneTime: null,
         timezoneFieldSearch: '',
         date: '',
         selectedTime: null,
-        userTimeFormat: '24',
-        meetingData: {
+        eventType: {
             name: 'Sales manager',
             duration: 30,
             location: 'Scranton, Pennsylvania',
@@ -137,6 +154,14 @@ export default {
             startDate: '2020-09-08 11:00:00',
             color: 'red',
             slug: 'collaboration-with-binary-studio',
+            owner: {
+                name: 'Michael Scott | Dunder Mifflin',
+                avatar:
+                    'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
+                timeFormat12h: false,
+                brandingLogo:
+                    'https://i.etsystatic.com/16438614/r/il/c31bd2/1806659071/il_570xN.1806659071_pn8j.jpg'
+            },
             availabilities: [
                 {
                     type: 'one to many',
@@ -149,21 +174,13 @@ export default {
                     endDate: '2020-09-23 19:00:00'
                 }
             ]
-        },
-
-        owner: {
-            name: 'Michael Scott | Dunder Mifflin',
-            avatar:
-                'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-            companyLogo:
-                'https://i.etsystatic.com/16438614/r/il/c31bd2/1806659071/il_570xN.1806659071_pn8j.jpg'
         }
     }),
 
     computed: {
         currentTimezoneStartTime() {
             return moment
-                .tz(this.meetingData.startDate, this.meetingData.timezone)
+                .tz(this.eventType.startDate, this.eventType.timezone)
                 .clone()
                 .tz(this.currentTimezone)
                 .format();
@@ -171,13 +188,13 @@ export default {
         currentTimezoneAvailabilities() {
             const formatTime = time => {
                 return moment
-                    .tz(time, this.meetingData.timezone)
+                    .tz(time, this.eventType.timezone)
                     .clone()
                     .tz(this.currentTimezone)
                     .format('YYYY-MM-DD HH:mm:ss');
             };
 
-            return this.meetingData.availabilities.map(availability => ({
+            return this.eventType.availabilities.map(availability => ({
                 startDate: formatTime(availability.startDate),
                 endDate: formatTime(availability.endDate)
             }));
@@ -240,7 +257,7 @@ export default {
             return availableTime;
         },
         availableTimes() {
-            let duration = this.meetingData.duration;
+            let duration = this.eventType.duration;
             let times = [];
 
             let start =
@@ -294,8 +311,17 @@ export default {
         }
     },
     methods: {
+        getFormattedTimezoneTime(timezone) {
+            return (
+                timezone +
+                ' ' +
+                momentTimezones()
+                    .tz(timezone)
+                    .format('HH:mm')
+            );
+        },
         convertToUserFormat(times) {
-            if (this.userTimeFormat === '24') {
+            if (!this.eventType.owner.timeFormat12h) {
                 return times;
             } else {
                 return times.map(time =>
@@ -417,6 +443,7 @@ export default {
     flex-wrap: wrap;
     max-width: 400px;
     justify-content: center;
+    margin: 0 auto;
 }
 
 .calendar-container h3 {
