@@ -36,7 +36,22 @@ const routes = [
                 name: 'PublicEventDetails',
                 component: () => import('../views/PublicEventDetails.vue')
             },
+            {
+                path: 'event-disabled',
+                name: 'DisabledEvent',
+                component: () => import('../views/DisabledEvent.vue')
+            },
 
+            {
+                path: 'forgot-password',
+                name: 'ForgotPassword',
+                component: () => import('../views/ForgotPassword')
+            },
+            {
+                path: 'reset-password',
+                name: 'ResetPassword',
+                component: () => import('../views/ResetPassword')
+            },
             {
                 path: '',
                 component: LoginGuard,

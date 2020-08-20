@@ -18,10 +18,13 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => response,
     error => {
-        throw new Error(error?.response?.data?.error?.message || error);
+        const nextError = new Error(
+            error?.response?.data?.error?.message || error
+        );
+        nextError.response = error.response;
+        return Promise.reject(nextError);
     }
 );
-
 const requestService = {
     get(url, params = {}, headers = {}) {
         return axios.get(API_URL + url, {

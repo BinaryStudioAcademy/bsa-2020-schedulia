@@ -1,22 +1,16 @@
 <template>
     <VRow class="ma-0 pa-0">
         <VCol :class="colEventInfoClass">
-            <DetailLayout
+            <EventInfo
                 :companyLogo="owner.companyLogo"
                 :avatar="owner.avatar"
                 :name="owner.name"
                 :eventName="meetingData.name"
-            >
-                <div class="event-info">
-                    <VIcon dark color="primary">mdi-clock-outline</VIcon>
-                    {{ meetingData.duration }} {{ lang.DURATION_MIN }}
-                </div>
-                <div class="event-info">
-                    <VIcon dark color="primary">mdi-map-marker</VIcon>
-                    {{ meetingData.location }}
-                </div>
-                <div class="event-info">{{ meetingData.description }}</div>
-            </DetailLayout>
+                :duration="meetingData.duration"
+                :location="meetingData.location"
+                :description="meetingData.description"
+                :lang="lang"
+            />
         </VCol>
 
         <VDivider vertical class="hidden-md-and-down"></VDivider>
@@ -49,9 +43,9 @@
                     <template v-slot:prepend-item>
                         <VListItem>
                             <VListItemContent>
-                                <VListItemTitle>{{
-                                    lang.CHOOSE_YOUR_TIMEZONE
-                                }}</VListItemTitle>
+                                <VListItemTitle>
+                                    {{ lang.CHOOSE_YOUR_TIMEZONE }}
+                                </VListItemTitle>
                                 <VTextField
                                     v-model="timezoneFieldSearch"
                                     label="Enter timezone"
@@ -114,12 +108,12 @@
 import moment from 'moment';
 import momentTimezones from 'moment-timezone';
 import enLang from '@/store/modules/i18n/en';
-import DetailLayout from './DetailLayout';
+import EventInfo from './EventInfo';
 
 export default {
     name: 'EventType',
     components: {
-        DetailLayout
+        EventInfo
     },
     watch: {
         currentTimezone() {
@@ -411,20 +405,6 @@ export default {
 }
 .calendar-content::v-deep .theme--light.v-btn.v-btn--icon {
     color: var(--v-primary-base);
-}
-
-.event-info {
-    display: flex;
-    padding: 6px 0 6px 0;
-    margin-top: 20px;
-}
-
-.event-info ~ .event-info {
-    margin-top: 0px;
-}
-
-.event-info i {
-    margin-right: 10px;
 }
 
 .calendar-container {
