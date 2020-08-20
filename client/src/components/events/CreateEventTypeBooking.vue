@@ -10,11 +10,11 @@
                                     <img
                                         :src="colorById[color].image"
                                         alt=""
-                                        class="ml-10"
+                                        class="pl-10"
                                     />
                                 </div>
                             </VCol>
-                            <VCol>
+                            <VCol class="pl-lg-5 pl-sm-10">
                                 <div>
                                     <VCardTitle>
                                         {{ lang.CREATE_EVENT_TYPE_TITLE }}
@@ -29,7 +29,7 @@
                     <VExpansionPanelContent>
                         <VDivider class="mx-4"></VDivider>
                         <VRow>
-                            <VCol cols="6" offset-md="2">
+                            <VCol cols="6" offset-md="2" offset-sm="2">
                                 <VForm class="mt-9 mb-16">
                                     <div class="mb-2">
                                         <label>
@@ -162,7 +162,7 @@
                                     />
                                 </div>
                             </VCol>
-                            <VCol>
+                            <VCol class="pl-lg-5 pl-sm-10">
                                 <div>
                                     <VCardTitle>
                                         {{ lang.WHEN_CAN_PEOPLE_BOOK_EVENT }}
@@ -177,7 +177,7 @@
                     <VExpansionPanelContent>
                         <VDivider class="mx-4"></VDivider>
                         <VRow>
-                            <VCol cols="7" offset-md="2">
+                            <VCol cols="7" offset-md="2" offset-sm="2">
                                 <VForm class="mt-9 mb-16">
                                     <VRow>
                                         <h3 class="app-label">
@@ -1087,7 +1087,6 @@ export default {
 
 .recommendation-block p {
     font-size: 11px;
-    width: 539px;
 }
 
 .app-text {

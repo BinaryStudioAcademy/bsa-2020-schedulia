@@ -14,11 +14,31 @@ export default {
         );
     },
 
-    [actions.SET_SCHEDULED_EVENTS]: async ({ commit }) => {
+    [actions.SET_SCHEDULED_EVENTS]: async ({ commit }, eventFilter = []) => {
         try {
-            const data = await scheduledEventService.getScheduledEvents();
+            const data = await scheduledEventService.getScheduledEvents(
+                eventFilter
+            );
 
             commit(mutations.SET_SCHEDULED_EVENTS, data);
+        } catch (error) {
+            commit(
+                SET_ERROR_NOTIFICATION,
+                error?.response?.data?.message || error.message
+            );
+        }
+    },
+
+    [actions.SET_FILTER_SCHEDULED_EVENTS_TYPES]: async (
+        { commit },
+        eventTypesSearch = ''
+    ) => {
+        try {
+            const data = await scheduledEventService.getFilterScheduledEventsTypes(
+                eventTypesSearch
+            );
+
+            commit(mutations.SET_FILTER_SCHEDULED_EVENTS_TYPES, data);
         } catch (error) {
             commit(
                 SET_ERROR_NOTIFICATION,

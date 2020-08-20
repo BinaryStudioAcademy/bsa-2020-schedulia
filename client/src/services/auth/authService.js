@@ -12,6 +12,20 @@ const authService = {
     async signUp(userRegisterData) {
         return await requestService.post('/auth/register', userRegisterData);
     },
+    async forgotPassword(forgotEmail) {
+        const response = await requestService.post(
+            '/auth/forgot-password',
+            forgotEmail
+        );
+        return response?.data?.data;
+    },
+    async resetPassword(dataPasswordReset) {
+        const response = await requestService.post(
+            '/auth/reset-password',
+            dataPasswordReset
+        );
+        return response?.data?.data;
+    },
     async signOut() {
         const response = await requestService.post('/auth/logout');
         this.removeToken();
@@ -32,6 +46,14 @@ const authService = {
     },
     hasToken() {
         return !!localStorage.getItem('auth.accessToken');
+    },
+
+    async verifyEmail(payload) {
+        const response = await requestService.post(
+            '/auth/email/verify',
+            payload
+        );
+        return response?.data?.data;
     }
 };
 

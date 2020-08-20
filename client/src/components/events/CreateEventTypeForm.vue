@@ -7,11 +7,11 @@
                         <img
                             :src="colorById[data.color].image"
                             alt=""
-                            class="ml-10"
+                            class="pl-10"
                         />
                     </div>
                 </VCol>
-                <VCol>
+                <VCol class="pl-lg-5 pl-sm-10">
                     <div>
                         <VCardTitle>
                             {{ lang.CREATE_EVENT_TYPE_TITLE }}
@@ -24,7 +24,7 @@
             </VRow>
             <VDivider class="mx-4"></VDivider>
             <VRow>
-                <VCol cols="6" offset-md="2">
+                <VCol cols="6" offset-sm="2" offset-md="2">
                     <VForm class="mt-9 mb-16">
                         <div class="mb-2">
                             <label>{{ lang.EVENT_NAME_LABEL }}*</label>

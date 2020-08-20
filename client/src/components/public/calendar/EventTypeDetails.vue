@@ -38,8 +38,9 @@
                 </div>
                 <div class="event-info">{{ meetingData.description }}</div>
             </div>
+            <VDivider></VDivider>
             <div class="detail-content-bottom mt-5">
-                <p class="text-center">
+                <p class="text-center font-weight-bold">
                     {{ lang.CALENDAR_INVITATION_HAS_BEEN_SENT }}
                 </p>
             </div>
