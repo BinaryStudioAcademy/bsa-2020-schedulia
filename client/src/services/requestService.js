@@ -22,10 +22,9 @@ axios.interceptors.response.use(
             error?.response?.data?.error?.message || error
         );
         nextError.response = error.response;
-        return nextError;
+        return Promise.reject(nextError);
     }
 );
-
 const requestService = {
     get(url, params = {}, headers = {}) {
         return axios.get(API_URL + url, {
