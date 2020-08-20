@@ -1,13 +1,17 @@
 export default {
     ACCOUNT_SETTING: 'Account setting',
+    ADD_CALENDAR_ACCOUNT: 'Add calendar account',
 
     BRANDING: 'Branding',
 
     CANCEL: 'Cancel',
+    CALENDAR_CONNECTIONS: 'Calendar connections',
     CHARACTERS: 'Characters',
     CHANGE_PASSWORD: 'Change password',
     COUNTRY: 'Country',
     CONFIRM: 'Confirm',
+    CONNECT_YOUR_CALENDAR_TEXT:
+        "Connect your calendar to let Schedulia know when you're available and update your calendar as events are scheduled.",
     CLOSE: 'Close',
     CURRENT_PASSWORD: 'Current password',
 
@@ -52,6 +56,7 @@ export default {
 
     MAX: 'Max',
     MIN: 'Min',
+    MY_CALENDAR_ACOOUNT: 'My Calendar Account',
 
     NAME: 'Name',
     NEW_PASSWORD: 'New password',
@@ -60,6 +65,8 @@ export default {
     UPDATE: 'UPDATE',
     UKRAINIAN: 'Ukrainian',
 
+    YOU_DONT_HAVE_ANY_CONNECTED_CALENDARS:
+        "You don't have any connected calendars yet",
     YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD:
         'You log in with an email address and password',
 
