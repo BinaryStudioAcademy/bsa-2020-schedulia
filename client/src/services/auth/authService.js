@@ -1,4 +1,5 @@
 import requestService from '@/services/requestService';
+import axios from 'axios';
 
 const authService = {
     async signIn(userLoginData) {
@@ -13,18 +14,22 @@ const authService = {
         return await requestService.post('/auth/register', userRegisterData);
     },
     async forgotPassword(forgotEmail) {
+        const myInterceptor = axios.interceptors.response.use(function() {
+            /*...*/
+        });
+        axios.interceptors.response.eject(myInterceptor);
         const response = await requestService.post(
             '/auth/forgot-password',
             forgotEmail
         );
-        return response?.data?.data;
+        return response;
     },
     async resetPassword(dataPasswordReset) {
         const response = await requestService.post(
             '/auth/reset-password',
             dataPasswordReset
         );
-        return response?.data?.data;
+        return response;
     },
     async signOut() {
         const response = await requestService.post('/auth/logout');
