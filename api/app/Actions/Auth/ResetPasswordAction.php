@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\Auth;
 
-use App\Exceptions\Auth\InvalidTokenOrUser;
+use App\Exceptions\Auth\InvalidOrExpiredToken;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
@@ -18,7 +18,7 @@ final class ResetPasswordAction
         $this->userRepository = $userRepository;
     }
 
-    public function execute(ResetPasswordRequest $request): ResetPasswordResponse
+    public function execute(ResetPasswordRequest $request)
     {
         $credentials =[
             'email' => $request->getEmail(),
@@ -33,8 +33,7 @@ final class ResetPasswordAction
             }
         );
         if ($resetPasswordStatus !== Password::PASSWORD_RESET) {
-            throw new InvalidTokenOrUser();
+            throw new InvalidOrExpiredToken();
         }
-        return new ResetPasswordResponse(['code'=>201]);
     }
 }

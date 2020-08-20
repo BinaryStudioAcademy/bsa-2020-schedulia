@@ -87,20 +87,19 @@ final class AuthController extends ApiController
     ): JsonResponse
     {
         $request = new SendLinkForgotPasswordRequest($httpRequest->email);
-        $response = $action->execute($request)->getData();
-        return $this->successResponse(['message'=>'Letter with reset link was sent', 'email'=>$response['email'], 'code'=>201]);
+        $action->execute($request);
+        return $this->emptyResponse();
     }
 
     public function resetPassword(ResetHttpRequest $request)
     {
-        $response = $this->resetPasswordAction->execute(
+        $this->resetPasswordAction->execute(
             new ResetPasswordRequest(
                 $request->get('email'),
                 $request->get('password'),
                 $request->get('token'),
             )
-        )->getData();
-
-        return $this->successResponse(['message'=>'Password was changed','code'=>$response['code']]);
+        );
+        return $this->emptyResponse();
     }
 }
