@@ -36,6 +36,11 @@ const routes = [
                 name: 'PublicEventDetails',
                 component: () => import('../views/PublicEventDetails.vue')
             },
+            {
+                path: 'event-disabled',
+                name: 'DisabledEvent',
+                component: () => import('../views/DisabledEvent.vue')
+            },
 
             {
                 path: 'forgot-password',

@@ -1,30 +1,18 @@
 <template>
     <VRow class="pa-0 ma-0">
         <VCol class="event-datail col-12 col-sm-12 col-md-4">
-            <DetailLayout
+            <EventInfo
                 :companyLogo="owner.companyLogo"
                 :avatar="owner.avatar"
                 :name="owner.name"
                 :eventName="meetingData.name"
-            >
-                <div class="event-info">
-                    <VIcon dark color="primary">mdi-clock-outline</VIcon>
-                    {{ meetingData.duration }} {{ lang.DURATION_MIN }}
-                </div>
-                <div class="event-info">
-                    <VIcon dark color="primary">mdi-map-marker</VIcon>
-                    {{ meetingData.location }}
-                </div>
-                <div class="event-info">
-                    <VIcon dark color="primary">mdi-calendar-blank</VIcon>
-                    {{ meetingData.fullDate }}
-                </div>
-                <div class="event-info">
-                    <VIcon dark color="primary">mdi-earth</VIcon>
-                    {{ meetingData.timezone }}
-                </div>
-                <div class="event-info">{{ meetingData.description }}</div>
-            </DetailLayout>
+                :duration="meetingData.duration"
+                :location="meetingData.location"
+                :description="meetingData.description"
+                :fullDate="meetingData.fullDate"
+                :timezone="meetingData.timezone"
+                :lang="lang"
+            />
         </VCol>
 
         <VDivider vertical></VDivider>
@@ -60,9 +48,9 @@
                     </VCol>
 
                     <VCol cols="12" sm="12" md="10" class="pa-0">
-                        <label for="additional-info">
-                            {{ lang.ADDITIONAL_INFO_DESCRIPTION }}
-                        </label>
+                        <label for="additional-info">{{
+                            lang.ADDITIONAL_INFO_DESCRIPTION
+                        }}</label>
                         <VTextarea
                             id="additional-info"
                             :placeholder="lang.ADDITIONAL_INFO"
@@ -99,12 +87,12 @@
 
 <script>
 import enLang from '@/store/modules/i18n/en';
-import DetailLayout from './DetailLayout';
+import EventInfo from './EventInfo';
 
 export default {
     name: 'ConfirmEventType',
     components: {
-        DetailLayout
+        EventInfo
     },
     data: () => ({
         lang: enLang,
@@ -167,20 +155,6 @@ export default {
     min-width: 250px;
     margin: 0;
     padding: 0;
-}
-
-.event-info {
-    display: flex;
-    padding: 6px 0 6px 0;
-    margin-top: 20px;
-}
-
-.event-info ~ .event-info {
-    margin-top: 0px;
-}
-
-.event-info i {
-    margin-right: 10px;
 }
 
 .event-confirm-field {
