@@ -17,14 +17,14 @@
                             {{ lang.CREATE_EVENT_TYPE_TITLE }}
                         </VCardTitle>
                         <VCardSubtitle>
-                            {{ lang.CREATE_EVENT_TYPE_SUBTITLE }}
+                            
                         </VCardSubtitle>
                     </div>
                 </VCol>
             </VRow>
             <VDivider class="mx-4"></VDivider>
             <VRow>
-                <VCol cols="6" offset-sm="2" offset-md="2">
+                <VCol cols="6" offset-sm="3" offset-md="3">
                     <VForm class="mt-9 mb-16">
                         <div class="mb-2">
                             <label>{{ lang.EVENT_NAME_LABEL }}*</label>
