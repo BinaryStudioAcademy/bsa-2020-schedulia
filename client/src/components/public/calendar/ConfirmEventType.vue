@@ -2,7 +2,7 @@
     <VRow class="pa-0 ma-0">
         <VCol class="event-datail col-12 col-sm-12 col-md-4">
             <EventInfo
-                :companyLogo="owner.companyLogo"
+                :brandingLogo="owner.brandingLogo"
                 :avatar="owner.avatar"
                 :name="owner.name"
                 :eventName="meetingData.name"
@@ -71,7 +71,7 @@
                                 <VBtn
                                     width="158"
                                     height="44"
-                                    class="login-button primary"
+                                    class="login-button primary text-capitalize"
                                     depressed
                                     :to="{ path: 'event-details' }"
                                     >{{ lang.SCHEDULE_EVENT }}</VBtn
@@ -115,7 +115,7 @@ export default {
             name: 'Michael Scott | Dunder Mifflin',
             avatar:
                 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-            companyLogo:
+            brandingLogo:
                 'https://i.etsystatic.com/16438614/r/il/c31bd2/1806659071/il_570xN.1806659071_pn8j.jpg'
         },
         emailRules: [
@@ -132,7 +132,7 @@ export default {
                     enLang.FIELD_MUST_BE_MORE_THAN_VALUE.replace('value', 2),
             v =>
                 v.length <= 50 ||
-                enLang.EMAIL +
+                enLang.NAME +
                     enLang.FIELD_MUST_BE_LESS_THAN_VALUE.replace('value', 50)
         ],
         additionalInfoRules: [
