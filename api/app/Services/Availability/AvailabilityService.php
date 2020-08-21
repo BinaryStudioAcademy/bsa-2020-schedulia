@@ -53,7 +53,7 @@ final class AvailabilityService implements AvailabilityServiceInterface
 
         $dateTimeList = $this->processEveryDay($dateTimeList, $eventType);
         $dateTimeList = $this->processExactDates($dateTimeList, $eventType);
-//        $dateTimeList = $this->chunkDateTimeList($dateTimeList);
+        $dateTimeList = $this->getUnavailableTime($dateTimeList, $eventType);
 
         return $dateTimeList;
     }
@@ -241,5 +241,32 @@ final class AvailabilityService implements AvailabilityServiceInterface
                 }
             }
         }
+    }
+
+    private function getUnavailableTime(array $dateTimeList, EventType $eventType)
+    {
+        $events = $eventType->events
+            ->map(fn ($event) => [
+            'start_date' => explode(' ', $event->start_date)[0],
+            'start_time' => explode(' ', $event->start_date)[1],
+        ])
+            ->groupBy('start_date')
+            ->map(fn ($event) => $event->all())
+            ->all();
+        $eventsDateTime = [];
+        foreach ($events as $date =>$event) {
+            foreach ($event as $key => $time) {
+                $eventsDateTime[$date][] = $time['start_time'];
+            }
+        }
+
+        foreach ($dateTimeList as $date => $intervals) {
+            foreach ($intervals as $key => $interval) {
+                if (isset($eventsDateTime[$date])) {
+                    $dateTimeList[$date][$key]['unavailable'] = $eventsDateTime[$date];
+                }
+            }
+        }
+        return $dateTimeList;
     }
 }
