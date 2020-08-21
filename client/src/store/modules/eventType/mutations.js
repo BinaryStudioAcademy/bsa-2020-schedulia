@@ -42,5 +42,9 @@ export default {
             state.eventTypeForm,
             _.pick(data, _.keys(state.eventTypeForm))
         );
+    },
+
+    [mutations.SET_EVENT_TYPE_FORM_COLUMN_DISABLE]: (state, data) => {
+        state.eventTypeForm.disabled = data;
     }
 };
