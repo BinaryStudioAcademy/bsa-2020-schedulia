@@ -23,7 +23,7 @@
                                         {{ lang.CREATE_EVENT_TYPE_TITLE }}
                                     </VCardTitle>
                                     <VCardSubtitle>
-                                        {{ data.name }}
+                                        {{ name }}
                                     </VCardSubtitle>
                                 </div>
                             </VCol>
@@ -291,17 +291,15 @@
                                             {{ lang.EVENTS_CAN_BE_SCHEDULED }}
                                             {{ dateDuration }}
                                         </p>
-                                        <VBtn
-                                            text
-                                            color="primary"
-                                            dark
+                                        <p
+
                                             @click.stop="
                                                 availabilityDialog = true
                                             "
-                                            class=""
+                                            class="edit-clicked ml-3 app-text"
                                         >
                                             {{ lang.EDIT }}
-                                        </VBtn>
+                                        </p>
                                     </VRow>
                                     <VRow class="mb-2">
                                         <h3 class="app-label">
@@ -313,18 +311,17 @@
                                             {{
                                                 lang.EVENT_TIME_ZONE_EXPLANATION
                                             }}
-                                            <VBtn
-                                                text
-                                                small
-                                                color="primary"
-                                                dark
-                                                @click.stop="
+
+                                            <span
+                                                    @click.stop="
                                                     timeZoneDialog = true
                                                 "
-                                                class="editTimeZoneButton ml-1"
+                                                    class="edit-clicked ml-3 app-text"
                                             >
                                                 {{ lang.EDIT }}
-                                            </VBtn>
+
+                                        </span>
+
                                         </p>
                                     </VRow>
                                     <VRow class="mb-5">
@@ -1292,5 +1289,10 @@ export default {
 
 /deep/ .v-dialog {
     overflow-x: hidden;
+}
+
+.edit-clicked {
+    cursor: pointer;
+    color: var(--v-primary-base);
 }
 </style>
