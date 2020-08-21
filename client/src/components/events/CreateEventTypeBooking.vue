@@ -874,7 +874,7 @@
                                             @change="changeStartTime"
                                             outlined
                                             dense
-                                            placeholder="hh::mm"
+                                            placeholder="hh:mm"
                                         >
                                         </VTextField>
                                     </VRow>
@@ -899,7 +899,7 @@
                                             @change="changeEndTime"
                                             outlined
                                             dense
-                                            placeholder="hh::mm"
+                                            placeholder="hh:mm"
                                         >
                                         </VTextField>
                                     </VRow>
