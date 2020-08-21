@@ -10,7 +10,10 @@
                                     <img
                                         :src="colorById[color].image"
                                         alt=""
-                                        :class="{'pl-3': $vuetify.breakpoint.xs,  'pl-10': $vuetify.breakpoint.smAndUp}"
+                                        :class="{
+                                            'pl-3': $vuetify.breakpoint.xs,
+                                            'pl-10': $vuetify.breakpoint.smAndUp
+                                        }"
                                     />
                                 </div>
                             </VCol>
@@ -30,11 +33,12 @@
                         <VDivider class="mx-4"></VDivider>
                         <VRow>
                             <VCol
-                                    cols="10"
-                                    offset-sm="3"
-                                    offset-md="3"
-                                    md="6" sm="6"
-                                    :class="{'ml-10': $vuetify.breakpoint.xs}"
+                                cols="10"
+                                offset-sm="3"
+                                offset-md="3"
+                                md="6"
+                                sm="6"
+                                :class="{ 'ml-10': $vuetify.breakpoint.xs }"
                             >
                                 <VForm class="mt-9 mb-16" ref="form">
                                     <div class="mb-2">
@@ -65,14 +69,17 @@
                                         dense
                                         class="mb-3 app-textfield"
                                     >
-                                        <template slot="selection" slot-scope="data">
+                                        <template
+                                            slot="selection"
+                                            slot-scope="data"
+                                        >
                                             <VFlex xs2 md1>
                                                 <VIcon>
                                                     {{ data.item.icon }}
                                                 </VIcon>
                                             </VFlex>
-                                            <VFlex >
-                                                {{ data.item.title}}
+                                            <VFlex>
+                                                {{ data.item.title }}
                                             </VFlex>
                                         </template>
 
@@ -82,8 +89,8 @@
                                                     {{ data.item.icon }}
                                                 </VIcon>
                                             </VFlex>
-                                            <VFlex >
-                                                {{ data.item.title}}
+                                            <VFlex>
+                                                {{ data.item.title }}
                                             </VFlex>
                                         </template>
                                     </VSelect>
@@ -133,7 +140,14 @@
                                                     :src="colorById[id].image"
                                                     alt=""
                                                     class=" image-circle"
-                                                    :class="{'mr-5': $vuetify.breakpoint.xs, 'mr-7 ml-3': $vuetify.breakpoint.smAndUp,}"
+                                                    :class="{
+                                                        'mr-5':
+                                                            $vuetify.breakpoint
+                                                                .xs,
+                                                        'mr-7 ml-3':
+                                                            $vuetify.breakpoint
+                                                                .smAndUp
+                                                    }"
                                                     v-on:click="setColor(id)"
                                                 >
                                                     <VOverlay
@@ -156,19 +170,21 @@
                                     <VRow>
                                         <div>
                                             <VBtn
-                                                    text
-                                                    outlined
-                                                    width="114"
-                                                    class="mr-3"
-                                                    @click.stop="cancelDialog = true"
+                                                text
+                                                outlined
+                                                width="114"
+                                                class="mr-3"
+                                                @click.stop="
+                                                    cancelDialog = true
+                                                "
                                             >
                                                 {{ lang.CANCEL }}
                                             </VBtn>
                                             <VBtn
-                                                    @click="saveEventType"
-                                                    color="primary"
-                                                    class="white--text"
-                                                    width="114"
+                                                @click="saveEventType"
+                                                color="primary"
+                                                class="white--text"
+                                                width="114"
                                             >
                                                 {{ lang.SAVE_AND_CLOSE }}
                                             </VBtn>
@@ -189,7 +205,10 @@
                                             require('@/assets/images/calender_circle.png')
                                         "
                                         alt=""
-                                        :class="{'pl-3': $vuetify.breakpoint.xs,  'pl-10': $vuetify.breakpoint.smAndUp}"
+                                        :class="{
+                                            'pl-3': $vuetify.breakpoint.xs,
+                                            'pl-10': $vuetify.breakpoint.smAndUp
+                                        }"
                                     />
                                 </div>
                             </VCol>
@@ -208,11 +227,15 @@
                     <VExpansionPanelContent>
                         <VDivider class="mx-4"></VDivider>
                         <VRow>
-                            <VCol cols="10"
-                                  offset-sm="2"
-                                  offset-md="2"
-                                  md="7" sm="6" lg="7"
-                                  :class="{'ml-10': $vuetify.breakpoint.xs}">
+                            <VCol
+                                cols="10"
+                                offset-sm="2"
+                                offset-md="2"
+                                md="7"
+                                sm="6"
+                                lg="7"
+                                :class="{ 'ml-10': $vuetify.breakpoint.xs }"
+                            >
                                 <VForm class="mt-9 mb-16">
                                     <VRow>
                                         <h3 class="app-label">
@@ -248,8 +271,6 @@
                                             dense
                                             class="shrink ma-0 pa-0 custom-textfield"
                                             placeholder="0"
-
-
                                         >
                                         </VTextField>
                                     </VRow>
@@ -259,7 +280,14 @@
                                         </h3>
                                     </VRow>
                                     <VRow class="mb-3" align="baseline">
-                                        <p class="app-text" :class="{'mb-0': $vuetify.breakpoint.xs, 'mb-3': $vuetify.breakpoint.smAndUp }">
+                                        <p
+                                            class="app-text"
+                                            :class="{
+                                                'mb-0': $vuetify.breakpoint.xs,
+                                                'mb-3':
+                                                    $vuetify.breakpoint.smAndUp
+                                            }"
+                                        >
                                             {{ lang.EVENTS_CAN_BE_SCHEDULED }}
                                             {{ dateDuration }}
                                         </p>
@@ -322,7 +350,9 @@
                                         <VTabs v-model="tab">
                                             <VTabsSlider></VTabsSlider>
                                             <VTab :href="'#tab-0'">
-                                                <span class="custom-text">{{ lang.HOURS }}</span>
+                                                <span class="custom-text">{{
+                                                    lang.HOURS
+                                                }}</span>
                                             </VTab>
                                             <VTabItem :value="'tab-0'">
                                                 <VRow class="fill-height">
@@ -473,7 +503,9 @@
                                                 </VRow>
                                             </VTabItem>
                                             <VTab :href="'#tab-1'">
-                                                <span class="custom-text">{{ lang.ADVANCED }}</span>
+                                                <span class="custom-text">{{
+                                                    lang.ADVANCED
+                                                }}</span>
                                             </VTab>
                                             <VTabItem :value="'tab-1'">
                                                 <VRow class="pt-3">
@@ -567,7 +599,10 @@
                                                             }}
                                                         </p>
                                                         <VRow align="baseline">
-                                                            <VCol cols="3" md="5">
+                                                            <VCol
+                                                                cols="3"
+                                                                md="5"
+                                                            >
                                                                 <VTextField
                                                                     v-model="
                                                                         preventEventsHours
@@ -597,7 +632,9 @@
                                                 outlined
                                                 width="114"
                                                 class="mr-3"
-                                                @click.stop="cancelDialog = true"
+                                                @click.stop="
+                                                    cancelDialog = true
+                                                "
                                             >
                                                 {{ lang.CANCEL }}
                                             </VBtn>
@@ -790,7 +827,7 @@
                 <VCard>
                     <VCardTitle class="mb-5">
                         <VRow justify="center">
-                            <h3> {{ lang.ARE_YOU_SURE }}</h3>
+                            <h3>{{ lang.ARE_YOU_SURE }}</h3>
                         </VRow>
                     </VCardTitle>
                     <VCardText>
@@ -801,19 +838,18 @@
                     <VCardActions class="justify-center">
                         <div class="mb-5">
                             <VBtn
-
-                                    color="primary"
-                                    class="white--text mr-3"
-                                    width="114"
-                                    :to="{ name: 'EventTypes' }"
+                                color="primary"
+                                class="white--text mr-3"
+                                width="114"
+                                :to="{ name: 'EventTypes' }"
                             >
                                 {{ lang.YES }}
                             </VBtn>
                             <VBtn
-                                    text
-                                    outlined
-                                    width="114"
-                                    @click="cancelDialog = false"
+                                text
+                                outlined
+                                width="114"
+                                @click="cancelDialog = false"
                             >
                                 {{ lang.NEVERMIND }}
                             </VBtn>
@@ -894,7 +930,6 @@ export default {
                     title: 'skype',
                     icon: 'mdi-skype'
                 }
-
             ],
             colorById: {
                 yellow: {
@@ -947,11 +982,11 @@ export default {
                 v =>
                     v.length >= 2 ||
                     this.lang.EVENT_LINK_LABEL +
-                    ' ' +
-                    this.lang.FIELD_MUST_BE_VALUE_OR_MORE_THAN.replace(
-                        'value',
-                        2
-                    ),
+                        ' ' +
+                        this.lang.FIELD_MUST_BE_VALUE_OR_MORE_THAN.replace(
+                            'value',
+                            2
+                        ),
 
                 v =>
                     /^([a-z0-9]|-|_)+$/.test(v) ||

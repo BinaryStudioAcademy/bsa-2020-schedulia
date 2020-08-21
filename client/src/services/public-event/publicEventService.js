@@ -1,4 +1,3 @@
-
 //import requestService from "@/services/requestService";
 //const EVENT_TYPES_URL = "/event-types";
 //const EVENTS_URL = "/events";

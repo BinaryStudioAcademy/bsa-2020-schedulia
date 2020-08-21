@@ -7,7 +7,10 @@
                         <img
                             :src="colorById[data.color].image"
                             alt=""
-                            :class="{'pl-3': $vuetify.breakpoint.xs,  'pl-10': $vuetify.breakpoint.smAndUp}"
+                            :class="{
+                                'pl-3': $vuetify.breakpoint.xs,
+                                'pl-10': $vuetify.breakpoint.smAndUp
+                            }"
                         />
                     </div>
                 </VCol>
@@ -25,11 +28,12 @@
             <VDivider class="mx-4"></VDivider>
             <VRow>
                 <VCol
-                        cols="10"
-                        offset-sm="3"
-                        offset-md="3"
-                        md="6" sm="6"
-                        :class="{'ml-10': $vuetify.breakpoint.xs}"
+                    cols="10"
+                    offset-sm="3"
+                    offset-md="3"
+                    md="6"
+                    sm="6"
+                    :class="{ 'ml-10': $vuetify.breakpoint.xs }"
                 >
                     <VForm class="mt-9 mb-16" ref="form">
                         <div class="mb-2">
@@ -65,8 +69,8 @@
                                         {{ data.item.icon }}
                                     </VIcon>
                                 </VFlex>
-                                <VFlex >
-                                    {{ data.item.title}}
+                                <VFlex>
+                                    {{ data.item.title }}
                                 </VFlex>
                             </template>
 
@@ -76,11 +80,10 @@
                                         {{ data.item.icon }}
                                     </VIcon>
                                 </VFlex>
-                                <VFlex >
-                                    {{ data.item.title}}
+                                <VFlex>
+                                    {{ data.item.title }}
                                 </VFlex>
                             </template>
-
                         </VSelect>
 
                         <div class="mb-2">
@@ -123,7 +126,11 @@
                                         :src="colorById[id].image"
                                         alt=""
                                         class="image-circle"
-                                        :class="{'mr-5': $vuetify.breakpoint.xs, 'mr-7 ml-3': $vuetify.breakpoint.smAndUp,}"
+                                        :class="{
+                                            'mr-5': $vuetify.breakpoint.xs,
+                                            'mr-7 ml-3':
+                                                $vuetify.breakpoint.smAndUp
+                                        }"
                                         v-on:click="setColor(id)"
                                     >
                                         <VOverlay
@@ -145,11 +152,11 @@
                         </div>
                         <div>
                             <VBtn
-                                    text
-                                    outlined
-                                    width="114"
-                                    class="mr-3"
-                                    @click.stop="cancelDialog = true"
+                                text
+                                outlined
+                                width="114"
+                                class="mr-3"
+                                @click.stop="cancelDialog = true"
                             >
                                 {{ lang.CANCEL }}
                             </VBtn>
@@ -179,26 +186,24 @@
                     </VRow>
                 </VCardText>
                 <VCardActions class="justify-center">
-                        <div class="mb-5">
-                            <VBtn
-
-                                    color="primary"
-                                    class="white--text mr-3"
-                                    width="114"
-                                    :to="{ name: 'EventTypes' }"
-                            >
-                                {{ lang.YES }}
-                            </VBtn>
-                            <VBtn
-                                    text
-                                    outlined
-                                    width="114"
-                                    @click="cancelDialog = false"
-                            >
-                                {{ lang.NEVERMIND }}
-                            </VBtn>
-                        </div>
-
+                    <div class="mb-5">
+                        <VBtn
+                            color="primary"
+                            class="white--text mr-3"
+                            width="114"
+                            :to="{ name: 'EventTypes' }"
+                        >
+                            {{ lang.YES }}
+                        </VBtn>
+                        <VBtn
+                            text
+                            outlined
+                            width="114"
+                            @click="cancelDialog = false"
+                        >
+                            {{ lang.NEVERMIND }}
+                        </VBtn>
+                    </div>
                 </VCardActions>
             </VCard>
         </VDialog>
@@ -237,7 +242,6 @@ export default {
                     title: 'skype',
                     icon: 'mdi-skype'
                 }
-
             ],
 
             colorById: {
@@ -291,11 +295,11 @@ export default {
                 v =>
                     v.length >= 2 ||
                     this.lang.EVENT_LINK_LABEL +
-                    ' ' +
-                    this.lang.FIELD_MUST_BE_VALUE_OR_MORE_THAN.replace(
-                        'value',
-                        2
-                    ),
+                        ' ' +
+                        this.lang.FIELD_MUST_BE_VALUE_OR_MORE_THAN.replace(
+                            'value',
+                            2
+                        ),
 
                 v =>
                     /^([a-z0-9]|-|_)+$/.test(v) ||
@@ -309,7 +313,7 @@ export default {
                         this.lang.FIELD_MUST_BE_LESS_THAN_VALUE.replace(
                             'value',
                             1000
-                        ),
+                        )
             ]
         };
     },
@@ -335,7 +339,6 @@ export default {
                 this.setEventTypeForm(this.form);
                 this.$router.push({ name: 'newEventEdit' });
             }
-
         },
         setColor(id) {
             this.form.color = this.colorById[id].id;
