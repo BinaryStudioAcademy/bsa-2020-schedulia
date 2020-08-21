@@ -10,4 +10,5 @@ final class ErrorCode
     public const EXAMPLE_EXCEPTION = 1001;
     public const INVALID_PASSWORD_EXCEPTION = 1002;
     public const INVALID_OR_EXPIRED_TOKEN = 1003;
+    public const BAD_REQUEST = 400;
 }

@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Exceptions\Availability;
 
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use App\Exceptions\BaseException;
+use App\Exceptions\ErrorCode;
+use Throwable;
 
-final class AvailabilityValidationException extends HttpException
+final class AvailabilityValidationException extends BaseException
 {
-    public function __construct(int $statusCode = 400, string $message = null, \Throwable $previous = null, array $headers = [], ?int $code = 0)
+    public function __construct($message = "", $code = ErrorCode::BAD_REQUEST, Throwable $previous = null)
     {
-        parent::__construct($statusCode, $message, $previous, $headers, $code);
+        parent::__construct($message, $code, $previous);
     }
 }

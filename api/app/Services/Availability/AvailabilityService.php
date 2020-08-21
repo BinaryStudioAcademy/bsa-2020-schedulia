@@ -11,6 +11,7 @@ use App\Exceptions\Availability\AvailabilityValidationException;
 use App\Exceptions\Availability\EndTimeBeforeStartTimeException;
 use App\Exceptions\Availability\IntervalsOverlappedException;
 use App\Exceptions\Availability\UnknownAvailabilityTypeException;
+use App\Http\Presenters\AvailabilityServicePresenter;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Collection;
@@ -18,6 +19,12 @@ use Illuminate\Support\Collection;
 final class AvailabilityService implements AvailabilityServiceInterface
 {
     private const MIDNIGHT_TIME = "00:00:00";
+    private AvailabilityServicePresenter $presenter;
+
+    public function __construct(AvailabilityServicePresenter $presenter)
+    {
+        $this->presenter = $presenter;
+    }
 
     public function validateAvailabilities(Collection $availabilities, int $duration): bool
     {
@@ -59,6 +66,8 @@ final class AvailabilityService implements AvailabilityServiceInterface
         $dateTimeList = $this->processEveryDay($dateTimeList, $eventType);
         $dateTimeList = $this->processExactDates($dateTimeList, $eventType);
         $dateTimeList = $this->getUnavailableTime($dateTimeList, $eventType);
+
+        $dateTimeList = $this->presenter->presentArray($dateTimeList);
 
         return $dateTimeList;
     }
@@ -210,7 +219,7 @@ final class AvailabilityService implements AvailabilityServiceInterface
             $startDateWithDuration->addMinutes($duration);
             $startDateWithDuration = $startDateWithDuration->format('Y-m-d H:i:s');
             if ($startDateWithDuration > $availability->end_date && $endTime !== self::MIDNIGHT_TIME) {
-                throw new AvailabilityValidationException(400, "Intervals must be at least {$duration} minutes!");
+                throw new AvailabilityValidationException("Intervals must be at least {$duration} minutes!");
             }
         }
 
@@ -220,7 +229,7 @@ final class AvailabilityService implements AvailabilityServiceInterface
 
         if ($availability->type !== AvailabilityTypes::DATE_RANGE && $differenceInDays >= 1) {
             if ($differenceInDays === 1 && $endTime !== self::MIDNIGHT_TIME) {
-                throw new AvailabilityValidationException(400, "Date for Availability with type '{$availability->type}' must be from one day!");
+                throw new AvailabilityValidationException("Date for Availability with type '{$availability->type}' must be from one day!");
             }
         }
     }
