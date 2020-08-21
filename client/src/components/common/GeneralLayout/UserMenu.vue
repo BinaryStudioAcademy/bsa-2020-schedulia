@@ -26,7 +26,7 @@
                         :to="{ name: 'Profile' }"
                         class="user-menu__link"
                     >
-                        <VIcon>mdi-account</VIcon> Profile
+                        <VIcon>mdi-account</VIcon> {{ lang.PROFILE }}
                     </RouterLink>
                 </VListItemTitle>
             </VListItem>
@@ -36,15 +36,24 @@
                         :to="{ name: 'EventTypes' }"
                         class="user-menu__link"
                     >
-                        <VIcon>mdi-calendar</VIcon> Event Types
+                        <VIcon>mdi-calendar</VIcon> {{ lang.EVENT_TYPES }}
                     </RouterLink>
                 </VListItemTitle>
             </VListItem>
             <VListItem class="v-list-item--link">
                 <VListItemTitle align-self="center">
-                    <RouterLink :to="{ name: 'Home' }" class="user-menu__link">
-                        <VIcon>mdi-logout-variant</VIcon>Logout
+                    <RouterLink
+                        :to="{ name: 'CalendarConnections' }"
+                        class="user-menu__link"
+                    >
+                        <VIcon>mdi-calendar-sync</VIcon>
+                        {{ lang.CALENDAR_CONNECTIONS }}
                     </RouterLink>
+                </VListItemTitle>
+            </VListItem>
+            <VListItem class="v-list-item--link" @click="onSignOut">
+                <VListItemTitle align-self="center">
+                    <VIcon>mdi-logout-variant</VIcon>{{ lang.LOGOUT }}
                 </VListItemTitle>
             </VListItem>
         </VList>
@@ -54,6 +63,8 @@
 <script>
 import enLang from '@/store/modules/i18n/en';
 import Avatar from './Avatar';
+import * as actions from '@/store/modules/auth/types/actions';
+import { mapActions } from 'vuex';
 
 export default {
     name: 'UserMenu',
@@ -61,9 +72,17 @@ export default {
     data: () => ({
         lang: enLang
     }),
-
     components: {
         Avatar
+    },
+    methods: {
+        ...mapActions('auth', {
+            signOut: actions.SIGN_OUT
+        }),
+        async onSignOut() {
+            await this.signOut();
+            this.$router.push({ name: 'SignIn' });
+        }
     }
 };
 </script>

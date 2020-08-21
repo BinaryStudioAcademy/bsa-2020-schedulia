@@ -1,7 +1,7 @@
 <template>
     <VContainer class="container-content">
-        <VRow justify="center">
-            <VCol cols="6">
+        <VRow>
+            <VCol offset-md="3" md="6" lg="4" sm="12">
                 <VForm>
                     <VContainer>
                         <VRow>
@@ -40,9 +40,14 @@
                                     :defaultValue="user.name"
                                     @change="onChangeHandle('name', $event)"
                                 />
-                            </VCol>
 
-                            <VCol cols="12">
+                                <ProfileTextField
+                                    :label="lang.NICKNAME"
+                                    :value="userProfile.nickname"
+                                    :defaultValue="user.nickname"
+                                    @change="onChangeHandle('nickname', $event)"
+                                />
+
                                 <ProfileTextArea
                                     :label="lang.WELCOME_MESSAGE"
                                     :value="userProfile.welcome_message"
@@ -54,9 +59,7 @@
                                         )
                                     "
                                 />
-                            </VCol>
 
-                            <VCol cols="12">
                                 <ProfileSelect
                                     :label="lang.LANGUAGE"
                                     :value="userProfile.language"
@@ -66,7 +69,7 @@
                                 />
                             </VCol>
 
-                            <VCol cols="6">
+                            <VCol lg="6" md="12">
                                 <ProfileSelect
                                     :label="lang.DATE_FORMAT"
                                     :value="userProfile.date_format"
@@ -78,11 +81,11 @@
                                 />
                             </VCol>
 
-                            <VCol cols="6">
+                            <VCol lg="6" md="12">
                                 <ProfileSelect
                                     :label="lang.TIME_FORMAT"
-                                    :value="userProfile.time_format"
-                                    :defaultValue="user.time_format"
+                                    :value="userProfile.time_format_12h"
+                                    :defaultValue="user.time_format_12h"
                                     :items="timeFormats"
                                     @change="
                                         onChangeHandle('time_format', $event)
@@ -97,14 +100,10 @@
                                     :defaultValue="user.country"
                                     @change="onChangeHandle('country', $event)"
                                 ></ProfileTextField>
-                            </VCol>
 
-                            <VCol cols="12">
-                                <ProfileSelect
-                                    :label="lang.TIME_ZONE"
+                                <TimeZoneSelect
                                     :value="userProfile.timezone"
                                     :defaultValue="user.timezone"
-                                    :items="timeZones"
                                     @change="onChangeHandle('timezone', $event)"
                                 />
                             </VCol>
@@ -116,19 +115,28 @@
                             <VAlert cols="12" type="error" v-if="errorMessage">
                                 {{ errorMessage }}
                             </VAlert>
-                            <VCol>
-                                <div>
-                                    <VBtn class="ma2" @click="resetChanges">
-                                        {{ lang.CANCEL }}
-                                    </VBtn>
-                                    <VBtn
-                                        class="ma-2"
-                                        color="primary"
-                                        dark
-                                        @click="onSaveHandle"
-                                        >{{ lang.SAVE }}
-                                    </VBtn>
-                                </div>
+                            <VCol cols="12">
+                                <VBtn
+                                    class="text cancel v-btn--flat v-btn--outlined mr-4"
+                                    @click="resetChanges"
+                                >
+                                    {{ lang.CANCEL }}
+                                </VBtn>
+                                <VBtn
+                                    class="mr-4"
+                                    color="primary"
+                                    dark
+                                    @click="onSaveHandle"
+                                    >{{ lang.SAVE }}
+                                </VBtn>
+                            </VCol>
+                            <VCol cols="12">
+                                <ConfirmDialog
+                                    :header="lang.DELETE_ACCOUNT"
+                                    :content="lang.DELETE_ACCOUNT_WARNING_TEXT"
+                                    :buttonText="lang.DELETE_ACCOUNT"
+                                    @confirm="onDeleteHandle"
+                                />
                             </VCol>
                         </VRow>
                     </VContainer>
@@ -144,14 +152,17 @@ import { mapActions, mapGetters } from 'vuex';
 import ProfileTextField from './ProfileTextField.vue';
 import ProfileTextArea from './ProfileTextArea.vue';
 import ProfileSelect from './ProfileSelect.vue';
-import momentTimezone from 'moment-timezone';
+import TimeZoneSelect from '@/components/common/form/TimeZoneSelect.vue';
+import ConfirmDialog from '@/components/confirm/ConfirmDialog.vue';
 
 export default {
     name: 'ProfileForm',
     components: {
         ProfileTextField,
         ProfileTextArea,
-        ProfileSelect
+        ProfileSelect,
+        ConfirmDialog,
+        TimeZoneSelect
     },
     data: () => ({
         lang: enLang,
@@ -161,10 +172,11 @@ export default {
         userProfile: {
             avatar: null,
             name: '',
+            nickname: '',
             welcome_message: '',
             language: 'en',
             date_format: 'american',
-            time_format: '12',
+            time_format_12h: true,
             country: '',
             timeZone: null
         },
@@ -179,10 +191,9 @@ export default {
             { value: 'european_standard', text: 'DD/MM/YYYY' }
         ],
         timeFormats: [
-            { value: '12', text: '12h' },
-            { value: '24', text: '24h' }
-        ],
-        timeZones: momentTimezone.tz.names()
+            { value: true, text: '12h' },
+            { value: false, text: '24h' }
+        ]
     }),
 
     created() {
@@ -200,7 +211,13 @@ export default {
     },
 
     methods: {
-        ...mapActions('profile', ['updateAvatar', 'updateProfile']),
+        ...mapActions('profile', [
+            'updateAvatar',
+            'updateProfile',
+            'deleteProfile'
+        ]),
+
+        ...mapActions('auth', ['signOut']),
 
         onChangeHandle(property, value) {
             this.userProfile[property] = value;
@@ -214,8 +231,7 @@ export default {
         async onSaveHandle() {
             try {
                 if (this.avatarIsNew) {
-                    const response = await this.updateAvatar(this.file);
-                    const url = response?.avatar?.url;
+                    const url = await this.updateAvatar(this.file);
                     this.userProfile.avatar = url;
                 }
 
@@ -225,6 +241,16 @@ export default {
                 });
 
                 this.userProfile = { ...userData };
+            } catch (error) {
+                this.showErrorMessage(error.message);
+            }
+        },
+
+        async onDeleteHandle() {
+            try {
+                await this.deleteProfile();
+                this.signOut();
+                this.$router.push({ name: 'SignIn' });
             } catch (error) {
                 this.showErrorMessage(error.message);
             }
@@ -248,7 +274,33 @@ export default {
     cursor: pointer;
 }
 
+.v-input {
+    max-height: 32px;
+}
+
+.v-btn {
+    font-size: 13px;
+    text-transform: none;
+
+    &.cancel {
+        border-color: rgba(0, 0, 0, 0.12);
+        background: none;
+        box-shadow: none;
+    }
+}
+
+.v-subheader {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16;
+}
+
 .updateAvatar {
     padding-left: 10px;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    color: #281ac8;
+    cursor: pointer;
 }
 </style>

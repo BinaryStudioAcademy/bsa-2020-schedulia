@@ -19,6 +19,11 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
         return User::firstWhere('email', $email);
     }
 
+    public function getByVerifiedEmail(string $email): ?User
+    {
+        return User::where('email', $email)->whereNotNull('email_verified_at')->first();
+    }
+
     public function save(User $user): User
     {
         $user->save();
@@ -29,5 +34,10 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
     public function deleteById(int $id): void
     {
         User::destroy($id);
+    }
+
+    public function markUserEmail(User $user): void
+    {
+        $user->markEmailAsVerified();
     }
 }

@@ -17,9 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'auth', 'namespace' => 'Api\\Auth'], function () {
     Route::post('/register', 'AuthController@register');
     Route::post('/refresh', 'AuthController@refresh');
+    Route::post('/forgot-password', 'AuthController@sendLinkForgotPassword');
+    Route::post('/reset-password', 'AuthController@resetPassword')->name('password.reset');
     Route::post('/login', 'AuthController@login')->name('login');
     Route::post('/logout', 'AuthController@logout')->middleware('auth:api');
     Route::get('/me', 'AuthController@me')->middleware('auth:api');
+    Route::post('/email/verify', 'EmailVerificationController@verify')->name('verification.verify');
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
@@ -41,12 +44,16 @@ Route::group([
     Route::group([
         'prefix' => '/event-types',
     ], function () {
-        Route::get('/', 'EventTypeController@index');
         Route::post('/', 'EventTypeController@store');
-        Route::get('/{id}', 'EventTypeController@getEventTypeById');
         Route::put('/{id}', 'EventTypeController@update');
         Route::put('/{id}/disabled', 'EventTypeController@changeDisabledById');
         Route::delete('/{id}', 'EventTypeController@destroy');
+    });
+    Route::group([
+        'prefix' => '/event-types',
+    ], function () {
+        Route::get('/', 'EventTypeController@index');
+        Route::get('/{id}', 'EventTypeController@getEventTypeById');
     });
 });
 
@@ -63,6 +70,8 @@ Route::group([
     'prefix' => '/profiles',
 ], function () {
     Route::put('/me', 'UserController@store');
+    Route::delete('/me', 'UserController@delete');
+    Route::put('/me/password', 'UserController@updatePassword');
 });
 
 Route::group([

@@ -22,6 +22,37 @@ const routes = [
                 component: () => import('../views/SignUp')
             },
             {
+                path: 'event',
+                name: 'PublicEvent',
+                component: () => import('../views/PublicEvent.vue')
+            },
+            {
+                path: 'confirm-event',
+                name: 'PublicEventConfirm',
+                component: () => import('../views/PublicEventConfirm.vue')
+            },
+            {
+                path: 'event-details',
+                name: 'PublicEventDetails',
+                component: () => import('../views/PublicEventDetails.vue')
+            },
+            {
+                path: 'event-disabled',
+                name: 'DisabledEvent',
+                component: () => import('../views/DisabledEvent.vue')
+            },
+
+            {
+                path: 'forgot-password',
+                name: 'ForgotPassword',
+                component: () => import('../views/ForgotPassword')
+            },
+            {
+                path: 'reset-password',
+                name: 'ResetPassword',
+                component: () => import('../views/ResetPassword')
+            },
+            {
                 path: '',
                 component: LoginGuard,
                 children: [
@@ -48,6 +79,12 @@ const routes = [
                     },
 
                     {
+                        path: 'calendar-connections',
+                        name: 'CalendarConnections',
+                        component: () => import('../views/CalendarConnections')
+                    },
+
+                    {
                         path: 'event-types',
                         name: 'EventTypes',
                         component: () => import('../views/EventTypes')
@@ -57,8 +94,20 @@ const routes = [
                         path: 'new-event',
                         name: 'new-event',
                         component: () => import('../views/NewEventType')
+                    },
+
+                    {
+                        path: 'new-event-edit',
+                        name: 'new-event-edit',
+                        component: () => import('../views/NewEventTypeBooking')
                     }
                 ]
+            },
+
+            {
+                path: 'verified-email',
+                name: 'verified-email',
+                component: () => import('../views/VerifiedEmail')
             }
         ]
     }

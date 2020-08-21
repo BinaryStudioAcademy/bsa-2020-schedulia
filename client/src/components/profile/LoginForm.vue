@@ -1,7 +1,7 @@
 <template>
     <VContainer class="container-content">
-        <VRow justify="center">
-            <VCol cols="6">
+        <VRow>
+            <VCol offset-md="3" md="6" lg="4" sm="12">
                 <VForm>
                     <VContainer>
                         <VRow>
@@ -11,30 +11,18 @@
                                 }}
                             </VCol>
                             <VCol cols="12">
-                                <VSubheader>{{ lang.EMAIL }}</VSubheader>
-                                <VTextField
-                                    :value="email"
-                                    :rules="[validEmail]"
+                                <ProfileDisabledField
                                     :label="lang.EMAIL"
-                                    readonly
-                                    solo
-                                    outlined
-                                ></VTextField>
+                                    :value="userProfile.email"
+                                    :defaultValue="user.email"
+                                />
                             </VCol>
                             <VCol cols="12">
-                                <VSubheader>{{ lang.PASSWORD }}</VSubheader>
-                                <VTextField
-                                    :value="password"
-                                    :type="showPassword ? 'text' : 'password'"
-                                    :append-icon="
-                                        showPassword ? 'mdi-eye' : 'mdi-eye-off'
-                                    "
-                                    @click:append="showPassword = !showPassword"
+                                <ProfileDisabledField
                                     :label="lang.PASSWORD"
-                                    readonly
-                                    solo
-                                    outlined
-                                ></VTextField>
+                                    :value="password"
+                                    :defaultValue="password"
+                                />
                             </VCol>
                             <VCol>
                                 <ChangePasswordForm />
@@ -49,24 +37,30 @@
 
 <script>
 import enLang from '@/store/modules/i18n/en.js';
+import { mapGetters } from 'vuex';
 import ChangePasswordForm from './ChangePasswordForm.vue';
+import ProfileDisabledField from './ProfileDisabledField.vue';
 
 export default {
     name: 'LoginForm',
     components: {
-        ChangePasswordForm
+        ChangePasswordForm,
+        ProfileDisabledField
     },
     data: () => ({
         lang: enLang,
-        email: 'john.doe@gmail.com',
-        password: 'password',
-        showPassword: false
+        userProfile: {
+            email: null
+        }
     }),
 
-    methods: {
-        validEmail(value) {
-            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return pattern.test(value) || this.lang.INVALID_EMAIL;
+    computed: {
+        ...mapGetters('auth', {
+            user: 'getLoggedUser'
+        }),
+
+        password() {
+            return '******';
         }
     }
 };
