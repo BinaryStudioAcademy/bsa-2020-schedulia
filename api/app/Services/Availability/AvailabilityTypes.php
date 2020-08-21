@@ -19,16 +19,6 @@ final class AvailabilityTypes
     public const DATE_RANGE = 'date_range';
     public const DATE_RANGE_INDEFINITE = 'date_range_indefinite';
 
-    public const EVERY_MONDAY_PRIORITY = 2;
-    public const EVERY_TUESDAY_PRIORITY = 2;
-    public const EVERY_WEDNESDAY_PRIORITY = 2;
-    public const EVERY_THURSDAY_PRIORITY = 2;
-    public const EVERY_FRIDAY_PRIORITY = 2;
-    public const EVERY_SATURDAY_PRIORITY = 2;
-    public const EVERY_SUNDAY_PRIORITY = 2;
-    public const EXACT_DATE_PRIORITY = 1;
-    public const DATE_RANGE_PRIORITY = 4;
-
     public static function getTypes(): array
     {
         return [
@@ -75,6 +65,22 @@ final class AvailabilityTypes
         return [
             self::DATE_RANGE_INDEFINITE,
             self::DATE_RANGE_WEEKDAYS_INDEFINITE
+        ];
+    }
+
+    public static function getWeekdaysTypes(): array
+    {
+        return [
+            self::DATE_RANGE_WEEKDAYS,
+            self::DATE_RANGE_WEEKDAYS_INDEFINITE
+        ];
+    }
+
+    public static function getAllDaysTypes(): array
+    {
+        return [
+            self::DATE_RANGE,
+            self::DATE_RANGE_INDEFINITE,
         ];
     }
 }
