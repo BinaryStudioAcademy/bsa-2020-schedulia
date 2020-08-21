@@ -6,7 +6,9 @@ export default {
         state.eventType = {
             ...eventType,
             owner: userMapper(eventType.owner),
-            availabilities: availabilityMapper(eventType.availabilities)
+            availabilities: eventType.availabilities.map(availability =>
+                availabilityMapper(availability)
+            )
         };
     },
     [mutations.SET_PUBLIC_EVENT]: (state, publicEvent) => {

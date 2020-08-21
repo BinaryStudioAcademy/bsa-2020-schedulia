@@ -1,5 +1,5 @@
 <template>
-    <VRow class="ma-0 pa-0">
+    <VRow class="ma-0 pa-0" v-if="isReady">
         <AutoFillSpacer />
         <VCol :class="colEventInfoClass">
             <EventInfo
@@ -17,7 +17,12 @@
 
         <VDivider vertical class="hidden-md-and-down"></VDivider>
 
-        <VCol sm="12" md="6" lg="5" class="calendar-container col-12 pa-0">
+        <VCol
+            sm="12"
+            md="6"
+            lg="5"
+            class="calendar-container col-12 pa-0 mt-0 ml-0"
+        >
             <div class="calendar-content">
                 <h3>{{ lang.SELECT_DATE_AND_TIME }}</h3>
                 <VDatePicker
@@ -66,7 +71,7 @@
             sm="12"
             md="4"
             lg="3"
-            class="select-time-container col-12 pa-0"
+            class="select-time-container col-12 pa-0 mt-0"
         >
             <h3>{{ formattedDate }}</h3>
             <div class="time-items-container">
@@ -88,7 +93,7 @@
                                 depressed
                                 color="primary"
                                 dark
-                                :to="{ path: 'confirm-event' }"
+                                @click="onConfirmDate(time)"
                                 >{{ lang.CONFIRM_DATE }}</VBtn
                             >
                         </div>
@@ -114,6 +119,10 @@ import momentTimezones from 'moment-timezone';
 import enLang from '@/store/modules/i18n/en';
 import EventInfo from './EventInfo';
 import AutoFillSpacer from './AutoFillSpacer';
+import * as actions from '@/store/modules/publicEvent/types/actions';
+import * as getters from '@/store/modules/publicEvent/types/getters';
+import * as mutations from '@/store/modules/publicEvent/types/mutations';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 export default {
     name: 'EventType',
@@ -121,7 +130,9 @@ export default {
         EventInfo,
         AutoFillSpacer
     },
-    mounted() {
+    async mounted() {
+        await this.getEventTypeById(5);
+
         this.currentTimezoneTime = this.getFormattedTimezoneTime(
             this.currentTimezone
         );
@@ -136,48 +147,25 @@ export default {
         },
         date() {
             this.selectedTime = null;
+        },
+        eventType() {
+            this.isReady = true;
         }
     },
     data: () => ({
         lang: enLang,
+        isReady: false,
         currentTimezone: momentTimezones.tz.guess(),
         currentTimezoneTime: null,
         timezoneFieldSearch: '',
         date: '',
-        selectedTime: null,
-        eventType: {
-            name: 'Sales manager',
-            duration: 30,
-            location: 'Scranton, Pennsylvania',
-            description: '',
-            timezone: 'Europe/Kiev',
-            startDate: '2020-09-08 11:00:00',
-            color: 'red',
-            slug: 'collaboration-with-binary-studio',
-            owner: {
-                name: 'Michael Scott | Dunder Mifflin',
-                avatar:
-                    'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-                timeFormat12h: false,
-                brandingLogo:
-                    'https://i.etsystatic.com/16438614/r/il/c31bd2/1806659071/il_570xN.1806659071_pn8j.jpg'
-            },
-            availabilities: [
-                {
-                    type: 'one to many',
-                    startDate: '2020-09-08 11:00:00',
-                    endDate: '2020-09-18 17:00:00'
-                },
-                {
-                    type: 'one to many',
-                    startDate: '2020-09-20 09:00:00',
-                    endDate: '2020-09-23 19:00:00'
-                }
-            ]
-        }
+        selectedTime: null
     }),
 
     computed: {
+        ...mapGetters('publicEvent', {
+            eventType: getters.GET_EVENT_TYPE
+        }),
         currentTimezoneStartTime() {
             return moment
                 .tz(this.eventType.startDate, this.eventType.timezone)
@@ -311,6 +299,22 @@ export default {
         }
     },
     methods: {
+        ...mapActions('publicEvent', {
+            getEventTypeById: actions.GET_EVENT_TYPE_BY_ID
+        }),
+        ...mapMutations('publicEvent', {
+            setPublicEvent: mutations.SET_PUBLIC_EVENT
+        }),
+        onConfirmDate(time) {
+            this.setPublicEvent({
+                eventTypeId: this.eventType.id,
+                startDate: `${this.date} ${time}`,
+                timezone: this.currentTimezone
+            });
+            this.$router.push({
+                name: 'PublicEventConfirm'
+            });
+        },
         getFormattedTimezoneTime(timezone) {
             return (
                 timezone +
