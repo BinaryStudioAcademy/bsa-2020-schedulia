@@ -33,7 +33,7 @@ final class AvailabilityService implements AvailabilityServiceInterface
         $availabilityDateRange = $eventType->availabilities
             ->whereIn('type', AvailabilityTypes::getDateRangeTypes())->first();
 
-        $period = $this->getPeriodForEventType($eventType, $monthDate);
+        $period = $this->getPeriodForEventType($availabilityDateRange, $monthDate);
 
         $dateTimeList = [];
         $startTime = (new Carbon($availabilityDateRange->start_date))->toTimeString();
@@ -49,6 +49,11 @@ final class AvailabilityService implements AvailabilityServiceInterface
                         "end_time" => $endTime,
                         "unavailable" => []
                     ]];
+            if (in_array($availabilityDateRange->type, AvailabilityTypes::getWeekdaysTypes())) {
+                if ($day->isSaturday() || $day->isSunday()) {
+                    $dateTimeList[$date] = [];
+                }
+            }
         }
 
         $dateTimeList = $this->processEveryDay($dateTimeList, $eventType);
@@ -75,28 +80,25 @@ final class AvailabilityService implements AvailabilityServiceInterface
         return false;
     }
 
-    private function getPeriodForEventType(EventType $eventType, string $monthDate): CarbonPeriod
+    private function getPeriodForEventType(Availability $availability, string $monthDate): CarbonPeriod
     {
-        $availabilityDateRange = $eventType->availabilities
-            ->whereIn('type', AvailabilityTypes::getDateRangeTypes())->first();
-
         $monthDate = new Carbon($monthDate);
         $monthDateFirstDay = $monthDate->startOfMonth()->toDateTimeString();
         $monthDateLastDay = $monthDate->endOfMonth()->toDateTimeString();
 
-        if ($availabilityDateRange->start_date > $monthDateFirstDay) {
-            $periodStart = $availabilityDateRange->start_date;
+        if ($availability->start_date > $monthDateFirstDay) {
+            $periodStart = $availability->start_date;
         } else {
             $periodStart = $monthDateFirstDay;
         }
 
-        if ($availabilityDateRange->end_date < $monthDateLastDay) {
-            $periodEnd = $availabilityDateRange->end_date;
+        if ($availability->end_date < $monthDateLastDay) {
+            $periodEnd = $availability->end_date;
         } else {
             $periodEnd = $monthDateLastDay;
         }
 
-        if (in_array($availabilityDateRange->type, AvailabilityTypes::getIndefiniteTypes())) {
+        if (in_array($availability->type, AvailabilityTypes::getIndefiniteTypes())) {
             $periodEnd = $monthDateLastDay;
         }
 
@@ -118,10 +120,10 @@ final class AvailabilityService implements AvailabilityServiceInterface
             ->where('type', AvailabilityTypes::EXACT_DATE)
             ->map(fn ($availability) => [
                 'type' => $availability->type,
-                'start_date' => explode(' ', $availability->start_date)[0],
-                'start_time' => explode(' ', $availability->start_date)[1],
-                'end_date' => explode(' ', $availability->end_date)[0],
-                'end_time' => explode(' ', $availability->end_date)[1]
+                'start_date' => (new Carbon($availability->start_date))->toDateString(),
+                'start_time' => (new Carbon($availability->start_date))->toTimeString(),
+                'end_date' => (new Carbon($availability->end_date))->toTimeString(),
+                'end_time' => (new Carbon($availability->end_date))->toTimeString(),
             ])
             ->groupBy('start_date')
             ->map(fn ($availability) => $availability
@@ -161,8 +163,8 @@ final class AvailabilityService implements AvailabilityServiceInterface
         foreach ($dateTimeList as $date => $timeIntervals) {
             $dateCarbon = new Carbon($date);
             if ($everyDayIntervals) {
-                $method = 'is' . ucfirst(explode('_', $type)[1]);
-                if ($dateCarbon->$method()) {
+                $isDayName = 'is' . ucfirst(explode('_', $type)[1]);
+                if ($dateCarbon->$isDayName()) {
                     $dateTimeList[$date] = $everyDayIntervals;
                 }
             }
@@ -247,8 +249,8 @@ final class AvailabilityService implements AvailabilityServiceInterface
     {
         $events = $eventType->events
             ->map(fn ($event) => [
-            'start_date' => explode(' ', $event->start_date)[0],
-            'start_time' => explode(' ', $event->start_date)[1],
+                'start_date' => (new Carbon($event->start_date))->toDateString(),
+                'start_time' => (new Carbon($event->start_date))->toTimeString(),
         ])
             ->groupBy('start_date')
             ->map(fn ($event) => $event->all())
