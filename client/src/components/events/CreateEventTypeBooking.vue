@@ -1,7 +1,7 @@
 <template>
     <VContainer>
         <VCard class="mt-7">
-            <VExpansionPanels accordion :value="0">
+            <VExpansionPanels accordion :value="defaultPanel">
                 <VExpansionPanel>
                     <VExpansionPanelHeader>
                         <VRow align="center">
@@ -127,20 +127,12 @@
                                     </div>
                                     <div>
                                         <VBtn
-                                            text
-                                            outlined
-                                            width="114"
-                                            class="mr-3"
-                                        >
-                                            {{ lang.CANCEL }}
-                                        </VBtn>
-                                        <VBtn
                                             @click="clickNext"
                                             color="primary"
                                             class="white--text"
                                             width="114"
                                         >
-                                            Save & Close
+                                            {{ lang.NEXT }}
                                         </VBtn>
                                     </div>
                                 </VForm>
@@ -866,7 +858,8 @@ export default {
                             1000
                         )
             ],
-            selectedDay: null
+            selectedDay: null,
+            defaultPanel: 1
         };
     },
 
@@ -981,6 +974,7 @@ export default {
             addEventType: eventTypeActions.ADD_EVENT_TYPE
         }),
         clickNext() {
+            this.defaultPanel = 1;
             this.setEventTypeForm(this.form);
         },
         setColor(id) {
