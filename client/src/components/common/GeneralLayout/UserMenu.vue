@@ -81,6 +81,7 @@ export default {
     &__link {
         color: #2c2c2c;
         text-decoration: none;
+        display: block;
     }
 
     &__button::v-deep {
