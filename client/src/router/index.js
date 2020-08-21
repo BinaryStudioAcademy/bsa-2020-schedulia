@@ -86,13 +86,13 @@ const routes = [
 
                     {
                         path: 'new-event',
-                        name: 'new-event',
+                        name: 'newEvent',
                         component: () => import('../views/NewEventType')
                     },
 
                     {
                         path: 'new-event-edit',
-                        name: 'new-event-edit',
+                        name: 'newEventEdit',
                         component: () => import('../views/NewEventTypeBooking')
                     }
                 ]

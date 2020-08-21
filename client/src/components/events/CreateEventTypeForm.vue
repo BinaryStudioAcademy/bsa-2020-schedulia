@@ -2,37 +2,43 @@
     <VContainer>
         <VCard class="mt-7">
             <VRow align="center">
-                <VCol cols="1">
+                <VCol cols="2" md="1" sm="1" lg="1">
                     <div>
                         <img
                             :src="colorById[data.color].image"
                             alt=""
-                            class="pl-10"
+                            :class="{'pl-3': $vuetify.breakpoint.xs,  'pl-10': $vuetify.breakpoint.smAndUp}"
                         />
                     </div>
                 </VCol>
-                <VCol class="pl-lg-5 pl-sm-10">
+                <VCol cols="10" class="pl-lg-5 pl-sm-10">
                     <div>
                         <VCardTitle>
                             {{ lang.CREATE_EVENT_TYPE_TITLE }}
                         </VCardTitle>
                         <VCardSubtitle>
-                            
+                            {{ data.name }}
                         </VCardSubtitle>
                     </div>
                 </VCol>
             </VRow>
             <VDivider class="mx-4"></VDivider>
             <VRow>
-                <VCol cols="6" offset-sm="3" offset-md="3">
-                    <VForm class="mt-9 mb-16">
+                <VCol
+                        cols="10"
+                        offset-sm="3"
+                        offset-md="3"
+                        md="6" sm="6"
+                        :class="{'ml-10': $vuetify.breakpoint.xs}"
+                >
+                    <VForm class="mt-9 mb-16" ref="form">
                         <div class="mb-2">
                             <label>{{ lang.EVENT_NAME_LABEL }}*</label>
                         </div>
 
                         <VTextField
                             :value="data.name"
-                            @input="changeName"
+                            @change="changeName"
                             :rules="nameRules"
                             outlined
                             class="app-textfield"
@@ -53,6 +59,28 @@
                             dense
                             class="mb-3"
                         >
+                            <template slot="selection" slot-scope="data">
+                                <VFlex xs2 md1>
+                                    <VIcon>
+                                        {{ data.item.icon }}
+                                    </VIcon>
+                                </VFlex>
+                                <VFlex >
+                                    {{ data.item.title}}
+                                </VFlex>
+                            </template>
+
+                            <template slot="item" slot-scope="data">
+                                <VFlex xs2 md1>
+                                    <VIcon>
+                                        {{ data.item.icon }}
+                                    </VIcon>
+                                </VFlex>
+                                <VFlex >
+                                    {{ data.item.title}}
+                                </VFlex>
+                            </template>
+
                         </VSelect>
 
                         <div class="mb-2">
@@ -80,7 +108,6 @@
                             @input="changeSlug"
                             dense
                             class="mb-4 app-textfield"
-                            required
                         >
                         </VTextField>
 
@@ -95,7 +122,8 @@
                                         :key="id"
                                         :src="colorById[id].image"
                                         alt=""
-                                        class="mr-7 ml-3 image-circle"
+                                        class="image-circle"
+                                        :class="{'mr-5': $vuetify.breakpoint.xs, 'mr-7 ml-3': $vuetify.breakpoint.smAndUp,}"
                                         v-on:click="setColor(id)"
                                     >
                                         <VOverlay
@@ -116,7 +144,13 @@
                             </VRow>
                         </div>
                         <div>
-                            <VBtn text outlined width="114" class="mr-3">
+                            <VBtn
+                                    text
+                                    outlined
+                                    width="114"
+                                    class="mr-3"
+                                    @click.stop="cancelDialog = true"
+                            >
                                 {{ lang.CANCEL }}
                             </VBtn>
                             <VBtn
@@ -124,7 +158,6 @@
                                 color="primary"
                                 class="white--text"
                                 width="114"
-                                :to="{ name: 'new-event-edit' }"
                             >
                                 {{ lang.NEXT }}
                             </VBtn>
@@ -133,6 +166,42 @@
                 </VCol>
             </VRow>
         </VCard>
+        <VDialog v-model="cancelDialog" width="380">
+            <VCard>
+                <VCardTitle class="mb-5">
+                    <VRow justify="center">
+                        <h3>{{ lang.ARE_YOU_SURE }}</h3>
+                    </VRow>
+                </VCardTitle>
+                <VCardText>
+                    <VRow justify="center">
+                        <p>{{ lang.UNSAVE_CHANGES_WILL_BE_LOST }}</p>
+                    </VRow>
+                </VCardText>
+                <VCardActions class="justify-center">
+                        <div class="mb-5">
+                            <VBtn
+
+                                    color="primary"
+                                    class="white--text mr-3"
+                                    width="114"
+                                    :to="{ name: 'EventTypes' }"
+                            >
+                                {{ lang.YES }}
+                            </VBtn>
+                            <VBtn
+                                    text
+                                    outlined
+                                    width="114"
+                                    @click="cancelDialog = false"
+                            >
+                                {{ lang.NEVERMIND }}
+                            </VBtn>
+                        </div>
+
+                </VCardActions>
+            </VCard>
+        </VDialog>
     </VContainer>
 </template>
 
@@ -147,6 +216,7 @@ export default {
     data() {
         return {
             lang: enLang,
+            cancelDialog: false,
             form: {
                 name: '',
                 location: '',
@@ -154,7 +224,22 @@ export default {
                 slug: '',
                 color: 'yellow'
             },
-            items: ['address on the map', 'zoom', 'skype'],
+            items: [
+                {
+                    title: 'address on the map',
+                    icon: 'mdi-google-maps'
+                },
+                {
+                    title: 'zoom',
+                    icon: 'mdi-video-box'
+                },
+                {
+                    title: 'skype',
+                    icon: 'mdi-skype'
+                }
+
+            ],
+
             colorById: {
                 yellow: {
                     id: 'yellow',
@@ -180,7 +265,7 @@ export default {
                     v.length >= 2 ||
                     this.lang.EVENT_NAME_LABEL +
                         ' ' +
-                        this.lang.FIELD_MUST_BE_MORE_THAN_VALUE.replace(
+                        this.lang.FIELD_MUST_BE_VALUE_OR_MORE_THAN.replace(
                             'value',
                             2
                         ),
@@ -204,7 +289,16 @@ export default {
                             250
                         ),
                 v =>
-                    /[a-z]|[0-9]|-|_/.test(v) ||
+                    v.length >= 2 ||
+                    this.lang.EVENT_LINK_LABEL +
+                    ' ' +
+                    this.lang.FIELD_MUST_BE_VALUE_OR_MORE_THAN.replace(
+                        'value',
+                        2
+                    ),
+
+                v =>
+                    /^([a-z0-9]|-|_)+$/.test(v) ||
                     this.lang.EVENT_LINK_VALID_SYMBOLS
             ],
             descRules: [
@@ -215,7 +309,7 @@ export default {
                         this.lang.FIELD_MUST_BE_LESS_THAN_VALUE.replace(
                             'value',
                             1000
-                        )
+                        ),
             ]
         };
     },
@@ -237,7 +331,11 @@ export default {
             setEventTypeForm: eventTypeMutations.SET_EVENT_TYPE_FORM
         }),
         clickNext() {
-            this.setEventTypeForm(this.form);
+            if (this.$refs.form.validate()) {
+                this.setEventTypeForm(this.form);
+                this.$router.push({ name: 'newEventEdit' });
+            }
+
         },
         setColor(id) {
             this.form.color = this.colorById[id].id;

@@ -181,7 +181,7 @@ export default {
     EVENT_DURATION: 'Event Duration',
     CUSTOM_DURATION: 'Custom Duration',
     EVENTS_CAN_BE_SCHEDULED_OVER_60_DAYS:
-        'Events can be scheduled over 60 calendar days',
+        'Events can be scheduled over 60 calendar days.',
     EVENT_TIME_ZONE: 'Event Time Zone',
     AVAILABILITY: 'Availability',
     HOURS: 'Hours',
@@ -266,7 +266,7 @@ export default {
     FORTY_FIVE_MIN: '45 min',
     SIXTY_MIN: '60 min',
 
-    AVAILABILITY_ITEMS_PERIOD: 'Over a period fo rolling days',
+    AVAILABILITY_ITEMS_PERIOD: 'Over a period of rolling days',
     AVAILABILITY_ITEMS_RANGE: 'Over a date range',
     AVAILABILITY_ITEMS_INDEFINITELY: 'Indefinitely',
 
@@ -305,5 +305,9 @@ export default {
         'Either your token has expired or you have not copied the entire request. Go to the password reset page and request the reset link again with your correct email.',
     OK_PASSWORD_RESET: 'Password has been changed.',
     EXPLANATION_PASSWORD_RESET:
-        'Go to the SignIn page and use your new password to authenticate on the site.'
+        'Go to the SignIn page and use your new password to authenticate on the site.',
+    FIELD_MUST_BE_VALUE_OR_MORE_THAN: ' must be value or more symbols',
+    NEVERMIND: 'Nevermind',
+    ARE_YOU_SURE: 'Are you sure?',
+    UNSAVE_CHANGES_WILL_BE_LOST: 'Any unsaved changes will be lost.',
 };
