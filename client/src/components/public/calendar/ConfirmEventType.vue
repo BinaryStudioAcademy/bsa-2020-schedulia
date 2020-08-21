@@ -48,9 +48,9 @@
                     </VCol>
 
                     <VCol cols="12" sm="12" md="10" class="pa-0">
-                        <label for="additional-info">
-                            {{ lang.ADDITIONAL_INFO_DESCRIPTION }}
-                        </label>
+                        <label for="additional-info">{{
+                            lang.ADDITIONAL_INFO_DESCRIPTION
+                        }}</label>
                         <VTextarea
                             id="additional-info"
                             :placeholder="lang.ADDITIONAL_INFO"
