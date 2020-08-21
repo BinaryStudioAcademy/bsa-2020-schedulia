@@ -9,7 +9,7 @@
                 :duration="eventType.duration"
                 :location="eventType.location"
                 :description="eventType.description"
-                :startDate="publicEvent.fullDate"
+                :startDate="publicEvent.startDate"
                 :timezone="publicEvent.timezone"
                 :lang="lang"
             />
@@ -48,9 +48,9 @@
                     </VCol>
 
                     <VCol cols="12" sm="12" md="10" class="pa-0">
-                        <label for="additional-info">{{
-                            lang.ADDITIONAL_INFO_DESCRIPTION
-                        }}</label>
+                        <label for="additional-info">
+                            {{ lang.ADDITIONAL_INFO_DESCRIPTION }}
+                        </label>
                         <VTextarea
                             id="additional-info"
                             :placeholder="lang.ADDITIONAL_INFO"
@@ -73,7 +73,7 @@
                                     height="44"
                                     class="login-button primary text-capitalize"
                                     depressed
-                                    :to="{ path: 'event-details' }"
+                                    @click="onScheduleEvent"
                                     >{{ lang.SCHEDULE_EVENT }}</VBtn
                                 >
                             </VCol>
@@ -110,6 +110,18 @@ export default {
             v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', enLang.EMAIL),
             v =>
                 /([a-zA-Z0-9_.-]+)@(.+)[.](.+)/.test(v) ||
+                enLang.WRONG_EMAIL_FORMAT,
+            v =>
+                (!!v &&
+                    !!v.includes('@') &&
+                    v.split('@')[0].length >= 1 &&
+                    v.split('@')[0].length <= 35) ||
+                enLang.WRONG_EMAIL_FORMAT,
+            v =>
+                (!!v &&
+                    !!v.includes('@') &&
+                    v.split('@')[1].length >= 3 &&
+                    v.split('@')[1].length <= 12) ||
                 enLang.WRONG_EMAIL_FORMAT
         ],
         nameRules: [
@@ -140,6 +152,14 @@ export default {
             eventType: getters.GET_EVENT_TYPE,
             publicEvent: getters.GET_PUBLIC_EVENT
         })
+    },
+    methods: {
+        onScheduleEvent() {
+            this.$refs.form.validate();
+            if (this.formValid) {
+                this.$router.push({ name: 'PublicEventDetails' });
+            }
+        }
     }
 };
 </script>
