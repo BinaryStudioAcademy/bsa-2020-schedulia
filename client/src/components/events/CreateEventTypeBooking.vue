@@ -292,7 +292,6 @@
                                             {{ dateDuration }}
                                         </p>
                                         <p
-
                                             @click.stop="
                                                 availabilityDialog = true
                                             "
@@ -313,15 +312,13 @@
                                             }}
 
                                             <span
-                                                    @click.stop="
+                                                @click.stop="
                                                     timeZoneDialog = true
                                                 "
-                                                    class="edit-clicked ml-3 app-text"
+                                                class="edit-clicked ml-3 app-text"
                                             >
                                                 {{ lang.EDIT }}
-
-                                        </span>
-
+                                            </span>
                                         </p>
                                     </VRow>
                                     <VRow class="mb-5">
