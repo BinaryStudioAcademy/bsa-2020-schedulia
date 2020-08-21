@@ -1,45 +1,46 @@
 <template>
-    <VRow class="ma-0 pa-0">
+    <VRow class="ma-0 pa-0" v-if="publicEvent.startDate">
         <VCol class="col-1 col-sm-2 col-md-3"></VCol>
         <VCol class="detail-content col-10 col-sm-8 col-md-6">
             <div class="detail-content-top mt-3 mb-5">
                 <VLayout justify-center>
                     <VAvatar :size="70" class="avatar">
-                        <img :src="owner.avatar" alt="Avatar" />
+                        <img :src="eventType.owner.avatar" alt="Avatar" />
                     </VAvatar>
                 </VLayout>
                 <h3 class="text-center mt-5 mb-2">{{ lang.CONFIRMED }}</h3>
                 <p class="text-center">
-                    {{ lang.YOU_ARE_SCHEDULED_WITH }} {{ owner.name }}
+                    {{ lang.YOU_ARE_SCHEDULED_WITH }} {{ eventType.owner.name }}
                 </p>
             </div>
             <VDivider></VDivider>
             <div class="detail-content-main mt-3 mb-3">
                 <div class="event-info">
                     <VImg
-                        :src="colorById[meetingData.color].image"
+                        :src="colorById[eventType.color].image"
                         alt="event color"
                         :max-width="27"
                         class="mr-2"
                     />
-                    <h3 class="d-inline">{{ meetingData.name }}</h3>
+                    <h3 class="d-inline">{{ eventType.name }}</h3>
                 </div>
                 <div class="event-info">
                     <VIcon dark color="primary">mdi-calendar-blank</VIcon>
-                    {{ meetingData.date }}
+                    {{ publicEvent.startDate }}
                 </div>
                 <div class="event-info">
                     <VIcon dark color="primary">mdi-earth</VIcon>
-                    {{ meetingData.timezone }}
+                    {{ publicEvent.timezone }}
                 </div>
                 <div class="event-info">
                     <VIcon dark color="primary">mdi-map-marker</VIcon>
-                    {{ meetingData.location }}
+                    {{ eventType.location }}
                 </div>
-                <div class="event-info">{{ meetingData.description }}</div>
+                <div class="event-info">{{ eventType.description }}</div>
             </div>
+            <VDivider></VDivider>
             <div class="detail-content-bottom mt-5">
-                <p class="text-center">
+                <p class="text-center font-weight-bold">
                     {{ lang.CALENDAR_INVITATION_HAS_BEEN_SENT }}
                 </p>
             </div>
@@ -50,15 +51,13 @@
 
 <script>
 import enLang from '@/store/modules/i18n/en';
+import * as getters from '@/store/modules/publicEvent/types/getters';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'EventTypeDetails',
     data: () => ({
         lang: enLang,
-        owner: {
-            name: 'Michael Scott | Dunder Mifflin',
-            avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'
-        },
         colorById: {
             yellow: {
                 id: 'yellow',
@@ -76,17 +75,14 @@ export default {
                 id: 'green',
                 image: require('@/assets/images/green_circle.png')
             }
-        },
-
-        meetingData: {
-            date: '10:00-10:15, Monday, July 20, 2020',
-            name: 'Sales manager',
-            timezone: 'Eastern European Time',
-            location: 'Scranton, Pennsylvania',
-            description: '',
-            color: 'green'
         }
-    })
+    }),
+    computed: {
+        ...mapGetters('publicEvent', {
+            eventType: getters.GET_EVENT_TYPE,
+            publicEvent: getters.GET_PUBLIC_EVENT
+        })
+    }
 };
 </script>
 

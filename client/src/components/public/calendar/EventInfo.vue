@@ -1,6 +1,6 @@
 <template>
     <DetailLayout
-        :companyLogo="companyLogo"
+        :brandingLogo="brandingLogo"
         :avatar="avatar"
         :name="name"
         :eventName="eventName"
@@ -13,9 +13,9 @@
             <VIcon dark color="primary">mdi-map-marker</VIcon>
             {{ location }}
         </div>
-        <div v-if="fullDate" class="event-info">
+        <div v-if="startDate" class="event-info">
             <VIcon dark color="primary">mdi-calendar-blank</VIcon>
-            {{ fullDate }}
+            {{ startDate }}
         </div>
         <div v-if="timezone" class="event-info">
             <VIcon dark color="primary">mdi-earth</VIcon>
@@ -35,7 +35,7 @@ export default {
     },
     props: {
         lang: Object,
-        companyLogo: String,
+        brandingLogo: String,
         avatar: String,
         name: String,
         eventName: String,
@@ -43,7 +43,7 @@ export default {
         duration: Number,
         location: String,
         description: String,
-        fullDate: String,
+        startDate: String,
         timezone: String
     }
 };

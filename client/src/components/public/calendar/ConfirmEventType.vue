@@ -1,16 +1,16 @@
 <template>
-    <VRow class="pa-0 ma-0">
+    <VRow class="pa-0 ma-0" v-if="publicEvent.startDate">
         <VCol class="event-datail col-12 col-sm-12 col-md-4">
             <EventInfo
-                :companyLogo="owner.companyLogo"
-                :avatar="owner.avatar"
-                :name="owner.name"
-                :eventName="meetingData.name"
-                :duration="meetingData.duration"
-                :location="meetingData.location"
-                :description="meetingData.description"
-                :fullDate="meetingData.fullDate"
-                :timezone="meetingData.timezone"
+                :brandingLogo="eventType.owner.brandingLogo"
+                :avatar="eventType.owner.avatar"
+                :name="eventType.owner.name"
+                :eventName="eventType.name"
+                :duration="eventType.duration"
+                :location="eventType.location"
+                :description="eventType.description"
+                :startDate="publicEvent.startDate"
+                :timezone="publicEvent.timezone"
                 :lang="lang"
             />
         </VCol>
@@ -23,7 +23,7 @@
             <VForm v-model="formValid" ref="form">
                 <VCardText class="pa-0">
                     <VCol cols="12" sm="12" md="10" class="pa-0">
-                        <label for="full-name">{{ lang.FULL_NAME }}*</label>
+                        <label for="full-name">{{ lang.NAME }}*</label>
                         <VTextField
                             id="full-name"
                             :placeholder="lang.NAME"
@@ -71,9 +71,9 @@
                                 <VBtn
                                     width="158"
                                     height="44"
-                                    class="login-button primary"
+                                    class="login-button primary text-capitalize"
                                     depressed
-                                    :to="{ path: 'event-details' }"
+                                    @click="onScheduleEvent"
                                     >{{ lang.SCHEDULE_EVENT }}</VBtn
                                 >
                             </VCol>
@@ -87,6 +87,8 @@
 
 <script>
 import enLang from '@/store/modules/i18n/en';
+import * as getters from '@/store/modules/publicEvent/types/getters';
+import { mapGetters } from 'vuex';
 import EventInfo from './EventInfo';
 
 export default {
@@ -96,6 +98,7 @@ export default {
     },
     data: () => ({
         lang: enLang,
+        isReady: false,
         formValid: false,
         showPassword: false,
         meetingFormData: {
@@ -103,25 +106,22 @@ export default {
             email: '',
             additionalInfo: ''
         },
-        meetingData: {
-            name: 'Sales manager',
-            fullDate: '10:00-10:30, Monday, July 20, 2020',
-            description: '',
-            duration: 30,
-            location: 'Scranton, Pennsylvania',
-            timezone: 'Eastern European Time'
-        },
-        owner: {
-            name: 'Michael Scott | Dunder Mifflin',
-            avatar:
-                'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-            companyLogo:
-                'https://i.etsystatic.com/16438614/r/il/c31bd2/1806659071/il_570xN.1806659071_pn8j.jpg'
-        },
         emailRules: [
             v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', enLang.EMAIL),
             v =>
                 /([a-zA-Z0-9_.-]+)@(.+)[.](.+)/.test(v) ||
+                enLang.WRONG_EMAIL_FORMAT,
+            v =>
+                (!!v &&
+                    !!v.includes('@') &&
+                    v.split('@')[0].length >= 1 &&
+                    v.split('@')[0].length <= 35) ||
+                enLang.WRONG_EMAIL_FORMAT,
+            v =>
+                (!!v &&
+                    !!v.includes('@') &&
+                    v.split('@')[1].length >= 3 &&
+                    v.split('@')[1].length <= 12) ||
                 enLang.WRONG_EMAIL_FORMAT
         ],
         nameRules: [
@@ -132,7 +132,7 @@ export default {
                     enLang.FIELD_MUST_BE_MORE_THAN_VALUE.replace('value', 2),
             v =>
                 v.length <= 50 ||
-                enLang.EMAIL +
+                enLang.NAME +
                     enLang.FIELD_MUST_BE_LESS_THAN_VALUE.replace('value', 50)
         ],
         additionalInfoRules: [
@@ -146,7 +146,21 @@ export default {
             message: '',
             type: ''
         }
-    })
+    }),
+    computed: {
+        ...mapGetters('publicEvent', {
+            eventType: getters.GET_EVENT_TYPE,
+            publicEvent: getters.GET_PUBLIC_EVENT
+        })
+    },
+    methods: {
+        onScheduleEvent() {
+            this.$refs.form.validate();
+            if (this.formValid) {
+                this.$router.push({ name: 'PublicEventDetails' });
+            }
+        }
+    }
 };
 </script>
 
@@ -174,6 +188,7 @@ label {
 @media screen and (max-width: 960px) {
     .event-confirm-field {
         min-width: 290px;
+        padding: 30px;
     }
     .event-datail {
         min-width: 290px;

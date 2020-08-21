@@ -34,15 +34,6 @@
                     {{ lang.COPY_LINK }}
                     <VIcon right dark>mdi-vector-arrange-below </VIcon>
                 </VBtn>
-                <VBtn
-                    class="ma-2 text-left"
-                    fab
-                    small
-                    :color="eventType.color"
-                    :disabled="isDisabled"
-                >
-                    <VIcon dark>mdi-chevron-down</VIcon>
-                </VBtn>
             </VCol>
         </VRow>
     </div>
@@ -102,9 +93,10 @@ export default {
     justify-content: center;
     align-items: center;
 }
-.duration span {
+.duration a {
     color: var(--v-primary-base);
     font-size: 16px;
+    text-decoration: none;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;

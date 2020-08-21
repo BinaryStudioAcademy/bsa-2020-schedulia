@@ -1,13 +1,17 @@
 export default {
     ACCOUNT_SETTING: 'Account setting',
+    ADD_CALENDAR_ACCOUNT: 'Add calendar account',
 
     BRANDING: 'Branding',
 
     CANCEL: 'Cancel',
+    CALENDAR_CONNECTIONS: 'Calendar connections',
     CHARACTERS: 'Characters',
     CHANGE_PASSWORD: 'Change password',
     COUNTRY: 'Country',
     CONFIRM: 'Confirm',
+    CONNECT_YOUR_CALENDAR_TEXT:
+        "Connect your calendar to let Schedulia know when you're available and update your calendar as events are scheduled.",
     CLOSE: 'Close',
     CURRENT_PASSWORD: 'Current password',
 
@@ -52,6 +56,7 @@ export default {
 
     MAX: 'Max',
     MIN: 'Min',
+    MY_CALENDAR_ACOOUNT: 'My Calendar Account',
 
     NAME: 'Name',
     NEW_PASSWORD: 'New password',
@@ -60,6 +65,8 @@ export default {
     UPDATE: 'UPDATE',
     UKRAINIAN: 'Ukrainian',
 
+    YOU_DONT_HAVE_ANY_CONNECTED_CALENDARS:
+        "You don't have any connected calendars yet",
     YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD:
         'You log in with an email address and password',
 
@@ -147,7 +154,7 @@ export default {
     CONFIRMED: 'Confirmed',
     YOU_ARE_SCHEDULED_WITH: 'You are scheduled with',
     CALENDAR_INVITATION_HAS_BEEN_SENT:
-        'A calendar invitation has been sent to your email addres',
+        'A calendar invitation has been sent to your email address',
 
     SUCCESSFULLY_SIGNINED: 'Successfully sign in! ',
     FORGOT_PASSWORD: 'Forgot Password?',
@@ -182,6 +189,7 @@ export default {
     CUSTOM_DURATION: 'Custom Duration',
     EVENTS_CAN_BE_SCHEDULED_OVER_60_DAYS:
         'Events can be scheduled over 60 calendar days.',
+    EVENTS_CAN_BE_SCHEDULED: 'Events can be scheduled ',
     EVENT_TIME_ZONE: 'Event Time Zone',
     AVAILABILITY: 'Availability',
     HOURS: 'Hours',
@@ -273,6 +281,21 @@ export default {
     DAYS_FORMAT_ITEMS_CALENDAR: 'calendar days',
     DAYS_FORMAT_ITEMS_BUSINESS: 'business days',
 
+    INVITEES_VIRTUAL_MEETINGS:
+        'Invitees will see your availability in\n' +
+        '                                        their time zone. Recommended for virtual\n' +
+        '                                        meetings.',
+    INVITEES_VIRTUAL_MEETINGS_CONFIGURED:
+        '(Your account settings are configured\n' +
+        'for Eastern European Time)',
+
+    INVITEES_IN_PERSON_MEETINGS:
+        'Invitees will see your availability\n' +
+        '    in a locked time zone. Recommended\n' +
+        '    for in-person meetings.',
+
+    FROM: 'From',
+    TO: 'To',
     ALL_EVENT_TYPES: 'All Event Types',
     SELECT_ALL: 'select all',
     CLEAR: 'clear',
@@ -304,10 +327,10 @@ export default {
     EXPLANATION_ERROR_PASSWORD_RESET:
         'Either your token has expired or you have not copied the entire request. Go to the password reset page and request the reset link again with your correct email.',
     OK_PASSWORD_RESET: 'Password has been changed.',
-    EXPLANATION_PASSWORD_RESET:
-        'Go to the SignIn page and use your new password to authenticate on the site.',
     FIELD_MUST_BE_VALUE_OR_MORE_THAN: ' must be value or more symbols',
     NEVERMIND: 'Nevermind',
     ARE_YOU_SURE: 'Are you sure?',
     UNSAVE_CHANGES_WILL_BE_LOST: 'Any unsaved changes will be lost.',
+    EXPLANATION_PASSWORD_RESET:
+        'Go to the SignIn page and use your new password to authenticate on the site.'
 };
