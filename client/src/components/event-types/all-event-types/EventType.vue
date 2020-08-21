@@ -34,15 +34,6 @@
                     {{ lang.COPY_LINK }}
                     <VIcon right dark>mdi-vector-arrange-below </VIcon>
                 </VBtn>
-                <VBtn
-                    class="ma-2 text-left"
-                    fab
-                    small
-                    :color="eventType.color"
-                    :disabled="isDisabled"
-                >
-                    <VIcon dark>mdi-chevron-down</VIcon>
-                </VBtn>
             </VCol>
         </VRow>
     </div>
