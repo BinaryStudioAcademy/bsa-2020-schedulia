@@ -93,9 +93,10 @@ export default {
     justify-content: center;
     align-items: center;
 }
-.duration span {
+.duration a {
     color: var(--v-primary-base);
     font-size: 16px;
+    text-decoration: none;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
