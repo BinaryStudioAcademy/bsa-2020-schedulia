@@ -43,6 +43,7 @@ Route::group([
     ], function () {
         Route::get('/', 'EventTypeController@index');
         Route::post('/', 'EventTypeController@store');
+        Route::get('/availability/{id}/{month}', 'EventTypeController@getAvailableTimeByIdAndMonth');
         Route::get('/{id}', 'EventTypeController@getEventTypeById');
         Route::put('/{id}', 'EventTypeController@update');
         Route::put('/{id}/disabled', 'EventTypeController@changeDisabledById');
