@@ -116,7 +116,7 @@ final class AvailabilityService implements AvailabilityServiceInterface
     {
         $exactDates = $eventType->availabilities
             ->where('type', AvailabilityTypes::EXACT_DATE)
-            ->map(fn($availability) => [
+            ->map(fn ($availability) => [
                 'type' => $availability->type,
                 'start_date' => explode(' ', $availability->start_date)[0],
                 'start_time' => explode(' ', $availability->start_date)[1],
@@ -124,8 +124,8 @@ final class AvailabilityService implements AvailabilityServiceInterface
                 'end_time' => explode(' ', $availability->end_date)[1]
             ])
             ->groupBy('start_date')
-            ->map(fn($availability) => $availability
-                ->map(fn($interval) => [
+            ->map(fn ($availability) => $availability
+                ->map(fn ($interval) => [
                     'type' => $interval['type'],
                     'start_time' => $interval['start_time'],
                     'end_time' => $interval['end_time'],
