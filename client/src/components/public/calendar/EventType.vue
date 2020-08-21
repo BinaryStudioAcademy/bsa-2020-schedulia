@@ -48,9 +48,9 @@
                     <template v-slot:prepend-item>
                         <VListItem>
                             <VListItemContent>
-                                <VListItemTitle>
-                                    {{ lang.CHOOSE_YOUR_TIMEZONE }}
-                                </VListItemTitle>
+                                <VListItemTitle>{{
+                                    lang.CHOOSE_YOUR_TIMEZONE
+                                }}</VListItemTitle>
                                 <VTextField
                                     v-model="timezoneFieldSearch"
                                     label="Enter timezone"
@@ -465,7 +465,7 @@ export default {
 }
 
 .select-time-container h3 {
-    margin: 50px 0 10px 0;
+    margin: 50px 0 10px 5px;
 }
 
 .time-items-container {
@@ -522,7 +522,7 @@ export default {
     }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 959px) {
     .calendar-container {
         padding: 0;
     }
