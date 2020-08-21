@@ -79,6 +79,12 @@ const routes = [
                     },
 
                     {
+                        path: 'calendar-connections',
+                        name: 'CalendarConnections',
+                        component: () => import('../views/CalendarConnections')
+                    },
+
+                    {
                         path: 'event-types',
                         name: 'EventTypes',
                         component: () => import('../views/EventTypes')
