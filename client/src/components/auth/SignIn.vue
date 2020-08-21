@@ -11,25 +11,27 @@
         <VForm v-model="formValid" ref="form">
             <VCardText>
                 <VCol cols="12" sm="12" md="8" class="pa-0">
-                    <label for="email">{{ lang.EMAIL }}</label>
+                    <label for="email">{{ lang.EMAIL }}*</label>
                     <VTextField
                         id="email"
                         placeholder="Email address"
+                        :value="loginData.email"
+                        :error-messages="emailErrors"
+                        @input="setEmailOnInput"
+                        @blur="setEmail"
                         outlined
                         dense
                         type="email"
-                        v-model="loginData.email"
-                        :rules="emailRules"
                     >
                     </VTextField>
                 </VCol>
                 <VSpacer class="pa-2"></VSpacer>
                 <VCol cols="12" sm="12" md="8" class="pa-0">
                     <VRow no-gutters justify="space-between">
-                        <label for="password">{{ lang.PASSWORD }} </label>
+                        <label for="password">{{ lang.PASSWORD }}*</label>
                         <RouterLink
-                            :to="{ path: 'restore' }"
-                            class="forgot-password-a "
+                            :to="{ name: 'ForgotPassword' }"
+                            class="forgot-password "
                         >
                             {{ lang.FORGOT_PASSWORD }}
                         </RouterLink>
@@ -40,11 +42,13 @@
                         id="password"
                         outlined
                         dense
-                        v-model="loginData.password"
+                        :value="loginData.password"
+                        :error-messages="passwordErrors"
+                        @input="setPasswordOnInput"
+                        @blur="setPassword"
                         :type="showPassword ? 'text' : 'password'"
                         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="showPassword = !showPassword"
-                        :rules="passwordRules"
                     >
                     </VTextField>
                 </VCol>
@@ -62,11 +66,7 @@
                                 >{{ lang.LOG_IN }}
                             </VBtn>
                         </VCol>
-                        <VCol class="ma-1">
-                            <span class="info--text">
-                                {{ lang.OR_LOGIN_WITH }}
-                            </span>
-                        </VCol>
+                        <VCol class="ma-1"> </VCol>
                         <VCol> </VCol>
                     </VRow>
                 </VCol>
@@ -80,9 +80,18 @@ import * as actions from '@/store/modules/auth/types/actions';
 import { mapActions } from 'vuex';
 import enLang from '@/store/modules/i18n/en';
 import * as notificationActions from '@/store/modules/notification/types/actions';
+import { validationMixin } from 'vuelidate';
+import { required, email, minLength } from 'vuelidate/lib/validators';
 
 export default {
     name: 'SingIn',
+    mixins: [validationMixin],
+    validations: {
+        loginData: {
+            email: { required, email },
+            password: { required, minLength: minLength(8) }
+        }
+    },
     components: {},
     data: () => ({
         lang: enLang,
@@ -92,17 +101,6 @@ export default {
             email: '',
             password: ''
         },
-        emailRules: [
-            v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', enLang.EMAIL),
-            v =>
-                /([a-zA-Z0-9_.-]+)@(.+)[.](.+)/.test(v) ||
-                enLang.WRONG_EMAIL_FORMAT
-        ],
-        passwordRules: [
-            v =>
-                !!v ||
-                enLang.FIELD_IS_REQUIRED.replace('field', enLang.PASSWORD)
-        ],
         alert: {
             visible: false,
             message: '',
@@ -117,17 +115,60 @@ export default {
         ...mapActions('notification', {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
         }),
+        setEmail(e) {
+            this.loginData.email = e.target.value;
+            this.$v.loginData.email.$touch();
+        },
+        setEmailOnInput(value) {
+            this.loginData.email = value;
+            this.$v.loginData.email.$touch();
+        },
+        setPassword(e) {
+            this.loginData.password = e.target.value;
+            this.$v.loginData.password.$touch();
+        },
+        setPasswordOnInput(value) {
+            this.loginData.password = value;
+            this.$v.loginData.password.$touch();
+        },
         async onSignIn() {
-            this.$refs.form.validate();
-            if (this.formValid) {
-                try {
-                    await this.signIn(this.loginData);
-                    await this.fetchLoggedUser();
-                    this.$router.push({ name: 'EventTypes' });
-                } catch (error) {
-                    this.setErrorNotification(error);
+            try {
+                this.$v.$touch();
+                if (this.$v.$invalid) {
+                    throw new Error(this.lang.PLEASE_ENTER_CORRECT_DATA);
                 }
+                await this.signIn(this.loginData);
+                await this.fetchLoggedUser();
+                this.$router.push({ name: 'EventTypes' });
+            } catch (error) {
+                this.setErrorNotification(error.message);
             }
+        }
+    },
+    computed: {
+        emailErrors() {
+            const errors = [];
+            if (!this.$v.loginData['email'].$dirty) {
+                return errors;
+            }
+            !this.$v.loginData['email'].email &&
+                errors.push(this.lang.MUST_BE_VALID_EMAIL);
+            !this.$v.loginData['email'].required &&
+                errors.push(this.lang.EMAIL_IS_REQUIRED);
+            return errors;
+        },
+        passwordErrors() {
+            const errors = [];
+            if (!this.$v.loginData['password'].$dirty) {
+                return errors;
+            }
+            !this.$v.loginData['password'].required &&
+                errors.push(this.lang.PASSWORD_IS_REQUIRED);
+            !this.$v.loginData['password'].minLength &&
+                errors.push(
+                    this.lang.PASSWORD_MUST_BE_AT_LEAST_8_CHARACTERS_LONG
+                );
+            return errors;
         }
     }
 };
@@ -156,20 +197,12 @@ label {
     color: #2c2c2c;
     display: block;
 }
-.forgot-password-a {
+.forgot-password {
     font-size: x-small;
     letter-spacing: 0.4px;
     color: var(--v-primary-base);
 }
 .login-button {
-    text-transform: none;
-}
-.social-button {
-    font-weight: 700;
-    font-size: xx-large;
-    margin-left: 4px;
-    margin-right: 0;
-    color: var(--v-primary-base);
     text-transform: none;
 }
 </style>

@@ -40,6 +40,17 @@
                     </RouterLink>
                 </VListItemTitle>
             </VListItem>
+            <VListItem class="v-list-item--link">
+                <VListItemTitle align-self="center">
+                    <RouterLink
+                        :to="{ name: 'CalendarConnections' }"
+                        class="user-menu__link"
+                    >
+                        <VIcon>mdi-calendar-sync</VIcon>
+                        {{ lang.CALENDAR_CONNECTIONS }}
+                    </RouterLink>
+                </VListItemTitle>
+            </VListItem>
             <VListItem class="v-list-item--link" @click="onSignOut">
                 <VListItemTitle align-self="center">
                     <VIcon>mdi-logout-variant</VIcon>{{ lang.LOGOUT }}
@@ -81,6 +92,7 @@ export default {
     &__link {
         color: #2c2c2c;
         text-decoration: none;
+        display: block;
     }
 
     &__button::v-deep {

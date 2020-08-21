@@ -1,9 +1,11 @@
 <template>
     <VApp>
         <VMain class="main">
-            <div class="container">
+            <div class="event-type-container">
                 <div class="event-type-content">
-                    <slot></slot>
+                    <VContainer fluid class="pa-0">
+                        <slot></slot>
+                    </VContainer>
                 </div>
             </div>
         </VMain>
@@ -21,7 +23,7 @@ export default {
     background-color: var(--v-background-base);
     font-family: $body-font-family;
 }
-.container {
+.event-type-container {
     width: 100%;
     padding: 0;
     display: flex;
@@ -33,8 +35,8 @@ export default {
     margin-top: 50px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
     background-color: #fff;
-    width: 80%;
-    max-width: 1000px;
+    width: 87%;
+    max-width: 1200px;
 }
 
 @media (max-width: 1263px) {

@@ -1,8 +1,172 @@
 .container.container-content {
   margin-top: 32px;
+  padding: 0;
   background-color: #ffffff;
+  border: 1px solid #E0E0E0;
+  border-radius: 4px;
+
+  .tabs__container {
+    padding-left: 36px;
+    padding-right: 50px;
+  }
 }
 
 .container-content.background-none {
   background: none;
+  border: 0;
+}
+
+.filter-title {
+  font-family: $body-font-family;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  text-transform: capitalize;
+  color: #989898;
+}
+
+.filter-menu {
+  .v-btn:not(.v-btn--round).v-size--default {
+    padding: 0;
+  }
+
+  &__button.v-btn {
+    span.v-btn__content {
+      font-family: $body-font-family;
+      font-style: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.44px;
+      text-transform: none;
+      color: var(--v-anchor-base);
+    }
+  }
+
+  &__button.v-btn:before {
+    background-color: transparent;
+  }
+
+  &__button.v-btn:hover,
+  &__button.v-btn[aria-expanded='true'] {
+    span.v-btn__content {
+      opacity: 0.9;
+    }
+  }
+
+  &__button[aria-expanded='true'] i {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+}
+
+.filter-form {
+    .v-btn:not(.v-btn--round).v-size--default {
+      padding: 0;
+      height: auto;
+      min-width: auto;
+    }
+
+    .v-btn:not(.v-btn--round).v-size--default.more {
+      padding-top: 10px;
+    }
+
+    &__button.v-btn {
+      span.v-btn__content {
+        font-family: $body-font-family;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 16px;
+        letter-spacing: 0.44px;
+        text-transform: none;
+        color: var(--v-anchor-base);
+      }
+    }
+
+    &__button.v-btn:before {
+      background-color: transparent;
+    }
+
+    &__button.v-btn:hover,
+    &__button.v-btn[aria-expanded='true'] {
+      span.v-btn__content {
+        opacity: 0.9;
+      }
+    }
+
+  &__checkbox {
+    height: 210px;
+    overflow: auto;
+  }
+
+  .v-input--hide-details > .v-input__control > .v-input__slot {
+    padding-left: 8px;
+  }
+}
+
+.v-input--selection-controls {
+  margin-top: 10px;
+}
+
+.v-input__slot {
+  color: #2C2C2C;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+
+  .v-text-field__slot {
+    .v-label {
+      opacity: 0.5;
+    }
+  }
+
+  .theme--light.v-label {
+    color: #2C2C2C;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  .v-input__icon.v-input__icon--prepend-inner {
+    opacity: 0.5;
+  }
+
+  .v-input--selection-controls__input {
+    .theme--light.v-icon {
+      color: #E0E0E0;
+    }
+  }
+}
+
+.filter-button {
+  padding-top: 0px;
+
+  .v-btn {
+    margin-right: 6px;
+    width: 110px;
+    text-transform: none;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  .cancel-button {
+    border: 1px solid #E0E0E0;
+    color: #2C2C2C;
+  }
+}
+
+.no-events {
+  padding: 50px;
+
+  .no-events-title {
+    font-weight: bold;
+    font-size: 20px;
+    color: rgb(0, 0, 0, 0.54);
+  }
 }

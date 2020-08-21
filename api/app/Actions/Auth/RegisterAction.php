@@ -24,8 +24,11 @@ final class RegisterAction
         $user->password = Hash::make($request->getPassword());
         $user->name = $request->getName();
         $user->timezone = $request->getTimezone();
+        $user->nickname = Hash::make($request->getEmail());
 
         $user = $this->userRepository->save($user);
+
+        $user->sendEmailVerificationNotification();
 
         return new RegisterResponse($user);
     }

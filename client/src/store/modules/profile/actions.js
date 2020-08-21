@@ -8,7 +8,7 @@ import {
 } from './types/mutations';
 
 export default {
-    async updatePassword({ dispatch }, password, oldPassword) {
+    async updatePassword({ dispatch }, { password, oldPassword }) {
         try {
             const response = await profileService.updatePassword(
                 password,
