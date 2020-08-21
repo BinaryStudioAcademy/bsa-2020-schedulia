@@ -1062,6 +1062,7 @@ export default {
                         disabled: this.disabled
                     }
                 });
+                this.$router.push({ name: 'EventTypes' });
             } catch (error) {
                 this.showErrorMessage(error.message);
             }
