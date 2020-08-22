@@ -11,9 +11,4 @@ final class AvailabilityValidationException extends BaseException
 {
     protected $code = ErrorCode::AVAILABILITY_VALIDATION_EXCEPTION;
     protected $message;
-
-    public function __construct($message = "")
-    {
-        $this->message = $message;
-    }
 }
