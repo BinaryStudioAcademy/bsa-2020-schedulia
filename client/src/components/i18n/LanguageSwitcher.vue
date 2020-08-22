@@ -7,7 +7,7 @@
             dense
             flat
             solo
-            class="language-select"
+            class="language-select info-text"
         ></VSelect>
     </div>
 </template>
@@ -36,5 +36,8 @@ export default {
 <style scoped>
 .v-input.language-select::v-deep .v-input__slot {
     background: transparent;
+}
+.info-text {
+    color: var(--v-info-base);
 }
 </style>

@@ -333,5 +333,7 @@ export default {
     UNSAVE_CHANGES_WILL_BE_LOST: 'Any unsaved changes will be lost.',
     EXPLANATION_PASSWORD_RESET:
         'Go to the SignIn page and use your new password to authenticate on the site.',
+    INVITEES_WILL_BE_OFFERED_INDEFINITELY:
+        'Your invitees will be offered availability indefinitely into the future. ',
     YOU_CAN_CHANGE_LANGUAGE_TO: 'Your can change language to'
 };

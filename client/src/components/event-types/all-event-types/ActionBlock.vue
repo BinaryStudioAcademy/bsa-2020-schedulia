@@ -3,7 +3,7 @@
         <VCol cols="12" md="6" sm="6">
             <VRow>
                 <VCol cols="2" lg="1" md="2" class="">
-                    <Avatar :size="48"></Avatar>
+                    <Avatar :size="48" :color="'black'"></Avatar>
                 </VCol>
                 <VCol cols="10">
                     <span class="user-name">{{ user.name }}</span>
@@ -14,7 +14,7 @@
         </VCol>
         <VCol cols="12" md="6" sm="6">
             <div class="new-event-type-btn text-right">
-                <RouterLink :to="{ name: 'new-event' }">
+                <RouterLink :to="{ name: 'newEvent' }">
                     <VBtn class="ma-2" outlined color="indigo">
                         {{ lang.NEW_EVENT_TYPE }}
                         <VIcon right dark>mdi-plus</VIcon>
@@ -31,7 +31,7 @@
 <script>
 import * as getters from '@/store/modules/auth/types/getters';
 import { mapGetters } from 'vuex';
-import Avatar from '@/components/common/GeneralLayout/Avatar';
+import Avatar from '@/components/common/Avatar/Avatar';
 import enLang from '@/store/modules/i18n/en';
 export default {
     name: 'ActionBlock',
