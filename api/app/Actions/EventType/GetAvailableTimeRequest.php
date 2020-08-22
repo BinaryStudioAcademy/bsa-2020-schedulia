@@ -9,7 +9,8 @@ final class GetAvailableTimeRequest
     private int $eventTypeId;
     private string $month;
 
-    public function __construct(int $eventTypeId, string $month) {
+    public function __construct(int $eventTypeId, string $month)
+    {
         $this->eventTypeId = $eventTypeId;
         $this->month = $month;
     }
