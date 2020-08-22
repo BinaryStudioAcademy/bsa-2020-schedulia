@@ -6,8 +6,18 @@
             <RouterLink :to="{ name: 'SignUp' }">
                 {{ lang.CREATE_AN_ACCOUNT }}
             </RouterLink>
+            <VSpacer class="pa-2"></VSpacer>
+            <VCol cols="12" sm="12" md="8" class="pa-0">
+                <VRow no-gutters justify="space-between" align="baseline">
+                    <VCol cols="9">
+                        <span> {{ lang.YOU_CAN_CHANGE_LANGUAGE_TO }}</span>
+                    </VCol>
+                    <VCol cols="3">
+                        <LanguageSwitcher />
+                    </VCol>
+                </VRow>
+            </VCol>
         </VCardSubtitle>
-        <VSpacer class="pa-2"></VSpacer>
         <VForm v-model="formValid" ref="form">
             <VCardText>
                 <VCol cols="12" sm="12" md="8" class="pa-0">
@@ -77,11 +87,12 @@
 
 <script>
 import * as actions from '@/store/modules/auth/types/actions';
-import { mapActions } from 'vuex';
-import enLang from '@/store/modules/i18n/en';
+import { mapActions, mapGetters } from 'vuex';
 import * as notificationActions from '@/store/modules/notification/types/actions';
 import { validationMixin } from 'vuelidate';
 import { required, email, minLength } from 'vuelidate/lib/validators';
+import LanguageSwitcher from '../i18n/LanguageSwitcher';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 
 export default {
     name: 'SingIn',
@@ -92,9 +103,8 @@ export default {
             password: { required, minLength: minLength(8) }
         }
     },
-    components: {},
+    components: { LanguageSwitcher },
     data: () => ({
-        lang: enLang,
         formValid: false,
         showPassword: false,
         loginData: {
@@ -146,6 +156,9 @@ export default {
         }
     },
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         emailErrors() {
             const errors = [];
             if (!this.$v.loginData['email'].$dirty) {

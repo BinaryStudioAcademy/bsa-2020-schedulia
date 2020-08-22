@@ -332,5 +332,6 @@ export default {
     ARE_YOU_SURE: 'Are you sure?',
     UNSAVE_CHANGES_WILL_BE_LOST: 'Any unsaved changes will be lost.',
     EXPLANATION_PASSWORD_RESET:
-        'Go to the SignIn page and use your new password to authenticate on the site.'
+        'Go to the SignIn page and use your new password to authenticate on the site.',
+    YOU_CAN_CHANGE_LANGUAGE_TO: 'Your can change language to'
 };

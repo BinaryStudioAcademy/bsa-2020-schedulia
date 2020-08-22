@@ -8,6 +8,7 @@ import eventTypes from './modules/eventTypes';
 import eventType from './modules/eventType';
 import publicEvent from './modules/publicEvent';
 import scheduledEvent from './modules/scheduledEvent';
+import i18n from './modules/i18n';
 
 Vue.use(Vuex);
 
@@ -20,7 +21,8 @@ export default new Vuex.Store({
         eventTypes,
         eventType,
         scheduledEvent,
-        publicEvent
+        publicEvent,
+        i18n
     },
     plugins: []
 });

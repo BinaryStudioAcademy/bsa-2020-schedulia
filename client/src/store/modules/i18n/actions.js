@@ -4,11 +4,11 @@ import * as actions from './types/actions';
 import * as mutations from './types/mutations';
 
 export default {
-    [actions.CHANGE_LOCALE]: ({ commit }, localeCode = '') => {
-        commit(mutations.SET_CURRENT_LOCALE, localeCode);
-        if (localeCode === 'en') {
+    [actions.CHANGE_LANGUAGE]: ({ commit }, languageCode = '') => {
+        commit(mutations.SET_CURRENT_LANGUAGE, languageCode);
+        if (languageCode === 'en') {
             commit(mutations.SET_CURRENT_LANGUAGE_CONSTANT, enConst);
-        } else if (localeCode === 'uk') {
+        } else if (languageCode === 'uk') {
             commit(mutations.SET_CURRENT_LANGUAGE_CONSTANT, ukConst);
         }
     }

@@ -1,5 +1,6 @@
 export default {
-    locales: ['en', 'ru'],
-    currentLocale: 'en',
+    languages: ['en', 'uk'],
+    currentLanguage: null,
+    defaultLanguage: 'uk',
     languageConstants: null
 };

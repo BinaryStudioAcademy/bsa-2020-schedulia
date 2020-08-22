@@ -248,5 +248,6 @@ export default {
     YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD:
         'Ви входите з електронною адресою та паролем',
     YOU_WILL_WANT_TO_ADD_EVENT_TYPE:
-        'Ви захочете додати тип події, щоб люди могли планувати з\n            вами.'
+        'Ви захочете додати тип події, щоб люди могли планувати з\n            вами.',
+    YOU_CAN_CHANGE_LANGUAGE_TO: 'Ви можете змінити мову на'
 };
