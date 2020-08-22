@@ -15,7 +15,6 @@ use App\Exceptions\Availability\AvailabilityValidationException;
 use App\Exceptions\Availability\EndTimeBeforeStartTimeException;
 use App\Exceptions\Availability\IntervalsOverlappedException;
 use App\Exceptions\Availability\UnknownAvailabilityTypeException;
-use App\Http\Presenters\AvailabilityServicePresenter;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Collection;
@@ -23,18 +22,15 @@ use Illuminate\Support\Collection;
 final class AvailabilityService implements AvailabilityServiceInterface
 {
     private const MIDNIGHT_TIME = "00:00:00";
-    private AvailabilityServicePresenter $presenter;
     private ProcessEveryDayAction $processEveryDayAction;
     private ProcessExactDatesAction $processExactDatesAction;
     private ProcessUnavailableTimeAction $processUnavailableTimeAction;
 
     public function __construct(
-        AvailabilityServicePresenter $presenter,
         ProcessEveryDayAction $processEveryDayAction,
         ProcessExactDatesAction $processExactDatesAction,
         ProcessUnavailableTimeAction $processUnavailableTimeAction
     ) {
-        $this->presenter = $presenter;
         $this->processEveryDayAction = $processEveryDayAction;
         $this->processExactDatesAction = $processExactDatesAction;
         $this->processUnavailableTimeAction = $processUnavailableTimeAction;
@@ -89,8 +85,6 @@ final class AvailabilityService implements AvailabilityServiceInterface
         $dateTimeList = $this->processUnavailableTimeAction->execute(
             new ModificateDateTimeListRequest($dateTimeList, $eventType)
         )->getModifiedTimeList();
-
-        $dateTimeList = $this->presenter->presentArray($dateTimeList);
 
         return $dateTimeList;
     }
