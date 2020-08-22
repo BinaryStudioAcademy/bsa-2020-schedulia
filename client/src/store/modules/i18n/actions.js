@@ -9,7 +9,10 @@ export default {
         if (languageCode === 'en') {
             commit(mutations.SET_CURRENT_LANGUAGE_CONSTANT, enConst);
         } else if (languageCode === 'uk') {
-            commit(mutations.SET_CURRENT_LANGUAGE_CONSTANT, ukConst);
+            commit(mutations.SET_CURRENT_LANGUAGE_CONSTANT, {
+                ...enConst,
+                ...ukConst
+            });
         }
     }
 };

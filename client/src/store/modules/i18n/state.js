@@ -1,6 +1,7 @@
+import enConst from '@/store/modules/i18n/en';
+
 export default {
     languages: ['en', 'uk'],
-    currentLanguage: null,
-    defaultLanguage: 'uk',
-    languageConstants: null
+    currentLanguage: 'en',
+    languageConstants: enConst
 };
