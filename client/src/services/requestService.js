@@ -18,9 +18,17 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => response,
     error => {
+        const allError = error?.response?.data?.error;
+
         const nextError = new Error(
-            error?.response?.data?.error?.message || error
+                allError?.message || error
         );
+
+        if(allError?.validator) {
+            const validator = allError?.validator;
+            nextError.validator = validator;
+        }
+
         nextError.response = error.response;
         return Promise.reject(nextError);
     }
