@@ -9,7 +9,11 @@
         <VRow>
             <VCol cols="11" md="11">
                 <div v-if="notification.text.validatorError">
-                    <div v-for="(validatorError, index) in notification.text.validatorError" :key="index">
+                    <div
+                        v-for="(validatorError, index) in notification.text
+                            .validatorError"
+                        :key="index"
+                    >
                         {{ validatorError }}
                     </div>
                 </div>

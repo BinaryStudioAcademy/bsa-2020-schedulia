@@ -20,11 +20,9 @@ axios.interceptors.response.use(
     error => {
         const allError = error?.response?.data?.error;
 
-        const nextError = new Error(
-                allError?.message || error
-        );
+        const nextError = new Error(allError?.message || error);
 
-        if(allError.validator) {
+        if (allError.validator) {
             const validatorError = new Object();
 
             for (let errorName in allError.validator) {
