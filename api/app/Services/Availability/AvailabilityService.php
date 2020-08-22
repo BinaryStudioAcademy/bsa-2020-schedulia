@@ -104,12 +104,12 @@ final class AvailabilityService implements AvailabilityServiceInterface
     {
         $dateObj = new Carbon($dateTime);
         $date = $dateObj->toDateString();
-        $time = $dateObj->toTimeString();
+        $time = new Carbon($dateObj->toTimeString());
 
         $dateTimeList = $this->getAvailableDaysByEventType($eventType, $date);
         if (isset($dateTimeList[$date])) {
             foreach ($dateTimeList[$date] as $index => $interval) {
-                if ($time >= $interval['start_time'] && $time <= $interval['end_time']) {
+                if ($time->gte($interval['start_time']) && $time->lte($interval['end_time'])) {
                     if (!in_array($time, $interval['unavailable'])) {
                         return true;
                     }
