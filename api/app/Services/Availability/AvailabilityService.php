@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services\Availability;
 
+use App\Actions\AvailabilityService\ModificateDateTimeListRequest;
+use App\Actions\AvailabilityService\ProcessEveryDayAction;
+use App\Actions\AvailabilityService\ProcessExactDatesAction;
+use App\Actions\AvailabilityService\ProcessUnavailableTimeAction;
 use App\Contracts\AvailabilityServiceInterface;
 use App\Entity\Availability;
 use App\Entity\EventType;
@@ -20,10 +24,20 @@ final class AvailabilityService implements AvailabilityServiceInterface
 {
     private const MIDNIGHT_TIME = "00:00:00";
     private AvailabilityServicePresenter $presenter;
+    private ProcessEveryDayAction $processEveryDayAction;
+    private ProcessExactDatesAction $processExactDatesAction;
+    private ProcessUnavailableTimeAction $processUnavailableTimeAction;
 
-    public function __construct(AvailabilityServicePresenter $presenter)
-    {
+    public function __construct(
+        AvailabilityServicePresenter $presenter,
+        ProcessEveryDayAction $processEveryDayAction,
+        ProcessExactDatesAction $processExactDatesAction,
+        ProcessUnavailableTimeAction $processUnavailableTimeAction
+    ) {
         $this->presenter = $presenter;
+        $this->processEveryDayAction = $processEveryDayAction;
+        $this->processExactDatesAction = $processExactDatesAction;
+        $this->processUnavailableTimeAction = $processUnavailableTimeAction;
     }
 
     public function validateAvailabilities(Collection $availabilities, int $duration): bool
@@ -38,7 +52,8 @@ final class AvailabilityService implements AvailabilityServiceInterface
     public function getAvailableDaysByEventType(EventType $eventType, string $monthDate): array
     {
         $availabilityDateRange = $eventType->availabilities
-            ->whereIn('type', AvailabilityTypes::getDateRangeTypes())->first();
+            ->whereIn('type', AvailabilityTypes::getDateRangeTypes())
+            ->first();
 
         $period = $this->getPeriodForEventType($availabilityDateRange, $monthDate);
 
@@ -63,9 +78,17 @@ final class AvailabilityService implements AvailabilityServiceInterface
             }
         }
 
-        $dateTimeList = $this->processEveryDay($dateTimeList, $eventType);
-        $dateTimeList = $this->processExactDates($dateTimeList, $eventType);
-        $dateTimeList = $this->getUnavailableTime($dateTimeList, $eventType);
+        $dateTimeList = $this->processEveryDayAction->execute(
+            new ModificateDateTimeListRequest($dateTimeList, $eventType)
+        )->getModifiedTimeList();
+
+        $dateTimeList = $this->processExactDatesAction->execute(
+            new ModificateDateTimeListRequest($dateTimeList, $eventType)
+        )->getModifiedTimeList();
+
+        $dateTimeList = $this->processUnavailableTimeAction->execute(
+            new ModificateDateTimeListRequest($dateTimeList, $eventType)
+        )->getModifiedTimeList();
 
         $dateTimeList = $this->presenter->presentArray($dateTimeList);
 
@@ -112,73 +135,6 @@ final class AvailabilityService implements AvailabilityServiceInterface
         }
 
         return new CarbonPeriod($periodStart, $periodEnd);
-    }
-
-    private function processEveryDay(array $dateTimeList, EventType $eventType): array
-    {
-        $everyDayTypes = AvailabilityTypes::getTypesForEveryDay();
-        foreach ($everyDayTypes as $type) {
-            $dateTimeList = $this->processEveryDayByType($dateTimeList, $eventType, $type);
-        }
-        return $dateTimeList;
-    }
-
-    private function processExactDates(array $dateTimeList, EventType $eventType): array
-    {
-        $exactDates = $eventType->availabilities
-            ->where('type', AvailabilityTypes::EXACT_DATE)
-            ->map(fn ($availability) => [
-                'type' => $availability->type,
-                'start_date' => (new Carbon($availability->start_date))->toDateString(),
-                'start_time' => (new Carbon($availability->start_date))->toTimeString(),
-                'end_date' => (new Carbon($availability->end_date))->toTimeString(),
-                'end_time' => (new Carbon($availability->end_date))->toTimeString(),
-            ])
-            ->groupBy('start_date')
-            ->map(fn ($availability) => $availability
-                ->map(fn ($interval) => [
-                    'type' => $interval['type'],
-                    'start_time' => $interval['start_time'],
-                    'end_time' => $interval['end_time'],
-                    'unavailable' => []
-                ])
-                ->all())
-            ->all();
-
-        foreach ($dateTimeList as $date => $intervals) {
-            if (isset($exactDates[$date])) {
-                $dateTimeList[$date] = $exactDates[$date];
-            }
-        }
-
-        return $dateTimeList;
-    }
-
-    private function processEveryDayByType(array $dateTimeList, EventType $eventType, string $type): array
-    {
-        $everyDayIntervals = $eventType->availabilities
-            ->where('type', $type)
-            ->map(function ($availability) {
-                return [
-                    'type' => $availability->type,
-                    'start_time' => (new Carbon($availability->start_date))->toTimeString(),
-                    'end_time' => (new Carbon($availability->end_date))->toTimeString(),
-                    'unavailable' => []
-                ];
-            })
-            ->values()
-            ->all();
-
-        foreach ($dateTimeList as $date => $timeIntervals) {
-            $dateCarbon = new Carbon($date);
-            if ($everyDayIntervals) {
-                $isDayName = 'is' . ucfirst(explode('_', $type)[1]);
-                if ($dateCarbon->$isDayName()) {
-                    $dateTimeList[$date] = $everyDayIntervals;
-                }
-            }
-        }
-        return $dateTimeList;
     }
 
     private function getAvailableHoursByDate(EventType $eventType, string $date): ?array
@@ -252,32 +208,5 @@ final class AvailabilityService implements AvailabilityServiceInterface
                 }
             }
         }
-    }
-
-    private function getUnavailableTime(array $dateTimeList, EventType $eventType)
-    {
-        $events = $eventType->events
-            ->map(fn ($event) => [
-                'start_date' => (new Carbon($event->start_date))->toDateString(),
-                'start_time' => (new Carbon($event->start_date))->toTimeString(),
-        ])
-            ->groupBy('start_date')
-            ->map(fn ($event) => $event->all())
-            ->all();
-        $eventsDateTime = [];
-        foreach ($events as $date =>$event) {
-            foreach ($event as $key => $time) {
-                $eventsDateTime[$date][] = $time['start_time'];
-            }
-        }
-
-        foreach ($dateTimeList as $date => $intervals) {
-            foreach ($intervals as $key => $interval) {
-                if (isset($eventsDateTime[$date])) {
-                    $dateTimeList[$date][$key]['unavailable'] = $eventsDateTime[$date];
-                }
-            }
-        }
-        return $dateTimeList;
     }
 }
