@@ -6,12 +6,14 @@ namespace App\Exceptions\Availability;
 
 use App\Exceptions\BaseException;
 use App\Exceptions\ErrorCode;
-use Throwable;
 
 final class AvailabilityValidationException extends BaseException
 {
-    public function __construct($message = "", $code = ErrorCode::BAD_REQUEST, Throwable $previous = null)
+    protected $code = ErrorCode::AVAILABILITY_VALIDATION_EXCEPTION;
+    protected $message;
+
+    public function __construct($message = "")
     {
-        parent::__construct($message, $code, $previous);
+        $this->message = $message;
     }
 }
