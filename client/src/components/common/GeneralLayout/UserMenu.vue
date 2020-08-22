@@ -62,7 +62,7 @@
 
 <script>
 import enLang from '@/store/modules/i18n/en';
-import Avatar from './Avatar';
+import Avatar from '@/components/common/Avatar/Avatar';
 import * as actions from '@/store/modules/auth/types/actions';
 import { mapActions } from 'vuex';
 
