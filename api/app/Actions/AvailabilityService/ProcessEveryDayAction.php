@@ -5,11 +5,20 @@ declare(strict_types=1);
 namespace App\Actions\AvailabilityService;
 
 use App\Entity\EventType;
+use App\Repositories\Availability\AvailabilityRepositoryInterface;
+use App\Repositories\Availability\Criterion\AvailabilityTypeCriterion;
 use App\Services\Availability\AvailabilityTypes;
 use Carbon\Carbon;
 
 final class ProcessEveryDayAction
 {
+    private AvailabilityRepositoryInterface $availabilityRepository;
+
+    public function __construct(AvailabilityRepositoryInterface $availabilityRepository)
+    {
+        $this->availabilityRepository = $availabilityRepository;
+    }
+
     public function execute(ModificateDateTimeListRequest $request): ModificateDateTimeListResponse
     {
         $modifiedDateTimeList = $this->processEveryDay(
@@ -31,8 +40,8 @@ final class ProcessEveryDayAction
 
     private function processEveryDayByType(array $dateTimeList, EventType $eventType, string $type): array
     {
-        $everyDayIntervals = $eventType->availabilities
-            ->where('type', $type)
+        $everyDayIntervals = $this->availabilityRepository
+            ->findByCriteria(new AvailabilityTypeCriterion($eventType->id, $type))
             ->map(function ($availability) {
                 return [
                     'type' => $availability->type,

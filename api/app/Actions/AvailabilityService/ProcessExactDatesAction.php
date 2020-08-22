@@ -5,11 +5,20 @@ declare(strict_types=1);
 namespace App\Actions\AvailabilityService;
 
 use App\Entity\EventType;
+use App\Repositories\Availability\AvailabilityRepositoryInterface;
+use App\Repositories\Availability\Criterion\AvailabilityTypeCriterion;
 use App\Services\Availability\AvailabilityTypes;
 use Carbon\Carbon;
 
 final class ProcessExactDatesAction
 {
+    private AvailabilityRepositoryInterface $availabilityRepository;
+
+    public function __construct(AvailabilityRepositoryInterface $availabilityRepository)
+    {
+        $this->availabilityRepository = $availabilityRepository;
+    }
+
     public function execute(ModificateDateTimeListRequest $request): ModificateDateTimeListResponse
     {
         $modificatedDateTimeList = $this->processExactDates(
@@ -22,8 +31,10 @@ final class ProcessExactDatesAction
 
     private function processExactDates(array $dateTimeList, EventType $eventType): array
     {
-        $exactDates = $eventType->availabilities
-            ->where('type', AvailabilityTypes::EXACT_DATE)
+        $exactDates = $this->availabilityRepository
+            ->findByCriteria(
+                new AvailabilityTypeCriterion($eventType->id, AvailabilityTypes::EXACT_DATE)
+            )
             ->map(fn ($availability) => [
                 'type' => $availability->type,
                 'start_date' => (new Carbon($availability->start_date))->toDateString(),

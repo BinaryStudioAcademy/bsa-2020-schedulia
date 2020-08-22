@@ -15,6 +15,9 @@ use App\Exceptions\Availability\AvailabilityValidationException;
 use App\Exceptions\Availability\EndTimeBeforeStartTimeException;
 use App\Exceptions\Availability\IntervalsOverlappedException;
 use App\Exceptions\Availability\UnknownAvailabilityTypeException;
+use App\Repositories\Availability\AvailabilityRepository;
+use App\Repositories\Availability\Criterion\AvailabilitiesCriterion;
+use App\Repositories\Availability\Criterion\AvailabilityDateRangeCriterion;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Collection;
@@ -25,15 +28,18 @@ final class AvailabilityService implements AvailabilityServiceInterface
     private ProcessEveryDayAction $processEveryDayAction;
     private ProcessExactDatesAction $processExactDatesAction;
     private ProcessUnavailableTimeAction $processUnavailableTimeAction;
+    private AvailabilityRepository $availabilityRepository;
 
     public function __construct(
         ProcessEveryDayAction $processEveryDayAction,
         ProcessExactDatesAction $processExactDatesAction,
-        ProcessUnavailableTimeAction $processUnavailableTimeAction
+        ProcessUnavailableTimeAction $processUnavailableTimeAction,
+        AvailabilityRepository $availabilityRepository
     ) {
         $this->processEveryDayAction = $processEveryDayAction;
         $this->processExactDatesAction = $processExactDatesAction;
         $this->processUnavailableTimeAction = $processUnavailableTimeAction;
+        $this->availabilityRepository = $availabilityRepository;
     }
 
     public function validateAvailabilities(Collection $availabilities, int $duration): bool
@@ -52,8 +58,8 @@ final class AvailabilityService implements AvailabilityServiceInterface
 
     public function getAvailableDaysByEventType(EventType $eventType, string $monthDate): array
     {
-        $availabilityDateRange = $eventType->availabilities
-            ->whereIn('type', AvailabilityTypes::getDateRangeTypes())
+        $availabilityDateRange = $this->availabilityRepository
+            ->findByCriteria(new AvailabilityDateRangeCriterion($eventType->id))
             ->first();
 
         $period = $this->getPeriodForEventType($availabilityDateRange, $monthDate);
@@ -116,17 +122,19 @@ final class AvailabilityService implements AvailabilityServiceInterface
     private function getPeriodForEventType(Availability $availability, string $monthDate): CarbonPeriod
     {
         $monthDate = new Carbon($monthDate);
+        $availabilityStartDate = new Carbon($availability->start_date);
+        $availabilityEndDate = new Carbon($availability->end_date);
         $monthDateFirstDay = $monthDate->startOfMonth()->toDateTimeString();
         $monthDateLastDay = $monthDate->endOfMonth()->toDateTimeString();
 
-        if ($availability->start_date > $monthDateFirstDay) {
-            $periodStart = $availability->start_date;
+        if ($availabilityStartDate->gt($monthDateFirstDay)) {
+            $periodStart = $availabilityStartDate->toDateTimeString();
         } else {
             $periodStart = $monthDateFirstDay;
         }
 
-        if ($availability->end_date < $monthDateLastDay) {
-            $periodEnd = $availability->end_date;
+        if ($availabilityEndDate->lt($monthDateLastDay)) {
+            $periodEnd = $availabilityEndDate->toDateTimeString();
         } else {
             $periodEnd = $monthDateLastDay;
         }
@@ -140,7 +148,10 @@ final class AvailabilityService implements AvailabilityServiceInterface
 
     private function getAvailableHoursByDate(EventType $eventType, string $date): ?array
     {
-        $availabilities = $eventType->availabilities;
+        $availabilities = $this->availabilityRepository
+            ->findByCriteria(
+                new AvailabilitiesCriterion($eventType->id)
+            );
         $result = [];
         foreach ($availabilities as $availability) {
             $startDate = (new Carbon($availability->start_date))->toDateString();
@@ -169,13 +180,13 @@ final class AvailabilityService implements AvailabilityServiceInterface
 
         $endTime = $endDateTime->toTimeString();
 
-        if ($availability->start_date > $availability->end_date) {
+        if ($startDateTime->gt($endDateTime->toDateTimeString())) {
             throw new EndTimeBeforeStartTimeException();
         } else {
             $startDateWithDuration = new Carbon($availability->start_date);
             $startDateWithDuration->addMinutes($duration);
-            $startDateWithDuration = $startDateWithDuration->format('Y-m-d H:i:s');
-            if ($startDateWithDuration > $availability->end_date && $endTime !== self::MIDNIGHT_TIME) {
+
+            if ($startDateWithDuration->gt($endDateTime) && $endTime !== self::MIDNIGHT_TIME) {
                 throw new AvailabilityValidationException("Intervals must be at least {$duration} minutes!");
             }
         }
@@ -194,6 +205,7 @@ final class AvailabilityService implements AvailabilityServiceInterface
     private function checkAvailabilitiesOnOverlapping(Collection $availabilities): void
     {
         $availabilities = $availabilities->sortBy('type')->values();
+
         foreach ($availabilities as $index => $availability) {
             if ($index > 0 && $availability->type === $availabilities[$index - 1]->type) {
                 if (
