@@ -1,6 +1,6 @@
 <template>
     <VAvatar :size="avatarSize">
-        <VImg v-if="avatar" :src="avatar"></VImg>
+        <VImg v-if="this.user.avatar" :src="this.user.avatar"></VImg>
         <VIcon v-else :size="size" :color="color">
             mdi-account-circle
         </VIcon>
@@ -13,9 +13,6 @@ import * as getters from '@/store/modules/auth/types/getters';
 export default {
     name: 'Avatar',
     props: {
-        disabled: {
-            required: false
-        },
         size: {
             required: false,
             default: 36
@@ -28,11 +25,7 @@ export default {
     computed: {
         ...mapGetters('auth', {
             user: getters.GET_LOGGED_USER
-        }),
-
-        avatar() {
-            return this.user.avatar;
-        }
+        })
     }
 };
 </script>
