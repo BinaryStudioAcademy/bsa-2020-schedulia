@@ -38,6 +38,11 @@ final class AvailabilityService implements AvailabilityServiceInterface
 
     public function validateAvailabilities(Collection $availabilities, int $duration): bool
     {
+        $dateRangeAvailability = $availabilities->whereIn('type', AvailabilityTypes::getDateRangeTypes())->all();
+        if (!count($dateRangeAvailability)) {
+            throw new AvailabilityValidationException("There must be availability with type 'date_range_*'");
+        }
+
         foreach ($availabilities as $availability) {
             $this->validateAvailability($availability, $duration);
         }
