@@ -14,7 +14,7 @@
             </span>
         </div>
         <div class="event-type-invitee mt-9 mb-2">
-            <Avatar :disabled="isDisabled" :size="24"></Avatar>
+            <Avatar :size="24" :color="'black'"></Avatar>
         </div>
         <VDivider />
         <VRow class="event-type-actions">
@@ -41,7 +41,7 @@
 
 <script>
 import DropDown from '@/components/event-types/all-event-types/DropDown';
-import Avatar from '@/components/common/GeneralLayout/Avatar';
+import Avatar from '@/components/common/Avatar/Avatar';
 import enLang from '@/store/modules/i18n/en';
 
 export default {
