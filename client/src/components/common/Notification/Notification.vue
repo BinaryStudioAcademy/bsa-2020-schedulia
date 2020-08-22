@@ -40,7 +40,7 @@ export default {
     },
 
     mounted() {
-        this.timoutID = setTimeout(() => this.closeSnackbar(), 1500);
+        this.timoutID = setTimeout(() => this.closeSnackbar(), 3000);
     },
 
     data() {
