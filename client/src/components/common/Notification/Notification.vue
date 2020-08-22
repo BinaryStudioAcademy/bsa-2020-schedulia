@@ -8,7 +8,14 @@
     >
         <VRow>
             <VCol cols="11" md="11">
-                {{ notification.text }}
+                <div v-if="notification.text.validatorError">
+                    <div v-for="(validatorError, index) in notification.text.validatorError" :key="index">
+                        {{ validatorError }}
+                    </div>
+                </div>
+                <div v-else>
+                    {{ notification.text }}
+                </div>
             </VCol>
             <VCol class="text-right" align-self="center" cols="1" md="1">
                 <span class="close" @click="closeSnackbar">
