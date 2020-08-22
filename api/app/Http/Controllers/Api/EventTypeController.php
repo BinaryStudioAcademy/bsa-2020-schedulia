@@ -120,8 +120,7 @@ class EventTypeController extends ApiController
         $dateTimeList = $action->execute(
             new GetAvailableTimeRequest(
                 (int)$request->id,
-                $request->month,
-                $request->timezone
+                $request->month
             )
         )->getDateTimeList();
 
