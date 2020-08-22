@@ -97,9 +97,11 @@ final class AvailabilityService implements AvailabilityServiceInterface
 
         $dateTimeList = $this->getAvailableDaysByEventType($eventType, $date);
         if (isset($dateTimeList[$date])) {
-            foreach ($dateTimeList[$date] as $index => $pairTime) {
-                if (in_array($time, $dateTimeList[$date][$index]['times'])) {
-                    return true;
+            foreach ($dateTimeList[$date] as $index => $interval) {
+                if ($time >= $interval['start_time'] && $time <= $interval['end_time']) {
+                    if (!in_array($time, $interval['unavailable'])) {
+                        return true;
+                    }
                 }
             }
         }
