@@ -37,12 +37,12 @@ const routes = [
                 component: AuthGuard,
                 children: [
                     {
-                        path: 'signin',
+                        path: 'sign-in',
                         name: 'SignIn',
                         component: () => import('../views/SignIn')
                     },
                     {
-                        path: 'signup',
+                        path: 'sign-up',
                         name: 'SignUp',
                         component: () => import('../views/SignUp')
                     },
