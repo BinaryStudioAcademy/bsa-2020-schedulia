@@ -43,6 +43,5 @@ final class AddEventAction
 
             event(new EventCreated($event));
         }
-
     }
 }

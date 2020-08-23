@@ -571,7 +571,6 @@ class AvailabilityServiceTest extends TestCase
                 'end_date' => '2020-08-08 20:30:00'
             ])
         ]);
-
         $response = $this->json('GET', self::EVENT_TYPES_API_URL . '/' . $eventType->id . '/availability?month=2020-08');
 
         $response
@@ -649,8 +648,6 @@ class AvailabilityServiceTest extends TestCase
                 'end_date' => '2020-08-09 00:00:00'
             ])
         ]);
-
-
         $response = $this->json('GET', self::EVENT_TYPES_API_URL . '/' . $eventType->id . '/availability?month=2020-08');
 
         $response
@@ -721,7 +718,6 @@ class AvailabilityServiceTest extends TestCase
                 'end_date' => '2020-08-10 22:00:00'
             ])
         ]);
-
         $response = $this->json('GET', self::EVENT_TYPES_API_URL . '/' . $eventType->id . '/availability?month=2020-08');
 
         $response
@@ -778,7 +774,6 @@ class AvailabilityServiceTest extends TestCase
                 'end_date' => '2020-08-08 20:30:00'
             ])
         ]);
-
         $response = $this->json('GET', self::EVENT_TYPES_API_URL . '/' . $eventType->id . '/availability?month=2020-08');
 
         $response

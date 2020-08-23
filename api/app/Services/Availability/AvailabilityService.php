@@ -207,8 +207,6 @@ final class AvailabilityService implements AvailabilityServiceInterface
             if ($differenceInDays === 1 && $endTime !== self::MIDNIGHT_TIME || $differenceInDays > 1) {
                 throw new AvailabilityValidationException("Date for Availability with type '{$availability->type}' must be from one day!");
             }
-
-
         }
     }
 
