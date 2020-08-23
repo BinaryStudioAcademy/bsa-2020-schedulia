@@ -6,12 +6,12 @@
 import store from '@/store';
 
 export default {
-    name: 'LoginGuard',
+    name: 'AuthGuard',
     beforeRouteEnter(to, from, next) {
-        if (store.state.auth.user) {
+        if (!store.state.auth.user) {
             next();
         } else {
-            next({ name: 'SignIn' });
+            next({ name: 'EventTypes' });
         }
     }
 };
