@@ -87,6 +87,25 @@
                                 <slot></slot>
                             </VCol>
                         </VRow>
+                        <VCol cols="12" class="pa-0">
+                            <VRow
+                                no-gutters
+                                justify="space-between"
+                                align="baseline"
+                            >
+                                <VCol cols="6">
+                                    <span class="info-text">
+                                        {{
+                                            lang.YOU_CAN_CHANGE_LANGUAGE_TO
+                                        }}</span
+                                    >
+                                </VCol>
+                                <VCol cols="5">
+                                    <LanguageSwitcher />
+                                </VCol>
+                                <VCol cols="1"> </VCol>
+                            </VRow>
+                        </VCol>
                     </VCol>
                 </VRow>
             </VCol>
@@ -96,10 +115,13 @@
 
 <script>
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import LanguageSwitcher from '../i18n/LanguageSwitcher';
+
 import { mapGetters } from 'vuex';
 export default {
     name: 'LayoutMainPage',
     data: () => ({}),
+    components: { LanguageSwitcher },
     computed: {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
@@ -137,6 +159,9 @@ html {
 .logo-primary-div {
     display: none;
     margin-top: 1.7vh;
+}
+.info-text {
+    color: var(--v-info-base);
 }
 
 @media screen and (max-width: 959px) {
