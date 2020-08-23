@@ -12,6 +12,7 @@
                     v-model="searchString"
                     @input="onSearchInput"
                     :rules="searchRules"
+                    clearable
                 ></VTextField>
             </VCol>
         </div>
