@@ -37,7 +37,7 @@ const routes = [
                 component: AuthGuard,
                 children: [
                     {
-                        path: 'sign-in',
+                        path: '',
                         name: 'SignIn',
                         component: () => import('../views/SignIn')
                     },
