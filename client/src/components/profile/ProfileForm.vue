@@ -67,6 +67,10 @@
                                     :items="languages"
                                     @change="onChangeHandle('language', $event)"
                                 />
+
+                                <ProfileDisplayLanguage
+                                    :label="lang.DISPLAY_LANGUAGE"
+                                />
                             </VCol>
 
                             <VCol lg="6" md="12">
@@ -154,10 +158,12 @@ import ProfileTextArea from './ProfileTextArea.vue';
 import ProfileSelect from './ProfileSelect.vue';
 import TimeZoneSelect from '@/components/common/form/TimeZoneSelect.vue';
 import ConfirmDialog from '@/components/confirm/ConfirmDialog.vue';
+import ProfileDisplayLanguage from './ProfileDisplayLanguage';
 
 export default {
     name: 'ProfileForm',
     components: {
+        ProfileDisplayLanguage,
         ProfileTextField,
         ProfileTextArea,
         ProfileSelect,
