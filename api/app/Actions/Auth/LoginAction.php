@@ -4,7 +4,7 @@ namespace App\Actions\Auth;
 
 use App\Entity\User;
 use App\Exceptions\AccountVerificationException;
-use App\Exceptions\Auth\InvalidEmailException;
+use App\Exceptions\User\UserNotFoundException;
 use App\Repositories\User\UserRepository;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +23,7 @@ final class LoginAction
         $userByEmail = $this->userRepository->getByEmail($request->getEmail());
 
         if (!$userByEmail) {
-            throw new InvalidEmailException('No account exists for ' . $request->getEmail());
+            throw new UserNotFoundException('No account exists for ' . $request->getEmail());
         }
 
         $user = $this->userRepository->getByVerifiedEmail($request->getEmail());
