@@ -1,6 +1,6 @@
 <template>
     <VToolbarTitle class="logo">
-        <RouterLink class="logo__link" :to="{ name: 'Home' }">
+        <RouterLink class="logo__link" :to="{ name: 'EventTypes' }">
             <img class="logo__image" :src="require('@/assets/logo.svg')" />
             <span class="logo__text">{{ lang.SCHEDULIA }}</span>
         </RouterLink>
