@@ -69,11 +69,6 @@ const routes = [
                         component: () => import('../views/EventTypes')
                     },
                     {
-                        path: 'home',
-                        name: 'Home',
-                        component: () => import('../views/Home')
-                    },
-                    {
                         path: 'status',
                         name: 'Status',
                         component: () => import('../views/Status')
