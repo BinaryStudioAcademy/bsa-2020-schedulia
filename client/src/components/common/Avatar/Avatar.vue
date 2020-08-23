@@ -1,5 +1,5 @@
 <template>
-    <VAvatar :size="avatarSize">
+    <VAvatar :size="size">
         <VImg v-if="this.user.avatar" :src="this.user.avatar"></VImg>
         <VIcon v-else :size="size" :color="color">
             mdi-account-circle
