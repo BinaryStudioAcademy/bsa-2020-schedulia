@@ -17,13 +17,17 @@ export default {
                 password,
                 oldPassword
             );
-            commit('loader/' + loaderMutations.SET_LOADING, false, { root: true });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
             return response?.data;
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
             });
-            commit('loader/' + loaderMutations.SET_LOADING, false, { root: true });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         }
     },
 
@@ -38,13 +42,17 @@ export default {
                 profileService.saveBranding(url);
                 commit(UPDATE_BRANDING_LOGO, url);
             }
-            commit('loader/' + loaderMutations.SET_LOADING, false, { root: true });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
             return response?.url;
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
             });
-            commit('loader/' + loaderMutations.SET_LOADING, false, { root: true });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         }
     },
 
@@ -56,13 +64,17 @@ export default {
             const url = response?.url;
 
             commit(UPDATE_AVATAR, url);
-            commit('loader/' + loaderMutations.SET_LOADING, false, { root: true });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
             return response?.url;
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
             });
-            commit('loader/' + loaderMutations.SET_LOADING, false, { root: true });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         }
     },
 
@@ -74,13 +86,17 @@ export default {
             const userData = response?.data?.data;
 
             commit(UPDATE_USER, userData);
-            commit('loader/' + loaderMutations.SET_LOADING, false, { root: true });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
             return userData;
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
             });
-            commit('loader/' + loaderMutations.SET_LOADING, false, { root: true });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         }
     },
 
@@ -90,13 +106,17 @@ export default {
             const response = await profileService.deleteProfile();
 
             commit(UPDATE_USER, {});
-            commit('loader/' + loaderMutations.SET_LOADING, false, { root: true });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
             return response?.data;
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
             });
-            commit('loader/' + loaderMutations.SET_LOADING, false, { root: true });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         }
     }
 };

@@ -42,12 +42,16 @@ export default {
                 id,
                 disabled
             });
-            commit('loader/' + loaderMutations.SET_LOADING, false, { root: true });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
             });
-            commit('loader/' + loaderMutations.SET_LOADING, false, { root: true });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         }
     },
     [actions.DELETE_EVENT_TYPE_BY_ID]: async (
@@ -58,12 +62,16 @@ export default {
         try {
             await eventTypesService.deleteEventTypeById(eventTypeId);
             commit(mutations.DELETE_EVENT_TYPE_BY_ID, eventTypeId);
-            commit('loader/' + loaderMutations.SET_LOADING, false, { root: true });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
             });
-            commit('loader/' + loaderMutations.SET_LOADING, false, { root: true });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         }
     }
 };
