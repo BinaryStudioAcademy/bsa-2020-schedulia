@@ -23,7 +23,7 @@ axios.interceptors.response.use(
         const nextError = new Error(allError?.message || error);
 
         if (allError.validator) {
-            const validatorError = new Object();
+            const validatorError = {};
 
             for (let errorName in allError.validator) {
                 validatorError[errorName] = allError.validator[errorName][0];
