@@ -14,7 +14,9 @@ use App\Entity\EventType;
 use App\Exceptions\Availability\AvailabilityValidationException;
 use App\Exceptions\Availability\EndTimeBeforeStartTimeException;
 use App\Exceptions\Availability\IntervalsOverlappedException;
+use App\Exceptions\Availability\TimeIsAlreadyBookedException;
 use App\Exceptions\Availability\UnknownAvailabilityTypeException;
+use App\Exceptions\Availability\WeekendException;
 use App\Repositories\Availability\AvailabilityRepository;
 use App\Repositories\Availability\Criterion\AvailabilitiesCriterion;
 use App\Repositories\Availability\Criterion\AvailabilityDateRangeCriterion;
@@ -46,7 +48,7 @@ final class AvailabilityService implements AvailabilityServiceInterface
     {
         $dateRangeAvailability = $availabilities->whereIn('type', AvailabilityTypes::getDateRangeTypes())->all();
         if (!count($dateRangeAvailability)) {
-            throw new AvailabilityValidationException("There must be availability with type 'date_range_*'");
+            throw new AvailabilityValidationException("There must be availability with type 'date_range*'");
         }
 
         foreach ($availabilities as $availability) {
@@ -107,14 +109,20 @@ final class AvailabilityService implements AvailabilityServiceInterface
         $time = new Carbon($dateObj->toTimeString());
 
         $dateTimeList = $this->getAvailableDaysByEventType($eventType, $date);
-        if (isset($dateTimeList[$date])) {
+        if (!empty($dateTimeList[$date])) {
             foreach ($dateTimeList[$date] as $index => $interval) {
                 if ($time->gte($interval['start_time']) && $time->lte($interval['end_time'])) {
-                    if (!in_array($time, $interval['unavailable'])) {
+                    if (!in_array($time->toTimeString(), $interval['unavailable'])) {
                         return true;
+                    } else {
+                        throw new TimeIsAlreadyBookedException();
                     }
                 }
             }
+        }
+
+        if (isset($dateTimeList[$date]) && $dateObj->isWeekend() && empty($dateTimeList[$date])) {
+            throw new WeekendException();
         }
         return false;
     }
@@ -195,10 +203,12 @@ final class AvailabilityService implements AvailabilityServiceInterface
             throw new UnknownAvailabilityTypeException();
         }
 
-        if ($availability->type !== AvailabilityTypes::DATE_RANGE && $differenceInDays >= 1) {
-            if ($differenceInDays === 1 && $endTime !== self::MIDNIGHT_TIME) {
+        if (!in_array($availability->type, AvailabilityTypes::getDateRangeTypes()) && $differenceInDays >= 1) {
+            if ($differenceInDays === 1 && $endTime !== self::MIDNIGHT_TIME || $differenceInDays > 1) {
                 throw new AvailabilityValidationException("Date for Availability with type '{$availability->type}' must be from one day!");
             }
+
+
         }
     }
 
