@@ -34,12 +34,30 @@ class LoginTest extends TestCase
         );
     }
 
-    public function test_login_with_invalid_data_return_error()
+    public function test_login_with_invalid_email_return_error()
     {
         $user = factory(User::class)->create([
             'password' => Hash::make('123456789'),
             'timezone' => 'Europe/Amsterdam'
         ]);
+
+        $wrongEmail = 'error@gmail.com';
+
+        $response = $this->json('POST', '/api/v1/auth/login', [
+            'email' => $wrongEmail,
+            'password' => '123456789'
+        ]);
+
+        $response->assertStatus(404)
+        ->assertJson(['error'=>['message' => 'No account exists for ' . $wrongEmail]]);
+    }
+
+    public function test_login_with_invalid_password_return_error()
+    {
+        $user = factory(User::class)->create([
+                                                 'password' => Hash::make('123456789'),
+                                                 'timezone' => 'Europe/Amsterdam'
+                                             ]);
 
         $response = $this->json('POST', '/api/v1/auth/login', [
             'email' => $user->email,
@@ -47,7 +65,7 @@ class LoginTest extends TestCase
         ]);
 
         $response->assertStatus(401)
-        ->assertJson(['error'=>['message' => 'Unauthenticated.']]);
+            ->assertJson(['error'=>['message' => 'Invalid email or password']]);
     }
 
     public function test_token_expired()
