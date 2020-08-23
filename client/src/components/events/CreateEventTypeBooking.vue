@@ -864,6 +864,7 @@ import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
 import * as eventTypeActions from '@/store/modules/eventType/types/actions';
 import moment from 'moment';
 import AvailabilityDialog from '@/components/events/AvailabilityDialog';
+import * as errorModule from '@/store/modules/notification/types/actions';
 export default {
     name: 'CreateEventTypeBooking',
     components: {
@@ -1110,6 +1111,9 @@ export default {
         }),
         ...mapActions('eventType', {
             addEventType: eventTypeActions.ADD_EVENT_TYPE
+        }),
+        ...mapActions('notification', {
+            showErrorMessage: errorModule.SET_ERROR_NOTIFICATION
         }),
         clickNext() {
             this.defaultPanel = 1;
