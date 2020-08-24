@@ -27,7 +27,7 @@
                 v-for="eventType in eventTypes"
                 :key="eventType.id"
             >
-                <EventType :eventType="eventType"/>
+                <EventType :eventType="eventType" />
             </VCol>
         </div>
         <NoEventTypes v-else />
