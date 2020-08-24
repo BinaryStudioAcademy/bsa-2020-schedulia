@@ -259,7 +259,9 @@ export default {
     NO_PENDING_EVENTS: 'No Pending Events',
     NO_PAST_EVENTS: 'No Past Events',
 
-    ACCOUNT_VERIFIED: 'Your account has been activated. Please, ',
+    ACCOUNT_VERIFIED: 'Your account has been activated.',
+    ACCOUNT_VERIFIED_REDIRECT:
+        'You will be redirected to the login page in 7 seconds or you can click on ',
     SEND_VERIFICATION_EMAIL:
         'We sent you an email, please, verify your account!',
 
@@ -334,5 +336,8 @@ export default {
     EXPLANATION_PASSWORD_RESET:
         'Go to the SignIn page and use your new password to authenticate on the site.',
     INVITEES_WILL_BE_OFFERED_INDEFINITELY:
-        'Your invitees will be offered availability indefinitely into the future. '
+        'Your invitees will be offered availability indefinitely into the future. ',
+    YOU_CAN_CHANGE_LANGUAGE_TO: 'Your can change language to',
+    DISPLAY_LANGUAGE: 'Display language',
+    MY_EVENTS: 'My Events'
 };

@@ -104,7 +104,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import Tooltip from '@/components/tooltip/TooltipIcon.vue';
 
 export default {
@@ -113,7 +113,6 @@ export default {
         Tooltip
     },
     data: () => ({
-        lang: enLang,
         file: null,
         newLogo: null,
         errorMessage: ''
@@ -124,6 +123,9 @@ export default {
     },
 
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('auth', {
             user: 'getLoggedUser'
         }),

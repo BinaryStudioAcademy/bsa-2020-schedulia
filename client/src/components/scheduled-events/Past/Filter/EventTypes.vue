@@ -122,7 +122,7 @@ import { mapGetters, mapActions } from 'vuex';
 import { GET_FILTER_SCHEDULED_EVENTS_TYPES } from '@/store/modules/scheduledEvent/types/getters';
 import * as scheduledEventActions from '@/store/modules/scheduledEvent/types/actions';
 import * as notificationActions from '@/store/modules/notification/types/actions';
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 
 export default {
     name: 'EventTypes',
@@ -135,8 +135,7 @@ export default {
             moreEventTypes: false,
             scheduledEventFilter: {
                 eventTypes: []
-            },
-            lang: enLang
+            }
         };
     },
 
@@ -149,6 +148,9 @@ export default {
     },
 
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('scheduledEvent', {
             filterScheduledEventsTypes: GET_FILTER_SCHEDULED_EVENTS_TYPES
         }),

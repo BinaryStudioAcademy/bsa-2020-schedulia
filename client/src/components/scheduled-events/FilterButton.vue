@@ -36,18 +36,19 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { GET_SCHEDULED_EVENT_FILTER_VIEW } from '@/store/modules/scheduledEvent/types/getters';
 import { SET_SCHEDULED_EVENT_FILTER_VIEW } from '@/store/modules/scheduledEvent/types/actions';
 
 export default {
     name: 'FilterButton',
 
-    data: () => ({
-        lang: enLang
-    }),
+    data: () => ({}),
 
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('scheduledEvent', {
             scheduledEventsFilterView: GET_SCHEDULED_EVENT_FILTER_VIEW
         })
