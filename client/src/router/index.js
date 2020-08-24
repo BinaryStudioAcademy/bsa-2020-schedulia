@@ -102,7 +102,7 @@ const routes = [
                         path: 'scheduled-events',
                         name: 'ScheduledEvents',
                         component: () => import('../views/ScheduledEvents')
-                    },
+                    }
                 ]
             },
 
