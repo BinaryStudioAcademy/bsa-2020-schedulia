@@ -9,7 +9,7 @@
                                 <VTab
                                     v-for="item in tabs"
                                     :key="item.tab"
-                                    :to="item.route"
+                                    :to="{ name: item.routeName }"
                                 >
                                     {{ item.title }}
                                 </VTab>
@@ -55,6 +55,10 @@ export default {
 
     &__container {
         padding: 0;
+    }
+
+    .v-tab--active[aria-selected=false] {
+        color: rgba(0, 0, 0, 0.54);
     }
 }
 .v-tab {

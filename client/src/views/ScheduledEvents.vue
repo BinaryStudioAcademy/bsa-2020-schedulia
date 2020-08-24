@@ -4,14 +4,14 @@
             {{ lang.MY_EVENTS }}
         </template>
         <TabsLink :tabs="tabs"></TabsLink>
-        <ScheduledEventsList />
+        <UpcomingScheduledEventsList />
     </GeneralLayout>
 </template>
 
 <script>
 import GeneralLayout from '@/components/common/GeneralLayout/GeneralLayout';
 import TabsLink from '@/components/tabs/TabsLink.vue';
-import ScheduledEventsList from '@/components/scheduled-events/ScheduledEventsList';
+import UpcomingScheduledEventsList from '@/components/scheduled-events/UpcomingScheduledEventsList';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapGetters } from 'vuex';
 
@@ -19,7 +19,7 @@ export default {
     name: 'ScheduledEvents',
     components: {
         GeneralLayout,
-        ScheduledEventsList,
+        UpcomingScheduledEventsList,
         TabsLink
     },
     data: () => ({}),
@@ -31,11 +31,11 @@ export default {
             return [
                 {
                     title: this.lang.EVENT_TYPES,
-                    route: '/'
+                    routeName: 'EventTypes'
                 },
                 {
                     title: this.lang.SCHEDULED_EVENTS,
-                    route: '/scheduled-events'
+                    routeName: 'Upcoming'
                 }
             ];
         }

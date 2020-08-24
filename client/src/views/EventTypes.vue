@@ -31,11 +31,11 @@ export default {
             return [
                 {
                     title: this.lang.EVENT_TYPES,
-                    route: '/'
+                    routeName: 'EventTypes'
                 },
                 {
                     title: this.lang.SCHEDULED_EVENTS,
-                    route: '/scheduled-events'
+                    routeName: 'Upcoming'
                 }
             ];
         }
