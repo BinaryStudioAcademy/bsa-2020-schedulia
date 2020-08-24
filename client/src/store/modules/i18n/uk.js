@@ -250,5 +250,13 @@ export default {
     YOU_WILL_WANT_TO_ADD_EVENT_TYPE:
         'Ви захочете додати тип події, щоб люди могли планувати з\n            вами.',
     YOU_CAN_CHANGE_LANGUAGE_TO: 'Ви можете змінити мову на',
-    DISPLAY_LANGUAGE: 'Мова відображення'
+    DISPLAY_LANGUAGE: 'Мова відображення',
+    MY_CALENDAR_ACOOUNT: 'Мій обліковий запис календаря',
+    CONNECT_YOUR_CALENDAR_TEXT:
+        'Підключіть свій календар, щоб повідомити Schedulia, коли ви доступні, і оновіть свій календар, як заплановані події.',
+
+    YOU_DONT_HAVE_ANY_CONNECTED_CALENDARS:
+        'У вас ще немає підключених календарів ',
+    CALENDAR_CONNECTIONS: 'Підключення до календаря',
+    ADD_CALENDAR_ACCOUNT: 'Додати обліковий запис календаря'
 };

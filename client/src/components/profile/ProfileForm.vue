@@ -151,7 +151,7 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapActions, mapGetters } from 'vuex';
 import ProfileTextField from './ProfileTextField.vue';
 import ProfileTextArea from './ProfileTextArea.vue';
@@ -171,7 +171,6 @@ export default {
         TimeZoneSelect
     },
     data: () => ({
-        lang: enLang,
         file: null,
         newAvatar: null,
         errorMessage: '',
@@ -186,12 +185,6 @@ export default {
             country: '',
             timeZone: null
         },
-
-        languages: [
-            { value: 'en', text: enLang.ENGLISH },
-            { value: 'de', text: enLang.GERMAN },
-            { value: 'ua', text: enLang.UKRAINIAN }
-        ],
         dateFormats: [
             { value: 'american', text: 'MM/DD/YYYY' },
             { value: 'european_standard', text: 'DD/MM/YYYY' }
@@ -207,6 +200,10 @@ export default {
     },
 
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS,
+            languages: i18nGetters.GET_LANGUAGE_LIST
+        }),
         ...mapGetters('auth', {
             user: 'getLoggedUser'
         }),

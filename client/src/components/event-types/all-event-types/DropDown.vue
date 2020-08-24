@@ -75,9 +75,9 @@
 
 <script>
 import * as actions from '@/store/modules/eventTypes/types/actions';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import DeleteConfirmDialog from '@/components/event-types/all-event-types/DeleteConfirmDialog';
-import enLang from '@/store/modules/i18n/en';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 
 export default {
     name: 'DropDown',
@@ -85,7 +85,6 @@ export default {
         DeleteConfirmDialog
     },
     data: () => ({
-        lang: enLang,
         disabled: '',
         dialog: false
     }),
@@ -107,6 +106,11 @@ export default {
                 disabled: this.disabled
             });
         }
+    },
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        })
     }
 };
 </script>

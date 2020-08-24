@@ -211,7 +211,7 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapGetters, mapMutations } from 'vuex';
 import * as eventTypeMutations from '@/store/modules/eventType/types/mutations';
 import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
@@ -220,7 +220,6 @@ export default {
     name: 'CreateEventTypeForm',
     data() {
         return {
-            lang: enLang,
             cancelDialog: false,
             form: {
                 name: '',
@@ -319,6 +318,9 @@ export default {
     },
 
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('eventType', {
             getEventTypeForm: eventTypeGetters.GET_EVENT_TYPE_FORM
         }),

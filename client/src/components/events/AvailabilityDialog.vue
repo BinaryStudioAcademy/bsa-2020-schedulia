@@ -106,7 +106,8 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import { mapGetters } from 'vuex';
 export default {
     name: 'AvailabilityDialog',
     props: {
@@ -117,7 +118,6 @@ export default {
     },
     data() {
         return {
-            lang: enLang,
             form: {
                 type: 'period',
                 value: 60,
@@ -156,6 +156,9 @@ export default {
     },
 
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         type() {
             return this.form.type || this.range.type;
         },

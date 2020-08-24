@@ -12,16 +12,13 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en.js';
 import { mapGetters } from 'vuex';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 
 export default {
     name: 'ExportButton',
 
-    data: () => ({
-        lang: enLang
-    }),
+    data: () => ({}),
     computed: {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS

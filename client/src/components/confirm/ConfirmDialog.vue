@@ -33,7 +33,8 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'ConfirmDialog',
@@ -52,8 +53,7 @@ export default {
         }
     },
     data: () => ({
-        dialog: false,
-        lang: enLang
+        dialog: false
     }),
 
     methods: {
@@ -61,6 +61,11 @@ export default {
             this.$emit('confirm');
             this.dialog = false;
         }
+    },
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        })
     }
 };
 </script>
