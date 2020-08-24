@@ -4,22 +4,22 @@
             {{ lang.MY_EVENTS }}
         </template>
         <TabsLink :tabs="tabs"></TabsLink>
-        <EventTypesList />
+        <ScheduledEventsList />
     </GeneralLayout>
 </template>
 
 <script>
 import GeneralLayout from '@/components/common/GeneralLayout/GeneralLayout';
 import TabsLink from '@/components/tabs/TabsLink.vue';
-import EventTypesList from '@/components/event-types/EventTypesList';
+import ScheduledEventsList from '@/components/scheduled-events/ScheduledEventsList';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapGetters } from 'vuex';
 
 export default {
-    name: 'EventTypes',
+    name: 'ScheduledEvents',
     components: {
         GeneralLayout,
-        EventTypesList,
+        ScheduledEventsList,
         TabsLink
     },
     data: () => ({}),
