@@ -1,9 +1,9 @@
 <template>
     <div class="ml-5 mt-5">
-        <div>
-            <p v-show="textVisible">{{ lang.ACCOUNT_IS_BEING_ACTIVATED }}</p>
+        <div v-if="textVisible === true">
+            <p>{{ lang.ACCOUNT_IS_BEING_ACTIVATED }}</p>
         </div>
-        <div v-if="textVisible === false" class="d-flex">
+        <div v-else class="d-flex">
             <p class="mr-2">{{ lang.ACCOUNT_VERIFIED }}</p>
             <RouterLink :to="{ name: 'SignIn' }">{{ lang.LOGIN }}</RouterLink>
         </div>
