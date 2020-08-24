@@ -69,8 +69,8 @@
 <script>
 import * as actions from '@/store/modules/auth/types/actions';
 import * as mutations from '@/store/modules/auth/types/mutations';
-import { mapActions, mapState, mapMutations } from 'vuex';
-import enLang from '@/store/modules/i18n/en';
+import { mapActions, mapState, mapMutations, mapGetters } from 'vuex';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { validationMixin } from 'vuelidate';
 import { required, minLength, sameAs } from 'vuelidate/lib/validators';
 import * as notificationActions from '@/store/modules/notification/types/actions';
@@ -87,7 +87,6 @@ export default {
     },
     components: { ExplanationAlert },
     data: () => ({
-        lang: enLang,
         showPassword: false
     }),
     methods: {
@@ -135,6 +134,9 @@ export default {
         }
     },
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapState('auth', ['resetPasswordData']),
         passwordErrors() {
             const errors = [];

@@ -42,13 +42,12 @@
 <script>
 import DropDown from '@/components/event-types/all-event-types/DropDown';
 import Avatar from '@/components/common/Avatar/Avatar';
-import enLang from '@/store/modules/i18n/en';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'EventType',
-    data: () => ({
-        lang: enLang
-    }),
+    data: () => ({}),
     props: {
         eventType: {
             required: true
@@ -59,6 +58,9 @@ export default {
         Avatar
     },
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         isDisabled() {
             return this.eventType.disabled;
         },

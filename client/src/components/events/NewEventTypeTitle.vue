@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapGetters, mapMutations } from 'vuex';
 import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
 import * as eventTypeMutations from '@/store/modules/eventType/types/mutations';
@@ -43,11 +43,12 @@ export default {
     name: 'NewEventTypeCard',
 
     data() {
-        return {
-            lang: enLang
-        };
+        return {};
     },
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('eventType', {
             eventTypeForm: eventTypeGetters.GET_EVENT_TYPE_FORM
         })
