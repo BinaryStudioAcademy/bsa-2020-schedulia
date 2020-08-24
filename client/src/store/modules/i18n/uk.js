@@ -1,7 +1,9 @@
 export default {
     ACCOUNT_IS_BEING_ACTIVATED: 'Ваш аккаунт активується ...',
     ACCOUNT_SETTING: 'Налаштування профілю',
-    ACCOUNT_VERIFIED: 'Ваш аккаунт активовано. Будь ласка, ',
+    ACCOUNT_VERIFIED: 'Ваш аккаунт активовано.',
+    ACCOUNT_VERIFIED_REDIRECT:
+        'Через 7 секунд вас буде переспрямовано на сторінку входу, або ви можете натиснути на ',
     ADDITIONAL_INFO: 'Додаткова інформація',
     ADDITIONAL_INFO_DESCRIPTION:
         'Будь ласка, поділіться будь-чим, що допоможе підготуватися до нашої зустрічі',
