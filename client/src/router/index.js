@@ -22,17 +22,17 @@ const routes = [
                 component: () => import('../views/SignUp')
             },
             {
-                path: 'event',
+                path: ':owner/:id',
                 name: 'PublicEvent',
                 component: () => import('../views/PublicEvent.vue')
             },
             {
-                path: 'confirm-event',
+                path: ':owner/:id/:date',
                 name: 'PublicEventConfirm',
                 component: () => import('../views/PublicEventConfirm.vue')
             },
             {
-                path: 'event-details',
+                path: ':owner/:id/invitee/details',
                 name: 'PublicEventDetails',
                 component: () => import('../views/PublicEventDetails.vue')
             },

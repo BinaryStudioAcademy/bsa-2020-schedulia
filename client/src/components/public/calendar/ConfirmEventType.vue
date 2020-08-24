@@ -9,7 +9,7 @@
                 :duration="eventType.duration"
                 :location="eventType.location"
                 :description="eventType.description"
-                :startDate="publicEvent.startDate"
+                :startDate="startDateFormatted"
                 :timezone="publicEvent.timezone"
                 :lang="lang"
             />
@@ -48,9 +48,9 @@
                     </VCol>
 
                     <VCol cols="12" sm="12" md="10" class="pa-0">
-                        <label for="additional-info">
-                            {{ lang.ADDITIONAL_INFO_DESCRIPTION }}
-                        </label>
+                        <label for="additional-info">{{
+                            lang.ADDITIONAL_INFO_DESCRIPTION
+                        }}</label>
                         <VTextarea
                             id="additional-info"
                             :placeholder="lang.ADDITIONAL_INFO"
@@ -86,6 +86,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import enLang from '@/store/modules/i18n/en';
 import * as getters from '@/store/modules/publicEvent/types/getters';
 import { mapGetters } from 'vuex';
@@ -151,13 +152,20 @@ export default {
         ...mapGetters('publicEvent', {
             eventType: getters.GET_EVENT_TYPE,
             publicEvent: getters.GET_PUBLIC_EVENT
-        })
+        }),
+        startDateFormatted() {
+            return moment(this.publicEvent.startDate).format(
+                'dddd, YYYY-MM-DD, HH:mm'
+            );
+        }
     },
     methods: {
         onScheduleEvent() {
             this.$refs.form.validate();
             if (this.formValid) {
-                this.$router.push({ name: 'PublicEventDetails' });
+                this.$router.push({
+                    path: `/${this.eventType.owner.name}/${this.eventType.id}/invitee/details`
+                });
             }
         }
     }

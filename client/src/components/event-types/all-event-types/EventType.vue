@@ -10,8 +10,9 @@
         <div class="event-type-content">
             <h3>{{ eventType.name }}</h3>
             <span class="event-type-about"
-                >{{ eventType.duration }} {{ lang.MINS }}, {{ eventType.type }}
-            </span>
+                >{{ eventType.duration }} {{ lang.MINS }},
+                {{ eventType.type }}</span
+            >
         </div>
         <div class="event-type-invitee mt-9 mb-2">
             <Avatar :disabled="isDisabled" :size="24"></Avatar>
@@ -19,9 +20,11 @@
         <VDivider />
         <VRow class="event-type-actions">
             <VCol class="duration text-left" cols="4">
-                <RouterLink :to="{ name: 'PublicEvent' }">
-                    <span>/{{ eventType.slug }}</span></RouterLink
+                <RouterLink
+                    :to="{ path: `/${eventType.owner.name}/${eventType.id}` }"
                 >
+                    <span>/{{ eventType.slug }}</span>
+                </RouterLink>
             </VCol>
             <VCol class="text-right" cols="8">
                 <VBtn
@@ -32,7 +35,7 @@
                     :disabled="isDisabled"
                 >
                     {{ lang.COPY_LINK }}
-                    <VIcon right dark>mdi-vector-arrange-below </VIcon>
+                    <VIcon right dark>mdi-vector-arrange-below</VIcon>
                 </VBtn>
             </VCol>
         </VRow>

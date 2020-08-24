@@ -48,9 +48,9 @@
                     <template v-slot:prepend-item>
                         <VListItem>
                             <VListItemContent>
-                                <VListItemTitle>{{
-                                    lang.CHOOSE_YOUR_TIMEZONE
-                                }}</VListItemTitle>
+                                <VListItemTitle>
+                                    {{ lang.CHOOSE_YOUR_TIMEZONE }}
+                                </VListItemTitle>
                                 <VTextField
                                     v-model="timezoneFieldSearch"
                                     label="Enter timezone"
@@ -131,7 +131,7 @@ export default {
         AutoFillSpacer
     },
     async mounted() {
-        await this.getEventTypeById(5);
+        await this.getEventTypeById(this.$route.params.id);
 
         this.currentTimezoneTime = this.getFormattedTimezoneTime(
             this.currentTimezone
@@ -305,14 +305,25 @@ export default {
         ...mapMutations('publicEvent', {
             setPublicEvent: mutations.SET_PUBLIC_EVENT
         }),
+        getStartDate(time) {
+            return `${momentTimezones(
+                `${this.date} ${time}`,
+                'YYYY-MM-DD HH:mm'
+            )
+                .tz(this.currentTimezone)
+                .format()}`;
+        },
         onConfirmDate(time) {
             this.setPublicEvent({
                 eventTypeId: this.eventType.id,
-                startDate: `${this.date} ${time}`,
+                startDate: this.getStartDate(time),
                 timezone: this.currentTimezone
             });
+
             this.$router.push({
-                name: 'PublicEventConfirm'
+                path: `/${this.eventType.owner.name}/${
+                    this.eventType.id
+                }/${this.getStartDate(time)}`
             });
         },
         getFormattedTimezoneTime(timezone) {
