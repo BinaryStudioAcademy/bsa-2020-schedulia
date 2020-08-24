@@ -856,7 +856,7 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import momentTimezone from 'moment-timezone';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import * as eventTypeMutations from '@/store/modules/eventType/types/mutations';
@@ -864,6 +864,7 @@ import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
 import * as eventTypeActions from '@/store/modules/eventType/types/actions';
 import moment from 'moment';
 import AvailabilityDialog from '@/components/events/AvailabilityDialog';
+import * as errorModule from '@/store/modules/notification/types/actions';
 export default {
     name: 'CreateEventTypeBooking',
     components: {
@@ -871,7 +872,6 @@ export default {
     },
     data() {
         return {
-            lang: enLang,
             customDuration: '',
             cancelDialog: false,
             availabilityDialog: false,
@@ -1002,6 +1002,9 @@ export default {
     },
 
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('eventType', {
             eventTypeForm: eventTypeGetters.GET_EVENT_TYPE_FORM
         }),
@@ -1110,6 +1113,9 @@ export default {
         }),
         ...mapActions('eventType', {
             addEventType: eventTypeActions.ADD_EVENT_TYPE
+        }),
+        ...mapActions('notification', {
+            showErrorMessage: errorModule.SET_ERROR_NOTIFICATION
         }),
         clickNext() {
             this.defaultPanel = 1;

@@ -95,13 +95,12 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en';
-import { mapActions } from 'vuex';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'LoginForm',
     data: () => ({
-        lang: enLang,
         password: '',
         newPassword: '',
         matchPassword: '',
@@ -115,6 +114,9 @@ export default {
     }),
 
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         validateForm() {
             return (
                 this.confirmPassword() === true &&

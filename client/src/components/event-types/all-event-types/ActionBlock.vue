@@ -32,16 +32,17 @@
 import * as getters from '@/store/modules/auth/types/getters';
 import { mapGetters } from 'vuex';
 import Avatar from '@/components/common/Avatar/Avatar';
-import enLang from '@/store/modules/i18n/en';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 export default {
     name: 'ActionBlock',
-    data: () => ({
-        lang: enLang
-    }),
+    data: () => ({}),
     components: {
         Avatar
     },
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('auth', {
             user: getters.GET_LOGGED_USER
         })

@@ -22,15 +22,13 @@ import FilterList from './Filter/FilterList';
 import BorderBottom from '../../common/GeneralLayout/BorderBottom';
 import Event from '../Event';
 import NoEvents from '../NoEvents';
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import * as notificationActions from '@/store/modules/notification/types/actions';
 
 export default {
     name: 'Past',
 
-    data: () => ({
-        lang: enLang
-    }),
+    data: () => ({}),
 
     components: {
         NoEvents,
@@ -40,6 +38,9 @@ export default {
     },
 
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('scheduledEvent', {
             scheduledEventsFilterView:
                 scheduledEventGetters.GET_SCHEDULED_EVENT_FILTER_VIEW,

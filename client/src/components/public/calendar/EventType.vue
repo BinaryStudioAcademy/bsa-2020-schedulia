@@ -116,7 +116,7 @@
 <script>
 import moment from 'moment';
 import momentTimezones from 'moment-timezone';
-import enLang from '@/store/modules/i18n/en';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import EventInfo from './EventInfo';
 import AutoFillSpacer from './AutoFillSpacer';
 import * as actions from '@/store/modules/publicEvent/types/actions';
@@ -153,7 +153,6 @@ export default {
         }
     },
     data: () => ({
-        lang: enLang,
         isReady: false,
         currentTimezone: momentTimezones.tz.guess(),
         currentTimezoneTime: null,
@@ -163,6 +162,9 @@ export default {
     }),
 
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('publicEvent', {
             eventType: getters.GET_EVENT_TYPE
         }),

@@ -109,14 +109,13 @@
 
 <script>
 import BorderBottom from '@/components/common/GeneralLayout/BorderBottom';
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'Event',
 
-    data: () => ({
-        lang: enLang
-    }),
+    data: () => ({}),
 
     components: {
         BorderBottom
@@ -127,6 +126,12 @@ export default {
             type: Object,
             required: true
         }
+    },
+
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        })
     }
 };
 </script>
