@@ -31,6 +31,7 @@ export default {
     [actions.CHECK_IF_UNAUTHORIZED]: ({ dispatch }, error) => {
         if (error.response.status === 401) {
             authService.removeToken();
+            router.push({ name: 'SignUp' });
             router.push({ name: 'SignIn' });
             dispatch(
                 'notification/' + notifyActions.SET_ERROR_NOTIFICATION,

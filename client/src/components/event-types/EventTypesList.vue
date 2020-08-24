@@ -27,7 +27,7 @@
                 v-for="eventType in eventTypes"
                 :key="eventType.id"
             >
-                <EventType :eventType="eventType" />
+                <EventType :eventType="eventType"/>
             </VCol>
         </div>
         <NoEventTypes v-else />
@@ -37,6 +37,7 @@
                 class="ma-2 white--text"
                 @click="onLoadMore"
                 rounded
+                v-if="loadMoreActive"
             >
                 <VIcon left dark>mdi-plus</VIcon>
                 Load more
@@ -67,7 +68,8 @@ export default {
         searchRules: [
             v => v.length <= 250 || enLang.SEARCH_FIELD_MUST_BE_LESS_THAN
         ],
-        page: 1
+        page: 1,
+        loadMoreActive: true
     }),
     methods: {
         ...mapActions('eventTypes', {
@@ -77,8 +79,14 @@ export default {
             await this.fetchEventTypes({ searchString: this.searchString });
         },
         async onLoadMore() {
-            this.page += 1;
-            await this.fetchEventTypes({ page: this.page });
+            const eventTypes = await this.fetchEventTypes({
+                page: this.page + 1
+            });
+            if (eventTypes.length) {
+                this.page += 1;
+            } else {
+                this.loadMoreActive = false;
+            }
         }
     },
     async mounted() {
