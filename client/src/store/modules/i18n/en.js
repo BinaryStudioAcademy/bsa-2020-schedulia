@@ -259,7 +259,8 @@ export default {
     NO_PENDING_EVENTS: 'No Pending Events',
     NO_PAST_EVENTS: 'No Past Events',
 
-    ACCOUNT_VERIFIED: 'Your account has been activated. Please, ',
+    ACCOUNT_VERIFIED: 'Your account has been activated.',
+    PLEASE: 'Please, ',
     SEND_VERIFICATION_EMAIL:
         'We sent you an email, please, verify your account!',
 
