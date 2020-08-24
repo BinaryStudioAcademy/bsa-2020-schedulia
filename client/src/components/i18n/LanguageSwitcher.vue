@@ -30,9 +30,14 @@ export default {
     computed: {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS,
-            languageList: i18nGetters.GET_LANGUAGE_LIST,
             currentLanguage: i18nGetters.GET_CURRENT_LANGUAGE
-        })
+        }),
+        languageList() {
+            return [
+                { value: 'en', text: this.lang.ENGLISH },
+                { value: 'uk', text: this.lang.UKRAINIAN }
+            ];
+        }
     }
 };
 </script>
