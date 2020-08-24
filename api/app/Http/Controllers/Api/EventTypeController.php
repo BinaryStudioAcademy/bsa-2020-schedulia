@@ -48,11 +48,6 @@ class EventTypeController extends ApiController
             )
         );
 
-//        return $this->successResponse(
-//            $this->eventTypePresenter->presentCollection(
-//                $response->getEventTypeCollection()
-//            )
-//        );
         return $this->createPaginatedResponse(
             $response->getPaginator(),
             $this->eventTypePresenter
