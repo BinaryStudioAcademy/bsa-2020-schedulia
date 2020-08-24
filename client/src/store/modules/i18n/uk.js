@@ -258,5 +258,6 @@ export default {
     YOU_DONT_HAVE_ANY_CONNECTED_CALENDARS:
         'У вас ще немає підключених календарів ',
     CALENDAR_CONNECTIONS: 'Підключення до календаря',
-    ADD_CALENDAR_ACCOUNT: 'Додати обліковий запис календаря'
+    ADD_CALENDAR_ACCOUNT: 'Додати обліковий запис календаря',
+    MY_EVENTS: 'Мої події'
 };
