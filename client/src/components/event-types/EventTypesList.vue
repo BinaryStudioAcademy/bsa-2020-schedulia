@@ -36,7 +36,6 @@
                 color="primary"
                 class="ma-2 white--text"
                 @click="onLoadMore"
-                v-if="loadMoreDisabled"
                 rounded
             >
                 <VIcon left dark>mdi-plus</VIcon>
@@ -68,8 +67,7 @@ export default {
         searchRules: [
             v => v.length <= 250 || enLang.SEARCH_FIELD_MUST_BE_LESS_THAN
         ],
-        page: 1,
-        loadMoreDisabled: true
+        page: 1
     }),
     methods: {
         ...mapActions('eventTypes', {
@@ -79,11 +77,8 @@ export default {
             await this.fetchEventTypes({ searchString: this.searchString });
         },
         async onLoadMore() {
-            const lenBefore = Object.keys(this.eventTypes).length;
             this.page += 1;
             await this.fetchEventTypes({ page: this.page });
-            const lenAfter = Object.keys(this.eventTypes).length;
-            this.loadMoreDisabled = lenBefore !== lenAfter;
         }
     },
     async mounted() {
