@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 
 import UserDataProvider from '@/components/guard/UserDataProvider';
 import LoginGuard from '@/components/guard/LoginGuard';
+import AuthGuard from '@/components/guard/AuthGuard';
 
 Vue.use(VueRouter);
 
@@ -11,16 +12,6 @@ const routes = [
         path: '/',
         component: UserDataProvider,
         children: [
-            {
-                path: '',
-                name: 'SignIn',
-                component: () => import('../views/SignIn')
-            },
-            {
-                path: 'signup',
-                name: 'SignUp',
-                component: () => import('../views/SignUp')
-            },
             {
                 path: ':owner/:id',
                 name: 'PublicEvent',
@@ -41,16 +32,31 @@ const routes = [
                 name: 'DisabledEvent',
                 component: () => import('../views/DisabledEvent.vue')
             },
-
             {
-                path: 'forgot-password',
-                name: 'ForgotPassword',
-                component: () => import('../views/ForgotPassword')
-            },
-            {
-                path: 'reset-password',
-                name: 'ResetPassword',
-                component: () => import('../views/ResetPassword')
+                path: '',
+                component: AuthGuard,
+                children: [
+                    {
+                        path: '',
+                        name: 'SignIn',
+                        component: () => import('../views/SignIn')
+                    },
+                    {
+                        path: 'sign-up',
+                        name: 'SignUp',
+                        component: () => import('../views/SignUp')
+                    },
+                    {
+                        path: 'forgot-password',
+                        name: 'ForgotPassword',
+                        component: () => import('../views/ForgotPassword')
+                    },
+                    {
+                        path: 'reset-password',
+                        name: 'ResetPassword',
+                        component: () => import('../views/ResetPassword')
+                    }
+                ]
             },
             {
                 path: '',
@@ -58,9 +64,9 @@ const routes = [
                 children: [
                     // There must be routes which need logged user
                     {
-                        path: 'home',
-                        name: 'Home',
-                        component: () => import('../views/Home')
+                        path: '',
+                        name: 'EventTypes',
+                        component: () => import('../views/EventTypes')
                     },
                     {
                         path: 'status',
@@ -77,28 +83,19 @@ const routes = [
                         name: 'Profile',
                         component: () => import('../views/Profile')
                     },
-
                     {
                         path: 'calendar-connections',
                         name: 'CalendarConnections',
                         component: () => import('../views/CalendarConnections')
                     },
-
-                    {
-                        path: 'event-types',
-                        name: 'EventTypes',
-                        component: () => import('../views/EventTypes')
-                    },
-
                     {
                         path: 'new-event',
-                        name: 'new-event',
+                        name: 'newEvent',
                         component: () => import('../views/NewEventType')
                     },
-
                     {
                         path: 'new-event-edit',
-                        name: 'new-event-edit',
+                        name: 'newEventEdit',
                         component: () => import('../views/NewEventTypeBooking')
                     }
                 ]

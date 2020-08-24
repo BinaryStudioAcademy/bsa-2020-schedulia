@@ -23,6 +23,10 @@ class ResetPasswordLinkMail extends Mailable
     {
         return (new MailMessage())
             ->subject(Lang::get('Reset Password from Schedulia'))
-            ->view('emails.sendLinkResetPassword', ['linkReset' =>$linkReset, 'count'=>$count]);
+            ->line(Lang::get('We’ve received a request to reset your password. If you didn’t make the
+        request, just ignore this email.'))
+            ->line(Lang::get('Otherwise, you can reset your password using this link:'))
+            ->action(Lang::get('Begin process of changing password'), $linkReset)
+            ->line(Lang::get('Thanks, The Schedulia Team'));
     }
 }

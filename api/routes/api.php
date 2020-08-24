@@ -45,6 +45,7 @@ Route::group([
         'prefix' => '/event-types',
     ], function () {
         Route::post('/', 'EventTypeController@store');
+        Route::get('/{id}', 'EventTypeController@getEventTypeById');
         Route::put('/{id}', 'EventTypeController@update');
         Route::put('/{id}/disabled', 'EventTypeController@changeDisabledById');
         Route::delete('/{id}', 'EventTypeController@destroy');
@@ -56,6 +57,8 @@ Route::group([
         Route::get('/{id}', 'EventTypeController@getEventTypeById');
     });
 });
+
+Route::get('/event-types/{id}/availabilities', 'Api\\EventTypeController@getAvailableTime');
 
 Route::group([
     'namespace' => 'Api\\',

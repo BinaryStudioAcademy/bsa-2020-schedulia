@@ -5,22 +5,25 @@
                 <VExpansionPanel>
                     <VExpansionPanelHeader>
                         <VRow align="center">
-                            <VCol cols="1">
+                            <VCol cols="2" md="1" sm="1" lg="1">
                                 <div>
                                     <img
                                         :src="colorById[color].image"
                                         alt=""
-                                        class="pl-10"
+                                        :class="{
+                                            'pl-3': $vuetify.breakpoint.xs,
+                                            'pl-10': $vuetify.breakpoint.smAndUp
+                                        }"
                                     />
                                 </div>
                             </VCol>
-                            <VCol class="pl-lg-5 pl-sm-10">
+                            <VCol cols="10" class="pl-lg-5 pl-sm-10">
                                 <div>
                                     <VCardTitle>
                                         {{ lang.CREATE_EVENT_TYPE_TITLE }}
                                     </VCardTitle>
                                     <VCardSubtitle>
-                                        {{ lang.CREATE_EVENT_TYPE_SUBTITLE }}
+                                        {{ name }}
                                     </VCardSubtitle>
                                 </div>
                             </VCol>
@@ -29,8 +32,15 @@
                     <VExpansionPanelContent>
                         <VDivider class="mx-4"></VDivider>
                         <VRow>
-                            <VCol cols="6" offset-md="2" offset-sm="2">
-                                <VForm class="mt-9 mb-16">
+                            <VCol
+                                cols="10"
+                                offset-sm="3"
+                                offset-md="3"
+                                md="6"
+                                sm="6"
+                                :class="{ 'ml-10': $vuetify.breakpoint.xs }"
+                            >
+                                <VForm class="mt-9 mb-16" ref="form">
                                     <div class="mb-2">
                                         <label>
                                             {{ lang.EVENT_NAME_LABEL }}*
@@ -59,6 +69,30 @@
                                         dense
                                         class="mb-3 app-textfield"
                                     >
+                                        <template
+                                            slot="selection"
+                                            slot-scope="data"
+                                        >
+                                            <VFlex xs2 md1>
+                                                <VIcon>
+                                                    {{ data.item.icon }}
+                                                </VIcon>
+                                            </VFlex>
+                                            <VFlex>
+                                                {{ data.item.title }}
+                                            </VFlex>
+                                        </template>
+
+                                        <template slot="item" slot-scope="data">
+                                            <VFlex xs2 md1>
+                                                <VIcon>
+                                                    {{ data.item.icon }}
+                                                </VIcon>
+                                            </VFlex>
+                                            <VFlex>
+                                                {{ data.item.title }}
+                                            </VFlex>
+                                        </template>
                                     </VSelect>
 
                                     <div class="mb-2">
@@ -105,7 +139,15 @@
                                                     :key="id"
                                                     :src="colorById[id].image"
                                                     alt=""
-                                                    class="mr-7 ml-3 image-circle"
+                                                    class=" image-circle"
+                                                    :class="{
+                                                        'mr-5':
+                                                            $vuetify.breakpoint
+                                                                .xs,
+                                                        'mr-7 ml-3':
+                                                            $vuetify.breakpoint
+                                                                .smAndUp
+                                                    }"
                                                     v-on:click="setColor(id)"
                                                 >
                                                     <VOverlay
@@ -125,16 +167,29 @@
                                             </div>
                                         </VRow>
                                     </div>
-                                    <div>
-                                        <VBtn
-                                            @click="clickNext"
-                                            color="primary"
-                                            class="white--text"
-                                            width="114"
-                                        >
-                                            {{ lang.NEXT }}
-                                        </VBtn>
-                                    </div>
+                                    <VRow>
+                                        <div>
+                                            <VBtn
+                                                text
+                                                outlined
+                                                width="114"
+                                                class="mr-3"
+                                                @click.stop="
+                                                    cancelDialog = true
+                                                "
+                                            >
+                                                {{ lang.CANCEL }}
+                                            </VBtn>
+                                            <VBtn
+                                                @click="saveEventType"
+                                                color="primary"
+                                                class="white--text"
+                                                width="114"
+                                            >
+                                                {{ lang.SAVE_AND_CLOSE }}
+                                            </VBtn>
+                                        </div>
+                                    </VRow>
                                 </VForm>
                             </VCol>
                         </VRow>
@@ -143,18 +198,21 @@
                 <VExpansionPanel>
                     <VExpansionPanelHeader>
                         <VRow align="center">
-                            <VCol cols="1">
+                            <VCol cols="2" md="1" sm="1" lg="1">
                                 <div>
                                     <img
                                         :src="
                                             require('@/assets/images/calender_circle.png')
                                         "
                                         alt=""
-                                        class="ml-10"
+                                        :class="{
+                                            'pl-3': $vuetify.breakpoint.xs,
+                                            'pl-10': $vuetify.breakpoint.smAndUp
+                                        }"
                                     />
                                 </div>
                             </VCol>
-                            <VCol class="pl-lg-5 pl-sm-10">
+                            <VCol cols="10" class="pl-lg-5 pl-sm-10">
                                 <div>
                                     <VCardTitle>
                                         {{ lang.WHEN_CAN_PEOPLE_BOOK_EVENT }}
@@ -169,7 +227,15 @@
                     <VExpansionPanelContent>
                         <VDivider class="mx-4"></VDivider>
                         <VRow>
-                            <VCol cols="7" offset-md="2" offset-sm="2">
+                            <VCol
+                                cols="10"
+                                offset-sm="2"
+                                offset-md="2"
+                                md="7"
+                                sm="6"
+                                lg="7"
+                                :class="{ 'ml-10': $vuetify.breakpoint.xs }"
+                            >
                                 <VForm class="mt-9 mb-16">
                                     <VRow>
                                         <h3 class="app-label">
@@ -194,7 +260,8 @@
                                             >
                                             </VRadio>
                                         </VRadioGroup>
-                                        <p class="mr-3 app-text">
+
+                                        <p class="app-text mr-3">
                                             {{ lang.CUSTOM_DURATION }}
                                         </p>
                                         <VTextField
@@ -202,7 +269,7 @@
                                             @change="changeCustomDuration"
                                             outlined
                                             dense
-                                            class="shrink custom-textfield"
+                                            class="shrink ma-0 pa-0 custom-textfield"
                                             placeholder="0"
                                         >
                                         </VTextField>
@@ -213,20 +280,25 @@
                                         </h3>
                                     </VRow>
                                     <VRow class="mb-3" align="baseline">
-                                        <p class="mr-5 app-text">
+                                        <p
+                                            class="app-text"
+                                            :class="{
+                                                'mb-0': $vuetify.breakpoint.xs,
+                                                'mb-3':
+                                                    $vuetify.breakpoint.smAndUp
+                                            }"
+                                        >
                                             {{ lang.EVENTS_CAN_BE_SCHEDULED }}
                                             {{ dateDuration }}
                                         </p>
-                                        <VBtn
-                                            text
-                                            color="primary"
-                                            dark
+                                        <p
                                             @click.stop="
                                                 availabilityDialog = true
                                             "
+                                            class="edit-clicked ml-3 app-text"
                                         >
                                             {{ lang.EDIT }}
-                                        </VBtn>
+                                        </p>
                                     </VRow>
                                     <VRow class="mb-2">
                                         <h3 class="app-label">
@@ -238,18 +310,15 @@
                                             {{
                                                 lang.EVENT_TIME_ZONE_EXPLANATION
                                             }}
-                                            <VBtn
-                                                text
-                                                small
-                                                color="primary"
-                                                dark
+
+                                            <span
                                                 @click.stop="
                                                     timeZoneDialog = true
                                                 "
-                                                class="editTimeZoneButton ma-n2 pa-n3"
+                                                class="edit-clicked ml-3 app-text"
                                             >
                                                 {{ lang.EDIT }}
-                                            </VBtn>
+                                            </span>
                                         </p>
                                     </VRow>
                                     <VRow class="mb-5">
@@ -274,9 +343,11 @@
                                     <VRow>
                                         <VTabs v-model="tab">
                                             <VTabsSlider></VTabsSlider>
-                                            <VTab :href="'#tab-0'">{{
-                                                lang.HOURS
-                                            }}</VTab>
+                                            <VTab :href="'#tab-0'">
+                                                <span class="custom-text">{{
+                                                    lang.HOURS
+                                                }}</span>
+                                            </VTab>
                                             <VTabItem :value="'tab-0'">
                                                 <VRow class="fill-height">
                                                     <VCol>
@@ -425,12 +496,14 @@
                                                     </VCol>
                                                 </VRow>
                                             </VTabItem>
-                                            <VTab :href="'#tab-1'">{{
-                                                lang.ADVANCED
-                                            }}</VTab>
+                                            <VTab :href="'#tab-1'">
+                                                <span class="custom-text">{{
+                                                    lang.ADVANCED
+                                                }}</span>
+                                            </VTab>
                                             <VTabItem :value="'tab-1'">
                                                 <VRow class="pt-3">
-                                                    <VCol cols="5">
+                                                    <VCol cols="12" md="5">
                                                         <p
                                                             class="availability-label"
                                                         >
@@ -444,7 +517,7 @@
                                                             }}
                                                         </p>
                                                     </VCol>
-                                                    <VCol cols="5">
+                                                    <VCol cols="12" md="5">
                                                         <p>
                                                             {{
                                                                 lang.SHOW_AVAILABILITY_IN_INCREMENTS_OF
@@ -466,7 +539,7 @@
                                                     </VCol>
                                                 </VRow>
                                                 <VRow>
-                                                    <VCol cols="5">
+                                                    <VCol cols="12" md="5">
                                                         <p
                                                             class="availability-label"
                                                         >
@@ -480,7 +553,7 @@
                                                             }}
                                                         </p>
                                                     </VCol>
-                                                    <VCol cols="5">
+                                                    <VCol cols="12" md="5">
                                                         <p>
                                                             {{
                                                                 lang.MAX_NUMBER_OF_EVENTS_PER_DAY
@@ -499,7 +572,7 @@
                                                     </VCol>
                                                 </VRow>
                                                 <VRow>
-                                                    <VCol cols="5">
+                                                    <VCol cols="12" md="5">
                                                         <p
                                                             class="availability-label"
                                                         >
@@ -513,14 +586,17 @@
                                                             }}
                                                         </p>
                                                     </VCol>
-                                                    <VCol cols="5">
+                                                    <VCol cols="12" md="5">
                                                         <p>
                                                             {{
                                                                 lang.PREVENT_EVENTS_LESS_THAN
                                                             }}
                                                         </p>
                                                         <VRow align="baseline">
-                                                            <VCol>
+                                                            <VCol
+                                                                cols="3"
+                                                                md="5"
+                                                            >
                                                                 <VTextField
                                                                     v-model="
                                                                         preventEventsHours
@@ -550,6 +626,9 @@
                                                 outlined
                                                 width="114"
                                                 class="mr-3"
+                                                @click.stop="
+                                                    cancelDialog = true
+                                                "
                                             >
                                                 {{ lang.CANCEL }}
                                             </VBtn>
@@ -692,7 +771,7 @@
                                             @change="changeStartTime"
                                             outlined
                                             dense
-                                            placeholder="hh::mm"
+                                            placeholder="hh:mm"
                                         >
                                         </VTextField>
                                     </VRow>
@@ -717,7 +796,7 @@
                                             @change="changeEndTime"
                                             outlined
                                             dense
-                                            placeholder="hh::mm"
+                                            placeholder="hh:mm"
                                         >
                                         </VTextField>
                                     </VRow>
@@ -737,6 +816,42 @@
                 </VCard>
             </VDialog>
         </VRow>
+        <VRow>
+            <VDialog v-model="cancelDialog" width="380">
+                <VCard>
+                    <VCardTitle class="mb-5">
+                        <VRow justify="center">
+                            <h3>{{ lang.ARE_YOU_SURE }}</h3>
+                        </VRow>
+                    </VCardTitle>
+                    <VCardText>
+                        <VRow justify="center">
+                            <p>{{ lang.UNSAVE_CHANGES_WILL_BE_LOST }}</p>
+                        </VRow>
+                    </VCardText>
+                    <VCardActions class="justify-center">
+                        <div class="mb-5">
+                            <VBtn
+                                color="primary"
+                                class="white--text mr-3"
+                                width="114"
+                                :to="{ name: 'EventTypes' }"
+                            >
+                                {{ lang.YES }}
+                            </VBtn>
+                            <VBtn
+                                text
+                                outlined
+                                width="114"
+                                @click="cancelDialog = false"
+                            >
+                                {{ lang.NEVERMIND }}
+                            </VBtn>
+                        </div>
+                    </VCardActions>
+                </VCard>
+            </VDialog>
+        </VRow>
     </VContainer>
 </template>
 
@@ -749,6 +864,7 @@ import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
 import * as eventTypeActions from '@/store/modules/eventType/types/actions';
 import moment from 'moment';
 import AvailabilityDialog from '@/components/events/AvailabilityDialog';
+import * as errorModule from '@/store/modules/notification/types/actions';
 export default {
     name: 'CreateEventTypeBooking',
     components: {
@@ -758,6 +874,7 @@ export default {
         return {
             lang: enLang,
             customDuration: '',
+            cancelDialog: false,
             availabilityDialog: false,
             availabilityIncrementsSelected: '',
             maxEventsPerDay: '',
@@ -795,7 +912,20 @@ export default {
                 },
                 availabilities: {}
             },
-            items: ['address on the map', 'zoom', 'skype'],
+            items: [
+                {
+                    title: 'address on the map',
+                    icon: 'mdi-google-maps'
+                },
+                {
+                    title: 'zoom',
+                    icon: 'mdi-video-box'
+                },
+                {
+                    title: 'skype',
+                    icon: 'mdi-skype'
+                }
+            ],
             colorById: {
                 yellow: {
                     id: 'yellow',
@@ -821,7 +951,7 @@ export default {
                     v.length >= 2 ||
                     this.lang.EVENT_NAME_LABEL +
                         ' ' +
-                        this.lang.FIELD_MUST_BE_MORE_THAN_VALUE.replace(
+                        this.lang.FIELD_MUST_BE_VALUE_OR_MORE_THAN.replace(
                             'value',
                             2
                         ),
@@ -845,7 +975,16 @@ export default {
                             250
                         ),
                 v =>
-                    /[a-z]|[0-9]|-|_/.test(v) ||
+                    v.length >= 2 ||
+                    this.lang.EVENT_LINK_LABEL +
+                        ' ' +
+                        this.lang.FIELD_MUST_BE_VALUE_OR_MORE_THAN.replace(
+                            'value',
+                            2
+                        ),
+
+                v =>
+                    /^([a-z0-9]|-|_)+$/.test(v) ||
                     this.lang.EVENT_LINK_VALID_SYMBOLS
             ],
             descRules: [
@@ -973,6 +1112,9 @@ export default {
         ...mapActions('eventType', {
             addEventType: eventTypeActions.ADD_EVENT_TYPE
         }),
+        ...mapActions('notification', {
+            showErrorMessage: errorModule.SET_ERROR_NOTIFICATION
+        }),
         clickNext() {
             this.defaultPanel = 1;
             this.setEventTypeForm(this.form);
@@ -1051,6 +1193,10 @@ export default {
         },
         async saveEventType() {
             try {
+                if (!this.$refs.form.validate()) {
+                    return;
+                }
+
                 await this.addEventType({
                     ...this.form,
                     ...{
@@ -1077,7 +1223,6 @@ export default {
     padding-left: 20px;
     padding-top: 17px;
     width: 688px;
-    height: 72px;
 }
 
 .recommendation-block p {
@@ -1119,7 +1264,7 @@ export default {
 }
 
 .custom-textfield {
-    width: 61px;
+    width: 55px;
 }
 
 .v-btn {
@@ -1139,7 +1284,16 @@ export default {
     opacity: 0.9;
 }
 
+.custom-text {
+    text-transform: none;
+}
+
 /deep/ .v-dialog {
     overflow-x: hidden;
+}
+
+.edit-clicked {
+    cursor: pointer;
+    color: var(--v-primary-base);
 }
 </style>

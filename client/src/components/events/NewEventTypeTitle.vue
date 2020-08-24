@@ -1,6 +1,6 @@
 <template>
     <VRow class="justify-space-between">
-        <VCol cols="3">
+        <VCol cols="12" md="3" sm="3">
             <RouterLink :to="{ name: 'EventTypes' }" class="back-btn-link">
                 <VBtn outlined class="primary--text py-5 rounded-lg">
                     <VImg
@@ -13,12 +13,12 @@
                 </VBtn>
             </RouterLink>
         </VCol>
-        <VCol cols="6">
+        <VCol cols="12" md="6" sm="6">
             <h3 class="text-center">
                 Add One-on-One Event Type
             </h3>
         </VCol>
-        <VCol cols="3">
+        <VCol cols="12" md="3" sm="3">
             <VFlex row class="align-center justify-end">
                 <VSubheader class="app-subheader">
                     {{ lang.YOUR_EVENT_TYPE_IS }}
