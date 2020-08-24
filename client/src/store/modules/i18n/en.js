@@ -339,5 +339,6 @@ export default {
         'Your invitees will be offered availability indefinitely into the future. ',
     YOU_CAN_CHANGE_LANGUAGE_TO: 'Your can change language to',
     DISPLAY_LANGUAGE: 'Display language',
-    MY_EVENTS: 'My Events'
+    MY_EVENTS: 'My Events',
+    CONFIRM_NEW_PASSWORD: 'Confirm new password'
 };
