@@ -25,15 +25,20 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'Header',
 
     data: () => ({
-        lang: enLang,
         menuItems: ['ET_MENU_HOME', 'ET_MENU_EDIT_EVENT_TYPE']
-    })
+    }),
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        })
+    }
 };
 </script>
 

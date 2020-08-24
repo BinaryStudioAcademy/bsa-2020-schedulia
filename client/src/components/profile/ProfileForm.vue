@@ -67,6 +67,10 @@
                                     :items="languages"
                                     @change="onChangeHandle('language', $event)"
                                 />
+
+                                <ProfileDisplayLanguage
+                                    :label="lang.DISPLAY_LANGUAGE"
+                                />
                             </VCol>
 
                             <VCol lg="6" md="12">
@@ -147,17 +151,19 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapActions, mapGetters } from 'vuex';
 import ProfileTextField from './ProfileTextField.vue';
 import ProfileTextArea from './ProfileTextArea.vue';
 import ProfileSelect from './ProfileSelect.vue';
 import TimeZoneSelect from '@/components/common/form/TimeZoneSelect.vue';
 import ConfirmDialog from '@/components/confirm/ConfirmDialog.vue';
+import ProfileDisplayLanguage from './ProfileDisplayLanguage';
 
 export default {
     name: 'ProfileForm',
     components: {
+        ProfileDisplayLanguage,
         ProfileTextField,
         ProfileTextArea,
         ProfileSelect,
@@ -165,7 +171,6 @@ export default {
         TimeZoneSelect
     },
     data: () => ({
-        lang: enLang,
         file: null,
         newAvatar: null,
         errorMessage: '',
@@ -180,12 +185,6 @@ export default {
             country: '',
             timeZone: null
         },
-
-        languages: [
-            { value: 'en', text: enLang.ENGLISH },
-            { value: 'de', text: enLang.GERMAN },
-            { value: 'ua', text: enLang.UKRAINIAN }
-        ],
         dateFormats: [
             { value: 'american', text: 'MM/DD/YYYY' },
             { value: 'european_standard', text: 'DD/MM/YYYY' }
@@ -201,9 +200,19 @@ export default {
     },
 
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('auth', {
             user: 'getLoggedUser'
         }),
+        languages() {
+            return [
+                { value: 'en', text: this.lang.ENGLISH },
+                { value: 'de', text: this.lang.GERMAN },
+                { value: 'ua', text: this.lang.UKRAINIAN }
+            ];
+        },
 
         avatarIsNew() {
             return this.newAvatar !== this.userProfile.avatar;

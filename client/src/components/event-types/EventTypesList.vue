@@ -53,7 +53,7 @@ import NoEventTypes from '@/components/event-types/all-event-types/NoEventTypes'
 import * as actions from '@/store/modules/eventTypes/types/actions';
 import * as getters from '@/store/modules/eventTypes/types/getters';
 import { mapActions, mapGetters } from 'vuex';
-import enLang from '@/store/modules/i18n/en';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 
 export default {
     name: 'EventTypesList',
@@ -64,7 +64,6 @@ export default {
     },
     data: () => ({
         searchString: '',
-        lang: enLang,
         searchRules: [
             v => v.length <= 250 || enLang.SEARCH_FIELD_MUST_BE_LESS_THAN
         ],
@@ -90,6 +89,9 @@ export default {
         await this.fetchEventTypes();
     },
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('eventTypes', {
             eventTypes: getters.GET_ALL_EVENT_TYPES
         })

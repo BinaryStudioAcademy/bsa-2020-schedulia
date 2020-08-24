@@ -13,7 +13,8 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import { mapGetters } from 'vuex';
 export default {
     name: 'Alert',
     props: {
@@ -28,10 +29,12 @@ export default {
         }
     },
     data: () => ({
-        lang: enLang,
         alertVisible: false
     }),
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         color() {
             if (this.type.includes('success')) {
                 return 'green';

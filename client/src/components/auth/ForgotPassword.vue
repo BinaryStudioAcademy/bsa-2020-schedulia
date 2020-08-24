@@ -49,12 +49,12 @@
 <script>
 import * as actions from '@/store/modules/auth/types/actions';
 import * as mutations from '@/store/modules/auth/types/mutations';
-import { mapActions, mapMutations, mapState } from 'vuex';
-import enLang from '@/store/modules/i18n/en';
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex';
 import { validationMixin } from 'vuelidate';
 import { required, email } from 'vuelidate/lib/validators';
 import * as notificationActions from '@/store/modules/notification/types/actions';
 import ExplanationAlert from '../common/Alerts/ExplanationAlert';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 
 export default {
     name: 'ForgotPassword',
@@ -67,9 +67,7 @@ export default {
     components: {
         ExplanationAlert
     },
-    data: () => ({
-        lang: enLang
-    }),
+    data: () => ({}),
     methods: {
         ...mapMutations('auth', {
             changeHelperVisibilityForgot: mutations.SET_VISIBILITY_FORGOT,
@@ -103,6 +101,9 @@ export default {
         }
     },
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapState('auth', ['forgotPasswordData']),
         emailErrors() {
             const errors = [];
