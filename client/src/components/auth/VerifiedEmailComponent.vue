@@ -72,7 +72,6 @@ export default {
         color: rgba(0, 0, 0, 0.6);
         font-style: normal;
         font-weight: 500;
-        font-size: small;
         line-height: 16px;
 
         a {
