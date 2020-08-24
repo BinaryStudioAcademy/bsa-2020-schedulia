@@ -17,7 +17,7 @@ class EventTypesSeeder extends Seeder
 
         $owners->map(
             function (User $owner) {
-                return factory(EventType::class, 2)->create([
+                return factory(EventType::class, 10)->create([
                     'owner_id' => $owner->id,
                     'disabled' => false,
                 ]);
