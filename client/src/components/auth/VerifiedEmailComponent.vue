@@ -50,10 +50,7 @@ export default {
             await this.verifyEmail(this.$route.query);
             this.textVisible = false;
 
-            setTimeout(
-                () => this.$router.push({ name: 'SignIn' }),
-                7000
-            );
+            setTimeout(() => this.$router.push({ name: 'SignIn' }), 7000);
         } catch (error) {
             this.setErrorNotification(error.message);
         }
