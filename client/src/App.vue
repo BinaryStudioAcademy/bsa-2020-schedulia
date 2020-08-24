@@ -11,6 +11,7 @@ import Notifications from './components/common/Notification/Notifications';
 import Loader from '@/components/loader/Loader';
 import * as getters from '@/store/modules/loader/types/getters';
 import { mapGetters } from 'vuex';
+
 export default {
     name: 'App',
     components: {

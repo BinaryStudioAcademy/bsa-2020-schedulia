@@ -856,7 +856,7 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import momentTimezone from 'moment-timezone';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import * as eventTypeMutations from '@/store/modules/eventType/types/mutations';
@@ -872,7 +872,6 @@ export default {
     },
     data() {
         return {
-            lang: enLang,
             customDuration: '',
             cancelDialog: false,
             availabilityDialog: false,
@@ -1003,6 +1002,9 @@ export default {
     },
 
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('eventType', {
             eventTypeForm: eventTypeGetters.GET_EVENT_TYPE_FORM
         }),
