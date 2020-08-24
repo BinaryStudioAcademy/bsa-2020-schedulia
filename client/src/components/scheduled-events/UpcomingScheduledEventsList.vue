@@ -50,7 +50,7 @@ export default {
                 {
                     title: this.lang.DATE_RANGE,
                     routeName: 'DateRange'
-                },
+                }
             ];
         }
     }

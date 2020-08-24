@@ -105,16 +105,16 @@ const routes = [
                         children: [
                             {
                                 path: '',
-                                name: 'Upcoming',
+                                name: 'Upcoming'
                             },
                             {
                                 path: 'past',
-                                name: 'Past',
+                                name: 'Past'
                             },
                             {
                                 path: 'date-range',
-                                name: 'DateRange',
-                            },
+                                name: 'DateRange'
+                            }
                         ]
                     }
                 ]

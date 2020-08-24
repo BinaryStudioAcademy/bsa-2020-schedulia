@@ -57,7 +57,7 @@ export default {
         padding: 0;
     }
 
-    .v-tab--active[aria-selected=false] {
+    .v-tab--active[aria-selected='false'] {
         color: rgba(0, 0, 0, 0.54);
     }
 }
