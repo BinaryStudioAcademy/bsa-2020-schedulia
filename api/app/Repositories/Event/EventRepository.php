@@ -15,4 +15,11 @@ final class EventRepository extends BaseRepository implements EventRepositoryInt
 
         return $event;
     }
+
+    public function findByCriteria()
+    {
+        return Event::where('tweet_id', $tweetId)
+            ->orderBy($sort, $direction)
+            ->paginate($perPage, ['*'], null, $page);
+    }
 }
