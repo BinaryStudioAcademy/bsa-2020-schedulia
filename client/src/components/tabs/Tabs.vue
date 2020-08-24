@@ -62,7 +62,7 @@ export default {
     text-transform: none;
 }
 
-.v-tabs-items::v-deep {
+.theme--light.v-tabs-items::v-deep {
     background: none;
 }
 </style>
