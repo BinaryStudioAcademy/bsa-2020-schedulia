@@ -201,12 +201,18 @@ export default {
 
     computed: {
         ...mapGetters('i18n', {
-            lang: i18nGetters.GET_LANGUAGE_CONSTANTS,
-            languages: i18nGetters.GET_LANGUAGE_LIST
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         }),
         ...mapGetters('auth', {
             user: 'getLoggedUser'
         }),
+        languages() {
+            return [
+                { value: 'en', text: this.lang.ENGLISH },
+                { value: 'de', text: this.lang.GERMAN },
+                { value: 'ua', text: this.lang.UKRAINIAN }
+            ];
+        },
 
         avatarIsNew() {
             return this.newAvatar !== this.userProfile.avatar;
