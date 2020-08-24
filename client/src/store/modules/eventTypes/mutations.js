@@ -1,8 +1,18 @@
 import * as mutations from './types/mutations';
+import { eventTypeMapper } from '@/store/modules/eventType/normalizer';
 
 export default {
     [mutations.SET_EVENT_TYPES]: (state, eventTypes) => {
-        state.eventTypes = eventTypes;
+        state.eventTypes = {
+            ...eventTypes.reduce(
+                (prev, eventType) => ({
+                    ...prev,
+                    [eventType.id]: eventTypeMapper(eventType)
+                }),
+                {}
+            ),
+            ...state.eventTypes
+        };
     },
     [mutations.DISABLE_EVENT_TYPE_BY_ID]: (state, data) => {
         const index = state.eventTypes.findIndex(eventType => {

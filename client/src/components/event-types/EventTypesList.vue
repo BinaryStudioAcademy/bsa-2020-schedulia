@@ -18,7 +18,7 @@
         </div>
         <ActionBlock />
         <VDivider />
-        <div class="event-types-block row" v-if="eventTypes.length">
+        <div class="event-types-block row" v-if="eventTypes">
             <VCol
                 cols="12"
                 md="4"
@@ -31,6 +31,18 @@
             </VCol>
         </div>
         <NoEventTypes v-else />
+        <div class="text-center">
+            <VBtn
+                color="primary"
+                class="ma-2 white--text"
+                @click="onLoadMore"
+                v-if="loadMoreDisabled"
+                rounded
+            >
+                <VIcon left dark>mdi-plus</VIcon>
+                Load more
+            </VBtn>
+        </div>
     </VContainer>
 </template>
 
@@ -55,14 +67,23 @@ export default {
         lang: enLang,
         searchRules: [
             v => v.length <= 250 || enLang.SEARCH_FIELD_MUST_BE_LESS_THAN
-        ]
+        ],
+        page: 1,
+        loadMoreDisabled: true
     }),
     methods: {
         ...mapActions('eventTypes', {
             fetchEventTypes: actions.FETCH_EVENT_TYPES
         }),
         async onSearchInput() {
-            await this.fetchEventTypes(this.searchString);
+            await this.fetchEventTypes({ searchString: this.searchString });
+        },
+        async onLoadMore() {
+            const lenBefore = Object.keys(this.eventTypes).length;
+            this.page += 1;
+            await this.fetchEventTypes({ page: this.page });
+            const lenAfter = Object.keys(this.eventTypes).length;
+            this.loadMoreDisabled = lenBefore !== lenAfter;
         }
     },
     async mounted() {

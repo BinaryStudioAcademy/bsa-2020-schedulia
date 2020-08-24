@@ -39,13 +39,23 @@ class EventTypeController extends ApiController
     public function index(Request $request, GetEventTypeCollectionAction $action)
     {
         $response = $action->execute(
-            new GetEventTypeCollectionRequest($request->searchString)
+            new GetEventTypeCollectionRequest(
+                $request->searchString,
+                (int)$request->query('page'),
+                (int)$request->query('perPage'),
+                $request->query('sorting'),
+                $request->query('direction')
+            )
         );
 
-        return $this->successResponse(
-            $this->eventTypePresenter->presentCollection(
-                $response->getEventTypeCollection()
-            )
+//        return $this->successResponse(
+//            $this->eventTypePresenter->presentCollection(
+//                $response->getEventTypeCollection()
+//            )
+//        );
+        return $this->createPaginatedResponse(
+            $response->getPaginator(),
+            $this->eventTypePresenter
         );
     }
 

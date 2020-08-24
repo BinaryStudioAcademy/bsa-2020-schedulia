@@ -7,12 +7,13 @@ import * as loaderMutations from '@/store/modules/loader/types/mutations';
 export default {
     [actions.FETCH_EVENT_TYPES]: async (
         { commit, dispatch },
-        searchString = ''
+        data = { searchString: '' }
     ) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
         try {
             const eventTypes = await eventTypesService.fetchAllEventTypes(
-                searchString
+                data.searchString,
+                data.page
             );
             commit(mutations.SET_EVENT_TYPES, eventTypes);
             commit('loader/' + loaderMutations.SET_LOADING, false, {
