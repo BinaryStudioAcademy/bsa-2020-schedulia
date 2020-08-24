@@ -1,6 +1,6 @@
 <template>
     <div class="ml-5 mt-5 verified-email">
-        <div v-if="textVisible === false">
+        <div v-if="textVisible === true">
             <p class="verified-email__title">
                 {{ lang.ACCOUNT_IS_BEING_ACTIVATED }}
             </p>
@@ -10,7 +10,7 @@
                 {{ lang.ACCOUNT_VERIFIED }}
             </p>
             <p class="verified-email__signin">
-                {{ lang.PLEASE }}
+                {{ lang.ACCOUNT_VERIFIED_REDIRECT }}
                 <RouterLink :to="{ name: 'SignIn' }">{{
                     lang.LOGIN
                 }}</RouterLink>
@@ -46,6 +46,11 @@ export default {
         try {
             await this.verifyEmail(this.$route.query);
             this.textVisible = false;
+
+            setTimeout(
+                () => this.$router.push({ name: 'SignIn' }),
+                7000
+            );
         } catch (error) {
             this.setErrorNotification(error.message);
         }

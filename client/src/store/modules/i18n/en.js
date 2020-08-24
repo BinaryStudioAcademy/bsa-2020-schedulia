@@ -260,7 +260,8 @@ export default {
     NO_PAST_EVENTS: 'No Past Events',
 
     ACCOUNT_VERIFIED: 'Your account has been activated.',
-    PLEASE: 'Please, ',
+    ACCOUNT_VERIFIED_REDIRECT:
+        'You will be redirected to the login page in 7 seconds or you can click on ',
     SEND_VERIFICATION_EMAIL:
         'We sent you an email, please, verify your account!',
 
