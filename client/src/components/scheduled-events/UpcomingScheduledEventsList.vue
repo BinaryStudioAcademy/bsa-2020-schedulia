@@ -2,21 +2,20 @@
     <div>
         <Pagination />
         <VContainer class="container-content pagination">
-            <Tabs class="scheduled-tabs" :tabs="tabs">
+            <TabsLink class="scheduled-tabs" :tabs="tabs">
                 <template v-slot:right-side>
                     <FilterButton />
                     <ExportButton />
                 </template>
-            </Tabs>
+            </TabsLink>
+            <Upcoming />
         </VContainer>
     </div>
 </template>
 
 <script>
-import Tabs from '@/components/tabs/Tabs.vue';
+import TabsLink from '@/components/tabs/TabsLink.vue';
 import Upcoming from './Upcoming/Upcoming';
-import Pending from './Pending/Pending';
-import Past from './Past/Past';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import FilterButton from './FilterButton';
 import ExportButton from './ExportButton';
@@ -24,13 +23,14 @@ import Pagination from './Pagination';
 import { mapGetters } from 'vuex';
 
 export default {
-    name: 'ScheduledEventList',
+    name: 'UpcomingScheduledEventsList',
 
     components: {
         Pagination,
         ExportButton,
         FilterButton,
-        Tabs
+        Upcoming,
+        TabsLink
     },
     data: () => ({}),
     computed: {
@@ -39,10 +39,18 @@ export default {
         }),
         tabs() {
             return [
-                { title: this.lang.UPCOMING, component: Upcoming },
-                { title: this.lang.PENDING, component: Pending },
-                { title: this.lang.PAST, component: Past },
-                { title: this.lang.DATE_RANGE }
+                {
+                    title: this.lang.UPCOMING,
+                    routeName: 'Upcoming'
+                },
+                {
+                    title: this.lang.PAST,
+                    routeName: 'Past'
+                },
+                {
+                    title: this.lang.DATE_RANGE,
+                    routeName: 'DateRange'
+                },
             ];
         }
     }
