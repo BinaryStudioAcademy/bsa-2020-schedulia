@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import * as getters from '@/store/modules/publicEvent/types/getters';
 import { mapGetters } from 'vuex';
 import EventInfo from './EventInfo';
@@ -97,7 +97,6 @@ export default {
         EventInfo
     },
     data: () => ({
-        lang: enLang,
         isReady: false,
         formValid: false,
         showPassword: false,
@@ -107,39 +106,46 @@ export default {
             additionalInfo: ''
         },
         emailRules: [
-            v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', enLang.EMAIL),
+            v =>
+                !!v ||
+                this.lang.FIELD_IS_REQUIRED.replace('field', this.lang.EMAIL),
             v =>
                 /([a-zA-Z0-9_.-]+)@(.+)[.](.+)/.test(v) ||
-                enLang.WRONG_EMAIL_FORMAT,
+                this.lang.WRONG_EMAIL_FORMAT,
             v =>
                 (!!v &&
                     !!v.includes('@') &&
                     v.split('@')[0].length >= 1 &&
                     v.split('@')[0].length <= 35) ||
-                enLang.WRONG_EMAIL_FORMAT,
+                this.lang.WRONG_EMAIL_FORMAT,
             v =>
                 (!!v &&
                     !!v.includes('@') &&
                     v.split('@')[1].length >= 3 &&
                     v.split('@')[1].length <= 12) ||
-                enLang.WRONG_EMAIL_FORMAT
+                this.lang.WRONG_EMAIL_FORMAT
         ],
         nameRules: [
-            v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', enLang.NAME),
+            v =>
+                !!v ||
+                this.lang.FIELD_IS_REQUIRED.replace('field', this.lang.NAME),
             v =>
                 v.length >= 2 ||
-                enLang.NAME +
-                    enLang.FIELD_MUST_BE_MORE_THAN_VALUE.replace('value', 2),
+                this.lang.NAME +
+                    this.lang.FIELD_MUST_BE_MORE_THAN_VALUE.replace('value', 2),
             v =>
                 v.length <= 50 ||
-                enLang.NAME +
-                    enLang.FIELD_MUST_BE_LESS_THAN_VALUE.replace('value', 50)
+                this.lang.NAME +
+                    this.lang.FIELD_MUST_BE_LESS_THAN_VALUE.replace('value', 50)
         ],
         additionalInfoRules: [
             v =>
                 v.length <= 200 ||
-                enLang.ADDITIONAL_INFO +
-                    enLang.FIELD_MUST_BE_LESS_THAN_VALUE.replace('value', 200)
+                this.lang.ADDITIONAL_INFO +
+                    this.lang.FIELD_MUST_BE_LESS_THAN_VALUE.replace(
+                        'value',
+                        200
+                    )
         ],
         alert: {
             visible: false,
@@ -148,6 +154,9 @@ export default {
         }
     }),
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('publicEvent', {
             eventType: getters.GET_EVENT_TYPE,
             publicEvent: getters.GET_PUBLIC_EVENT

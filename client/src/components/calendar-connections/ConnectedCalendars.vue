@@ -22,9 +22,10 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import CalendarsList from '@/components/calendar-connections/CalendarsList.vue';
 import ConnectedList from '@/components/calendar-connections/ConnectedList.vue';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'ConnectedCalendars',
@@ -33,9 +34,13 @@ export default {
         ConnectedList
     },
     data: () => ({
-        lang: enLang,
         connectedAccounts: []
-    })
+    }),
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        })
+    }
 };
 </script>
 

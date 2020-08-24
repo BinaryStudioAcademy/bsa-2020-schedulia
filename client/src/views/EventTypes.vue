@@ -1,7 +1,7 @@
 <template>
     <GeneralLayout>
         <template v-slot:title>
-            My Events
+            {{ lang.MY_EVENTS }}
         </template>
         <Tabs :tabs="tabs"></Tabs>
     </GeneralLayout>
@@ -12,7 +12,8 @@ import GeneralLayout from '@/components/common/GeneralLayout/GeneralLayout';
 import Tabs from '@/components/tabs/Tabs.vue';
 import EventTypesList from '@/components/event-types/EventTypesList';
 import ScheduledEventsList from '@/components/scheduled-events/ScheduledEventsList';
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'EventTypes',
@@ -20,12 +21,21 @@ export default {
         GeneralLayout,
         Tabs
     },
-    data: () => ({
-        tabs: [
-            { title: 'Event Types', component: EventTypesList },
-            { title: enLang.SCHEDULED_EVENTS, component: ScheduledEventsList }
-        ]
-    })
+    data: () => ({}),
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
+        tabs() {
+            return [
+                { title: this.lang.EVENT_TYPES, component: EventTypesList },
+                {
+                    title: this.lang.SCHEDULED_EVENTS,
+                    component: ScheduledEventsList
+                }
+            ];
+        }
+    }
 };
 </script>
 

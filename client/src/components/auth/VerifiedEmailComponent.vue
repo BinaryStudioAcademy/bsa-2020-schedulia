@@ -11,17 +11,15 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import * as actions from '@/store/modules/auth/types/actions';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import * as notificationActions from '@/store/modules/notification/types/actions';
 
 export default {
     name: 'VerifiedEmailComponent',
 
     data: () => ({
-        lang: enLang,
-
         textVisible: true
     }),
     methods: {
@@ -30,6 +28,11 @@ export default {
         }),
         ...mapActions('notification', {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
+        })
+    },
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         })
     },
 

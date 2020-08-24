@@ -90,10 +90,10 @@
 
 <script>
 import * as actions from '@/store/modules/auth/types/actions';
-import { mapActions } from 'vuex';
-import enLang from '@/store/modules/i18n/en';
+import { mapActions, mapGetters } from 'vuex';
 import Alert from '@/components/alert/Alert';
 import * as notificationActions from '@/store/modules/notification/types/actions';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 
 export default {
     name: 'SignUp',
@@ -101,7 +101,6 @@ export default {
         Alert
     },
     data: () => ({
-        lang: enLang,
         formValid: false,
         passVisible: false,
         passConfirmVisible: false,
@@ -113,44 +112,52 @@ export default {
             timezone: ''
         },
         nameRules: [
-            v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', enLang.NAME),
+            v =>
+                !!v ||
+                this.lang.FIELD_IS_REQUIRED.replace('field', this.lang.NAME),
             v =>
                 v.length >= 2 ||
-                enLang.NAME +
-                    enLang.FIELD_MUST_BE_MORE_THAN_VALUE.replace('value', 2),
+                this.lang.NAME +
+                    this.lang.FIELD_MUST_BE_MORE_THAN_VALUE.replace('value', 2),
             v =>
                 v.length <= 100 ||
-                enLang.EMAIL +
-                    enLang.FIELD_MUST_BE_LESS_THAN_VALUE.replace('value', 100)
+                this.lang.EMAIL +
+                    this.lang.FIELD_MUST_BE_LESS_THAN_VALUE.replace(
+                        'value',
+                        100
+                    )
         ],
         emailRules: [
-            v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', enLang.EMAIL),
+            v =>
+                !!v ||
+                this.lang.FIELD_IS_REQUIRED.replace('field', this.lang.EMAIL),
             v =>
                 /([a-zA-Z0-9_.-]+)@(.+)[.](.+)/.test(v) ||
-                enLang.WRONG_EMAIL_FORMAT,
+                this.lang.WRONG_EMAIL_FORMAT,
             v =>
                 v.length <= 50 ||
-                enLang.EMAIL +
-                    enLang.FIELD_MUST_BE_LESS_THAN_VALUE.replace('value', 50)
+                this.lang.EMAIL +
+                    this.lang.FIELD_MUST_BE_LESS_THAN_VALUE.replace('value', 50)
         ],
         passwordRules: [
-            v => !!v || enLang.FIELD_IS_REQUIRED.replace('field', 'Password'),
+            v =>
+                !!v || this.lang.FIELD_IS_REQUIRED.replace('field', 'Password'),
             v =>
                 v.length >= 8 ||
-                enLang.PASSWORD +
-                    enLang.FIELD_MUST_BE_MORE_THAN_VALUE.replace('value', 8)
+                this.lang.PASSWORD +
+                    this.lang.FIELD_MUST_BE_MORE_THAN_VALUE.replace('value', 8)
         ],
         passwordConfirmationRules: [
             v =>
                 !!v ||
-                enLang.FIELD_IS_REQUIRED.replace(
+                this.lang.FIELD_IS_REQUIRED.replace(
                     'field',
-                    enLang.CONFIRM_PASSWORD
+                    this.lang.CONFIRM_PASSWORD
                 ),
             v =>
                 v.length >= 8 ||
-                enLang.PASSWORD +
-                    enLang.FIELD_MUST_BE_MORE_THAN_VALUE.replace('value', 8)
+                this.lang.PASSWORD +
+                    this.lang.FIELD_MUST_BE_MORE_THAN_VALUE.replace('value', 8)
         ],
         alert: {
             visible: false,
@@ -191,6 +198,9 @@ export default {
         }
     },
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         passConfirmationError() {
             return this.registerData.password ===
                 this.registerData.password_confirmation
