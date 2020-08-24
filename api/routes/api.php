@@ -65,6 +65,7 @@ Route::group([
     'prefix' => '/events'
 ], function () {
     Route::post('/', 'EventController@store');
+    Route::get('/', 'EventController@index');
 });
 
 Route::group([

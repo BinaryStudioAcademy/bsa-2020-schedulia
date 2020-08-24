@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Actions\Event\AddEventAction;
 use App\Actions\Event\AddEventRequest;
 use App\Http\Requests\Api\Event\EventRequest;
+use Illuminate\Http\Request;
 
 class EventController extends ApiController
 {
@@ -28,5 +29,10 @@ class EventController extends ApiController
         );
 
         return $this->emptyResponse();
+    }
+
+    public function index(Request $request)
+    {
+        //
     }
 }
