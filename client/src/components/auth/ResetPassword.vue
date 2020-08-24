@@ -5,18 +5,6 @@
             {{ lang.PLEASE_ENTER_NEW_PASSWORD_FOR_USER_WITH_EMAIL }}
             <em>{{ $route.query.email }}</em>
         </p>
-        <VCol cols="12" sm="12" md="8" class="pa-0">
-            <VRow no-gutters justify="space-between" align="baseline">
-                <VCol cols="9">
-                    <span class="info-text">
-                        {{ lang.YOU_CAN_CHANGE_LANGUAGE_TO }}</span
-                    >
-                </VCol>
-                <VCol cols="3">
-                    <LanguageSwitcher />
-                </VCol>
-            </VRow>
-        </VCol>
         <VForm>
             <VCol cols="11" sm="11" md="8" class="pa-0 py-4">
                 <label>{{ lang.PASSWORD }}*</label>
@@ -87,7 +75,6 @@ import { validationMixin } from 'vuelidate';
 import { required, minLength, sameAs } from 'vuelidate/lib/validators';
 import * as notificationActions from '@/store/modules/notification/types/actions';
 import ExplanationAlert from '../common/Alerts/ExplanationAlert';
-import LanguageSwitcher from '../i18n/LanguageSwitcher';
 
 export default {
     name: 'ResetPassword',
@@ -98,7 +85,7 @@ export default {
             confirmPassword: { sameAsPassword: sameAs('password') }
         }
     },
-    components: { ExplanationAlert, LanguageSwitcher },
+    components: { ExplanationAlert },
     data: () => ({
         showPassword: false
     }),
