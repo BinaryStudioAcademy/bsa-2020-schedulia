@@ -14,7 +14,7 @@ export default {
             )
         };
     },
-    [mutations.CLEAR_EVENT_TYPES]: (state) => {
+    [mutations.CLEAR_EVENT_TYPES]: state => {
         state.eventTypes = [];
     },
     [mutations.DISABLE_EVENT_TYPE_BY_ID]: (state, data) => {
