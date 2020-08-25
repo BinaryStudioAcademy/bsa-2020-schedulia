@@ -77,5 +77,24 @@ export default {
                 root: true
             });
         }
+    },
+    [actions.FETCH_EVENT_TYPES_BY_NICKNAME]: async (
+        { commit },
+        nickName
+    ) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+        try {
+            const eventTypes = await eventTypesService.fetchEventTypesByNickname(
+                nickName
+            );
+            commit(mutations.SET_EVENT_TYPES_BY_NICKNAME, eventTypes);
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        } catch (error) {
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        }
     }
 };

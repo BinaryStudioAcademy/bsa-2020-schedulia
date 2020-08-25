@@ -18,7 +18,7 @@ const routes = [
                 component: () => import('../views/PublicEvent.vue')
             },
             {
-                path: 'users-events',
+                path: ':nickname',
                 name: 'UserEventTypes',
                 component: () => import('../views/UserEventTypesList.vue')
             },

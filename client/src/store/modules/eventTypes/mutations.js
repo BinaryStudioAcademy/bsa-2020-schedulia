@@ -26,5 +26,17 @@ export default {
         const eventTypes = { ...state.eventTypes };
         delete eventTypes[id];
         state.eventTypes = eventTypes;
+    },
+    [mutations.SET_EVENT_TYPES_BY_NICKNAME]: (state, eventTypes) => {
+        state.eventTypesByNickname = {
+            ...state.eventTypesByNickname,
+            ...eventTypes.reduce(
+                (prev, eventType) => ({
+                    ...prev,
+                    [eventType.id]: eventTypeMapper(eventType)
+                }),
+                {}
+            )
+        };
     }
 };
