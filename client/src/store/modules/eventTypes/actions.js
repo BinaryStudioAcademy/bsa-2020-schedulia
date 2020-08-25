@@ -15,7 +15,14 @@ export default {
                 data.searchString,
                 data.page
             );
-            commit(mutations.SET_EVENT_TYPES, eventTypes);
+            if (data.searchString) {
+                if (data.page === 1) {
+                    commit(mutations.CLEAR_EVENT_TYPES);
+                }
+                commit(mutations.SET_EVENT_TYPES, eventTypes);
+            } else {
+                commit(mutations.SET_EVENT_TYPES, eventTypes);
+            }
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });

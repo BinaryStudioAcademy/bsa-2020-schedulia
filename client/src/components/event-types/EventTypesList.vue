@@ -37,7 +37,7 @@
                 class="ma-2 white--text"
                 @click="onLoadMore"
                 rounded
-                v-if="loadMoreActive"
+                :disabled="!loadMoreActive"
             >
                 <VIcon left dark>mdi-plus</VIcon>
                 Load more
@@ -80,14 +80,20 @@ export default {
             fetchEventTypes: actions.FETCH_EVENT_TYPES
         }),
         async onSearchInput() {
+            this.page = 1;
             this.$v.searchString.$touch();
-            await this.fetchEventTypes({ searchString: this.searchString });
+            await this.fetchEventTypes({
+                searchString: this.searchString,
+                page: this.page
+            });
         },
         async onLoadMore() {
-            const eventTypes = await this.fetchEventTypes({
+            let eventTypes = await this.fetchEventTypes({
+                searchString: this.searchString,
                 page: this.page + 1
             });
             if (eventTypes.length) {
+                this.loadMoreActive = true;
                 this.page += 1;
             } else {
                 this.loadMoreActive = false;
@@ -95,7 +101,10 @@ export default {
         }
     },
     async mounted() {
-        await this.fetchEventTypes();
+        await this.fetchEventTypes({
+            searchString: this.searchString,
+            page: this.page
+        });
     },
     computed: {
         ...mapGetters('eventTypes', {
