@@ -20,6 +20,7 @@
         "google/cloud-logging": "^1.20",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.0",
+        "laravel/socialite": "^4.4",
         "laravel/telescope": "^3.5",
         "laravel/tinker": "^2.0",
         "predis/predis": "^1.1",
