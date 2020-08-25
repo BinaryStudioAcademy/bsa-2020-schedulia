@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Presenters;
 
+use App\Contracts\PresenterInterface;
 use App\Entity\EventType;
 use Illuminate\Support\Collection;
 
-final class EventTypePresenter
+final class EventTypePresenter implements PresenterInterface
 {
     private UserArrayPresenter $userPresenter;
     private AvailabilityArrayPresenter $availabilityPresenter;

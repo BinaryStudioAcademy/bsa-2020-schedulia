@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Presenters;
 
+use App\Contracts\PresenterInterface;
 use App\Entity\Availability;
 
-final class AvailabilityArrayPresenter
+final class AvailabilityArrayPresenter implements PresenterInterface
 {
     public function present(Availability $availability): array
     {

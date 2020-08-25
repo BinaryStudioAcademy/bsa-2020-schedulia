@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Presenters;
 
-final class AvailabilityServicePresenter
+use App\Contracts\PresenterInterface;
+
+final class AvailabilityServicePresenter implements PresenterInterface
 {
     public function presentArray(array $dateTimeList): array
     {
