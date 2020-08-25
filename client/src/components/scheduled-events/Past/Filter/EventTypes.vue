@@ -47,7 +47,7 @@
                                 @input="searchEventTypes(searchString)"
                             ></VTextField>
                             <VContainer class="filter-form" fluid>
-                                <span v-if="this.getEventTypes.length > 6">
+                                <span v-if="this.getEventTypes.length > countShowEventTypes">
                                     <VBtn
                                         :ripple="false"
                                         :hover="false"
@@ -87,7 +87,7 @@
                                         :hover="false"
                                         class="filter-form__button more"
                                         text
-                                        v-if="!moreEventTypes && this.getEventTypes.length > 6"
+                                        v-if="!moreEventTypes && this.getEventTypes.length > countShowEventTypes"
                                         @click="showMoreEventTypes"
                                     >
                                         {{ lang.SHOW_MORE }}
@@ -135,6 +135,7 @@ export default {
 
     data() {
         return {
+            countShowEventTypes: 6,
             menu: false,
             searchString: '',
             eventTypes: [],
@@ -170,7 +171,7 @@ export default {
             if (this.moreEventTypes) {
                 return this.getEventTypes;
             } else {
-                return this.getEventTypes.slice(0, 6);
+                return this.getEventTypes.slice(0, this.countShowEventTypes);
             }
         }
     },
