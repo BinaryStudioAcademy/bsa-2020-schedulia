@@ -74,7 +74,7 @@
                                         <VCheckbox
                                             hide-details
                                             :label="checkbox.name"
-                                            :value="
+                                            :input-value="
                                                 eventTypes.includes(checkbox.id)
                                             "
                                             @change="onChangeType(checkbox.id)"
