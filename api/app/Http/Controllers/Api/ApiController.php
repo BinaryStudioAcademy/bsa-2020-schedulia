@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Contracts\PresenterCollectionInterface;
 use App\Contracts\PresenterInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -34,7 +35,7 @@ class ApiController extends BaseController
 
     public function createPaginatedResponse(
         LengthAwarePaginator $paginator,
-        PresenterInterface $presenter
+        PresenterCollectionInterface $presenter
     ): JsonResponse {
         return new JsonResponse([
             'data' => $presenter->presentCollection(collect($paginator->items())),
