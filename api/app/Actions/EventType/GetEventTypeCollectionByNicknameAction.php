@@ -25,10 +25,10 @@ final class GetEventTypeCollectionByNicknameAction
 
     public function execute(GetEventTypeCollectionByNicknameRequest $request): GetEventTypeCollectionByNicknameResponse
     {
-        $user = $this->userRepository->findByCriteria(
+        $user = $this->userRepository->findOneByCriteria(
             new NicknameCriterion($request->getNickname())
-        )->all();
-        $criteria = [new OwnerCriterion($user[0]['id']), new ActiveCriterion()];
+        );
+        $criteria = [new OwnerCriterion($user->id), new ActiveCriterion()];
         $eventTypes = $this->eventRepository->findByCriteria(...$criteria);
 
         return new GetEventTypeCollectionByNicknameResponse($eventTypes);

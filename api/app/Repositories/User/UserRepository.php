@@ -7,6 +7,7 @@ namespace App\Repositories\User;
 use App\Contracts\EloquentCriterion;
 use App\Entity\User;
 use App\Repositories\BaseRepository;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 final class UserRepository extends BaseRepository implements UserRepositoryInterface
@@ -52,5 +53,16 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
         }
 
         return $query->get();
+    }
+
+    public function findOneByCriteria(EloquentCriterion ...$criteria): Model
+    {
+        $query = User::query();
+
+        foreach ($criteria as $criterion) {
+            $query = $criterion->apply($query);
+        }
+
+        return $query->first();
     }
 }
