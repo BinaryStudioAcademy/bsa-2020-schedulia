@@ -119,10 +119,11 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import { GET_FILTER_SCHEDULED_EVENTS_TYPES } from '@/store/modules/scheduledEvent/types/getters';
 import * as scheduledEventActions from '@/store/modules/scheduledEvent/types/actions';
 import * as notificationActions from '@/store/modules/notification/types/actions';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import * as eventTypesActions from '@/store/modules/eventTypes/types/actions';
+import * as eventTypesGetters from '@/store/modules/eventTypes/types/getters';
 
 export default {
     name: 'EventTypes',
@@ -141,7 +142,7 @@ export default {
 
     async created() {
         try {
-            await this.setFilterScheduledEventsTypes();
+            await this.setEventTypes();
         } catch (error) {
             this.setErrorNotification(error.message);
         }
@@ -151,28 +152,31 @@ export default {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         }),
-        ...mapGetters('scheduledEvent', {
-            filterScheduledEventsTypes: GET_FILTER_SCHEDULED_EVENTS_TYPES
+
+        ...mapGetters('eventTypes', {
+            getEventTypes: eventTypesGetters.GET_ALL_EVENT_TYPES
         }),
 
         checkboxes() {
-            if (!Array.isArray(this.filterScheduledEventsTypes)) {
+            if (!Array.isArray(this.getEventTypes)) {
                 return [];
             }
 
             if (this.moreEventTypes) {
-                return this.filterScheduledEventsTypes;
+                return this.getEventTypes;
             } else {
-                return this.filterScheduledEventsTypes.slice(0, 6);
+                return this.getEventTypes.slice(0, 6);
             }
         }
     },
 
     methods: {
         ...mapActions('scheduledEvent', {
-            setFilterScheduledEventsTypes:
-                scheduledEventActions.SET_FILTER_SCHEDULED_EVENTS_TYPES,
             setScheduledEvents: scheduledEventActions.SET_SCHEDULED_EVENTS
+        }),
+
+        ...mapActions('eventTypes', {
+            setEventTypes: eventTypesActions.FETCH_EVENT_TYPES
         }),
 
         ...mapActions('notification', {
@@ -203,7 +207,7 @@ export default {
 
         searchEventTypes(eventTypesSearch) {
             this.clearSelectAll();
-            this.setFilterScheduledEventsTypes(eventTypesSearch);
+            this.setEventTypes(eventTypesSearch);
         },
 
         filterScheduledEvent() {
