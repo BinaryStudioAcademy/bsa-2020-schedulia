@@ -85,7 +85,7 @@
                                         :hover="false"
                                         class="filter-form__button more"
                                         text
-                                        v-if="!moreEventTypes"
+                                        v-if="!moreEventTypes && this.getEventTypes.length > 6"
                                         @click="showMoreEventTypes"
                                     >
                                         {{ lang.SHOW_MORE }}
