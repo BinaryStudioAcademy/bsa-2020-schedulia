@@ -18,6 +18,11 @@ const routes = [
                 component: () => import('../views/PublicEvent.vue')
             },
             {
+                path: 'users-events',
+                name: 'UserEventTypes',
+                component: () => import('../views/UserEventTypesList.vue')
+            },
+            {
                 path: 'confirm-event',
                 name: 'PublicEventConfirm',
                 component: () => import('../views/PublicEventConfirm.vue')
