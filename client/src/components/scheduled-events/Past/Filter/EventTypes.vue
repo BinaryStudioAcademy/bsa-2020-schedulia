@@ -47,7 +47,12 @@
                                 @input="searchEventTypes(searchString)"
                             ></VTextField>
                             <VContainer class="filter-form" fluid>
-                                <span v-if="this.getEventTypes.length > countShowEventTypes">
+                                <span
+                                    v-if="
+                                        this.getEventTypes.length >
+                                            countShowEventTypes
+                                    "
+                                >
                                     <VBtn
                                         :ripple="false"
                                         :hover="false"
@@ -87,12 +92,19 @@
                                         :hover="false"
                                         class="filter-form__button more"
                                         text
-                                        v-if="!moreEventTypes && this.getEventTypes.length > countShowEventTypes"
+                                        v-if="
+                                            !moreEventTypes &&
+                                                this.getEventTypes.length >
+                                                    countShowEventTypes
+                                        "
                                         @click="showMoreEventTypes"
                                     >
                                         {{ lang.SHOW_MORE }}
                                     </VBtn>
-                                    <div class="no-items" v-if="this.getEventTypes.length === 0">
+                                    <div
+                                        class="no-items"
+                                        v-if="this.getEventTypes.length === 0"
+                                    >
                                         {{ lang.NO_ITEMS_FOUND }}
                                     </div>
                                 </div>
@@ -236,10 +248,10 @@ export default {
 </script>
 
 <style scoped>
-    .no-items {
-        color: #2C2C2C;
-        font-weight: 500;
-        font-size: 13px;
-        line-height: 16px;
-    }
+.no-items {
+    color: #2c2c2c;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+}
 </style>
