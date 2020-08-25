@@ -38,13 +38,13 @@
                                 hide-details
                                 dense
                                 flat
-                                v-model="eventTypesSearch"
+                                v-model="searchString"
                                 color="#2C2C2C"
                                 background-color="rgba(224, 224, 224, 0.3)"
                                 label="Search"
                                 clearable
                                 prepend-inner-icon="mdi-magnify"
-                                @input="searchEventTypes(eventTypesSearch)"
+                                @input="searchEventTypes(searchString)"
                             ></VTextField>
                             <VContainer class="filter-form" fluid>
                                 <VBtn
@@ -131,7 +131,7 @@ export default {
     data() {
         return {
             menu: false,
-            eventTypesSearch: '',
+            searchString: '',
             eventTypes: [],
             moreEventTypes: false,
             scheduledEventFilter: {
@@ -205,9 +205,9 @@ export default {
             this.eventTypes = [];
         },
 
-        searchEventTypes(eventTypesSearch) {
+        searchEventTypes(searchString) {
             this.clearSelectAll();
-            this.setEventTypes(eventTypesSearch);
+            this.setEventTypes(searchString);
         },
 
         filterScheduledEvent() {
