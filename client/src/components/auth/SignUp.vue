@@ -1,8 +1,8 @@
 <template>
     <div class="signup container">
         <div class="col-md-12">
-            <h1 class="header">{{ lang.CREATE_AN_ACCOUNT }}</h1>
-            <p class="hint">
+            <h4 class="color-primary">{{ lang.CREATE_AN_ACCOUNT }}</h4>
+            <p class="label color-info-base">
                 {{ lang.ALREADY_REGISTERED }}
                 <RouterLink :to="{ name: 'SignIn' }">
                     {{ lang.LOG_IN }}
@@ -25,7 +25,7 @@
                     <label for="email">{{ lang.EMAIL }}</label>
                     <VTextField
                         id="email"
-                        placeholder="name@gmail.com"
+                        placeholder="name@mail.loc"
                         outlined
                         dense
                         type="email"
@@ -40,7 +40,6 @@
                         :type="passVisible ? 'text' : 'password'"
                         :append-icon="passVisible ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="passVisible = !passVisible"
-                        solo
                         outlined
                         dense
                         v-model="registerData.password"
@@ -58,7 +57,6 @@
                             passConfirmVisible ? 'mdi-eye' : 'mdi-eye-off'
                         "
                         @click:append="passConfirmVisible = !passConfirmVisible"
-                        solo
                         outlined
                         dense
                         v-model="registerData.password_confirmation"
@@ -69,11 +67,10 @@
                 </VCol>
             </VForm>
             <VBtn
+                height="44"
                 depressed
-                large
-                color="primary"
+                class="signup-button  primary"
                 @click="onSignUp"
-                class="pa-8 text-white"
             >
                 {{ lang.SIGN_UP }}
             </VBtn>
@@ -212,29 +209,51 @@ export default {
 </script>
 
 <style scoped>
-* {
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-}
-.header {
-    color: var(--v-primary-base);
+h4 {
     font-weight: 900;
     font-size: 34px;
     line-height: 44px;
+    letter-spacing: -0.44px;
 }
-.hint {
-    color: var(--v-secondary-darken4);
-    font-weight: bold;
+.color-primary {
+    color: var(--v-primary-base);
 }
-.hint a {
+.label {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+}
+.color-info-base {
+    color: var(--v-info-base);
+}
+.label a {
     color: var(--v-primary-base);
     text-decoration: none;
 }
-.v-btn {
-    border-radius: 5px;
-    text-transform: none;
-    font-size: 20px;
+
+label {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    color: var(--v-info-darken4);
 }
+
+.v-text-field.error--text::v-deep .v-input__slot {
+    background-color: var(--v-validationError-base);
+}
+.v-text-field.error--text::v-deep .v-text-field__slot input {
+    color: var(--v-error-darken1);
+}
+.signup-button {
+    text-transform: none;
+    font-style: normal;
+    font-size: 15px;
+    line-height: 18px;
+    width: 146px;
+}
+
 .v-snack__content a {
     color: #fff;
     font-weight: bold;
