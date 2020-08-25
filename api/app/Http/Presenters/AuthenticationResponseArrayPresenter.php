@@ -3,8 +3,9 @@
 namespace App\Http\Presenters;
 
 use App\Actions\Auth\AuthenticationResponse;
+use App\Contracts\PresenterInterface;
 
-final class AuthenticationResponseArrayPresenter
+final class AuthenticationResponseArrayPresenter implements PresenterInterface
 {
     public function present(AuthenticationResponse $response): array
     {

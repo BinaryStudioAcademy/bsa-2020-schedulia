@@ -197,7 +197,7 @@ export default {
     SAVE_TO_TEMPLATE: 'Зберегти в шаблон',
     SCHEDULED_EVENTS: 'Заплановані заходи',
     SCHEDULE_EVENT: 'Розклад заходу',
-    SCHEDULIA: 'Розклад',
+    SCHEDULIA: 'Schedulia',
     SEARCH: 'Пошук',
     SEARCH_FIELD_MUST_BE_LESS_THAN: 'Поле пошуку має бути менше 250 символів.',
     SELECT_ALL: 'вибрати все',

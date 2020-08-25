@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Presenters;
 
+use App\Contracts\PresenterInterface;
 use App\Entity\User;
 
-final class UserArrayPresenter
+final class UserArrayPresenter implements PresenterInterface
 {
     public function present(User $user): array
     {
