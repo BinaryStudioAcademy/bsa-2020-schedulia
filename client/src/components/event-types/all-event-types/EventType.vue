@@ -120,7 +120,7 @@ export default {
 .disabled-event .event-type-actions .duration span {
     color: #e5e5e5;
 }
-@media (min-width: 600px) and (max-width: 621px){
+@media (min-width: 600px) and (max-width: 621px) {
     .v-application .mt-sm-8 {
         margin-top: 58px !important;
     }
