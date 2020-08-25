@@ -2,7 +2,10 @@
     <div class="event-type pa-8">
         <VRow>
             <VCol cols="2" md="2" sm="2" xs="3">
-                <div class="color text-left" :style="{ 'background': eventType.color }"></div>
+                <div
+                    class="color text-left"
+                    :style="{ background: eventType.color }"
+                ></div>
             </VCol>
             <VCol cols="8" md="7" sm="8" xs="">
                 <b class="event-type-name">{{ eventType.name }}</b>
