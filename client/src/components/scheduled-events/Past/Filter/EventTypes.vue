@@ -47,25 +47,27 @@
                                 @input="searchEventTypes(searchString)"
                             ></VTextField>
                             <VContainer class="filter-form" fluid>
-                                <VBtn
-                                    :ripple="false"
-                                    :hover="false"
-                                    class="filter-form__button"
-                                    text
-                                    @click="selectAll"
-                                >
-                                    {{ lang.SELECT_ALL }}
-                                </VBtn>
-                                \
-                                <VBtn
-                                    :ripple="false"
-                                    :hover="false"
-                                    class="filter-form__button"
-                                    text
-                                    @click="clearSelectAll"
-                                >
-                                    {{ lang.CLEAR }}
-                                </VBtn>
+                                <span v-if="this.getEventTypes.length > 6">
+                                    <VBtn
+                                        :ripple="false"
+                                        :hover="false"
+                                        class="filter-form__button"
+                                        text
+                                        @click="selectAll"
+                                    >
+                                        {{ lang.SELECT_ALL }}
+                                    </VBtn>
+                                    \
+                                    <VBtn
+                                        :ripple="false"
+                                        :hover="false"
+                                        class="filter-form__button"
+                                        text
+                                        @click="clearSelectAll"
+                                    >
+                                        {{ lang.CLEAR }}
+                                    </VBtn>
+                                </span>
                                 <div class="filter-form__checkbox">
                                     <div
                                         v-for="(checkbox, index) in checkboxes"
