@@ -90,6 +90,9 @@
                                     >
                                         {{ lang.SHOW_MORE }}
                                     </VBtn>
+                                    <div class="no-items" v-if="this.getEventTypes.length === 0">
+                                        {{ lang.NO_ITEMS_FOUND }}
+                                    </div>
                                 </div>
                             </VContainer>
                             <VContainer class="filter-button">
@@ -228,3 +231,12 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+    .no-items {
+        color: #2C2C2C;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 16px;
+    }
+</style>
