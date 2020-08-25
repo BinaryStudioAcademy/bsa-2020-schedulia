@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\User;
 
+use App\Entity\SocialAccount;
 use App\Entity\User;
 use App\Repositories\BaseRepository;
 
@@ -22,6 +23,11 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
     public function getByVerifiedEmail(string $email): ?User
     {
         return User::where('email', $email)->whereNotNull('email_verified_at')->first();
+    }
+
+    public function getByProviderId(int $id): ?User
+    {
+       return SocialAccount::where('provider_id', $id)->first();
     }
 
     public function save(User $user): User
