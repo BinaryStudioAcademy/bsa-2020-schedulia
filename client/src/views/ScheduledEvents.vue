@@ -4,22 +4,24 @@
             {{ lang.MY_EVENTS }}
         </template>
         <TabsLink :tabs="tabs"></TabsLink>
-        <EventTypesList />
+        <Component v-bind:is="routePageName"></Component>
     </GeneralLayout>
 </template>
 
 <script>
 import GeneralLayout from '@/components/common/GeneralLayout/GeneralLayout';
 import TabsLink from '@/components/tabs/TabsLink.vue';
-import EventTypesList from '@/components/event-types/EventTypesList';
+import Upcoming from '@/components/scheduled-events/UpcomingScheduledEventsList';
+import Past from '@/components/scheduled-events/PastScheduledEventsList';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapGetters } from 'vuex';
 
 export default {
-    name: 'EventTypes',
+    name: 'ScheduledEvents',
     components: {
         GeneralLayout,
-        EventTypesList,
+        Upcoming,
+        Past,
         TabsLink
     },
     data: () => ({}),
@@ -27,6 +29,11 @@ export default {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         }),
+
+        routePageName() {
+            return this.$route.name;
+        },
+
         tabs() {
             return [
                 {
