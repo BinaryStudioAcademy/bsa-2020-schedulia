@@ -139,7 +139,6 @@ class EventTypeController extends ApiController
         string $nickname,
         GetEventTypeCollectionByNicknameAction $action
     ) {
-
         $eventTypes = $action->execute(
             new GetEventTypeCollectionByNicknameRequest($nickname)
         )->getEventTypes();
