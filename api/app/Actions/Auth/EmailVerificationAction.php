@@ -28,7 +28,7 @@ final class EmailVerificationAction
         if (!$user->hasVerifiedEmail()) {
             $this->userRepository->markUserEmail($user);
         } else {
-            throw new UserAlreadyVerifiedException('User already verified!', 409);
+            throw new UserAlreadyVerifiedException();
         }
     }
 }
