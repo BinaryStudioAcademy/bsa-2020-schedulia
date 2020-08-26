@@ -18,11 +18,6 @@ const routes = [
                 component: () => import('../views/PublicEvent.vue')
             },
             {
-                path: ':nickname',
-                name: 'UserEventTypes',
-                component: () => import('../views/UserEventTypesList.vue')
-            },
-            {
                 path: 'confirm-event',
                 name: 'PublicEventConfirm',
                 component: () => import('../views/PublicEventConfirm.vue')
@@ -129,6 +124,11 @@ const routes = [
                 path: 'verified-email',
                 name: 'verified-email',
                 component: () => import('../views/VerifiedEmail')
+            },
+            {
+                path: ':nickname',
+                name: 'UserEventTypes',
+                component: () => import('../views/UserEventTypesList.vue')
             }
         ]
     }
