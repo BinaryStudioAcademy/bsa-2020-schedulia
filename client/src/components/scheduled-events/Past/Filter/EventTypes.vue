@@ -103,7 +103,7 @@
                                     </VBtn>
                                     <div
                                         class="no-items"
-                                        v-if="this.getEventTypes.length === 0"
+                                        v-if="!this.getEventTypes.length"
                                     >
                                         {{ lang.NO_ITEMS_FOUND }}
                                     </div>
