@@ -7,10 +7,10 @@
                     :style="{ background: eventType.color }"
                 ></div>
             </VCol>
-            <VCol cols="8" md="7" sm="8" xs="">
+            <VCol cols="8" md="8" sm="8" xs="">
                 <b class="event-type-name">{{ eventType.name }}</b>
             </VCol>
-            <VCol cols="2" md="3" sm="2" class="text-right">
+            <VCol cols="2" md="2" sm="2" class="text-right">
                 <VIcon color="black">mdi-chevron-right</VIcon>
             </VCol>
         </VRow>
