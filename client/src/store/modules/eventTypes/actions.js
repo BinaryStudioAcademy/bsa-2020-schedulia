@@ -3,6 +3,7 @@ import * as actions from './types/actions';
 import * as mutations from './types/mutations';
 import * as authActions from '@/store/modules/auth/types/actions';
 import * as loaderMutations from '@/store/modules/loader/types/mutations';
+import * as notifyActions from '@/store/modules/notification/types/actions';
 
 export default {
     [actions.FETCH_EVENT_TYPES]: async (
@@ -73,6 +74,30 @@ export default {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
             });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        }
+    },
+    [actions.FETCH_EVENT_TYPES_BY_NICKNAME]: async (
+        { commit, dispatch },
+        nickName
+    ) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+        try {
+            const eventTypes = await eventTypesService.fetchEventTypesByNickname(
+                nickName
+            );
+            commit(mutations.SET_EVENT_TYPES_BY_NICKNAME, eventTypes);
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        } catch (error) {
+            dispatch(
+                'notification/' + notifyActions.SET_ERROR_NOTIFICATION,
+                error?.response?.data?.error?.message,
+                { root: true }
+            );
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });

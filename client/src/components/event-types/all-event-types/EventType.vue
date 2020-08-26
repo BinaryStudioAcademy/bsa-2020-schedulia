@@ -7,13 +7,15 @@
         <div class="action-button text-right">
             <DropDown :eventType="eventType" />
         </div>
-        <div class="event-type-content">
-            <h3>{{ eventType.name }}</h3>
-            <span class="event-type-about"
-                >{{ eventType.duration }} {{ lang.MINS }}, {{ eventType.type }}
-            </span>
+        <div class="event-type-main">
+            <div class="event-type-content">
+                <h3 class="event-type-name">{{ eventType.name }}</h3>
+                <span class="event-type-about"
+                    >{{ eventType.duration }} {{ lang.MINS }}
+                </span>
+            </div>
         </div>
-        <div class="event-type-invitee mt-9 mb-2">
+        <div class="event-type-invitee mb-2">
             <Avatar :size="24" :color="'black'"></Avatar>
         </div>
         <VDivider />
@@ -75,11 +77,18 @@ export default {
 </script>
 
 <style scoped>
+.event-type-main {
+    min-height: 100px;
+}
+.event-type-name {
+    word-break: break-all;
+}
 .event-type-block {
     background: #fff;
     padding: 15px 20px 0 20px;
     border-radius: 10px;
     box-shadow: 0 2px 7px rgba(0, 0, 0, 0.25);
+    height: 100%;
 }
 .event-type-block div {
     cursor: pointer;

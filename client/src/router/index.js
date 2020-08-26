@@ -119,11 +119,15 @@ const routes = [
                     }
                 ]
             },
-
             {
                 path: 'verified-email',
                 name: 'verified-email',
                 component: () => import('../views/VerifiedEmail')
+            },
+            {
+                path: ':nickname',
+                name: 'UserEventTypes',
+                component: () => import('../views/UserEventTypesList.vue')
             }
         ]
     }
