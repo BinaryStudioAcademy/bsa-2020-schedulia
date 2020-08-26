@@ -30,4 +30,19 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+
+        'redirect_uri' => env('GOOGLE_OAUTH_REDIRECT_URI'),
+
+        'scopes' => [
+            \Google_Service_Oauth2::USERINFO_EMAIL,
+            \Google_Service_Calendar::CALENDAR
+        ],
+
+        'approval_prompt' => 'force',
+        'access_type' => 'offline'
+    ]
+
 ];

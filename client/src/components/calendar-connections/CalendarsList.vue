@@ -18,10 +18,10 @@
                 <VListItem
                     v-for="(calendar, i) in calendars"
                     :key="i"
-                    @click="() => {}"
+                    @click="onClickHandle(calendar.provider)"
                 >
                     <VListItemTitle>
-                        <VIcon>mdi-google</VIcon>
+                        <VIcon>{{ calendar.ico }}</VIcon>
                         {{ calendar.title }}
                     </VListItemTitle>
                 </VListItem>
@@ -32,14 +32,21 @@
 
 <script>
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: 'CalendarsList',
     data: () => ({
         calendars: [
             {
-                title: 'Google'
+                title: 'Google',
+                provider: 'google',
+                ico: 'mdi-google'
+            },
+            {
+                title: 'iCal',
+                provider: 'iCal',
+                ico: 'mdi-apple'
             }
         ]
     }),
@@ -47,6 +54,14 @@ export default {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         })
+    },
+
+    methods: {
+        ...mapActions('connectedCalendars', ['connect']),
+
+        async onClickHandle(provider) {
+            await this.connect(provider);
+        }
     }
 };
 </script>

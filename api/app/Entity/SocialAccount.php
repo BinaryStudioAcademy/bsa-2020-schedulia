@@ -10,9 +10,13 @@ class SocialAccount extends Model
 
     protected $fillable = [
         'user_id',
-        'service_id',
-        'token'
+        'provider_id',
+        'account_id',
+        'token',
+        'refresh_token'
     ];
+
+    protected $casts = ['token' => 'json'];
 
     public static $services = [
         self::GOOGLE_SERVICE_ID => 'Google'
@@ -21,5 +25,10 @@ class SocialAccount extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function scopeGoogle($query)
+    {
+        return $query->where('provider_id', '=', self::GOOGLE_SERVICE_ID);
     }
 }
