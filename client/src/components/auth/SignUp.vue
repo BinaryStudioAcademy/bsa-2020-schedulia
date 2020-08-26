@@ -108,7 +108,7 @@ import {
 } from 'vuelidate/lib/validators';
 const nameRequirements = helpers.regex(
     'symbols',
-    /^[a-zA-Zа-яА-ЯЇїІіЄєҐґ/|,._\\]{2,50}$/
+    /^[a-zA-Zа-яА-ЯЇїІіЄєҐґ /|,._\\]{2,50}$/
 );
 export default {
     name: 'SignUp',
