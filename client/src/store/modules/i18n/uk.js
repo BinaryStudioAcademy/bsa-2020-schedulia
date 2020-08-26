@@ -262,6 +262,7 @@ export default {
     CALENDAR_CONNECTIONS: 'Підключення до календаря',
     ADD_CALENDAR_ACCOUNT: 'Додати обліковий запис календаря',
     MY_EVENTS: 'Мої події',
+    NO_ITEMS_FOUND: 'Нічого не знайдено',
     UNAUTHENTICATED_ERROR: 'Час сессії минув! Авторизуйтесь знову, будь ласка!',
     NAME_IS_REQUIRED: "Ім'я обов'язковим",
     PASSWORD_CONFIRMATION_IS_REQUIRED: "Підтвердження паролю є обов'язковим",
