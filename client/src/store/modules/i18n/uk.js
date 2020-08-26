@@ -256,12 +256,12 @@ export default {
     MY_CALENDAR_ACOOUNT: 'Мій обліковий запис календаря',
     CONNECT_YOUR_CALENDAR_TEXT:
         'Підключіть свій календар, щоб повідомити Schedulia, коли ви доступні, і оновіть свій календар, як заплановані події.',
-
     YOU_DONT_HAVE_ANY_CONNECTED_CALENDARS:
         'У вас ще немає підключених календарів ',
     CALENDAR_CONNECTIONS: 'Підключення до календаря',
     ADD_CALENDAR_ACCOUNT: 'Додати обліковий запис календаря',
     MY_EVENTS: 'Мої події',
+    NO_ITEMS_FOUND: 'Нічого не знайдено',
     UNAUTHENTICATED_ERROR: 'Час сессії минув! Авторизуйтесь знову, будь ласка!',
     NAME_IS_REQUIRED: "Ім'я обов'язковим",
     PASSWORD_CONFIRMATION_IS_REQUIRED: "Підтвердження паролю є обов'язковим",
