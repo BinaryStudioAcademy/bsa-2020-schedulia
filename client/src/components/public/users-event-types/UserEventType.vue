@@ -1,6 +1,6 @@
 <template>
-    <div class="event-type pa-8">
-        <VRow>
+    <div class="event-type pa-4">
+        <VRow class="mb-0">
             <VCol cols="2" md="2" sm="2" xs="3">
                 <div
                     class="color text-left"
@@ -14,8 +14,8 @@
                 <VIcon color="black">mdi-chevron-right</VIcon>
             </VCol>
         </VRow>
-        <div class="mt-4">
-            <p class="description">{{ eventType.description }}</p>
+        <div>
+            <p class="description">{{ eventType.description.slice(0, 100) }}</p>
         </div>
     </div>
 </template>
@@ -29,27 +29,23 @@ export default {
     }
 };
 </script>
-
 <style scoped>
-.list-heading,
 .description {
     color: var(--text-color-level2, rgba(77, 80, 85, 0.6));
     font-size: 14px;
+    text-decoration: none;
+    /*text-overflow: ellipsis;*/
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
 }
-.event-types div.event-type {
-    transition: 0.5s;
-    cursor: pointer;
-    border-top: 1px solid var(--text-color-level3, rgba(77, 80, 85, 0.6));
-}
-.event-types div.event-type:hover {
-    background: var(--text-color-level3, rgba(77, 80, 85, 0.1));
-}
+
 .color {
     width: 30px;
     height: 30px;
     border-radius: 50%;
 }
-.event-type-name {
+.event-type-name,
+.description {
     word-break: break-all;
 }
 </style>
