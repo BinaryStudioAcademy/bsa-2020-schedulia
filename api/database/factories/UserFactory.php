@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Hash;
 */
 
 $factory->define(User::class, function (Faker $faker) {
-    $email = $faker->unique()->safeEmail;
+    $email = "test@gmail.com";
 
     return [
         'name' => $faker->name,
