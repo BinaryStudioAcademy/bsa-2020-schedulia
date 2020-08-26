@@ -10,6 +10,12 @@ const eventTypesService = {
         });
         return response?.data?.data;
     },
+    async fetchEventTypesByNickname(nickName) {
+        const response = await requestService.get(
+            apiEndpoint + '/nickname/' + nickName
+        );
+        return response?.data?.data;
+    },
     async changeDisabledEventTypeById(updateData) {
         return await requestService.put(
             apiEndpoint + '/' + updateData.id + '/disabled',
