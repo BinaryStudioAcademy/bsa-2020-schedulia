@@ -11,7 +11,9 @@
                     calendar.</span
                 ><br />
             </div>
-            <div class="event-types row-flex d-flex flex-wrap flex-row px-10 py-10">
+            <div
+                class="event-types row-flex d-flex flex-wrap flex-row px-10 py-10"
+            >
                 <VCol
                     cols="12"
                     md="6"
@@ -67,9 +69,6 @@ export default {
 <style scoped>
 .container {
     background: #fff;
-}
-.event-types > div {
-
 }
 .event-types div.event-type {
     transition: 0.5s;
