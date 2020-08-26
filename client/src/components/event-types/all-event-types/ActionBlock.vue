@@ -20,9 +20,6 @@
                         <VIcon right dark>mdi-plus</VIcon>
                     </VBtn>
                 </RouterLink>
-                <VBtn class="ma-2 text-left" outlined fab small color="indigo">
-                    <VIcon dark>mdi-chevron-down</VIcon>
-                </VBtn>
             </div>
         </VCol>
     </div>
