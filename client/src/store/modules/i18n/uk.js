@@ -32,7 +32,7 @@ export default {
     CHARACTERS: 'Символи',
     CHOOSE_YOUR_TIMEZONE: 'Виберіть часовий пояс',
     CLEAR: 'видалити',
-    CLONE: 'Створини знову',
+    CLONE: 'Клонувати',
     CLOSE: 'Закрити',
     CONFIRM: 'Підтвердити',
     CONFIRMED: 'Підтверджено',
@@ -47,7 +47,7 @@ export default {
     CURRENT_PASSWORD: 'Поточний пароль',
     CUSTOM_DURATION: 'Спеціальна тривалість',
     DATE_FORMAT: 'Формат дати',
-    DATE_RANGE: 'За проміжок часу',
+    DATE_RANGE: 'За проміжком часу',
     DAYS_FORMAT_ITEMS_BUSINESS: 'робочі дні',
     DAYS_FORMAT_ITEMS_CALENDAR: 'календарні дні',
     DEC: 'Грудень',
@@ -57,7 +57,7 @@ export default {
         'Ви збираєтесь видалити свій обліковий запис Schedulia. Це набере чинності негайно, і ви більше не матимете доступу до даних свого облікового запису.',
     DESCRIPTION_LABEL: 'Опис / інструкції',
     DIALOG_EVENT_TYPE_DELETE_CONFIRM:
-        'Користувачі не зможуть запланувати подальші зустрічі зі видаленими типами подій. Попередньо заплановані зустрічі буде затронуто.',
+        'Користувачі не зможуть запланувати подальші зустрічі з видаленими типами подій. Це вплине на попередньо заплановані зустрічі.',
     DISPLAYING: 'Відображення',
     DURATION_MIN: 'хв',
     EDIT: 'Редагувати',
@@ -76,7 +76,7 @@ export default {
     EVENT_LINK_LABEL: 'Посилання події',
     EVENT_LINK_VALID_SYMBOLS:
         'Будь ласка, використовуйте лише малі символи "a-z", "0-9", "-" або "_"',
-    EVENT_MAX_PER_DAY: 'Подій макс на день',
+    EVENT_MAX_PER_DAY: 'Максимальна кількість подій на день',
     EVENT_NAME_LABEL: 'Назва події',
     EVENT_TIME_ZONE: 'Часовий пояс події',
     EVENT_TIME_ZONE_EXPLANATION:
