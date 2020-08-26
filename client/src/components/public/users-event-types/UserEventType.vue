@@ -7,7 +7,7 @@
                     :style="{ background: eventType.color }"
                 ></div>
             </VCol>
-            <VCol cols="8" md="8" sm="8" xs="">
+            <VCol cols="8" md="8" sm="8">
                 <b class="event-type-name">{{ eventType.name }}</b>
             </VCol>
             <VCol cols="2" md="2" sm="2" class="text-right">
