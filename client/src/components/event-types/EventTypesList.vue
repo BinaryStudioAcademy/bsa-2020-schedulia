@@ -130,8 +130,3 @@ export default {
     }
 };
 </script>
-<style>
-.search-input .v-input__slot {
-    background: rgba(0, 0, 0, 0.12);
-}
-</style>
