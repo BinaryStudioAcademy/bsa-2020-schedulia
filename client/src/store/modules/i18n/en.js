@@ -340,7 +340,7 @@ export default {
     YOU_CAN_CHANGE_LANGUAGE_TO: 'Your can change language to',
     DISPLAY_LANGUAGE: 'Display language',
     MY_EVENTS: 'My Events',
-    UNAUTHENTICATED_ERROR: 'Session time is expired! SignIn again, please!',
+    UNAUTHENTICATED_ERROR: 'Session time is expired! Sign In again, please!',
     NAME_IS_REQUIRED: 'Name is required',
     PASSWORD_CONFIRMATION_IS_REQUIRED: 'Password confirmation is required',
     NAME_MUST_BE_AT_LEAST_2_CHARACTERS_LONG:
