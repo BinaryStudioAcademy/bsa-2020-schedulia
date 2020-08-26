@@ -54,8 +54,15 @@ Route::group([
         'prefix' => '/event-types',
     ], function () {
         Route::get('/', 'EventTypeController@index');
+        Route::get('/nickname/{nickname}', 'EventTypeController@getEventTypesByNickname');
         Route::get('/{id}', 'EventTypeController@getEventTypeById');
     });
+});
+Route::group([
+    'prefix' => '/event-types',
+    'namespace' => 'Api\\'
+], function () {
+    Route::get('/nickname/{nickname}', 'EventTypeController@getEventTypesByNickname');
 });
 
 Route::get('/event-types/{id}/availabilities', 'Api\\EventTypeController@getAvailableTime');
