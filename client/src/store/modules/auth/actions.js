@@ -3,7 +3,7 @@ import * as mutations from './types/mutations';
 import authService from '@/services/auth/authService';
 import router from '@/router';
 import * as notifyActions from '@/store/modules/notification/types/actions';
-import enLang from '@/store/modules/i18n/en';
+import * as langGetters from '@/store/modules/i18n/types/getters';
 
 export default {
     [actions.SIGN_IN]: async (context, loginData) => {
@@ -28,13 +28,18 @@ export default {
             dispatch(actions.CHECK_IF_UNAUTHORIZED, error);
         }
     },
-    [actions.CHECK_IF_UNAUTHORIZED]: ({ dispatch }, error) => {
+    [actions.CHECK_IF_UNAUTHORIZED]: (
+        { dispatch, state, rootGetters },
+        error
+    ) => {
         if (error.response.status === 401) {
             authService.removeToken();
+            state.user = null;
             router.push({ name: 'SignIn' });
             dispatch(
                 'notification/' + notifyActions.SET_ERROR_NOTIFICATION,
-                error?.response?.data?.error?.message,
+                rootGetters['i18n/' + langGetters.GET_LANGUAGE_CONSTANTS]
+                    .UNAUTHENTICATED_ERROR,
                 { root: true }
             );
         }
@@ -51,22 +56,30 @@ export default {
             context.commit(mutations.SET_TYPE_RESULT_SUBMIT_FORGOT, 'success');
             context.commit(
                 mutations.SET_RESULT_SUBMIT_FORGOT,
-                enLang.LETTER_WITH_RESET_LINK_WAS_SENT
+                context.rootGetters[
+                    'i18n/' + langGetters.GET_LANGUAGE_CONSTANTS
+                ].LETTER_WITH_RESET_LINK_WAS_SENT
             );
             context.commit(
                 mutations.SET_EXPLANATION_FORGOT,
-                enLang.LETTER_EXPLANATION_EMAIL_EXIST
+                context.rootGetters[
+                    'i18n/' + langGetters.GET_LANGUAGE_CONSTANTS
+                ].LETTER_EXPLANATION_EMAIL_EXIST
             );
             context.commit(mutations.SET_VISIBILITY_FORGOT, true);
         } catch (error) {
             context.commit(mutations.SET_TYPE_RESULT_SUBMIT_FORGOT, 'error');
             context.commit(
                 mutations.SET_RESULT_SUBMIT_FORGOT,
-                enLang.THE_USER_WITH_THE_SPECIFIED_EMAIL_DOES_NOT_EXIST
+                context.rootGetters[
+                    'i18n/' + langGetters.GET_LANGUAGE_CONSTANTS
+                ].THE_USER_WITH_THE_SPECIFIED_EMAIL_DOES_NOT_EXIST
             );
             context.commit(
                 mutations.SET_EXPLANATION_FORGOT,
-                enLang.LETTER_EXPLANATION_EMAIL_DONOT_EXIST
+                context.rootGetters[
+                    'i18n/' + langGetters.GET_LANGUAGE_CONSTANTS
+                ].LETTER_EXPLANATION_EMAIL_DONOT_EXIST
             );
             context.commit(mutations.SET_VISIBILITY_FORGOT, true);
         }
@@ -82,22 +95,30 @@ export default {
             context.commit(mutations.SET_STATUS_SUBMIT_RESET, 'success');
             context.commit(
                 mutations.SET_SHORT_DESC_SUBMIT_RESET,
-                enLang.OK_PASSWORD_RESET
+                context.rootGetters[
+                    'i18n/' + langGetters.GET_LANGUAGE_CONSTANTS
+                ].OK_PASSWORD_RESET
             );
             context.commit(
                 mutations.SET_EXPLANATION_RESET,
-                enLang.EXPLANATION_PASSWORD_RESET
+                context.rootGetters[
+                    'i18n/' + langGetters.GET_LANGUAGE_CONSTANTS
+                ].EXPLANATION_PASSWORD_RESET
             );
             context.commit(mutations.SET_VISIBILITY_RESET, true);
         } catch (error) {
             context.commit(mutations.SET_STATUS_SUBMIT_RESET, 'error');
             context.commit(
                 mutations.SET_SHORT_DESC_SUBMIT_RESET,
-                enLang.ERROR_IN_PASSWORD_RESET
+                context.rootGetters[
+                    'i18n/' + langGetters.GET_LANGUAGE_CONSTANTS
+                ].ERROR_IN_PASSWORD_RESET
             );
             context.commit(
                 mutations.SET_EXPLANATION_RESET,
-                enLang.EXPLANATION_ERROR_PASSWORD_RESET
+                context.rootGetters[
+                    'i18n/' + langGetters.GET_LANGUAGE_CONSTANTS
+                ].EXPLANATION_ERROR_PASSWORD_RESET
             );
             context.commit(mutations.SET_VISIBILITY_RESET, true);
         }
