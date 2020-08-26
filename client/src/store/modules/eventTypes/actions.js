@@ -79,7 +79,10 @@ export default {
             });
         }
     },
-    [actions.FETCH_EVENT_TYPES_BY_NICKNAME]: async ({ commit, dispatch }, nickName) => {
+    [actions.FETCH_EVENT_TYPES_BY_NICKNAME]: async (
+        { commit, dispatch },
+        nickName
+    ) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
         try {
             const eventTypes = await eventTypesService.fetchEventTypesByNickname(
