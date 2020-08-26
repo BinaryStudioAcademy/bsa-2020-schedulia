@@ -6,7 +6,6 @@ namespace App\Repositories\User;
 
 use App\Contracts\EloquentCriterion;
 use App\Entity\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 interface UserRepositoryInterface
@@ -16,5 +15,5 @@ interface UserRepositoryInterface
     public function save(User $user): User;
     public function deleteById(int $id): void;
     public function findByCriteria(EloquentCriterion ...$criteria): Collection;
-    public function findOneByCriteria(EloquentCriterion ...$criteria): Model;
+    public function findOneByCriteria(EloquentCriterion ...$criteria): User;
 }
