@@ -119,7 +119,6 @@ const routes = [
                     }
                 ]
             },
-
             {
                 path: 'verified-email',
                 name: 'verified-email',
