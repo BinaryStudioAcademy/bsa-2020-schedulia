@@ -262,5 +262,14 @@ export default {
     CALENDAR_CONNECTIONS: 'Підключення до календаря',
     ADD_CALENDAR_ACCOUNT: 'Додати обліковий запис календаря',
     MY_EVENTS: 'Мої події',
-    NO_ITEMS_FOUND: 'Нічого не знайдено'
+    NO_ITEMS_FOUND: 'Нічого не знайдено',
+    UNAUTHENTICATED_ERROR: 'Час сессії минув! Авторизуйтесь знову, будь ласка!',
+    NAME_IS_REQUIRED: "Ім'я обов'язковим",
+    PASSWORD_CONFIRMATION_IS_REQUIRED: "Підтвердження паролю є обов'язковим",
+    NAME_MUST_BE_AT_LEAST_2_CHARACTERS_LONG:
+        "Ім'я має бути не менше 2 символів",
+    NAME_MUST_BE_NO_MORE_THAN_50_CHARACTERS_LONG:
+        "Ім'я має бути не більше 50 символів",
+    ONLY_LETTER_AND_SYMBOLS_PERMITTED:
+        'Дозволені лише літери та символи  \\|/,._ '
 };
