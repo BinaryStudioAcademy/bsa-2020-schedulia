@@ -88,7 +88,7 @@ export default {
             this.page = 1;
             this.loadMoreActive = true;
             this.$v.searchString.$touch();
-            const eventTypes = await this.fetchEventTypes({
+            await this.fetchEventTypes({
                 searchString: this.searchString,
                 page: this.page
             });
