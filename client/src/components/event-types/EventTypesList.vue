@@ -18,7 +18,7 @@
         </div>
         <ActionBlock />
         <VDivider />
-        <div class="event-types-block row" v-if="eventTypes">
+        <div class="event-types-block row-flex flex-wrap flex-row d-flex" v-if="eventTypes">
             <VCol
                 cols="12"
                 md="4"

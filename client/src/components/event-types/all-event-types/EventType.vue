@@ -7,19 +7,15 @@
         <div class="action-button text-right">
             <DropDown :eventType="eventType" />
         </div>
-        <div class="event-type-content">
-            <h3 class="event-type-name">{{ eventType.name }}</h3>
-            <span class="event-type-about"
+        <div class="event-type-main">
+            <div class="event-type-content">
+                <h3 class="event-type-name">{{ eventType.name }}</h3>
+                <span class="event-type-about"
                 >{{ eventType.duration }} {{ lang.MINS }}
             </span>
+            </div>
         </div>
-        <div
-            class="event-type-invitee mb-2"
-            :class="{
-                'mt-lg-0 mt-xl-7 mt-md-2 mt-sm-1': eventType.name.length >= 46,
-                'mt-lg-14 mt-md-16 mt-sm-8': eventType.name.length < 46
-            }"
-        >
+        <div class="event-type-invitee mb-2">
             <Avatar :size="24" :color="'black'"></Avatar>
         </div>
         <VDivider />
@@ -81,6 +77,9 @@ export default {
 </script>
 
 <style scoped>
+.event-type-main {
+    min-height: 100px;
+}
 .event-type-name {
     word-break: break-all;
 }
@@ -89,6 +88,7 @@ export default {
     padding: 15px 20px 0 20px;
     border-radius: 10px;
     box-shadow: 0 2px 7px rgba(0, 0, 0, 0.25);
+    height: 100%;
 }
 .event-type-block div {
     cursor: pointer;
@@ -119,13 +119,5 @@ export default {
 .disabled-event .event-type-about,
 .disabled-event .event-type-actions .duration span {
     color: #e5e5e5;
-}
-@media (min-width: 600px) and (max-width: 621px) {
-    .v-application .mt-sm-8 {
-        margin-top: 58px !important;
-    }
-    .v-application .mt-sm-1 {
-        margin-top: 4px !important;
-    }
 }
 </style>
