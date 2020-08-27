@@ -43,8 +43,6 @@ class Google implements SocialAccountService, CalendarService
         {
             return $this->createAuthUrl();
         } else {
-            $socialAccount = $this->socialAccountRepository->findMyByProvider(SocialAccount::GOOGLE_SERVICE_ID);
-
             $this->authenticate($code);
             $token = $this->getAccessToken();
         }
