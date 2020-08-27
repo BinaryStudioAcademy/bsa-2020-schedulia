@@ -32,7 +32,6 @@ final class AddEventAction
     public function execute(AddEventRequest $request): void
     {
         $eventType = $this->eventTypeRepository->getById($request->getEventTypeId());
-        
         if ($this->availabilityService->checkIfTimeIsAvailable($eventType, $request->getStartDate())) {
             $event = new Event();
 
