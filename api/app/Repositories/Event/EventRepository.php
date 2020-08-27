@@ -40,4 +40,11 @@ final class EventRepository extends BaseRepository implements EventRepositoryInt
             ->select('events.*')
             ->paginate($perPage, ['*'], null, $page);
     }
+
+    public function saveCustomFieldValues(Event $event, array $customFieldValues): void
+    {
+        $event
+            ->customFieldValues()
+            ->createMany($customFieldValues);
+    }
 }

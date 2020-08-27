@@ -17,8 +17,8 @@ class CustomField extends Model
         return $this->belongsTo(EventType::class);
     }
 
-    public function customFieldValue()
+    public function customFieldValues()
     {
-        return $this->hasOne(CustomFieldValue::class, 'custom_field_id');
+        return $this->hasMany(CustomFieldValue::class, 'custom_field_id');
     }
 }

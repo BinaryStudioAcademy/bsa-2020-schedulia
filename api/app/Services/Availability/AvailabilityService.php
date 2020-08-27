@@ -17,6 +17,7 @@ use App\Exceptions\Availability\IntervalsOverlappedException;
 use App\Exceptions\Availability\TimeIsAlreadyBookedException;
 use App\Exceptions\Availability\UnknownAvailabilityTypeException;
 use App\Exceptions\Availability\WeekendException;
+use App\Exceptions\Availability\WrongDateTimeException;
 use App\Repositories\Availability\AvailabilityRepository;
 use App\Repositories\Availability\Criterion\AvailabilitiesCriterion;
 use App\Repositories\Availability\Criterion\AvailabilityDateRangeCriterion;
@@ -109,14 +110,19 @@ final class AvailabilityService implements AvailabilityServiceInterface
         $time = new Carbon($dateObj->toTimeString());
 
         $dateTimeList = $this->getAvailableDaysByEventType($eventType, $date);
+
         if (!empty($dateTimeList[$date])) {
             foreach ($dateTimeList[$date] as $index => $interval) {
-                if ($time->gte($interval['start_time']) && $time->lte($interval['end_time'])) {
+                $startIntervalTime = (new Carbon($interval['start_time']))->toDateTimeString();
+                $endIntervalTime = (new Carbon($interval['end_time']))->toDateTimeString();
+                if ($time->gte($startIntervalTime) && $time->lte($endIntervalTime)) {
                     if (!in_array($time->toTimeString(), $interval['unavailable'])) {
                         return true;
                     } else {
                         throw new TimeIsAlreadyBookedException();
                     }
+                } else {
+                    throw new WrongDateTimeException();
                 }
             }
         }
@@ -124,6 +130,7 @@ final class AvailabilityService implements AvailabilityServiceInterface
         if (isset($dateTimeList[$date]) && $dateObj->isWeekend() && empty($dateTimeList[$date])) {
             throw new WeekendException();
         }
+
         return false;
     }
 
