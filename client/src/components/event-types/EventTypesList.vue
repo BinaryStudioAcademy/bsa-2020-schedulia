@@ -78,7 +78,8 @@ export default {
     data: () => ({
         searchString: '',
         page: 1,
-        loadMoreActive: true
+        loadMoreActive: true,
+        perPage: 4
     }),
     methods: {
         ...mapActions('eventTypes', {
@@ -92,7 +93,7 @@ export default {
                 searchString: this.searchString,
                 page: this.page
             });
-            if (Object.values(this.eventTypes).length % 4 !== 0) {
+            if (Object.values(this.eventTypes).length % this.perPage !== 0) {
                 this.loadMoreActive = false;
             }
         },
@@ -101,7 +102,7 @@ export default {
                 searchString: this.searchString,
                 page: this.page + 1
             });
-            if (eventTypes.length === 4) {
+            if (eventTypes.length === this.perPage) {
                 this.page += 1;
             } else {
                 this.loadMoreActive = false;
@@ -113,7 +114,7 @@ export default {
             searchString: this.searchString,
             page: this.page
         });
-        if (Object.values(this.eventTypes).length === 4) {
+        if (Object.values(this.eventTypes).length === this.perPage) {
             this.loadMoreActive = true;
         }
     },
