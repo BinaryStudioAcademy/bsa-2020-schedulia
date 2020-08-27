@@ -92,7 +92,7 @@ export default {
         }
     },
 
-    async created() {
+    async mounted() {
         try {
             await this.setScheduledEvents({
                 page: this.page,
