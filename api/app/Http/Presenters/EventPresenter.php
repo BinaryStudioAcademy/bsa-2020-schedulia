@@ -6,6 +6,7 @@ namespace App\Http\Presenters;
 
 use App\Contracts\PresenterCollectionInterface;
 use App\Entity\Event;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
 final class EventPresenter implements PresenterCollectionInterface
@@ -26,9 +27,10 @@ final class EventPresenter implements PresenterCollectionInterface
             'invitee_name' => $event->invitee_name,
             'invitee_email' => $event->invitee_email,
             'invitee_question' => 'No questions',
-            'start_date' => $event->start_date,
+            'start_date' => Carbon::parse($event->start_date)->format('l, d.m.Y'),
+            'start_time' => Carbon::parse($event->start_date)->format('H:m'),
             'timezone' => $event->timezone,
-            'created_at' => $event->created_at,
+            'created_at' => Carbon::parse($event->created_at)->format('d.m.Y'),
             'event_type' => $this->eventTypePresenter->present($event->eventType),
         ];
     }
