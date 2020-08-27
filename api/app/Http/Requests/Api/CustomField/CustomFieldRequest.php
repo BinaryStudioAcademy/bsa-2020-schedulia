@@ -12,7 +12,6 @@ final class CustomFieldRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'id' => 'required',
             'custom_fields' => [
                 '*' => [
                     'name' => 'required|string',
