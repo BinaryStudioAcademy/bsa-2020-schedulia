@@ -2,7 +2,7 @@
     <div class="event">
         <VContainer class="event-date">
             <span>
-                {{ this.getEventDate(scheduledEvent.startDate) }}
+                {{ getEventDate(scheduledEvent.startDate) }}
             </span>
         </VContainer>
         <VExpansionPanels flat tile accordion>
@@ -16,7 +16,7 @@
 
                             <span class="time">
                                 {{
-                                    this.getDurationTime(
+                                    getDurationTime(
                                         scheduledEvent.startDate,
                                         scheduledEvent.eventType.duration
                                     )
