@@ -11,7 +11,7 @@ class AddEventToGoogleCalendar implements ShouldQueue
 {
     private $googleCalendar;
 
-    public function __construct(Google $googleCalendar): void
+    public function __construct(Google $googleCalendar)
     {
         $this->googleCalendar = $googleCalendar;
     }
