@@ -23,7 +23,7 @@ class Google implements SocialAccountService, CalendarService
 
     public function __call(string $method, array $args)
     {
-        if ( !method_exists($this->client, $method) ) {
+        if (!method_exists($this->client, $method)) {
             throw new \Exception("Call to undefined method '{$method}'");
         }
 
@@ -39,12 +39,13 @@ class Google implements SocialAccountService, CalendarService
 
     public function auth(string $code = null)
     {
-        if(!$code)
-        {
+        if(!$code) {
             return $this->createAuthUrl();
         } else {
             $this->authenticate($code);
             $token = $this->getAccessToken();
+
+            return '';
         }
     }
 
@@ -86,5 +87,4 @@ class Google implements SocialAccountService, CalendarService
 
         return $client;
     }
-
 }

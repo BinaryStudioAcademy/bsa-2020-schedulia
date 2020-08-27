@@ -2,7 +2,6 @@
 
 namespace App\Actions\SocialAccount;
 
-
 final class GetCalendarsCollectionRequest
 {
     private int $userId;

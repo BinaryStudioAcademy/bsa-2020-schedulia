@@ -36,5 +36,4 @@ class SocialAccount extends Model
     {
         return self::$services[$this->provider_id];
     }
-
 }

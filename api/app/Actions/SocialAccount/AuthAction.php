@@ -20,5 +20,4 @@ class AuthAction
     {
         return new AuthResponse($this->$provider->auth($code));
     }
-
 }

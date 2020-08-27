@@ -2,7 +2,6 @@
 
 namespace App\Actions\SocialAccount;
 
-
 use App\Repositories\SocialAccount\Criterion\ProviderCriterion;
 use App\Repositories\SocialAccount\Criterion\UserCriterion;
 use App\Repositories\SocialAccount\SocialAccountRepositoryInterface;
@@ -20,8 +19,7 @@ final class GetCalendarsCollectionAction
     {
         $criteria = [new UserCriterion($request->getUserId())];
 
-        if($request->getProviders())
-        {
+        if($request->getProviders()) {
             $criteria[] = new ProviderCriterion($request->getProviders());
         }
 
