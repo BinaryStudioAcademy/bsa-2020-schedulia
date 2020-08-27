@@ -282,5 +282,6 @@ export default {
     ONLY_LETTER_AND_SYMBOLS_PERMITTED:
         'Дозволені лише літери та символи  \\|/,._ ',
     LOCALIZATION: 'uk-UA',
-    ENABLED: 'Увімкнено'
+    ENABLED: 'Увімкнено',
+    LOAD_MORE: 'Завантажити ще'
 };
