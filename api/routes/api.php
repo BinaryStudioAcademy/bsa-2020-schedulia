@@ -92,3 +92,14 @@ Route::group([
 ], function () {
     Route::post('/', 'UploadController@store');
 });
+
+Route::group([
+    'middleware' => 'auth:api',
+    'namespace' => 'Api\\',
+    'prefix' => '/social-accounts',
+], function () {
+    Route::get('/calendars', 'SocialAccountController@calendars');
+});
+
+Route::get('/social-accounts/{provider?}/oauth', 'Api\\SocialAccountController@oauth');
+Route::get('/social-accounts/{provider?}/oauthResponse', 'Api\\SocialAccountController@oauthResponse');

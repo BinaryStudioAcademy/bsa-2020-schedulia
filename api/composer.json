@@ -17,6 +17,7 @@
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
+        "google/apiclient": "^2.7",
         "google/cloud-logging": "^1.20",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.0",
@@ -43,7 +44,11 @@
     "extra": {
         "laravel": {
             "dont-discover": []
-        }
+        },
+        "google/apiclient-services": [
+            "Calendar",
+            "Oauth2"
+        ]
     },
     "autoload": {
         "psr-4": {
@@ -71,6 +76,7 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ]
+        ],
+        "post-update-cmd": "Google_Task_Composer::cleanup"
     }
 }

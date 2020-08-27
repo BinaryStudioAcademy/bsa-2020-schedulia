@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\EventCreated;
+use App\Listeners\AddEventToGoogleCalendar;
 use App\Listeners\SendEventCreatedNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -20,7 +21,8 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         EventCreated::class => [
-            SendEventCreatedNotification::class
+            SendEventCreatedNotification::class,
+            AddEventToGoogleCalendar::class
         ]
     ];
 
