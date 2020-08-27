@@ -29,4 +29,9 @@ class Event extends Model
     {
         return $this->belongsTo(EventType::class, 'event_type_id', 'id');
     }
+
+    public function customFieldValues()
+    {
+        return $this->hasMany(CustomFieldValue::class, 'event_id');
+    }
 }

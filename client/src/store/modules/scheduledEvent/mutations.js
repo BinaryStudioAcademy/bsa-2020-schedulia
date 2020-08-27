@@ -1,5 +1,8 @@
 import * as mutations from './types/mutations';
-import { eventMapper } from '@/store/modules/scheduledEvent/normalizer';
+import {
+    eventMapper,
+    eventPaginationMapper
+} from '@/store/modules/scheduledEvent/normalizer';
 
 export default {
     [mutations.SET_SCHEDULED_EVENT_FILTER_VIEW]: (
@@ -9,10 +12,10 @@ export default {
         state.scheduledEventsFilterView = scheduledEventFilterView;
     },
 
-    [mutations.SET_SCHEDULED_EVENTS]: (state, data) => {
+    [mutations.SET_SCHEDULED_EVENTS]: (state, events) => {
         state.scheduledEvents = {
             ...state.scheduledEvents,
-            ...data.reduce(
+            ...events.reduce(
                 (prev, event) => ({
                     ...prev,
                     [event.id]: eventMapper(event)
@@ -20,6 +23,10 @@ export default {
                 {}
             )
         };
+    },
+
+    [mutations.SET_SCHEDULED_EVENTS_PAGINATION]: (state, pagination) => {
+        state.eventsPagination = eventPaginationMapper(pagination);
     },
 
     [mutations.CLEAR_SCHEDULED_EVENTS]: state => {

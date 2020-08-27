@@ -121,8 +121,7 @@ import EventInfo from './EventInfo';
 import AutoFillSpacer from './AutoFillSpacer';
 import * as actions from '@/store/modules/publicEvent/types/actions';
 import * as getters from '@/store/modules/publicEvent/types/getters';
-import * as mutations from '@/store/modules/publicEvent/types/mutations';
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'EventType',
@@ -131,7 +130,7 @@ export default {
         AutoFillSpacer
     },
     async mounted() {
-        await this.getEventTypeById(5);
+        await this.getEventTypeById(this.$route.params.id);
 
         this.currentTimezoneTime = this.getFormattedTimezoneTime(
             this.currentTimezone
@@ -302,19 +301,28 @@ export default {
     },
     methods: {
         ...mapActions('publicEvent', {
-            getEventTypeById: actions.GET_EVENT_TYPE_BY_ID
+            getEventTypeById: actions.GET_EVENT_TYPE_BY_ID,
+            setPublicEvent: actions.SET_PUBLIC_EVENT
         }),
-        ...mapMutations('publicEvent', {
-            setPublicEvent: mutations.SET_PUBLIC_EVENT
-        }),
+        getStartDate(time) {
+            return `${momentTimezones(
+                `${this.date} ${time}`,
+                'YYYY-MM-DD HH:mm'
+            )
+                .tz(this.currentTimezone)
+                .format()}`;
+        },
         onConfirmDate(time) {
             this.setPublicEvent({
                 eventTypeId: this.eventType.id,
-                startDate: `${this.date} ${time}`,
+                startDate: this.getStartDate(time),
                 timezone: this.currentTimezone
             });
+
             this.$router.push({
-                name: 'PublicEventConfirm'
+                path: `/${this.eventType.owner.nickname}/${
+                    this.eventType.id
+                }/${this.getStartDate(time)}`
             });
         },
         getFormattedTimezoneTime(timezone) {
