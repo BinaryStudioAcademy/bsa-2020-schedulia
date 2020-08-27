@@ -21,7 +21,7 @@ final class EndDateCriterion implements EloquentCriterion
     {
         return $builder->where(
             'start_date',
-            '<=',
+            '<',
             $this->endDate
         );
     }
