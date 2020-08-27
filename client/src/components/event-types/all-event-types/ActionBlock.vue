@@ -8,7 +8,9 @@
                 <VCol cols="10">
                     <span class="user-name">{{ user.name }}</span>
                     <br />
-                    <a href="">shedulia.xyz/nickname</a>
+                    <RouterLink :to="{ path: user.nickname }">
+                        shedulia.xyz/{{ user.nickname }}
+                    </RouterLink>
                 </VCol>
             </VRow>
         </VCol>
