@@ -1,10 +1,7 @@
 <?php
 
-
 namespace App\Actions\Auth;
 
-
-use App\Entity\SocialAccount;
 use App\Entity\User;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Hash;

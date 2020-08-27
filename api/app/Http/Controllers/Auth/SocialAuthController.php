@@ -1,15 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api\Auth;
+namespace App\Http\Controllers\Auth;
 
 use App\Actions\Auth\SocialAuthAction;
-use App\Entity\SocialAccount;
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Controllers\Controller;
-use App\Http\Presenters\AuthenticationResponseArrayPresenter;
-use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
-use Tymon\JWTAuth\JWTAuth;
 
 class SocialAuthController extends ApiController
 {

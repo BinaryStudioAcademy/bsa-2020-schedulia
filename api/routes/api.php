@@ -23,8 +23,6 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Api\\Auth'], function () {
     Route::post('/logout', 'AuthController@logout')->middleware('auth:api');
     Route::get('/me', 'AuthController@me')->middleware('auth:api');
     Route::post('/email/verify', 'EmailVerificationController@verify')->name('verification.verify');
-    Route::get('/{provider}', 'SocialAuthController@redirectToProvider');
-    Route::get('/{provider}/callback', 'SocialAuthController@handleProviderCallback');
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
