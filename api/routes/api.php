@@ -48,6 +48,8 @@ Route::group([
         Route::get('/{id}', 'EventTypeController@getEventTypeById');
         Route::put('/{id}', 'EventTypeController@update');
         Route::put('/{id}/disabled', 'EventTypeController@changeDisabledById');
+        Route::post('/custom-fields', 'EventTypeController@saveCustomFieldsByEventTypeId');
+        Route::put('/custom-fields', 'EventTypeController@updateCustomFieldsByEventTypeId');
         Route::delete('/{id}', 'EventTypeController@destroy');
     });
     Route::group([
