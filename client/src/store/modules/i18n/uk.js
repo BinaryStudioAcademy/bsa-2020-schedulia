@@ -278,6 +278,6 @@ export default {
     PLEASE_MAKE_SURE_THAT_YOU_TYPED_IN_THE_URL_CORRECTLY:
         ' Переконайтесь, що ви правильно ввели URL-адресу',
     PLEASE_RETYPE_ADDRESS_OR_RETURN_TO:
-        'Будь ласка, введіть адресу або поверніться до',
+        'Будь ласка, введіть адресу або поверніться на',
     MAIN_PAGE: ' головну сторінку'
 };
