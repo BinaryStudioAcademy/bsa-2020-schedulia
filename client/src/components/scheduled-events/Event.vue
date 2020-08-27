@@ -15,7 +15,7 @@
                                 "
                             />
                             <span class="time">
-                                {{ scheduledEvent.startTime }}
+                                HH:mm - HH:mm
                             </span>
                         </VCol>
                         <VCol>
@@ -75,10 +75,10 @@
                                         {{ scheduledEvent.email }}
                                     </span>
                                 </li>
-                                <li>
+                                <li v-show="scheduledEvent.location">
                                     {{ lang.LOCATION }}
                                     <span>
-                                       Location
+                                       {{ scheduledEvent.location }}
                                     </span>
                                 </li>
                                 <li>

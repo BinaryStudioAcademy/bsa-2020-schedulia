@@ -28,7 +28,7 @@ final class EventPresenter implements PresenterCollectionInterface
             'invitee_email' => $event->invitee_email,
             'invitee_question' => 'No questions',
             'start_date' => Carbon::parse($event->start_date)->format('l, d.m.Y'),
-            'start_time' => Carbon::parse($event->start_date)->format('H:m'),
+            'location' => $event->location,
             'timezone' => $event->timezone,
             'created_at' => Carbon::parse($event->created_at)->format('d.m.Y'),
             'event_type' => $this->eventTypePresenter->present($event->eventType),
