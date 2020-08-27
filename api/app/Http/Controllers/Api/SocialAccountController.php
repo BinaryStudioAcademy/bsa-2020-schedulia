@@ -54,7 +54,7 @@ class SocialAccountController extends ApiController
     public function oauthResponse(Request $request)
     {
         $provider = $request->route('provider');
-        $response = $this->authAction->execute($provider, $request->input('code'));
+        $this->authAction->execute($provider, $request->input('code'), $request->input('state'));
 
         return $this->emptyResponse();
     }

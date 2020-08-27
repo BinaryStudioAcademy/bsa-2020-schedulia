@@ -6,6 +6,6 @@ namespace App\Contracts;
 
 interface CalendarService
 {
-    public function createEvent(): void;
+    public function createEvent(CalendarEvent $calendarEvent): void;
     public function deleteEvent(): void;
 }

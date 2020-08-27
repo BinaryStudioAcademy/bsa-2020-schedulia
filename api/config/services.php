@@ -42,7 +42,9 @@ return [
         ],
 
         'approval_prompt' => 'force',
-        'access_type' => 'offline'
+        'access_type' => 'offline',
+
+        'include_granted_scopes' => true
     ]
 
 ];

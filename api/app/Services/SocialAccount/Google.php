@@ -3,22 +3,32 @@
 namespace App\Services\SocialAccount;
 
 use App\Entity\SocialAccount;
+use App\Exceptions\GoogleOauthException;
 use App\Repositories\SocialAccount\SocialAccountRepositoryInterface;
+use App\Contracts\CalendarEvent;
+use App\Services\Calendar\Google\GoogleCalendarEventPresenter;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Config\Repository;
 use App\Contracts\CalendarService;
 use App\Contracts\SocialAccountService;
+use Illuminate\Support\Facades\Auth;
 
 class Google implements SocialAccountService, CalendarService
 {
     protected $client;
     private Repository $config;
     private SocialAccountRepositoryInterface $socialAccountRepository;
+    private GoogleCalendarEventPresenter $googleCalendarEventPresenter;
 
-    public function __construct(Repository $config, SocialAccountRepositoryInterface $socialAccountRepository)
-    {
+    public function __construct(
+        Repository $config,
+        SocialAccountRepositoryInterface $socialAccountRepository,
+        GoogleCalendarEventPresenter $googleCalendarEventPresenter
+    ) {
         $this->config = $config;
         $this->client = $this->setupClient();
         $this->socialAccountRepository = $socialAccountRepository;
+        $this->googleCalendarEventPresenter = $googleCalendarEventPresenter;
     }
 
     public function __call(string $method, array $args)
@@ -37,15 +47,33 @@ class Google implements SocialAccountService, CalendarService
         return new $classname($this->client);
     }
 
-    public function auth(string $code = null)
+    public function auth(string $code = null, string $state = null)
     {
         if (!$code) {
             return $this->createAuthUrl();
         } else {
             $this->authenticate($code);
+            $user = $this->decodeUser($state);
+
             $token = $this->getAccessToken();
 
-            return '';
+            if (!$token) {
+                throw new GoogleOauthException();
+            }
+
+            $socialAccount = $this->socialAccountRepository->findByProvider(
+                SocialAccount::GOOGLE_SERVICE_ID,
+                $user->userId
+            );
+
+            $socialAccount->account_id = $user->userId;
+            $socialAccount->token = $token;
+            $socialAccount->refresh_token = $token['refresh_token'];
+            $socialAccount->expires_in = '2020-08-27 22:57:59';
+
+            $socialAccount->save();
+
+            return 'Success';
         }
     }
 
@@ -63,9 +91,17 @@ class Google implements SocialAccountService, CalendarService
         return $this->client->revokeToken($token);
     }
 
-    public function createEvent(): void
+    public function createEvent(CalendarEvent $googleCalendarEvent): void
     {
-        // TODO: Implement createEvent() method.
+        if(!Auth::user()) {
+            throw new AuthenticationException();
+        }
+
+        $token = Auth::user()->googleAccounts[0]->token;
+
+        $event = new \Google_Service_Calendar_Event($this->googleCalendarEventPresenter->present($googleCalendarEvent));
+
+        $this->connect($token)->service('Calendar')->events->insert('primary', $event);
     }
 
     public function deleteEvent(): void
@@ -84,7 +120,18 @@ class Google implements SocialAccountService, CalendarService
         $client->setScopes($options['scopes']);
         $client->setApprovalPrompt($options['approval_prompt']);
         $client->setAccessType($options['access_type']);
+        $client->setState($this->encodeUser());
 
         return $client;
+    }
+
+    private function encodeUser()
+    {
+        return base64_encode(json_encode(['userId' => Auth::id()]));
+    }
+
+    private function decodeUser($state)
+    {
+        return json_decode(base64_decode($state));
     }
 }

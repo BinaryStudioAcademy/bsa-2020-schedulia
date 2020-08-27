@@ -21,8 +21,8 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         EventCreated::class => [
-            SendEventCreatedNotification::class,
-            AddEventToGoogleCalendar::class
+            AddEventToGoogleCalendar::class,
+            SendEventCreatedNotification::class
         ]
     ];
 
