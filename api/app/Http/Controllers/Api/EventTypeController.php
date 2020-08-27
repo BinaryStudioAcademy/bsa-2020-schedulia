@@ -12,6 +12,9 @@ use App\Actions\EventType\GetAvailableTimeAction;
 use App\Actions\EventType\GetAvailableTimeRequest;
 use App\Actions\EventType\GetEventTypeByIdAction;
 use App\Actions\EventType\GetEventTypeCollectionAction;
+use App\Actions\EventType\GetEventTypeCollectionByNicknameAction;
+use App\Actions\EventType\GetEventTypeCollectionByNicknameRequest;
+use App\Actions\EventType\GetEventTypeCollectionByNicknameResponse;
 use App\Actions\EventType\GetEventTypeCollectionRequest;
 use App\Actions\EventType\UpdateEventTypeAction;
 use App\Actions\EventType\UpdateEventTypeRequest;
@@ -39,13 +42,18 @@ class EventTypeController extends ApiController
     public function index(Request $request, GetEventTypeCollectionAction $action)
     {
         $response = $action->execute(
-            new GetEventTypeCollectionRequest($request->searchString)
+            new GetEventTypeCollectionRequest(
+                $request->searchString,
+                (int)$request->query('page'),
+                (int)$request->query('perPage'),
+                $request->query('sorting'),
+                $request->query('direction')
+            )
         );
 
-        return $this->successResponse(
-            $this->eventTypePresenter->presentCollection(
-                $response->getEventTypeCollection()
-            )
+        return $this->createPaginatedResponse(
+            $response->getPaginator(),
+            $this->eventTypePresenter
         );
     }
 
@@ -125,5 +133,16 @@ class EventTypeController extends ApiController
         )->getDateTimeList();
 
         return $this->successResponse($this->availabilityServicePresenter->presentArray($dateTimeList));
+    }
+
+    public function getEventTypesByNickname(
+        string $nickname,
+        GetEventTypeCollectionByNicknameAction $action
+    ) {
+        $eventTypes = $action->execute(
+            new GetEventTypeCollectionByNicknameRequest($nickname)
+        )->getEventTypes();
+
+        return $this->successResponse($this->eventTypePresenter->presentCollection($eventTypes));
     }
 }

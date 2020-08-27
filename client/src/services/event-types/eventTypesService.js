@@ -3,10 +3,17 @@ import requestService from '@/services/requestService';
 const apiEndpoint = '/event-types';
 
 const eventTypesService = {
-    async fetchAllEventTypes(searchString) {
+    async fetchAllEventTypes(searchString, page) {
         const response = await requestService.get(apiEndpoint, {
-            searchString
+            searchString,
+            page
         });
+        return response?.data?.data;
+    },
+    async fetchEventTypesByNickname(nickName) {
+        const response = await requestService.get(
+            apiEndpoint + '/nickname/' + nickName
+        );
         return response?.data?.data;
     },
     async changeDisabledEventTypeById(updateData) {

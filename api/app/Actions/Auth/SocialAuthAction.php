@@ -55,7 +55,7 @@ final class SocialAuthAction
             'user_id' => $user->getId(),
             'account_id' => $socialUser->getId(),
             'token' => $socialUser->token,
-            'provider' => $provider,
+
         ]);
 
         return $user;

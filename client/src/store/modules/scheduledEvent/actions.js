@@ -14,31 +14,29 @@ export default {
         );
     },
 
-    [actions.SET_SCHEDULED_EVENTS]: async ({ commit }, eventFilter = []) => {
-        try {
-            const data = await scheduledEventService.getScheduledEvents(
-                eventFilter
-            );
-
-            commit(mutations.SET_SCHEDULED_EVENTS, data);
-        } catch (error) {
-            commit(
-                SET_ERROR_NOTIFICATION,
-                error?.response?.data?.message || error.message
-            );
-        }
-    },
-
-    [actions.SET_FILTER_SCHEDULED_EVENTS_TYPES]: async (
+    [actions.SET_SCHEDULED_EVENTS]: async (
         { commit },
-        eventTypesSearch = ''
+        {
+            page = 1,
+            sort = 'start_date',
+            direction = 'desc',
+            eventTypes = [],
+            startDate = '',
+            endDate = ''
+        }
     ) => {
         try {
-            const data = await scheduledEventService.getFilterScheduledEventsTypes(
-                eventTypesSearch
+            const events = await scheduledEventService.getScheduledEvents(
+                page,
+                sort,
+                direction,
+                eventTypes,
+                startDate,
+                endDate
             );
 
-            commit(mutations.SET_FILTER_SCHEDULED_EVENTS_TYPES, data);
+            commit(mutations.CLEAR_SCHEDULED_EVENTS);
+            commit(mutations.SET_SCHEDULED_EVENTS, events);
         } catch (error) {
             commit(
                 SET_ERROR_NOTIFICATION,

@@ -1,4 +1,5 @@
 import * as mutations from './types/mutations';
+import { eventMapper } from '@/store/modules/scheduledEvent/normalizer';
 
 export default {
     [mutations.SET_SCHEDULED_EVENT_FILTER_VIEW]: (
@@ -9,10 +10,19 @@ export default {
     },
 
     [mutations.SET_SCHEDULED_EVENTS]: (state, data) => {
-        state.scheduledEvents = data;
+        state.scheduledEvents = {
+            ...state.scheduledEvents,
+            ...data.reduce(
+                (prev, event) => ({
+                    ...prev,
+                    [event.id]: eventMapper(event)
+                }),
+                {}
+            )
+        };
     },
 
-    [mutations.SET_FILTER_SCHEDULED_EVENTS_TYPES]: (state, data) => {
-        state.scheduledEventsTypes = data;
+    [mutations.CLEAR_SCHEDULED_EVENTS]: state => {
+        state.scheduledEvents = [];
     }
 };

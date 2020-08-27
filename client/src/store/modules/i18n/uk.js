@@ -59,6 +59,7 @@ export default {
     DIALOG_EVENT_TYPE_DELETE_CONFIRM:
         'Користувачі не зможуть запланувати подальші зустрічі зі видаленими типами подій. Попередньо заплановані зустрічі будуть впливати.',
     DISPLAYING: 'Відображення',
+    DISCONNECT: 'Disconnect',
     DURATION_MIN: 'хв',
     EDIT: 'Редагувати',
     EDIT_AVAILABILITY: 'Змінити доступність',
@@ -197,7 +198,7 @@ export default {
     SAVE_TO_TEMPLATE: 'Зберегти в шаблон',
     SCHEDULED_EVENTS: 'Заплановані заходи',
     SCHEDULE_EVENT: 'Розклад заходу',
-    SCHEDULIA: 'Розклад',
+    SCHEDULIA: 'Schedulia',
     SEARCH: 'Пошук',
     SEARCH_FIELD_MUST_BE_LESS_THAN: 'Поле пошуку має бути менше 250 символів.',
     SELECT_ALL: 'вибрати все',
@@ -261,5 +262,17 @@ export default {
         'У вас ще немає підключених календарів ',
     CALENDAR_CONNECTIONS: 'Підключення до календаря',
     ADD_CALENDAR_ACCOUNT: 'Додати обліковий запис календаря',
-    MY_EVENTS: 'Мої події'
+    MY_EVENTS: 'Мої події',
+    NO_ITEMS_FOUND: 'Нічого не знайдено',
+    UNAUTHENTICATED_ERROR: 'Час сессії минув! Авторизуйтесь знову, будь ласка!',
+    NAME_IS_REQUIRED: "Ім'я обов'язковим",
+    PASSWORD_CONFIRMATION_IS_REQUIRED: "Підтвердження паролю є обов'язковим",
+    NAME_MUST_BE_AT_LEAST_2_CHARACTERS_LONG:
+        "Ім'я має бути не менше 2 символів",
+    NAME_MUST_BE_NO_MORE_THAN_50_CHARACTERS_LONG:
+        "Ім'я має бути не більше 50 символів",
+    ONLY_LETTER_AND_SYMBOLS_PERMITTED:
+        'Дозволені лише літери та символи  \\|/,._ ',
+    LOCALIZATION: 'uk-UA',
+    ENABLED: 'Увімкнено'
 };

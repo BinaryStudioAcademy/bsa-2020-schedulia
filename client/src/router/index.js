@@ -109,8 +109,32 @@ const routes = [
                         path: 'new-event-edit',
                         name: 'newEventEdit',
                         component: () => import('../views/NewEventTypeBooking')
+                    },
+                    {
+                        path: 'scheduled-events',
+                        name: 'ScheduledEvents',
+                        component: () => import('../views/ScheduledEvents'),
+                        children: [
+                            {
+                                path: '',
+                                name: 'Upcoming'
+                            },
+                            {
+                                path: 'past',
+                                name: 'Past'
+                            },
+                            {
+                                path: 'date-range',
+                                name: 'DateRange'
+                            }
+                        ]
                     }
                 ]
+            },
+            {
+                path: ':nickname',
+                name: 'UserEventTypes',
+                component: () => import('../views/UserEventTypesList.vue')
             }
         ]
     }

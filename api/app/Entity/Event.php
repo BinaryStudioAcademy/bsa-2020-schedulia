@@ -14,6 +14,7 @@ class Event extends Model
         'start_date',
         'timezone',
         'status',
+        'location'
     ];
 
     protected $attributes = [

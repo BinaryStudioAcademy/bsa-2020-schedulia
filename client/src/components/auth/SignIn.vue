@@ -8,8 +8,7 @@
             </RouterLink>
             <VSpacer class="pa-2"></VSpacer>
         </VCardSubtitle>
-
-        <VForm v-model="formValid" ref="form">
+        <VForm v-model="formValid" ref="form" @submit.prevent="onSignIn">
             <VCardText>
                 <VCol cols="12" sm="12" md="8" class="pa-0">
                     <label for="email">{{ lang.EMAIL }}*</label>
@@ -55,7 +54,6 @@
                 </VCol>
             </VCardText>
             <VCardActions>
-                <!--                <VCol cols="12" sm="12" md="9" class="pa-0">-->
                 <VRow no-gutters align="center" justify="" class="ma-1">
                     <VCol cols="12" sm="5" md="12" lg="5">
                         <VBtn
@@ -75,7 +73,9 @@
                         lg="3"
                         :class="{ 'mt-3': $vuetify.breakpoint.xs }"
                     >
-                        <p class="login-with-text mt-3">Or Log in with</p>
+                        <p class="login-with-text mt-3">
+                            {{ lang.OR_LOGIN_WITH }}
+                        </p>
                     </VCol>
                     <VCol
                         cols="4"
@@ -87,7 +87,6 @@
                         <SocialLoginButtons />
                     </VCol>
                 </VRow>
-                <!--                </VCol>-->
             </VCardActions>
         </VForm>
     </VCard>

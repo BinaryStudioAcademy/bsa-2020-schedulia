@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Repositories\User;
 
 use App\Entity\SocialAccount;
+use App\Contracts\EloquentCriterion;
 use App\Entity\User;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Collection;
 
 final class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
@@ -45,5 +47,27 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
     public function markUserEmail(User $user): void
     {
         $user->markEmailAsVerified();
+    }
+
+    public function findByCriteria(EloquentCriterion ...$criteria): Collection
+    {
+        $query = User::query();
+
+        foreach ($criteria as $criterion) {
+            $query = $criterion->apply($query);
+        }
+
+        return $query->get();
+    }
+
+    public function findOneByCriteria(EloquentCriterion ...$criteria): User
+    {
+        $query = User::query();
+
+        foreach ($criteria as $criterion) {
+            $query = $criterion->apply($query);
+        }
+
+        return $query->first();
     }
 }
