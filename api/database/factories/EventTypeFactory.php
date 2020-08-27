@@ -11,7 +11,7 @@ $factory->define(EventType::class, function (Faker $faker) {
         'description' => $faker->text,
         'slug' =>  $faker->slug,
         'color' => $faker->colorName,
-        'duration' => $faker->randomNumber(),
+        'duration' => $faker->numberBetween(30, 120),
         'timezone' => $faker->timezone,
         'disabled' => $faker->boolean,
     ];

@@ -15,7 +15,12 @@
                                 "
                             />
                             <span class="time">
-                                HH:mm - HH:mm
+                                {{
+                                this.getDurationTime(
+                                scheduledEvent.startDate,
+                                scheduledEvent.eventType.duration
+                                )
+                                }}
                             </span>
                         </VCol>
                         <VCol>
@@ -132,6 +137,16 @@ export default {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         })
+    },
+
+    methods: {
+        getDurationTime(startDate, duration) {
+            let timeStart = new Date(startDate);
+            let timeEnd = new Date(startDate);
+            timeEnd.setMinutes(timeEnd.getMinutes() + duration);
+
+            return timeStart.toLocaleTimeString().slice(0,-6) + '-' + timeEnd.toLocaleTimeString().slice(0,-6);
+        }
     }
 };
 </script>
