@@ -28,13 +28,13 @@ final class GetEventCollectionAction
         $criteria = [new OwnerCriterion(Auth::id())];
 
         if ($request->getStartDate()) {
-            $startDate = Carbon::parse($request->getStartDate())->format('Y-m-d');
+            $startDate = Carbon::parse($request->getStartDate())->format('Y-m-d HH:mm');
 
             $criteria[] = new StartDateCriterion($startDate);
         }
 
         if ($request->getEndDate()) {
-            $endDate = Carbon::parse($request->getEndDate())->format('Y-m-d');
+            $endDate = Carbon::parse($request->getEndDate())->format('Y-m-d HH:mm');
 
             $criteria[] = new EndDateCriterion($endDate);
         }
