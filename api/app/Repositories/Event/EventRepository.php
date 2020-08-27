@@ -15,4 +15,11 @@ final class EventRepository extends BaseRepository implements EventRepositoryInt
 
         return $event;
     }
+
+    public function saveCustomFieldValues(Event $event, array $customFieldValues): void
+    {
+        $event
+            ->customFieldValues()
+            ->createMany($customFieldValues);
+    }
 }

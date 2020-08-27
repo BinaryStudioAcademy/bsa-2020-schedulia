@@ -24,6 +24,7 @@ class EventController extends ApiController
                 $request->invitee_email,
                 $request->start_date,
                 $request->timezone,
+                $request->custom_field_values
             )
         );
 
