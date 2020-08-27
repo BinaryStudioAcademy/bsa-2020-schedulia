@@ -11,7 +11,7 @@
             </template>
         </div>
         <NoEvents v-else>{{ lang.NO_PAST_EVENTS }}</NoEvents>
-        <div class="text-center">
+        <div class="text-center" v-show="loadMoreActive">
             <VBtn
                     color="primary"
                     class="ma-2 white--text"
@@ -40,9 +40,11 @@ export default {
 
     data: () => ({
         page: 1,
+        loadMoreActive: false,
+        perPage: 4,
         sort: 'start_date',
         direction: 'desc',
-        endDate: new Date().toLocaleDateString()
+        endDate: new Date().toLocaleDateString(),
     }),
 
     components: {
@@ -59,7 +61,8 @@ export default {
         ...mapGetters('scheduledEvent', {
             scheduledEventsFilterView:
                 scheduledEventGetters.GET_SCHEDULED_EVENT_FILTER_VIEW,
-            scheduledEvents: scheduledEventGetters.GET_SCHEDULED_EVENTS
+            scheduledEvents: scheduledEventGetters.GET_SCHEDULED_EVENTS,
+            eventsPagination: scheduledEventGetters.GET_SCHEDULED_EVENTS_PAGINATION
         })
     },
 
@@ -76,11 +79,15 @@ export default {
     async created() {
         try {
             await this.setScheduledEvents({
-                page: 1,
+                page: this.page,
                 sort: this.sort,
                 direction: this.direction,
                 endDate: this.endDate
             });
+
+            if (this.eventsPagination.currentPage < this.eventsPagination.lastPage) {
+                this.loadMoreActive = true;
+            }
         } catch (error) {
             this.setErrorNotification(error.message);
         }
