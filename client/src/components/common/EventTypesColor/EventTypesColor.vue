@@ -1,7 +1,7 @@
 <template>
     <img
             class=""
-            :src="colorById[this.eventTypesColor]"
+            :src="colorById[this.color]"
     />
 </template>
 
@@ -21,7 +21,7 @@
         },
 
         props: {
-            eventTypesColor: {
+            color: {
                 type: String,
                 required: true
             }

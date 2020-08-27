@@ -8,7 +8,7 @@
                 <VExpansionPanelHeader class="event-time-name">
                     <VRow>
                         <VCol sm="3" class="text-left">
-                            <EventTypesColor :eventTypesColor="scheduledEvent.eventType.color" />
+                            <EventTypesColor :color="scheduledEvent.eventType.color" />
 
                             <span class="time">
                                 {{
