@@ -51,9 +51,9 @@
                     </VCol>
 
                     <VCol cols="12" sm="12" md="10" class="pa-0">
-                        <label for="additional-info">
-                            {{ lang.ADDITIONAL_INFO_DESCRIPTION }}
-                        </label>
+                        <label for="additional-info">{{
+                            lang.ADDITIONAL_INFO_DESCRIPTION
+                        }}</label>
                         <VTextarea
                             id="additional-info"
                             :error-messages="additionalInfoErrors"
@@ -216,7 +216,7 @@ export default {
             if (!this.$v.$invalid) {
                 try {
                     this.$router.push({
-                        path: `/${this.eventType.owner.name}/${this.eventType.id}/invitee/details`
+                        path: `/${this.eventType.owner.nickname}/${this.eventType.id}/invitee/details`
                     });
                 } catch (error) {
                     this.setErrorNotification(error);
