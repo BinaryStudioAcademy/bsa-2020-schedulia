@@ -28,7 +28,12 @@ import * as notificationActions from '@/store/modules/notification/types/actions
 export default {
     name: 'Past',
 
-    data: () => ({}),
+    data: () => ({
+        page: 1,
+        sort: 'start_date',
+        direction: 'desc',
+        startDate: '',
+    }),
 
     components: {
         NoEvents,
@@ -60,7 +65,12 @@ export default {
 
     async created() {
         try {
-            await this.setScheduledEvents();
+            await this.setScheduledEvents({
+                page: 1,
+                sort: this.sort,
+                direction: this.direction,
+                startDate: this.startDate
+            });
         } catch (error) {
             this.setErrorNotification(error.message);
         }

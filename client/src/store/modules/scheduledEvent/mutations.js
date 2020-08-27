@@ -20,5 +20,9 @@ export default {
                     {}
             )
         };
-    }
+    },
+
+    [mutations.CLEAR_SCHEDULED_EVENTS]: state => {
+        state.scheduledEvents = [];
+    },
 };

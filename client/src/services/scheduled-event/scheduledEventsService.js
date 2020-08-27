@@ -3,9 +3,22 @@ import responseFilterScheduledEventsTypesSearch from './responseFilterScheduledE
 import requestService from '../requestService';
 
 const scheduledEventService = {
-    async getScheduledEvents(eventFilter) {
-        console.log(eventFilter);
-        const response = await requestService.get('/events');
+    async getScheduledEvents(
+                page,
+                sort,
+                direction,
+                eventTypes,
+                startDate,
+                endDate,
+    ) {
+        const response = await requestService.get('/events', {
+            page,
+            sort,
+            direction,
+            eventTypes,
+            startDate,
+            endDate,
+        });
         return response?.data?.data;
     },
 
