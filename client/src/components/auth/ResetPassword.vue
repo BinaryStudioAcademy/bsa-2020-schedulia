@@ -5,7 +5,7 @@
             {{ lang.PLEASE_ENTER_NEW_PASSWORD_FOR_USER_WITH_EMAIL }}
             <em>{{ $route.query.email }}</em>
         </p>
-        <VForm>
+        <VForm @submit.prevent="onSubmit">
             <VCol cols="11" sm="11" md="8" class="pa-0 py-4">
                 <label>{{ lang.PASSWORD }}*</label>
                 <VTextField
@@ -42,7 +42,7 @@
                         height="44"
                         class="login-button  primary"
                         depressed
-                        @click="onSubmit"
+                        type="submit"
                         >{{ lang.SET_NEW_PASSWORD }}
                     </VBtn>
                     <RouterLink
