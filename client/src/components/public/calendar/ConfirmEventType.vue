@@ -105,9 +105,13 @@ import {
     helpers
 } from 'vuelidate/lib/validators';
 
-const validationalRequirements = helpers.regex(
+const nameRequirements = helpers.regex(
     'symbols',
     /^[a-zA-Zа-яА-ЯЇїІіЄєҐґ /|,._\\]{2,50}$/
+);
+const infoRequirements = helpers.regex(
+    'symbols',
+    /^[a-zA-Zа-яА-ЯЇїІіЄєҐґ /|,._\\]{0,1000}$/
 );
 
 import EventInfo from './EventInfo';
@@ -124,12 +128,12 @@ export default {
                 required,
                 minLength: minLength(2),
                 maxLength: maxLength(50),
-                validationalRequirements
+                nameRequirements
             },
             email: { required, email },
             additionalInfo: {
                 maxLength: maxLength(1000),
-                validationalRequirements
+                infoRequirements
             }
         }
     },
@@ -174,7 +178,7 @@ export default {
                 errors.push(
                     this.lang.NAME_MUST_BE_NO_MORE_THAN_50_CHARACTERS_LONG
                 );
-            !this.$v.meetingFormData.name.validationalRequirements &&
+            !this.$v.meetingFormData.name.nameRequirements &&
                 errors.push(this.lang.ONLY_LETTER_AND_SYMBOLS_PERMITTED);
             return errors;
         },
@@ -198,7 +202,7 @@ export default {
                 errors.push(
                     this.lang.INFO_MUST_BE_NO_MORE_THAN_1000_CHARACTERS_LONG
                 );
-            !this.$v.meetingFormData.additionalInfo.validationalRequirements &&
+            !this.$v.meetingFormData.additionalInfo.infoRequirements &&
                 errors.push(this.lang.ONLY_LETTER_AND_SYMBOLS_PERMITTED);
             return errors;
         }

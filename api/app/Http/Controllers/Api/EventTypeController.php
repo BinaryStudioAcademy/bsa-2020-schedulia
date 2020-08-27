@@ -12,6 +12,9 @@ use App\Actions\EventType\GetAvailableTimeAction;
 use App\Actions\EventType\GetAvailableTimeRequest;
 use App\Actions\EventType\GetEventTypeByIdAction;
 use App\Actions\EventType\GetEventTypeCollectionAction;
+use App\Actions\EventType\GetEventTypeCollectionByNicknameAction;
+use App\Actions\EventType\GetEventTypeCollectionByNicknameRequest;
+use App\Actions\EventType\GetEventTypeCollectionByNicknameResponse;
 use App\Actions\EventType\GetEventTypeCollectionRequest;
 use App\Actions\EventType\UpdateEventTypeAction;
 use App\Actions\EventType\UpdateEventTypeRequest;
@@ -130,5 +133,16 @@ class EventTypeController extends ApiController
         )->getDateTimeList();
 
         return $this->successResponse($this->availabilityServicePresenter->presentArray($dateTimeList));
+    }
+
+    public function getEventTypesByNickname(
+        string $nickname,
+        GetEventTypeCollectionByNicknameAction $action
+    ) {
+        $eventTypes = $action->execute(
+            new GetEventTypeCollectionByNicknameRequest($nickname)
+        )->getEventTypes();
+
+        return $this->successResponse($this->eventTypePresenter->presentCollection($eventTypes));
     }
 }

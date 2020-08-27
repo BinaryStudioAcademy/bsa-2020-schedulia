@@ -273,6 +273,8 @@ import {
     MglMarker
 } from 'vue-mapbox';
 
+const VUE_APP_MAPBOX_TOKEN = process.env.VUE_APP_MAPBOX_TOKEN;
+
 export default {
     name: 'CreateEventTypeForm',
     components: {
@@ -308,8 +310,7 @@ export default {
                 }
             ],
 
-            accessToken:
-                'pk.eyJ1Ijoic2VyaGlpa3VuZHlzIiwiYSI6ImNrZTl1d2MzMjJhYXkzNW80dXNnc25zdDMifQ.3NvKJtRvVnMjYHRLqr1s2A',
+            accessToken: VUE_APP_MAPBOX_TOKEN,
             showMapDialog: false,
             coordinates: [],
             showZoomDialog: false,
@@ -482,7 +483,7 @@ export default {
 }
 
 .set-location-container {
-    background-color: #fff;
+    background-color: white;
     padding: 30px 20px 15px 20px;
 }
 

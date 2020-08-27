@@ -99,11 +99,20 @@ const routes = [
                     }
                 ]
             },
-
             {
                 path: 'verified-email',
                 name: 'verified-email',
                 component: () => import('../views/VerifiedEmail')
+            },
+            {
+                path: 'event-disabled',
+                name: 'DisabledEvent',
+                component: () => import('../views/DisabledEvent.vue')
+            },
+            {
+                path: ':nickname',
+                name: 'UserEventTypes',
+                component: () => import('../views/UserEventTypesList.vue')
             },
             {
                 path: ':owner/:id',
@@ -119,11 +128,6 @@ const routes = [
                 path: ':owner/:id/invitee/details',
                 name: 'PublicEventDetails',
                 component: () => import('../views/PublicEventDetails.vue')
-            },
-            {
-                path: 'event-disabled',
-                name: 'DisabledEvent',
-                component: () => import('../views/DisabledEvent.vue')
             }
         ]
     }

@@ -347,5 +347,15 @@ export default {
     SKYPE_CALL_DETAILS: 'Skype call details',
 
     INFO_MUST_BE_NO_MORE_THAN_1000_CHARACTERS_LONG:
-        'Additional info must be no more than 1000 characters long'
+        'Additional info must be no more than 1000 characters long',
+    NO_ITEMS_FOUND: 'No items found',
+    UNAUTHENTICATED_ERROR: 'Session time is expired! Sign In again, please!',
+    NAME_IS_REQUIRED: 'Name is required',
+    PASSWORD_CONFIRMATION_IS_REQUIRED: 'Password confirmation is required',
+    NAME_MUST_BE_AT_LEAST_2_CHARACTERS_LONG:
+        'Name must be at least 2 characters long',
+    NAME_MUST_BE_NO_MORE_THAN_50_CHARACTERS_LONG:
+        'The name must be no more than 50 characters',
+    ONLY_LETTER_AND_SYMBOLS_PERMITTED:
+        'Only letter and symbols  \\|/,._ are permitted '
 };
