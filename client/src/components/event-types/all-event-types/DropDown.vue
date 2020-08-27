@@ -73,7 +73,7 @@ export default {
         DeleteConfirmDialog
     },
     data: () => ({
-        switchStatus: '',
+        switchStatus: false,
         dialog: false
     }),
     props: {
