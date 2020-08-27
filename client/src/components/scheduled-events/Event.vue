@@ -100,7 +100,11 @@
                                 </li>
                                 <li class="created">
                                     {{ lang.CREATED }}
-                                    {{ getDateWithStringMonth(scheduledEvent.createdAt) }}
+                                    {{
+                                        getDateWithStringMonth(
+                                            scheduledEvent.createdAt
+                                        )
+                                    }}
                                 </li>
                             </ul>
                         </VCol>
@@ -176,9 +180,9 @@ export default {
             let year = date.getFullYear();
             let month = this.getMonthName(date, this.lang.LOCALIZATION);
             let day = date
-                    .getDate()
-                    .toString()
-                    .padStart(2, '0');
+                .getDate()
+                .toString()
+                .padStart(2, '0');
 
             return day + ' ' + month + ' ' + year;
         }
