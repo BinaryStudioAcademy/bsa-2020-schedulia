@@ -19,4 +19,5 @@ final class ErrorCode
     public const USER_ALREADY_VERIFIED_EXCEPTION = 1010;
     public const EMAIL_IS_NOT_VERIFIED_EXCEPTION = 1011;
     public const GOOGLE_OAUTH_EXCEPTION = 1012;
+    public const WRONG_DATE_TIME_EXCEPTION = 1013;
 }

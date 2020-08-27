@@ -48,6 +48,20 @@ final class EventTypeRepository extends BaseRepository implements EventTypeRepos
             ->delete();
     }
 
+    public function saveCustomFields(EventType $eventType, array $customFields): void
+    {
+        $eventType
+            ->customFields()
+            ->createMany($customFields);
+    }
+
+    public function deleteCustomFields(EventType $eventType): void
+    {
+        $eventType
+            ->customFields()
+            ->delete();
+    }
+
     public function findByCriteria(EloquentCriterion ...$criteria): Collection
     {
         $query = EventType::query();
