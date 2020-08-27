@@ -93,9 +93,11 @@ Route::group([
 });
 
 Route::group([
+    'middleware' => 'auth:api',
     'namespace' => 'Api\\',
     'prefix' => '/social-accounts',
 ], function () {
     Route::get('/calendars', 'SocialAccountController@calendars');
-    Route::get('/{provider?}/oauth', 'SocialAccountController@oauth');
 });
+
+Route::get('/social-accounts/{provider?}/oauth', 'SocialAccountController@oauth');

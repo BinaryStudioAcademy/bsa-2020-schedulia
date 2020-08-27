@@ -31,4 +31,10 @@ class SocialAccount extends Model
     {
         return $query->where('provider_id', '=', self::GOOGLE_SERVICE_ID);
     }
+
+    public function getProviderTextAttribute()
+    {
+        return self::$services[$this->provider_id];
+    }
+
 }

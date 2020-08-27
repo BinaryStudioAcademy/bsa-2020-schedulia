@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Repositories\SocialAccount;
 
+use App\Contracts\EloquentCriterion;
 use App\Entity\SocialAccount;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Collection;
 
 final class SocialAccountRepository extends BaseRepository implements SocialAccountRepositoryInterface
 {

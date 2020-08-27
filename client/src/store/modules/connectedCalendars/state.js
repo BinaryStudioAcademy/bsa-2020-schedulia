@@ -1,3 +1,3 @@
 export default {
-    google: null
+    calendars: {},
 };

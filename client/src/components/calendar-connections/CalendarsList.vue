@@ -16,7 +16,7 @@
 
             <VList>
                 <VListItem
-                    v-for="(calendar, i) in calendars"
+                    v-for="(calendar, i) in availableCalendars"
                     :key="i"
                     @click="onClickHandle(calendar.provider)"
                 >
@@ -32,12 +32,13 @@
 
 <script>
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import * as getters from '@/store/modules/connectedCalendars/types/getters';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: 'CalendarsList',
     data: () => ({
-        calendars: [
+        availableCalendars: [
             {
                 title: 'Google',
                 provider: 'google',
@@ -50,14 +51,25 @@ export default {
             }
         ]
     }),
+    async mounted() {
+        console.log('Mounted');
+        await this.fetchCalendars();
+    },
     computed: {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
-        })
+        }),
+
+        ...mapGetters('connectedCalendars', {
+            eventTypes: getters.GET_ALL_CALENDARS
+        }),
     },
 
     methods: {
-        ...mapActions('connectedCalendars', ['connect']),
+        ...mapActions('connectedCalendars', [
+            'fetchCalendars',
+            'connect'
+        ]),
 
         async onClickHandle(provider) {
             await this.connect(provider);

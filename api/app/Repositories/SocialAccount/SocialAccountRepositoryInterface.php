@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Repositories\SocialAccount;
 
 use App\Entity\SocialAccount;
+use Illuminate\Support\Collection;
+use App\Contracts\EloquentCriterion;
 
 interface SocialAccountRepositoryInterface
 {
