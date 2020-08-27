@@ -350,8 +350,6 @@ class AvailabilityServiceTest extends TestCase
             ->assertJsonStructure(self::ERROR_RESPONSE_STRUCTURE);
     }
 
-
-
     public function test_add_event_unbooked_time()
     {
         $user = factory(User::class)->create();
