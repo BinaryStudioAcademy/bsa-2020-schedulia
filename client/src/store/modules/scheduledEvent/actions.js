@@ -35,7 +35,10 @@ export default {
                 endDate
             );
 
-            commit(mutations.CLEAR_SCHEDULED_EVENTS);
+            if (page === 1) {
+                commit(mutations.CLEAR_SCHEDULED_EVENTS);
+            }
+
             commit(mutations.SET_SCHEDULED_EVENTS_PAGINATION, events.meta);
             commit(mutations.SET_SCHEDULED_EVENTS, events.data);
         } catch (error) {

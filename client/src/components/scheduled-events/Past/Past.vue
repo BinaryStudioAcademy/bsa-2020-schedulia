@@ -16,6 +16,7 @@
                     color="primary"
                     class="ma-2 white--text"
                     rounded
+                    @click="onLoadMore"
             >
                 <VIcon left dark>mdi-plus</VIcon>
                 {{ lang.LOAD_MORE }}
@@ -41,7 +42,7 @@ export default {
     data: () => ({
         page: 1,
         loadMoreActive: false,
-        perPage: 4,
+        perPage: 8,
         sort: 'start_date',
         direction: 'desc',
         endDate: new Date().toLocaleDateString(),
@@ -73,7 +74,22 @@ export default {
 
         ...mapActions('notification', {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
-        })
+        }),
+
+        async onLoadMore() {
+            await this.setScheduledEvents({
+                page: this.page+1,
+                sort: this.sort,
+                direction: this.direction,
+                endDate: this.endDate
+            });
+
+            if (this.eventsPagination.currentPage < this.eventsPagination.lastPage) {
+                this.page += 1;
+            } else {
+                this.loadMoreActive = false;
+            }
+        }
     },
 
     async created() {
