@@ -33,13 +33,11 @@ export default {
 .event-info-container {
     padding-left: 30px;
     padding-right: 10px;
-    /* background-color: blue; */
 }
 .event-info-content {
     margin-top: -80px;
     margin-bottom: 10px;
     height: 100px;
-    /* background-color: red; */
 }
 
 .event-info-content h4 {

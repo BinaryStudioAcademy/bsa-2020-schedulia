@@ -215,7 +215,6 @@ export default {
             this.$v.$touch();
             if (!this.$v.$invalid) {
                 try {
-                    //await this.signUp(this.registerData);
                     this.$router.push({
                         path: `/${this.eventType.owner.name}/${this.eventType.id}/invitee/details`
                     });
