@@ -8,12 +8,8 @@
                 <VExpansionPanelHeader class="event-time-name">
                     <VRow>
                         <VCol sm="3" class="text-left">
-                            <img
-                                class=""
-                                :src="
-                                    require('@/assets/images/blue_circle.svg')
-                                "
-                            />
+                            <EventTypesColor :eventTypesColor="scheduledEvent.eventType.color" />
+
                             <span class="time">
                                 {{
                                 this.getDurationTime(
@@ -116,6 +112,7 @@
 import BorderBottom from '@/components/common/GeneralLayout/BorderBottom';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapGetters } from 'vuex';
+import EventTypesColor from "../common/EventTypesColor/EventTypesColor";
 
 export default {
     name: 'Event',
@@ -123,6 +120,7 @@ export default {
     data: () => ({}),
 
     components: {
+        EventTypesColor,
         BorderBottom
     },
 
