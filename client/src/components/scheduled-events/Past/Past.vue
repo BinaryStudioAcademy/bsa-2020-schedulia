@@ -11,6 +11,16 @@
             </template>
         </div>
         <NoEvents v-else>{{ lang.NO_PAST_EVENTS }}</NoEvents>
+        <div class="text-center">
+            <VBtn
+                    color="primary"
+                    class="ma-2 white--text"
+                    rounded
+            >
+                <VIcon left dark>mdi-plus</VIcon>
+                {{ lang.LOAD_MORE }}
+            </VBtn>
+        </div>
     </div>
 </template>
 
