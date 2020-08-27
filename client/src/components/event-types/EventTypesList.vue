@@ -93,6 +93,9 @@ export default {
                 searchString: this.searchString,
                 page: this.page
             });
+            if (!Object.values(this.eventTypes)) {
+                this.loadMoreActive = false;
+            }
             if (Object.values(this.eventTypes).length % this.perPage !== 0) {
                 this.loadMoreActive = false;
             }
