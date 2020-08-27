@@ -31,10 +31,16 @@ export default {
 
     methods: {
         totalOnThisPage() {
-            if (this.eventsPagination.currentPage === this.eventsPagination.lastPage) {
+            if (
+                this.eventsPagination.currentPage ===
+                this.eventsPagination.lastPage
+            ) {
                 return this.eventsPagination.total;
             } else {
-               return this.eventsPagination.currentPage * this.eventsPagination.perPage;
+                return (
+                    this.eventsPagination.currentPage *
+                    this.eventsPagination.perPage
+                );
             }
         }
     }

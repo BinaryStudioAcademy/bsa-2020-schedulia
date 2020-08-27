@@ -13,17 +13,21 @@ export default {
 
         try {
             commit(
-                    mutations.SET_SCHEDULED_EVENT_FILTER_VIEW,
-                    scheduledEventFilterView
+                mutations.SET_SCHEDULED_EVENT_FILTER_VIEW,
+                scheduledEventFilterView
             );
 
-            commit('loader/' + loaderMutations.SET_LOADING, false, {root: true});
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         } catch (error) {
             commit(
-                    SET_ERROR_NOTIFICATION,
-                    error?.response?.data?.message || error.message
+                SET_ERROR_NOTIFICATION,
+                error?.response?.data?.message || error.message
             );
-            commit('loader/' + loaderMutations.SET_LOADING, false, {root: true});
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         }
     },
 
@@ -56,13 +60,17 @@ export default {
 
             commit(mutations.SET_SCHEDULED_EVENTS_PAGINATION, events.meta);
             commit(mutations.SET_SCHEDULED_EVENTS, events.data);
-            commit('loader/' + loaderMutations.SET_LOADING, false, {root: true});
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         } catch (error) {
             commit(
                 SET_ERROR_NOTIFICATION,
                 error?.response?.data?.message || error.message
             );
-            commit('loader/' + loaderMutations.SET_LOADING, false, {root: true});
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         }
     }
 };

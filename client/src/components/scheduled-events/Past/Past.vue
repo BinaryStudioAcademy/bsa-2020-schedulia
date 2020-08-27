@@ -13,10 +13,10 @@
         <NoEvents v-else>{{ lang.NO_PAST_EVENTS }}</NoEvents>
         <div class="text-center" v-show="loadMoreActive">
             <VBtn
-                    color="primary"
-                    class="ma-2 white--text"
-                    rounded
-                    @click="onLoadMore"
+                color="primary"
+                class="ma-2 white--text"
+                rounded
+                @click="onLoadMore"
             >
                 <VIcon left dark>mdi-plus</VIcon>
                 {{ lang.LOAD_MORE }}
@@ -45,7 +45,7 @@ export default {
         perPage: 8,
         sort: 'start_date',
         direction: 'desc',
-        endDate: new Date().toLocaleDateString(),
+        endDate: new Date().toLocaleDateString()
     }),
 
     components: {
@@ -63,7 +63,8 @@ export default {
             scheduledEventsFilterView:
                 scheduledEventGetters.GET_SCHEDULED_EVENT_FILTER_VIEW,
             scheduledEvents: scheduledEventGetters.GET_SCHEDULED_EVENTS,
-            eventsPagination: scheduledEventGetters.GET_SCHEDULED_EVENTS_PAGINATION
+            eventsPagination:
+                scheduledEventGetters.GET_SCHEDULED_EVENTS_PAGINATION
         })
     },
 
@@ -78,13 +79,16 @@ export default {
 
         async onLoadMore() {
             await this.setScheduledEvents({
-                page: this.page+1,
+                page: this.page + 1,
                 sort: this.sort,
                 direction: this.direction,
                 endDate: this.endDate
             });
 
-            if (this.eventsPagination.currentPage < this.eventsPagination.lastPage) {
+            if (
+                this.eventsPagination.currentPage <
+                this.eventsPagination.lastPage
+            ) {
                 this.page += 1;
             } else {
                 this.loadMoreActive = false;
@@ -101,7 +105,10 @@ export default {
                 endDate: this.endDate
             });
 
-            if (this.eventsPagination.currentPage < this.eventsPagination.lastPage) {
+            if (
+                this.eventsPagination.currentPage <
+                this.eventsPagination.lastPage
+            ) {
                 this.loadMoreActive = true;
             }
         } catch (error) {
