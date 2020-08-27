@@ -102,7 +102,8 @@ export default {
                 page: this.page,
                 sort: this.sort,
                 direction: this.direction,
-                endDate: this.endDate
+                endDate: this.endDate,
+                eventTypes: this.$route.query.event_types
             });
 
             if (
