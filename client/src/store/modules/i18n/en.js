@@ -16,6 +16,7 @@ export default {
     CURRENT_PASSWORD: 'Current password',
 
     DATE_FORMAT: 'Date format',
+    DISCONNECT: 'Disconnect',
     DELETE_ACCOUNT: 'Delete account',
     DELETE_ACCOUNT_WARNING_TEXT:
         'You are about to delete your Schedulia account. This will go into effect immediately and you will no longer have access to your account data.',

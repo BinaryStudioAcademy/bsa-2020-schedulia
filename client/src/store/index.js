@@ -10,6 +10,7 @@ import publicEvent from './modules/publicEvent';
 import scheduledEvent from './modules/scheduledEvent';
 import loader from './modules/loader';
 import i18n from './modules/i18n';
+import connectedCalendars from './modules/connectedCalendars';
 
 Vue.use(Vuex);
 
@@ -24,7 +25,8 @@ export default new Vuex.Store({
         scheduledEvent,
         publicEvent,
         loader,
-        i18n
+        i18n,
+        connectedCalendars
     },
     plugins: []
 });

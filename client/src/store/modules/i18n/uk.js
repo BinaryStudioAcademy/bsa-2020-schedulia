@@ -59,6 +59,7 @@ export default {
     DIALOG_EVENT_TYPE_DELETE_CONFIRM:
         'Користувачі не зможуть запланувати подальші зустрічі зі видаленими типами подій. Попередньо заплановані зустрічі будуть впливати.',
     DISPLAYING: 'Відображення',
+    DISCONNECT: 'Disconnect',
     DURATION_MIN: 'хв',
     EDIT: 'Редагувати',
     EDIT_AVAILABILITY: 'Змінити доступність',
