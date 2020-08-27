@@ -1,12 +1,12 @@
 import * as actions from './types/actions';
 import * as mutations from './types/mutations';
+import * as authActions from '@/store/modules/auth/types/actions';
 import scheduledEventService from '@/services/scheduled-event/scheduledEventsService';
-import { SET_ERROR_NOTIFICATION } from '@/store/modules/notification/types/actions';
 import * as loaderMutations from '@/store/modules/loader/types/mutations';
 
 export default {
     [actions.SET_SCHEDULED_EVENT_FILTER_VIEW]: async (
-        { commit },
+        { commit, dispatch },
         scheduledEventFilterView
     ) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
@@ -21,10 +21,9 @@ export default {
                 root: true
             });
         } catch (error) {
-            commit(
-                SET_ERROR_NOTIFICATION,
-                error?.response?.data?.message || error.message
-            );
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });
@@ -32,7 +31,7 @@ export default {
     },
 
     [actions.SET_SCHEDULED_EVENTS]: async (
-        { commit },
+        { commit, dispatch },
         {
             page = 1,
             sort = 'start_date',
@@ -64,10 +63,9 @@ export default {
                 root: true
             });
         } catch (error) {
-            commit(
-                SET_ERROR_NOTIFICATION,
-                error?.response?.data?.message || error.message
-            );
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });

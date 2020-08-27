@@ -5,6 +5,6 @@ export default {
         currentPage: 1,
         lastPage: 1,
         perPage: 1,
-        total: '-'
+        total: 0
     }
 };
