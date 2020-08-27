@@ -8,7 +8,7 @@
             </RouterLink>
             <VSpacer class="pa-2"></VSpacer>
         </VCardSubtitle>
-        <VForm v-model="formValid" ref="form">
+        <VForm v-model="formValid" ref="form" @submit.prevent="onSignIn">
             <VCardText>
                 <VCol cols="12" sm="12" md="8" class="pa-0">
                     <label for="email">{{ lang.EMAIL }}*</label>
@@ -62,7 +62,7 @@
                                 height="44"
                                 class="login-button  primary"
                                 depressed
-                                @click="onSignIn"
+                                type="submit"
                                 >{{ lang.LOG_IN }}
                             </VBtn>
                         </VCol>

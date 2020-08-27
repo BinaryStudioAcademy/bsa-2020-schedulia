@@ -2,7 +2,7 @@
     <div>
         <h4 class="title-of-card pb-4">{{ lang.RESET_YOUR_PASSWORD }}</h4>
         <p class="info-text">{{ lang.ENTER_YOUR_EMAIL_ADDRESS }}</p>
-        <VForm>
+        <VForm @submit.prevent="onSubmit">
             <VCol cols="11" sm="11" md="8" class="pa-0 py-4">
                 <label>{{ lang.EMAIL }}*</label>
                 <VTextField
@@ -22,7 +22,7 @@
                         height="44"
                         class="login-button  primary"
                         depressed
-                        @click="onSubmit"
+                        type="submit"
                         >{{ lang.SEND_RESET_INSTRUCTION }}
                     </VBtn>
                     <RouterLink
