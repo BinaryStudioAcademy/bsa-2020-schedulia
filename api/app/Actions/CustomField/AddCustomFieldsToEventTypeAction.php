@@ -17,6 +17,8 @@ final class AddCustomFieldsToEventTypeAction
 
     public function execute(AddCustomFieldsToEventTypeRequest $request): void
     {
+        $eventType = $this->eventTypeRepository->getById($request->getEventTypeId());
 
+        $this->eventTypeRepository->saveCustomFields($eventType, $request->getCustomFields());
     }
 }
