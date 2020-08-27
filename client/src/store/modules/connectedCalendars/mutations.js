@@ -1,4 +1,4 @@
-import * as mutations from "./types/mutations";
+import * as mutations from './types/mutations';
 
 export default {
     [mutations.SET_CALENDARS]: (state, calendars) => {
@@ -6,5 +6,5 @@ export default {
             ...state.calendars,
             calendars
         };
-    },
+    }
 };

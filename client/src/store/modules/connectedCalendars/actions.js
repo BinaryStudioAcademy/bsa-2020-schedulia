@@ -3,20 +3,13 @@ import socilaAccountService from '@/services/socialAccount/socialAccountService'
 import * as loaderMutations from '@/store/modules/loader/types/mutations';
 import * as authActions from '@/store/modules/auth/types/actions';
 
-import {
-    SET_CALENDARS,
-} from './types/mutations';
+import { SET_CALENDARS } from './types/mutations';
 
 export default {
-
-    fetchCalendars: async (
-        { commit, dispatch }
-    ) => {
+    fetchCalendars: async ({ commit, dispatch }) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
         try {
             const calendars = await socilaAccountService.fetchAllCalendars();
-
-            console.log(calendars);
 
             commit(SET_CALENDARS, calendars);
 
@@ -44,7 +37,7 @@ export default {
                 root: true
             });
 
-            return response?.data;
+            return response?.data?.data;
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
