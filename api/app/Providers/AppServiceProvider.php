@@ -7,6 +7,8 @@ use App\Repositories\Availability\AvailabilityRepository;
 use App\Repositories\Availability\AvailabilityRepositoryInterface;
 use App\Repositories\EventType\EventTypeRepository;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
+use App\Repositories\Event\EventRepository;
+use App\Repositories\Event\EventRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Availability\AvailabilityService;
@@ -16,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
 {
     public $bindings = [
         EventTypeRepositoryInterface::class => EventTypeRepository::class,
+        EventRepositoryInterface::class => EventRepository::class,
         AvailabilityServiceInterface::class => AvailabilityService::class,
         AvailabilityRepositoryInterface::class => AvailabilityRepository::class,
         UserRepositoryInterface::class => UserRepository::class
