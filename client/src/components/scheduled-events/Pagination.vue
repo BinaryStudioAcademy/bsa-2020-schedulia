@@ -2,9 +2,9 @@
     <VContainer class="scheduled-pagination">
         <VRow>
             <VCol class="text-right">
-                {{ lang.DISPLAYING }} {{ eventsPagination.pageStartEventNum }} –
-                {{ eventsPagination.pageEndEventNum }} {{ lang.OF }}
-                {{ eventsPagination.allEvents }} {{ lang.EVENTS }}
+                {{ lang.DISPLAYING }} 1 –
+                {{ eventsPagination.currentPage * eventsPagination.perPage }}
+                {{ lang.OF }} {{ eventsPagination.total }} {{ lang.EVENTS }}
             </VCol>
         </VRow>
     </VContainer>
