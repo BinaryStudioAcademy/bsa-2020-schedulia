@@ -8,6 +8,7 @@ final class GetEventCollectionRequest
 {
     private ?string $startDate;
     private ?string $endDate;
+    private ?array $eventTypes;
     private ?int $page;
     private ?int $perPage;
     private ?string $sort;
@@ -16,6 +17,7 @@ final class GetEventCollectionRequest
     public function __construct(
         ?string $startDate,
         ?string $endDate,
+        ?array $eventTypes,
         ?int $page,
         ?int $perPage,
         ?string $sort,
@@ -23,6 +25,7 @@ final class GetEventCollectionRequest
     ) {
         $this->startDate = $startDate;
         $this->endDate = $endDate;
+        $this->eventTypes = $eventTypes;
         $this->page = $page;
         $this->perPage = $perPage;
         $this->sort = $sort;
@@ -57,5 +60,10 @@ final class GetEventCollectionRequest
     public function getEndDate(): ?string
     {
         return $this->endDate;
+    }
+
+    public function getEventTypes(): ?array
+    {
+        return $this->eventTypes;
     }
 }

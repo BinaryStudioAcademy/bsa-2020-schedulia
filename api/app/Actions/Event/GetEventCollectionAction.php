@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions\Event;
 
 use App\Actions\PaginatedResponse;
+use App\Repositories\Event\Criterion\EventTypesCriterion;
 use App\Repositories\Event\EventRepository;
 use App\Repositories\Event\EventRepositoryInterface;
 use App\Repositories\Event\Criterion\StartDateCriterion;
@@ -29,8 +30,13 @@ final class GetEventCollectionAction
         if ($request->getStartDate()) {
             $criteria[] = new StartDateCriterion($request->getStartDate());
         }
+
         if ($request->getEndDate()) {
             $criteria[] = new EndDateCriterion($request->getEndDate());
+        }
+
+        if ($request->getEventTypes()) {
+            $criteria[] = new EventTypesCriterion($request->getEventTypes());
         }
 
         return new PaginatedResponse(
