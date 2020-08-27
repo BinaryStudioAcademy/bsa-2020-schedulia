@@ -1,17 +1,12 @@
-import responseScheduledPastEventsFirstPage from './responseScheduledPastEventsFirstPage.json';
-import responseScheduledPastEventsFirstPageFilter from './responseScheduledPastEventsFirstPageFilter.json';
 import responseFilterScheduledEventsTypes from './responseFilterScheduledEventsTypes.json';
 import responseFilterScheduledEventsTypesSearch from './responseFilterScheduledEventsTypesSearch.json';
+import requestService from '../requestService';
 
 const scheduledEventService = {
     async getScheduledEvents(eventFilter) {
-        if (eventFilter.length) {
-            const response = responseScheduledPastEventsFirstPageFilter;
-            return response?.[0];
-        } else {
-            const response = responseScheduledPastEventsFirstPage;
-            return response?.[0];
-        }
+        console.log(eventFilter);
+        const response = await requestService.get('/events');
+        return response?.data?.data;
     },
 
     async getFilterScheduledEventsTypes(eventTypesSearch) {
