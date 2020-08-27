@@ -10,10 +10,8 @@ export default {
     name: 'SocialLogin',
     components: {
         SocialLoginCallback
-    },
+    }
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

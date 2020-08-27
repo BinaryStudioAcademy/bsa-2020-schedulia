@@ -9,8 +9,6 @@
                 </RouterLink>
             </p>
 
-            <SocialLoginButtons />
-
             <VForm v-model="formValid" ref="form">
                 <VCol cols="12" sm="12" md="8" class="pa-0">
                     <label for="full-name">{{ lang.FULL_NAME }}</label>
@@ -97,13 +95,11 @@ import { mapActions, mapGetters } from 'vuex';
 import Alert from '@/components/alert/Alert';
 import * as notificationActions from '@/store/modules/notification/types/actions';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
-import SocialLoginButtons from '@/components/auth/SocialLoginButtons';
 
 export default {
     name: 'SignUp',
     components: {
-        Alert,
-        SocialLoginButtons
+        Alert
     },
     data: () => ({
         formValid: false,

@@ -9,8 +9,6 @@
             <VSpacer class="pa-2"></VSpacer>
         </VCardSubtitle>
 
-        <SocialLoginButtons />
-
         <VForm v-model="formValid" ref="form">
             <VCardText>
                 <VCol cols="12" sm="12" md="8" class="pa-0">
@@ -57,22 +55,39 @@
                 </VCol>
             </VCardText>
             <VCardActions>
-                <VCol cols="12" sm="12" md="9" class="pa-0">
-                    <VRow no-gutters align="center" justify="space-between">
-                        <VCol>
-                            <VBtn
-                                width="158"
-                                height="44"
-                                class="login-button  primary"
-                                depressed
-                                @click="onSignIn"
-                                >{{ lang.LOG_IN }}
-                            </VBtn>
-                        </VCol>
-                        <VCol class="ma-1"> </VCol>
-                        <VCol> </VCol>
-                    </VRow>
-                </VCol>
+                <!--                <VCol cols="12" sm="12" md="9" class="pa-0">-->
+                <VRow no-gutters align="center" justify="" class="ma-1">
+                    <VCol cols="12" sm="5" md="12" lg="5">
+                        <VBtn
+                            width="158"
+                            height="44"
+                            class="login-button  primary"
+                            depressed
+                            @click="onSignIn"
+                            >{{ lang.LOG_IN }}
+                        </VBtn>
+                    </VCol>
+
+                    <VCol
+                        cols="6"
+                        sm="3"
+                        md="7"
+                        lg="3"
+                        :class="{ 'mt-3': $vuetify.breakpoint.xs }"
+                    >
+                        <p class="login-with-text mt-3">Or Log in with</p>
+                    </VCol>
+                    <VCol
+                        cols="4"
+                        sm="3"
+                        md="5"
+                        lg="3"
+                        :class="{ 'mt-3': $vuetify.breakpoint.xs }"
+                    >
+                        <SocialLoginButtons />
+                    </VCol>
+                </VRow>
+                <!--                </VCol>-->
             </VCardActions>
         </VForm>
     </VCard>
@@ -212,5 +227,10 @@ label {
 }
 .login-button {
     text-transform: none;
+}
+
+.login-with-text {
+    font-size: 12px;
+    color: #8b90a0;
 }
 </style>

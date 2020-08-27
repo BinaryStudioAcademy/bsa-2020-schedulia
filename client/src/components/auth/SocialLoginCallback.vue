@@ -8,37 +8,31 @@
 import { mapActions } from 'vuex';
 import * as actions from '@/store/modules/auth/types/actions';
 import * as notificationActions from '@/store/modules/notification/types/actions';
+import authService from '@/services/auth/authService';
 
 export default {
     name: 'SocialLoginCallback',
 
-    data: () => ({
-        token: this.$route.query.token // this undefined
-    }),
-
     async mounted() {
-        console.log(this.$route.query.token); //this working
-        // try {
-        //     await this.saveToken(this.token);
-        //     await this.fetchLoggedUser();
-        //     this.$router.push({ name: 'EventTypes' });
-        // } catch (error) {
-        //     this.setErrorNotification(error.message);
-        // }
+        try {
+            await authService.saveToken(this.$route.query.token);
+            await this.fetchLoggedUser();
+            this.$router.push({ name: 'EventTypes' });
+        } catch (error) {
+            this.setErrorNotification(error.message);
+        }
     },
 
     methods: {
         ...mapActions('auth', {
-            saveToken: 'saveToken',
             fetchLoggedUser: actions.FETCH_LOGGED_USER
         }),
+
         ...mapActions('notification', {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
-        }),
+        })
     }
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
