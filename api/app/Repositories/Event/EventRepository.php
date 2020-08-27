@@ -36,7 +36,7 @@ final class EventRepository extends BaseRepository implements EventRepositoryInt
         }
 
         return $query
-            ->orderBy($sort, $direction)
+            ->orderBy('events.' . $sort, $direction)
             ->paginate($perPage, ['*'], null, $page);
     }
 }

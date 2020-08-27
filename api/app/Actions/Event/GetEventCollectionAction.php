@@ -24,8 +24,7 @@ final class GetEventCollectionAction
 
     public function execute(GetEventCollectionRequest $request): PaginatedResponse
     {
-        $criteria = [];
-//        $criteria = [new OwnerCriterion(Auth::id())];
+        $criteria = [new OwnerCriterion(Auth::id())];
 
         if ($request->getStartDate()) {
             $criteria[] = new StartDateCriterion($request->getStartDate());
