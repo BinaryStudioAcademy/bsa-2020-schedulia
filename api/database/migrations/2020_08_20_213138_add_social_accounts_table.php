@@ -15,11 +15,9 @@ class AddSocialAccountsTable extends Migration
     {
         Schema::create('social_accounts', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('provider_id');
-            $table->unsignedTinyInteger('account_id');
+            $table->string('provider');
+            $table->string('account_id');
             $table->longText('token');
-            $table->longText('refresh_token');
-            $table->timestamp('expires_in');
             $table->timestamps();
 
             $table->foreign('user_id')

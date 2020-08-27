@@ -7,7 +7,6 @@ namespace App\Actions\Auth;
 use App\Entity\SocialAccount;
 use App\Entity\User;
 use App\Repositories\User\UserRepository;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -23,38 +22,29 @@ final class SocialAuthAction
     public function execute($provider)
     {
         $socialUser = Socialite::driver($provider)->stateless()->user();
-        $user = $this->findOrCreateUser($socialUser);
+        $user = $this->findOrCreateUser($provider, $socialUser);
 
-        $token = Auth::attempt([
-            'email' => $user->email,
-            'password' => $user->password,
-        ]);
+        $token = auth()->login($user);
 
-        return new AuthenticationResponse(
-            $token,
-            'bearer',
-            auth()->factory()->getTTL() * 1440
-        );
-
+        return $token;
     }
 
-    protected function findOrCreateUser($socialUser)
+    protected function findOrCreateUser($provider, $socialUser)
     {
-        $socialAccount = $this->userRepository->getByProviderid($socialUser->id);
+        $socialAccount = $this->userRepository->getByAccountId($socialUser->getId());
 
         if ($socialAccount) {
             $socialAccount->update([
                 'token' => $socialUser->token,
-                'refresh_token' => $socialUser->refreshToken
             ]);
 
             return $socialAccount->user;
         }
 
-        return $this->createUser($socialUser);
+        return $this->createUser( $provider, $socialUser);
     }
 
-    protected function createUser($socialUser)
+    protected function createUser($provider, $socialUser)
     {
         $user = new User();
         $user->name = $socialUser->getName();
@@ -65,9 +55,10 @@ final class SocialAuthAction
         $user = $this->userRepository->save($user);
 
         $user->socialAccounts()->create([
-            'provider_id' => $socialUser->getId(),
+            'user_id' => $user->getId(),
+            'account_id' => $socialUser->getId(),
             'token' => $socialUser->token,
-            'refresh_token' => $socialUser->refreshToken
+            'provider' => $provider,
         ]);
 
         return $user;

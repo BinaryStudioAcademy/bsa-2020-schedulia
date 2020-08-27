@@ -8,10 +8,13 @@ class SocialAccount extends Model
 {
     public const GOOGLE_SERVICE_ID = 1001;
 
+    protected $primaryKey = 'user_id';
+
     protected $fillable = [
         'user_id',
-        'service_id',
-        'token'
+        'account_id',
+        'token',
+        'provider',
     ];
 
     public static $services = [

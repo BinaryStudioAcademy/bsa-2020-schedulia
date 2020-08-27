@@ -9,19 +9,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Presenters\AuthenticationResponseArrayPresenter;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
+use Tymon\JWTAuth\JWTAuth;
 
 class SocialAuthController extends ApiController
 {
     private SocialAuthAction $action;
-    private AuthenticationResponseArrayPresenter $authenticationResponseArrayPresenter;
 
     public function __construct(
-        SocialAuthAction $action,
-        AuthenticationResponseArrayPresenter $authenticationResponseArrayPresenter
+        SocialAuthAction $action
     )
     {
         $this->action = $action;
-        $this->authenticationResponseArrayPresenter = $authenticationResponseArrayPresenter;
     }
 
     public function redirectToProvider($provider)
@@ -33,6 +31,6 @@ class SocialAuthController extends ApiController
     {
         $response = $this->action->execute($provider);
 
-        return $this->successResponse($this->authenticationResponseArrayPresenter->present($response));
+        return redirect(env('CLIENT_APP_URL') . '/auth/social-callback?token=' . $response);
     }
 }
