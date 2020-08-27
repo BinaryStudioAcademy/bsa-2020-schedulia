@@ -14,23 +14,26 @@ export default {
         );
     },
 
-    [actions.SET_SCHEDULED_EVENTS]: async ({ commit }, {
-        page = 1,
-        sort = 'start_date',
-        direction = 'desc',
-        eventTypes = [],
-        startDate = '',
-        endDate = '',
-    }) => {
+    [actions.SET_SCHEDULED_EVENTS]: async (
+        { commit },
+        {
+            page = 1,
+            sort = 'start_date',
+            direction = 'desc',
+            eventTypes = [],
+            startDate = '',
+            endDate = ''
+        }
+    ) => {
         try {
             const events = await scheduledEventService.getScheduledEvents(
-                    page,
-                    sort,
-                    direction,
-                    eventTypes,
-                    startDate,
-                    endDate,
-                    );
+                page,
+                sort,
+                direction,
+                eventTypes,
+                startDate,
+                endDate
+            );
 
             commit(mutations.CLEAR_SCHEDULED_EVENTS);
             commit(mutations.SET_SCHEDULED_EVENTS, events);

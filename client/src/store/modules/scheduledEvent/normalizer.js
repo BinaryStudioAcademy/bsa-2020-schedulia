@@ -1,4 +1,4 @@
-import {eventTypeMapper} from "../eventType/normalizer";
+import { eventTypeMapper } from '../eventType/normalizer';
 
 export const eventMapper = Event => ({
     id: Event.id,
@@ -10,5 +10,5 @@ export const eventMapper = Event => ({
     location: Event.location,
     timezone: Event.timezone,
     createdAt: Event.created_at,
-    eventType: eventTypeMapper(Event.event_type),
+    eventType: eventTypeMapper(Event.event_type)
 });

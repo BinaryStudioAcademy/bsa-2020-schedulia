@@ -6,6 +6,5 @@ export default {
 
     [types.GET_SCHEDULED_EVENTS]: state => state.scheduledEvents,
 
-    [types.GET_SCHEDULED_EVENTS_PAGINATION]: state =>
-        state.eventsPagination
+    [types.GET_SCHEDULED_EVENTS_PAGINATION]: state => state.eventsPagination
 };

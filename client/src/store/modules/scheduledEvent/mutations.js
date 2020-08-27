@@ -13,16 +13,16 @@ export default {
         state.scheduledEvents = {
             ...state.scheduledEvents,
             ...data.reduce(
-                    (prev, event) => ({
-                        ...prev,
-                        [event.id]: eventMapper(event)
-                    }),
-                    {}
+                (prev, event) => ({
+                    ...prev,
+                    [event.id]: eventMapper(event)
+                }),
+                {}
             )
         };
     },
 
     [mutations.CLEAR_SCHEDULED_EVENTS]: state => {
         state.scheduledEvents = [];
-    },
+    }
 };

@@ -8,7 +8,9 @@
                 <VCol cols="10">
                     <span class="user-name">{{ user.name }}</span>
                     <br />
-                    <a href="">shedulia.xyz/nickname</a>
+                    <RouterLink :to="{ path: user.nickname }">
+                        {{ domain }}/{{ user.nickname }}
+                    </RouterLink>
                 </VCol>
             </VRow>
         </VCol>
@@ -32,9 +34,14 @@ import Avatar from '@/components/common/Avatar/Avatar';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 export default {
     name: 'ActionBlock',
-    data: () => ({}),
+    data: () => ({
+        domain: ''
+    }),
     components: {
         Avatar
+    },
+    mounted() {
+        this.domain = window.location.hostname;
     },
     computed: {
         ...mapGetters('i18n', {

@@ -272,5 +272,6 @@ export default {
         "Ім'я має бути не більше 50 символів",
     ONLY_LETTER_AND_SYMBOLS_PERMITTED:
         'Дозволені лише літери та символи  \\|/,._ ',
-    LOCALIZATION: 'uk-UA'
+    LOCALIZATION: 'uk-UA',
+    ENABLED: 'Увімкнено'
 };

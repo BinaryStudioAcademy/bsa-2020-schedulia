@@ -10,14 +10,16 @@
                 <VExpansionPanelHeader class="event-time-name">
                     <VRow>
                         <VCol sm="3" class="text-left">
-                            <EventTypesColor :color="scheduledEvent.eventType.color" />
+                            <EventTypesColor
+                                :color="scheduledEvent.eventType.color"
+                            />
 
                             <span class="time">
                                 {{
-                                this.getDurationTime(
-                                scheduledEvent.startDate,
-                                scheduledEvent.eventType.duration
-                                )
+                                    this.getDurationTime(
+                                        scheduledEvent.startDate,
+                                        scheduledEvent.eventType.duration
+                                    )
                                 }}
                             </span>
                         </VCol>
@@ -81,7 +83,7 @@
                                 <li v-show="scheduledEvent.location">
                                     {{ lang.LOCATION }}
                                     <span>
-                                       {{ scheduledEvent.location }}
+                                        {{ scheduledEvent.location }}
                                     </span>
                                 </li>
                                 <li>
@@ -114,7 +116,7 @@
 import BorderBottom from '@/components/common/GeneralLayout/BorderBottom';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapGetters } from 'vuex';
-import EventTypesColor from "../common/EventTypesColor/EventTypesColor";
+import EventTypesColor from '../common/EventTypesColor/EventTypesColor';
 
 export default {
     name: 'Event',
@@ -145,7 +147,11 @@ export default {
             let timeEnd = new Date(startDate);
             timeEnd.setMinutes(timeEnd.getMinutes() + duration);
 
-            return timeStart.toLocaleTimeString().slice(0,-6) + '-' + timeEnd.toLocaleTimeString().slice(0,-6);
+            return (
+                timeStart.toLocaleTimeString().slice(0, -6) +
+                '-' +
+                timeEnd.toLocaleTimeString().slice(0, -6)
+            );
         },
 
         getEventDate(startDate) {
@@ -153,7 +159,10 @@ export default {
             let date = new Date(startDate);
             let year = date.getFullYear();
             let month = this.getMonthName(startDate, this.lang.LOCALIZATION);
-            let day = date.getDate().toString().padStart(2, "0");
+            let day = date
+                .getDate()
+                .toString()
+                .padStart(2, '0');
 
             return dayName + ', ' + day + ' ' + month + ' ' + year;
         },
