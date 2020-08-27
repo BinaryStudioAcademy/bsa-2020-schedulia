@@ -261,7 +261,6 @@ export default {
     MY_CALENDAR_ACOOUNT: 'Мій обліковий запис календаря',
     CONNECT_YOUR_CALENDAR_TEXT:
         'Підключіть свій календар, щоб повідомити Schedulia, коли ви доступні, і оновіть свій календар, як заплановані події.',
-
     YOU_DONT_HAVE_ANY_CONNECTED_CALENDARS:
         'У вас ще немає підключених календарів ',
     CALENDAR_CONNECTIONS: 'Підключення до календаря',
