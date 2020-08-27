@@ -11,6 +11,7 @@ use App\Repositories\Event\EventRepositoryInterface;
 use App\Repositories\Event\Criterion\StartDateCriterion;
 use App\Repositories\Event\Criterion\EndDateCriterion;
 use App\Repositories\Event\Criterion\OwnerCriterion;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 final class GetEventCollectionAction
@@ -27,11 +28,15 @@ final class GetEventCollectionAction
         $criteria = [new OwnerCriterion(Auth::id())];
 
         if ($request->getStartDate()) {
-            $criteria[] = new StartDateCriterion($request->getStartDate());
+            $startDate = Carbon::parse($request->getStartDate())->format('Y-m-d');
+
+            $criteria[] = new StartDateCriterion($startDate);
         }
 
         if ($request->getEndDate()) {
-            $criteria[] = new EndDateCriterion($request->getEndDate());
+            $endDate = Carbon::parse($request->getEndDate())->format('Y-m-d');
+
+            $criteria[] = new EndDateCriterion($endDate);
         }
 
         if ($request->getEventTypes()) {
