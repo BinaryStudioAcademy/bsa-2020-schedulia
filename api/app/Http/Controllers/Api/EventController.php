@@ -47,10 +47,10 @@ class EventController extends ApiController
     {
         $response = $this->getEventCollectionAction->execute(
             new GetEventCollectionRequest(
-                $request->query('startDate'),
-                $request->query('endDate'),
+                $request->query('start_date'),
+                $request->query('end_date'),
                 (int)$request->query('page'),
-                (int)$request->query('perPage'),
+                (int)$request->query('per_page'),
                 $request->query('sort'),
                 $request->query('direction')
             )
