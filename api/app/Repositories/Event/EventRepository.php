@@ -11,7 +11,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 final class EventRepository extends BaseRepository implements EventRepositoryInterface
 {
     public const DEFAULT_PAGE = 1;
-    public const DEFAULT_PER_PAGE = 4;
+    public const DEFAULT_PER_PAGE = 8;
     public const DEFAULT_SORT = 'created_at';
     public const DEFAULT_DIRECTION = 'ASC';
 
