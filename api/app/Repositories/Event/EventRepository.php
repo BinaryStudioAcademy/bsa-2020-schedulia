@@ -12,7 +12,7 @@ final class EventRepository extends BaseRepository implements EventRepositoryInt
 {
     public const DEFAULT_PAGE = 1;
     public const DEFAULT_PER_PAGE = 8;
-    public const DEFAULT_SORT = 'created_at';
+    public const DEFAULT_SORT = 'start_date';
     public const DEFAULT_DIRECTION = 'ASC';
 
     public function save(Event $event): Event
@@ -37,6 +37,7 @@ final class EventRepository extends BaseRepository implements EventRepositoryInt
 
         return $query
             ->orderBy('events.' . $sort, $direction)
+            ->select('events.*')
             ->paginate($perPage, ['*'], null, $page);
     }
 }
