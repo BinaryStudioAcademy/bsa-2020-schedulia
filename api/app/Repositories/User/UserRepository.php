@@ -29,7 +29,7 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
 
     public function getByAccountId(string $id): ?SocialAccount
     {
-       return SocialAccount::where('account_id', $id)->first();
+        return SocialAccount::where('account_id', $id)->first();
     }
 
     public function save(User $user): User

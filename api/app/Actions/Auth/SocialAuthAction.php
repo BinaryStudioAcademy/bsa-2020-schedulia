@@ -38,7 +38,7 @@ final class SocialAuthAction
             return $socialAccount->user;
         }
 
-        return $this->createUser( $provider, $socialUser);
+        return $this->createUser($provider, $socialUser);
     }
 
     protected function createUser($provider, $socialUser)

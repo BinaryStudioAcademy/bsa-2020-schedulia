@@ -12,8 +12,7 @@ class SocialAuthController extends ApiController
 
     public function __construct(
         SocialAuthAction $action
-    )
-    {
+    ) {
         $this->action = $action;
     }
 
