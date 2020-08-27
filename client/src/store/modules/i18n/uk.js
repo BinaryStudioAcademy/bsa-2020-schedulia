@@ -270,7 +270,7 @@ export default {
 
     OK: 'Ok',
     SET_MEETING_LOCATION: 'Виберіть місце зустрічі',
-    ZOOM_CONFERENCE_LINK: 'Ссилка на Zoom конференція',
+    ZOOM_CONFERENCE_LINK: 'Ссилка на Zoom конференцію',
     SKYPE_CALL_DETAILS: 'Деталі Skype виклику',
 
     INFO_MUST_BE_NO_MORE_THAN_1000_CHARACTERS_LONG:
