@@ -8,7 +8,7 @@
                     {{ lang.LOG_IN }}
                 </RouterLink>
             </p>
-            <VForm>
+            <VForm @submit.prevent="onSignUp">
                 <VCol cols="12" sm="12" md="8" class="pa-0">
                     <label for="full-name">{{ lang.FULL_NAME }}*</label>
                     <VTextField
@@ -72,15 +72,15 @@
                         outlined
                     />
                 </VCol>
+                <VBtn
+                    height="44"
+                    depressed
+                    class="signup-button  primary"
+                    type="submit"
+                >
+                    {{ lang.SIGN_UP }}
+                </VBtn>
             </VForm>
-            <VBtn
-                height="44"
-                depressed
-                class="signup-button  primary"
-                @click="onSignUp"
-            >
-                {{ lang.SIGN_UP }}
-            </VBtn>
         </div>
         <Alert
             :type="alert.type"
