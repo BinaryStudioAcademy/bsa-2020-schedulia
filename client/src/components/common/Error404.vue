@@ -5,7 +5,7 @@
             {{ lang.THE_PAGE_YOU_ARE_LOOKING_FOR_COULD_NOT_BE_FOUND }}.
         </p>
         <p class="color-info-base">
-            {{ PLEASE_MAKE_SURE_THAT_YOU_TYPED_IN_THE_URL_CORRECTLY }}
+            {{ lang.PLEASE_MAKE_SURE_THAT_YOU_TYPED_IN_THE_URL_CORRECTLY }}
         </p>
         <p class="color-info-base">
             {{ lang.PLEASE_RETYPE_ADDRESS_OR_RETURN_TO }}
