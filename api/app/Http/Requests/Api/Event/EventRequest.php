@@ -17,7 +17,7 @@ class EventRequest extends ApiFormRequest
             'custom_field_values' => [
                 '*' => [
                     'custom_field_id' => 'required',
-                    'value' => 'required|value'
+                    'value' => 'required|string'
                 ]
             ]
         ];
