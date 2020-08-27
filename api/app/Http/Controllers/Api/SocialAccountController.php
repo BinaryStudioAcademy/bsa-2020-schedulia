@@ -11,7 +11,7 @@ class SocialAccountController extends ApiController
 {
     private GetCalendarsCollectionAction $getCalendarsCollectionAction;
 
-    public function __construct(SocialAccountRepository $)
+    public function __construct()
     {
 
     }
