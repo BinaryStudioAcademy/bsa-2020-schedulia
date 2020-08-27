@@ -349,5 +349,12 @@ export default {
     NAME_MUST_BE_NO_MORE_THAN_50_CHARACTERS_LONG:
         'The name must be no more than 50 characters',
     ONLY_LETTER_AND_SYMBOLS_PERMITTED:
-        'Only letter and symbols  \\|/,._ are permitted '
+        'Only letter and symbols  \\|/,._ are permitted ',
+    ERROR_404: 'Error 404',
+    THE_PAGE_YOU_ARE_LOOKING_FOR_COULD_NOT_BE_FOUND:
+        'The page you are looking for could not be found',
+    PLEASE_MAKE_SURE_THAT_YOU_TYPED_IN_THE_URL_CORRECTLY:
+        " Please make sure that you've typed in the URL correctly",
+    PLEASE_RETYPE_ADDRESS_OR_RETURN_TO: 'Please retype address or return to',
+    MAIN_PAGE: ' main page'
 };

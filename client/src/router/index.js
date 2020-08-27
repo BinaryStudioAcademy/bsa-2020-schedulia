@@ -55,6 +55,11 @@ const routes = [
                         path: 'reset-password',
                         name: 'ResetPassword',
                         component: () => import('../views/ResetPassword')
+                    },
+                    {
+                        path: 'error404',
+                        name: 'Error404',
+                        component: () => import('../views/Error404')
                     }
                 ]
             },
