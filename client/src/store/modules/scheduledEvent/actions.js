@@ -14,13 +14,29 @@ export default {
         );
     },
 
-    [actions.SET_SCHEDULED_EVENTS]: async ({ commit }, eventFilter = []) => {
+    [actions.SET_SCHEDULED_EVENTS]: async (
+        { commit },
+        {
+            page = 1,
+            sort = 'start_date',
+            direction = 'desc',
+            eventTypes = [],
+            startDate = '',
+            endDate = ''
+        }
+    ) => {
         try {
-            const data = await scheduledEventService.getScheduledEvents(
-                eventFilter
+            const events = await scheduledEventService.getScheduledEvents(
+                page,
+                sort,
+                direction,
+                eventTypes,
+                startDate,
+                endDate
             );
 
-            commit(mutations.SET_SCHEDULED_EVENTS, data);
+            commit(mutations.CLEAR_SCHEDULED_EVENTS);
+            commit(mutations.SET_SCHEDULED_EVENTS, events);
         } catch (error) {
             commit(
                 SET_ERROR_NOTIFICATION,
