@@ -6,6 +6,7 @@ namespace App\Repositories\Event;
 
 use App\Entity\Event;
 use App\Repositories\BaseRepository;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 final class EventRepository extends BaseRepository implements EventRepositoryInterface
 {
