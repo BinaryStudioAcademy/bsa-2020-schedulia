@@ -18,11 +18,11 @@
                     v-bind="attrs"
                     v-on="on"
                 >
-                    <span v-if="!scheduledEventFilter.eventTypes.length">
+                    <span v-if="!eventTypesChecked.length">
                         {{ lang.ALL_EVENT_TYPES }}
                     </span>
                     <span v-else>
-                        {{ scheduledEventFilter.eventTypes.length }}
+                        {{ eventTypesChecked.length }}
                         {{ lang.EVENT_TYPES }}
                     </span>
                     <VIcon>mdi-chevron-down</VIcon>
@@ -152,14 +152,18 @@ export default {
             searchString: '',
             eventTypes: [],
             moreEventTypes: false,
-            scheduledEventFilter: {
-                eventTypes: []
-            }
+            eventTypesChecked: []
         };
     },
 
     async created() {
         try {
+            if (this.$route.query.event_types) {
+                this.eventTypes = this.arrayToInt(
+                    this.$route.query.event_types
+                );
+                this.eventTypesChecked = this.eventTypes;
+            }
             await this.setEventTypes();
         } catch (error) {
             this.setErrorNotification(error.message);
@@ -229,8 +233,11 @@ export default {
         },
 
         filterScheduledEvent() {
-            this.scheduledEventFilter.eventTypes = this.eventTypes;
-            this.setScheduledEvents(this.scheduledEventFilter.eventTypes);
+            this.eventTypesChecked = this.eventTypes;
+            this.$router.push({
+                name: 'Past',
+                query: { event_types: this.eventTypes }
+            });
             this.closeMenu();
         },
 
@@ -242,6 +249,13 @@ export default {
             } else {
                 this.eventTypes = this.eventTypes.concat(id);
             }
+        },
+
+        arrayToInt(arr) {
+            return arr.map(function(item) {
+                let number = parseInt(item);
+                return isNaN(number) ? item : number;
+            });
         }
     }
 };

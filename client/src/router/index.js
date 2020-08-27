@@ -142,9 +142,9 @@ const router = new VueRouter({
         return qs.parse(query);
     },
     stringifyQuery(query) {
-        let result = qs.stringify(query, {encode: false});
+        let result = qs.stringify(query, { encode: false });
 
-        return result ? ('?' + result) : '';
+        return result ? '?' + result : '';
     }
 });
 
