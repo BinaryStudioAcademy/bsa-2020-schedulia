@@ -2,7 +2,6 @@
 
 namespace App\Services\Calendar\Google;
 
-
 use App\Contracts\PresenterInterface;
 
 class GoogleCalendarEventPresenter implements PresenterInterface
@@ -20,7 +19,7 @@ class GoogleCalendarEventPresenter implements PresenterInterface
                 'dateTime' => $event->getEndTime()
             ],
             'reminders' => [
-                'useDefault' => FALSE,
+                'useDefault' => false,
                 'overrides' => [
                     [
                         'method' => 'email',

@@ -39,7 +39,6 @@ final class GoogleCalendarEvent implements CalendarEvent
         return Carbon::parse($this->startTime)->addMinutes($this->duration)->toIso8601String();
     }
 
-
     public function getSummary(): string
     {
         return $this->summary;
@@ -54,5 +53,4 @@ final class GoogleCalendarEvent implements CalendarEvent
     {
         return $this->location;
     }
-
 }

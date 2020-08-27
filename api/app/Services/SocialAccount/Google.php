@@ -93,7 +93,7 @@ class Google implements SocialAccountService, CalendarService
 
     public function createEvent(CalendarEvent $googleCalendarEvent): void
     {
-        if(!Auth::user()) {
+        if (!Auth::user()) {
             throw new AuthenticationException();
         }
 

@@ -24,7 +24,7 @@ class AddEventToGoogleCalendar implements ShouldQueue
                 $eventCreated->event->start_date,
                 $eventCreated->event->eventType->duration,
                 $eventCreated->event->eventType->description
-                )
+            )
         );
     }
 }
