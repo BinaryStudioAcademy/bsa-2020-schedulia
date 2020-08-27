@@ -36,11 +36,8 @@ export default {
     },
 
     methods: {
-        async disconnectCalendar() {
-
-        },
+        async disconnectCalendar() {}
     }
-
 };
 </script>
 

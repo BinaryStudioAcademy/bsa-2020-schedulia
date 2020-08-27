@@ -63,7 +63,7 @@ export default {
         async onClickHandle(provider) {
             const response = await this.connect(provider);
 
-            if(response.url) {
+            if (response.url) {
                 window.open(response.url);
             }
         }
