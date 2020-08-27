@@ -81,14 +81,6 @@
                     {{ lang.SIGN_UP }}
                 </VBtn>
             </VForm>
-            <VBtn
-                height="44"
-                depressed
-                class="signup-button  primary"
-                @click="onSignUp"
-            >
-                {{ lang.SIGN_UP }}
-            </VBtn>
         </div>
         <Alert
             :type="alert.type"
