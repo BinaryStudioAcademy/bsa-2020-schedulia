@@ -3,12 +3,14 @@
         <div class="row ma-0">
             <VCol cols="12" sm="12" md="3" class="pa-0">
                 <VTextField
+                    class="search-input"
                     type="text"
                     :label="lang.SEARCH"
                     prepend-inner-icon="mdi-magnify"
                     dense
                     filled
-                    solo-inverted
+                    solo
+                    background-color="var(--v-info-lighten3)"
                     v-model="searchString"
                     @input="onSearchInput"
                     :error-messages="searchErrors"
