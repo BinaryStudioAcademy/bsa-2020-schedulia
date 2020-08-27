@@ -357,5 +357,7 @@ export default {
     NAME_MUST_BE_NO_MORE_THAN_50_CHARACTERS_LONG:
         'The name must be no more than 50 characters',
     ONLY_LETTER_AND_SYMBOLS_PERMITTED:
-        'Only letter and symbols  \\|/,._ are permitted '
+        'Only letter and symbols  \\|/,._ are permitted ',
+    LOCALIZATION: 'en-US',
+    ENABLED: 'Enabled'
 };

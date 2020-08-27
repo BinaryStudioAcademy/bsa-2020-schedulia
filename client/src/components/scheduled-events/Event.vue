@@ -1,21 +1,26 @@
 <template>
     <div class="event">
         <VContainer class="event-date">
-            <span>{{ scheduledEvent.date }}</span>
+            <span>
+                {{ getEventDate(scheduledEvent.startDate) }}
+            </span>
         </VContainer>
         <VExpansionPanels flat tile accordion>
             <VExpansionPanel>
                 <VExpansionPanelHeader class="event-time-name">
                     <VRow>
                         <VCol sm="3" class="text-left">
-                            <img
-                                class=""
-                                :src="
-                                    require('@/assets/images/blue_circle.svg')
-                                "
+                            <EventTypesColor
+                                :color="scheduledEvent.eventType.color"
                             />
+
                             <span class="time">
-                                {{ scheduledEvent.time }}
+                                {{
+                                    getDurationTime(
+                                        scheduledEvent.startDate,
+                                        scheduledEvent.eventType.duration
+                                    )
+                                }}
                             </span>
                         </VCol>
                         <VCol>
@@ -25,7 +30,7 @@
                             <div class="event-type">
                                 {{ lang.EVENT_TYPE }}
                                 <span>
-                                    {{ scheduledEvent.type }}
+                                    {{ scheduledEvent.eventType.name }}
                                 </span>
                             </div>
                         </VCol>
@@ -75,7 +80,7 @@
                                         {{ scheduledEvent.email }}
                                     </span>
                                 </li>
-                                <li>
+                                <li v-show="scheduledEvent.location">
                                     {{ lang.LOCATION }}
                                     <span>
                                         {{ scheduledEvent.location }}
@@ -90,12 +95,16 @@
                                 <li>
                                     {{ lang.QUESTIONS }}
                                     <span>
-                                        {{ scheduledEvent.questions }}
+                                        {{ scheduledEvent.question }}
                                     </span>
                                 </li>
                                 <li class="created">
                                     {{ lang.CREATED }}
-                                    {{ scheduledEvent.created_at }}
+                                    {{
+                                        getDateWithStringMonth(
+                                            scheduledEvent.createdAt
+                                        )
+                                    }}
                                 </li>
                             </ul>
                         </VCol>
@@ -111,6 +120,7 @@
 import BorderBottom from '@/components/common/GeneralLayout/BorderBottom';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapGetters } from 'vuex';
+import EventTypesColor from '../common/EventTypesColor/EventTypesColor';
 
 export default {
     name: 'Event',
@@ -118,6 +128,7 @@ export default {
     data: () => ({}),
 
     components: {
+        EventTypesColor,
         BorderBottom
     },
 
@@ -132,6 +143,49 @@ export default {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         })
+    },
+
+    methods: {
+        getDurationTime(startDate, duration) {
+            let timeStart = new Date(startDate);
+            let timeEnd = new Date(startDate);
+            timeEnd.setMinutes(timeEnd.getMinutes() + duration);
+
+            return (
+                timeStart.toLocaleTimeString().slice(0, -6) +
+                '-' +
+                timeEnd.toLocaleTimeString().slice(0, -6)
+            );
+        },
+
+        getEventDate(startDate) {
+            let dayName = this.getDayName(startDate, this.lang.LOCALIZATION);
+            let date = this.getDateWithStringMonth(startDate);
+
+            return dayName + ', ' + date;
+        },
+
+        getDayName(dateStr, locale) {
+            let date = new Date(dateStr);
+            return date.toLocaleDateString(locale, { weekday: 'long' });
+        },
+
+        getMonthName(dateStr, locale) {
+            let date = new Date(dateStr);
+            return date.toLocaleDateString(locale, { month: 'long' });
+        },
+
+        getDateWithStringMonth(dateStr) {
+            let date = new Date(dateStr);
+            let year = date.getFullYear();
+            let month = this.getMonthName(date, this.lang.LOCALIZATION);
+            let day = date
+                .getDate()
+                .toString()
+                .padStart(2, '0');
+
+            return day + ' ' + month + ' ' + year;
+        }
     }
 };
 </script>
@@ -158,6 +212,7 @@ export default {
             line-height: 20px;
             letter-spacing: 0.25px;
             color: #2c2c2c;
+            text-transform: capitalize;
         }
     }
 

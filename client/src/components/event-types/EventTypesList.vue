@@ -3,12 +3,14 @@
         <div class="row ma-0">
             <VCol cols="12" sm="12" md="3" class="pa-0">
                 <VTextField
+                    class="search-input"
                     type="text"
                     :label="lang.SEARCH"
                     prepend-inner-icon="mdi-magnify"
                     dense
                     filled
-                    solo-inverted
+                    solo
+                    background-color="var(--v-info-lighten3)"
                     v-model="searchString"
                     @input="onSearchInput"
                     :error-messages="searchErrors"
@@ -20,7 +22,7 @@
         <VDivider />
         <div
             class="event-types-block row-flex flex-wrap flex-row d-flex"
-            v-if="eventTypes"
+            v-if="Object.values(eventTypes).length"
         >
             <VCol
                 cols="12"
@@ -40,7 +42,7 @@
                 class="ma-2 white--text"
                 @click="onLoadMore"
                 rounded
-                :disabled="!loadMoreActive"
+                v-if="loadMoreActive"
             >
                 <VIcon left dark>mdi-plus</VIcon>
                 Load more
@@ -76,7 +78,8 @@ export default {
     data: () => ({
         searchString: '',
         page: 1,
-        loadMoreActive: true
+        loadMoreActive: true,
+        perPage: 4
     }),
     methods: {
         ...mapActions('eventTypes', {
@@ -84,19 +87,22 @@ export default {
         }),
         async onSearchInput() {
             this.page = 1;
+            this.loadMoreActive = true;
             this.$v.searchString.$touch();
             await this.fetchEventTypes({
                 searchString: this.searchString,
                 page: this.page
             });
+            if (Object.values(this.eventTypes).length % this.perPage !== 0) {
+                this.loadMoreActive = false;
+            }
         },
         async onLoadMore() {
-            let eventTypes = await this.fetchEventTypes({
+            const eventTypes = await this.fetchEventTypes({
                 searchString: this.searchString,
                 page: this.page + 1
             });
-            if (eventTypes.length) {
-                this.loadMoreActive = true;
+            if (eventTypes.length === this.perPage) {
                 this.page += 1;
             } else {
                 this.loadMoreActive = false;
@@ -108,6 +114,9 @@ export default {
             searchString: this.searchString,
             page: this.page
         });
+        if (Object.values(this.eventTypes).length === this.perPage) {
+            this.loadMoreActive = true;
+        }
     },
     computed: {
         ...mapGetters('eventTypes', {
