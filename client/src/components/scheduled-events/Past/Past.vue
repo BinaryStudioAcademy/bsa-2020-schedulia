@@ -32,7 +32,7 @@ export default {
         page: 1,
         sort: 'start_date',
         direction: 'desc',
-        startDate: '',
+        endDate: new Date().toLocaleDateString()
     }),
 
     components: {
@@ -69,7 +69,7 @@ export default {
                 page: 1,
                 sort: this.sort,
                 direction: this.direction,
-                startDate: this.startDate
+                endDate: this.endDate
             });
         } catch (error) {
             this.setErrorNotification(error.message);
