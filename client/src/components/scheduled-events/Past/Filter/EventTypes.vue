@@ -48,10 +48,7 @@
                             ></VTextField>
                             <VContainer class="filter-form" fluid>
                                 <span
-                                    v-if="
-                                        this.getEventTypes.length >
-                                            countShowEventTypes
-                                    "
+                                    v-if="this.getEventTypes.length"
                                 >
                                     <VBtn
                                         :ripple="false"
@@ -147,7 +144,7 @@ export default {
 
     data() {
         return {
-            countShowEventTypes: 6,
+            countShowEventTypes: 12,
             menu: false,
             searchString: '',
             eventTypes: [],
