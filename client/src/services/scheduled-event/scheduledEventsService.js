@@ -6,16 +6,16 @@ const scheduledEventService = {
                 sort,
                 direction,
                 eventTypes,
-                startDate,
-                endDate,
+                start_date,
+                end_date,
     ) {
         const response = await requestService.get('/events', {
             page,
             sort,
             direction,
             eventTypes,
-            startDate,
-            endDate,
+            start_date,
+            end_date,
         });
         return response?.data?.data;
     }
