@@ -78,7 +78,7 @@ export default {
     data: () => ({
         searchString: '',
         page: 1,
-        loadMoreActive: true,
+        loadMoreActive: false,
         perPage: 4
     }),
     methods: {
