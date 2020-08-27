@@ -36,7 +36,8 @@ export default {
             );
 
             commit(mutations.CLEAR_SCHEDULED_EVENTS);
-            commit(mutations.SET_SCHEDULED_EVENTS, events);
+            commit(mutations.SET_SCHEDULED_EVENTS_PAGINATION, events.meta);
+            commit(mutations.SET_SCHEDULED_EVENTS, events.data);
         } catch (error) {
             commit(
                 SET_ERROR_NOTIFICATION,

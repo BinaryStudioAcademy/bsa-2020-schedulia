@@ -11,3 +11,10 @@ export const eventMapper = Event => ({
     createdAt: Event.created_at,
     eventType: eventTypeMapper(Event.event_type)
 });
+
+export const eventPaginationMapper = Pagination => ({
+    currentPage: Pagination.current_page,
+    lastPage: Pagination.last_page,
+    perPage: Pagination.per_page,
+    total: Pagination.total
+});
