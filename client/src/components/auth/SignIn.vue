@@ -8,6 +8,9 @@
             </RouterLink>
             <VSpacer class="pa-2"></VSpacer>
         </VCardSubtitle>
+
+        <SocialLoginButtons />
+
         <VForm v-model="formValid" ref="form">
             <VCardText>
                 <VCol cols="12" sm="12" md="8" class="pa-0">
@@ -82,6 +85,7 @@ import * as notificationActions from '@/store/modules/notification/types/actions
 import { validationMixin } from 'vuelidate';
 import { required, email, minLength } from 'vuelidate/lib/validators';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import SocialLoginButtons from '@/components/auth/SocialLoginButtons';
 
 export default {
     name: 'SingIn',
@@ -92,7 +96,9 @@ export default {
             password: { required, minLength: minLength(8) }
         }
     },
-    components: {},
+    components: {
+        SocialLoginButtons
+    },
     data: () => ({
         formValid: false,
         showPassword: false,
