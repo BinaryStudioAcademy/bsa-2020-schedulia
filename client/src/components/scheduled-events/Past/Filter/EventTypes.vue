@@ -164,7 +164,10 @@ export default {
                 );
                 this.eventTypesChecked = this.eventTypes;
             }
-            await this.setEventTypes();
+
+            await this.setEventTypes({
+                all: true
+            });
         } catch (error) {
             this.setErrorNotification(error.message);
         }
@@ -229,7 +232,10 @@ export default {
 
         searchEventTypes(searchString) {
             this.clearSelectAll();
-            this.setEventTypes(searchString);
+            this.setEventTypes({
+                searchString: searchString,
+                all: true
+            });
         },
 
         filterScheduledEvent() {

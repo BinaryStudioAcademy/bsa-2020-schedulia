@@ -8,15 +8,16 @@ import * as notifyActions from '@/store/modules/notification/types/actions';
 export default {
     [actions.FETCH_EVENT_TYPES]: async (
         { commit, dispatch },
-        data = { searchString: '' }
+        data = { searchString: '', all: false }
     ) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
         try {
             const eventTypes = await eventTypesService.fetchAllEventTypes(
                 data.searchString,
-                data.page
+                data.page,
+                data.all
             );
-            if (data.searchString && data.page === 1) {
+            if (data.searchString || data.page === 1 || data.all) {
                 commit(mutations.CLEAR_EVENT_TYPES);
             }
             commit(mutations.SET_EVENT_TYPES, eventTypes);
