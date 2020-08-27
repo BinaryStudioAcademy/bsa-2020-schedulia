@@ -10,7 +10,7 @@
                     dense
                     filled
                     solo
-                    background-color="rgba(224, 224, 224, 0.3)"
+                    background-color="var(--v-info-lighten3)"
                     v-model="searchString"
                     @input="onSearchInput"
                     :error-messages="searchErrors"
@@ -137,8 +137,3 @@ export default {
     }
 };
 </script>
-<style>
-.search-input .v-input__slot {
-    background: rgba(0, 0, 0, 0.12);
-}
-</style>
