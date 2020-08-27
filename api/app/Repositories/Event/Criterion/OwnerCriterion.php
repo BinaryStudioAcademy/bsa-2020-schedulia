@@ -20,12 +20,11 @@ final class OwnerCriterion implements EloquentCriterion
 
     public function apply(Builder $builder): Builder
     {
-         $build = $builder->join('event_types', function ($join) {
+        $build = $builder->join('event_types', function ($join) {
             $join->on('events.event_type_id', '=', 'event_types.id')
                 ->where('event_types.owner_id', '=', $this->ownerId);
         });
 
-         return $build;
-//         $builder->where('event_type_id', 1);
+        return $build;
     }
 }

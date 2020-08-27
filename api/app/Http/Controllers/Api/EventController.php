@@ -16,13 +16,11 @@ class EventController extends ApiController
     private GetEventCollectionAction $getEventCollectionAction;
     private $presenter;
 
-    public function __construct
-    (
+    public function __construct(
         AddEventAction $addEventAction,
         GetEventCollectionAction $getEventCollectionAction,
         EventPresenter $eventPresenter
-    )
-    {
+    ) {
         $this->addEventAction = $addEventAction;
         $this->getEventCollectionAction = $getEventCollectionAction;
         $this->presenter = $eventPresenter;

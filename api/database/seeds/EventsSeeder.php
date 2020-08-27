@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use \App\Entity\EventType;
-use \App\Entity\Event;
+use App\Entity\EventType;
+use App\Entity\Event;
 
 class EventsSeeder extends Seeder
 {

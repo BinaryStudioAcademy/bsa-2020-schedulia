@@ -15,8 +15,7 @@ final class EventPresenter implements PresenterCollectionInterface
 
     public function __construct(
         EventTypePresenter $eventTypePresenter
-    )
-    {
+    ) {
         $this->eventTypePresenter = $eventTypePresenter;
     }
 

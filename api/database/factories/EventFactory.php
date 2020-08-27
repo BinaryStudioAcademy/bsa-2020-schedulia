@@ -3,7 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use Faker\Generator as Faker;
-use \App\Entity\Event;
+use App\Entity\Event;
 
 $factory->define(Event::class, function (Faker $faker) {
     return [
