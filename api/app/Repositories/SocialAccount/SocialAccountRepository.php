@@ -8,6 +8,7 @@ use App\Contracts\EloquentCriterion;
 use App\Entity\SocialAccount;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 final class SocialAccountRepository extends BaseRepository implements SocialAccountRepositoryInterface
 {
@@ -27,5 +28,10 @@ final class SocialAccountRepository extends BaseRepository implements SocialAcco
         }
 
         return $query->get();
+    }
+
+    public function findMyByProvider(int $provider): SocialAccount
+    {
+        return SocialAccount::where('provider_id', '=', $provider)->where('user_id', '=', Auth::id())->firstOrFail();
     }
 }

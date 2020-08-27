@@ -2,6 +2,8 @@
 
 namespace App\Services\SocialAccount;
 
+use App\Entity\SocialAccount;
+use App\Repositories\SocialAccount\SocialAccountRepositoryInterface;
 use Illuminate\Config\Repository;
 use App\Contracts\CalendarService;
 use App\Contracts\SocialAccountService;
@@ -10,14 +12,16 @@ class Google implements SocialAccountService, CalendarService
 {
     protected $client;
     private Repository $config;
+    private SocialAccountRepositoryInterface $socialAccountRepository;
 
-    public function __construct(Repository $config)
+    public function __construct(Repository $config, SocialAccountRepositoryInterface $socialAccountRepository)
     {
         $this->config = $config;
         $this->client = $this->setupClient();
+        $this->socialAccountRepository = $socialAccountRepository;
     }
 
-    public function __call($method, $args)
+    public function __call(string $method, array $args)
     {
         if ( !method_exists($this->client, $method) ) {
             throw new \Exception("Call to undefined method '{$method}'");
@@ -26,19 +30,27 @@ class Google implements SocialAccountService, CalendarService
         return call_user_func_array([$this->client, $method], $args);
     }
 
-    public function service($service)
+    public function service(string $service)
     {
         $classname = 'Google_Service_' . $service;
 
         return new $classname($this->client);
     }
 
-    public function auth(): string
+    public function auth(string $code = null)
     {
-        return $this->createAuthUrl();
+        if(!$code)
+        {
+            return $this->createAuthUrl();
+        } else {
+            $socialAccount = $this->socialAccountRepository->findMyByProvider(SocialAccount::GOOGLE_SERVICE_ID);
+
+            $this->authenticate($code);
+            $token = $this->getAccessToken();
+        }
     }
 
-    public function connect($token)
+    public function connect($token): Google
     {
         $this->client->setAccessToken($token);
 
@@ -62,7 +74,7 @@ class Google implements SocialAccountService, CalendarService
         // TODO: Implement deleteEvent() method.
     }
 
-    private function setupClient()
+    private function setupClient(): \Google_Client
     {
         $options = $this->config->get('services.google');
 

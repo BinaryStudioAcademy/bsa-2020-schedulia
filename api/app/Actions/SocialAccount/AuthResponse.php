@@ -4,19 +4,23 @@ declare(strict_types=1);
 
 namespace App\Actions\SocialAccount;
 
-use Illuminate\Support\Collection;
-
 class AuthResponse
 {
     private array $data;
 
-    public function __construct(?AuthData ...$values)
+    public function __construct(string $url, array $data = [])
     {
-        $this->data = $values;
+        $this->url = $url;
+        $this->data = $data;
     }
 
-    public function getAuthData(): Collection
+    public function getAuthData(): array
     {
-        return collect($this->parameters);
+        return $this->data;
+    }
+
+    public function getUrl(): string
+    {
+        return $this->url;
     }
 }

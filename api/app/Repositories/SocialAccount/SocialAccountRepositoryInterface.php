@@ -11,5 +11,6 @@ use App\Contracts\EloquentCriterion;
 interface SocialAccountRepositoryInterface
 {
     public function save(SocialAccount $user): SocialAccount;
+    public function findMyByProvider(int $provider): SocialAccount;
     public function findByCriteria(EloquentCriterion ...$criteria): Collection;
 }

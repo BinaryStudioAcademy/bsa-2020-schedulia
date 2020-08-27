@@ -6,5 +6,5 @@ namespace App\Contracts;
 
 interface SocialAccountService
 {
-    public function auth(): string;
+    public function auth();
 }

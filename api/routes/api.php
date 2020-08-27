@@ -100,4 +100,5 @@ Route::group([
     Route::get('/calendars', 'SocialAccountController@calendars');
 });
 
-Route::get('/social-accounts/{provider?}/oauth', 'SocialAccountController@oauth');
+Route::get('/social-accounts/{provider?}/oauth', 'Api\\SocialAccountController@oauth');
+Route::get('/social-accounts/{provider?}/oauthResponse', 'Api\\SocialAccountController@oauthResponse');

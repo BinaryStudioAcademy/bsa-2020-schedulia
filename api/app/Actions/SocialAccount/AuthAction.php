@@ -16,17 +16,9 @@ class AuthAction
         $this->google = $google;
     }
 
-    public function execute(?string $provider, ?string $code = null): string
+    public function execute(?string $provider, ?string $code = null): AuthResponse
     {
-        if(!$code)
-        {
-            return $this->$provider->auth();
-        } else {
-            $this->$provider->authenticate($code);
-            $token = $this->$provider->getAccessToken();
-            dd($token);
-
-        }
+        return new AuthResponse($this->$provider->auth($code));
     }
 
 }
