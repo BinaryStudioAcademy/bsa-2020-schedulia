@@ -1,7 +1,9 @@
 <template>
     <div class="event">
         <VContainer class="event-date">
-            <span>{{ scheduledEvent.startDate }}</span>
+            <span>
+                {{ this.getEventDate(scheduledEvent.startDate) }}
+            </span>
         </VContainer>
         <VExpansionPanels flat tile accordion>
             <VExpansionPanel>
@@ -144,6 +146,26 @@ export default {
             timeEnd.setMinutes(timeEnd.getMinutes() + duration);
 
             return timeStart.toLocaleTimeString().slice(0,-6) + '-' + timeEnd.toLocaleTimeString().slice(0,-6);
+        },
+
+        getEventDate(startDate) {
+            let dayName = this.getDayName(startDate, this.lang.LOCALIZATION);
+            let date = new Date(startDate);
+            let year = date.getFullYear();
+            let month = this.getMonthName(startDate, this.lang.LOCALIZATION);
+            let day = date.getDate().toString().padStart(2, "0");
+
+            return dayName + ', ' + day + ' ' + month + ' ' + year;
+        },
+
+        getDayName(dateStr, locale) {
+            let date = new Date(dateStr);
+            return date.toLocaleDateString(locale, { weekday: 'long' });
+        },
+
+        getMonthName(dateStr, locale) {
+            let date = new Date(dateStr);
+            return date.toLocaleDateString(locale, { month: 'long' });
         }
     }
 };
@@ -171,6 +193,7 @@ export default {
             line-height: 20px;
             letter-spacing: 0.25px;
             color: #2c2c2c;
+            text-transform: capitalize;
         }
     }
 
