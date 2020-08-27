@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Api\CustomField;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiFormRequest;
 use Illuminate\Validation\Rule;
 
-final class CustomFieldRequest extends FormRequest
+final class CustomFieldRequest extends ApiFormRequest
 {
     public function rules(): array
     {
