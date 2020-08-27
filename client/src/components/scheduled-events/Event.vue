@@ -1,7 +1,7 @@
 <template>
     <div class="event">
         <VContainer class="event-date">
-            <span>{{ scheduledEvent.date }}</span>
+            <span>{{ scheduledEvent.startDate }}</span>
         </VContainer>
         <VExpansionPanels flat tile accordion>
             <VExpansionPanel>
@@ -15,7 +15,7 @@
                                 "
                             />
                             <span class="time">
-                                {{ scheduledEvent.time }}
+                                {{ scheduledEvent.startTime }}
                             </span>
                         </VCol>
                         <VCol>
@@ -25,7 +25,7 @@
                             <div class="event-type">
                                 {{ lang.EVENT_TYPE }}
                                 <span>
-                                    {{ scheduledEvent.type }}
+                                    {{ scheduledEvent.eventType.name }}
                                 </span>
                             </div>
                         </VCol>
@@ -78,7 +78,7 @@
                                 <li>
                                     {{ lang.LOCATION }}
                                     <span>
-                                        {{ scheduledEvent.location }}
+                                       Location
                                     </span>
                                 </li>
                                 <li>
@@ -90,12 +90,12 @@
                                 <li>
                                     {{ lang.QUESTIONS }}
                                     <span>
-                                        {{ scheduledEvent.questions }}
+                                        {{ scheduledEvent.question }}
                                     </span>
                                 </li>
                                 <li class="created">
                                     {{ lang.CREATED }}
-                                    {{ scheduledEvent.created_at }}
+                                    {{ scheduledEvent.createdAt }}
                                 </li>
                             </ul>
                         </VCol>
