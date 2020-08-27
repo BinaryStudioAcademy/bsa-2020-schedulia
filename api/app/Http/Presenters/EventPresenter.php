@@ -29,7 +29,7 @@ final class EventPresenter implements PresenterCollectionInterface
             'start_date' => $event->start_date,
             'location' => $event->location,
             'timezone' => $event->timezone,
-            'created_at' => Carbon::parse($event->created_at)->format('d.m.Y'),
+            'created_at' => $event->created_at,
             'event_type' => $this->eventTypePresenter->present($event->eventType),
         ];
     }
