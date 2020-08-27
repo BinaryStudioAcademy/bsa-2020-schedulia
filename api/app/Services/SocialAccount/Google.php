@@ -39,7 +39,7 @@ class Google implements SocialAccountService, CalendarService
 
     public function auth(string $code = null)
     {
-        if(!$code) {
+        if (!$code) {
             return $this->createAuthUrl();
         } else {
             $this->authenticate($code);

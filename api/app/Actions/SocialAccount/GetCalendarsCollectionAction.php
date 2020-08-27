@@ -19,7 +19,7 @@ final class GetCalendarsCollectionAction
     {
         $criteria = [new UserCriterion($request->getUserId())];
 
-        if($request->getProviders()) {
+        if ($request->getProviders()) {
             $criteria[] = new ProviderCriterion($request->getProviders());
         }
 
