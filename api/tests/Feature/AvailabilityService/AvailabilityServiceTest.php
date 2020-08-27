@@ -400,7 +400,8 @@ class AvailabilityServiceTest extends TestCase
             'invitee_name' => 'Invitee Name',
             'invitee_email' => 'invitee@gmail.com',
             'timezone' => 'Europe/Kiev',
-            'start_date' => '2020-08-07 15:00:00'
+            'start_date' => '2020-08-07 15:00:00',
+            'custom_field_values' => []
         ];
     }
 
