@@ -70,6 +70,9 @@ export default {
 .container {
     background: #fff;
 }
+.event-types > div {
+    min-height: 200px;
+}
 .event-types div.event-type {
     transition: 0.5s;
     cursor: pointer;
