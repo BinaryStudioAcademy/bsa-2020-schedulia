@@ -3,7 +3,7 @@
         <VRow>
             <VCol class="text-right">
                 {{ lang.DISPLAYING }} 1 –
-                {{ eventsPagination.currentPage * eventsPagination.perPage }}
+                {{ totalOnThisPage() }}
                 {{ lang.OF }} {{ eventsPagination.total }} {{ lang.EVENTS }}
             </VCol>
         </VRow>
@@ -27,6 +27,16 @@ export default {
         ...mapGetters('scheduledEvent', {
             eventsPagination: GET_SCHEDULED_EVENTS_PAGINATION
         })
+    },
+
+    methods: {
+        totalOnThisPage() {
+            if (this.eventsPagination.currentPage === this.eventsPagination.lastPage) {
+                return this.eventsPagination.total;
+            } else {
+               return this.eventsPagination.currentPage * this.eventsPagination.perPage;
+            }
+        }
     }
 };
 </script>
