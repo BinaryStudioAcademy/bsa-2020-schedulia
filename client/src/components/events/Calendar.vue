@@ -170,8 +170,16 @@ export default {
                 let params = {
                     ...this.data.dateRange,
                     ...{
-                        startDate: this.data.dateRange.startDate + ' ' + this.data.dateRange.startTime + ':00',
-                        endDate: this.data.dateRange.endDate + ' ' + this.data.dateRange.endTime + ':00'
+                        startDate:
+                            this.data.dateRange.startDate +
+                            ' ' +
+                            this.data.dateRange.startTime +
+                            ':00',
+                        endDate:
+                            this.data.dateRange.endDate +
+                            ' ' +
+                            this.data.dateRange.endTime +
+                            ':00'
                     }
                 };
 

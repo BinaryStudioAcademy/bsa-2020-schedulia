@@ -276,7 +276,7 @@ export default {
                 }
             };
             this.changeEventTypeProperty('availabilities', {
-                ...{ dateRange: [dateRangeData]},
+                ...{ dateRange: [dateRangeData] },
                 ...this.data.availabilities
             });
         }
