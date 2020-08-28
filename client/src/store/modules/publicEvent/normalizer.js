@@ -2,6 +2,7 @@ export const userMapper = User => ({
     id: User.id,
     email: User.email,
     name: User.name,
+    nickname: User.nickname,
     timezone: User.timezone,
     avatar: User.avatar,
     brandingLogo: User.branding_logo,
