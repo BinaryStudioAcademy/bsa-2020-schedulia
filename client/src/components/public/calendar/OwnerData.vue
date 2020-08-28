@@ -1,14 +1,17 @@
 <template>
-    <div class="event-info-content">
-        <VImg
-            :max-width="60"
-            :max-height="40"
-            :src="brandingLogo"
-            class="company-logo"
-        />
-        <VAvatar :size="70">
-            <img :src="avatar" alt="Avatar" />
-        </VAvatar>
+    <div class="event-info-container">
+        <div class="event-info-content">
+            <VImg
+                v-if="brandingLogo"
+                :max-width="60"
+                :max-height="40"
+                :src="brandingLogo"
+                class="company-logo"
+            />
+            <VAvatar v-if="avatar" :size="70">
+                <img :src="avatar" alt="Avatar" />
+            </VAvatar>
+        </div>
         <h4>{{ name }}</h4>
         <p>{{ eventName }}</p>
     </div>
@@ -27,10 +30,14 @@ export default {
 </script>
 
 <style scoped>
-.event-info-content {
-    margin-top: -70px;
+.event-info-container {
     padding-left: 30px;
     padding-right: 10px;
+}
+.event-info-content {
+    margin-top: -80px;
+    margin-bottom: 10px;
+    height: 100px;
 }
 
 .event-info-content h4 {
