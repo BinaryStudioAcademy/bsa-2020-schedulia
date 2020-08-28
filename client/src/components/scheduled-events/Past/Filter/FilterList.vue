@@ -10,10 +10,7 @@
             <Status />
         </VCol>
         <VCol>
-            <TrackingId />
-        </VCol>
-        <VCol>
-            <EnviteeEmails />
+            <InviteeEmails />
         </VCol>
         <VCol class="text-right" align-self="center">
             <VBtn :to="{ name: 'Past' }" class="reset-button" outlined>
@@ -29,14 +26,14 @@ import Teams from './Teams';
 import EventTypes from './EventTypes';
 import Status from './Status';
 import TrackingId from './TrackingId';
-import EnviteeEmails from './EnviteeEmails';
+import InviteeEmails from './InviteeEmails';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 
 export default {
     name: 'FilterList',
 
     components: {
-        EnviteeEmails,
+        InviteeEmails,
         TrackingId,
         Status,
         EventTypes,

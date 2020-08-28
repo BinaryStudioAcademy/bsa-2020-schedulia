@@ -1,7 +1,7 @@
 <template>
     <div class="text-left filter-menu">
         <div class="filter-title">
-            Envitee Emails
+            Invitee Emails
         </div>
         <VMenu
             v-model="menu"
