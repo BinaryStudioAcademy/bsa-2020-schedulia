@@ -378,6 +378,7 @@ export default {
 </script>
 
 <style scoped>
+@import '../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 .v-text-field {
     width: 506px;
 }

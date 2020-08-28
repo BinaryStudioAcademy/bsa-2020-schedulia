@@ -51,7 +51,8 @@ class EventTypeController extends ApiController
                 (int)$request->query('page'),
                 (int)$request->query('perPage'),
                 $request->query('sorting'),
-                $request->query('direction')
+                $request->query('direction'),
+                $request->query('all'),
             )
         );
 

@@ -31,8 +31,13 @@ export default {
     },
     [actions.ADD_PUBLIC_EVENT]: async (context, data) => {
         try {
-            const publicEvent = await publicEventService.addPublicEvent(data);
-            context.commit(mutations.SET_PUBLIC_EVENT, publicEvent);
+            context.commit(mutations.SET_PUBLIC_EVENT, {
+                inviteeName: data.invitee_name,
+                inviteeEmail: data.invitee_email,
+                startDate: data.start_date,
+                timezone: data.timezone
+            });
+            await publicEventService.addPublicEvent(data);
         } catch (error) {
             context.commit(SET_ERROR_NOTIFICATION, error.message);
         }

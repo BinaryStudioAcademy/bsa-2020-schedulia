@@ -15,7 +15,8 @@ export const userMapper = user => ({
     id: user.id,
     email: user.email,
     name: user.name,
-    timezone: user.timezone
+    timezone: user.timezone,
+    nickname: user.nickname
 });
 
 export const availabilityMapper = availability => ({

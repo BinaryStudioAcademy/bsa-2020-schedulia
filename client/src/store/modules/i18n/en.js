@@ -367,5 +367,8 @@ export default {
     LOCALIZATION: 'en-US',
     ENABLED: 'Enabled',
     LOAD_MORE: 'Load more',
-    ADD_ONE_ON_ONE_EVENT_TYPE: 'Add One-on-One Event Type'
+    ADD_ONE_ON_ONE_EVENT_TYPE: 'Add One-on-One Event Type',
+    RESET: 'Reset',
+    INVITEE_EMAILS: 'Invitee Emails',
+    ALL_INVITEE_EMAILS: 'All Invitee Emails'
 };
