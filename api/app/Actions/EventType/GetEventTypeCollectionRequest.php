@@ -11,19 +11,22 @@ final class GetEventTypeCollectionRequest
     private ?int $perPage;
     private ?string $sorting;
     private ?string $direction;
+    private ?bool $all;
 
     public function __construct(
         ?string $searchString,
         ?int $page,
         ?int $perPage,
         ?string $sorting,
-        ?string $direction
+        ?string $direction,
+        ?bool $all
     ) {
         $this->searchString = $searchString;
         $this->page = $page;
         $this->perPage = $perPage;
         $this->sorting = $sorting;
         $this->direction = $direction;
+        $this->all = $all;
     }
 
     public function getSearchString(): ?string
@@ -49,5 +52,10 @@ final class GetEventTypeCollectionRequest
     public function getDirection(): ?string
     {
         return $this->direction;
+    }
+
+    public function getAll(): ?bool
+    {
+        return $this->all;
     }
 }

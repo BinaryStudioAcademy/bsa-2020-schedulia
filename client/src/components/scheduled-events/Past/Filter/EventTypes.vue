@@ -18,11 +18,11 @@
                     v-bind="attrs"
                     v-on="on"
                 >
-                    <span v-if="!scheduledEventFilter.eventTypes.length">
+                    <span v-if="!eventTypesChecked.length">
                         {{ lang.ALL_EVENT_TYPES }}
                     </span>
                     <span v-else>
-                        {{ scheduledEventFilter.eventTypes.length }}
+                        {{ eventTypesChecked.length }}
                         {{ lang.EVENT_TYPES }}
                     </span>
                     <VIcon>mdi-chevron-down</VIcon>
@@ -47,12 +47,7 @@
                                 @input="searchEventTypes(searchString)"
                             ></VTextField>
                             <VContainer class="filter-form" fluid>
-                                <span
-                                    v-if="
-                                        this.getEventTypes.length >
-                                            countShowEventTypes
-                                    "
-                                >
+                                <span v-if="this.getEventTypes.length">
                                     <VBtn
                                         :ripple="false"
                                         :hover="false"
@@ -147,20 +142,22 @@ export default {
 
     data() {
         return {
-            countShowEventTypes: 6,
+            countShowEventTypes: 12,
             menu: false,
             searchString: '',
             eventTypes: [],
             moreEventTypes: false,
-            scheduledEventFilter: {
-                eventTypes: []
-            }
+            eventTypesChecked: []
         };
     },
 
-    async created() {
+    watch: {
+        $route: 'setEventTypesFilter'
+    },
+
+    async mounted() {
         try {
-            await this.setEventTypes();
+            await this.setEventTypesFilter();
         } catch (error) {
             this.setErrorNotification(error.message);
         }
@@ -201,6 +198,22 @@ export default {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
         }),
 
+        async setEventTypesFilter() {
+            if (this.$route.query.event_types) {
+                this.eventTypes = this.arrayToInt(
+                    this.$route.query.event_types
+                );
+            } else {
+                this.eventTypes = [];
+            }
+
+            this.eventTypesChecked = this.eventTypes;
+
+            await this.setEventTypes({
+                all: true
+            });
+        },
+
         closeMenu() {
             this.menu = false;
         },
@@ -223,14 +236,25 @@ export default {
             this.eventTypes = [];
         },
 
+        clearChecked() {
+            this.eventTypes = [];
+            this.eventTypesChecked = [];
+        },
+
         searchEventTypes(searchString) {
             this.clearSelectAll();
-            this.setEventTypes(searchString);
+            this.setEventTypes({
+                searchString: searchString,
+                all: true
+            });
         },
 
         filterScheduledEvent() {
-            this.scheduledEventFilter.eventTypes = this.eventTypes;
-            this.setScheduledEvents(this.scheduledEventFilter.eventTypes);
+            this.eventTypesChecked = this.eventTypes;
+            this.$router.push({
+                name: 'Past',
+                query: { event_types: this.eventTypes }
+            });
             this.closeMenu();
         },
 
@@ -242,6 +266,13 @@ export default {
             } else {
                 this.eventTypes = this.eventTypes.concat(id);
             }
+        },
+
+        arrayToInt(arr) {
+            return arr.map(function(item) {
+                let number = parseInt(item);
+                return isNaN(number) ? item : number;
+            });
         }
     }
 };

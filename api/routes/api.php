@@ -75,6 +75,7 @@ Route::group([
 ], function () {
     Route::post('/', 'EventController@store');
     Route::get('/', 'EventController@index');
+    Route::get('/emails', 'EventController@getEventsEmails');
 });
 
 Route::group([
