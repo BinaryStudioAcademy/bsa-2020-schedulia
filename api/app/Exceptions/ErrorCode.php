@@ -18,4 +18,5 @@ final class ErrorCode
     public const WEEKEND_EXCEPTION = 1009;
     public const USER_ALREADY_VERIFIED_EXCEPTION = 1010;
     public const EMAIL_IS_NOT_VERIFIED_EXCEPTION = 1011;
+    public const WRONG_DATE_TIME_EXCEPTION = 1012;
 }

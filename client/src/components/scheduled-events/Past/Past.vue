@@ -2,7 +2,7 @@
     <div>
         <FilterList v-if="this.scheduledEventsFilterView" />
         <BorderBottom />
-        <div v-if="scheduledEvents">
+        <div v-if="this.eventsPagination.total">
             <template v-for="scheduledEvent in scheduledEvents">
                 <Event
                     :key="scheduledEvent.id"
@@ -11,6 +11,17 @@
             </template>
         </div>
         <NoEvents v-else>{{ lang.NO_PAST_EVENTS }}</NoEvents>
+        <div class="text-center" v-show="loadMoreActive">
+            <VBtn
+                color="primary"
+                class="ma-2 white--text"
+                rounded
+                @click="onLoadMore"
+            >
+                <VIcon left dark>mdi-plus</VIcon>
+                {{ lang.LOAD_MORE }}
+            </VBtn>
+        </div>
     </div>
 </template>
 
@@ -30,6 +41,8 @@ export default {
 
     data: () => ({
         page: 1,
+        loadMoreActive: false,
+        perPage: 8,
         sort: 'start_date',
         direction: 'desc',
         endDate: new Date().toLocaleDateString()
@@ -49,7 +62,9 @@ export default {
         ...mapGetters('scheduledEvent', {
             scheduledEventsFilterView:
                 scheduledEventGetters.GET_SCHEDULED_EVENT_FILTER_VIEW,
-            scheduledEvents: scheduledEventGetters.GET_SCHEDULED_EVENTS
+            scheduledEvents: scheduledEventGetters.GET_SCHEDULED_EVENTS,
+            eventsPagination:
+                scheduledEventGetters.GET_SCHEDULED_EVENTS_PAGINATION
         })
     },
 
@@ -60,17 +75,52 @@ export default {
 
         ...mapActions('notification', {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
-        })
-    },
+        }),
 
-    async created() {
-        try {
+        async onLoadMore() {
             await this.setScheduledEvents({
-                page: 1,
+                page: this.page + 1,
                 sort: this.sort,
                 direction: this.direction,
-                endDate: this.endDate
+                endDate: this.endDate,
+                eventTypes: this.$route.query.event_types
             });
+
+            if (
+                this.eventsPagination.currentPage <
+                this.eventsPagination.lastPage
+            ) {
+                this.page += 1;
+            } else {
+                this.loadMoreActive = false;
+            }
+        },
+
+        async setEvents() {
+            await this.setScheduledEvents({
+                page: this.page,
+                sort: this.sort,
+                direction: this.direction,
+                endDate: this.endDate,
+                eventTypes: this.$route.query.event_types
+            });
+
+            if (
+                this.eventsPagination.currentPage <
+                this.eventsPagination.lastPage
+            ) {
+                this.loadMoreActive = true;
+            }
+        }
+    },
+
+    watch: {
+        $route: 'setEvents'
+    },
+
+    async mounted() {
+        try {
+            await this.setEvents();
         } catch (error) {
             this.setErrorNotification(error.message);
         }

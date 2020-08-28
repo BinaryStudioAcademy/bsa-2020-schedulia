@@ -1,7 +1,7 @@
 <template>
     <div>
         <BorderBottom />
-        <div v-if="scheduledEvents">
+        <div v-if="this.eventsPagination.total">
             <template v-for="scheduledEvent in scheduledEvents">
                 <Event
                     :key="scheduledEvent.id"
@@ -10,6 +10,17 @@
             </template>
         </div>
         <NoEvents v-else>{{ lang.NO_UPCOMING_EVENTS }}</NoEvents>
+        <div class="text-center" v-show="loadMoreActive">
+            <VBtn
+                color="primary"
+                class="ma-2 white--text"
+                rounded
+                @click="onLoadMore"
+            >
+                <VIcon left dark>mdi-plus</VIcon>
+                {{ lang.LOAD_MORE }}
+            </VBtn>
+        </div>
     </div>
 </template>
 
@@ -28,6 +39,8 @@ export default {
 
     data: () => ({
         page: 1,
+        loadMoreActive: false,
+        perPage: 8,
         sort: 'start_date',
         direction: 'asc',
         startDate: new Date().toLocaleDateString()
@@ -46,7 +59,9 @@ export default {
         ...mapGetters('scheduledEvent', {
             scheduledEventsFilterView:
                 scheduledEventGetters.GET_SCHEDULED_EVENT_FILTER_VIEW,
-            scheduledEvents: scheduledEventGetters.GET_SCHEDULED_EVENTS
+            scheduledEvents: scheduledEventGetters.GET_SCHEDULED_EVENTS,
+            eventsPagination:
+                scheduledEventGetters.GET_SCHEDULED_EVENTS_PAGINATION
         })
     },
 
@@ -57,10 +72,28 @@ export default {
 
         ...mapActions('notification', {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
-        })
+        }),
+
+        async onLoadMore() {
+            await this.setScheduledEvents({
+                page: this.page + 1,
+                sort: this.sort,
+                direction: this.direction,
+                startDate: this.startDate
+            });
+
+            if (
+                this.eventsPagination.currentPage <
+                this.eventsPagination.lastPage
+            ) {
+                this.page += 1;
+            } else {
+                this.loadMoreActive = false;
+            }
+        }
     },
 
-    async created() {
+    async mounted() {
         try {
             await this.setScheduledEvents({
                 page: 1,
@@ -68,6 +101,13 @@ export default {
                 direction: this.direction,
                 startDate: this.startDate
             });
+
+            if (
+                this.eventsPagination.currentPage <
+                this.eventsPagination.lastPage
+            ) {
+                this.loadMoreActive = true;
+            }
         } catch (error) {
             this.setErrorNotification(error.message);
         }

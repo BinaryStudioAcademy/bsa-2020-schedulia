@@ -3,10 +3,11 @@ import requestService from '@/services/requestService';
 const apiEndpoint = '/event-types';
 
 const eventTypesService = {
-    async fetchAllEventTypes(searchString, page) {
+    async fetchAllEventTypes(searchString, page, all) {
         const response = await requestService.get(apiEndpoint, {
             searchString,
-            page
+            page,
+            all
         });
         return response?.data?.data;
     },

@@ -1,7 +1,7 @@
 <template>
     <div class="text-left filter-menu">
         <div class="filter-title">
-            Envitee Emails
+            {{ lang.INVITEE_EMAILS }}
         </div>
         <VMenu
             v-model="menu"
@@ -18,7 +18,7 @@
                     v-bind="attrs"
                     v-on="on"
                 >
-                    All Envitee Emails
+                    {{ lang.ALL_INVITEE_EMAILS }}
                     <VIcon>mdi-chevron-down</VIcon>
                 </VBtn>
             </template>
@@ -71,10 +71,10 @@
                                     class="cancel-button"
                                     outlined
                                 >
-                                    Cancel
+                                    {{ lang.CANCEL }}
                                 </VBtn>
                                 <VBtn class="apply-button primary">
-                                    Apply
+                                    {{ lang.APPLY }}
                                 </VBtn>
                             </VContainer>
                         </VListItemContent>
@@ -88,6 +88,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+
 export default {
     name: 'EnviteeEmails',
 
@@ -95,6 +98,12 @@ export default {
         return {
             menu: false
         };
+    },
+
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        })
     },
 
     methods: {

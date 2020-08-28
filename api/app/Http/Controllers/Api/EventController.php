@@ -6,7 +6,10 @@ use App\Actions\Event\AddEventAction;
 use App\Actions\Event\AddEventRequest;
 use App\Actions\Event\GetEventCollectionAction;
 use App\Actions\Event\GetEventCollectionRequest;
+use App\Actions\Event\GetEventsEmailsAction;
+use App\Actions\Event\GetEventsEmailsRequest;
 use App\Http\Presenters\EventPresenter;
+use App\Http\Presenters\EventsEmailsPresenter;
 use App\Http\Requests\Api\Event\EventRequest;
 use Illuminate\Http\Request;
 
@@ -14,15 +17,18 @@ class EventController extends ApiController
 {
     private AddEventAction $addEventAction;
     private GetEventCollectionAction $getEventCollectionAction;
+    private GetEventsEmailsAction $getEventsEmailsAction;
     private $presenter;
 
     public function __construct(
         AddEventAction $addEventAction,
         GetEventCollectionAction $getEventCollectionAction,
+        GetEventsEmailsAction $getEventsEmailsAction,
         EventPresenter $eventPresenter
     ) {
         $this->addEventAction = $addEventAction;
         $this->getEventCollectionAction = $getEventCollectionAction;
+        $this->getEventsEmailsAction = $getEventsEmailsAction;
         $this->presenter = $eventPresenter;
     }
 
@@ -35,6 +41,7 @@ class EventController extends ApiController
                 $request->invitee_email,
                 $request->start_date,
                 $request->timezone,
+                $request->custom_field_values
             )
         );
 
@@ -58,6 +65,22 @@ class EventController extends ApiController
         return $this->createPaginatedResponse(
             $response->getPaginator(),
             $this->presenter
+        );
+    }
+
+    public function getEventsEmails(
+        Request $request,
+        EventsEmailsPresenter $eventsEmailsPresenter
+    ) {
+        $response = $this->getEventsEmailsAction->execute(
+            new GetEventsEmailsRequest(
+                $request->query('start_date'),
+                $request->query('end_date')
+            )
+        );
+
+        return $this->successResponse(
+            $eventsEmailsPresenter->presentCollection($response->getEvent())
         );
     }
 }

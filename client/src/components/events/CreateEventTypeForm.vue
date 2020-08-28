@@ -264,7 +264,6 @@ import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapGetters, mapMutations } from 'vuex';
 import * as eventTypeMutations from '@/store/modules/eventType/types/mutations';
 import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
-import '../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 
 import {
     MglMap,
@@ -462,6 +461,7 @@ export default {
 </script>
 
 <style scoped>
+@import '../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 .v-text-field {
     width: 506px;
 }
