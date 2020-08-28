@@ -5,7 +5,7 @@ namespace App\Services\SocialAccount;
 use App\Entity\SocialAccount;
 use App\Exceptions\GoogleOauthException;
 use App\Repositories\SocialAccount\SocialAccountRepositoryInterface;
-use App\Contracts\CalendarEvent;
+use App\Contracts\CalendarEventInterface;
 use App\Services\Calendar\Google\GoogleCalendarEventPresenter;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Config\Repository;
@@ -72,8 +72,6 @@ class Google implements SocialAccountService, CalendarService
             $socialAccount->expires_in = '2020-08-27 22:57:59';
 
             $socialAccount->save();
-
-            return 'Success';
         }
     }
 
@@ -91,7 +89,7 @@ class Google implements SocialAccountService, CalendarService
         return $this->client->revokeToken($token);
     }
 
-    public function createEvent(CalendarEvent $googleCalendarEvent): void
+    public function createEvent(CalendarEventInterface $googleCalendarEvent): void
     {
         if (!Auth::user()) {
             throw new AuthenticationException();

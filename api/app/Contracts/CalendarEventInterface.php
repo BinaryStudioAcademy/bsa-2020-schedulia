@@ -2,6 +2,6 @@
 
 namespace App\Contracts;
 
-interface CalendarEvent
+interface CalendarEventInterface
 {
 }

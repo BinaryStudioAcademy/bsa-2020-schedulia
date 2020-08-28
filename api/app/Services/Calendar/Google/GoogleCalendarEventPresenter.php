@@ -6,7 +6,7 @@ use App\Contracts\PresenterInterface;
 
 class GoogleCalendarEventPresenter implements PresenterInterface
 {
-    public static function present(GoogleCalendarEvent $event): array
+    public static function present(GoogleCalendarEventInterface $event): array
     {
         return [
             'summary' => $event->getSummary(),

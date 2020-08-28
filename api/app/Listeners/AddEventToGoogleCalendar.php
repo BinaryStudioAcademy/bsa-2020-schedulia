@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\EventCreated;
-use App\Services\Calendar\Google\GoogleCalendarEvent;
+use App\Services\Calendar\Google\GoogleCalendarEventInterface;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Services\SocialAccount\Google;
 
@@ -19,7 +19,7 @@ class AddEventToGoogleCalendar implements ShouldQueue
     public function handle(EventCreated $eventCreated): void
     {
         $this->googleCalendar->createEvent(
-            new GoogleCalendarEvent(
+            new GoogleCalendarEventInterface(
                 $eventCreated->event->eventType->name,
                 $eventCreated->event->start_date,
                 $eventCreated->event->eventType->duration,

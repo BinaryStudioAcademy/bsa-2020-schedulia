@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services\Calendar\Google;
 
-use App\Contracts\CalendarEvent;
+use App\Contracts\CalendarEventInterface;
 use Carbon\Carbon;
 
-final class GoogleCalendarEvent implements CalendarEvent
+final class GoogleCalendarEventInterface implements CalendarEventInterface
 {
     private string $summary;
     private ?string $location;
