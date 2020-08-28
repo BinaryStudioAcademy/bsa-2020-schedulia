@@ -51,9 +51,9 @@
                     </VCol>
 
                     <VCol cols="12" sm="12" md="10" class="pa-0">
-                        <label for="additional-info">{{
-                            lang.ADDITIONAL_INFO_DESCRIPTION
-                        }}</label>
+                        <label for="additional-info">
+                            {{ lang.ADDITIONAL_INFO_DESCRIPTION }}
+                        </label>
                         <VTextarea
                             id="additional-info"
                             :error-messages="additionalInfoErrors"
@@ -96,6 +96,7 @@ import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import * as getters from '@/store/modules/publicEvent/types/getters';
 import { mapActions, mapGetters } from 'vuex';
 import * as notificationActions from '@/store/modules/notification/types/actions';
+import * as actions from '@/store/modules/publicEvent/types/actions';
 import { validationMixin } from 'vuelidate';
 import {
     required,
@@ -118,10 +119,10 @@ import EventInfo from './EventInfo';
 
 export default {
     name: 'ConfirmEventType',
+    mixins: [validationMixin],
     components: {
         EventInfo
     },
-    mixins: [validationMixin],
     validations: {
         meetingFormData: {
             name: {
@@ -145,11 +146,6 @@ export default {
             name: '',
             email: '',
             additionalInfo: ''
-        },
-        alert: {
-            visible: false,
-            message: '',
-            type: ''
         }
     }),
     computed: {
@@ -211,10 +207,21 @@ export default {
         ...mapActions('notification', {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
         }),
-        onScheduleEvent() {
+        ...mapActions('publicEvent', {
+            addPublicEvent: actions.ADD_PUBLIC_EVENT
+        }),
+        async onScheduleEvent() {
             this.$v.$touch();
             if (!this.$v.$invalid) {
                 try {
+                    await this.addPublicEvent({
+                        event_type_id: this.eventType.id,
+                        invitee_name: this.meetingFormData.name,
+                        invitee_email: this.meetingFormData.email,
+                        start_date: this.publicEvent.startDate,
+                        timezone: this.publicEvent.timezone
+                    });
+
                     this.$router.push({
                         path: `/${this.eventType.owner.nickname}/${this.eventType.id}/invitee/details`
                     });
