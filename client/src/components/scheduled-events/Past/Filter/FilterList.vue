@@ -25,7 +25,6 @@ import { mapGetters } from 'vuex';
 import Teams from './Teams';
 import EventTypes from './EventTypes';
 import Status from './Status';
-import TrackingId from './TrackingId';
 import InviteeEmails from './InviteeEmails';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 
@@ -34,7 +33,6 @@ export default {
 
     components: {
         InviteeEmails,
-        TrackingId,
         Status,
         EventTypes,
         Teams
