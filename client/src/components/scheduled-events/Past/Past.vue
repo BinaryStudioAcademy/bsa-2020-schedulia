@@ -2,7 +2,7 @@
     <div>
         <FilterList v-if="this.scheduledEventsFilterView" />
         <BorderBottom />
-        <div v-if="scheduledEvents">
+        <div v-if="this.eventsPagination.total">
             <template v-for="scheduledEvent in scheduledEvents">
                 <Event
                     :key="scheduledEvent.id"
