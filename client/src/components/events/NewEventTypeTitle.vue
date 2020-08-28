@@ -22,11 +22,11 @@
             <VFlex row class="align-center justify-end">
                 <VSubheader class="app-subheader">
                     {{ lang.YOUR_EVENT_TYPE_IS }}
-                    {{ !eventTypeForm.disabled ? 'On' : 'Off' }}
+                    {{ !data.disabled ? 'On' : 'Off' }}
                 </VSubheader>
                 <VSwitch
-                    :value="!eventTypeForm.disabled"
-                    @change="changeDisabled(!eventTypeForm.disabled)"
+                    :input-value="!data.disabled"
+                    @change="changeDisabled(!data.disabled)"
                 ></VSwitch>
             </VFlex>
         </VCol>
@@ -35,9 +35,9 @@
 
 <script>
 import enLang from '@/store/modules/i18n/en.js';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
-import * as eventTypeMutations from '@/store/modules/eventType/types/mutations';
+import * as actionEventType from '@/store/modules/eventType/types/actions';
 
 export default {
     name: 'NewEventTypeCard',
@@ -49,17 +49,19 @@ export default {
     },
     computed: {
         ...mapGetters('eventType', {
-            eventTypeForm: eventTypeGetters.GET_EVENT_TYPE_FORM
-        })
+            eventType: eventTypeGetters.GET_EVENT_TYPE
+        }),
+        data() {
+            return this.eventType;
+        }
     },
     methods: {
+        ...mapActions('eventType', {
+            setEventType: actionEventType.SET_EVENT_TYPE
+        }),
         changeDisabled(data) {
-            this.setEventTypeDisabled(data);
-        },
-        ...mapMutations('eventType', {
-            setEventTypeDisabled:
-                eventTypeMutations.SET_EVENT_TYPE_FORM_COLUMN_DISABLE
-        })
+            this.setEventType({disabled: data});
+        }
     }
 };
 </script>

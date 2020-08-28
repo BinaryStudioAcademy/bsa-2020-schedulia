@@ -328,5 +328,9 @@ export default {
         'Either your token has expired or you have not copied the entire request. Go to the password reset page and request the reset link again with your correct email.',
     OK_PASSWORD_RESET: 'Password has been changed.',
     EXPLANATION_PASSWORD_RESET:
-        'Go to the SignIn page and use your new password to authenticate on the site.'
+        'Go to the SignIn page and use your new password to authenticate on the site.',
+    MORE: 'more',
+    TODAY: 'Today',
+    NEW_INTERVAL: 'New Interval',
+    UNAVAILABLE: 'Unavailable'
 };

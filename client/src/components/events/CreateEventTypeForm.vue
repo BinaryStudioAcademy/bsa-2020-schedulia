@@ -1,178 +1,125 @@
 <template>
-    <VContainer>
-        <VCard class="mt-7">
-            <VRow align="center">
-                <VCol cols="1">
-                    <div>
-                        <img
-                            :src="colorById[data.color].image"
-                            alt=""
-                            class="pl-10"
-                        />
-                    </div>
-                </VCol>
-                <VCol class="pl-lg-5 pl-sm-10">
-                    <div>
-                        <VCardTitle>
-                            {{ lang.CREATE_EVENT_TYPE_TITLE }}
-                        </VCardTitle>
-                        <VCardSubtitle>
-                            {{ lang.CREATE_EVENT_TYPE_SUBTITLE }}
-                        </VCardSubtitle>
-                    </div>
-                </VCol>
-            </VRow>
-            <VDivider class="mx-4"></VDivider>
+    <VForm class="mt-9 mb-16" ref="form">
+        <div class="mb-2">
+            <label>{{ lang.EVENT_NAME_LABEL }}*</label>
+        </div>
+
+        <VTextField
+            :value="data.name"
+            @input="changeEventTypeProperty('name', $event)"
+            :rules="nameRules"
+            outlined
+            class="app-textfield"
+            dense
+        >
+        </VTextField>
+
+        <div class="mb-2">
+            <label>{{ lang.LOCATION_LABEL }}</label>
+        </div>
+
+        <VSelect
+            :value="data.location"
+            :items="items"
+            @change="changeEventTypeProperty('location', $event)"
+            outlined
+            placeholder="Option"
+            dense
+            class="mb-3"
+        >
+        </VSelect>
+
+        <div class="mb-2">
+            <label>{{ lang.DESCRIPTION_LABEL }}</label>
+        </div>
+
+        <VTextarea
+            :value="data.description"
+            @change="changeEventTypeProperty('description', $event)"
+            :rules="descRules"
+            placeholder="Placeholder"
+            outlined
+            class="mb-3"
+        >
+        </VTextarea>
+
+        <div class="mb-2">
+            <label>{{ lang.EVENT_LINK_LABEL }}*</label>
+        </div>
+
+        <VTextField
+            :rules="eventLinkRules"
+            outlined
+            :value="data.slug"
+            @input="changeEventTypeProperty('slug', $event)"
+            dense
+            class="mb-4 app-textfield"
+            required
+        >
+        </VTextField>
+
+        <div class="mb-2">
+            <p>{{ lang.EVENT_COLOR_LABEL }}</p>
+        </div>
+        <div class="mb-12">
             <VRow>
-                <VCol cols="6" offset-sm="2" offset-md="2">
-                    <VForm class="mt-9 mb-16">
-                        <div class="mb-2">
-                            <label>{{ lang.EVENT_NAME_LABEL }}*</label>
-                        </div>
-
-                        <VTextField
-                            :value="data.name"
-                            @input="changeName"
-                            :rules="nameRules"
-                            outlined
-                            class="app-textfield"
-                            dense
+                <div class="d-flex">
+                    <VImg
+                        v-for="id in colors"
+                        :key="id"
+                        :src="colorById[id].image"
+                        alt=""
+                        class="mr-7 ml-3 image-circle"
+                        v-on:click="changeEventTypeProperty('color', id)"
+                    >
+                        <VOverlay
+                            absolute
+                            :value="data.color === id"
+                            class="rounded-circle"
+                            color="eventColor"
                         >
-                        </VTextField>
-
-                        <div class="mb-2">
-                            <label>{{ lang.LOCATION_LABEL }}</label>
-                        </div>
-
-                        <VSelect
-                            :value="data.location"
-                            :items="items"
-                            @change="changeLocation"
-                            outlined
-                            placeholder="Option"
-                            dense
-                            class="mb-3"
-                        >
-                        </VSelect>
-
-                        <div class="mb-2">
-                            <label>{{ lang.DESCRIPTION_LABEL }}</label>
-                        </div>
-
-                        <VTextarea
-                            :value="data.description"
-                            @change="changeDescription"
-                            :rules="descRules"
-                            placeholder="Placeholder"
-                            outlined
-                            class="mb-3"
-                        >
-                        </VTextarea>
-
-                        <div class="mb-2">
-                            <label>{{ lang.EVENT_LINK_LABEL }}*</label>
-                        </div>
-
-                        <VTextField
-                            :rules="eventLinkRules"
-                            outlined
-                            :value="data.slug"
-                            @input="changeSlug"
-                            dense
-                            class="mb-4 app-textfield"
-                            required
-                        >
-                        </VTextField>
-
-                        <div class="mb-2">
-                            <p>{{ lang.EVENT_COLOR_LABEL }}</p>
-                        </div>
-                        <div class="mb-12">
-                            <VRow>
-                                <div class="d-flex">
-                                    <VImg
-                                        v-for="id in colors"
-                                        :key="id"
-                                        :src="colorById[id].image"
-                                        alt=""
-                                        class="mr-7 ml-3 image-circle"
-                                        v-on:click="setColor(id)"
-                                    >
-                                        <VOverlay
-                                            absolute
-                                            :value="data.color === id"
-                                            class="rounded-circle"
-                                            color="eventColor"
-                                        >
-                                            <img
-                                                :src="
-                                                    require('@/assets/images/icon_check.png')
-                                                "
-                                                alt=""
-                                            />
-                                        </VOverlay>
-                                    </VImg>
-                                </div>
-                            </VRow>
-                        </div>
-                        <div>
-                            <VBtn text outlined width="114" class="mr-3">
-                                {{ lang.CANCEL }}
-                            </VBtn>
-                            <VBtn
-                                @click="clickNext"
-                                color="primary"
-                                class="white--text"
-                                width="114"
-                                :to="{ name: 'new-event-edit' }"
-                            >
-                                {{ lang.NEXT }}
-                            </VBtn>
-                        </div>
-                    </VForm>
-                </VCol>
+                            <img
+                                :src="require('@/assets/images/icon_check.png')"
+                                alt=""
+                            />
+                        </VOverlay>
+                    </VImg>
+                </div>
             </VRow>
-        </VCard>
-    </VContainer>
+        </div>
+        <div>
+            <VBtn text outlined width="114" class="mr-3" :to="{ name: 'EventTypes' }">
+                {{ lang.CANCEL }}
+            </VBtn>
+            <VBtn
+                @click="clickNext"
+                color="primary"
+                class="white--text"
+                width="114"
+            >
+                {{ lang.NEXT }}
+            </VBtn>
+        </div>
+    </VForm>
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en.js';
-import { mapGetters, mapMutations } from 'vuex';
-import * as eventTypeMutations from '@/store/modules/eventType/types/mutations';
-import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
+import { mapActions } from 'vuex';
+import * as actionEventType from "@/store/modules/eventType/types/actions";
+import eventTypeMixin from "@/components/events/eventTypeMixin";
 
 export default {
     name: 'CreateEventTypeForm',
+    mixins: [eventTypeMixin],
+    props: {
+        isBooking: {
+            type: Boolean,
+            default: false
+        }
+    },
     data() {
         return {
-            lang: enLang,
-            form: {
-                name: '',
-                location: '',
-                description: '',
-                slug: '',
-                color: 'yellow'
-            },
             items: ['address on the map', 'zoom', 'skype'],
-            colorById: {
-                yellow: {
-                    id: 'yellow',
-                    image: require('@/assets/images/yellow_circle.png')
-                },
-                red: {
-                    id: 'red',
-                    image: require('@/assets/images/red_circle.png')
-                },
-                blue: {
-                    id: 'blue',
-                    image: require('@/assets/images/blue_circle.png')
-                },
-                green: {
-                    id: 'green',
-                    image: require('@/assets/images/green_circle.png')
-                }
-            },
             colors: ['yellow', 'red', 'blue', 'green'],
             nameRules: [
                 v => !!v || this.lang.PROVIDE_EVENT_NAME,
@@ -220,40 +167,21 @@ export default {
         };
     },
 
-    computed: {
-        ...mapGetters('eventType', {
-            getEventTypeForm: eventTypeGetters.GET_EVENT_TYPE_FORM
-        }),
-        data() {
-            return {
-                ...this.getEventTypeForm,
-                ...this.form
-            };
-        }
-    },
-
     methods: {
-        ...mapMutations('eventType', {
-            setEventTypeForm: eventTypeMutations.SET_EVENT_TYPE_FORM
+        ...mapActions('eventType', {
+            setEventType: actionEventType.SET_EVENT_TYPE
         }),
         clickNext() {
-            this.setEventTypeForm(this.form);
+            if (this.$refs.form.validate()) {
+                if (this.isBooking) {
+                    this.$emit('changePanel');
+                } else {
+                    this.$router.push({name: 'new-event-edit'});
+                }
+            }
         },
-        setColor(id) {
-            this.form.color = this.colorById[id].id;
-        },
-        changeName(val) {
-            this.form.name = val;
-            this.changeSlug(val);
-        },
-        changeLocation(val) {
-            this.form.location = val;
-        },
-        changeDescription(val) {
-            this.form.description = val;
-        },
-        changeSlug(val) {
-            this.form.slug = val.replace(/\s/g, '-');
+        getSlug(value) {
+            return value.replace(/\s/g, '-');
         }
     }
 };
