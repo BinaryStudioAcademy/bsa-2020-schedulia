@@ -42,7 +42,9 @@ final class AddEventAction
             $event->timezone = $request->getTimezone();
 
             $this->eventRepository->save($event);
-            $this->eventRepository->saveCustomFieldValues($event, $request->getCustomFieldValues());
+            if ($request->getCustomFieldValues()) {
+                $this->eventRepository->saveCustomFieldValues($event, $request->getCustomFieldValues());
+            }
 
             event(new EventCreated($event));
         }
