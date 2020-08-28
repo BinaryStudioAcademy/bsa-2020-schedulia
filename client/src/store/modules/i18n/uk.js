@@ -284,5 +284,7 @@ export default {
     LOCALIZATION: 'uk-UA',
     ENABLED: 'Увімкнено',
     LOAD_MORE: 'Завантажити ще',
-    RESET: 'Скинути'
+    RESET: 'Скинути',
+    INVITEE_EMAILS: 'Emails у запросі ',
+    ALL_INVITEE_EMAILS: 'Відмітити усі Emails'
 };

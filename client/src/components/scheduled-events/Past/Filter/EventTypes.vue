@@ -157,7 +157,7 @@ export default {
 
     async mounted() {
         try {
-            this.setEventTypesFilter();
+            await this.setEventTypesFilter();
         } catch (error) {
             this.setErrorNotification(error.message);
         }

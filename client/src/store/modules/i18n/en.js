@@ -362,5 +362,7 @@ export default {
     LOCALIZATION: 'en-US',
     ENABLED: 'Enabled',
     LOAD_MORE: 'Load more',
-    RESET: 'Reset'
+    RESET: 'Reset',
+    INVITEE_EMAILS: 'Invitee Emails',
+    ALL_INVITEE_EMAILS: 'All Invitee Emails'
 };
