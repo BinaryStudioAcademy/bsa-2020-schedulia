@@ -361,5 +361,6 @@ export default {
         'Only letter and symbols  \\|/,._ are permitted ',
     LOCALIZATION: 'en-US',
     ENABLED: 'Enabled',
-    LOAD_MORE: 'Load more'
+    LOAD_MORE: 'Load more',
+    RESET: 'Reset'
 };

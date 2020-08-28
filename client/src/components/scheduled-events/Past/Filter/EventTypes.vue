@@ -153,18 +153,13 @@ export default {
         };
     },
 
-    async created() {
-        try {
-            if (this.$route.query.event_types) {
-                this.eventTypes = this.arrayToInt(
-                    this.$route.query.event_types
-                );
-                this.eventTypesChecked = this.eventTypes;
-            }
+    watch: {
+        $route: 'setEventTypesFilter'
+    },
 
-            await this.setEventTypes({
-                all: true
-            });
+    async mounted() {
+        try {
+            this.setEventTypesFilter();
         } catch (error) {
             this.setErrorNotification(error.message);
         }
@@ -205,6 +200,22 @@ export default {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
         }),
 
+        async setEventTypesFilter() {
+            if (this.$route.query.event_types) {
+                this.eventTypes = this.arrayToInt(
+                        this.$route.query.event_types
+                );
+            } else {
+                this.eventTypes = [];
+            }
+
+            this.eventTypesChecked = this.eventTypes;
+
+            await this.setEventTypes({
+                all: true
+            });
+        },
+
         closeMenu() {
             this.menu = false;
         },
@@ -225,6 +236,11 @@ export default {
 
         clearSelectAll() {
             this.eventTypes = [];
+        },
+
+        clearChecked() {
+            this.eventTypes = [];
+            this.eventTypesChecked = [];
         },
 
         searchEventTypes(searchString) {
