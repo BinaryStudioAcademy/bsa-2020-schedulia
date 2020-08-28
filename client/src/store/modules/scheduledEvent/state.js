@@ -1,12 +1,10 @@
 export default {
     scheduledEventsFilterView: false,
-    scheduledEvents: {
-        events: {},
-        eventsPagination: {
-            pageStartEventNum: 0,
-            pageEndEventNum: 0,
-            allEvents: 0
-        }
-    },
-    scheduledEventsTypes: {}
+    scheduledEvents: {},
+    eventsPagination: {
+        currentPage: 1,
+        lastPage: 1,
+        perPage: 1,
+        total: 0
+    }
 };

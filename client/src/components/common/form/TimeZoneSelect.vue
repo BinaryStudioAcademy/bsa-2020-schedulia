@@ -14,8 +14,9 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import momentTimezone from 'moment-timezone';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'TimeZoneSelect',
@@ -25,7 +26,6 @@ export default {
     },
 
     data: () => ({
-        lang: enLang,
         timeZones: null
     }),
 
@@ -44,6 +44,9 @@ export default {
     },
 
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         inputValue() {
             return this.value || this.defaultValue;
         }

@@ -1,9 +1,7 @@
 <template>
     <VForm class="mt-9 mb-16" ref="form">
         <VRow>
-            <h3 class="app-label">
-                {{ lang.EVENT_DURATION }}*
-            </h3>
+            <h3 class="app-label">{{ lang.EVENT_DURATION }}*</h3>
         </VRow>
         <VRow align="baseline" class="mb-3">
             <VRadioGroup
@@ -31,7 +29,7 @@
                 @change="changeEventTypeProperty('customDuration', $event)"
                 outlined
                 dense
-                class="shrink custom-textfield"
+                class="shrink ma-0 pa-0 custom-textfield"
                 placeholder="0"
             >
             </VTextField>
@@ -42,14 +40,22 @@
             </h3>
         </VRow>
         <VRow class="mb-3" align="baseline">
-            <p class="mr-5 app-text">
+            <p
+                class="app-text"
+                :class="{
+                    'mb-0': $vuetify.breakpoint.xs,
+                    'mb-3': $vuetify.breakpoint.smAndUp
+                }"
+            >
                 {{ lang.EVENTS_CAN_BE_SCHEDULED }}
                 {{ dateDuration }}
             </p>
-            <VBtn text
-                  color="primary"
-                  dark
-                  @click.stop="setPropertyData('visibleAvailabilityDialog', true)">
+            <VBtn
+                text
+                color="primary"
+                dark
+                @click.stop="setPropertyData('visibleAvailabilityDialog', true)"
+            >
                 {{ lang.EDIT }}
             </VBtn>
             <AvailabilityDialog></AvailabilityDialog>
@@ -60,13 +66,16 @@
             </h3>
         </VRow>
         <VRow>
-            <p class="app-text">{{ lang.EVENT_TIME_ZONE_EXPLANATION }}
-                <VBtn text
-                      small
-                      color="primary"
-                      dark
-                      @click.stop="setPropertyData('visibleTimeZoneDialog', true)"
-                      class="editTimeZoneButton ma-n2 pa-n3">
+            <p class="app-text">
+                {{ lang.EVENT_TIME_ZONE_EXPLANATION }}
+                <VBtn
+                    text
+                    small
+                    color="primary"
+                    dark
+                    @click.stop="setPropertyData('visibleTimeZoneDialog', true)"
+                    class="editTimeZoneButton ma-n2 pa-n3"
+                >
                     {{ lang.EDIT }}
                 </VBtn>
                 <TimeZoneDialog></TimeZoneDialog>
@@ -91,7 +100,11 @@
         <VRow>
             <VTabs v-model="tab">
                 <VTabsSlider></VTabsSlider>
-                <VTab :href="'#tab-0'">{{ lang.HOURS }}</VTab>
+                <VTab :href="'#tab-0'">
+                    <span class="custom-text">
+                        {{ lang.HOURS }}
+                    </span>
+                </VTab>
                 <VTabItem :value="'tab-0'">
                     <Calendar></Calendar>
                 </VTabItem>
@@ -99,7 +112,9 @@
                 <VTabItem :value="'tab-1'">
                     <VRow class="pt-3">
                         <VCol cols="5">
-                            <p class="availability-label">{{ lang.AVAILABILITY_INCREMENTS }}</p>
+                            <p class="availability-label">
+                                {{ lang.AVAILABILITY_INCREMENTS }}
+                            </p>
                             <p>{{ lang.SET_THE_FREQUENCY_TIME_SLOTS_TEXT }}</p>
                         </VCol>
                         <VCol cols="5">
@@ -117,7 +132,9 @@
                     </VRow>
                     <VRow>
                         <VCol cols="5">
-                            <p class="availability-label">{{ lang.EVENT_MAX_PER_DAY }}</p>
+                            <p class="availability-label">
+                                {{ lang.EVENT_MAX_PER_DAY }}
+                            </p>
                             <p>{{ lang.LIMIT_THE_NUMBER_OF_EVENTS_TEXT }}</p>
                         </VCol>
                         <VCol cols="5">
@@ -143,7 +160,7 @@
                         </VCol>
                         <VCol cols="5">
                             <p>
-                                {{ lang.PREVENT_EVENTS_LESS_THAN  }}
+                                {{ lang.PREVENT_EVENTS_LESS_THAN }}
                             </p>
                             <VRow align="baseline">
                                 <VCol>
@@ -158,7 +175,7 @@
                                 </VCol>
                                 <VCol>
                                     <span>
-                                        {{lang.HOURS_AWAY }}
+                                        {{ lang.HOURS_AWAY }}
                                     </span>
                                 </VCol>
                             </VRow>
@@ -170,12 +187,7 @@
 
         <VRow class="mt-10">
             <div>
-                <VBtn
-                    text
-                    outlined
-                    width="114"
-                    class="mr-3"
-                >
+                <VBtn text outlined width="114" class="mr-3">
                     {{ lang.CANCEL }}
                 </VBtn>
                 <VBtn
@@ -194,14 +206,14 @@
 <script>
 import { mapActions } from 'vuex';
 import * as eventTypeActions from '@/store/modules/eventType/types/actions';
-import eventTypeMixin from "@/components/events/eventTypeMixin";
-import AvailabilityDialog from "@/components/events/AvailabilityDialog";
-import TimeZoneDialog from "@/components/events/TimeZoneDialog";
-import moment from "moment";
-import Calendar from "@/components/events/Calendar";
+import eventTypeMixin from '@/components/events/eventTypeMixin';
+import AvailabilityDialog from '@/components/events/AvailabilityDialog';
+import TimeZoneDialog from '@/components/events/TimeZoneDialog';
+import moment from 'moment';
+import Calendar from '@/components/events/Calendar';
 export default {
     name: 'CreateEventTypeBooking',
-    components: {Calendar, TimeZoneDialog, AvailabilityDialog},
+    components: { Calendar, TimeZoneDialog, AvailabilityDialog },
     mixins: [eventTypeMixin],
     data() {
         return {
@@ -256,8 +268,15 @@ export default {
             }
         },
         prepareData() {
-            this.changeEventTypeProperty('availabilities',{
-                ...{dateRange: [this.data.dateRange]},
+            let dateRangeData = {
+                ...this.data.dateRange,
+                ...{
+                    startDate: this.data.dateRange.startDate + ' 00:00:00',
+                    endDate: this.data.dateRange.endDate + ' 00:00:00'
+                }
+            };
+            this.changeEventTypeProperty('availabilities', {
+                ...{ dateRange: [dateRangeData]},
                 ...this.data.availabilities
             });
         }

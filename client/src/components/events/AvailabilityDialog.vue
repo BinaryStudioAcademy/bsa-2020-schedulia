@@ -28,11 +28,22 @@
                         >
                         </VSelect>
 
-                        <VCardText class="px-0 pb-0" v-if="scheduleType !== availabilityItems[1]['value']">
+                        <VCardText
+                            class="px-0 pb-0"
+                            v-if="
+                                scheduleType !== availabilityItems[1]['value']
+                            "
+                        >
                             <p>
                                 {{ lang.YOUR_INVITEES_WILL_BE_OFFERED }}
                             </p>
-                            <p class="mt-5" v-if="scheduleType === availabilityItems[0]['value']">
+                            <p
+                                class="mt-5"
+                                v-if="
+                                    scheduleType ===
+                                        availabilityItems[0]['value']
+                                "
+                            >
                                 {{ lang.HOW_FAR_INTO_THE_FUTURE }}
                             </p>
                         </VCardText>
@@ -44,7 +55,9 @@
                         <VCol
                             cols="3"
                             class="px-0 py-0"
-                            v-if="scheduleType === availabilityItems[0]['value']"
+                            v-if="
+                                scheduleType === availabilityItems[0]['value']
+                            "
                         >
                             <VTextField
                                 :value="value"
@@ -57,7 +70,9 @@
                         <VCol
                             cols="9"
                             class="px-0 py-0"
-                            v-if="scheduleType === availabilityItems[0]['value']"
+                            v-if="
+                                scheduleType === availabilityItems[0]['value']
+                            "
                         >
                             <VSelect
                                 :value="subType"
@@ -75,12 +90,11 @@
                         <VCol
                             cols="11"
                             class="px-0 py-0"
-                            v-if="scheduleType === availabilityItems[1]['value']"
+                            v-if="
+                                scheduleType === availabilityItems[1]['value']
+                            "
                         >
-                            <VTextField
-                                :value="datePeriod"
-                                readonly
-                            >
+                            <VTextField :value="datePeriod" readonly>
                             </VTextField>
                             <VDatePicker
                                 :value="date"
@@ -109,9 +123,9 @@
 </template>
 
 <script>
-import eventTypeMixin from "@/components/events/eventTypeMixin";
-import {mapGetters} from "vuex";
-import * as eventTypeGetters from "@/store/modules/eventType/types/getters";
+import eventTypeMixin from '@/components/events/eventTypeMixin';
+import { mapGetters } from 'vuex';
+import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
 import moment from 'moment';
 import momentBusinessDays from 'moment-business-days';
 export default {
@@ -143,7 +157,8 @@ export default {
                     this.form.type = this.daysFormatItems[0]['value'];
                     break;
                 case this.availabilityItems[2]['value']:
-                    this.form.type = this.subType + `_${this.availabilityItems[2]['value']}`;
+                    this.form.type =
+                        this.subType + `_${this.availabilityItems[2]['value']}`;
                     break;
             }
             this.form.scheduleType = val;
@@ -206,8 +221,10 @@ export default {
         },
         setEndDate() {
             if (this.subType === this.daysFormatItems[1]['value']) {
-                this.form.endDate = momentBusinessDays(moment().format('YYYY-MM-DD'), 'YYYY-MM-DD')
-                    .businessAdd(+this.value - 1)._d;
+                this.form.endDate = momentBusinessDays(
+                    moment().format('YYYY-MM-DD'),
+                    'YYYY-MM-DD'
+                ).businessAdd(+this.value - 1)._d;
                 return;
             }
             this.form.endDate = moment()
@@ -221,7 +238,8 @@ export default {
 
     computed: {
         ...mapGetters('eventType', {
-            visibleAvailabilityDialog: eventTypeGetters.GET_VISIBLE_AVAILABILITY_DIALOG,
+            visibleAvailabilityDialog:
+                eventTypeGetters.GET_VISIBLE_AVAILABILITY_DIALOG
         }),
         scheduleType() {
             return this.form.scheduleType || this.data.dateRange.scheduleType;
@@ -279,12 +297,18 @@ export default {
             let result = '';
             if (this.endDate && this.startDate) {
                 if (this.date.length === 1) {
-                    result = moment(this.startDate).format('MMM DD - MMM DD, YYYY');
+                    result = moment(this.startDate).format(
+                        'MMM DD - MMM DD, YYYY'
+                    );
                 } else {
                     if (moment(this.startDate).isSame(this.endDate, 'year')) {
-                        result = `${moment(this.startDate).format('MMM DD')} - ${moment(this.endDate).format('MMM DD, YYYY')}`;
+                        result = `${moment(this.startDate).format(
+                            'MMM DD'
+                        )} - ${moment(this.endDate).format('MMM DD, YYYY')}`;
                     } else {
-                        result = `${moment(this.startDate).format('MMM DD, YYYY')} - ${moment(this.endDate).format('MMM DD, YYYY')}`;
+                        result = `${moment(this.startDate).format(
+                            'MMM DD, YYYY'
+                        )} - ${moment(this.endDate).format('MMM DD, YYYY')}`;
                     }
                 }
             }

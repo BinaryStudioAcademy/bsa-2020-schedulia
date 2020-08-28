@@ -16,6 +16,7 @@ export default {
     CURRENT_PASSWORD: 'Current password',
 
     DATE_FORMAT: 'Date format',
+    DISCONNECT: 'Disconnect',
     DELETE_ACCOUNT: 'Delete account',
     DELETE_ACCOUNT_WARNING_TEXT:
         'You are about to delete your Schedulia account. This will go into effect immediately and you will no longer have access to your account data.',
@@ -87,7 +88,7 @@ export default {
 
     LOGO_TITLE: 'Schedulia',
 
-    CREATE_EVENT_TYPE_TITLE: 'What even is this?',
+    CREATE_EVENT_TYPE_TITLE: 'What event is this?',
     CREATE_EVENT_TYPE_SUBTITLE: 'Sales manager',
     EVENT_NAME_LABEL: 'Event Name',
     LOCATION_LABEL: 'Location',
@@ -188,7 +189,7 @@ export default {
     EVENT_DURATION: 'Event Duration',
     CUSTOM_DURATION: 'Custom Duration',
     EVENTS_CAN_BE_SCHEDULED_OVER_60_DAYS:
-        'Events can be scheduled over 60 calendar days',
+        'Events can be scheduled over 60 calendar days.',
     EVENTS_CAN_BE_SCHEDULED: 'Events can be scheduled ',
     EVENT_TIME_ZONE: 'Event Time Zone',
     AVAILABILITY: 'Availability',
@@ -259,7 +260,9 @@ export default {
     NO_PENDING_EVENTS: 'No Pending Events',
     NO_PAST_EVENTS: 'No Past Events',
 
-    ACCOUNT_VERIFIED: 'Your account has been activated. Please, ',
+    ACCOUNT_VERIFIED: 'Your account has been activated.',
+    ACCOUNT_VERIFIED_REDIRECT:
+        'You will be redirected to the login page in 7 seconds or you can click on ',
     SEND_VERIFICATION_EMAIL:
         'We sent you an email, please, verify your account!',
 
@@ -274,7 +277,7 @@ export default {
     FORTY_FIVE_MIN: '45 min',
     SIXTY_MIN: '60 min',
 
-    AVAILABILITY_ITEMS_PERIOD: 'Over a period fo rolling days',
+    AVAILABILITY_ITEMS_PERIOD: 'Over a period of rolling days',
     AVAILABILITY_ITEMS_RANGE: 'Over a date range',
     AVAILABILITY_ITEMS_INDEFINITELY: 'Indefinitely',
 
@@ -327,10 +330,42 @@ export default {
     EXPLANATION_ERROR_PASSWORD_RESET:
         'Either your token has expired or you have not copied the entire request. Go to the password reset page and request the reset link again with your correct email.',
     OK_PASSWORD_RESET: 'Password has been changed.',
+    FIELD_MUST_BE_VALUE_OR_MORE_THAN: ' must be value or more symbols',
+    NEVERMIND: 'Nevermind',
+    ARE_YOU_SURE: 'Are you sure?',
+    UNSAVE_CHANGES_WILL_BE_LOST: 'Any unsaved changes will be lost.',
     EXPLANATION_PASSWORD_RESET:
         'Go to the SignIn page and use your new password to authenticate on the site.',
     MORE: 'more',
     TODAY: 'Today',
     NEW_INTERVAL: 'New Interval',
-    UNAVAILABLE: 'Unavailable'
+    UNAVAILABLE: 'Unavailable',
+
+    INVITEES_WILL_BE_OFFERED_INDEFINITELY:
+        'Your invitees will be offered availability indefinitely into the future. ',
+    YOU_CAN_CHANGE_LANGUAGE_TO: 'Your can change language to',
+    DISPLAY_LANGUAGE: 'Display language',
+    MY_EVENTS: 'My Events',
+
+    OK: 'Ok',
+    SET_MEETING_LOCATION: 'Set meeting location',
+    ZOOM_CONFERENCE_LINK: 'Zoom conference link',
+    SKYPE_CALL_DETAILS: 'Skype call details',
+
+    INFO_MUST_BE_NO_MORE_THAN_1000_CHARACTERS_LONG:
+        'Additional info must be no more than 1000 characters long',
+    NO_ITEMS_FOUND: 'No items found',
+    UNAUTHENTICATED_ERROR: 'Session time is expired! Sign In again, please!',
+    NAME_IS_REQUIRED: 'Name is required',
+    PASSWORD_CONFIRMATION_IS_REQUIRED: 'Password confirmation is required',
+    NAME_MUST_BE_AT_LEAST_2_CHARACTERS_LONG:
+        'Name must be at least 2 characters long',
+    NAME_MUST_BE_NO_MORE_THAN_50_CHARACTERS_LONG:
+        'The name must be no more than 50 characters',
+    ONLY_LETTER_AND_SYMBOLS_PERMITTED:
+        'Only letter and symbols  \\|/,._ are permitted ',
+    LOCALIZATION: 'en-US',
+    ENABLED: 'Enabled',
+    LOAD_MORE: 'Load more',
+    ADD_ONE_ON_ONE_EVENT_TYPE: 'Add One-on-One Event Type'
 };

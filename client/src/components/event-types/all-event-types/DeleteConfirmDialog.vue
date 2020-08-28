@@ -27,12 +27,11 @@
 
 <script>
 import * as actions from '@/store/modules/eventTypes/types/actions';
-import { mapActions } from 'vuex';
-import enLang from '@/store/modules/i18n/en';
+import { mapActions, mapGetters } from 'vuex';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 export default {
     name: 'DeleteConfirmDialog',
     data: () => ({
-        lang: enLang,
         dialog: false
     }),
     props: {
@@ -48,6 +47,11 @@ export default {
             await this.deleteEventType(this.eventType.id);
             this.dialog = false;
         }
+    },
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        })
     }
 };
 </script>

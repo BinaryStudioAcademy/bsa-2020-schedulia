@@ -11,7 +11,10 @@
                             <VDivider class="mx-4"></VDivider>
                             <VRow>
                                 <VCol cols="6" offset-md="2" offset-sm="2">
-                                    <CreateEventTypeForm :is-booking="true" @changePanel="panel = 1"></CreateEventTypeForm>
+                                    <CreateEventTypeForm
+                                        :is-booking="true"
+                                        @changePanel="panel = 1"
+                                    ></CreateEventTypeForm>
                                 </VCol>
                             </VRow>
                         </VExpansionPanelContent>
@@ -19,21 +22,27 @@
                     <VExpansionPanel @change="panel = 1">
                         <VExpansionPanelHeader>
                             <VRow align="center">
-                                <VCol cols="1">
+                                <VCol cols="2" md="1" sm="1" lg="1">
                                     <div>
                                         <img
                                             :src="
-                                            require('@/assets/images/calender_circle.png')
-                                        "
-                                            alt=""
-                                            class="ml-10"
+                                                require('@/assets/images/calender_circle.png')
+                                            "
+                                            alt
+                                            :class="{
+                                                'pl-3': $vuetify.breakpoint.xs,
+                                                'pl-10':
+                                                    $vuetify.breakpoint.smAndUp
+                                            }"
                                         />
                                     </div>
                                 </VCol>
-                                <VCol class="pl-lg-5 pl-sm-10">
+                                <VCol cols="10" class="pl-lg-5 pl-sm-10">
                                     <div>
                                         <VCardTitle>
-                                            {{ lang.WHEN_CAN_PEOPLE_BOOK_EVENT }}
+                                            {{
+                                                lang.WHEN_CAN_PEOPLE_BOOK_EVENT
+                                            }}
                                         </VCardTitle>
                                         <VCardSubtitle>
                                             {{ duration }}, {{ dateDuration }}
@@ -45,7 +54,15 @@
                         <VExpansionPanelContent>
                             <VDivider class="mx-4"></VDivider>
                             <VRow>
-                                <VCol cols="7" offset-md="2" offset-sm="2">
+                                <VCol
+                                    cols="10"
+                                    offset-sm="2"
+                                    offset-md="2"
+                                    md="7"
+                                    sm="6"
+                                    lg="7"
+                                    :class="{ 'ml-10': $vuetify.breakpoint.xs }"
+                                >
                                     <CreateEventTypeBookingForm></CreateEventTypeBookingForm>
                                 </VCol>
                             </VRow>
@@ -64,9 +81,9 @@
 import GeneralLayout from '@/components/common/GeneralLayout/GeneralLayout';
 import NewEventTypeTitle from '@/components/events/NewEventTypeTitle';
 import CreateEventTypeBookingForm from '@/components/events/CreateEventTypeBookingForm';
-import FirstTitle from "@/components/events/CreateEventTypeTitle";
-import CreateEventTypeForm from "@/components/events/CreateEventTypeForm";
-import eventTypeMixin from "@/components/events/eventTypeMixin";
+import FirstTitle from '@/components/events/CreateEventTypeTitle';
+import CreateEventTypeForm from '@/components/events/CreateEventTypeForm';
+import eventTypeMixin from '@/components/events/eventTypeMixin';
 export default {
     name: 'NewEventTypeBooking',
     mixins: [eventTypeMixin],
@@ -86,7 +103,10 @@ export default {
 
     computed: {
         duration() {
-            return (this.eventType.customDuration || this.eventType.duration) + ' min';
+            return (
+                (this.eventType.customDuration || this.eventType.duration) +
+                ' min'
+            );
         }
     }
 };

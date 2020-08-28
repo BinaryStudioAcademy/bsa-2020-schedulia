@@ -45,23 +45,36 @@ Route::group([
         'prefix' => '/event-types',
     ], function () {
         Route::post('/', 'EventTypeController@store');
+        Route::get('/{id}', 'EventTypeController@getEventTypeById');
         Route::put('/{id}', 'EventTypeController@update');
         Route::put('/{id}/disabled', 'EventTypeController@changeDisabledById');
+        Route::post('/{id}/custom-fields', 'EventTypeController@saveCustomFieldsByEventTypeId');
+        Route::put('/{id}/custom-fields', 'EventTypeController@updateCustomFieldsByEventTypeId');
         Route::delete('/{id}', 'EventTypeController@destroy');
     });
     Route::group([
         'prefix' => '/event-types',
     ], function () {
         Route::get('/', 'EventTypeController@index');
+        Route::get('/nickname/{nickname}', 'EventTypeController@getEventTypesByNickname');
         Route::get('/{id}', 'EventTypeController@getEventTypeById');
     });
 });
+Route::group([
+    'prefix' => '/event-types',
+    'namespace' => 'Api\\'
+], function () {
+    Route::get('/nickname/{nickname}', 'EventTypeController@getEventTypesByNickname');
+});
+
+Route::get('/event-types/{id}/availabilities', 'Api\\EventTypeController@getAvailableTime');
 
 Route::group([
     'namespace' => 'Api\\',
     'prefix' => '/events'
 ], function () {
     Route::post('/', 'EventController@store');
+    Route::get('/', 'EventController@index');
 });
 
 Route::group([
@@ -81,3 +94,14 @@ Route::group([
 ], function () {
     Route::post('/', 'UploadController@store');
 });
+
+Route::group([
+    'middleware' => 'auth:api',
+    'namespace' => 'Api\\',
+    'prefix' => '/social-accounts',
+], function () {
+    Route::get('/calendars', 'SocialAccountController@calendars');
+});
+
+Route::get('/social-accounts/{provider?}/oauth', 'Api\\SocialAccountController@oauth');
+Route::get('/social-accounts/{provider?}/oauthResponse', 'Api\\SocialAccountController@oauthResponse');

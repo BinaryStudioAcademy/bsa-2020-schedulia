@@ -5,7 +5,7 @@
             {{ lang.PLEASE_ENTER_NEW_PASSWORD_FOR_USER_WITH_EMAIL }}
             <em>{{ $route.query.email }}</em>
         </p>
-        <VForm>
+        <VForm @submit.prevent="onSubmit">
             <VCol cols="11" sm="11" md="8" class="pa-0 py-4">
                 <label>{{ lang.PASSWORD }}*</label>
                 <VTextField
@@ -22,7 +22,7 @@
                 />
             </VCol>
             <VCol cols="11" sm="11" md="8" class="pa-0 py-4">
-                <label>{{ lang.PASSWORD }}*</label>
+                <label>{{ lang.CONFIRM_PASSWORD }}*</label>
                 <VTextField
                     :type="showPassword ? 'text' : 'password'"
                     :value="resetPasswordData.confirmPassword"
@@ -42,7 +42,7 @@
                         height="44"
                         class="login-button  primary"
                         depressed
-                        @click="onSubmit"
+                        type="submit"
                         >{{ lang.SET_NEW_PASSWORD }}
                     </VBtn>
                     <RouterLink
@@ -69,8 +69,8 @@
 <script>
 import * as actions from '@/store/modules/auth/types/actions';
 import * as mutations from '@/store/modules/auth/types/mutations';
-import { mapActions, mapState, mapMutations } from 'vuex';
-import enLang from '@/store/modules/i18n/en';
+import { mapActions, mapState, mapMutations, mapGetters } from 'vuex';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { validationMixin } from 'vuelidate';
 import { required, minLength, sameAs } from 'vuelidate/lib/validators';
 import * as notificationActions from '@/store/modules/notification/types/actions';
@@ -82,12 +82,11 @@ export default {
     validations: {
         resetPasswordData: {
             password: { required, minLength: minLength(8) },
-            confirmPassword: { sameAsPassword: sameAs('password') }
+            confirmPassword: { required, sameAsPassword: sameAs('password') }
         }
     },
     components: { ExplanationAlert },
     data: () => ({
-        lang: enLang,
         showPassword: false
     }),
     methods: {
@@ -135,6 +134,9 @@ export default {
         }
     },
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapState('auth', ['resetPasswordData']),
         passwordErrors() {
             const errors = [];
@@ -154,6 +156,8 @@ export default {
             if (!this.$v.resetPasswordData['confirmPassword'].$dirty) {
                 return errors;
             }
+            !this.$v.resetPasswordData['confirmPassword'].required &&
+                errors.push(this.lang.PASSWORD_IS_REQUIRED);
             !this.$v.resetPasswordData['confirmPassword'].sameAsPassword &&
                 errors.push(this.lang.PASSWORDS_DONT_MATCH);
             return errors;

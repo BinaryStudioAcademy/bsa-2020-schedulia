@@ -61,17 +61,15 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en';
-import Avatar from './Avatar';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import Avatar from '@/components/common/Avatar/Avatar';
 import * as actions from '@/store/modules/auth/types/actions';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'UserMenu',
 
-    data: () => ({
-        lang: enLang
-    }),
+    data: () => ({}),
     components: {
         Avatar
     },
@@ -83,6 +81,11 @@ export default {
             await this.signOut();
             this.$router.push({ name: 'SignIn' });
         }
+    },
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        })
     }
 };
 </script>
@@ -92,6 +95,7 @@ export default {
     &__link {
         color: #2c2c2c;
         text-decoration: none;
+        display: block;
     }
 
     &__button::v-deep {

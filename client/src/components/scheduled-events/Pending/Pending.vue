@@ -4,16 +4,20 @@
 
 <script>
 import NoEvents from '../NoEvents';
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'Pending',
 
-    data: () => ({
-        lang: enLang
-    }),
+    data: () => ({}),
 
-    components: { NoEvents }
+    components: { NoEvents },
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        })
+    }
 };
 </script>
 

@@ -32,7 +32,7 @@
 
 </head>
 <body>
-div>
+<div>
 <svg
         width="50"
         height="52"

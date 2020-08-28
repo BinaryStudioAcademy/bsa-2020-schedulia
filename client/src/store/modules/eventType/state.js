@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from 'moment';
 const now = moment();
 export default {
     eventTypes: {
@@ -8,6 +8,7 @@ export default {
     eventType: {
         name: '',
         location: '',
+        locationType: '',
         description: '',
         slug: '',
         color: 'yellow',

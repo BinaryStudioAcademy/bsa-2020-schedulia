@@ -11,37 +11,25 @@
             </VBtn>
         </template>
         <VList>
-            <VListItem dense>
-                <VListItemTitle>
-                    <VIcon color="primary">mdi-calculator</VIcon>
-                    {{ lang.MANAGE_AVAILABILITY }}
-                </VListItemTitle>
-            </VListItem>
-            <VListItem dense>
+            <VListItem dense disabled>
                 <VListItemTitle>
                     <VIcon color="primary">mdi-pencil</VIcon>
                     {{ lang.EDIT }}
                 </VListItemTitle>
             </VListItem>
-            <VListItem dense>
+            <VListItem dense disabled>
                 <VListItemTitle>
                     <VIcon color="primary">mdi-file-outline</VIcon>
                     {{ lang.ADD_INTERNAL_NOTE }}
                 </VListItemTitle>
             </VListItem>
-            <VListItem dense>
+            <VListItem dense disabled>
                 <VListItemTitle>
                     <VIcon color="primary">mdi-content-copy</VIcon>
                     {{ lang.CLONE }}
                 </VListItemTitle>
             </VListItem>
-            <VListItem dense>
-                <VListItemTitle>
-                    <VIcon color="primary">mdi-plus-minus-box</VIcon>
-                    {{ lang.SAVE_TO_TEMPLATE }}
-                </VListItemTitle>
-            </VListItem>
-            <VListItem dense>
+            <VListItem dense disabled>
                 <VListItemTitle>
                     <VIcon color="primary">mdi-xml</VIcon>
                     {{ lang.ADD_TO_WEBSITE }}
@@ -57,12 +45,12 @@
                 <VListItemTitle>
                     <div class="switch-item">
                         <div class="pa-0 ma-0">
-                            {{ lang.ON }}/{{ lang.OFF }}
+                            {{ lang.ENABLED }}
                         </div>
                         <div class="pa-0 ma-0">
                             <VSwitch
                                 inset
-                                v-model="disabled"
+                                v-model="switchStatus"
                                 @change="onSwitch"
                             ></VSwitch>
                         </div>
@@ -75,9 +63,9 @@
 
 <script>
 import * as actions from '@/store/modules/eventTypes/types/actions';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import DeleteConfirmDialog from '@/components/event-types/all-event-types/DeleteConfirmDialog';
-import enLang from '@/store/modules/i18n/en';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 
 export default {
     name: 'DropDown',
@@ -85,8 +73,7 @@ export default {
         DeleteConfirmDialog
     },
     data: () => ({
-        lang: enLang,
-        disabled: '',
+        switchStatus: false,
         dialog: false
     }),
     props: {
@@ -95,7 +82,7 @@ export default {
         }
     },
     created() {
-        this.disabled = this.eventType.disabled;
+        this.switchStatus = !this.eventType.disabled;
     },
     methods: {
         ...mapActions('eventTypes', {
@@ -104,9 +91,14 @@ export default {
         onSwitch() {
             this.disableEventType({
                 id: this.eventType.id,
-                disabled: this.disabled
+                disabled: !this.switchStatus
             });
         }
+    },
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        })
     }
 };
 </script>

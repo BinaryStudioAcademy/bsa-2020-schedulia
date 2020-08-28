@@ -11,6 +11,17 @@
             </template>
         </div>
         <NoEvents v-else>{{ lang.NO_PAST_EVENTS }}</NoEvents>
+        <div class="text-center" v-show="loadMoreActive">
+            <VBtn
+                color="primary"
+                class="ma-2 white--text"
+                rounded
+                @click="onLoadMore"
+            >
+                <VIcon left dark>mdi-plus</VIcon>
+                {{ lang.LOAD_MORE }}
+            </VBtn>
+        </div>
     </div>
 </template>
 
@@ -22,14 +33,19 @@ import FilterList from './Filter/FilterList';
 import BorderBottom from '../../common/GeneralLayout/BorderBottom';
 import Event from '../Event';
 import NoEvents from '../NoEvents';
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import * as notificationActions from '@/store/modules/notification/types/actions';
 
 export default {
     name: 'Past',
 
     data: () => ({
-        lang: enLang
+        page: 1,
+        loadMoreActive: false,
+        perPage: 8,
+        sort: 'start_date',
+        direction: 'desc',
+        endDate: new Date().toLocaleDateString()
     }),
 
     components: {
@@ -40,10 +56,15 @@ export default {
     },
 
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('scheduledEvent', {
             scheduledEventsFilterView:
                 scheduledEventGetters.GET_SCHEDULED_EVENT_FILTER_VIEW,
-            scheduledEvents: scheduledEventGetters.GET_SCHEDULED_EVENTS
+            scheduledEvents: scheduledEventGetters.GET_SCHEDULED_EVENTS,
+            eventsPagination:
+                scheduledEventGetters.GET_SCHEDULED_EVENTS_PAGINATION
         })
     },
 
@@ -54,12 +75,42 @@ export default {
 
         ...mapActions('notification', {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
-        })
+        }),
+
+        async onLoadMore() {
+            await this.setScheduledEvents({
+                page: this.page + 1,
+                sort: this.sort,
+                direction: this.direction,
+                endDate: this.endDate
+            });
+
+            if (
+                this.eventsPagination.currentPage <
+                this.eventsPagination.lastPage
+            ) {
+                this.page += 1;
+            } else {
+                this.loadMoreActive = false;
+            }
+        }
     },
 
-    async created() {
+    async mounted() {
         try {
-            await this.setScheduledEvents();
+            await this.setScheduledEvents({
+                page: this.page,
+                sort: this.sort,
+                direction: this.direction,
+                endDate: this.endDate
+            });
+
+            if (
+                this.eventsPagination.currentPage <
+                this.eventsPagination.lastPage
+            ) {
+                this.loadMoreActive = true;
+            }
         } catch (error) {
             this.setErrorNotification(error.message);
         }

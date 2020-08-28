@@ -4,13 +4,23 @@
             <VSheet height="64">
                 <VToolbar flat color="white">
                     <VBtn fab text small @click="prev">
-                        <img :src="require('@/assets/images/chevrons/chevron_left.png')" alt=""/>
+                        <img
+                            :src="
+                                require('@/assets/images/chevrons/chevron_left.png')
+                            "
+                            alt=""
+                        />
                     </VBtn>
                     <VToolbarTitle v-if="this.$refs.calendar" class="pa-4">
                         {{ $refs.calendar.title }}
                     </VToolbarTitle>
                     <VBtn fab text small @click="next">
-                        <img :src="require('@/assets/images/chevrons/chevron_right.png')" alt=""/>
+                        <img
+                            :src="
+                                require('@/assets/images/chevrons/chevron_right.png')
+                            "
+                            alt=""
+                        />
                     </VBtn>
                     <VMenu
                         ref="menu"
@@ -21,7 +31,7 @@
                         offset-y
                         min-width="290px"
                     >
-                        <template v-slot:activator="{on,attrs}">
+                        <template v-slot:activator="{ on, attrs }">
                             <VBtn
                                 v-model="date"
                                 label="Picker in menu"
@@ -31,7 +41,9 @@
                                 color="white"
                             >
                                 <VImg
-                                    :src="require('@/assets/images/calendar_dates.svg')"
+                                    :src="
+                                        require('@/assets/images/calendar_dates.svg')
+                                    "
                                     alt=""
                                     width="24"
                                     height="24"
@@ -44,7 +56,11 @@
                             <VBtn text color="primary" @click="menu = false">
                                 Cancel
                             </VBtn>
-                            <VBtn text color="primary" @click="$refs.menu.save(date)">
+                            <VBtn
+                                text
+                                color="primary"
+                                @click="$refs.menu.save(date)"
+                            >
                                 OK
                             </VBtn>
                         </VDatePicker>
@@ -63,20 +79,29 @@
                     @click:day="viewEventDialog"
                 >
                     <template v-slot:day="data">
-                        <div :class="[availability.type === 'exact_date' ? 'custom-availability' : 'default-availability']"
-                             v-for="(availability, index) in getDayAvailabilities(data)" :key="index">
+                        <div
+                            :class="[
+                                availability.type === 'exact_date'
+                                    ? 'custom-availability'
+                                    : 'default-availability'
+                            ]"
+                            v-for="(availability,
+                            index) in getDayAvailabilities(data)"
+                            :key="index"
+                        >
                             <div v-if="index < 2">
-                                {{availability.startTime}} - {{availability.endTime}}
+                                {{ availability.startTime }} -
+                                {{ availability.endTime }}
                             </div>
                             <div class="more-availability" v-else>
-                                + {{index - 1}} {{lang.MORE}}...
+                                + {{ index - 1 }} {{ lang.MORE }}...
                             </div>
                         </div>
                     </template>
                     <template v-slot:day-label="{ present }">
                         <p v-if="present" class="title-wrapper">
                             <span @click="viewEventDialog" class="title-today">
-                                {{lang.TODAY}}
+                                {{ lang.TODAY }}
                             </span>
                         </p>
                     </template>
@@ -88,12 +113,12 @@
 </template>
 
 <script>
-import eventTypeMixin from "@/components/events/eventTypeMixin";
+import eventTypeMixin from '@/components/events/eventTypeMixin';
 import moment from 'moment';
-import DayAvailabilitiesDialog from "@/components/events/DayAvailabilitiesDialog";
+import DayAvailabilitiesDialog from '@/components/events/DayAvailabilitiesDialog';
 export default {
     name: 'Calendar',
-    components: {DayAvailabilitiesDialog},
+    components: { DayAvailabilitiesDialog },
     mixins: [eventTypeMixin],
     data() {
         return {
@@ -118,26 +143,48 @@ export default {
                 this.setPropertyData('visibleDayAvailabilitiesDialog', true);
             }
         },
-        getDayAvailabilities(day) {
+        getDayAvailabilities(day, isExactDate = false) {
             let result = [];
-            if (!this.data.dateRange.type.includes("indefinite") &&
-                !moment(day.date).isBetween(this.data.dateRange.startDate, this.data.dateRange.endDate, undefined, '[]')) {
+            if (
+                !this.data.dateRange.type.includes('indefinite') &&
+                !moment(day.date).isBetween(
+                    this.data.dateRange.startDate,
+                    this.data.dateRange.endDate,
+                    undefined,
+                    '[]'
+                )
+            ) {
                 return result;
             }
 
-            if (this.data.dateRange.type.includes("indefinite") && moment(day.date) < moment(this.data.dateRange.startDate)) {
+            if (
+                this.data.dateRange.type.includes('indefinite') &&
+                moment(day.date) < moment(this.data.dateRange.startDate)
+            ) {
                 return result;
             }
 
             if (this.data.availabilities[day.date]) {
                 return this.data.availabilities[day.date];
             } else {
-                if (this.data.dateRange.type.includes("weekdays")) {
+                let params = {
+                    ...this.data.dateRange,
+                    ...{
+                        startDate: this.data.dateRange.startDate + ' ' + this.data.dateRange.startTime + ':00',
+                        endDate: this.data.dateRange.endDate + ' ' + this.data.dateRange.endTime + ':00'
+                    }
+                };
+
+                if (this.data.dateRange.type.includes('weekdays')) {
                     if (day.weekday > 0 && day.weekday < 6) {
-                        result.push({...this.data.dateRange});
+                        result.push(params);
                     }
                 } else {
-                    result.push({...this.data.dateRange});
+                    result.push(params);
+                }
+
+                if (isExactDate) {
+                    result[0]['type'] = 'exact_date';
                 }
 
                 return result;
@@ -200,7 +247,7 @@ export default {
     font-size: 9px;
     text-align: center;
     font-weight: bold;
-    color: #666A73;
+    color: #666a73;
 }
 ::v-deep .v-calendar-weekly__day {
     &:hover {

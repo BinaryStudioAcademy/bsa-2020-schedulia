@@ -11,7 +11,10 @@ export default {
     [actions.GET_EVENT_TYPE_BY_ID]: async (context, id) => {
         try {
             const eventType = await eventTypeService.getEventTypeById(id);
-            context.commit(mutations.SET_EVENT_TYPE, eventTypeMapper(eventType));
+            context.commit(
+                mutations.SET_EVENT_TYPE,
+                eventTypeMapper(eventType)
+            );
         } catch (error) {
             context.commit(
                 SET_ERROR_NOTIFICATION,

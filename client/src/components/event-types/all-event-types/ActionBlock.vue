@@ -3,26 +3,25 @@
         <VCol cols="12" md="6" sm="6">
             <VRow>
                 <VCol cols="2" lg="1" md="2" class="">
-                    <Avatar :size="48"></Avatar>
+                    <Avatar :size="48" :color="'black'"></Avatar>
                 </VCol>
                 <VCol cols="10">
                     <span class="user-name">{{ user.name }}</span>
                     <br />
-                    <a href="">shedulia.xyz/nickname</a>
+                    <RouterLink :to="{ path: user.nickname }">
+                        {{ domain }}/{{ user.nickname }}
+                    </RouterLink>
                 </VCol>
             </VRow>
         </VCol>
         <VCol cols="12" md="6" sm="6">
             <div class="new-event-type-btn text-right">
-                <RouterLink :to="{ name: 'new-event' }">
+                <RouterLink :to="{ name: 'newEventType' }">
                     <VBtn class="ma-2" outlined color="indigo">
                         {{ lang.NEW_EVENT_TYPE }}
                         <VIcon right dark>mdi-plus</VIcon>
                     </VBtn>
                 </RouterLink>
-                <VBtn class="ma-2 text-left" outlined fab small color="indigo">
-                    <VIcon dark>mdi-chevron-down</VIcon>
-                </VBtn>
             </div>
         </VCol>
     </div>
@@ -31,17 +30,23 @@
 <script>
 import * as getters from '@/store/modules/auth/types/getters';
 import { mapGetters } from 'vuex';
-import Avatar from '@/components/common/GeneralLayout/Avatar';
-import enLang from '@/store/modules/i18n/en';
+import Avatar from '@/components/common/Avatar/Avatar';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 export default {
     name: 'ActionBlock',
     data: () => ({
-        lang: enLang
+        domain: ''
     }),
     components: {
         Avatar
     },
+    mounted() {
+        this.domain = window.location.hostname;
+    },
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('auth', {
             user: getters.GET_LOGGED_USER
         })

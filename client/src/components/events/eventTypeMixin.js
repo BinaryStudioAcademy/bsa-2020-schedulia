@@ -1,12 +1,11 @@
-import enLang from "@/store/modules/i18n/en";
-import {mapActions, mapGetters} from "vuex";
-import * as actionEventType from "@/store/modules/eventType/types/actions";
-import * as eventTypeGetters from "@/store/modules/eventType/types/getters";
+import { mapActions, mapGetters } from 'vuex';
+import * as actionEventType from '@/store/modules/eventType/types/actions';
+import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 
 export default {
     data() {
         return {
-            lang: enLang,
             colorById: {
                 yellow: {
                     id: 'yellow',
@@ -55,6 +54,17 @@ export default {
                     data[property] = value;
                     data['duration'] = 0;
                     break;
+                case 'locationType':
+                    data[property] = value;
+                    data['location'] = '';
+                    if (!!value && value.title === 'address on the map') {
+                        this.showMapDialog = true;
+                    } else if (!!value && value.title === 'zoom') {
+                        this.showZoomDialog = true;
+                    } else if (!!value && value.title === 'skype') {
+                        this.showSkypeDialog = true;
+                    }
+                    break;
                 default:
                     data[property] = value;
                     break;
@@ -73,6 +83,9 @@ export default {
     computed: {
         ...mapGetters('eventType', {
             eventType: eventTypeGetters.GET_EVENT_TYPE
+        }),
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         }),
         data() {
             return this.eventType;

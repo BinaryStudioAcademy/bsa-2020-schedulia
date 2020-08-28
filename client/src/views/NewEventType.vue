@@ -2,10 +2,17 @@
     <GeneralLayout>
         <VContainer>
             <VCard class="mt-7">
-                <FirstTitle></FirstTitle>
+                <CreateEventTypeTitle></CreateEventTypeTitle>
                 <VDivider class="mx-4"></VDivider>
                 <VRow>
-                    <VCol cols="6" offset-sm="2" offset-md="2">
+                    <VCol
+                        cols="10"
+                        offset-sm="3"
+                        offset-md="3"
+                        md="6"
+                        sm="6"
+                        :class="{ 'ml-10': $vuetify.breakpoint.xs }"
+                    >
                         <CreateEventTypeForm></CreateEventTypeForm>
                     </VCol>
                 </VRow>
@@ -21,19 +28,17 @@
 import GeneralLayout from '@/components/common/GeneralLayout/GeneralLayout';
 import NewEventTypeTitle from '@/components/events/NewEventTypeTitle';
 import CreateEventTypeForm from '@/components/events/CreateEventTypeForm';
-import eventTypeMixin from "@/components/events/eventTypeMixin";
-import FirstTitle from "@/components/events/CreateEventTypeTitle";
+import eventTypeMixin from '@/components/events/eventTypeMixin';
+import CreateEventTypeTitle from '@/components/events/CreateEventTypeTitle';
 export default {
     name: 'NewEventType',
     mixins: [eventTypeMixin],
     components: {
-        FirstTitle,
+        CreateEventTypeTitle,
         GeneralLayout,
         NewEventTypeTitle,
         CreateEventTypeForm
     }
 };
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>

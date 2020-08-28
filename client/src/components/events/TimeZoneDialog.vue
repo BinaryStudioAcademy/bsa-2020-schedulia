@@ -7,18 +7,35 @@
                         <VCardTitle class="headline">
                             {{ lang.TIME_ZONE_STYLE }}
                         </VCardTitle>
-                        <VRadioGroup dense row :value="radioTimeZone" @change="changeRadioTimeZone" class="mr-5 app-text">
+                        <VRadioGroup
+                            dense
+                            row
+                            :value="radioTimeZone"
+                            @change="changeRadioTimeZone"
+                            class="mr-5 app-text"
+                        >
                             <VCol cols="6">
-                                <VRadio :label="lang.LOCAL" value="Local"></VRadio>
+                                <VRadio
+                                    :label="lang.LOCAL"
+                                    value="Local"
+                                ></VRadio>
                             </VCol>
                             <VCol cols="6">
-                                <VRadio :label="lang.LOCKED" value="Locked"></VRadio>
+                                <VRadio
+                                    :label="lang.LOCKED"
+                                    value="Locked"
+                                ></VRadio>
                             </VCol>
                         </VRadioGroup>
 
-                        <VCardText v-show="radioTimeZone === 'Local'" class="px-0 pb-0">
+                        <VCardText
+                            v-show="radioTimeZone === 'Local'"
+                            class="px-0 pb-0"
+                        >
                             <p>{{ lang.INVITEES_VIRTUAL_MEETINGS }}</p>
-                            <p class="mt-5">{{ lang.INVITEES_VIRTUAL_MEETINGS_CONFIGURED }}</p>
+                            <p class="mt-5">
+                                {{ lang.INVITEES_VIRTUAL_MEETINGS_CONFIGURED }}
+                            </p>
                         </VCardText>
 
                         <div v-show="radioTimeZone === 'Locked'">
@@ -56,11 +73,11 @@
 </template>
 
 <script>
-import eventTypeMixin from "@/components/events/eventTypeMixin";
-import {mapGetters} from "vuex";
-import * as eventTypeGetters from "@/store/modules/eventType/types/getters";
-import momentTimezone from "moment-timezone";
-import moment from "moment";
+import eventTypeMixin from '@/components/events/eventTypeMixin';
+import { mapGetters } from 'vuex';
+import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
+import momentTimezone from 'moment-timezone';
+import moment from 'moment';
 export default {
     name: 'TimeZoneDialog',
 

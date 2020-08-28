@@ -116,13 +116,12 @@
 <script>
 import moment from 'moment';
 import momentTimezones from 'moment-timezone';
-import enLang from '@/store/modules/i18n/en';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import EventInfo from './EventInfo';
 import AutoFillSpacer from './AutoFillSpacer';
 import * as actions from '@/store/modules/publicEvent/types/actions';
 import * as getters from '@/store/modules/publicEvent/types/getters';
-import * as mutations from '@/store/modules/publicEvent/types/mutations';
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'EventType',
@@ -131,7 +130,7 @@ export default {
         AutoFillSpacer
     },
     async mounted() {
-        await this.getEventTypeById(5);
+        await this.getEventTypeById(this.$route.params.id);
 
         this.currentTimezoneTime = this.getFormattedTimezoneTime(
             this.currentTimezone
@@ -153,7 +152,6 @@ export default {
         }
     },
     data: () => ({
-        lang: enLang,
         isReady: false,
         currentTimezone: momentTimezones.tz.guess(),
         currentTimezoneTime: null,
@@ -163,6 +161,9 @@ export default {
     }),
 
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('publicEvent', {
             eventType: getters.GET_EVENT_TYPE
         }),
@@ -300,19 +301,28 @@ export default {
     },
     methods: {
         ...mapActions('publicEvent', {
-            getEventTypeById: actions.GET_EVENT_TYPE_BY_ID
+            getEventTypeById: actions.GET_EVENT_TYPE_BY_ID,
+            setPublicEvent: actions.SET_PUBLIC_EVENT
         }),
-        ...mapMutations('publicEvent', {
-            setPublicEvent: mutations.SET_PUBLIC_EVENT
-        }),
+        getStartDate(time) {
+            return `${momentTimezones(
+                `${this.date} ${time}`,
+                'YYYY-MM-DD HH:mm'
+            )
+                .tz(this.currentTimezone)
+                .format()}`;
+        },
         onConfirmDate(time) {
             this.setPublicEvent({
                 eventTypeId: this.eventType.id,
-                startDate: `${this.date} ${time}`,
+                startDate: this.getStartDate(time),
                 timezone: this.currentTimezone
             });
+
             this.$router.push({
-                name: 'PublicEventConfirm'
+                path: `/${this.eventType.owner.nickname}/${
+                    this.eventType.id
+                }/${this.getStartDate(time)}`
             });
         },
         getFormattedTimezoneTime(timezone) {
@@ -465,7 +475,7 @@ export default {
 }
 
 .select-time-container h3 {
-    margin: 50px 0 10px 0;
+    margin: 50px 0 10px 5px;
 }
 
 .time-items-container {
@@ -522,7 +532,7 @@ export default {
     }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 959px) {
     .calendar-container {
         padding: 0;
     }

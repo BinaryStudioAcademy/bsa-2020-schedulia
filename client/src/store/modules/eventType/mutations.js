@@ -28,10 +28,7 @@ export default {
     },
 
     [mutations.SET_EVENT_TYPE]: (state, eventType) => {
-        _.assign(
-            state.eventType,
-            _.pick(eventType, _.keys(state.eventType))
-        );
+        _.assign(state.eventType, _.pick(eventType, _.keys(state.eventType)));
     },
 
     [mutations.DELETE_EVENT_TYPE]: (state, id) => {
@@ -40,7 +37,7 @@ export default {
         state.eventTypes = eventTypes;
     },
 
-    [mutations.SET_PROPERTY]: (state, {property, value}) => {
+    [mutations.SET_PROPERTY]: (state, { property, value }) => {
         state[property] = value;
     }
 };

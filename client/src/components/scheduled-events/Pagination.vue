@@ -2,9 +2,9 @@
     <VContainer class="scheduled-pagination">
         <VRow>
             <VCol class="text-right">
-                {{ lang.DISPLAYING }} {{ eventsPagination.pageStartEventNum }} –
-                {{ eventsPagination.pageEndEventNum }} {{ lang.OF }}
-                {{ eventsPagination.allEvents }} {{ lang.EVENTS }}
+                {{ lang.DISPLAYING }} 1 –
+                {{ totalOnThisPage() }}
+                {{ lang.OF }} {{ eventsPagination.total }} {{ lang.EVENTS }}
             </VCol>
         </VRow>
     </VContainer>
@@ -12,20 +12,37 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { GET_SCHEDULED_EVENTS_PAGINATION } from '@/store/modules/scheduledEvent/types/getters';
 
 export default {
     name: 'Pagination',
 
-    data: () => ({
-        lang: enLang
-    }),
+    data: () => ({}),
 
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('scheduledEvent', {
             eventsPagination: GET_SCHEDULED_EVENTS_PAGINATION
         })
+    },
+
+    methods: {
+        totalOnThisPage() {
+            if (
+                this.eventsPagination.currentPage ===
+                this.eventsPagination.lastPage
+            ) {
+                return this.eventsPagination.total;
+            } else {
+                return (
+                    this.eventsPagination.currentPage *
+                    this.eventsPagination.perPage
+                );
+            }
+        }
     }
 };
 </script>
