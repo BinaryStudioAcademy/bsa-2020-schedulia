@@ -47,9 +47,7 @@
                                 @input="searchEventTypes(searchString)"
                             ></VTextField>
                             <VContainer class="filter-form" fluid>
-                                <span
-                                    v-if="this.getEventTypes.length"
-                                >
+                                <span v-if="this.getEventTypes.length">
                                     <VBtn
                                         :ripple="false"
                                         :hover="false"
@@ -203,7 +201,7 @@ export default {
         async setEventTypesFilter() {
             if (this.$route.query.event_types) {
                 this.eventTypes = this.arrayToInt(
-                        this.$route.query.event_types
+                    this.$route.query.event_types
                 );
             } else {
                 this.eventTypes = [];
