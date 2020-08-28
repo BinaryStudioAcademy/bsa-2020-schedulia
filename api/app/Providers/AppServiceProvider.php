@@ -7,6 +7,8 @@ use App\Repositories\Availability\AvailabilityRepository;
 use App\Repositories\Availability\AvailabilityRepositoryInterface;
 use App\Repositories\EventType\EventTypeRepository;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
+use App\Repositories\SocialAccount\SocialAccountRepository;
+use App\Repositories\SocialAccount\SocialAccountRepositoryInterface;
 use App\Repositories\Event\EventRepository;
 use App\Repositories\Event\EventRepositoryInterface;
 use App\Repositories\User\UserRepository;
@@ -21,7 +23,8 @@ class AppServiceProvider extends ServiceProvider
         EventRepositoryInterface::class => EventRepository::class,
         AvailabilityServiceInterface::class => AvailabilityService::class,
         AvailabilityRepositoryInterface::class => AvailabilityRepository::class,
-        UserRepositoryInterface::class => UserRepository::class
+        UserRepositoryInterface::class => UserRepository::class,
+        SocialAccountRepositoryInterface::class => SocialAccountRepository::class
     ];
 
     /**

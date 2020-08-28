@@ -17,7 +17,7 @@ const scheduledEventService = {
             start_date,
             end_date
         });
-        return response?.data?.data;
+        return response?.data;
     }
 };
 

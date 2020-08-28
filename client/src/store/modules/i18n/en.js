@@ -16,6 +16,7 @@ export default {
     CURRENT_PASSWORD: 'Current password',
 
     DATE_FORMAT: 'Date format',
+    DISCONNECT: 'Disconnect',
     DELETE_ACCOUNT: 'Delete account',
     DELETE_ACCOUNT_WARNING_TEXT:
         'You are about to delete your Schedulia account. This will go into effect immediately and you will no longer have access to your account data.',
@@ -340,6 +341,14 @@ export default {
     YOU_CAN_CHANGE_LANGUAGE_TO: 'Your can change language to',
     DISPLAY_LANGUAGE: 'Display language',
     MY_EVENTS: 'My Events',
+
+    OK: 'Ok',
+    SET_MEETING_LOCATION: 'Set meeting location',
+    ZOOM_CONFERENCE_LINK: 'Zoom conference link',
+    SKYPE_CALL_DETAILS: 'Skype call details',
+
+    INFO_MUST_BE_NO_MORE_THAN_1000_CHARACTERS_LONG:
+        'Additional info must be no more than 1000 characters long',
     NO_ITEMS_FOUND: 'No items found',
     UNAUTHENTICATED_ERROR: 'Session time is expired! Sign In again, please!',
     NAME_IS_REQUIRED: 'Name is required',
@@ -351,5 +360,6 @@ export default {
     ONLY_LETTER_AND_SYMBOLS_PERMITTED:
         'Only letter and symbols  \\|/,._ are permitted ',
     LOCALIZATION: 'en-US',
-    ENABLED: 'Enabled'
+    ENABLED: 'Enabled',
+    LOAD_MORE: 'Load more'
 };

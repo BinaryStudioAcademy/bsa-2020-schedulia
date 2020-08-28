@@ -13,26 +13,6 @@ const routes = [
         component: UserDataProvider,
         children: [
             {
-                path: 'event',
-                name: 'PublicEvent',
-                component: () => import('../views/PublicEvent.vue')
-            },
-            {
-                path: 'confirm-event',
-                name: 'PublicEventConfirm',
-                component: () => import('../views/PublicEventConfirm.vue')
-            },
-            {
-                path: 'event-details',
-                name: 'PublicEventDetails',
-                component: () => import('../views/PublicEventDetails.vue')
-            },
-            {
-                path: 'event-disabled',
-                name: 'DisabledEvent',
-                component: () => import('../views/DisabledEvent.vue')
-            },
-            {
                 path: '',
                 component: AuthGuard,
                 children: [
@@ -125,9 +105,29 @@ const routes = [
                 component: () => import('../views/VerifiedEmail')
             },
             {
+                path: 'event-disabled',
+                name: 'DisabledEvent',
+                component: () => import('../views/DisabledEvent.vue')
+            },
+            {
                 path: ':nickname',
                 name: 'UserEventTypes',
                 component: () => import('../views/UserEventTypesList.vue')
+            },
+            {
+                path: ':owner/:id',
+                name: 'PublicEvent',
+                component: () => import('../views/PublicEvent.vue')
+            },
+            {
+                path: ':owner/:id/:date',
+                name: 'PublicEventConfirm',
+                component: () => import('../views/PublicEventConfirm.vue')
+            },
+            {
+                path: ':owner/:id/invitee/details',
+                name: 'PublicEventDetails',
+                component: () => import('../views/PublicEventDetails.vue')
             }
         ]
     }
