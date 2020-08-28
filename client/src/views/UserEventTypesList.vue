@@ -3,7 +3,10 @@
         <VCard elevation="5">
             <div class="list-heading text-center pa-8">
                 <span
-                    ><b v-if="ownerName">{{ ownerName }}</b></span
+                    ><b>{{
+                        Object.values(eventTypes)[Object.keys(eventTypes)[0]]
+                            .owner.name
+                    }}</b></span
                 ><br /><br />
                 <span>Welcome to my scheduling page.</span><br />
                 <span
@@ -22,7 +25,9 @@
                     v-for="eventType in eventTypes"
                     :key="eventType.id"
                 >
-                    <RouterLink :to="{ name: 'PublicEvent' }">
+                    <RouterLink
+                        :to="`/${eventType.owner.nickname}/${eventType.id}`"
+                    >
                         <UserEventType :event-type="eventType" />
                     </RouterLink>
                 </VCol>
@@ -49,7 +54,7 @@ export default {
             fetchEventTypesByNickname: actions.FETCH_EVENT_TYPES_BY_NICKNAME
         })
     },
-    async mounted() {
+    async created() {
         await this.fetchEventTypesByNickname(this.userNickname);
         this.ownerName = Object.values(this.eventTypes)[
             Object.keys(this.eventTypes)[0]
