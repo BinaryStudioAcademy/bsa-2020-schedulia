@@ -25,7 +25,9 @@
                     v-for="eventType in eventTypes"
                     :key="eventType.id"
                 >
-                    <RouterLink :to="`/${eventType.owner.nickname}/${eventType.id}`">
+                    <RouterLink
+                        :to="`/${eventType.owner.nickname}/${eventType.id}`"
+                    >
                         <UserEventType :event-type="eventType" />
                     </RouterLink>
                 </VCol>
