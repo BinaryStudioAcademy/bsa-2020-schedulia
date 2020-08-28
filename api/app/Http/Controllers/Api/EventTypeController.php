@@ -2,19 +2,29 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\CustomField\AddCustomFieldsToEventTypeAction;
+use App\Actions\CustomField\AddCustomFieldsToEventTypeRequest;
+use App\Actions\CustomField\UpdateCustomFieldsToEventTypeAction;
+use App\Actions\CustomField\UpdateCustomFieldsToEventTypeRequest;
 use App\Actions\EventType\AddEventTypeAction;
 use App\Actions\EventType\AddEventTypeRequest;
 use App\Actions\EventType\ChangeDisabledByIdAction;
 use App\Actions\EventType\ChangeDisabledByIdRequest;
 use App\Actions\EventType\DeleteEventTypeAction;
 use App\Actions\EventType\DeleteEventTypeRequest;
+use App\Actions\EventType\GetAvailableTimeAction;
+use App\Actions\EventType\GetAvailableTimeRequest;
 use App\Actions\EventType\GetEventTypeByIdAction;
 use App\Actions\EventType\GetEventTypeCollectionAction;
+use App\Actions\EventType\GetEventTypeCollectionByNicknameAction;
+use App\Actions\EventType\GetEventTypeCollectionByNicknameRequest;
 use App\Actions\EventType\GetEventTypeCollectionRequest;
 use App\Actions\EventType\UpdateEventTypeAction;
 use App\Actions\EventType\UpdateEventTypeRequest;
 use App\Actions\GetByIdRequest;
+use App\Http\Presenters\AvailabilityServicePresenter;
 use App\Http\Presenters\EventTypePresenter;
+use App\Http\Requests\Api\CustomField\CustomFieldRequest;
 use App\Http\Requests\Api\EventType\ChangeDisabledEventTypeRequest;
 use App\Http\Requests\Api\EventType\EventTypeRequest;
 use Illuminate\Http\JsonResponse;
@@ -23,22 +33,32 @@ use Illuminate\Http\Request;
 class EventTypeController extends ApiController
 {
     private EventTypePresenter $eventTypePresenter;
+    private AvailabilityServicePresenter $availabilityServicePresenter;
 
-    public function __construct(EventTypePresenter $eventTypePresenter)
-    {
+    public function __construct(
+        EventTypePresenter $eventTypePresenter,
+        AvailabilityServicePresenter $availabilityServicePresenter
+    ) {
         $this->eventTypePresenter = $eventTypePresenter;
+        $this->availabilityServicePresenter = $availabilityServicePresenter;
     }
 
     public function index(Request $request, GetEventTypeCollectionAction $action)
     {
         $response = $action->execute(
-            new GetEventTypeCollectionRequest($request->searchString)
+            new GetEventTypeCollectionRequest(
+                $request->searchString,
+                (int)$request->query('page'),
+                (int)$request->query('perPage'),
+                $request->query('sorting'),
+                $request->query('direction'),
+                $request->query('all'),
+            )
         );
 
-        return $this->successResponse(
-            $this->eventTypePresenter->presentCollection(
-                $response->getEventTypeCollection()
-            )
+        return $this->createPaginatedResponse(
+            $response->getPaginator(),
+            $this->eventTypePresenter
         );
     }
 
@@ -105,6 +125,57 @@ class EventTypeController extends ApiController
             (int)$id,
             (bool)$request->disabled
         ));
+        return $this->emptyResponse();
+    }
+
+    public function getAvailableTime(Request $request, GetAvailableTimeAction $action)
+    {
+        $dateTimeList = $action->execute(
+            new GetAvailableTimeRequest(
+                (int)$request->id,
+                $request->month
+            )
+        )->getDateTimeList();
+
+        return $this->successResponse($this->availabilityServicePresenter->presentArray($dateTimeList));
+    }
+
+    public function getEventTypesByNickname(
+        string $nickname,
+        GetEventTypeCollectionByNicknameAction $action
+    ): JsonResponse {
+        $eventTypes = $action->execute(
+            new GetEventTypeCollectionByNicknameRequest($nickname)
+        )->getEventTypes();
+
+        return $this->successResponse($this->eventTypePresenter->presentCollection($eventTypes));
+    }
+
+    public function saveCustomFieldsByEventTypeId(
+        CustomFieldRequest $request,
+        AddCustomFieldsToEventTypeAction $action
+    ): JsonResponse {
+        $action->execute(
+            new AddCustomFieldsToEventTypeRequest(
+                (int)$request->id,
+                $request->custom_fields
+            )
+        );
+
+        return $this->emptyResponse();
+    }
+
+    public function updateCustomFieldsByEventTypeId(
+        CustomFieldRequest $request,
+        UpdateCustomFieldsToEventTypeAction $action
+    ): JsonResponse {
+        $action->execute(
+            new UpdateCustomFieldsToEventTypeRequest(
+                (int)$request->id,
+                $request->custom_fields
+            )
+        );
+
         return $this->emptyResponse();
     }
 }

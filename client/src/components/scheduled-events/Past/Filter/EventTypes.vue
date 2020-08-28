@@ -18,11 +18,11 @@
                     v-bind="attrs"
                     v-on="on"
                 >
-                    <span v-if="!scheduledEventFilter.eventTypes.length">
+                    <span v-if="!eventTypesChecked.length">
                         {{ lang.ALL_EVENT_TYPES }}
                     </span>
                     <span v-else>
-                        {{ scheduledEventFilter.eventTypes.length }}
+                        {{ eventTypesChecked.length }}
                         {{ lang.EVENT_TYPES }}
                     </span>
                     <VIcon>mdi-chevron-down</VIcon>
@@ -38,34 +38,36 @@
                                 hide-details
                                 dense
                                 flat
-                                v-model="eventTypesSearch"
+                                v-model="searchString"
                                 color="#2C2C2C"
                                 background-color="rgba(224, 224, 224, 0.3)"
                                 label="Search"
                                 clearable
                                 prepend-inner-icon="mdi-magnify"
-                                @input="searchEventTypes(eventTypesSearch)"
+                                @input="searchEventTypes(searchString)"
                             ></VTextField>
                             <VContainer class="filter-form" fluid>
-                                <VBtn
-                                    :ripple="false"
-                                    :hover="false"
-                                    class="filter-form__button"
-                                    text
-                                    @click="selectAll"
-                                >
-                                    {{ lang.SELECT_ALL }}
-                                </VBtn>
-                                \
-                                <VBtn
-                                    :ripple="false"
-                                    :hover="false"
-                                    class="filter-form__button"
-                                    text
-                                    @click="clearSelectAll"
-                                >
-                                    {{ lang.CLEAR }}
-                                </VBtn>
+                                <span v-if="this.getEventTypes.length">
+                                    <VBtn
+                                        :ripple="false"
+                                        :hover="false"
+                                        class="filter-form__button"
+                                        text
+                                        @click="selectAll"
+                                    >
+                                        {{ lang.SELECT_ALL }}
+                                    </VBtn>
+                                    \
+                                    <VBtn
+                                        :ripple="false"
+                                        :hover="false"
+                                        class="filter-form__button"
+                                        text
+                                        @click="clearSelectAll"
+                                    >
+                                        {{ lang.CLEAR }}
+                                    </VBtn>
+                                </span>
                                 <div class="filter-form__checkbox">
                                     <div
                                         v-for="(checkbox, index) in checkboxes"
@@ -74,7 +76,7 @@
                                         <VCheckbox
                                             hide-details
                                             :label="checkbox.name"
-                                            :value="
+                                            :input-value="
                                                 eventTypes.includes(checkbox.id)
                                             "
                                             @change="onChangeType(checkbox.id)"
@@ -85,11 +87,21 @@
                                         :hover="false"
                                         class="filter-form__button more"
                                         text
-                                        v-if="!moreEventTypes"
+                                        v-if="
+                                            !moreEventTypes &&
+                                                this.getEventTypes.length >
+                                                    countShowEventTypes
+                                        "
                                         @click="showMoreEventTypes"
                                     >
                                         {{ lang.SHOW_MORE }}
                                     </VBtn>
+                                    <div
+                                        class="no-items"
+                                        v-if="!this.getEventTypes.length"
+                                    >
+                                        {{ lang.NO_ITEMS_FOUND }}
+                                    </div>
                                 </div>
                             </VContainer>
                             <VContainer class="filter-button">
@@ -119,63 +131,88 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import { GET_FILTER_SCHEDULED_EVENTS_TYPES } from '@/store/modules/scheduledEvent/types/getters';
 import * as scheduledEventActions from '@/store/modules/scheduledEvent/types/actions';
 import * as notificationActions from '@/store/modules/notification/types/actions';
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import * as eventTypesActions from '@/store/modules/eventTypes/types/actions';
+import * as eventTypesGetters from '@/store/modules/eventTypes/types/getters';
 
 export default {
     name: 'EventTypes',
 
     data() {
         return {
+            countShowEventTypes: 12,
             menu: false,
-            eventTypesSearch: '',
+            searchString: '',
             eventTypes: [],
             moreEventTypes: false,
-            scheduledEventFilter: {
-                eventTypes: []
-            },
-            lang: enLang
+            eventTypesChecked: []
         };
     },
 
-    async created() {
+    watch: {
+        $route: 'setEventTypesFilter'
+    },
+
+    async mounted() {
         try {
-            await this.setFilterScheduledEventsTypes();
+            await this.setEventTypesFilter();
         } catch (error) {
             this.setErrorNotification(error.message);
         }
     },
 
     computed: {
-        ...mapGetters('scheduledEvent', {
-            filterScheduledEventsTypes: GET_FILTER_SCHEDULED_EVENTS_TYPES
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
+
+        ...mapGetters('eventTypes', {
+            getEventTypes: eventTypesGetters.GET_ALL_EVENT_TYPES
         }),
 
         checkboxes() {
-            if (!Array.isArray(this.filterScheduledEventsTypes)) {
+            if (!Array.isArray(this.getEventTypes)) {
                 return [];
             }
 
             if (this.moreEventTypes) {
-                return this.filterScheduledEventsTypes;
+                return this.getEventTypes;
             } else {
-                return this.filterScheduledEventsTypes.slice(0, 6);
+                return this.getEventTypes.slice(0, this.countShowEventTypes);
             }
         }
     },
 
     methods: {
         ...mapActions('scheduledEvent', {
-            setFilterScheduledEventsTypes:
-                scheduledEventActions.SET_FILTER_SCHEDULED_EVENTS_TYPES,
             setScheduledEvents: scheduledEventActions.SET_SCHEDULED_EVENTS
+        }),
+
+        ...mapActions('eventTypes', {
+            setEventTypes: eventTypesActions.FETCH_EVENT_TYPES
         }),
 
         ...mapActions('notification', {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
         }),
+
+        async setEventTypesFilter() {
+            if (this.$route.query.event_types) {
+                this.eventTypes = this.arrayToInt(
+                    this.$route.query.event_types
+                );
+            } else {
+                this.eventTypes = [];
+            }
+
+            this.eventTypesChecked = this.eventTypes;
+
+            await this.setEventTypes({
+                all: true
+            });
+        },
 
         closeMenu() {
             this.menu = false;
@@ -199,14 +236,25 @@ export default {
             this.eventTypes = [];
         },
 
-        searchEventTypes(eventTypesSearch) {
+        clearChecked() {
+            this.eventTypes = [];
+            this.eventTypesChecked = [];
+        },
+
+        searchEventTypes(searchString) {
             this.clearSelectAll();
-            this.setFilterScheduledEventsTypes(eventTypesSearch);
+            this.setEventTypes({
+                searchString: searchString,
+                all: true
+            });
         },
 
         filterScheduledEvent() {
-            this.scheduledEventFilter.eventTypes = this.eventTypes;
-            this.setScheduledEvents(this.scheduledEventFilter.eventTypes);
+            this.eventTypesChecked = this.eventTypes;
+            this.$router.push({
+                name: 'Past',
+                query: { event_types: this.eventTypes }
+            });
             this.closeMenu();
         },
 
@@ -218,7 +266,23 @@ export default {
             } else {
                 this.eventTypes = this.eventTypes.concat(id);
             }
+        },
+
+        arrayToInt(arr) {
+            return arr.map(function(item) {
+                let number = parseInt(item);
+                return isNaN(number) ? item : number;
+            });
         }
     }
 };
 </script>
+
+<style scoped>
+.no-items {
+    color: #2c2c2c;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+}
+</style>

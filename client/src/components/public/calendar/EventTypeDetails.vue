@@ -3,7 +3,7 @@
         <VCol class="col-1 col-sm-2 col-md-3"></VCol>
         <VCol class="detail-content col-10 col-sm-8 col-md-6">
             <div class="detail-content-top mt-3 mb-5">
-                <VLayout justify-center>
+                <VLayout justify-center v-if="eventType.owner.avatar">
                     <VAvatar :size="70" class="avatar">
                         <img :src="eventType.owner.avatar" alt="Avatar" />
                     </VAvatar>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="event-info">
                     <VIcon dark color="primary">mdi-calendar-blank</VIcon>
-                    {{ publicEvent.startDate }}
+                    {{ startDateFormatted }}
                 </div>
                 <div class="event-info">
                     <VIcon dark color="primary">mdi-earth</VIcon>
@@ -50,14 +50,14 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en';
+import moment from 'moment';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import * as getters from '@/store/modules/publicEvent/types/getters';
 import { mapGetters } from 'vuex';
 
 export default {
     name: 'EventTypeDetails',
     data: () => ({
-        lang: enLang,
         colorById: {
             yellow: {
                 id: 'yellow',
@@ -78,10 +78,18 @@ export default {
         }
     }),
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('publicEvent', {
             eventType: getters.GET_EVENT_TYPE,
             publicEvent: getters.GET_PUBLIC_EVENT
-        })
+        }),
+        startDateFormatted() {
+            return moment(this.publicEvent.startDate).format(
+                'dddd, YYYY-MM-DD, HH:mm'
+            );
+        }
     }
 };
 </script>

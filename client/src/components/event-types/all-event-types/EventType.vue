@@ -7,21 +7,27 @@
         <div class="action-button text-right">
             <DropDown :eventType="eventType" />
         </div>
-        <div class="event-type-content">
-            <h3>{{ eventType.name }}</h3>
-            <span class="event-type-about"
-                >{{ eventType.duration }} {{ lang.MINS }}, {{ eventType.type }}
-            </span>
+        <div class="event-type-main">
+            <div class="event-type-content">
+                <h3 class="event-type-name">{{ eventType.name }}</h3>
+                <span class="event-type-about"
+                    >{{ eventType.duration }} {{ lang.MINS }}</span
+                >
+            </div>
         </div>
-        <div class="event-type-invitee mt-9 mb-2">
-            <Avatar :disabled="isDisabled" :size="24"></Avatar>
+        <div class="event-type-invitee mb-2">
+            <Avatar :size="24" :color="'black'"></Avatar>
         </div>
         <VDivider />
         <VRow class="event-type-actions">
             <VCol class="duration text-left" cols="4">
-                <RouterLink :to="{ name: 'PublicEvent' }">
-                    <span>/{{ eventType.slug }}</span></RouterLink
+                <RouterLink
+                    :to="{
+                        path: `/${eventType.owner.nickname}/${eventType.id}`
+                    }"
                 >
+                    <span>/{{ eventType.slug }}</span>
+                </RouterLink>
             </VCol>
             <VCol class="text-right" cols="8">
                 <VBtn
@@ -32,7 +38,7 @@
                     :disabled="isDisabled"
                 >
                     {{ lang.COPY_LINK }}
-                    <VIcon right dark>mdi-vector-arrange-below </VIcon>
+                    <VIcon right dark>mdi-vector-arrange-below</VIcon>
                 </VBtn>
             </VCol>
         </VRow>
@@ -41,14 +47,13 @@
 
 <script>
 import DropDown from '@/components/event-types/all-event-types/DropDown';
-import Avatar from '@/components/common/GeneralLayout/Avatar';
-import enLang from '@/store/modules/i18n/en';
+import Avatar from '@/components/common/Avatar/Avatar';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'EventType',
-    data: () => ({
-        lang: enLang
-    }),
+    data: () => ({}),
     props: {
         eventType: {
             required: true
@@ -59,6 +64,9 @@ export default {
         Avatar
     },
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         isDisabled() {
             return this.eventType.disabled;
         },
@@ -73,11 +81,18 @@ export default {
 </script>
 
 <style scoped>
+.event-type-main {
+    min-height: 100px;
+}
+.event-type-name {
+    word-break: break-all;
+}
 .event-type-block {
     background: #fff;
     padding: 15px 20px 0 20px;
     border-radius: 10px;
     box-shadow: 0 2px 7px rgba(0, 0, 0, 0.25);
+    height: 100%;
 }
 .event-type-block div {
     cursor: pointer;

@@ -93,6 +93,11 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail, CanRe
         return $this->hasMany(SocialAccount::class);
     }
 
+    public function googleAccounts()
+    {
+        return $this->socialAccounts()->google();
+    }
+
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyNotification());

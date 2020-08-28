@@ -11,7 +11,7 @@ export default {
         if (store.state.auth.user) {
             next();
         } else {
-            next({ path: '/' });
+            next({ name: 'SignIn' });
         }
     }
 };

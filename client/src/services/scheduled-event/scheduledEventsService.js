@@ -1,25 +1,23 @@
-import responseScheduledPastEventsFirstPage from './responseScheduledPastEventsFirstPage.json';
-import responseScheduledPastEventsFirstPageFilter from './responseScheduledPastEventsFirstPageFilter.json';
-import responseFilterScheduledEventsTypes from './responseFilterScheduledEventsTypes.json';
-import responseFilterScheduledEventsTypesSearch from './responseFilterScheduledEventsTypesSearch.json';
+import requestService from '../requestService';
 
 const scheduledEventService = {
-    async getScheduledEvents(eventFilter) {
-        if (eventFilter.length) {
-            const response = responseScheduledPastEventsFirstPageFilter;
-            return response?.[0];
-        } else {
-            const response = responseScheduledPastEventsFirstPage;
-            return response?.[0];
-        }
-    },
-
-    async getFilterScheduledEventsTypes(eventTypesSearch) {
-        if (eventTypesSearch) {
-            return responseFilterScheduledEventsTypesSearch;
-        } else {
-            return responseFilterScheduledEventsTypes;
-        }
+    async getScheduledEvents(
+        page,
+        sort,
+        direction,
+        event_types,
+        start_date,
+        end_date
+    ) {
+        const response = await requestService.get('/events', {
+            page,
+            sort,
+            direction,
+            event_types,
+            start_date,
+            end_date
+        });
+        return response?.data;
     }
 };
 

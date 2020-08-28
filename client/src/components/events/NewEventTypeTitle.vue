@@ -1,6 +1,6 @@
 <template>
     <VRow class="justify-space-between">
-        <VCol cols="3">
+        <VCol cols="12" md="3" sm="3">
             <RouterLink :to="{ name: 'EventTypes' }" class="back-btn-link">
                 <VBtn outlined class="primary--text py-5 rounded-lg">
                     <VImg
@@ -13,12 +13,12 @@
                 </VBtn>
             </RouterLink>
         </VCol>
-        <VCol cols="6">
+        <VCol cols="12" md="6" sm="6">
             <h3 class="text-center">
                 Add One-on-One Event Type
             </h3>
         </VCol>
-        <VCol cols="3">
+        <VCol cols="12" md="3" sm="3">
             <VFlex row class="align-center justify-end">
                 <VSubheader class="app-subheader">
                     {{ lang.YOUR_EVENT_TYPE_IS }}
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapGetters, mapMutations } from 'vuex';
 import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
 import * as eventTypeMutations from '@/store/modules/eventType/types/mutations';
@@ -43,11 +43,12 @@ export default {
     name: 'NewEventTypeCard',
 
     data() {
-        return {
-            lang: enLang
-        };
+        return {};
     },
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('eventType', {
             eventTypeForm: eventTypeGetters.GET_EVENT_TYPE_FORM
         })

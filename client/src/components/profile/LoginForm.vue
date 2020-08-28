@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapGetters } from 'vuex';
 import ChangePasswordForm from './ChangePasswordForm.vue';
 import ProfileDisabledField from './ProfileDisabledField.vue';
@@ -48,13 +48,15 @@ export default {
         ProfileDisabledField
     },
     data: () => ({
-        lang: enLang,
         userProfile: {
             email: null
         }
     }),
 
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         ...mapGetters('auth', {
             user: 'getLoggedUser'
         }),

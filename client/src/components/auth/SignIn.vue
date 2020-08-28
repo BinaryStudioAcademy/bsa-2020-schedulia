@@ -6,9 +6,9 @@
             <RouterLink :to="{ name: 'SignUp' }">
                 {{ lang.CREATE_AN_ACCOUNT }}
             </RouterLink>
+            <VSpacer class="pa-2"></VSpacer>
         </VCardSubtitle>
-        <VSpacer class="pa-2"></VSpacer>
-        <VForm v-model="formValid" ref="form">
+        <VForm v-model="formValid" ref="form" @submit.prevent="onSignIn">
             <VCardText>
                 <VCol cols="12" sm="12" md="8" class="pa-0">
                     <label for="email">{{ lang.EMAIL }}*</label>
@@ -62,7 +62,7 @@
                                 height="44"
                                 class="login-button  primary"
                                 depressed
-                                @click="onSignIn"
+                                type="submit"
                                 >{{ lang.LOG_IN }}
                             </VBtn>
                         </VCol>
@@ -77,11 +77,11 @@
 
 <script>
 import * as actions from '@/store/modules/auth/types/actions';
-import { mapActions } from 'vuex';
-import enLang from '@/store/modules/i18n/en';
+import { mapActions, mapGetters } from 'vuex';
 import * as notificationActions from '@/store/modules/notification/types/actions';
 import { validationMixin } from 'vuelidate';
 import { required, email, minLength } from 'vuelidate/lib/validators';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 
 export default {
     name: 'SingIn',
@@ -94,7 +94,6 @@ export default {
     },
     components: {},
     data: () => ({
-        lang: enLang,
         formValid: false,
         showPassword: false,
         loginData: {
@@ -146,6 +145,9 @@ export default {
         }
     },
     computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
         emailErrors() {
             const errors = [];
             if (!this.$v.loginData['email'].$dirty) {

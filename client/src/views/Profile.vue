@@ -10,7 +10,8 @@
 <script>
 import GeneralLayout from '@/components/common/GeneralLayout/GeneralLayout';
 import UserProfile from '@/components/profile/UserProfile.vue';
-import enLang from '@/store/modules/i18n/en.js';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'Profile',
@@ -19,8 +20,11 @@ export default {
         UserProfile
     },
 
-    data: () => ({
-        lang: enLang
-    })
+    data: () => ({}),
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        })
+    }
 };
 </script>

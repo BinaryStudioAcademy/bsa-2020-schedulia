@@ -1,0 +1,115 @@
+<template>
+    <div class="text-left filter-menu">
+        <div class="filter-title">
+            {{ lang.INVITEE_EMAILS }}
+        </div>
+        <VMenu
+            v-model="menu"
+            max-width="290"
+            :close-on-content-click="false"
+            offset-y
+        >
+            <template v-slot:activator="{ on, attrs }">
+                <VBtn
+                    :ripple="false"
+                    :hover="false"
+                    class="filter-menu__button"
+                    text
+                    v-bind="attrs"
+                    v-on="on"
+                >
+                    {{ lang.ALL_INVITEE_EMAILS }}
+                    <VIcon>mdi-chevron-down</VIcon>
+                </VBtn>
+            </template>
+
+            <VCard>
+                <VList>
+                    <VListItem>
+                        <VListItemContent>
+                            <VTextField
+                                solo
+                                hide-details
+                                dense
+                                flat
+                                color="#2C2C2C"
+                                background-color="rgba(224, 224, 224, 0.3)"
+                                label="Search"
+                                clearable
+                                prepend-inner-icon="mdi-magnify"
+                            ></VTextField>
+                            <VContainer fluid>
+                                <VCheckbox
+                                    hide-details
+                                    label="15 Minute Meeting"
+                                    value=""
+                                ></VCheckbox>
+                                <VCheckbox
+                                    hide-details
+                                    label="30 Minute Meeting"
+                                    value=""
+                                ></VCheckbox>
+                                <VCheckbox
+                                    hide-details
+                                    label="60 Minute Meeting"
+                                    value=""
+                                ></VCheckbox>
+                                <VCheckbox
+                                    hide-details
+                                    label="Sales Manager"
+                                    value=""
+                                ></VCheckbox>
+                                <VCheckbox
+                                    hide-details
+                                    label="Sales Manager"
+                                    value=""
+                                ></VCheckbox>
+                            </VContainer>
+                            <VContainer class="filter-button">
+                                <VBtn
+                                    @click="closeMenu"
+                                    class="cancel-button"
+                                    outlined
+                                >
+                                    {{ lang.CANCEL }}
+                                </VBtn>
+                                <VBtn class="apply-button primary">
+                                    {{ lang.APPLY }}
+                                </VBtn>
+                            </VContainer>
+                        </VListItemContent>
+                    </VListItem>
+                </VList>
+
+                <VDivider></VDivider>
+            </VCard>
+        </VMenu>
+    </div>
+</template>
+
+<script>
+import { mapGetters } from 'vuex';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+
+export default {
+    name: 'EnviteeEmails',
+
+    data() {
+        return {
+            menu: false
+        };
+    },
+
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        })
+    },
+
+    methods: {
+        closeMenu() {
+            this.menu = false;
+        }
+    }
+};
+</script>
