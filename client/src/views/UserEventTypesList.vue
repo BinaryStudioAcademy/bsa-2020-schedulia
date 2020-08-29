@@ -3,10 +3,7 @@
         <VCard elevation="5">
             <div class="list-heading text-center pa-8">
                 <span
-                    ><b>{{
-                        Object.values(eventTypes)[Object.keys(eventTypes)[0]]
-                            .owner.name
-                    }}</b></span
+                    ><b>{{ ownerName }}</b></span
                 ><br /><br />
                 <span>Welcome to my scheduling page.</span><br />
                 <span
@@ -46,26 +43,22 @@ export default {
     components: {
         UserEventType
     },
-    data: () => ({
-        ownerName: ''
-    }),
+    data: () => ({}),
     methods: {
         ...mapActions('eventTypes', {
             fetchEventTypesByNickname: actions.FETCH_EVENT_TYPES_BY_NICKNAME
         })
     },
-    async created() {
+    async mounted() {
         await this.fetchEventTypesByNickname(this.userNickname);
-        this.ownerName = Object.values(this.eventTypes)[
-            Object.keys(this.eventTypes)[0]
-        ].owner.name;
     },
     computed: {
         userNickname() {
             return this.$route.params.nickname;
         },
         ...mapGetters('eventTypes', {
-            eventTypes: getters.GET_EVENT_TYPES_BY_NICKNAME
+            eventTypes: getters.GET_EVENT_TYPES_BY_NICKNAME,
+            ownerName: getters.GET_OWNER_NAME_BY_NICKNAME
         })
     }
 };
