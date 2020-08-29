@@ -5,13 +5,21 @@
                 <span
                     ><b>{{ ownerName }}</b></span
                 ><br /><br />
-                <span>Welcome to my scheduling page.</span><br />
-                <span
-                    >Please follow the instructions to add an event to my
-                    calendar.</span
-                ><br />
+                <div v-if="Object.values(eventTypes).length">
+                    <span>Welcome to my scheduling page.</span><br />
+                    <span
+                        >Please follow the instructions to add an event to my
+                        calendar.</span
+                    ><br />
+                </div>
+                <div v-else>
+                    <span>
+                        <b>No openings at the moment.</b>
+                    </span>
+                </div>
             </div>
             <div
+                v-if="Object.values(eventTypes).length"
                 class="event-types row-flex d-flex flex-wrap flex-row px-10 py-10"
             >
                 <VCol
