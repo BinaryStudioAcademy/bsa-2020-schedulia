@@ -17,14 +17,14 @@ final class SocialAuthAction
         $this->userRepository = $userRepository;
     }
 
-    public function execute($provider)
+    public function execute(SocialAuthRequest $request): SocialAuthResponse
     {
-        $socialUser = Socialite::driver($provider)->stateless()->user();
-        $user = $this->findOrCreateUser($provider, $socialUser);
+        $socialUser = Socialite::driver($request->getProvider())->stateless()->user();
+        $user = $this->findOrCreateUser($request->getProvider(), $socialUser);
 
         $token = auth()->login($user);
 
-        return $token;
+        return new SocialAuthResponse($token);
     }
 
     protected function findOrCreateUser($provider, $socialUser)
