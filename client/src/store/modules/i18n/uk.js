@@ -283,5 +283,8 @@ export default {
         'Дозволені лише літери та символи  \\|/,._ ',
     LOCALIZATION: 'uk-UA',
     ENABLED: 'Увімкнено',
-    LOAD_MORE: 'Завантажити ще'
+    LOAD_MORE: 'Завантажити ще',
+
+    PLEASE_WAIT_WHILE_WE_ARE_LOGGING_YOU_IN:
+        'Будь ласка, зачекайте, поки ми реєструємо Вас...'
 };
