@@ -24,11 +24,13 @@ const scheduledEventService = {
 
     async getEventEmailsFilter(
             start_date,
-            end_date
+            end_date,
+            searchString
     ) {
         const response = await requestService.get(apiEndpoint + '/emails', {
             start_date,
-            end_date
+            end_date,
+            searchString
         });
         return response?.data?.data;
     },

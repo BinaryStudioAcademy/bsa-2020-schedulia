@@ -75,7 +75,8 @@ export default {
             { commit, dispatch },
             {
                 startDate = '',
-                endDate = ''
+                endDate = '',
+                searchString= ''
             }
     ) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
@@ -83,7 +84,8 @@ export default {
         try {
             const eventEmails = await scheduledEventService.getEventEmailsFilter(
                     startDate,
-                    endDate
+                    endDate,
+                    searchString
             );
 
             commit(mutations.SET_EVENT_EMAILS_FILTER, eventEmails);
