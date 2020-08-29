@@ -1,5 +1,7 @@
 import requestService from '../requestService';
 
+const apiEndpoint = '/events';
+
 const scheduledEventService = {
     async getScheduledEvents(
         page,
@@ -9,7 +11,7 @@ const scheduledEventService = {
         start_date,
         end_date
     ) {
-        const response = await requestService.get('/events', {
+        const response = await requestService.get(apiEndpoint, {
             page,
             sort,
             direction,
@@ -18,7 +20,18 @@ const scheduledEventService = {
             end_date
         });
         return response?.data;
-    }
+    },
+
+    async getEventEmailsFilter(
+            start_date,
+            end_date
+    ) {
+        const response = await requestService.get(apiEndpoint + '/emails', {
+            start_date,
+            end_date
+        });
+        return response?.data?.data;
+    },
 };
 
 export default scheduledEventService;

@@ -70,5 +70,34 @@ export default {
                 root: true
             });
         }
-    }
+    },
+    [actions.FETCH_EVENT_EMAILS_FILTER]: async (
+            { commit, dispatch },
+            {
+                startDate = '',
+                endDate = ''
+            }
+    ) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+
+        try {
+            const eventEmails = await scheduledEventService.getEventEmailsFilter(
+                    startDate,
+                    endDate
+            );
+
+            commit(mutations.SET_EVENT_EMAILS_FILTER, eventEmails);
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+            return eventEmails;
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        }
+    },
 };
