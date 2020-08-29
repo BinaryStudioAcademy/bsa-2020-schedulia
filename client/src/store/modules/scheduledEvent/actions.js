@@ -37,6 +37,7 @@ export default {
             sort = 'start_date',
             direction = 'desc',
             eventTypes = [],
+            eventEmails = [],
             startDate = '',
             endDate = ''
         }
