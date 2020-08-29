@@ -336,6 +336,11 @@ export default {
     UNSAVE_CHANGES_WILL_BE_LOST: 'Any unsaved changes will be lost.',
     EXPLANATION_PASSWORD_RESET:
         'Go to the SignIn page and use your new password to authenticate on the site.',
+    MORE: 'more',
+    TODAY: 'Today',
+    NEW_INTERVAL: 'New Interval',
+    UNAVAILABLE: 'Unavailable',
+
     INVITEES_WILL_BE_OFFERED_INDEFINITELY:
         'Your invitees will be offered availability indefinitely into the future. ',
     YOU_CAN_CHANGE_LANGUAGE_TO: 'Your can change language to',
@@ -362,6 +367,7 @@ export default {
     LOCALIZATION: 'en-US',
     ENABLED: 'Enabled',
     LOAD_MORE: 'Load more',
+    ADD_ONE_ON_ONE_EVENT_TYPE: 'Add One-on-One Event Type',
     RESET: 'Reset',
     INVITEE_EMAILS: 'Invitee Emails',
     ALL_INVITEE_EMAILS: 'All Invitee Emails'

@@ -11,7 +11,10 @@ export default {
     [actions.GET_EVENT_TYPE_BY_ID]: async (context, id) => {
         try {
             const eventType = await eventTypeService.getEventTypeById(id);
-            context.commit(mutations.SET_EVENT_TYPE, eventType);
+            context.commit(
+                mutations.SET_EVENT_TYPE,
+                eventTypeMapper(eventType)
+            );
         } catch (error) {
             context.commit(
                 SET_ERROR_NOTIFICATION,
@@ -65,6 +68,28 @@ export default {
             await eventTypeService.deleteEventType(id);
 
             return Promise.resolve();
+        } catch (error) {
+            context.commit(
+                SET_ERROR_NOTIFICATION,
+                error?.response?.data?.message || error.message
+            );
+        }
+    },
+
+    [actions.SET_EVENT_TYPE]: async (context, data) => {
+        try {
+            context.commit(mutations.SET_EVENT_TYPE, data);
+        } catch (error) {
+            context.commit(
+                SET_ERROR_NOTIFICATION,
+                error?.response?.data?.message || error.message
+            );
+        }
+    },
+
+    [actions.SET_PROPERTY]: async (context, data) => {
+        try {
+            context.commit(mutations.SET_PROPERTY, data);
         } catch (error) {
             context.commit(
                 SET_ERROR_NOTIFICATION,

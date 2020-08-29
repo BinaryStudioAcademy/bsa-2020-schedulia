@@ -16,7 +16,7 @@
         </VCol>
         <VCol cols="12" md="6" sm="6">
             <div class="new-event-type-btn text-right">
-                <RouterLink :to="{ name: 'newEvent' }">
+                <RouterLink :to="{ name: 'newEventType' }">
                     <VBtn class="ma-2" outlined color="indigo">
                         {{ lang.NEW_EVENT_TYPE }}
                         <VIcon right dark>mdi-plus</VIcon>
