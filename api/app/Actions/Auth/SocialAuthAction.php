@@ -30,11 +30,6 @@ final class SocialAuthAction
     protected function findOrCreateUser($provider, $socialUser)
     {
         $socialAccount = $this->userRepository->getByAccountId($socialUser->getId());
-        $user = $this->userRepository->getByEmail($socialUser->getEmail());
-
-        if ($user) {
-            return $user;
-        }
 
         if ($socialAccount) {
             $socialAccount->update([
@@ -43,6 +38,12 @@ final class SocialAuthAction
             ]);
 
             return $socialAccount->user;
+        }
+
+        $user = $this->userRepository->getByEmail($socialUser->getEmail());
+
+        if ($user) {
+            return $user;
         }
 
         return $this->createUser($provider, $socialUser);
