@@ -41,7 +41,7 @@
                                 <VForm class="mt-9 mb-16" ref="form">
                                     <div class="mb-2">
                                         <label
-                                        >{{ lang.EVENT_NAME_LABEL }}*</label
+                                            >{{ lang.EVENT_NAME_LABEL }}*</label
                                         >
                                     </div>
                                     <VTextField
@@ -72,8 +72,8 @@
                                         >
                                             <VFlex xs2 md1>
                                                 <VIcon>{{
-                                                        data.item.icon
-                                                    }}</VIcon>
+                                                    data.item.icon
+                                                }}</VIcon>
                                             </VFlex>
                                             <VFlex>{{ data.item.title }}</VFlex>
                                         </template>
@@ -81,8 +81,8 @@
                                         <template slot="item" slot-scope="data">
                                             <VFlex xs2 md1>
                                                 <VIcon>{{
-                                                        data.item.icon
-                                                    }}</VIcon>
+                                                    data.item.icon
+                                                }}</VIcon>
                                             </VFlex>
                                             <VFlex>{{ data.item.title }}</VFlex>
                                         </template>
@@ -105,7 +105,7 @@
 
                                     <div class="mb-2">
                                         <label
-                                        >{{ lang.EVENT_LINK_LABEL }}*</label
+                                            >{{ lang.EVENT_LINK_LABEL }}*</label
                                         >
                                     </div>
 
@@ -168,14 +168,14 @@
                                                 @click.stop="
                                                     cancelDialog = true
                                                 "
-                                            >{{ lang.CANCEL }}</VBtn
+                                                >{{ lang.CANCEL }}</VBtn
                                             >
                                             <VBtn
                                                 @click="saveEventType"
                                                 color="primary"
                                                 class="white--text"
                                                 width="114"
-                                            >{{ lang.SAVE_AND_CLOSE }}</VBtn
+                                                >{{ lang.SAVE_AND_CLOSE }}</VBtn
                                             >
                                         </div>
                                     </VRow>
