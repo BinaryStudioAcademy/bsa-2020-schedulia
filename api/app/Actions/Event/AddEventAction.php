@@ -8,6 +8,7 @@ use App\Entity\Event;
 use App\Events\EventCreated;
 use App\Exceptions\Availability\TimeIsAlreadyBookedException;
 use App\Exceptions\Availability\WrongDateTimeException;
+use App\Repositories\ElasticSearch\ElasticSearchRepository;
 use App\Repositories\Event\EventRepository;
 use App\Repositories\Event\EventRepositoryInterface;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
@@ -18,15 +19,18 @@ final class AddEventAction
     private EventRepositoryInterface $eventRepository;
     private EventTypeRepositoryInterface $eventTypeRepository;
     private AvailabilityService $availabilityService;
+    private ElasticSearchRepository $elasticSearchRepository;
 
     public function __construct(
         EventRepository $eventRepository,
         EventTypeRepositoryInterface $eventTypeRepository,
-        AvailabilityService $availabilityService
+        AvailabilityService $availabilityService,
+        ElasticSearchRepository $elasticSearchRepository
     ) {
         $this->eventRepository = $eventRepository;
         $this->eventTypeRepository = $eventTypeRepository;
         $this->availabilityService = $availabilityService;
+        $this->elasticSearchRepository = $elasticSearchRepository;
     }
 
     public function execute(AddEventRequest $request): void
@@ -41,12 +45,30 @@ final class AddEventAction
             $event->start_date = $request->getStartDate();
             $event->timezone = $request->getTimezone();
 
-            $this->eventRepository->save($event);
+            $event = $this->eventRepository->save($event);
+
+            $this->elasticSearchRepository->createIndex(
+                $this->createDataIndex($event)
+            );
+
             if ($request->getCustomFieldValues()) {
                 $this->eventRepository->saveCustomFieldValues($event, $request->getCustomFieldValues());
             }
 
             event(new EventCreated($event));
         }
+    }
+
+    private function createDataIndex(Event $event): array
+    {
+        return $data = [
+            'body' => [
+                'invitee_email' => $event->invitee_email,
+                'start_date' => $event->start_date,
+                'event_type' => $event->event_type_id,
+            ],
+            'index' => 'events',
+            'id' => $event->id,
+        ];
     }
 }
