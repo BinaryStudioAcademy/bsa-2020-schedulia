@@ -9,7 +9,7 @@ use App\Repositories\BaseRepository;
 
 final class ElasticSearchRepository extends BaseRepository implements ElasticSearchRepositoryInterface
 {
-    public function createIndex(array $data): void
+    public function index(array $data): void
     {
         \Elasticsearch::index($data);
     }

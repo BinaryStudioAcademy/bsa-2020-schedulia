@@ -47,7 +47,7 @@ final class AddEventAction
 
             $event = $this->eventRepository->save($event);
 
-            $this->elasticSearchRepository->createIndex(
+            $this->elasticSearchRepository->index(
                 $this->createDataIndex($event)
             );
 
