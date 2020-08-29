@@ -50,7 +50,6 @@ final class SocialAuthAction
 
     protected function createUser($provider, $socialUser)
     {
-
         $user = new User();
         $user->name = $socialUser->getName();
         $user->email = $socialUser->getEmail();
