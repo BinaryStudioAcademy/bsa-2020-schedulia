@@ -2,7 +2,7 @@
     <div>
         <FilterList v-if="this.scheduledEventsFilterView" />
         <BorderBottom />
-        <div v-if="scheduledEvents">
+        <div v-if="this.eventsPagination.total">
             <template v-for="scheduledEvent in scheduledEvents">
                 <Event
                     :key="scheduledEvent.id"
@@ -82,7 +82,8 @@ export default {
                 page: this.page + 1,
                 sort: this.sort,
                 direction: this.direction,
-                endDate: this.endDate
+                endDate: this.endDate,
+                eventTypes: this.$route.query.event_types
             });
 
             if (
@@ -93,16 +94,15 @@ export default {
             } else {
                 this.loadMoreActive = false;
             }
-        }
-    },
+        },
 
-    async mounted() {
-        try {
+        async setEvents() {
             await this.setScheduledEvents({
                 page: this.page,
                 sort: this.sort,
                 direction: this.direction,
-                endDate: this.endDate
+                endDate: this.endDate,
+                eventTypes: this.$route.query.event_types
             });
 
             if (
@@ -111,6 +111,16 @@ export default {
             ) {
                 this.loadMoreActive = true;
             }
+        }
+    },
+
+    watch: {
+        $route: 'setEvents'
+    },
+
+    async mounted() {
+        try {
+            await this.setEvents();
         } catch (error) {
             this.setErrorNotification(error.message);
         }

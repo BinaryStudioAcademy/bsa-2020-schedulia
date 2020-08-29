@@ -21,6 +21,7 @@ export default {
             email: null,
             name: null,
             timezone: null,
+            nickname: null,
             avatar: null,
             brandingLogo: null,
             welcomeMessage: null,

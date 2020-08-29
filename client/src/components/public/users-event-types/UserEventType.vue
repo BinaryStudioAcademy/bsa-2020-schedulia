@@ -15,7 +15,7 @@
             </VCol>
         </VRow>
         <div>
-            <p class="description">{{ eventType.description.slice(0, 100) }}</p>
+            <p class="description">{{ eventType.description }}</p>
         </div>
     </div>
 </template>
@@ -44,5 +44,10 @@ export default {
 .event-type-name,
 .description {
     word-break: break-all;
+}
+.description {
+    text-overflow: ellipsis;
+    white-space: inherit;
+    overflow: hidden;
 }
 </style>
