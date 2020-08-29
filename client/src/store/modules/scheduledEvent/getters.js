@@ -8,5 +8,8 @@ export default {
 
     [types.GET_SCHEDULED_EVENTS_PAGINATION]: state => state.eventsPagination,
 
-    [types.GET_EVENT_EMAILS_FILTER]: state => state.eventEmails
+    [types.GET_EVENT_EMAILS_FILTER]: state =>
+            Object.values(state.eventEmails).sort((a, b) => {
+                return a.id - b.id;
+            }),
 };
