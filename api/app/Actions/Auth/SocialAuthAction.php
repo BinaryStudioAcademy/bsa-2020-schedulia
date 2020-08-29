@@ -2,6 +2,7 @@
 
 namespace App\Actions\Auth;
 
+use App\Entity\SocialAccount;
 use App\Entity\User;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Hash;
@@ -29,10 +30,16 @@ final class SocialAuthAction
     protected function findOrCreateUser($provider, $socialUser)
     {
         $socialAccount = $this->userRepository->getByAccountId($socialUser->getId());
+        $user = $this->userRepository->getByEmail($socialUser->getEmail());
+
+        if ($user) {
+            return $user;
+        }
 
         if ($socialAccount) {
             $socialAccount->update([
                 'token' => $socialUser->token,
+                'refresh_token' => $socialUser->refreshToken
             ]);
 
             return $socialAccount->user;
@@ -43,6 +50,7 @@ final class SocialAuthAction
 
     protected function createUser($provider, $socialUser)
     {
+
         $user = new User();
         $user->name = $socialUser->getName();
         $user->email = $socialUser->getEmail();
@@ -55,9 +63,28 @@ final class SocialAuthAction
             'user_id' => $user->getId(),
             'account_id' => $socialUser->getId(),
             'token' => $socialUser->token,
+            'provider_id' => $this->setProviderId($provider),
+            'refresh_token' => $socialUser->refreshToken,
+            'expires_in' => $socialUser->expiresIn
 
         ]);
 
         return $user;
+    }
+
+    protected function setProviderId($provider)
+    {
+        $providerId = 0;
+
+        switch ($provider) {
+            case 'google':
+                $providerId = SocialAccount::GOOGLE_SERVICE_ID;
+                break;
+            case 'facebook':
+               $providerId = SocialAccount::FACEBOOK_SERVICE_ID;
+                break;
+        }
+
+        return $providerId;
     }
 }

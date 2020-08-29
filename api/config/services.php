@@ -34,6 +34,7 @@ return [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('GOOGLE_OAUTH_REDIRECT_URI'),
+        'calendar_redirect_uri' => env('GOOGLE_CALENDAR_OAUTH_REDIRECT_URI'),
 
         'scopes' => [
             \Google_Service_Oauth2::USERINFO_EMAIL,

@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class SocialAccount extends Model
 {
     public const GOOGLE_SERVICE_ID = 1001;
+    public const FACEBOOK_SERVICE_ID = 1002;
 
-    protected $primaryKey = 'user_id';
+    protected $primaryKey = null;
+    public $incrementing = false;
 
     protected $fillable = [
         'user_id',
