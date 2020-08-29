@@ -3,8 +3,8 @@
         <VRow no-gutters>
             <VCol class="primary-vcol" xl="6" lg="6" md="6" cols="12">
                 <div class="logo-primary-div">
-                    <RouterLink :to="{ name: 'SignIn' }">
-                        <VRow no-gutters align="center" justify="center">
+                    <VRow no-gutters align="center" justify="center">
+                        <RouterLink :to="{ name: 'SignIn' }">
                             <img
                                 :src="
                                     require('@/assets/auth/icon_circle_letter_s.svg')
@@ -12,11 +12,13 @@
                                 alt="logo of schedulia"
                                 class="logo-image"
                             />
+                        </RouterLink>
+                        <RouterLink :to="{ name: 'SignIn' }">
                             <h5 class="logo-h5 secondary--text">
                                 {{ lang.SCHEDULIA }}
                             </h5>
-                        </VRow>
-                    </RouterLink>
+                        </RouterLink>
+                    </VRow>
                 </div>
                 <VRow no-gutters justify="end">
                     <img
@@ -67,8 +69,8 @@
                         cols="11"
                     >
                         <div class="logo-secondary-div ">
-                            <RouterLink :to="{ name: 'SignIn' }">
-                                <VRow no-gutters align="center">
+                            <VRow no-gutters align="center">
+                                <RouterLink :to="{ name: 'SignIn' }">
                                     <img
                                         :src="
                                             require('@/assets/auth/icon_circle_letter_s.svg')
@@ -76,11 +78,13 @@
                                         alt="logo of schedulia"
                                         class="logo-image"
                                     />
+                                </RouterLink>
+                                <RouterLink :to="{ name: 'SignIn' }">
                                     <h5 class="logo-h5 ">
                                         {{ lang.SCHEDULIA }}
                                     </h5>
-                                </VRow>
-                            </RouterLink>
+                                </RouterLink>
+                            </VRow>
                         </div>
                         <VRow no-gutters justify="start" align="start">
                             <VCol class="place-for-form-vcol">
@@ -151,7 +155,7 @@ html {
     width: 100%;
 }
 .place-for-form-vcol {
-    margin-top: 15vh;
+    margin-top: 13vh;
 }
 .logo-secondary-div {
     margin-top: 1.7vh;
