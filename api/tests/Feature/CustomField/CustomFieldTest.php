@@ -160,7 +160,7 @@ class CustomFieldTest extends TestCase
             );
 
         $response
-            ->assertStatus(JsonResponse::HTTP_NO_CONTENT);
+            ->assertStatus(JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     private function returnEventDataByEventTypeValid(EventType $eventType)
