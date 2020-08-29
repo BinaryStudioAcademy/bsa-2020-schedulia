@@ -361,5 +361,7 @@ export default {
         'Only letter and symbols  \\|/,._ are permitted ',
     LOCALIZATION: 'en-US',
     ENABLED: 'Enabled',
-    LOAD_MORE: 'Load more'
+    LOAD_MORE: 'Load more',
+    PLEASE_WAIT_WHILE_WE_ARE_LOGGING_YOU_IN:
+        "Please wait while we're logging you in..."
 };

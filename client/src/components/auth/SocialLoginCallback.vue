@@ -1,14 +1,15 @@
 <template>
     <div>
-        <p>Please wait while we're logging you in...</p>
+        <p>{{ lang.PLEASE_WAIT_WHILE_WE_ARE_LOGGING_YOU_IN }}</p>
     </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import * as actions from '@/store/modules/auth/types/actions';
 import * as notificationActions from '@/store/modules/notification/types/actions';
 import authService from '@/services/auth/authService';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 
 export default {
     name: 'SocialLoginCallback',
@@ -21,6 +22,12 @@ export default {
         } catch (error) {
             this.setErrorNotification(error.message);
         }
+    },
+
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        })
     },
 
     methods: {

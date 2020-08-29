@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Auth;
 
 use App\Entity\SocialAccount;
 use App\Entity\User;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 final class SocialAuthAction
@@ -27,7 +30,7 @@ final class SocialAuthAction
         return new SocialAuthResponse($token);
     }
 
-    protected function findOrCreateUser($provider, $socialUser)
+    private function findOrCreateUser($provider, $socialUser)
     {
         $socialAccount = $this->userRepository->getByAccountId($socialUser->getId());
 
@@ -49,13 +52,13 @@ final class SocialAuthAction
         return $this->createUser($provider, $socialUser);
     }
 
-    protected function createUser($provider, $socialUser)
+    private function createUser($provider, $socialUser)
     {
         $user = new User();
         $user->name = $socialUser->getName();
         $user->email = $socialUser->getEmail();
         $user->email_verified_at = now();
-        $user->password = Hash::make(rand(10, 10000));
+        $user->password = Hash::make(Str::random(40));
 
         $user = $this->userRepository->save($user);
 
@@ -72,7 +75,7 @@ final class SocialAuthAction
         return $user;
     }
 
-    protected function setProviderId($provider)
+    private function setProviderId($provider)
     {
         $providerId = 0;
 

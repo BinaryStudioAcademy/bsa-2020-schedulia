@@ -1,12 +1,12 @@
 <template>
     <VRow>
         <img
-            :src="require('@/assets/images/google.png')"
+            :src="require('@/assets/images/google.svg')"
             class="social-button mr-2"
             @click="socialLogin('google')"
         />
         <img
-            :src="require('@/assets/images/facebook.png')"
+            :src="require('@/assets/images/facebook.svg')"
             class="social-button"
             @click="socialLogin('facebook')"
         />
