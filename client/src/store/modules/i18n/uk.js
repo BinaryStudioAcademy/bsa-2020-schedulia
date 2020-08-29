@@ -292,7 +292,6 @@ export default {
 
     PLEASE_WAIT_WHILE_WE_ARE_LOGGING_YOU_IN:
         'Будь ласка, зачекайте, поки ми реєструємо Вас...',
-    
     RESET: 'Скинути',
     INVITEE_EMAILS: 'Emails у запросі ',
     ALL_INVITEE_EMAILS: 'Відмітити усі Emails'
