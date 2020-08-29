@@ -70,12 +70,12 @@ const routes = [
                         component: () => import('../views/CalendarConnections')
                     },
                     {
-                        path: 'new-event',
+                        path: 'new-event-type',
                         name: 'newEventType',
                         component: () => import('../views/NewEventType')
                     },
                     {
-                        path: 'new-event-edit',
+                        path: 'new-event-type-edit',
                         name: 'newEventTypeEdit',
                         component: () => import('../views/NewEventTypeBooking')
                     },

@@ -29,6 +29,159 @@
                     </VExpansionPanelHeader>
                     <VExpansionPanelContent>
                         <VDivider class="mx-4"></VDivider>
+                        <VRow>
+                            <VCol
+                                cols="10"
+                                offset-sm="3"
+                                offset-md="3"
+                                md="6"
+                                sm="6"
+                                :class="{ 'ml-10': $vuetify.breakpoint.xs }"
+                            >
+                                <VForm class="mt-9 mb-16" ref="form">
+                                    <div class="mb-2">
+                                        <label
+                                        >{{ lang.EVENT_NAME_LABEL }}*</label
+                                        >
+                                    </div>
+                                    <VTextField
+                                        :value="name"
+                                        @input="changeName"
+                                        :rules="nameRules"
+                                        outlined
+                                        class="app-textfield"
+                                        dense
+                                    ></VTextField>
+
+                                    <div class="mb-2">
+                                        <label>{{ lang.LOCATION_LABEL }}</label>
+                                    </div>
+
+                                    <VSelect
+                                        :value="location"
+                                        :items="items"
+                                        @change="changeLocation"
+                                        outlined
+                                        placeholder="Option"
+                                        dense
+                                        class="mb-3 app-textfield"
+                                    >
+                                        <template
+                                            slot="selection"
+                                            slot-scope="data"
+                                        >
+                                            <VFlex xs2 md1>
+                                                <VIcon>{{
+                                                        data.item.icon
+                                                    }}</VIcon>
+                                            </VFlex>
+                                            <VFlex>{{ data.item.title }}</VFlex>
+                                        </template>
+
+                                        <template slot="item" slot-scope="data">
+                                            <VFlex xs2 md1>
+                                                <VIcon>{{
+                                                        data.item.icon
+                                                    }}</VIcon>
+                                            </VFlex>
+                                            <VFlex>{{ data.item.title }}</VFlex>
+                                        </template>
+                                    </VSelect>
+
+                                    <div class="mb-2">
+                                        <label>
+                                            {{ lang.DESCRIPTION_LABEL }}
+                                        </label>
+                                    </div>
+
+                                    <VTextarea
+                                        :value="description"
+                                        @change="changeDescription"
+                                        :rules="descRules"
+                                        placeholder="Placeholder"
+                                        outlined
+                                        class="mb-3 app-textfield"
+                                    ></VTextarea>
+
+                                    <div class="mb-2">
+                                        <label
+                                        >{{ lang.EVENT_LINK_LABEL }}*</label
+                                        >
+                                    </div>
+
+                                    <VTextField
+                                        :rules="eventLinkRules"
+                                        outlined
+                                        :value="slug"
+                                        @input="changeSlug"
+                                        dense
+                                        class="mb-4 app-textfield"
+                                        required
+                                    ></VTextField>
+
+                                    <div class="mb-2">
+                                        <p>{{ lang.EVENT_COLOR_LABEL }}</p>
+                                    </div>
+                                    <div class="mb-12">
+                                        <VRow>
+                                            <div class="d-flex">
+                                                <VImg
+                                                    v-for="id in colors"
+                                                    :key="id"
+                                                    :src="colorById[id].image"
+                                                    alt
+                                                    class="image-circle"
+                                                    :class="{
+                                                        'mr-5':
+                                                            $vuetify.breakpoint
+                                                                .xs,
+                                                        'mr-7 ml-3':
+                                                            $vuetify.breakpoint
+                                                                .smAndUp
+                                                    }"
+                                                    v-on:click="setColor(id)"
+                                                >
+                                                    <VOverlay
+                                                        absolute
+                                                        :value="color === id"
+                                                        class="rounded-circle"
+                                                        color="eventColor"
+                                                    >
+                                                        <img
+                                                            :src="
+                                                                require('@/assets/images/icon_check.png')
+                                                            "
+                                                            alt
+                                                        />
+                                                    </VOverlay>
+                                                </VImg>
+                                            </div>
+                                        </VRow>
+                                    </div>
+                                    <VRow>
+                                        <div>
+                                            <VBtn
+                                                text
+                                                outlined
+                                                width="114"
+                                                class="mr-3"
+                                                @click.stop="
+                                                    cancelDialog = true
+                                                "
+                                            >{{ lang.CANCEL }}</VBtn
+                                            >
+                                            <VBtn
+                                                @click="saveEventType"
+                                                color="primary"
+                                                class="white--text"
+                                                width="114"
+                                            >{{ lang.SAVE_AND_CLOSE }}</VBtn
+                                            >
+                                        </div>
+                                    </VRow>
+                                </VForm>
+                            </VCol>
+                        </VRow>
                     </VExpansionPanelContent>
                 </VExpansionPanel>
                 <VExpansionPanel>
