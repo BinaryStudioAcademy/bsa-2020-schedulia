@@ -49,6 +49,7 @@ export default {
                 sort,
                 direction,
                 eventTypes,
+                eventEmails,
                 startDate,
                 endDate
             );

@@ -83,7 +83,8 @@ export default {
                 sort: this.sort,
                 direction: this.direction,
                 endDate: this.endDate,
-                eventTypes: this.$route.query.event_types
+                eventTypes: this.$route.query.event_types,
+                eventEmails: this.$route.query.event_emails
             });
 
             if (

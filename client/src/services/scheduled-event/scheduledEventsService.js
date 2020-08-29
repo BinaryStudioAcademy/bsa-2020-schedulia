@@ -8,6 +8,7 @@ const scheduledEventService = {
         sort,
         direction,
         event_types,
+        event_emails,
         start_date,
         end_date
     ) {
@@ -16,6 +17,7 @@ const scheduledEventService = {
             sort,
             direction,
             event_types,
+            event_emails,
             start_date,
             end_date
         });
