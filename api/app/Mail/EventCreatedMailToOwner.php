@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class EventCreatedMail extends Mailable
+class EventCreatedMailToOwner extends Mailable
 {
     use Queueable;
     use SerializesModels;
