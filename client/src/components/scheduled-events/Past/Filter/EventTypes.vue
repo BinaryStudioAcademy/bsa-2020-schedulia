@@ -253,7 +253,10 @@ export default {
             this.eventTypesChecked = this.eventTypes;
             this.$router.push({
                 name: 'Past',
-                query: { event_types: this.eventTypes }
+                query: {
+                    event_types: this.eventTypes,
+                    event_emails: this.$route.query.event_emails
+                }
             });
             this.closeMenu();
         },
