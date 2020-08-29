@@ -15,7 +15,8 @@ export const userMapper = user => ({
     id: user.id,
     email: user.email,
     name: user.name,
-    timezone: user.timezone
+    timezone: user.timezone,
+    nickname: user.nickname
 });
 
 export const availabilityMapper = availability => ({
@@ -27,7 +28,9 @@ export const availabilityMapper = availability => ({
 export const availabilityApiMapper = availability => ({
     type: availability.type,
     start_date: availability.startDate,
-    end_date: availability.endDate
+    end_date: availability.endDate,
+    start_time: availability?.startTime,
+    end_time: availability?.endTime
 });
 
 export const eventTypeFormMapper = eventTypeForm => ({

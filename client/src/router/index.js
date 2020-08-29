@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import qs from 'qs';
 
 import UserDataProvider from '@/components/guard/UserDataProvider';
 import LoginGuard from '@/components/guard/LoginGuard';
@@ -81,13 +82,13 @@ const routes = [
                         component: () => import('../views/CalendarConnections')
                     },
                     {
-                        path: 'new-event',
-                        name: 'newEvent',
+                        path: 'new-event-type',
+                        name: 'newEventType',
                         component: () => import('../views/NewEventType')
                     },
                     {
-                        path: 'new-event-edit',
-                        name: 'newEventEdit',
+                        path: 'new-event-type-edit',
+                        name: 'newEventTypeEdit',
                         component: () => import('../views/NewEventTypeBooking')
                     },
                     {
@@ -143,7 +144,15 @@ const routes = [
 const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
-    routes
+    routes,
+    parseQuery(query) {
+        return qs.parse(query);
+    },
+    stringifyQuery(query) {
+        let result = qs.stringify(query, { encode: false });
+
+        return result ? '?' + result : '';
+    }
 });
 
 export default router;

@@ -8,7 +8,7 @@
                 :name="eventType.owner.name"
                 :eventName="eventType.name"
                 :duration="eventType.duration"
-                :location="eventType.location"
+                :location="'Vyacheslav Chornovol Avenue, 59, Lviv'"
                 :description="eventType.description"
                 :lang="lang"
             />

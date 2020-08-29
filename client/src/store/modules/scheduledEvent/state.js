@@ -2,9 +2,9 @@ export default {
     scheduledEventsFilterView: false,
     scheduledEvents: {},
     eventsPagination: {
-        currentPage: 1,
-        lastPage: 1,
-        perPage: 1,
+        currentPage: 0,
+        lastPage: 0,
+        perPage: 0,
         total: 0
     }
 };

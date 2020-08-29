@@ -16,6 +16,7 @@ final class EventTypeRepository extends BaseRepository implements EventTypeRepos
     public const DEFAULT_PER_PAGE = 4;
     public const DEFAULT_SORTING = 'created_at';
     public const DEFAULT_DIRECTION = 'ASC';
+    public const DEFAULT_ALL = false;
 
     public function getById(int $id): ?EventType
     {
@@ -78,9 +79,14 @@ final class EventTypeRepository extends BaseRepository implements EventTypeRepos
         int $page = self::DEFAULT_PAGE,
         int $perPage = self::DEFAULT_PER_PAGE,
         string $sorting = self::DEFAULT_SORTING,
-        string $direction = self::DEFAULT_DIRECTION
+        string $direction = self::DEFAULT_DIRECTION,
+        bool $all = self::DEFAULT_ALL
     ): LengthAwarePaginator {
         $query = EventType::query();
+
+        if ($all) {
+            $perPage = $query->count();
+        }
 
         foreach ($criteria as $criterion) {
             $query = $criterion->apply($query);

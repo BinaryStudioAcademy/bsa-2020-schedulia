@@ -10,28 +10,39 @@
             <Status />
         </VCol>
         <VCol>
-            <TrackingId />
-        </VCol>
-        <VCol>
-            <EnviteeEmails />
+            <InviteeEmails />
         </VCol>
         <VCol class="text-right" align-self="center">
-            <VBtn class="reset-button" outlined>
-                Reset
+            <VBtn :to="{ name: 'Past' }" class="reset-button" outlined>
+                {{ lang.RESET }}
             </VBtn>
         </VCol>
     </VRow>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Teams from './Teams';
 import EventTypes from './EventTypes';
 import Status from './Status';
-import TrackingId from './TrackingId';
-import EnviteeEmails from './EnviteeEmails';
+import InviteeEmails from './InviteeEmails';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+
 export default {
     name: 'FilterList',
-    components: { EnviteeEmails, TrackingId, Status, EventTypes, Teams }
+
+    components: {
+        InviteeEmails,
+        Status,
+        EventTypes,
+        Teams
+    },
+
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        })
+    }
 };
 </script>
 

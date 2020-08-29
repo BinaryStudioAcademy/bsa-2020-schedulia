@@ -28,7 +28,7 @@ export default {
     },
 
     [mutations.SET_EVENT_TYPE]: (state, eventType) => {
-        state.eventType = eventTypeMapper(eventType);
+        _.assign(state.eventType, _.pick(eventType, _.keys(state.eventType)));
     },
 
     [mutations.DELETE_EVENT_TYPE]: (state, id) => {
@@ -37,14 +37,7 @@ export default {
         state.eventTypes = eventTypes;
     },
 
-    [mutations.SET_EVENT_TYPE_FORM]: (state, data) => {
-        _.assign(
-            state.eventTypeForm,
-            _.pick(data, _.keys(state.eventTypeForm))
-        );
-    },
-
-    [mutations.SET_EVENT_TYPE_FORM_COLUMN_DISABLE]: (state, data) => {
-        state.eventTypeForm.disabled = data;
+    [mutations.SET_PROPERTY]: (state, { property, value }) => {
+        state[property] = value;
     }
 };
