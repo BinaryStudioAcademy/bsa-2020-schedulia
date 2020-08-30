@@ -24,19 +24,4 @@ final class ElasticsearchEventAggregateRepository extends BaseRepository impleme
 
         return $eventAggregate;
     }
-
-    public function update(array $data): void
-    {
-        \Elasticsearch::update($data);
-    }
-
-    public function delete(array $data): void
-    {
-        \Elasticsearch::delete($data);
-    }
-
-    public function search(array $data): object
-    {
-        return \Elasticsearch::search($data);
-    }
 }
