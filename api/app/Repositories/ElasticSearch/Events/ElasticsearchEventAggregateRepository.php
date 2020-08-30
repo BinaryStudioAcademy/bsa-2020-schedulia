@@ -7,11 +7,11 @@ namespace App\Repositories\ElasticSearch\Events;
 use App\Aggregates\Events\EventAggregate;
 use App\Repositories\BaseRepository;
 
-final class ElasticsearchEventAggregateRepository extends BaseRepository implements EventAggregateRepository
+final class ElasticsearchEventAggregateRepository extends BaseRepository implements EventAggregateRepositoryInterface
 {
-    const INDEX_NAME = 'events-index';
+    const INDEX_NAME = 'events';
 
-    public function index(EventAggregate $eventAggregate): void
+    public function save(EventAggregate $eventAggregate): EventAggregate
     {
         $data = [
             'index' => self::INDEX_NAME,
@@ -21,6 +21,8 @@ final class ElasticsearchEventAggregateRepository extends BaseRepository impleme
         ];
 
         \Elasticsearch::index($data);
+
+        return $eventAggregate;
     }
 
     public function update(array $data): void

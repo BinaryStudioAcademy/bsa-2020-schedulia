@@ -4,14 +4,14 @@ namespace App\Listeners;
 
 use App\Aggregates\Events\EventAggregate;
 use App\Events\EventCreated;
-use App\Repositories\ElasticSearch\Events\ElasticsearchEventAggregateRepository;
+use App\Repositories\ElasticSearch\Events\EventAggregateRepositoryInterface;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class AddEventToElasticSearch implements ShouldQueue
 {
-    private ElasticsearchEventAggregateRepository $elasticsearchEventAggregateRepository;
+    private EventAggregateRepositoryInterface $elasticsearchEventAggregateRepository;
 
-    public function __construct(ElasticsearchEventAggregateRepository $elasticsearchEventAggregateRepository)
+    public function __construct(EventAggregateRepositoryInterface $elasticsearchEventAggregateRepository)
     {
         $this->elasticsearchEventAggregateRepository = $elasticsearchEventAggregateRepository;
     }
@@ -20,6 +20,6 @@ class AddEventToElasticSearch implements ShouldQueue
     {
         $eventAggregate = new EventAggregate($eventCreated->getEvent());
 
-        $this->elasticsearchEventAggregateRepository->index($eventAggregate);
+        $this->elasticsearchEventAggregateRepository->save($eventAggregate);
     }
 }

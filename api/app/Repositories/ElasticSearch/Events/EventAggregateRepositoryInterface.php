@@ -4,9 +4,9 @@ namespace App\Repositories\ElasticSearch\Events;
 
 use App\Aggregates\Events\EventAggregate;
 
-interface EventAggregateRepository
+interface EventAggregateRepositoryInterface
 {
-    public function index(EventAggregate $eventAggregate): void;
+    public function save(EventAggregate $eventAggregate): EventAggregate;
     public function search(array $data): Object;
     public function update(array $data): void;
     public function delete(array $data): void;
