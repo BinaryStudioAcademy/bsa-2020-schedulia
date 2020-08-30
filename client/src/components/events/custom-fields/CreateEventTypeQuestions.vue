@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import AddNewFieldDialog from '@/components/events/questions/AddNewFieldDialog';
-import EditFieldDialog from '@/components/events/questions/EditFieldDialog';
+import AddNewFieldDialog from '@/components/events/custom-fields/AddNewFieldDialog';
+import EditFieldDialog from '@/components/events/custom-fields/EditFieldDialog';
 import { mapGetters, mapActions } from 'vuex';
 import * as getters from '@/store/modules/eventTypes/types/getters';
 import * as actions from '@/store/modules/eventTypes/types/actions';

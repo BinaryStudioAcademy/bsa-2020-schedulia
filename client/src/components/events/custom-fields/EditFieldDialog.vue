@@ -53,7 +53,7 @@ import * as actions from '@/store/modules/eventTypes/types/actions';
 import { mapGetters, mapActions } from 'vuex';
 import { required, minLength } from 'vuelidate/lib/validators';
 import { validationMixin } from 'vuelidate';
-import questionsMixin from '@/components/events/questions/questionsMixin';
+import questionsMixin from '@/components/events/custom-fields/questionsMixin';
 export default {
     name: 'EditFieldDialog',
     validations: {
