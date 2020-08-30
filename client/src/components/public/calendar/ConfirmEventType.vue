@@ -68,7 +68,14 @@
                             height="100"
                         ></VTextarea>
                     </VCol>
-                    <VCol cols="12" sm="12" md="10" class="pa-0" v-for="(field, id) in fields" :key="id">
+                    <VCol
+                        cols="12"
+                        sm="12"
+                        md="10"
+                        class="pa-0"
+                        v-for="(field, id) in fields"
+                        :key="id"
+                    >
                         <span class="subtitle-2">{{ field.name }}</span>
                         <VTextField
                             v-if="field.type === 'line'"
@@ -253,7 +260,9 @@ export default {
             this.$v.$touch();
             if (!this.$v.$invalid) {
                 try {
-                    const customFieldValues = Object.values(this.customFieldValues).filter(field => {
+                    const customFieldValues = Object.values(
+                        this.customFieldValues
+                    ).filter(field => {
                         return field.value;
                     });
                     await this.addPublicEvent({
