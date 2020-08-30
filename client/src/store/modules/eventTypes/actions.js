@@ -104,10 +104,15 @@ export default {
             });
         }
     },
-    [actions.FETCH_CUSTOM_FIELDS_BY_EVENT_ID]: async ({ commit, dispatch }) => {
+    [actions.FETCH_CUSTOM_FIELDS_BY_EVENT_ID]: async (
+        { commit, dispatch },
+        eventTypeId
+    ) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
         try {
-            const customFields = await eventTypesService.fetchCustomFieldsByEventTypeId();
+            const customFields = await eventTypesService.fetchCustomFieldsByEventTypeId(
+                eventTypeId
+            );
             commit(mutations.SET_CUSTOM_FIELDS, customFields);
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true

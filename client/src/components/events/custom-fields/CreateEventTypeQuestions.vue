@@ -77,7 +77,6 @@ export default {
     },
     methods: {
         ...mapActions('eventTypes', {
-            fetchCustomFields: actions.FETCH_CUSTOM_FIELDS_BY_EVENT_ID,
             saveCustomFields: actions.SAVE_CUSTOM_FIELDS
         }),
         async onSaveCustomFields() {
@@ -87,9 +86,6 @@ export default {
             });
             this.$router.push({ name: 'EventTypes' });
         }
-    },
-    async mounted() {
-        await this.fetchCustomFields();
     }
 };
 </script>

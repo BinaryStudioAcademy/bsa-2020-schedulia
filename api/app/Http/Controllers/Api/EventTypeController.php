@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Actions\CustomField\AddCustomFieldsToEventTypeAction;
 use App\Actions\CustomField\AddCustomFieldsToEventTypeRequest;
+use App\Actions\CustomField\GetCustomFieldCollectionByEventTypeIdAction;
+use App\Actions\CustomField\GetCustomFieldCollectionByEventTypeIdRequest;
 use App\Actions\CustomField\UpdateCustomFieldsToEventTypeAction;
 use App\Actions\CustomField\UpdateCustomFieldsToEventTypeRequest;
 use App\Actions\EventType\AddEventTypeAction;
@@ -177,5 +179,16 @@ class EventTypeController extends ApiController
         );
 
         return $this->emptyResponse();
+    }
+
+    public function getCustomFieldsById(
+        string $id,
+        GetCustomFieldCollectionByEventTypeIdAction $action
+    ): JsonResponse {
+        $customFields = $action->execute(
+            new GetCustomFieldCollectionByEventTypeIdRequest((int)$id)
+        );
+
+        return $this->successResponse($customFields->getCustomFields());
     }
 }
