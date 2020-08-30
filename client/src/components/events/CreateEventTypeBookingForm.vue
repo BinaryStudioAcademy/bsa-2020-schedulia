@@ -262,8 +262,8 @@ export default {
                     this.prepareData();
                     const response = await this.addEventType(this.data);
                     this.$router.push({
-                        path:
-                            'new-event-type-options?eventTypeId=' + response.id
+                        path: 'new-event-type-options',
+                        props: { eventTypeId: response.id }
                     });
                 }
             } catch (error) {
