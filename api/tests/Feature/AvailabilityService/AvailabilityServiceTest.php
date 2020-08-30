@@ -13,6 +13,8 @@ use App\Entity\User;
 use App\Exceptions\ErrorCode;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\JsonResponse;
+use App\Events\EventCreated;
+use Illuminate\Support\Facades\Event as EventFaker;
 use Tests\TestCase;
 
 class AvailabilityServiceTest extends TestCase
@@ -352,6 +354,8 @@ class AvailabilityServiceTest extends TestCase
 
     public function test_add_event_unbooked_time()
     {
+        EventFaker::fake([EventCreated::class]);
+
         $user = factory(User::class)->create();
         $eventType = new EventType([
             'owner_id' => $user->id,

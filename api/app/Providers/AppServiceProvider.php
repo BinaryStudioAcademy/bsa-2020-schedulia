@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Contracts\AvailabilityServiceInterface;
 use App\Repositories\Availability\AvailabilityRepository;
 use App\Repositories\Availability\AvailabilityRepositoryInterface;
+use App\Repositories\ElasticSearch\Events\ElasticsearchEventAggregateRepository;
+use App\Repositories\ElasticSearch\Events\EventAggregateRepositoryInterface;
 use App\Repositories\EventType\EventTypeRepository;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
 use App\Repositories\SocialAccount\SocialAccountRepository;
@@ -24,7 +26,8 @@ class AppServiceProvider extends ServiceProvider
         AvailabilityServiceInterface::class => AvailabilityService::class,
         AvailabilityRepositoryInterface::class => AvailabilityRepository::class,
         UserRepositoryInterface::class => UserRepository::class,
-        SocialAccountRepositoryInterface::class => SocialAccountRepository::class
+        SocialAccountRepositoryInterface::class => SocialAccountRepository::class,
+        EventAggregateRepositoryInterface::class => ElasticsearchEventAggregateRepository::class
     ];
 
     /**

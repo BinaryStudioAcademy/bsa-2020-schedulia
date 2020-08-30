@@ -367,6 +367,8 @@ export default {
     LOCALIZATION: 'en-US',
     ENABLED: 'Enabled',
     LOAD_MORE: 'Load more',
+    PLEASE_WAIT_WHILE_WE_ARE_LOGGING_YOU_IN:
+        "Please wait while we're logging you in...",
     ADD_ONE_ON_ONE_EVENT_TYPE: 'Add One-on-One Event Type',
     RESET: 'Reset',
     INVITEE_EMAILS: 'Invitee Emails',
@@ -374,5 +376,10 @@ export default {
     STATUS: 'Status',
     ACTIVE_EVENTS: 'Active Events',
     ALL_EVENTS: 'All Events',
-    CANCELED_EVENTS: 'Canceled Events'
+    CANCELED_EVENTS: 'Canceled Events',
+    WELCOME_TO_MY_SCHEDULING_PAGE: 'Welcome to my scheduling page.',
+    PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT:
+        'Please follow the instructions to add an event to my\n' +
+        '                        calendar.',
+    NO_OPENINGS_AT_THE_MOMENT: 'No openings at the moment.'
 };

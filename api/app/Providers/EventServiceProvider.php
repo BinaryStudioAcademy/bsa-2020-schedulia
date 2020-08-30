@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\EventCreated;
+use App\Listeners\AddEventToElasticSearch;
 use App\Listeners\AddEventToGoogleCalendar;
 use App\Listeners\SendEventCreatedNotificationToInvitee;
 use App\Listeners\SendEventCreatedNotificationToOwner;
@@ -24,7 +25,8 @@ class EventServiceProvider extends ServiceProvider
         EventCreated::class => [
             SendEventCreatedNotificationToOwner::class,
             SendEventCreatedNotificationToInvitee::class,
-            AddEventToGoogleCalendar::class
+            AddEventToGoogleCalendar::class,
+            AddEventToElasticSearch::class,
         ]
     ];
 

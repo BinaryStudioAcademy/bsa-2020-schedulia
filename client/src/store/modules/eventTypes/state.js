@@ -1,4 +1,5 @@
 export default {
     eventTypes: {},
-    eventTypesByNickname: {}
+    eventTypesByNickname: {},
+    ownerByNickname: ''
 };
