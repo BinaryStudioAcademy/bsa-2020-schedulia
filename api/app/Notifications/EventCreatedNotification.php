@@ -5,7 +5,7 @@ namespace App\Notifications;
 use App\Entity\Event;
 use App\Entity\EventType;
 use App\Entity\User;
-use App\Mail\EventCreatedMail;
+use App\Mail\EventCreatedMailToOwner;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -46,7 +46,7 @@ class EventCreatedNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return new EventCreatedMail($this->event);
+        return new EventCreatedMailToOwner($this->event);
     }
 
     /**

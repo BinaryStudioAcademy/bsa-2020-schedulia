@@ -150,11 +150,16 @@ class EventTypeController extends ApiController
         string $nickname,
         GetEventTypeCollectionByNicknameAction $action
     ): JsonResponse {
-        $eventTypes = $action->execute(
+        $response = $action->execute(
             new GetEventTypeCollectionByNicknameRequest($nickname)
-        )->getEventTypes();
+        );
 
-        return $this->successResponse($this->eventTypePresenter->presentCollection($eventTypes));
+        $data = [
+            'eventTypes' => $this->eventTypePresenter->presentCollection($response->getEventTypes()),
+            'owner' => $response->getOwnerName()
+        ];
+
+        return $this->successResponse($data);
     }
 
     public function saveCustomFieldsByEventTypeId(

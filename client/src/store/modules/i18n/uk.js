@@ -301,5 +301,10 @@ export default {
     DELETE_FIELD: 'Видалити поле',
     ANSWER_TYPE: 'Тип відповіді',
     QUESTION: 'Запитання',
-    ADD_NEW_FIELD: 'Додати поле'
+    ADD_NEW_FIELD: 'Додати поле',
+    WELCOME_TO_MY_SCHEDULING_PAGE:
+        'Ласкаво просимо на мою сторінку планування.',
+    PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT:
+        'Будь ласка, дотримуйтесь інструкцій, щоб додати подію до мого календаря.',
+    NO_OPENINGS_AT_THE_MOMENT: 'Жодної доступної події на даний момент'
 };
