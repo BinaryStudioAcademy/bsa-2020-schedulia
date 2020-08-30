@@ -80,6 +80,12 @@ const routes = [
                         component: () => import('../views/NewEventTypeBooking')
                     },
                     {
+                        path: 'new-event-type-options',
+                        name: 'newEventTypeAdditionalOptions',
+                        component: () =>
+                            import('../views/NewEventTypeAdditionalOptions')
+                    },
+                    {
                         path: 'scheduled-events',
                         name: 'ScheduledEvents',
                         component: () => import('../views/ScheduledEvents'),
