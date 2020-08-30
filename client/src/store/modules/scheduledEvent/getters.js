@@ -10,6 +10,6 @@ export default {
 
     [types.GET_EVENT_EMAILS_FILTER]: state =>
             Object.values(state.eventEmails).sort((a, b) => {
-                return a.id - b.id;
+                return a.name - b.name;
             }),
 };

@@ -41,7 +41,7 @@ export default {
             ...eventEmails.reduce(
                     (prev, eventEmail) => ({
                         ...prev,
-                        [uuidv4()]: eventEmailMapper(eventEmail)
+                        [eventEmail.email]: eventEmailMapper(eventEmail)
                     }),
                     {}
             )
