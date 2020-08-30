@@ -291,5 +291,6 @@ export default {
     LOAD_MORE: 'Завантажити ще',
     RESET: 'Скинути',
     INVITEE_EMAILS: 'Emails у запросі ',
-    ALL_INVITEE_EMAILS: 'Відмітити усі Emails'
+    ALL_INVITEE_EMAILS: 'Відмітити усі Emails',
+    PICK_NEEDED_LOCATION: 'Виберіть потрібну локацію'
 };

@@ -34,6 +34,7 @@ export const availabilityApiMapper = availability => ({
 export const eventTypeFormMapper = eventTypeForm => ({
     name: eventTypeForm.name,
     location: eventTypeForm.location,
+    locationType: eventTypeForm.locationType,
     description: eventTypeForm.description,
     slug: eventTypeForm.slug,
     color: eventTypeForm.color,

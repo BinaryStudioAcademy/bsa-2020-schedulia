@@ -46,5 +46,13 @@ export default {
 
     [mutations.SET_EVENT_TYPE_FORM_COLUMN_DISABLE]: (state, data) => {
         state.eventTypeForm.disabled = data;
+    },
+
+    [mutations.SET_EVENT_TYPE_FORM_LOCATION_TYPE]: (state, data) => {
+        state.eventTypeForm.locationType = data;
+    },
+
+    [mutations.SET_EVENT_TYPE_FORM_LOCATION]: (state, data) => {
+        state.eventTypeForm.location = data;
     }
 };

@@ -11,6 +11,7 @@
     "d-lint": "docker-compose run --rm node npm run lint"
   },
   "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^4.7.0",
     "@sentry/browser": "^5.20.1",
     "@sentry/integrations": "^5.20.1",
     "axios": "^0.19.2",
@@ -19,6 +20,7 @@
     "mapbox-gl": "^1.12.0",
     "moment": "^2.27.0",
     "moment-timezone": "^0.5.31",
+    "places.js": "^1.19.0",
     "pusher-js": "^7.0.0",
     "uuid": "^8.3.0",
     "vue": "^2.6.11",

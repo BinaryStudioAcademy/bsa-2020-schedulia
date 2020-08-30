@@ -6,7 +6,8 @@ export default {
     eventType: {},
     eventTypeForm: {
         name: '',
-        location: '',
+        location: [],
+        locationType: '',
         description: '',
         slug: '',
         color: '',
