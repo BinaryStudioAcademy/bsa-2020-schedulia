@@ -76,7 +76,8 @@ class EventController extends ApiController
         $response = $this->getEventsEmailsAction->execute(
             new GetEventsEmailsRequest(
                 $request->query('start_date'),
-                $request->query('end_date')
+                $request->query('end_date'),
+                $request->query('searchString')
             )
         );
 
