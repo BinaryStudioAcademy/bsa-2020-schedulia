@@ -104,9 +104,7 @@ export default {
             });
         }
     },
-    [actions.FETCH_CUSTOM_FIELDS_BY_EVENT_ID]: async (
-        { commit, dispatch }
-    ) => {
+    [actions.FETCH_CUSTOM_FIELDS_BY_EVENT_ID]: async ({ commit, dispatch }) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
         try {
             const customFields = await eventTypesService.fetchCustomFieldsByEventTypeId();
@@ -135,12 +133,12 @@ export default {
     ) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
         try {
-            await eventTypesService.saveCustomFieldsByEventTypeId(
-                id,
-                {
+            await eventTypesService.saveCustomFieldsByEventTypeId(id, {
                 custom_fields: Object.values(custom_fields)
             });
-            commit('loader/' + loaderMutations.SET_LOADING, false, { root: true });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true

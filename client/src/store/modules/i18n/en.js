@@ -370,5 +370,17 @@ export default {
     ADD_ONE_ON_ONE_EVENT_TYPE: 'Add One-on-One Event Type',
     RESET: 'Reset',
     INVITEE_EMAILS: 'Invitee Emails',
-    ALL_INVITEE_EMAILS: 'All Invitee Emails'
+    ALL_INVITEE_EMAILS: 'All Invitee Emails',
+    ADDITIONAL_OPTIONS: 'Additional options',
+    QUESTIONS_TO_INVITEE: 'Questions to Invitee',
+    NOW_YOU_CAN_ADD_CUSTOM_FIELDS:
+        'Now you can add some custom fields with\n' +
+        '                                questions or something like that for your\n' +
+        '                                invitees',
+    PLEASE_SHARE_ANYTHING:
+        'Please share anything that will help prepare for our meeting',
+    DELETE_FIELD: 'Delete field',
+    ANSWER_TYPE: 'Answer type',
+    QUESTION: 'Question',
+    ADD_NEW_FIELD: 'Add new field'
 };

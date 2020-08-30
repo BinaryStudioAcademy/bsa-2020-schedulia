@@ -1,16 +1,14 @@
 <template>
     <div>
         <div>
-            <span class="subtitle-2">
-                Please share anything that will help prepare for our meeting
-            </span>
+            <span class="subtitle-2"> </span>
             <VCol cols="12" md="6">
                 <VTextarea
                     solo
                     outlined
                     readonly
                     no-resize
-                    label="Additional information"
+                    :label="lang.ADDITIONAL_OPTIONS"
                 ></VTextarea>
             </VCol>
             <VCol
@@ -18,10 +16,8 @@
                 md="6"
                 v-for="field in fields"
                 :key="field.id"
-                style="background: lightgray;border-radius: 10px;"
                 class="mb-3 custom-field"
                 :class="'custom-field-' + field.id"
-                @click="onEditClick(field.id)"
             >
                 <span class="subtitle-2">{{ field.name }}</span>
                 <VTextField
@@ -49,7 +45,7 @@
                 class="white--text"
                 @click="onSaveCustomFields"
             >
-                Save & Close
+                {{ lang.SAVE_AND_CLOSE }}
             </VBtn>
         </div>
     </div>
@@ -61,12 +57,14 @@ import EditFieldDialog from '@/components/events/custom-fields/EditFieldDialog';
 import { mapGetters, mapActions } from 'vuex';
 import * as getters from '@/store/modules/eventTypes/types/getters';
 import * as actions from '@/store/modules/eventTypes/types/actions';
+import customFieldMixin from '@/components/events/custom-fields/customFieldMixin';
 export default {
     name: 'CreateEventTypeQuestions',
     components: {
         AddNewFieldDialog,
         EditFieldDialog
     },
+    mixins: [customFieldMixin],
     computed: {
         ...mapGetters('eventTypes', {
             fields: getters.GET_CUSTOM_FIELDS
@@ -102,5 +100,7 @@ export default {
 }
 .custom-field {
     cursor: pointer;
+    background: #e5e5e5;
+    border-radius: 10px;
 }
 </style>

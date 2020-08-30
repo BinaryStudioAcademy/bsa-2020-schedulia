@@ -70,11 +70,7 @@
                     </VExpansionPanel>
                     <div class="mt-7 mb-5">
                         <p>
-                            <b
-                                >Now you can add some custom fields with
-                                questions or something like that for your
-                                invitees</b
-                            >
+                            <b>{{ lang.NOW_YOU_CAN_ADD_CUSTOM_FIELDS }}</b>
                         </p>
                     </div>
                     <VExpansionPanel @change="panel = 2">
@@ -98,10 +94,10 @@
                                 <VCol cols="10" class="pl-lg-5 pl-sm-10">
                                     <div>
                                         <VCardTitle>
-                                            Additional options
+                                            {{ lang.ADDITIONAL_OPTIONS }}
                                         </VCardTitle>
                                         <VCardSubtitle>
-                                            Questions to Invitee
+                                            {{ lang.QUESTIONS_TO_INVITEE }}
                                         </VCardSubtitle>
                                     </div>
                                 </VCol>
@@ -119,7 +115,9 @@
                                     lg="7"
                                     :class="{ 'ml-10': $vuetify.breakpoint.xs }"
                                 >
-                                    <CreateEventTypeQuestions :eventTypeId="$route.query.eventTypeId"/>
+                                    <CreateEventTypeQuestions
+                                        :eventTypeId="$route.query.eventTypeId"
+                                    />
                                 </VCol>
                             </VRow>
                         </VExpansionPanelContent>
@@ -152,13 +150,11 @@ export default {
         CreateEventTypeForm,
         CreateEventTypeQuestions
     },
-
     data() {
         return {
             colorById: ''
         };
     },
-
     computed: {
         duration() {
             return (

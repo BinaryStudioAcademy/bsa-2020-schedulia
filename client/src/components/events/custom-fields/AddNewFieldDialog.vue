@@ -13,10 +13,10 @@
         </template>
         <VCard>
             <VCardTitle>
-                <span class="headline">Add new field</span>
+                <span class="headline">{{ lang.ADD_NEW_FIELD }}</span>
             </VCardTitle>
             <VCardText>
-                <span class="subtitle-2">Question</span>
+                <span class="subtitle-2">{{ lang.QUESTION }}</span>
                 <VTextarea
                     id="name"
                     v-model="name"
@@ -27,21 +27,23 @@
                     no-resize
                     :error-messages="nameErrors"
                 ></VTextarea>
-                <span class="subtitle-2">Answer type</span>
+                <span class="subtitle-2">{{ lang.ANSWER_TYPE }}</span>
                 <VSelect
                     id="type"
                     :items="types"
                     solo
-                    label="Answer Type"
+                    :label="lang.ANSWER_TYPE"
                     :value="type"
                 ></VSelect>
             </VCardText>
             <VCardActions>
                 <VSpacer></VSpacer>
-                <VBtn color="blue darken-1" text @click="dialog = false"
-                    >Close</VBtn
-                >
-                <VBtn color="blue darken-1" text @click="onSave">Save</VBtn>
+                <VBtn color="blue darken-1" text @click="dialog = false">{{
+                    lang.CLOSE
+                }}</VBtn>
+                <VBtn color="blue darken-1" text @click="onSave">{{
+                    lang.SAVE
+                }}</VBtn>
             </VCardActions>
         </VCard>
     </VDialog>
@@ -92,12 +94,8 @@ export default {
             if (!this.$v.name.$dirty) {
                 return errors;
             }
-            !this.$v.name.required &&
-                errors.push('Name is required');
-            !this.$v.name.minLength &&
-                errors.push(
-                    'Name must be more than 5'
-                );
+            !this.$v.name.required && errors.push('Name is required');
+            !this.$v.name.minLength && errors.push('Name must be more than 5');
             return errors;
         }
     }

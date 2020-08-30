@@ -261,7 +261,10 @@ export default {
                 if (this.$refs.form.validate()) {
                     this.prepareData();
                     const response = await this.addEventType(this.data);
-                    this.$router.push({ path: 'new-event-type-options?eventTypeId=' + response.id });
+                    this.$router.push({
+                        path:
+                            'new-event-type-options?eventTypeId=' + response.id
+                    });
                 }
             } catch (error) {
                 this.showErrorMessage(error.message);

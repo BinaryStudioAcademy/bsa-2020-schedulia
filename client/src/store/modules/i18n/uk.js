@@ -291,5 +291,15 @@ export default {
     LOAD_MORE: 'Завантажити ще',
     RESET: 'Скинути',
     INVITEE_EMAILS: 'Emails у запросі ',
-    ALL_INVITEE_EMAILS: 'Відмітити усі Emails'
+    ALL_INVITEE_EMAILS: 'Відмітити усі Emails',
+    ADDITIONAL_OPTIONS: 'Додаткові опції',
+    QUESTIONS_TO_INVITEE: 'Запитання для запрошеного',
+    NOW_YOU_CAN_ADD_CUSTOM_FIELDS:
+        'Тепер ви можете додати кілька спеціальних полів із запитаннями або щось подібне для своїх запрошених',
+    PLEASE_SHARE_ANYTHING:
+        'Будь ласка, поділіться будь-що, що допоможе підготуватися до нашої зустрічі',
+    DELETE_FIELD: 'Видалити поле',
+    ANSWER_TYPE: 'Тип відповіді',
+    QUESTION: 'Запитання',
+    ADD_NEW_FIELD: 'Додати поле'
 };

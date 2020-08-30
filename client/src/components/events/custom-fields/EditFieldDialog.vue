@@ -8,11 +8,11 @@
         <VCard>
             <VCardTitle>
                 <span class="headline"
-                    >Edit <u>{{ customField.name }}</u></span
+                    >{{ lang.EDIT }} <u>{{ customField.name }}</u></span
                 >
             </VCardTitle>
             <VCardText>
-                <span class="subtitle-2">Question</span>
+                <span class="subtitle-2">{{ lang.QUESTION }}</span>
                 <VTextarea
                     id="name"
                     v-model="customFieldName"
@@ -23,25 +23,30 @@
                     no-resize
                     :error-messages="nameErrors"
                 ></VTextarea>
-                <span class="subtitle-2">Answer type</span>
+                <span class="subtitle-2">{{ lang.ANSWER_TYPE }}</span>
                 <VSelect
                     id="type"
                     :items="types"
                     solo
-                    label="Answer Type"
+                    :label="lang.ANSWER_TYPE"
                     :value="customFieldType"
                 ></VSelect>
                 <VBtn color="red" outlined @click="onDelete">
                     <VIcon left>mdi-delete</VIcon>
-                    Delete field
+                    {{ lang.DELETE_FIELD }}
                 </VBtn>
             </VCardText>
             <VCardActions>
                 <VSpacer></VSpacer>
-                <VBtn color="blue darken-1" text @click="dialogVisible = false"
-                    >Close</VBtn
+                <VBtn
+                    color="blue darken-1"
+                    text
+                    @click="dialogVisible = false"
+                    >{{ lang.CLOSE }}</VBtn
                 >
-                <VBtn color="blue darken-1" text @click="onSave">Save</VBtn>
+                <VBtn color="blue darken-1" text @click="onSave">{{
+                    lang.SAVE
+                }}</VBtn>
             </VCardActions>
         </VCard>
     </VDialog>
