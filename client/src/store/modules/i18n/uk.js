@@ -292,7 +292,9 @@ export default {
     RESET: 'Скинути',
     INVITEE_EMAILS: 'Emails у запросі ',
     ALL_INVITEE_EMAILS: 'Відмітити усі Emails',
-    WELCOME_TO_MY_SCHEDULING_PAGE: 'Ласкаво просимо на мою сторінку планування.',
-    PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT: 'Будь ласка, дотримуйтесь інструкцій, щоб додати подію до мого календаря.',
+    WELCOME_TO_MY_SCHEDULING_PAGE:
+        'Ласкаво просимо на мою сторінку планування.',
+    PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT:
+        'Будь ласка, дотримуйтесь інструкцій, щоб додати подію до мого календаря.',
     NO_OPENINGS_AT_THE_MOMENT: 'Жодного отвору на данный момент'
 };

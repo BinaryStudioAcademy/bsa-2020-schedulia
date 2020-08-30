@@ -6,9 +6,11 @@
                     ><b>{{ ownerName }}</b></span
                 ><br /><br />
                 <div v-if="Object.values(eventTypes).length">
-                    <span>{{ lang.WELCOME_TO_MY_SCHEDULING_PAGE }}</span><br />
-                    <span
-                        >{{ lang.PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT }}</span
+                    <span>{{ lang.WELCOME_TO_MY_SCHEDULING_PAGE }}</span
+                    ><br />
+                    <span>{{
+                        lang.PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT
+                    }}</span
                     ><br />
                 </div>
                 <div v-else>
