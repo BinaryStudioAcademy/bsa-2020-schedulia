@@ -23,45 +23,19 @@
                 </VBtn>
             </template>
 
-            <VCard>
+            <VCard class="status-filter">
                 <VList>
                     <VListItem>
                         <VListItemContent>
-                            <VTextField
-                                solo
-                                hide-details
-                                dense
-                                flat
-                                color="#2C2C2C"
-                                background-color="rgba(224, 224, 224, 0.3)"
-                                label="Search"
-                                clearable
-                                prepend-inner-icon="mdi-magnify"
-                            ></VTextField>
                             <VContainer fluid>
                                 <VCheckbox
                                     hide-details
-                                    label="15 Minute Meeting"
+                                    label="Active events"
                                     value=""
                                 ></VCheckbox>
                                 <VCheckbox
                                     hide-details
-                                    label="30 Minute Meeting"
-                                    value=""
-                                ></VCheckbox>
-                                <VCheckbox
-                                    hide-details
-                                    label="60 Minute Meeting"
-                                    value=""
-                                ></VCheckbox>
-                                <VCheckbox
-                                    hide-details
-                                    label="Sales Manager"
-                                    value=""
-                                ></VCheckbox>
-                                <VCheckbox
-                                    hide-details
-                                    label="Sales Manager"
+                                    label="Canceled events"
                                     value=""
                                 ></VCheckbox>
                             </VContainer>
@@ -104,3 +78,15 @@ export default {
     }
 };
 </script>
+
+<style lang="scss" scoped>
+    .status-filter {
+        .v-list-item__content::v-deep {
+            padding-top: 0;
+        }
+
+        .container.container--fluid::v-deep {
+            padding-top: 0;
+        }
+    }
+</style>
