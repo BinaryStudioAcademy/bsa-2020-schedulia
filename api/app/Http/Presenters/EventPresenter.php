@@ -25,7 +25,7 @@ final class EventPresenter implements PresenterCollectionInterface
             'id' => $event->id,
             'invitee_name' => $event->invitee_name,
             'invitee_email' => $event->invitee_email,
-            'invitee_question' => 'No questions',
+            'invitee_question' => 'No custom-fields',
             'start_date' => $event->start_date,
             'location' => $event->location,
             'timezone' => $event->timezone,
