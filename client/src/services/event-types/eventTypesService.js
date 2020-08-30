@@ -28,6 +28,15 @@ const eventTypesService = {
     },
     async createEventType(eventTypeData) {
         return await requestService.post(apiEndpoint, eventTypeData);
+    },
+    async fetchCustomFieldsByEventTypeId() {
+        return Promise.resolve([]);
+    },
+    async saveCustomFieldsByEventTypeId(eventTypeId, customFields) {
+        return await requestService.post(
+            apiEndpoint + '/' + eventTypeId + '/custom-fields',
+            customFields
+        );
     }
 };
 
