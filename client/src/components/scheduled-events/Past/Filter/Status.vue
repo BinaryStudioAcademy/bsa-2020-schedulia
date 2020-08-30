@@ -29,9 +29,7 @@
                 <VList>
                     <VListItem>
                         <VListItemContent>
-                            <VContainer fluid>
-
-                            </VContainer>
+                            <VContainer fluid> </VContainer>
                             <VContainer class="filter-button">
                                 <VBtn
                                     @click="closeMenu"
@@ -55,22 +53,22 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import { mapGetters } from 'vuex';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 
 export default {
     name: 'Status',
 
     data() {
         return {
-            menu: false,
+            menu: false
         };
     },
 
     computed: {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
-        }),
+        })
     },
 
     methods: {
@@ -82,13 +80,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .status-filter {
-        .v-list-item__content::v-deep {
-            padding-top: 0;
-        }
-
-        .container.container--fluid::v-deep {
-            padding-top: 0;
-        }
+.status-filter {
+    .v-list-item__content::v-deep {
+        padding-top: 0;
     }
+
+    .container.container--fluid::v-deep {
+        padding-top: 0;
+    }
+}
 </style>

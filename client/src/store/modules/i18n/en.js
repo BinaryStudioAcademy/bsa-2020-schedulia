@@ -375,5 +375,4 @@ export default {
     ACTIVE_EVENTS: 'Active Events',
     ALL_EVENTS: 'All Events',
     CANCELED_EVENTS: 'Canceled Events'
-
 };

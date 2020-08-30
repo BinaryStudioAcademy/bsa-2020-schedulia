@@ -9,7 +9,7 @@ export default {
     [types.GET_SCHEDULED_EVENTS_PAGINATION]: state => state.eventsPagination,
 
     [types.GET_EVENT_EMAILS_FILTER]: state =>
-            Object.values(state.eventEmails).sort((a, b) => {
-                return a.name - b.name;
-            }),
+        Object.values(state.eventEmails).sort((a, b) => {
+            return a.name - b.name;
+        })
 };

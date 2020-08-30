@@ -77,9 +77,13 @@
                                             hide-details
                                             :label="checkbox.name"
                                             :input-value="
-                                                eventEmails.includes(checkbox.name)
+                                                eventEmails.includes(
+                                                    checkbox.name
+                                                )
                                             "
-                                            @change="onChangeType(checkbox.name)"
+                                            @change="
+                                                onChangeType(checkbox.name)
+                                            "
                                         ></VCheckbox>
                                     </div>
                                     <VBtn
@@ -89,7 +93,8 @@
                                         text
                                         v-if="
                                             !moreEventEmails &&
-                                                this.getEventEmailsFilter.length >
+                                                this.getEventEmailsFilter
+                                                    .length >
                                                     countShowEventEmails
                                         "
                                         @click="showMoreEventEmails"
@@ -180,7 +185,10 @@ export default {
             if (this.moreEventEmails) {
                 return this.getEventEmailsFilter;
             } else {
-                return this.getEventEmailsFilter.slice(0, this.countShowEventEmails);
+                return this.getEventEmailsFilter.slice(
+                    0,
+                    this.countShowEventEmails
+                );
             }
         }
     },
@@ -188,7 +196,8 @@ export default {
     methods: {
         ...mapActions('scheduledEvent', {
             setScheduledEvents: scheduledEventActions.SET_SCHEDULED_EVENTS,
-            setEventEmailsFilter: scheduledEventActions.FETCH_EVENT_EMAILS_FILTER
+            setEventEmailsFilter:
+                scheduledEventActions.FETCH_EVENT_EMAILS_FILTER
         }),
 
         ...mapActions('notification', {

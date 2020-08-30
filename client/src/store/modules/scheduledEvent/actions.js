@@ -74,20 +74,16 @@ export default {
         }
     },
     [actions.FETCH_EVENT_EMAILS_FILTER]: async (
-            { commit, dispatch },
-            {
-                startDate = '',
-                endDate = '',
-                searchString= ''
-            }
+        { commit, dispatch },
+        { startDate = '', endDate = '', searchString = '' }
     ) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
 
         try {
             const eventEmails = await scheduledEventService.getEventEmailsFilter(
-                    startDate,
-                    endDate,
-                    searchString
+                startDate,
+                endDate,
+                searchString
             );
 
             if (searchString) {
@@ -107,5 +103,5 @@ export default {
                 root: true
             });
         }
-    },
+    }
 };

@@ -1,5 +1,4 @@
 import * as mutations from './types/mutations';
-import { v4 as uuidv4 } from 'uuid';
 import {
     eventMapper,
     eventPaginationMapper,
@@ -39,11 +38,11 @@ export default {
         state.eventEmails = {
             ...state.eventEmails,
             ...eventEmails.reduce(
-                    (prev, eventEmail) => ({
-                        ...prev,
-                        [eventEmail.email]: eventEmailMapper(eventEmail)
-                    }),
-                    {}
+                (prev, eventEmail) => ({
+                    ...prev,
+                    [eventEmail.email]: eventEmailMapper(eventEmail)
+                }),
+                {}
             )
         };
     },
