@@ -90,6 +90,10 @@ export default {
                     searchString
             );
 
+            if (searchString) {
+                commit(mutations.CLEAR_EVENT_EMAILS_FILTER);
+            }
+
             commit(mutations.SET_EVENT_EMAILS_FILTER, eventEmails);
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true

@@ -47,4 +47,8 @@ export default {
             )
         };
     },
+
+    [mutations.CLEAR_EVENT_EMAILS_FILTER]: state => {
+        state.eventEmails = [];
+    }
 };
