@@ -53,7 +53,7 @@ import * as actions from '@/store/modules/eventTypes/types/actions';
 import { mapGetters, mapActions } from 'vuex';
 import { required, minLength } from 'vuelidate/lib/validators';
 import { validationMixin } from 'vuelidate';
-import questionsMixin from '@/components/events/custom-fields/questionsMixin';
+import customFieldMixin from '@/components/events/custom-fields/customFieldMixin';
 export default {
     name: 'EditFieldDialog',
     validations: {
@@ -62,7 +62,7 @@ export default {
             minLength: minLength(5)
         }
     },
-    mixins: [questionsMixin, validationMixin],
+    mixins: [customFieldMixin, validationMixin],
     data: () => ({
         dialogVisible: false,
         customFieldType: '',

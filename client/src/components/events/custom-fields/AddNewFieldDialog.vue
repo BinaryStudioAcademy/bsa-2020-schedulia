@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import questionsMixin from '@/components/events/custom-fields/questionsMixin';
+import customFieldMixin from '@/components/events/custom-fields/customFieldMixin';
 import { required, minLength } from 'vuelidate/lib/validators';
 import { validationMixin } from 'vuelidate';
 import { v4 as uuidv4 } from 'uuid';
@@ -60,7 +60,7 @@ export default {
             minLength: minLength(5)
         }
     },
-    mixins: [questionsMixin, validationMixin],
+    mixins: [customFieldMixin, validationMixin],
     data: () => ({
         dialog: false,
         type: '',
