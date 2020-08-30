@@ -8,6 +8,8 @@ use App\Entity\Availability;
 use App\Entity\CustomField;
 use App\Entity\EventType;
 use App\Entity\User;
+use App\Events\EventCreated;
+use Illuminate\Support\Facades\Event as EventFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\JsonResponse;
 use Tests\TestCase;
@@ -97,6 +99,8 @@ class CustomFieldTest extends TestCase
 
     public function test_add_event_with_custom_field_values_success()
     {
+        EventFaker::fake([EventCreated::class]);
+
         $user = factory(User::class)->create();
         $eventType = new EventType([
             'owner_id' => $user->id,
