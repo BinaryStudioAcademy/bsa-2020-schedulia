@@ -118,10 +118,18 @@ export default {
             if (!this.$v.customFieldName.$dirty) {
                 return errors;
             }
-            !this.$v.customFieldName.required &&
-                errors.push('Name is required');
-            !this.$v.customFieldName.minLength &&
-                errors.push('Name must be more than 5');
+            !this.$v.name.required &&
+                errors.push(
+                    this.lang.FIELD_IS_REQUIRED.replace('field', 'Name')
+                );
+            !this.$v.name.minLength &&
+                errors.push(
+                    this.lang.NAME +
+                        this.lang.FIELD_MUST_BE_MORE_THAN_VALUE.replace(
+                            'value',
+                            '5'
+                        )
+                );
             return errors;
         }
     }

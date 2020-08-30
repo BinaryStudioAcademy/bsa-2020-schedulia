@@ -8,7 +8,7 @@
                 v-on="on"
                 outlined
             >
-                + Add new Field
+                + {{ lang.ADD_NEW_FIELD }}
             </VBtn>
         </template>
         <VCard>
@@ -94,8 +94,18 @@ export default {
             if (!this.$v.name.$dirty) {
                 return errors;
             }
-            !this.$v.name.required && errors.push('Name is required');
-            !this.$v.name.minLength && errors.push('Name must be more than 5');
+            !this.$v.name.required &&
+                errors.push(
+                    this.lang.FIELD_IS_REQUIRED.replace('field', 'Name')
+                );
+            !this.$v.name.minLength &&
+                errors.push(
+                    this.lang.NAME +
+                        this.lang.FIELD_MUST_BE_MORE_THAN_VALUE.replace(
+                            'value',
+                            '5'
+                        )
+                );
             return errors;
         }
     }
