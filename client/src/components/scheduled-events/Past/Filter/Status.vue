@@ -1,7 +1,7 @@
 <template>
     <div class="text-left filter-menu">
         <div class="filter-title">
-            Status
+            {{ lang.STATUS }}
         </div>
         <VMenu
             v-model="menu"
@@ -18,7 +18,9 @@
                     v-bind="attrs"
                     v-on="on"
                 >
-                    Active Events
+                    {{ lang.ACTIVE_EVENTS }}
+                    {{ lang.ALL_EVENTS }}
+                    {{ lang.CANCELED_EVENTS }}
                     <VIcon>mdi-chevron-down</VIcon>
                 </VBtn>
             </template>
@@ -28,16 +30,7 @@
                     <VListItem>
                         <VListItemContent>
                             <VContainer fluid>
-                                <VCheckbox
-                                    hide-details
-                                    label="Active events"
-                                    value=""
-                                ></VCheckbox>
-                                <VCheckbox
-                                    hide-details
-                                    label="Canceled events"
-                                    value=""
-                                ></VCheckbox>
+
                             </VContainer>
                             <VContainer class="filter-button">
                                 <VBtn
@@ -45,10 +38,10 @@
                                     class="cancel-button"
                                     outlined
                                 >
-                                    Cancel
+                                    {{ lang.CANCEL }}
                                 </VBtn>
                                 <VBtn class="apply-button primary">
-                                    Apply
+                                    {{ lang.APPLY }}
                                 </VBtn>
                             </VContainer>
                         </VListItemContent>
@@ -62,13 +55,22 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
+    import * as i18nGetters from '@/store/modules/i18n/types/getters';
+
 export default {
     name: 'Status',
 
     data() {
         return {
-            menu: false
+            menu: false,
         };
+    },
+
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
     },
 
     methods: {

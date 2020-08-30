@@ -370,5 +370,10 @@ export default {
     ADD_ONE_ON_ONE_EVENT_TYPE: 'Add One-on-One Event Type',
     RESET: 'Reset',
     INVITEE_EMAILS: 'Invitee Emails',
-    ALL_INVITEE_EMAILS: 'All Invitee Emails'
+    ALL_INVITEE_EMAILS: 'All Invitee Emails',
+    STATUS: 'Status',
+    ACTIVE_EVENTS: 'Active Events',
+    ALL_EVENTS: 'All Events',
+    CANCELED_EVENTS: 'Canceled Events'
+
 };

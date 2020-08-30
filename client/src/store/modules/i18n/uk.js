@@ -291,5 +291,9 @@ export default {
     LOAD_MORE: 'Завантажити ще',
     RESET: 'Скинути',
     INVITEE_EMAILS: 'Emails у запросі ',
-    ALL_INVITEE_EMAILS: 'Відмітити усі Emails'
+    ALL_INVITEE_EMAILS: 'Відмітити усі Emails',
+    STATUS: 'Статус',
+    ACTIVE_EVENTS: 'Активні події',
+    ALL_EVENTS: 'Усі події',
+    CANCELED_EVENTS: 'Відмінені події'
 };
