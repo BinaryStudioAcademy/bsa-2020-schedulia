@@ -291,5 +291,10 @@ export default {
     LOAD_MORE: 'Завантажити ще',
     RESET: 'Скинути',
     INVITEE_EMAILS: 'Emails у запросі ',
-    ALL_INVITEE_EMAILS: 'Відмітити усі Emails'
+    ALL_INVITEE_EMAILS: 'Відмітити усі Emails',
+    WELCOME_TO_MY_SCHEDULING_PAGE:
+        'Ласкаво просимо на мою сторінку планування.',
+    PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT:
+        'Будь ласка, дотримуйтесь інструкцій, щоб додати подію до мого календаря.',
+    NO_OPENINGS_AT_THE_MOMENT: 'Жодної доступної події на даний момент'
 };

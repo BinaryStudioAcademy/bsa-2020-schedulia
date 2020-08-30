@@ -86,10 +86,11 @@ export default {
     ) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
         try {
-            const eventTypes = await eventTypesService.fetchEventTypesByNickname(
+            const response = await eventTypesService.fetchEventTypesByNickname(
                 nickName
             );
-            commit(mutations.SET_EVENT_TYPES_BY_NICKNAME, eventTypes);
+            commit(mutations.SET_EVENT_TYPES_BY_NICKNAME, response.eventTypes);
+            commit(mutations.SET_OWNER_NAME_BY_NICKNAME, response.owner);
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });

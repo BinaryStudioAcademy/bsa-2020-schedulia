@@ -38,5 +38,8 @@ export default {
                 {}
             )
         };
+    },
+    [mutations.SET_OWNER_NAME_BY_NICKNAME]: (state, ownerName) => {
+        state.ownerByNickname = ownerName;
     }
 };
