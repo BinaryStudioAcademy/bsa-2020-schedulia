@@ -26,7 +26,7 @@
                                     <div>
                                         <img
                                             :src="
-                                                require('@/assets/images/calender_circle.png')
+                                                require('@/assets/images/calender_circle.svg')
                                             "
                                             alt
                                             :class="{
@@ -80,7 +80,7 @@
                                     <div>
                                         <img
                                             :src="
-                                                require('@/assets/images/red_circle.png')
+                                                require('@/assets/images/custom_fields.svg')
                                             "
                                             alt
                                             :class="{
