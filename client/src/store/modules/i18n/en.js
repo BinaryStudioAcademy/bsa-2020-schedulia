@@ -367,6 +367,8 @@ export default {
     LOCALIZATION: 'en-US',
     ENABLED: 'Enabled',
     LOAD_MORE: 'Load more',
+    PLEASE_WAIT_WHILE_WE_ARE_LOGGING_YOU_IN:
+        "Please wait while we're logging you in...",
     ADD_ONE_ON_ONE_EVENT_TYPE: 'Add One-on-One Event Type',
     RESET: 'Reset',
     INVITEE_EMAILS: 'Invitee Emails',
