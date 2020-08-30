@@ -100,7 +100,7 @@ export default {
 
         async setEvents() {
             await this.setScheduledEvents({
-                page: this.page,
+                page: 1,
                 sort: this.sort,
                 direction: this.direction,
                 endDate: this.endDate,
