@@ -9,7 +9,7 @@ use App\Repositories\BaseRepository;
 
 final class ElasticsearchEventAggregateRepository extends BaseRepository implements EventAggregateRepositoryInterface
 {
-    const INDEX_NAME = 'events';
+    public const INDEX_NAME = 'events';
 
     public function save(EventAggregate $eventAggregate): EventAggregate
     {

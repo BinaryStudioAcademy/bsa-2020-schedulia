@@ -10,9 +10,9 @@ use Carbon\Carbon;
 class EventAggregate
 {
     private int $id;
-	private string $inviteeEmail;
-	private Carbon $startDate;
-	private string $eventType;
+    private string $inviteeEmail;
+    private Carbon $startDate;
+    private string $eventType;
 
     public function __construct(Event $event)
     {
@@ -20,7 +20,7 @@ class EventAggregate
         $this->inviteeEmail = $event->invitee_email;
         $this->startDate = $event->start_date;
         $this->eventType = $event->event_type_id;
-	}
+    }
 
     public function getId(): int
     {
