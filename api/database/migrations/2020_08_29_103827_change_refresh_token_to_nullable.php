@@ -27,7 +27,8 @@ class ChangeRefreshTokenToNullable extends Migration
     public function down()
     {
         Schema::table('social_accounts', function (Blueprint $table) {
-            $table->dropColumn(['refresh_token', 'expires_in']);
+            $table->longText('refresh_token')->change();
+            $table->timestamp('expires_in')->change();
         });
     }
 }

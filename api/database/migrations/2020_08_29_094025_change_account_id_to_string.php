@@ -26,7 +26,7 @@ class ChangeAccountIdToString extends Migration
     public function down()
     {
         Schema::table('social_accounts', function (Blueprint $table) {
-            $table->dropColumn('account_id');
+            $table->unsignedTinyInteger('account_id')->change();
         });
     }
 }
