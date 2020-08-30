@@ -92,6 +92,7 @@ export default {
                 this.eventsPagination.lastPage
             ) {
                 this.page += 1;
+                this.loadMoreActive = true;
             } else {
                 this.loadMoreActive = false;
             }
@@ -112,6 +113,8 @@ export default {
                 this.eventsPagination.lastPage
             ) {
                 this.loadMoreActive = true;
+            } else {
+                this.loadMoreActive = false;
             }
         }
     },
