@@ -31,6 +31,6 @@ final class GetEventTypeCollectionByNicknameAction
         $criteria = [new OwnerCriterion($user->id), new ActiveCriterion()];
         $eventTypes = $this->eventRepository->findByCriteria(...$criteria);
 
-        return new GetEventTypeCollectionByNicknameResponse($eventTypes);
+        return new GetEventTypeCollectionByNicknameResponse($eventTypes, $user->name);
     }
 }
