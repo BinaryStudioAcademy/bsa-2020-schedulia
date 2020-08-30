@@ -6,15 +6,14 @@
                     ><b>{{ ownerName }}</b></span
                 ><br /><br />
                 <div v-if="Object.values(eventTypes).length">
-                    <span>Welcome to my scheduling page.</span><br />
+                    <span>{{ lang.WELCOME_TO_MY_SCHEDULING_PAGE }}</span><br />
                     <span
-                        >Please follow the instructions to add an event to my
-                        calendar.</span
+                        >{{ lang.PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT }}</span
                     ><br />
                 </div>
                 <div v-else>
                     <span>
-                        <b>No openings at the moment.</b>
+                        <b>{{ lang.NO_OPENINGS_AT_THE_MOMENT }}</b>
                     </span>
                 </div>
             </div>
@@ -46,6 +45,7 @@ import { mapActions, mapGetters } from 'vuex';
 import * as actions from '@/store/modules/eventTypes/types/actions';
 import * as getters from '@/store/modules/eventTypes/types/getters';
 import UserEventType from '@/components/public/users-event-types/UserEventType';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 export default {
     name: 'UserEventTypesList',
     components: {
@@ -67,6 +67,9 @@ export default {
         ...mapGetters('eventTypes', {
             eventTypes: getters.GET_EVENT_TYPES_BY_NICKNAME,
             ownerName: getters.GET_OWNER_NAME_BY_NICKNAME
+        }),
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         })
     }
 };
