@@ -25,6 +25,7 @@ use App\Actions\EventType\UpdateEventTypeAction;
 use App\Actions\EventType\UpdateEventTypeRequest;
 use App\Actions\GetByIdRequest;
 use App\Http\Presenters\AvailabilityServicePresenter;
+use App\Http\Presenters\CustomFieldPresenter;
 use App\Http\Presenters\EventTypePresenter;
 use App\Http\Requests\Api\CustomField\CustomFieldRequest;
 use App\Http\Requests\Api\EventType\ChangeDisabledEventTypeRequest;
@@ -36,13 +37,16 @@ class EventTypeController extends ApiController
 {
     private EventTypePresenter $eventTypePresenter;
     private AvailabilityServicePresenter $availabilityServicePresenter;
+    private CustomFieldPresenter $customFieldPresenter;
 
     public function __construct(
         EventTypePresenter $eventTypePresenter,
-        AvailabilityServicePresenter $availabilityServicePresenter
+        AvailabilityServicePresenter $availabilityServicePresenter,
+        CustomFieldPresenter $customFieldPresenter
     ) {
         $this->eventTypePresenter = $eventTypePresenter;
         $this->availabilityServicePresenter = $availabilityServicePresenter;
+        $this->customFieldPresenter = $customFieldPresenter;
     }
 
     public function index(Request $request, GetEventTypeCollectionAction $action)
@@ -189,6 +193,10 @@ class EventTypeController extends ApiController
             new GetCustomFieldCollectionByEventTypeIdRequest((int)$id)
         );
 
-        return $this->successResponse($customFields->getCustomFields());
+        return $this->successResponse(
+            $this->customFieldPresenter->presentCollection(
+                $customFields->getCustomFields()
+            )
+        );
     }
 }

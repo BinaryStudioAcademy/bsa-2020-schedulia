@@ -19,6 +19,6 @@ final class GetCustomFieldCollectionByEventTypeIdAction
     {
         $eventType = $this->eventTypeRepository->getById($request->getEventTypeId());
 
-        return new GetCustomFieldCollectionByEventTypeIdResponse($eventType->customFields->all());
+        return new GetCustomFieldCollectionByEventTypeIdResponse($eventType->customFields);
     }
 }
