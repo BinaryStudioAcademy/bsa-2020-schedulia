@@ -103,5 +103,57 @@ export default {
                 root: true
             });
         }
+    },
+    [actions.FETCH_CUSTOM_FIELDS_BY_EVENT_ID]: async (
+        { commit, dispatch }
+    ) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+        try {
+            const customFields = await eventTypesService.fetchCustomFieldsByEventTypeId();
+            commit(mutations.SET_CUSTOM_FIELDS, customFields);
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        }
+    },
+    [actions.SET_CUSTOM_FIELD]: ({ commit }, field) => {
+        commit(mutations.SET_CUSTOM_FIELD, field);
+    },
+    [actions.DELETE_CUSTOM_FIELD]: ({ commit }, id) => {
+        commit(mutations.DELETE_CUSTOM_FIELD, id);
+    },
+    [actions.SAVE_CUSTOM_FIELDS]: async (
+        { commit, dispatch },
+        { id, custom_fields }
+    ) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+        try {
+            await eventTypesService.saveCustomFieldsByEventTypeId(
+                id,
+                {
+                custom_fields: Object.values(custom_fields)
+            });
+            commit('loader/' + loaderMutations.SET_LOADING, false, { root: true });
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+        }
+    },
+    [actions.EDIT_CUSTOM_FIELD]: ({ commit, dispatch }, data) => {
+        try {
+            commit(mutations.EDIT_CUSTOM_FIELD, data);
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+        }
     }
 };
