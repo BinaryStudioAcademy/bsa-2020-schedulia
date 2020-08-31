@@ -112,6 +112,7 @@ Route::group([
     'prefix' => '/social-accounts',
 ], function () {
     Route::get('/calendars', 'SocialAccountController@calendars');
+    Route::delete('/calendars/{provider?}/', 'SocialAccountController@destroyCalendar');
 });
 
 Route::get('/social-accounts/{provider?}/oauth', 'Api\\SocialAccountController@oauth');
