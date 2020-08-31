@@ -38,13 +38,12 @@
                                 hide-details
                                 dense
                                 flat
-                                v-model="searchString"
                                 color="#2C2C2C"
                                 background-color="rgba(224, 224, 224, 0.3)"
                                 label="Search"
                                 clearable
                                 prepend-inner-icon="mdi-magnify"
-                                @input="searchEventEmails(searchString)"
+                                @input="searchEventEmails"
                             ></VTextField>
                             <VContainer class="filter-form" fluid>
                                 <span v-if="this.getEventEmailsFilter.length">
@@ -148,7 +147,6 @@ export default {
         return {
             countShowEventEmails: 12,
             menu: false,
-            searchString: '',
             eventEmails: [],
             moreEventEmails: false,
             eventEmailsChecked: [],

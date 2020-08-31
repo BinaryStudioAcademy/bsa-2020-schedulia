@@ -38,13 +38,12 @@
                                 hide-details
                                 dense
                                 flat
-                                v-model="searchString"
                                 color="#2C2C2C"
                                 background-color="rgba(224, 224, 224, 0.3)"
                                 label="Search"
                                 clearable
                                 prepend-inner-icon="mdi-magnify"
-                                @input="searchEventTypes(searchString)"
+                                @input="searchEventTypes"
                             ></VTextField>
                             <VContainer class="filter-form" fluid>
                                 <span v-if="this.getEventTypes.length">
@@ -144,7 +143,6 @@ export default {
         return {
             countShowEventTypes: 12,
             menu: false,
-            searchString: '',
             eventTypes: [],
             moreEventTypes: false,
             eventTypesChecked: []
