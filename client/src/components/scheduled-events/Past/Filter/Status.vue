@@ -67,7 +67,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+import * as notificationActions from '@/store/modules/notification/types/actions';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 
 export default {
@@ -87,7 +88,11 @@ export default {
     },
 
     created() {
-        this.setEventStatusFilter();
+        try {
+            await this.setEventStatusFilter();
+        } catch (error) {
+            this.setErrorNotification(error.message);
+        }
     },
 
     computed: {
@@ -105,6 +110,10 @@ export default {
     },
 
     methods: {
+        ...mapActions('notification', {
+            setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
+        }),
+
         closeMenu() {
             this.menu = false;
         },
