@@ -69,7 +69,7 @@
                     <VCol
                         cols="6"
                         sm="3"
-                        md="7"
+                        md="6"
                         lg="3"
                         :class="{ 'mt-3': $vuetify.breakpoint.xs }"
                     >
@@ -78,10 +78,10 @@
                         </p>
                     </VCol>
                     <VCol
-                        cols="4"
+                        cols="5"
                         sm="3"
                         md="5"
-                        lg="3"
+                        lg="4"
                         :class="{ 'mt-3': $vuetify.breakpoint.xs }"
                     >
                         <SocialLoginButtons />

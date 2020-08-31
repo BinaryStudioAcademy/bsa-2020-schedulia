@@ -26,7 +26,7 @@ class EventServiceProvider extends ServiceProvider
             SendEventCreatedNotificationToOwner::class,
             SendEventCreatedNotificationToInvitee::class,
             AddEventToGoogleCalendar::class,
-            AddEventToElasticSearch::class,
+            AddEventToElasticSearch::class
         ]
     ];
 

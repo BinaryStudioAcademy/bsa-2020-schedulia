@@ -394,5 +394,6 @@ export default {
         'Please follow the instructions to add an event to my\n' +
         '                        calendar.',
     NO_OPENINGS_AT_THE_MOMENT: 'No openings at the moment.',
-    NO_EVENTS_FOUND: 'No Events found'
+    NO_EVENTS_FOUND: 'No Events found',
+    PUBLIC_LINK_WAS_COPIED: 'Public Link was copied!'
 };
