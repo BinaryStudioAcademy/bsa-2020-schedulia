@@ -261,7 +261,8 @@ export default {
                 name: 'Past',
                 query: {
                     event_types: this.$route.query.event_types,
-                    event_emails: this.eventEmails
+                    event_emails: this.eventEmails,
+                    event_status: this.$route.query.event_status
                 }
             });
             this.closeMenu();

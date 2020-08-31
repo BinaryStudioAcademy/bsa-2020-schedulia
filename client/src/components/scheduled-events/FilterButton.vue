@@ -61,7 +61,7 @@ export default {
     },
 
     mounted() {
-        if (this.$route.query.event_types || this.$route.query.event_emails) {
+        if (this.$route.query.event_types || this.$route.query.event_emails || this.$route.query.event_status) {
             this.setScheduledEventsFilterView(true);
         }
     }

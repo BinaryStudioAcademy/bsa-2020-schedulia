@@ -255,7 +255,8 @@ export default {
                 name: 'Past',
                 query: {
                     event_types: this.eventTypes,
-                    event_emails: this.$route.query.event_emails
+                    event_emails: this.$route.query.event_emails,
+                    event_status: this.$route.query.event_status
                 }
             });
             this.closeMenu();
