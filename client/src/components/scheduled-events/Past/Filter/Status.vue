@@ -78,8 +78,8 @@ export default {
     data() {
         return {
             menu: false,
-            eventStatus: ['active'],
-            eventStatusChecked: ['active'],
+            eventStatus: [],
+            eventStatusChecked: [],
             getEventStatus: []
         };
     },
@@ -123,7 +123,7 @@ export default {
             if (this.$route.query.event_status) {
                 this.eventStatus = this.$route.query.event_status;
             } else {
-                this.eventStatus = ['active'];
+                this.eventStatus = [];
             }
 
             this.eventStatusChecked = this.eventStatus;
@@ -134,7 +134,7 @@ export default {
         setEventStatus() {
             this.getEventStatus = [
                 {
-                    id: 'active',
+                    id: 'scheduled',
                     name: this.lang.ACTIVE_EVENTS
                 },
                 {
@@ -159,11 +159,11 @@ export default {
 
         statusFilterTitle() {
             if (
-                this.eventStatusChecked.includes('active') &&
+                this.eventStatusChecked.includes('scheduled') &&
                 this.eventStatusChecked.includes('canceled')
             ) {
                 return this.lang.ALL_EVENTS;
-            } else if (this.eventStatusChecked.includes('active')) {
+            } else if (this.eventStatusChecked.includes('scheduled')) {
                 return this.lang.ACTIVE_EVENTS;
             } else if (this.eventStatusChecked.includes('canceled')) {
                 return this.lang.CANCELED_EVENTS;
