@@ -82,7 +82,7 @@ Route::group([
                  'namespace' => 'Api\\',
                  'prefix' => '/tags'
              ], function () {
-    Route::post('/event_types_id', 'TagController@getTagsByEventTypeId');
+    Route::get('/', 'TagController@getTagsByEventTypeId');
 });
 
 Route::group([
