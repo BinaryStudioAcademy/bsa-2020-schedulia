@@ -30,7 +30,7 @@ final class StartDateCriterion implements EloquentCriterion
                     ->join('events', function ($join) {
                         $join->on('event_types.id', '=', 'events.event_type_id')
                             ->where('events.start_date', '>=', $this->startDate);
-                            });
+                    });
             })
             ->distinct();
     }
