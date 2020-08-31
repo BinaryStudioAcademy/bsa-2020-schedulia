@@ -72,6 +72,8 @@ class Google implements SocialAccountService, CalendarService
             $socialAccount->expires_in = '2020-08-27 22:57:59';
 
             $socialAccount->save();
+
+            return '';
         }
     }
 
