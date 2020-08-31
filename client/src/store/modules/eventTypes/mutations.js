@@ -77,5 +77,11 @@ export default {
         const customFields = { ...state.customFields };
         delete customFields[id];
         state.customFields = customFields;
+    },
+    [mutations.ADD_EVENT_TYPE]: (state, eventType) => {
+        state.eventTypes = {
+            ...state.eventTypes,
+            [eventType.id]: eventTypeMapper(eventType)
+        };
     }
 };

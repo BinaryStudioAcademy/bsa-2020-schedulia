@@ -163,10 +163,16 @@ export default {
             });
         }
     },
-    [actions.CLONE_EVENT_TYPE_BY_ID]: async ({ commit, dispatch }, eventTypeId) => {
+    [actions.CLONE_EVENT_TYPE_BY_ID]: async (
+        { commit, dispatch },
+        eventTypeId
+    ) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
         try {
-            await eventTypesService.saveCustomFieldsByEventTypeId(eventTypeId);
+            const eventType = await eventTypesService.cloneEventTypeById(
+                eventTypeId
+            );
+            commit(mutations.ADD_EVENT_TYPE, eventType);
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });
