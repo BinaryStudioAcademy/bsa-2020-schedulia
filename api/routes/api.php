@@ -85,6 +85,7 @@ Route::group([
     'prefix' => '/tags'
 ], function () {
     Route::get('/events', 'TagController@getTagsByEventDateRange');
+    Route::post('/', 'TagController@store');
 });
 
 Route::group([
