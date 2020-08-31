@@ -2,7 +2,6 @@
 
 namespace App\Services\Calendar\Google;
 
-
 class GoogleCalendarColors
 {
     public const GOOGLE_EVENT_COLOR_BLUE = 1;
