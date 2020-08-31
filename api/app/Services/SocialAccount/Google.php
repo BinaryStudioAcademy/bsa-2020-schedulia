@@ -3,6 +3,7 @@
 namespace App\Services\SocialAccount;
 
 use App\Entity\SocialAccount;
+use App\Entity\User;
 use App\Exceptions\GoogleOauthException;
 use App\Repositories\SocialAccount\SocialAccountRepositoryInterface;
 use App\Contracts\CalendarEventInterface;
@@ -93,15 +94,12 @@ class Google implements SocialAccountService, CalendarService
 
     public function createEvent(CalendarEventInterface $googleCalendarEvent): void
     {
-        if (!Auth::user()) {
-            throw new AuthenticationException();
+        $token = User::findOrFail($googleCalendarEvent->getUserId())->googleAccounts[0]->token;
+
+        if($token) {
+            $event = new \Google_Service_Calendar_Event($this->googleCalendarEventPresenter->present($googleCalendarEvent));
+            $this->connect($token)->service('Calendar')->events->insert('primary', $event);
         }
-
-        $token = Auth::user()->googleAccounts[0]->token;
-
-        $event = new \Google_Service_Calendar_Event($this->googleCalendarEventPresenter->present($googleCalendarEvent));
-
-        $this->connect($token)->service('Calendar')->events->insert('primary', $event);
     }
 
     public function deleteEvent(): void

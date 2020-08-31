@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Constants\EventStatus;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
@@ -33,5 +34,12 @@ class Event extends Model
     public function customFieldValues()
     {
         return $this->hasMany(CustomFieldValue::class, 'event_id');
+    }
+
+    public function getEventTimeAccordingTimezoneAttribute()
+    {
+        $utcTime = Carbon::createFromFormat('Y-m-d H:i:s', $this->start_date, 'UTC');
+        $utcTime->setTimezone($this->timezone);
+        return $utcTime->toDateTimeString();
     }
 }

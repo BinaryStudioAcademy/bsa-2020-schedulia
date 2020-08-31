@@ -12,11 +12,19 @@ class GoogleCalendarEventPresenter implements PresenterInterface
             'summary' => $event->getSummary(),
             'location' => $event->getLocation(),
             'description' => $event->getDescription(),
+            'colorId' => $event->getColorAccordingGoogle(),
             'start' => [
-                'dateTime' => $event->getStartTime()
+                'dateTime' => $event->getStartTime(),
+                'timeZone' => 'UTC'
             ],
             'end' => [
-                'dateTime' => $event->getEndTime()
+                'dateTime' => $event->getEndTime(),
+                'timeZone' => 'UTC'
+            ],
+            'attendees' => [
+                [
+                    'email' => $event->getAttendeeEmail()
+                ]
             ],
             'reminders' => [
                 'useDefault' => false,
