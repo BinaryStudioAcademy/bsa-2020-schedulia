@@ -15,18 +15,18 @@
         </VCol>
         <VCol cols="12" md="6" sm="6">
             <h3 class="text-center">
-                Add One-on-One Event Type
+                {{ lang.ADD_ONE_ON_ONE_EVENT_TYPE }}
             </h3>
         </VCol>
         <VCol cols="12" md="3" sm="3">
             <VFlex row class="align-center justify-end">
                 <VSubheader class="app-subheader">
                     {{ lang.YOUR_EVENT_TYPE_IS }}
-                    {{ !eventTypeForm.disabled ? 'On' : 'Off' }}
+                    {{ !data.disabled ? 'On' : 'Off' }}
                 </VSubheader>
                 <VSwitch
-                    :value="!eventTypeForm.disabled"
-                    @change="changeDisabled(!eventTypeForm.disabled)"
+                    :input-value="!data.disabled"
+                    @change="changeDisabled(!data.disabled)"
                 ></VSwitch>
             </VFlex>
         </VCol>
@@ -35,9 +35,9 @@
 
 <script>
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
-import * as eventTypeMutations from '@/store/modules/eventType/types/mutations';
+import * as actionEventType from '@/store/modules/eventType/types/actions';
 
 export default {
     name: 'NewEventTypeCard',
@@ -50,17 +50,19 @@ export default {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         }),
         ...mapGetters('eventType', {
-            eventTypeForm: eventTypeGetters.GET_EVENT_TYPE_FORM
-        })
+            eventType: eventTypeGetters.GET_EVENT_TYPE
+        }),
+        data() {
+            return this.eventType;
+        }
     },
     methods: {
+        ...mapActions('eventType', {
+            setEventType: actionEventType.SET_EVENT_TYPE
+        }),
         changeDisabled(data) {
-            this.setEventTypeDisabled(data);
-        },
-        ...mapMutations('eventType', {
-            setEventTypeDisabled:
-                eventTypeMutations.SET_EVENT_TYPE_FORM_COLUMN_DISABLE
-        })
+            this.setEventType({ disabled: data });
+        }
     }
 };
 </script>

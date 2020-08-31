@@ -2,7 +2,7 @@
     <div>
         <FilterList v-if="this.scheduledEventsFilterView" />
         <BorderBottom />
-        <div v-if="scheduledEvents">
+        <div v-if="this.eventsPagination.total">
             <template v-for="scheduledEvent in scheduledEvents">
                 <Event
                     :key="scheduledEvent.id"
@@ -82,7 +82,10 @@ export default {
                 page: this.page + 1,
                 sort: this.sort,
                 direction: this.direction,
-                endDate: this.endDate
+                endDate: this.endDate,
+                eventTypes: this.$route.query.event_types,
+                eventEmails: this.$route.query.event_emails,
+                eventStatus: this.$route.query.event_status
             });
 
             if (
@@ -90,19 +93,21 @@ export default {
                 this.eventsPagination.lastPage
             ) {
                 this.page += 1;
+                this.loadMoreActive = true;
             } else {
                 this.loadMoreActive = false;
             }
-        }
-    },
+        },
 
-    async mounted() {
-        try {
+        async setEvents() {
             await this.setScheduledEvents({
-                page: this.page,
+                page: 1,
                 sort: this.sort,
                 direction: this.direction,
-                endDate: this.endDate
+                endDate: this.endDate,
+                eventTypes: this.$route.query.event_types,
+                eventEmails: this.$route.query.event_emails,
+                eventStatus: this.$route.query.event_status
             });
 
             if (
@@ -110,7 +115,19 @@ export default {
                 this.eventsPagination.lastPage
             ) {
                 this.loadMoreActive = true;
+            } else {
+                this.loadMoreActive = false;
             }
+        }
+    },
+
+    watch: {
+        $route: 'setEvents'
+    },
+
+    async mounted() {
+        try {
+            await this.setEvents();
         } catch (error) {
             this.setErrorNotification(error.message);
         }

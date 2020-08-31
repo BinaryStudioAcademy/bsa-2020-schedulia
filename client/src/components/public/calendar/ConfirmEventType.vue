@@ -7,7 +7,7 @@
                 :name="eventType.owner.name"
                 :eventName="eventType.name"
                 :duration="eventType.duration"
-                :location="eventType.location"
+                :location="'Vyacheslav Chornovol Avenue, 59, Lviv'"
                 :description="eventType.description"
                 :startDate="startDateFormatted"
                 :timezone="publicEvent.timezone"
@@ -18,7 +18,7 @@
         <VDivider vertical></VDivider>
 
         <VCol class="event-confirm-field col-12 col-sm-9 col-md-7">
-            <h3 class="mb-3">{{ lang.ENTER_DETAILS }}</h3>
+            <h3 class="mb-3">{{ lang.ENTER_DETAILS }} {{ eventType.id }}</h3>
 
             <VForm v-model="formValid" ref="form">
                 <VCardText class="pa-0">
@@ -68,6 +68,33 @@
                             height="100"
                         ></VTextarea>
                     </VCol>
+                    <VCol
+                        cols="12"
+                        sm="12"
+                        md="10"
+                        class="pa-0"
+                        v-for="(field, id) in fields"
+                        :key="id"
+                    >
+                        <span class="subtitle-2">{{ field.name }}</span>
+                        <VTextField
+                            v-if="field.type === 'line'"
+                            outlined
+                            dense
+                            @input="onInputCustomFields"
+                            @click="setInputCustomFields(id)"
+                        ></VTextField>
+                        <VTextarea
+                            v-if="field.type === 'multiline'"
+                            outlined
+                            no-resize
+                            dense
+                            type="text"
+                            height="100"
+                            @input="onInputCustomFields"
+                            @click="setInputCustomFields(id)"
+                        ></VTextarea>
+                    </VCol>
                 </VCardText>
                 <VCardActions class="pa-0">
                     <VCol cols="12" sm="12" md="9" class="pa-0">
@@ -96,7 +123,10 @@ import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import * as getters from '@/store/modules/publicEvent/types/getters';
 import { mapActions, mapGetters } from 'vuex';
 import * as notificationActions from '@/store/modules/notification/types/actions';
+import * as actions from '@/store/modules/publicEvent/types/actions';
 import { validationMixin } from 'vuelidate';
+import * as eventTypesGetters from '@/store/modules/eventTypes/types/getters';
+import * as eventTypesActions from '@/store/modules/eventTypes/types/actions';
 import {
     required,
     email,
@@ -118,10 +148,10 @@ import EventInfo from './EventInfo';
 
 export default {
     name: 'ConfirmEventType',
+    mixins: [validationMixin],
     components: {
         EventInfo
     },
-    mixins: [validationMixin],
     validations: {
         meetingFormData: {
             name: {
@@ -146,11 +176,8 @@ export default {
             email: '',
             additionalInfo: ''
         },
-        alert: {
-            visible: false,
-            message: '',
-            type: ''
-        }
+        customFieldValues: {},
+        customFieldId: ''
     }),
     computed: {
         ...mapGetters('i18n', {
@@ -159,6 +186,9 @@ export default {
         ...mapGetters('publicEvent', {
             eventType: getters.GET_EVENT_TYPE,
             publicEvent: getters.GET_PUBLIC_EVENT
+        }),
+        ...mapGetters('eventTypes', {
+            fields: eventTypesGetters.GET_CUSTOM_FIELDS
         }),
         startDateFormatted() {
             return moment(this.publicEvent.startDate).format(
@@ -211,10 +241,39 @@ export default {
         ...mapActions('notification', {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
         }),
-        onScheduleEvent() {
+        ...mapActions('publicEvent', {
+            addPublicEvent: actions.ADD_PUBLIC_EVENT
+        }),
+        ...mapActions('eventTypes', {
+            fetchCustomFields: eventTypesActions.FETCH_CUSTOM_FIELDS_BY_EVENT_ID
+        }),
+        setInputCustomFields(id) {
+            this.customFieldId = id;
+        },
+        onInputCustomFields() {
+            this.customFieldValues[this.customFieldId] = {
+                value: event.target.value,
+                custom_field_id: this.customFieldId
+            };
+        },
+        async onScheduleEvent() {
             this.$v.$touch();
             if (!this.$v.$invalid) {
                 try {
+                    const customFieldValues = Object.values(
+                        this.customFieldValues
+                    ).filter(field => {
+                        return field.value;
+                    });
+                    await this.addPublicEvent({
+                        event_type_id: this.eventType.id,
+                        invitee_name: this.meetingFormData.name,
+                        invitee_email: this.meetingFormData.email,
+                        start_date: this.publicEvent.startDate,
+                        timezone: this.publicEvent.timezone,
+                        custom_field_values: customFieldValues
+                    });
+
                     this.$router.push({
                         path: `/${this.eventType.owner.nickname}/${this.eventType.id}/invitee/details`
                     });
@@ -241,6 +300,9 @@ export default {
             this.meetingFormData.additionalInfo = value;
             this.$v.meetingFormData.additionalInfo.$touch();
         }
+    },
+    async mounted() {
+        await this.fetchCustomFields(this.eventType.id);
     }
 };
 </script>

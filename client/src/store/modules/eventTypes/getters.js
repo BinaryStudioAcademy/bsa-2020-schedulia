@@ -5,5 +5,7 @@ export default {
         Object.values(state.eventTypes).sort((a, b) => {
             return a.id - b.id;
         }),
-    [getters.GET_EVENT_TYPES_BY_NICKNAME]: state => state.eventTypesByNickname
+    [getters.GET_EVENT_TYPES_BY_NICKNAME]: state => state.eventTypesByNickname,
+    [getters.GET_CUSTOM_FIELDS]: state => state.customFields,
+    [getters.GET_CUSTOM_FIELD_BY_ID]: state => id => state.customFields[id]
 };

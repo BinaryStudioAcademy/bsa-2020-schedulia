@@ -116,7 +116,7 @@ class Google implements SocialAccountService, CalendarService
         $client = new \Google_Client();
         $client->setClientId($options['client_id']);
         $client->setClientSecret($options['client_secret']);
-        $client->setRedirectUri($options['redirect_uri']);
+        $client->setRedirectUri($options['calendar_redirect_uri']);
         $client->setScopes($options['scopes']);
         $client->setApprovalPrompt($options['approval_prompt']);
         $client->setAccessType($options['access_type']);

@@ -6,8 +6,6 @@ namespace App\Actions\Event;
 
 use App\Entity\Event;
 use App\Events\EventCreated;
-use App\Exceptions\Availability\TimeIsAlreadyBookedException;
-use App\Exceptions\Availability\WrongDateTimeException;
 use App\Repositories\Event\EventRepository;
 use App\Repositories\Event\EventRepositoryInterface;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
@@ -42,7 +40,10 @@ final class AddEventAction
             $event->timezone = $request->getTimezone();
 
             $this->eventRepository->save($event);
-            $this->eventRepository->saveCustomFieldValues($event, $request->getCustomFieldValues());
+
+            if ($request->getCustomFieldValues()) {
+                $this->eventRepository->saveCustomFieldValues($event, $request->getCustomFieldValues());
+            }
 
             event(new EventCreated($event));
         }

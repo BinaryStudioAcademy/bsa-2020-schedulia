@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Actions\CustomField\AddCustomFieldsToEventTypeAction;
 use App\Actions\CustomField\AddCustomFieldsToEventTypeRequest;
+use App\Actions\CustomField\GetCustomFieldCollectionByEventTypeIdAction;
+use App\Actions\CustomField\GetCustomFieldCollectionByEventTypeIdRequest;
 use App\Actions\CustomField\UpdateCustomFieldsToEventTypeAction;
 use App\Actions\CustomField\UpdateCustomFieldsToEventTypeRequest;
 use App\Actions\EventType\AddEventTypeAction;
@@ -23,6 +25,7 @@ use App\Actions\EventType\UpdateEventTypeAction;
 use App\Actions\EventType\UpdateEventTypeRequest;
 use App\Actions\GetByIdRequest;
 use App\Http\Presenters\AvailabilityServicePresenter;
+use App\Http\Presenters\CustomFieldPresenter;
 use App\Http\Presenters\EventTypePresenter;
 use App\Http\Requests\Api\CustomField\CustomFieldRequest;
 use App\Http\Requests\Api\EventType\ChangeDisabledEventTypeRequest;
@@ -34,13 +37,16 @@ class EventTypeController extends ApiController
 {
     private EventTypePresenter $eventTypePresenter;
     private AvailabilityServicePresenter $availabilityServicePresenter;
+    private CustomFieldPresenter $customFieldPresenter;
 
     public function __construct(
         EventTypePresenter $eventTypePresenter,
-        AvailabilityServicePresenter $availabilityServicePresenter
+        AvailabilityServicePresenter $availabilityServicePresenter,
+        CustomFieldPresenter $customFieldPresenter
     ) {
         $this->eventTypePresenter = $eventTypePresenter;
         $this->availabilityServicePresenter = $availabilityServicePresenter;
+        $this->customFieldPresenter = $customFieldPresenter;
     }
 
     public function index(Request $request, GetEventTypeCollectionAction $action)
@@ -51,7 +57,8 @@ class EventTypeController extends ApiController
                 (int)$request->query('page'),
                 (int)$request->query('perPage'),
                 $request->query('sorting'),
-                $request->query('direction')
+                $request->query('direction'),
+                $request->query('all'),
             )
         );
 
@@ -143,11 +150,16 @@ class EventTypeController extends ApiController
         string $nickname,
         GetEventTypeCollectionByNicknameAction $action
     ): JsonResponse {
-        $eventTypes = $action->execute(
+        $response = $action->execute(
             new GetEventTypeCollectionByNicknameRequest($nickname)
-        )->getEventTypes();
+        );
 
-        return $this->successResponse($this->eventTypePresenter->presentCollection($eventTypes));
+        $data = [
+            'eventTypes' => $this->eventTypePresenter->presentCollection($response->getEventTypes()),
+            'owner' => $response->getOwnerName()
+        ];
+
+        return $this->successResponse($data);
     }
 
     public function saveCustomFieldsByEventTypeId(
@@ -176,5 +188,20 @@ class EventTypeController extends ApiController
         );
 
         return $this->emptyResponse();
+    }
+
+    public function getCustomFieldsById(
+        string $id,
+        GetCustomFieldCollectionByEventTypeIdAction $action
+    ): JsonResponse {
+        $customFields = $action->execute(
+            new GetCustomFieldCollectionByEventTypeIdRequest((int)$id)
+        );
+
+        return $this->successResponse(
+            $this->customFieldPresenter->presentCollection(
+                $customFields->getCustomFields()
+            )
+        );
     }
 }

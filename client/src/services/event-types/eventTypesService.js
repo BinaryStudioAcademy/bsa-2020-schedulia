@@ -3,10 +3,11 @@ import requestService from '@/services/requestService';
 const apiEndpoint = '/event-types';
 
 const eventTypesService = {
-    async fetchAllEventTypes(searchString, page) {
+    async fetchAllEventTypes(searchString, page, all) {
         const response = await requestService.get(apiEndpoint, {
             searchString,
-            page
+            page,
+            all
         });
         return response?.data?.data;
     },
@@ -27,6 +28,18 @@ const eventTypesService = {
     },
     async createEventType(eventTypeData) {
         return await requestService.post(apiEndpoint, eventTypeData);
+    },
+    async fetchCustomFieldsByEventTypeId(eventTypeId) {
+        const response = await requestService.get(
+            apiEndpoint + '/' + eventTypeId + '/custom-fields'
+        );
+        return response?.data?.data;
+    },
+    async saveCustomFieldsByEventTypeId(eventTypeId, customFields) {
+        return await requestService.post(
+            apiEndpoint + '/' + eventTypeId + '/custom-fields',
+            customFields
+        );
     }
 };
 

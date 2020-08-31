@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class SocialAccount extends Model
 {
     public const GOOGLE_SERVICE_ID = 1001;
+    public const FACEBOOK_SERVICE_ID = 1002;
+
     protected $primaryKey = null;
     public $incrementing = false;
 
@@ -21,7 +23,8 @@ class SocialAccount extends Model
     ];
 
     public static $services = [
-        self::GOOGLE_SERVICE_ID => 'Google'
+        self::GOOGLE_SERVICE_ID => 'google',
+        self::FACEBOOK_SERVICE_ID => 'facebook',
     ];
 
     public function user()

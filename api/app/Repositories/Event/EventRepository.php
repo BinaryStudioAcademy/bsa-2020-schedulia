@@ -7,6 +7,7 @@ namespace App\Repositories\Event;
 use App\Entity\Event;
 use App\Repositories\BaseRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 final class EventRepository extends BaseRepository implements EventRepositoryInterface
 {
@@ -46,5 +47,20 @@ final class EventRepository extends BaseRepository implements EventRepositoryInt
         $event
             ->customFieldValues()
             ->createMany($customFieldValues);
+    }
+
+    public function getEventsEmails(
+        array $criteria
+    ): Collection {
+        $query = Event::query();
+
+        foreach ($criteria as $criterion) {
+            $query = $criterion->apply($query);
+        }
+
+        return $query
+            ->select('events.invitee_email')
+            ->distinct()
+            ->get();
     }
 }

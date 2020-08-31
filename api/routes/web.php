@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
+    Route::get('/{provider}', 'SocialAuthController@redirectToProvider');
+    Route::get('/{provider}/callback', 'SocialAuthController@handleProviderCallback');
+});

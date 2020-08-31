@@ -33,8 +33,8 @@
                     {{ publicEvent.timezone }}
                 </div>
                 <div class="event-info">
-                    <VIcon dark color="primary">mdi-map-marker</VIcon>
-                    {{ eventType.location }}
+                    <VIcon dark color="primary">mdi-map-marker</VIcon>Vyacheslav
+                    Chornovol Avenue, 59, Lviv
                 </div>
                 <div class="event-info">{{ eventType.description }}</div>
             </div>

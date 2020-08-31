@@ -65,6 +65,7 @@ Route::group([
     'namespace' => 'Api\\'
 ], function () {
     Route::get('/nickname/{nickname}', 'EventTypeController@getEventTypesByNickname');
+    Route::get('/{id}/custom-fields', 'EventTypeController@getCustomFieldsById');
 });
 
 Route::get('/event-types/{id}/availabilities', 'Api\\EventTypeController@getAvailableTime');
@@ -75,6 +76,7 @@ Route::group([
 ], function () {
     Route::post('/', 'EventController@store');
     Route::get('/', 'EventController@index');
+    Route::get('/emails', 'EventController@getEventsEmails');
 });
 
 Route::group([
