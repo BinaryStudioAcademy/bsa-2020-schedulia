@@ -66,7 +66,6 @@ import * as actions from '@/store/modules/eventTypes/types/actions';
 import { mapActions, mapGetters } from 'vuex';
 import DeleteConfirmDialog from '@/components/event-types/all-event-types/DeleteConfirmDialog';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
-import * as notificationActions from '@/store/modules/notification/types/actions';
 
 export default {
     name: 'DropDown',
@@ -90,9 +89,6 @@ export default {
             disableEventType: actions.DISABLE_EVENT_TYPE_BY_ID,
             cloneEventType: actions.CLONE_EVENT_TYPE_BY_ID,
             fetchAllEventTypes: actions.FETCH_EVENT_TYPES
-        }),
-        ...mapActions('notification', {
-            setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
         }),
         onSwitch() {
             this.disableEventType({
