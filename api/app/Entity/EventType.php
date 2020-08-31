@@ -15,6 +15,7 @@ class EventType extends Model
         'color',
         'slug',
         'description',
+        'internal_note',
         'duration',
         'timezone',
         'disabled',
