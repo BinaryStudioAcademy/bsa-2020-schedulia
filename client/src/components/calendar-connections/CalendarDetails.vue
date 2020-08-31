@@ -8,7 +8,7 @@
                 class="text v-btn--flat v-btn--outlined mr-4"
                 color="primary"
                 dark
-                @click="disconnectCalendar"
+                @click="onClickHandle(calendar.provider)"
             >
                 {{ lang.DISCONNECT }}
             </VBtn>
@@ -18,7 +18,7 @@
 
 <script>
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: 'CalendarDetails',
@@ -36,7 +36,11 @@ export default {
     },
 
     methods: {
-        async disconnectCalendar() {}
+        ...mapActions('connectedCalendars', ['disconnect']),
+
+        async onClickHandle(provider) {
+            this.disconnect(provider);
+        }
     }
 };
 </script>
