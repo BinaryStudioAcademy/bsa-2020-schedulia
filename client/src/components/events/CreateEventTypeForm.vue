@@ -83,6 +83,8 @@
                         :key="id"
                         :src="colorById[id].image"
                         alt=""
+                        width="44"
+                        height="44"
                         class="image-circle"
                         :class="{
                             'mr-5': $vuetify.breakpoint.xs,
@@ -282,7 +284,16 @@ export default {
             coordinates: [],
             showZoomDialog: false,
             showSkypeDialog: false,
-            colors: ['yellow', 'red', 'blue', 'green'],
+            colors: [
+                'yellow',
+                'red',
+                'blue',
+                'green',
+                'purple',
+                'turquoise',
+                'pink',
+                'dark_blue'
+            ],
             nameRules: [
                 v => !!v || this.lang.PROVIDE_EVENT_NAME,
                 v =>

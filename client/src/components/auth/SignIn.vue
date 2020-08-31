@@ -61,6 +61,7 @@
                             height="44"
                             class="login-button  primary"
                             depressed
+                            type="submit"
                             @click="onSignIn"
                             >{{ lang.LOG_IN }}
                         </VBtn>
