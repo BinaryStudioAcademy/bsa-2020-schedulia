@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\Tag\AddTagAction;
+use App\Actions\Tag\AddTagRequest;
 use App\Actions\Tag\GetTagsByEventDateRangeAction;
 use App\Actions\Tag\GetTagsByEventDateRangeRequest;
 use App\Actions\Tag\GetTagsByEventTypeIdAction;
 use App\Actions\Tag\GetTagsByEventTypeIdRequest;
 use App\Http\Presenters\TagPresenter;
+use App\Http\Requests\Api\Tag\TagRequest;
 use Illuminate\Http\Request;
 
 class TagController extends ApiController
@@ -16,6 +19,20 @@ class TagController extends ApiController
     public function __construct(TagPresenter $tagPresenter)
     {
         $this->presenter = $tagPresenter;
+    }
+
+    public function store(TagRequest $request, AddTagAction $addTagAction)
+    {
+        $response = $addTagAction->execute(
+            new AddTagRequest(
+                (int)$request->event_type_id,
+                $request->name,
+            )
+        );
+
+        return $this->successResponse(
+            $this->presenter->present($response->getTag())
+        );
     }
 
     public function getTagsByEventTypeId(
