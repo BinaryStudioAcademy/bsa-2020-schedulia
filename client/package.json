@@ -11,7 +11,6 @@
     "d-lint": "docker-compose run --rm node npm run lint"
   },
   "dependencies": {
-    "@mapbox/mapbox-gl-geocoder": "^4.7.0",
     "@sentry/browser": "^5.20.1",
     "@sentry/integrations": "^5.20.1",
     "axios": "^0.19.2",
