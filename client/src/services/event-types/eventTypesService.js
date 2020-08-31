@@ -40,6 +40,12 @@ const eventTypesService = {
             apiEndpoint + '/' + eventTypeId + '/custom-fields',
             customFields
         );
+    },
+    async updateInternalNoteByEventTypeId(eventTypeId, internalNote) {
+        return await requestService.put(
+            apiEndpoint + '/' + eventTypeId + '/internal-note',
+            internalNote
+        );
     }
 };
 
