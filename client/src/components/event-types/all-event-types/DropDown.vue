@@ -23,7 +23,7 @@
                     {{ lang.ADD_INTERNAL_NOTE }}
                 </VListItemTitle>
             </VListItem>
-            <VListItem dense disabled>
+            <VListItem dense @click="onClone">
                 <VListItemTitle>
                     <VIcon color="primary">mdi-content-copy</VIcon>
                     {{ lang.CLONE }}
@@ -86,13 +86,17 @@ export default {
     },
     methods: {
         ...mapActions('eventTypes', {
-            disableEventType: actions.DISABLE_EVENT_TYPE_BY_ID
+            disableEventType: actions.DISABLE_EVENT_TYPE_BY_ID,
+            cloneEventType: actions.CLONE_EVENT_TYPE_BY_ID
         }),
         onSwitch() {
             this.disableEventType({
                 id: this.eventType.id,
                 disabled: !this.switchStatus
             });
+        },
+        async onClone() {
+            await this.cloneEventType(this.eventType.id);
         }
     },
     computed: {
