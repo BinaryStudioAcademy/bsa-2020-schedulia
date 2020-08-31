@@ -8,7 +8,8 @@ final class GetTagsByEventTypeIdRequest
 {
     private ?array $eventTypes;
 
-    public function __construct(?array $eventTypes) {
+    public function __construct(?array $eventTypes)
+    {
         $this->eventTypes = $eventTypes;
     }
 

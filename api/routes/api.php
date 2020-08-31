@@ -79,9 +79,9 @@ Route::group([
 });
 
 Route::group([
-                 'namespace' => 'Api\\',
-                 'prefix' => '/tags'
-             ], function () {
+    'namespace' => 'Api\\',
+    'prefix' => '/tags'
+], function () {
     Route::get('/', 'TagController@getTagsByEventTypeId');
 });
 

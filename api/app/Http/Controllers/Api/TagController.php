@@ -16,7 +16,7 @@ class TagController extends ApiController
         $this->presenter = $tagPresenter;
     }
 
-    public function getTagsByEventTypeId (
+    public function getTagsByEventTypeId(
         Request $request,
         GetTagsByEventTypeIdAction $getTagsByEventTypeIdAction
     ) {
