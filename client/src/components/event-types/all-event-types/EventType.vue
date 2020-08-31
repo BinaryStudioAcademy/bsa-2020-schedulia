@@ -13,6 +13,7 @@
                 <span class="event-type-about"
                     >{{ eventType.duration }} {{ lang.MINS }}</span
                 >
+                <span class="d-block mt-3 internal-note" v-if="eventType.internalNote"><i>"{{ eventType.internalNote }}"</i></span>
             </div>
         </div>
         <div class="event-type-invitee mb-2">
@@ -123,5 +124,9 @@ export default {
 .disabled-event .event-type-about,
 .disabled-event .event-type-actions .duration span {
     color: #e5e5e5;
+}
+.internal-note {
+    color: gray;
+    font-size: 14px;
 }
 </style>
