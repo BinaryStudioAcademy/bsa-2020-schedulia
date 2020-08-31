@@ -46,4 +46,9 @@ class EventCreated implements ShouldBroadcast
     {
         return new PrivateChannel('events');
     }
+
+    public function getEvent(): Event
+    {
+        return $this->event;
+    }
 }
