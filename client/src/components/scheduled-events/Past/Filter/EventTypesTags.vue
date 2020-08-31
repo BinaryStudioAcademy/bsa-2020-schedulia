@@ -282,7 +282,7 @@ export default {
 
 <style scoped>
 .no-items {
-    color: #2c2c2c;
+    color: var(--v-customDark-base);
     font-weight: 500;
     font-size: 13px;
     line-height: 16px;
