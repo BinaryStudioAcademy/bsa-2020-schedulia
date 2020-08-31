@@ -395,5 +395,7 @@ export default {
         '                        calendar.',
     NO_OPENINGS_AT_THE_MOMENT: 'No openings at the moment.',
     NO_EVENTS_FOUND: 'No Events found',
-    PUBLIC_LINK_WAS_COPIED: 'Public Link was copied!'
+    PUBLIC_LINK_WAS_COPIED: 'Public Link was copied!',
+    TAGS: 'Tags',
+    ALL_TAGS: 'All Tags'
 };
