@@ -149,6 +149,9 @@ export default {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
             });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         }
     },
     [actions.EDIT_CUSTOM_FIELD]: ({ commit, dispatch }, data) => {
@@ -156,6 +159,22 @@ export default {
             commit(mutations.EDIT_CUSTOM_FIELD, data);
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+        }
+    },
+    [actions.CLONE_EVENT_TYPE_BY_ID]: async ({ commit, dispatch }, eventTypeId) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+        try {
+            await eventTypesService.saveCustomFieldsByEventTypeId(eventTypeId);
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });
         }
