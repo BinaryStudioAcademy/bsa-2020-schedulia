@@ -261,11 +261,11 @@ export default {
             try {
                 if (this.$refs.form.validate()) {
                     this.prepareData();
-                    await this.addEventType(this.data).then((response) => {
+                    await this.addEventType(this.data).then(response => {
                         if (response) {
                             this.$router.push({
                                 path: 'new-event-type-options',
-                                props: {eventTypeId: response.id}
+                                props: { eventTypeId: response.id }
                             });
                         }
                     });
@@ -294,14 +294,16 @@ export default {
                         continue;
                     }
 
-                    availabilities[key][index]['startDate'] =
-                        momentTimezone(availabilities[key][index]['startDate'])
-                        .tz("Europe/London")
+                    availabilities[key][index]['startDate'] = momentTimezone(
+                        availabilities[key][index]['startDate']
+                    )
+                        .tz('Europe/London')
                         .format('YYYY-MM-DD HH:mm:ss');
 
-                    availabilities[key][index]['endDate'] =
-                        momentTimezone(availabilities[key][index]['endDate'])
-                        .tz("Europe/London")
+                    availabilities[key][index]['endDate'] = momentTimezone(
+                        availabilities[key][index]['endDate']
+                    )
+                        .tz('Europe/London')
                         .format('YYYY-MM-DD HH:mm:ss');
                 }
                 data[key] = availabilities[key];
