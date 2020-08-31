@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="150px" height="150px" viewBox="0 0 150 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53 (72520) - https://sketchapp.com -->
+    <title>Zero_Event_Results_@2x</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="150" height="150"></rect>
+    </defs>
+    <g id="Zero_Event_Results_@2x" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Mask"></g>
+            <g id="Group-48" mask="url(#mask-2)">
+                <g transform="translate(9.000000, 14.000000)">
+                    <path d="M115.556037,106.900749 L4.8152963,106.900749 C2.15511111,106.900749 0.000481481481,104.737362 0.000481481481,102.069065 L0.000481481481,15.0987683 C0.000481481481,12.4304713 2.15511111,10.2670851 4.8152963,10.2670851 L115.556037,10.2670851 C118.215019,10.2670851 120.370852,12.4304713 120.370852,15.0987683 L120.370852,102.069065 C120.370852,104.737362 118.215019,106.900749 115.556037,106.900749" id="Fill-1" stroke="none" fill="#ECECEE" fill-rule="evenodd"></path>
+                    <path d="M125.185667,97.2373822 L14.4449259,97.2373822 C11.7847407,97.2373822 9.63011111,95.073996 9.63011111,92.405699 L9.63011111,5.43540198 C9.63011111,2.76710495 11.7847407,0.603718812 14.4449259,0.603718812 L125.185667,0.603718812 C127.844648,0.603718812 130.000481,2.76710495 130.000481,5.43540198 L130.000481,92.405699 C130.000481,95.073996 127.844648,97.2373822 125.185667,97.2373822" id="Fill-3" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
+                    <g id="Group-8" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(32.500000, 24.120970)">
+                        <path d="M1.20418519,0.641164356 L1.20418519,73.1164119" id="Fill-5" fill="#FFFFFF"></path>
+                        <path d="M1.20418519,0.641164356 L1.20418519,73.1164119" id="Stroke-7" stroke="#DADADA" stroke-width="2"></path>
+                    </g>
+                    <g id="Group-12" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(56.574074, 24.120970)">
+                        <path d="M1.20418519,0.641164356 L1.20418519,73.1164119" id="Fill-9" fill="#FFFFFF"></path>
+                        <path d="M1.20418519,0.641164356 L1.20418519,73.1164119" id="Stroke-11" stroke="#DADADA" stroke-width="2"></path>
+                    </g>
+                    <g id="Group-16" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(80.648148, 24.120970)">
+                        <path d="M1.20418519,0.641164356 L1.20418519,73.1164119" id="Fill-13" fill="#FFFFFF"></path>
+                        <path d="M1.20418519,0.641164356 L1.20418519,73.1164119" id="Stroke-15" stroke="#DADADA" stroke-width="2"></path>
+                    </g>
+                    <g id="Group-20" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(104.722222, 24.120970)">
+                        <path d="M1.20418519,0.641164356 L1.20418519,73.1164119" id="Fill-17" fill="#FFFFFF"></path>
+                        <path d="M1.20418519,0.641164356 L1.20418519,73.1164119" id="Stroke-19" stroke="#DADADA" stroke-width="2"></path>
+                    </g>
+                    <g id="Group-24" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(9.629630, 48.279386)">
+                        <path d="M0.000481481481,0.641164356 L120.370852,0.641164356" id="Fill-21" fill="#FFFFFF"></path>
+                        <path d="M0.000481481481,0.641164356 L120.370852,0.641164356" id="Stroke-23" stroke="#DADADA" stroke-width="2"></path>
+                    </g>
+                    <g id="Group-28" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(9.629630, 72.437802)">
+                        <path d="M0.000481481481,0.641164356 L120.370852,0.641164356" id="Fill-25" fill="#FFFFFF"></path>
+                        <path d="M0.000481481481,0.641164356 L120.370852,0.641164356" id="Stroke-27" stroke="#DADADA" stroke-width="2"></path>
+                    </g>
+                    <path d="M130.000481,24.7621347 L9.63011111,24.7621347 L9.63011111,5.43540198 C9.63011111,2.76710495 11.7847407,0.603718812 14.4449259,0.603718812 L125.185667,0.603718812 C127.844648,0.603718812 130.000481,2.76710495 130.000481,5.43540198 L130.000481,24.7621347 Z" id="Fill-29" stroke="none" fill="#DADADA" fill-rule="evenodd"></path>
+                    <path d="M130.000481,24.7621347 L9.63011111,24.7621347 L9.63011111,5.43540198 C9.63011111,2.76710495 11.7847407,0.603718812 14.4449259,0.603718812 L125.185667,0.603718812 C127.844648,0.603718812 130.000481,2.76710495 130.000481,5.43540198 L130.000481,24.7621347 Z" id="Stroke-31" stroke="#939393" stroke-width="3" fill="none"></path>
+                    <path d="M125.185667,97.2373822 L14.4449259,97.2373822 C11.7847407,97.2373822 9.63011111,95.073996 9.63011111,92.405699 L9.63011111,5.43540198 C9.63011111,2.76710495 11.7847407,0.603718812 14.4449259,0.603718812 L125.185667,0.603718812 C127.844648,0.603718812 130.000481,2.76710495 130.000481,5.43540198 L130.000481,92.405699 C130.000481,95.073996 127.844648,97.2373822 125.185667,97.2373822 Z" id="Stroke-33" stroke="#939393" stroke-width="3" fill="none"></path>
+                    <path d="M95.5915278,60.6151564 C95.5915278,74.8456713 84.0949537,86.3837307 69.9129167,86.3837307 C55.7308796,86.3837307 44.2331019,74.8456713 44.2331019,60.6151564 C44.2331019,46.3834337 55.7308796,34.8453743 69.9129167,34.8453743 C84.0949537,34.8453743 95.5915278,46.3834337 95.5915278,60.6151564 Z" id="Stroke-35" stroke="#FFFFFF" stroke-width="13" fill="none"></path>
+                    <path d="M126.084954,116.983988 L88.0695833,78.8342257" id="Stroke-37" stroke="#FFFFFF" stroke-width="13" fill="none"></path>
+                    <g id="Group-43" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(38.518519, 39.616020)">
+                        <path d="M52.2581944,25.8308198 C52.2581944,40.0613347 40.7616204,51.5993941 26.5795833,51.5993941 C12.3975463,51.5993941 0.899768519,40.0613347 0.899768519,25.8308198 C0.899768519,11.599097 12.3975463,0.0610376238 26.5795833,0.0610376238 C40.7616204,0.0610376238 52.2581944,11.599097 52.2581944,25.8308198 Z" id="Stroke-39" stroke="#ECECEE" stroke-width="7.22222222"></path>
+                        <path d="M82.7516204,82.1996515 L44.73625,44.0498891" id="Stroke-41" stroke="#ECECEE" stroke-width="7.22222222"></path>
+                    </g>
+                    <path d="M95.5915278,60.6151564 C95.5915278,74.8456713 84.0949537,86.3837307 69.9129167,86.3837307 C55.7308796,86.3837307 44.2331019,74.8456713 44.2331019,60.6151564 C44.2331019,46.3834337 55.7308796,34.8453743 69.9129167,34.8453743 C84.0949537,34.8453743 95.5915278,46.3834337 95.5915278,60.6151564 Z" id="Stroke-44" stroke="#939393" stroke-width="7.22222222" fill="none"></path>
+                    <path d="M126.084954,116.983988 L88.0695833,78.8342257" id="Stroke-46" stroke="#939393" stroke-width="7.22222222" fill="none"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

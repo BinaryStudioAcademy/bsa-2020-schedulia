@@ -1,5 +1,5 @@
 export default {
     eventTypes: {},
     eventTypesByNickname: {},
-    ownerByNickname: ''
+    customFields: {}
 };

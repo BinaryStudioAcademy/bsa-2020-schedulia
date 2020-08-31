@@ -9,7 +9,7 @@ const eventTypesService = {
             page,
             all
         });
-        return response?.data?.data;
+        return response?.data;
     },
     async fetchEventTypesByNickname(nickName) {
         const response = await requestService.get(
@@ -28,6 +28,18 @@ const eventTypesService = {
     },
     async createEventType(eventTypeData) {
         return await requestService.post(apiEndpoint, eventTypeData);
+    },
+    async fetchCustomFieldsByEventTypeId(eventTypeId) {
+        const response = await requestService.get(
+            apiEndpoint + '/' + eventTypeId + '/custom-fields'
+        );
+        return response?.data?.data;
+    },
+    async saveCustomFieldsByEventTypeId(eventTypeId, customFields) {
+        return await requestService.post(
+            apiEndpoint + '/' + eventTypeId + '/custom-fields',
+            customFields
+        );
     }
 };
 
