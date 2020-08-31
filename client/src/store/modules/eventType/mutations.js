@@ -28,7 +28,7 @@ export default {
     },
 
     [mutations.SET_EVENT_TYPE]: (state, eventType) => {
-        state.eventType = eventTypeMapper(eventType);
+        _.assign(state.eventType, _.pick(eventType, _.keys(state.eventType)));
     },
 
     [mutations.DELETE_EVENT_TYPE]: (state, id) => {
@@ -54,5 +54,8 @@ export default {
 
     [mutations.SET_EVENT_TYPE_FORM_LOCATION]: (state, data) => {
         state.eventTypeForm.location = data;
+    },
+    [mutations.SET_PROPERTY]: (state, { property, value }) => {
+        state[property] = value;
     }
 };
