@@ -38,11 +38,16 @@ export default {
             direction = 'desc',
             eventTypes = [],
             eventEmails = [],
+            eventStatus = [],
             startDate = '',
             endDate = ''
         }
     ) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+
+        if(!eventStatus.length) {
+            eventStatus = ['active'];
+        }
 
         try {
             const events = await scheduledEventService.getScheduledEvents(
@@ -51,6 +56,7 @@ export default {
                 direction,
                 eventTypes,
                 eventEmails,
+                eventStatus,
                 startDate,
                 endDate
             );

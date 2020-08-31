@@ -84,7 +84,8 @@ export default {
                 direction: this.direction,
                 endDate: this.endDate,
                 eventTypes: this.$route.query.event_types,
-                eventEmails: this.$route.query.event_emails
+                eventEmails: this.$route.query.event_emails,
+                eventStatus: this.$route.query.event_status
             });
 
             if (
@@ -105,7 +106,8 @@ export default {
                 direction: this.direction,
                 endDate: this.endDate,
                 eventTypes: this.$route.query.event_types,
-                eventEmails: this.$route.query.event_emails
+                eventEmails: this.$route.query.event_emails,
+                eventStatus: this.$route.query.event_status
             });
 
             if (
