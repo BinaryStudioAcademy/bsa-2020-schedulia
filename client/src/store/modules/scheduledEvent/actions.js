@@ -45,7 +45,7 @@ export default {
     ) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
 
-        if(!eventStatus.length) {
+        if (!eventStatus.length) {
             eventStatus = ['active'];
         }
 

@@ -29,16 +29,16 @@
                         <VListItemContent>
                             <VContainer fluid>
                                 <div
-                                        v-for="(checkbox, index) in checkboxes"
-                                        :key="index"
+                                    v-for="(checkbox, index) in checkboxes"
+                                    :key="index"
                                 >
                                     <VCheckbox
-                                            hide-details
-                                            :label="checkbox.name"
-                                            :input-value="
-                                                eventStatus.includes(checkbox.id)
-                                            "
-                                            @change="onChangeStatus(checkbox.id)"
+                                        hide-details
+                                        :label="checkbox.name"
+                                        :input-value="
+                                            eventStatus.includes(checkbox.id)
+                                        "
+                                        @change="onChangeStatus(checkbox.id)"
                                     ></VCheckbox>
                                 </div>
                             </VContainer>
@@ -51,8 +51,8 @@
                                     {{ lang.CANCEL }}
                                 </VBtn>
                                 <VBtn
-                                        class="apply-button primary"
-                                        @click="filterScheduledEvent"
+                                    class="apply-button primary"
+                                    @click="filterScheduledEvent"
                                 >
                                     {{ lang.APPLY }}
                                 </VBtn>
@@ -131,7 +131,7 @@ export default {
             this.setEventStatus();
         },
 
-        setEventStatus () {
+        setEventStatus() {
             this.getEventStatus = [
                 {
                     id: 'active',
@@ -158,7 +158,10 @@ export default {
         },
 
         statusFilterTitle() {
-            if (this.eventStatusChecked.includes('active') && this.eventStatusChecked.includes('canceled')) {
+            if (
+                this.eventStatusChecked.includes('active') &&
+                this.eventStatusChecked.includes('canceled')
+            ) {
                 return this.lang.ALL_EVENTS;
             } else if (this.eventStatusChecked.includes('active')) {
                 return this.lang.ACTIVE_EVENTS;
@@ -172,12 +175,12 @@ export default {
         onChangeStatus(id) {
             if (this.eventStatus.includes(id)) {
                 this.eventStatus = this.eventStatus.filter(
-                        eventStatus => eventStatus !== id
+                    eventStatus => eventStatus !== id
                 );
             } else {
                 this.eventStatus = this.eventStatus.concat(id);
             }
-        },
+        }
     }
 };
 </script>
