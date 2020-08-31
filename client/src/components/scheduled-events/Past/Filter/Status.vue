@@ -151,7 +151,8 @@ export default {
                 query: {
                     event_types: this.$route.query.event_types,
                     event_emails: this.$route.query.event_emails,
-                    event_status: this.eventStatus
+                    event_status: this.eventStatus,
+                    tags: this.$route.query.tags
                 }
             });
             this.closeMenu();

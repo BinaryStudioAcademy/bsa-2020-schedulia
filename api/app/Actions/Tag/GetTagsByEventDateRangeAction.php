@@ -6,6 +6,7 @@ namespace App\Actions\Tag;
 
 use App\Repositories\Tag\Criterion\EndDateCriterion;
 use App\Repositories\Tag\Criterion\StartDateCriterion;
+use App\Repositories\Tag\Criterion\TagsNameCriterion;
 use App\Repositories\Tag\TagRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,10 @@ final class GetTagsByEventDateRangeAction
     {
         $userId = Auth::id();
         $criteria = [];
+
+        if ($request->getSearchString()) {
+            $criteria[] = new TagsNameCriterion($request->getSearchString());
+        }
 
         if ($request->getStartDate()) {
             $startDate = Carbon::parse($request->getStartDate())->format('Y-m-d H:m');

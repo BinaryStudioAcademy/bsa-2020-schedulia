@@ -56,6 +56,7 @@ class TagController extends ApiController
     ) {
         $response = $getTagsByEventDateRangeAction->execute(
             new GetTagsByEventDateRangeRequest(
+                $request->query('search_string'),
                 $request->query('start_date'),
                 $request->query('end_date')
             )
