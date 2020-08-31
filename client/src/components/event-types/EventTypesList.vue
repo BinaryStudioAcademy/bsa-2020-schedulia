@@ -80,7 +80,7 @@ export default {
         page: 1,
         loadMoreActive: false,
         perPage: 4,
-        lastPage: ''
+        lastPage: 1
     }),
     methods: {
         ...mapActions('eventTypes', {
