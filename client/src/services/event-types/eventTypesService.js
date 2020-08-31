@@ -40,6 +40,12 @@ const eventTypesService = {
             apiEndpoint + '/' + eventTypeId + '/custom-fields',
             customFields
         );
+    },
+    async cloneEventTypeById(eventTypeId) {
+        const response = await requestService.post(
+            apiEndpoint + '/' + eventTypeId + '/clone'
+        );
+        return response?.data?.data;
     }
 };
 
