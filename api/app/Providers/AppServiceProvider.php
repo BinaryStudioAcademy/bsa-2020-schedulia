@@ -13,6 +13,8 @@ use App\Repositories\SocialAccount\SocialAccountRepository;
 use App\Repositories\SocialAccount\SocialAccountRepositoryInterface;
 use App\Repositories\Event\EventRepository;
 use App\Repositories\Event\EventRepositoryInterface;
+use App\Repositories\Tag\TagRepository;
+use App\Repositories\Tag\TagRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Availability\AvailabilityService;
@@ -27,7 +29,8 @@ class AppServiceProvider extends ServiceProvider
         AvailabilityRepositoryInterface::class => AvailabilityRepository::class,
         UserRepositoryInterface::class => UserRepository::class,
         SocialAccountRepositoryInterface::class => SocialAccountRepository::class,
-        EventAggregateRepositoryInterface::class => ElasticsearchEventAggregateRepository::class
+        EventAggregateRepositoryInterface::class => ElasticsearchEventAggregateRepository::class,
+        TagRepositoryInterface::class => TagRepository::class
     ];
 
     /**

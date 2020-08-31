@@ -398,5 +398,6 @@ export default {
     EDIT_INTERNAL_NOTE: 'Edit Internal Note',
     INTERNAL_NOTE: 'Internal Note',
     INTERNAL_NOTE_DESCRIPTION: 'Write relevant information about this event type that you\n' +
-        '                    may want to reference later.'
+        '                    may want to reference later.',
+  PUBLIC_LINK_WAS_COPIED: 'Public Link was copied!'
 };
