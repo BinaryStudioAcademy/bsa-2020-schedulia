@@ -43,7 +43,6 @@ final class CloneEventTypeByIdAction
         $newEventType->push();
         $newEventType->customFields()->createMany($eventType->customFields->toArray());
         $newEventType->availabilities()->createMany($eventType->availabilities->toArray());
-//        $newEventType->tags()->createMany($eventType->tags->toArray());
         return new CloneEventTypeByIdResponse($newEventType);
     }
 }
