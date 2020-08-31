@@ -114,7 +114,7 @@
 }
 
 .v-input__slot {
-  color: #2C2C2C;
+  color: var(--v-customDark-base);
   font-weight: 500;
   font-size: 13px;
   line-height: 16px;
@@ -126,7 +126,7 @@
   }
 
   .theme--light.v-label {
-    color: #2C2C2C;
+    color: var(--v-customDark-base);
     font-weight: 500;
     font-size: 13px;
     line-height: 16px;
@@ -157,7 +157,7 @@
 
   .cancel-button {
     border: 1px solid #E0E0E0;
-    color: #2C2C2C;
+    color: var(--v-customDark-base);
   }
 }
 
