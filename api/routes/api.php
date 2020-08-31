@@ -67,6 +67,7 @@ Route::group([
 ], function () {
     Route::get('/nickname/{nickname}', 'EventTypeController@getEventTypesByNickname');
     Route::get('/{id}/custom-fields', 'EventTypeController@getCustomFieldsById');
+    Route::get('{id}/tags', 'TagController@getTagsByEventTypeId');
 });
 
 Route::get('/event-types/{id}/availabilities', 'Api\\EventTypeController@getAvailableTime');
@@ -78,6 +79,13 @@ Route::group([
     Route::post('/', 'EventController@store');
     Route::get('/', 'EventController@index');
     Route::get('/emails', 'EventController@getEventsEmails');
+});
+
+Route::group([
+    'namespace' => 'Api\\',
+    'prefix' => '/tags'
+], function () {
+    Route::get('/events', 'TagController@getTagsByEventDateRange');
 });
 
 Route::group([

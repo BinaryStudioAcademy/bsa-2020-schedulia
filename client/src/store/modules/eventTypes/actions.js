@@ -12,7 +12,7 @@ export default {
     ) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
         try {
-            const eventTypes = await eventTypesService.fetchAllEventTypes(
+            const response = await eventTypesService.fetchAllEventTypes(
                 data.searchString,
                 data.page,
                 data.all
@@ -20,11 +20,11 @@ export default {
             if (data.searchString || data.page === 1 || data.all) {
                 commit(mutations.CLEAR_EVENT_TYPES);
             }
-            commit(mutations.SET_EVENT_TYPES, eventTypes);
+            commit(mutations.SET_EVENT_TYPES, response.data);
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });
-            return eventTypes;
+            return response;
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
