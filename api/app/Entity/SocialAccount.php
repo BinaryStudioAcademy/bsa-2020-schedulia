@@ -8,6 +8,7 @@ class SocialAccount extends Model
 {
     public const GOOGLE_SERVICE_ID = 1001;
     public const FACEBOOK_SERVICE_ID = 1002;
+    public const LINKEDIN_SERVICE_ID = 1003;
 
     protected $primaryKey = null;
     public $incrementing = false;
