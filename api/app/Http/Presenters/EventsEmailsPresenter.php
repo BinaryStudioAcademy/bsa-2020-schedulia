@@ -13,7 +13,7 @@ final class EventsEmailsPresenter implements PresenterCollectionInterface
     public function present(Event $event): array
     {
         return [
-            'invitee_email' => $event->invitee_email,
+            'email' => $event->invitee_email,
         ];
     }
 

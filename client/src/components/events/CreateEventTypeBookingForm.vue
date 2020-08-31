@@ -263,7 +263,10 @@ export default {
                     this.prepareData();
                     await this.addEventType(this.data).then((response) => {
                         if (response) {
-                            this.$router.push({ name: 'EventTypes' });
+                            this.$router.push({
+                                path: 'new-event-type-options',
+                                props: {eventTypeId: response.id}
+                            });
                         }
                     });
                 }

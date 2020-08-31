@@ -36,6 +36,18 @@ const routes = [
                         path: 'reset-password',
                         name: 'ResetPassword',
                         component: () => import('../views/ResetPassword')
+                    },
+
+                    {
+                        path: 'verified-email',
+                        name: 'verifiedEmail',
+                        component: () => import('../views/VerifiedEmail')
+                    },
+
+                    {
+                        path: 'auth/social-callback',
+                        name: 'socialCallback',
+                        component: () => import('../views/SocialLogin')
                     }
                 ]
             },
@@ -80,6 +92,12 @@ const routes = [
                         component: () => import('../views/NewEventTypeBooking')
                     },
                     {
+                        path: 'new-event-type-options',
+                        name: 'newEventTypeAdditionalOptions',
+                        component: () =>
+                            import('../views/NewEventTypeAdditionalOptions')
+                    },
+                    {
                         path: 'scheduled-events',
                         name: 'ScheduledEvents',
                         component: () => import('../views/ScheduledEvents'),
@@ -99,11 +117,6 @@ const routes = [
                         ]
                     }
                 ]
-            },
-            {
-                path: 'verified-email',
-                name: 'verified-email',
-                component: () => import('../views/VerifiedEmail')
             },
             {
                 path: 'event-disabled',

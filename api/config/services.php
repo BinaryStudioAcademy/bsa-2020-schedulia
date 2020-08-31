@@ -33,8 +33,9 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-
-        'redirect_uri' => env('GOOGLE_OAUTH_REDIRECT_URI'),
+        'redirect' => env('GOOGLE_OAUTH_REDIRECT_URI'),
+        'calendar_redirect_uri' => env('GOOGLE_CALENDAR_OAUTH_REDIRECT_URI'),
+        'frontend_redirect_uri' => env('GOOGLE_CALENDAR_FRONTEND_REDIRECT_URI'),
 
         'scopes' => [
             \Google_Service_Oauth2::USERINFO_EMAIL,
@@ -42,7 +43,21 @@ return [
         ],
 
         'approval_prompt' => 'force',
-        'access_type' => 'offline'
-    ]
 
+        'access_type' => 'offline',
+
+        'include_granted_scopes' => true
+    ],
+
+    'facebook' => [
+        'client_id' => env('FACEBOOK_APP_ID'),
+        'client_secret' => env('FACEBOOK_APP_SECRET'),
+        'redirect' => env('FACEBOOK_REDIRECT'),
+    ],
+
+    'linkedin' => [
+        'client_id' => env('LINKEDIN_CLIENT_ID'),
+        'client_secret' => env('LINKEDIN_CLIENT_SECRET'),
+        'redirect' => env('LINKEDIN_REDIRECT')
+    ],
 ];

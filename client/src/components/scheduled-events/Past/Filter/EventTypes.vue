@@ -7,7 +7,7 @@
             v-model="menu"
             max-width="290"
             :close-on-content-click="false"
-            offset-y
+            :offset-y="true"
         >
             <template v-slot:activator="{ on, attrs }">
                 <VBtn
@@ -38,13 +38,12 @@
                                 hide-details
                                 dense
                                 flat
-                                v-model="searchString"
                                 color="#2C2C2C"
                                 background-color="rgba(224, 224, 224, 0.3)"
                                 label="Search"
                                 clearable
                                 prepend-inner-icon="mdi-magnify"
-                                @input="searchEventTypes(searchString)"
+                                @input="searchEventTypes"
                             ></VTextField>
                             <VContainer class="filter-form" fluid>
                                 <span v-if="this.getEventTypes.length">
@@ -144,7 +143,6 @@ export default {
         return {
             countShowEventTypes: 12,
             menu: false,
-            searchString: '',
             eventTypes: [],
             moreEventTypes: false,
             eventTypesChecked: []
@@ -253,7 +251,12 @@ export default {
             this.eventTypesChecked = this.eventTypes;
             this.$router.push({
                 name: 'Past',
-                query: { event_types: this.eventTypes }
+                query: {
+                    event_types: this.eventTypes,
+                    event_emails: this.$route.query.event_emails,
+                    event_status: this.$route.query.event_status,
+                    tags: this.$route.query.tags
+                }
             });
             this.closeMenu();
         },
@@ -280,7 +283,7 @@ export default {
 
 <style scoped>
 .no-items {
-    color: #2c2c2c;
+    color: var(--v-customDark-base);
     font-weight: 500;
     font-size: 13px;
     line-height: 16px;

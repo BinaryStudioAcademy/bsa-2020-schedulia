@@ -3,18 +3,24 @@
         <VCard elevation="5">
             <div class="list-heading text-center pa-8">
                 <span
-                    ><b>{{
-                        Object.values(eventTypes)[Object.keys(eventTypes)[0]]
-                            .owner.name
-                    }}</b></span
+                    ><b>{{ ownerName }}</b></span
                 ><br /><br />
-                <span>Welcome to my scheduling page.</span><br />
-                <span
-                    >Please follow the instructions to add an event to my
-                    calendar.</span
-                ><br />
+                <div v-if="Object.values(eventTypes).length">
+                    <span>{{ lang.WELCOME_TO_MY_SCHEDULING_PAGE }}</span
+                    ><br />
+                    <span>{{
+                        lang.PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT
+                    }}</span
+                    ><br />
+                </div>
+                <div v-else>
+                    <span>
+                        <b>{{ lang.NO_OPENINGS_AT_THE_MOMENT }}</b>
+                    </span>
+                </div>
             </div>
             <div
+                v-if="Object.values(eventTypes).length"
                 class="event-types row-flex d-flex flex-wrap flex-row px-10 py-10"
             >
                 <VCol
@@ -41,31 +47,31 @@ import { mapActions, mapGetters } from 'vuex';
 import * as actions from '@/store/modules/eventTypes/types/actions';
 import * as getters from '@/store/modules/eventTypes/types/getters';
 import UserEventType from '@/components/public/users-event-types/UserEventType';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 export default {
     name: 'UserEventTypesList',
     components: {
         UserEventType
     },
-    data: () => ({
-        ownerName: ''
-    }),
+    data: () => ({}),
     methods: {
         ...mapActions('eventTypes', {
             fetchEventTypesByNickname: actions.FETCH_EVENT_TYPES_BY_NICKNAME
         })
     },
-    async created() {
+    async mounted() {
         await this.fetchEventTypesByNickname(this.userNickname);
-        this.ownerName = Object.values(this.eventTypes)[
-            Object.keys(this.eventTypes)[0]
-        ].owner.name;
     },
     computed: {
         userNickname() {
             return this.$route.params.nickname;
         },
         ...mapGetters('eventTypes', {
-            eventTypes: getters.GET_EVENT_TYPES_BY_NICKNAME
+            eventTypes: getters.GET_EVENT_TYPES_BY_NICKNAME,
+            ownerName: getters.GET_OWNER_NAME_BY_NICKNAME
+        }),
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         })
     }
 };

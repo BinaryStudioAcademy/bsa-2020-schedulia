@@ -1,4 +1,6 @@
 export default {
     eventTypes: {},
-    eventTypesByNickname: {}
+    eventTypesByNickname: {},
+    customFields: {},
+    eventTypesTags: {}
 };

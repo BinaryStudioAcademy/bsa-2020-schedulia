@@ -42,8 +42,6 @@ export default {
             const eventType = await eventTypeService.addEventType(
                 eventTypeFormMapper(data)
             );
-            context.commit(mutations.SET_EVENT_TYPES, eventType);
-
             return Promise.resolve(eventTypeMapper(eventType));
         } catch (error) {
             context.dispatch(
