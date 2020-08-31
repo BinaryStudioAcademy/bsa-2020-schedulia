@@ -5,6 +5,7 @@ import qs from 'qs';
 import UserDataProvider from '@/components/guard/UserDataProvider';
 import LoginGuard from '@/components/guard/LoginGuard';
 import AuthGuard from '@/components/guard/AuthGuard';
+import RoutersTesterGuard from '../components/guard/RoutersTesterGuard';
 
 Vue.use(VueRouter);
 
@@ -125,23 +126,32 @@ const routes = [
             },
             {
                 path: ':nickname',
-                name: 'UserEventTypes',
-                component: () => import('../views/UserEventTypesList.vue')
-            },
-            {
-                path: ':owner/:id',
-                name: 'PublicEvent',
-                component: () => import('../views/PublicEvent.vue')
-            },
-            {
-                path: ':owner/:id/:date',
-                name: 'PublicEventConfirm',
-                component: () => import('../views/PublicEventConfirm.vue')
-            },
-            {
-                path: ':owner/:id/invitee/details',
-                name: 'PublicEventDetails',
-                component: () => import('../views/PublicEventDetails.vue')
+                component: RoutersTesterGuard,
+                children: [
+                    {
+                        path: '',
+                        name: 'UserEventTypes',
+                        component: () =>
+                            import('../views/UserEventTypesList.vue')
+                    },
+                    {
+                        path: ':id',
+                        name: 'PublicEvent',
+                        component: () => import('../views/PublicEvent.vue')
+                    },
+                    {
+                        path: ':id/:date',
+                        name: 'PublicEventConfirm',
+                        component: () =>
+                            import('../views/PublicEventConfirm.vue')
+                    },
+                    {
+                        path: ':id/invitee/details',
+                        name: 'PublicEventDetails',
+                        component: () =>
+                            import('../views/PublicEventDetails.vue')
+                    }
+                ]
             }
         ]
     }
