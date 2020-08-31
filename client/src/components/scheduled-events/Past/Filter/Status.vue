@@ -29,7 +29,21 @@
                 <VList>
                     <VListItem>
                         <VListItemContent>
-                            <VContainer fluid> </VContainer>
+                            <VContainer fluid>
+                                <div
+                                        v-for="(checkbox, index) in checkboxes"
+                                        :key="index"
+                                >
+                                    <VCheckbox
+                                            hide-details
+                                            :label="checkbox.name"
+                                            :input-value="
+                                                eventStatus.includes(checkbox.id)
+                                            "
+                                            @change="onChangeType(checkbox.id)"
+                                    ></VCheckbox>
+                                </div>
+                            </VContainer>
                             <VContainer class="filter-button">
                                 <VBtn
                                     @click="closeMenu"
@@ -61,19 +75,61 @@ export default {
 
     data() {
         return {
-            menu: false
+            menu: false,
+            eventStatus: [0],
+            eventStatusChecked: [0],
+            getEventStatus: []
         };
+    },
+
+    created() {
+        this.setEventStatusFilter();
     },
 
     computed: {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
-        })
+        }),
+
+        checkboxes() {
+            if (!Array.isArray(this.getEventStatus)) {
+                return [];
+            } else {
+                return this.getEventStatus;
+            }
+        }
     },
 
     methods: {
         closeMenu() {
             this.menu = false;
+        },
+
+        async setEventStatusFilter() {
+            if (this.$route.query.event_status) {
+                this.eventStatus = this.arrayToInt(
+                        this.$route.query.event_status
+                );
+            } else {
+                this.eventStatus = [0];
+            }
+
+            this.eventStatusChecked = this.eventStatus;
+
+            this.setEventStatus();
+        },
+
+        setEventStatus () {
+            this.getEventStatus = [
+                {
+                    id: 0,
+                    name: this.lang.ACTIVE_EVENTS
+                },
+                {
+                    id: 1,
+                    name: this.lang.CANCELED_EVENTS
+                }
+            ];
         }
     }
 };
