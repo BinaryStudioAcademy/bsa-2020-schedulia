@@ -160,7 +160,7 @@ export default {
             return (
                 (this.eventType.customDuration || this.eventType.duration) +
                 ' ' +
-                this.lang.MIN
+                this.lang.DURATION_MIN
             );
         }
     }
