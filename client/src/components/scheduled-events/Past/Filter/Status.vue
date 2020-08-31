@@ -82,6 +82,10 @@ export default {
         };
     },
 
+    watch: {
+        $route: 'setEventStatusFilter'
+    },
+
     created() {
         this.setEventStatusFilter();
     },
