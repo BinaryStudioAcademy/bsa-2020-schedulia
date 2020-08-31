@@ -9,7 +9,7 @@ const eventTypesService = {
             page,
             all
         });
-        return response?.data?.data;
+        return response?.data;
     },
     async fetchEventTypesByNickname(nickName) {
         const response = await requestService.get(
