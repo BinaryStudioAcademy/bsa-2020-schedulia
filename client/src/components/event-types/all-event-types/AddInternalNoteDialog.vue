@@ -10,9 +10,9 @@
                 <span class="headline">{{ lang.INTERNAL_NOTE }}</span>
             </VCardTitle>
             <VCardText>
-                <span class="subtitle-1 text-center d-block mb-3"
-                    >{{ lang.INTERNAL_NOTE_DESCRIPTION }}</span
-                >
+                <span class="subtitle-1 text-center d-block mb-3">{{
+                    lang.INTERNAL_NOTE_DESCRIPTION
+                }}</span>
                 <VTextarea
                     id="name"
                     solo
@@ -27,10 +27,12 @@
             </VCardText>
             <VCardActions>
                 <VSpacer></VSpacer>
-                <VBtn color="blue darken-1" text @click="dialog = false"
-                    >{{ lang.CANCEL }}</VBtn
-                >
-                <VBtn color="blue darken-1" text @click="onSave">{{ lang.SAVE }}</VBtn>
+                <VBtn color="blue darken-1" text @click="dialog = false">{{
+                    lang.CANCEL
+                }}</VBtn>
+                <VBtn color="blue darken-1" text @click="onSave">{{
+                    lang.SAVE
+                }}</VBtn>
             </VCardActions>
         </VCard>
     </VDialog>

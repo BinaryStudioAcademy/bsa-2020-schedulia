@@ -13,7 +13,11 @@
                 <span class="event-type-about"
                     >{{ eventType.duration }} {{ lang.MINS }}</span
                 >
-                <span class="d-block mt-3 internal-note" v-if="eventType.internalNote"><i>"{{ eventType.internalNote }}"</i></span>
+                <span
+                    class="d-block mt-3 internal-note"
+                    v-if="eventType.internalNote"
+                    ><i>"{{ eventType.internalNote }}"</i></span
+                >
             </div>
         </div>
         <div class="event-type-invitee mb-2">

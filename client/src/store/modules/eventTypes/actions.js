@@ -163,7 +163,7 @@ export default {
     [actions.UPDATE_INTERNAL_NOTE]: async ({ commit, dispatch }, data) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
         try {
-            await eventTypesService.updateInternalNoteByEventTypeId(data.id,{
+            await eventTypesService.updateInternalNoteByEventTypeId(data.id, {
                 internal_note: data.internalNote
             });
             commit(mutations.UPDATE_INTERNAL_NOTE, data);
