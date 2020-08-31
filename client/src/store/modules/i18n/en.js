@@ -397,5 +397,12 @@ export default {
     NO_EVENTS_FOUND: 'No Events found',
     PUBLIC_LINK_WAS_COPIED: 'Public Link was copied!',
     TAGS: 'Tags',
-    ALL_TAGS: 'All Tags'
+    ALL_TAGS: 'All Tags',
+    ERROR_404: 'Error 404',
+    THE_PAGE_YOU_ARE_LOOKING_FOR_COULD_NOT_BE_FOUND:
+        'The page you are looking for could not be found',
+    PLEASE_MAKE_SURE_THAT_YOU_TYPED_IN_THE_URL_CORRECTLY:
+        " Please make sure that you've typed in the URL correctly",
+    PLEASE_RETYPE_ADDRESS_OR_RETURN_TO: 'Please retype address or return to',
+    MAIN_PAGE: ' main page'
 };
