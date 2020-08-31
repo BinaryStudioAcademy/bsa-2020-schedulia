@@ -66,6 +66,7 @@ Route::group([
 ], function () {
     Route::get('/nickname/{nickname}', 'EventTypeController@getEventTypesByNickname');
     Route::get('/{id}/custom-fields', 'EventTypeController@getCustomFieldsById');
+    Route::get('{id}/tags', 'TagController@getTagsByEventTypeId');
 });
 
 Route::get('/event-types/{id}/availabilities', 'Api\\EventTypeController@getAvailableTime');
@@ -83,7 +84,6 @@ Route::group([
     'namespace' => 'Api\\',
     'prefix' => '/tags'
 ], function () {
-    Route::get('/event-types/{event_type_id}', 'TagController@getTagsByEventTypeId');
     Route::get('/events', 'TagController@getTagsByEventDateRange');
 });
 
