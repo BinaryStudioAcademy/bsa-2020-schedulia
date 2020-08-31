@@ -16,7 +16,7 @@ final class GetTagsByEventTypeIdAction
         $this->repository = $tagRepository;
     }
 
-    public function execute(GetTagsByEventTypeIdRequest $request): GetTagsByEventTypeIdResponse
+    public function execute(GetTagsByEventTypeIdRequest $request): GetTagsResponse
     {
         $criteria = [];
 
@@ -24,7 +24,7 @@ final class GetTagsByEventTypeIdAction
             $criteria[] = new EventTypesCriterion($request->getEventTypes());
         }
 
-        return new GetTagsByEventTypeIdResponse(
+        return new GetTagsResponse(
             $this->repository->get(
                 $criteria
             )

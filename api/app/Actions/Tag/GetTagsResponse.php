@@ -6,7 +6,7 @@ namespace App\Actions\Tag;
 
 use Illuminate\Support\Collection;
 
-final class GetTagsByEventTypeIdResponse
+final class GetTagsResponse
 {
     private Collection $tag;
 

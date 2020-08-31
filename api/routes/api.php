@@ -83,6 +83,7 @@ Route::group([
     'prefix' => '/tags'
 ], function () {
     Route::get('/event-types/{event_type_id}', 'TagController@getTagsByEventTypeId');
+    Route::get('/events', 'TagController@getTagsByEventDateRange');
 });
 
 Route::group([
