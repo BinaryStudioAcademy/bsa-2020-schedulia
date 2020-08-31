@@ -8,7 +8,7 @@ use App\Contracts\EloquentCriterion;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
-final class NameCriterion implements EloquentCriterion
+final class NameSearchCriterion implements EloquentCriterion
 {
     private string $searchString;
 
