@@ -12,11 +12,14 @@ use Illuminate\Support\Collection;
 final class EventPresenter implements PresenterCollectionInterface
 {
     private EventTypePresenter $eventTypePresenter;
+    private CustomFieldValuePresenter $customFieldValuePresenter;
 
     public function __construct(
-        EventTypePresenter $eventTypePresenter
+        EventTypePresenter $eventTypePresenter,
+        CustomFieldValuePresenter $customFieldValuePresenter
     ) {
         $this->eventTypePresenter = $eventTypePresenter;
+        $this->customFieldValuePresenter = $customFieldValuePresenter;
     }
 
     public function present(Event $event): array
@@ -25,12 +28,12 @@ final class EventPresenter implements PresenterCollectionInterface
             'id' => $event->id,
             'invitee_name' => $event->invitee_name,
             'invitee_email' => $event->invitee_email,
-            'invitee_question' => 'No questions',
             'start_date' => $event->start_date,
             'location' => $event->location,
             'timezone' => $event->timezone,
             'created_at' => $event->created_at,
             'event_type' => $this->eventTypePresenter->present($event->eventType),
+            'custom_field_values' => $this->customFieldValuePresenter->presentCollection($event->customFieldValues)
         ];
     }
 

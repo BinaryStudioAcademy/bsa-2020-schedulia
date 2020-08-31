@@ -18,3 +18,7 @@ export const eventPaginationMapper = Pagination => ({
     perPage: Pagination.per_page,
     total: Pagination.total
 });
+
+export const eventEmailMapper = Email => ({
+    name: Email.email
+});

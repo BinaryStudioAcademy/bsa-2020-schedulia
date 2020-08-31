@@ -289,15 +289,30 @@ export default {
     LOCALIZATION: 'uk-UA',
     ENABLED: 'Увімкнено',
     LOAD_MORE: 'Завантажити ще',
-
     PLEASE_WAIT_WHILE_WE_ARE_LOGGING_YOU_IN:
         'Будь ласка, зачекайте, поки ми реєструємо Вас...',
     RESET: 'Скинути',
     INVITEE_EMAILS: 'Emails у запросі ',
     ALL_INVITEE_EMAILS: 'Відмітити усі Emails',
+    ADDITIONAL_OPTIONS: 'Додаткові опції',
+    QUESTIONS_TO_INVITEE: 'Запитання для запрошеного',
+    NOW_YOU_CAN_ADD_CUSTOM_FIELDS:
+        'Тепер ви можете додати кілька спеціальних полів із запитаннями або щось подібне для своїх запрошених',
+    PLEASE_SHARE_ANYTHING:
+        'Будь ласка, поділіться будь-чим, що допоможе підготуватися до нашої зустрічі',
+    DELETE_FIELD: 'Видалити поле',
+    ANSWER_TYPE: 'Тип відповіді',
+    QUESTION: 'Запитання',
+    ADD_NEW_FIELD: 'Додати поле',
+    STATUS: 'Статус',
+    ACTIVE_EVENTS: 'Активні події',
+    ALL_EVENTS: 'Усі події',
+    CANCELED_EVENTS: 'Відмінені події',
     WELCOME_TO_MY_SCHEDULING_PAGE:
         'Ласкаво просимо на мою сторінку планування.',
     PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT:
         'Будь ласка, дотримуйтесь інструкцій, щоб додати подію до мого календаря.',
-    NO_OPENINGS_AT_THE_MOMENT: 'Жодної доступної події на даний момент'
+    NO_OPENINGS_AT_THE_MOMENT: 'Жодної доступної події на даний момент',
+    NO_EVENTS_FOUND: 'Події не знайдено',
+    PUBLIC_LINK_WAS_COPIED: 'Публічне посилання було скопійоване!'
 };

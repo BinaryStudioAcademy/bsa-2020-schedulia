@@ -37,11 +37,17 @@ export default {
             sort = 'start_date',
             direction = 'desc',
             eventTypes = [],
+            eventEmails = [],
+            eventStatus = [],
             startDate = '',
             endDate = ''
         }
     ) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+
+        if (!eventStatus.length) {
+            eventStatus = ['scheduled', 'canceled'];
+        }
 
         try {
             const events = await scheduledEventService.getScheduledEvents(
@@ -49,6 +55,8 @@ export default {
                 sort,
                 direction,
                 eventTypes,
+                eventEmails,
+                eventStatus,
                 startDate,
                 endDate
             );
@@ -62,6 +70,37 @@ export default {
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        }
+    },
+    [actions.FETCH_EVENT_EMAILS_FILTER]: async (
+        { commit, dispatch },
+        { startDate = '', endDate = '', searchString = '' }
+    ) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+
+        try {
+            const eventEmails = await scheduledEventService.getEventEmailsFilter(
+                startDate,
+                endDate,
+                searchString
+            );
+
+            if (searchString) {
+                commit(mutations.CLEAR_EVENT_EMAILS_FILTER);
+            }
+
+            commit(mutations.SET_EVENT_EMAILS_FILTER, eventEmails);
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+            return eventEmails;
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true

@@ -373,9 +373,27 @@ export default {
     RESET: 'Reset',
     INVITEE_EMAILS: 'Invitee Emails',
     ALL_INVITEE_EMAILS: 'All Invitee Emails',
+    ADDITIONAL_OPTIONS: 'Additional options',
+    QUESTIONS_TO_INVITEE: 'Questions to Invitee',
+    NOW_YOU_CAN_ADD_CUSTOM_FIELDS:
+        'Now you can add some custom fields with\n' +
+        '                                questions or something like that for your\n' +
+        '                                invitees',
+    PLEASE_SHARE_ANYTHING:
+        'Please share anything that will help prepare for our meeting',
+    DELETE_FIELD: 'Delete field',
+    ANSWER_TYPE: 'Answer type',
+    QUESTION: 'Question',
+    ADD_NEW_FIELD: 'Add new field',
+    STATUS: 'Status',
+    ACTIVE_EVENTS: 'Active Events',
+    ALL_EVENTS: 'All Events',
+    CANCELED_EVENTS: 'Canceled Events',
     WELCOME_TO_MY_SCHEDULING_PAGE: 'Welcome to my scheduling page.',
     PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT:
         'Please follow the instructions to add an event to my\n' +
         '                        calendar.',
-    NO_OPENINGS_AT_THE_MOMENT: 'No openings at the moment.'
+    NO_OPENINGS_AT_THE_MOMENT: 'No openings at the moment.',
+    NO_EVENTS_FOUND: 'No Events found',
+    PUBLIC_LINK_WAS_COPIED: 'Public Link was copied!'
 };
