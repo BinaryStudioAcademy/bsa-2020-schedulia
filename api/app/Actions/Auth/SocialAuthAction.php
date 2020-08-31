@@ -86,6 +86,8 @@ final class SocialAuthAction
             case 'facebook':
                $providerId = SocialAccount::FACEBOOK_SERVICE_ID;
                 break;
+            case 'linkedin':
+                $providerId = SocialAccount::LINKEDIN_SERVICE_ID;
         }
 
         return $providerId;

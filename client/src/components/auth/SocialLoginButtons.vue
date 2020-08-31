@@ -7,8 +7,13 @@
         />
         <img
             :src="require('@/assets/images/facebook.svg')"
-            class="social-button"
+            class="social-button mr-2"
             @click="socialLogin('facebook')"
+        />
+        <img
+                :src="require('@/assets/images/linkedin.svg')"
+                class="social-button"
+                @click="socialLogin('linkedin')"
         />
     </VRow>
 </template>
