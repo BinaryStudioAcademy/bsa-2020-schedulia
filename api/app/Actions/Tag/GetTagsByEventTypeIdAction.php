@@ -25,7 +25,7 @@ final class GetTagsByEventTypeIdAction
         }
 
         return new GetTagsResponse(
-            $this->repository->get(
+            $this->repository->findByCriteria(
                 $criteria
             )
         );

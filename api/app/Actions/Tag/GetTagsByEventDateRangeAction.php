@@ -37,7 +37,7 @@ final class GetTagsByEventDateRangeAction
         }
 
         return new GetTagsResponse(
-            $this->repository->get(
+            $this->repository->findByCriteria(
                 $criteria
             )
         );

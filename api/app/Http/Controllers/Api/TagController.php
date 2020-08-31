@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class TagController extends ApiController
 {
-    private $presenter;
+    private TagPresenter $presenter;
 
     public function __construct(TagPresenter $tagPresenter)
     {

@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 
 final class TagRepository extends BaseRepository implements TagRepositoryInterface
 {
-    public function get(array $criteria): Collection
+    public function findByCriteria(array $criteria): Collection
     {
         $query = Tag::query();
 
