@@ -73,7 +73,7 @@ class Google implements SocialAccountService, CalendarService
 
             $socialAccount->save();
 
-            return env("GOOGLE_CALENDAR_FRONTEND_URL");
+            return $this->config->get('services.google.frontend_redirect_uri');
         }
     }
 
