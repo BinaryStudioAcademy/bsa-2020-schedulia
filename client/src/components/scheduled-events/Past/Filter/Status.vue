@@ -52,7 +52,10 @@
                                 >
                                     {{ lang.CANCEL }}
                                 </VBtn>
-                                <VBtn class="apply-button primary">
+                                <VBtn
+                                        class="apply-button primary"
+                                        @click="filterScheduledEvent"
+                                >
                                     {{ lang.APPLY }}
                                 </VBtn>
                             </VContainer>
@@ -77,8 +80,8 @@ export default {
     data() {
         return {
             menu: false,
-            eventStatus: [0],
-            eventStatusChecked: [0],
+            eventStatus: ['active'],
+            eventStatusChecked: ['active'],
             getEventStatus: []
         };
     },
@@ -87,7 +90,7 @@ export default {
         $route: 'setEventStatusFilter'
     },
 
-    created() {
+    async mounted() {
         try {
             await this.setEventStatusFilter();
         } catch (error) {
@@ -120,11 +123,9 @@ export default {
 
         async setEventStatusFilter() {
             if (this.$route.query.event_status) {
-                this.eventStatus = this.arrayToInt(
-                        this.$route.query.event_status
-                );
+                this.eventStatus = this.$route.query.event_status;
             } else {
-                this.eventStatus = [0];
+                this.eventStatus = ['active'];
             }
 
             this.eventStatusChecked = this.eventStatus;
@@ -135,15 +136,28 @@ export default {
         setEventStatus () {
             this.getEventStatus = [
                 {
-                    id: 0,
+                    id: 'active',
                     name: this.lang.ACTIVE_EVENTS
                 },
                 {
-                    id: 1,
+                    id: 'canceled',
                     name: this.lang.CANCELED_EVENTS
                 }
             ];
-        }
+        },
+
+        filterScheduledEvent() {
+            this.eventStatusChecked = this.eventStatus;
+            this.$router.push({
+                name: 'Past',
+                query: {
+                    event_types: this.$route.query.event_types,
+                    event_emails: this.$route.query.event_emails,
+                    event_status: this.eventStatus
+                }
+            });
+            this.closeMenu();
+        },
     }
 };
 </script>
