@@ -6,5 +6,6 @@ export default {
             return a.id - b.id;
         }),
     [getters.GET_EVENT_TYPES_BY_NICKNAME]: state => state.eventTypesByNickname,
-    [getters.GET_OWNER_NAME_BY_NICKNAME]: state => state.ownerByNickname
+    [getters.GET_CUSTOM_FIELDS]: state => state.customFields,
+    [getters.GET_CUSTOM_FIELD_BY_ID]: state => id => state.customFields[id]
 };

@@ -260,8 +260,11 @@ export default {
             try {
                 if (this.$refs.form.validate()) {
                     this.prepareData();
-                    await this.addEventType(this.data);
-                    this.$router.push({ name: 'EventTypes' });
+                    const response = await this.addEventType(this.data);
+                    this.$router.push({
+                        path: 'new-event-type-options',
+                        props: { eventTypeId: response.id }
+                    });
                 }
             } catch (error) {
                 this.showErrorMessage(error.message);

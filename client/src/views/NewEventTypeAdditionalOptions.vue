@@ -2,7 +2,7 @@
     <GeneralLayout>
         <VContainer>
             <VCard class="mt-7">
-                <VExpansionPanels accordion :value="panel">
+                <VExpansionPanels accordion>
                     <VExpansionPanel @change="panel = 0">
                         <VExpansionPanelHeader>
                             <FirstTitle></FirstTitle>
@@ -68,6 +68,60 @@
                             </VRow>
                         </VExpansionPanelContent>
                     </VExpansionPanel>
+                    <div class="mt-7 mb-5">
+                        <p>
+                            <b>{{ lang.NOW_YOU_CAN_ADD_CUSTOM_FIELDS }}</b>
+                        </p>
+                    </div>
+                    <VExpansionPanel @change="panel = 2">
+                        <VExpansionPanelHeader>
+                            <VRow align="center">
+                                <VCol cols="2" md="1" sm="1" lg="1">
+                                    <div>
+                                        <img
+                                            :src="
+                                                require('@/assets/images/custom_fields.svg')
+                                            "
+                                            alt
+                                            :class="{
+                                                'pl-3': $vuetify.breakpoint.xs,
+                                                'pl-10':
+                                                    $vuetify.breakpoint.smAndUp
+                                            }"
+                                        />
+                                    </div>
+                                </VCol>
+                                <VCol cols="10" class="pl-lg-5 pl-sm-10">
+                                    <div>
+                                        <VCardTitle>
+                                            {{ lang.ADDITIONAL_OPTIONS }}
+                                        </VCardTitle>
+                                        <VCardSubtitle>
+                                            {{ lang.QUESTIONS_TO_INVITEE }}
+                                        </VCardSubtitle>
+                                    </div>
+                                </VCol>
+                            </VRow>
+                        </VExpansionPanelHeader>
+                        <VExpansionPanelContent>
+                            <VDivider class="mx-4"></VDivider>
+                            <VRow>
+                                <VCol
+                                    cols="10"
+                                    offset-sm="2"
+                                    offset-md="2"
+                                    md="7"
+                                    sm="6"
+                                    lg="7"
+                                    :class="{ 'ml-10': $vuetify.breakpoint.xs }"
+                                >
+                                    <CreateEventTypeQuestions
+                                        :eventTypeId="$route.query.eventTypeId"
+                                    />
+                                </VCol>
+                            </VRow>
+                        </VExpansionPanelContent>
+                    </VExpansionPanel>
                 </VExpansionPanels>
             </VCard>
         </VContainer>
@@ -84,28 +138,29 @@ import CreateEventTypeBookingForm from '@/components/events/CreateEventTypeBooki
 import FirstTitle from '@/components/events/CreateEventTypeTitle';
 import CreateEventTypeForm from '@/components/events/CreateEventTypeForm';
 import eventTypeMixin from '@/components/events/eventTypeMixin';
+import CreateEventTypeQuestions from '@/components/events/custom-fields/CreateEventTypeQuestions';
 export default {
-    name: 'NewEventTypeBooking',
+    name: 'NewEventTypeAdditionalOptions',
     mixins: [eventTypeMixin],
     components: {
         GeneralLayout,
         NewEventTypeTitle,
         CreateEventTypeBookingForm,
         FirstTitle,
-        CreateEventTypeForm
+        CreateEventTypeForm,
+        CreateEventTypeQuestions
     },
-
     data() {
         return {
-            panel: 1
+            colorById: ''
         };
     },
-
     computed: {
         duration() {
             return (
                 (this.eventType.customDuration || this.eventType.duration) +
-                ' min'
+                ' ' +
+                this.lang.DURATION_MIN
             );
         }
     }
