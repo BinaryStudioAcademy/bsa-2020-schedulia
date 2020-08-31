@@ -7,7 +7,7 @@
             v-model="menu"
             max-width="290"
             :close-on-content-click="false"
-            offset-y
+            :offset-y="true"
         >
             <template v-slot:activator="{ on, attrs }">
                 <VBtn
