@@ -24,7 +24,7 @@ class TagController extends ApiController
     ) {
         $response = $getTagsByEventTypeIdAction->execute(
             new GetTagsByEventTypeIdRequest(
-                $request->query('event_types_id')
+                $request->query('id')
             )
         );
 

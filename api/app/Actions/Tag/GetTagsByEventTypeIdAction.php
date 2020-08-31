@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\Tag;
 
-use App\Repositories\Tag\Criterion\EventTypesCriterion;
+use App\Repositories\Tag\Criterion\EventTypeIdCriterion;
 use App\Repositories\Tag\TagRepositoryInterface;
 
 final class GetTagsByEventTypeIdAction
@@ -20,8 +20,8 @@ final class GetTagsByEventTypeIdAction
     {
         $criteria = [];
 
-        if ($request->getEventTypes()) {
-            $criteria[] = new EventTypesCriterion($request->getEventTypes());
+        if ($request->getEventTypeId()) {
+            $criteria[] = new EventTypeIdCriterion($request->getEventTypeId());
         }
 
         return new GetTagsResponse(

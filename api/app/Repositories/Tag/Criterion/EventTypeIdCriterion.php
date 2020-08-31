@@ -8,20 +8,20 @@ use App\Contracts\EloquentCriterion;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
-final class EventTypesCriterion implements EloquentCriterion
+final class EventTypeIdCriterion implements EloquentCriterion
 {
-    private int $eventTypes;
+    private int $eventTypeId;
 
-    public function __construct(int $eventTypes)
+    public function __construct(int $eventTypeId)
     {
-        $this->eventTypes = $eventTypes;
+        $this->eventTypeId = $eventTypeId;
     }
 
     public function apply(Builder $builder): Builder
     {
         return $builder->where(
             'event_type_id',
-            $this->eventTypes
+            $this->eventTypeId
         );
     }
 }
