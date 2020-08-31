@@ -18,9 +18,7 @@
                     v-bind="attrs"
                     v-on="on"
                 >
-                    {{ lang.ACTIVE_EVENTS }}
-                    {{ lang.ALL_EVENTS }}
-                    {{ lang.CANCELED_EVENTS }}
+                    {{ statusFilterTitle() }}
                     <VIcon>mdi-chevron-down</VIcon>
                 </VBtn>
             </template>
@@ -40,7 +38,7 @@
                                             :input-value="
                                                 eventStatus.includes(checkbox.id)
                                             "
-                                            @change="onChangeType(checkbox.id)"
+                                            @change="onChangeStatus(checkbox.id)"
                                     ></VCheckbox>
                                 </div>
                             </VContainer>
@@ -157,6 +155,28 @@ export default {
                 }
             });
             this.closeMenu();
+        },
+
+        statusFilterTitle() {
+            if (this.eventStatusChecked.includes('active') && this.eventStatusChecked.includes('canceled')) {
+                return this.lang.ALL_EVENTS;
+            } else if (this.eventStatusChecked.includes('active')) {
+                return this.lang.ACTIVE_EVENTS;
+            } else if (this.eventStatusChecked.includes('canceled')) {
+                return this.lang.CANCELED_EVENTS;
+            } else {
+                return this.lang.ALL_EVENTS;
+            }
+        },
+
+        onChangeStatus(id) {
+            if (this.eventStatus.includes(id)) {
+                this.eventStatus = this.eventStatus.filter(
+                        eventStatus => eventStatus !== id
+                );
+            } else {
+                this.eventStatus = this.eventStatus.concat(id);
+            }
         },
     }
 };
