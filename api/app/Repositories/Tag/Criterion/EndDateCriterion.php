@@ -29,7 +29,7 @@ final class EndDateCriterion implements EloquentCriterion
                     ->where('event_types.owner_id', '=', $this->ownerId)
                     ->join('events', function ($join) {
                         $join->on('event_types.id', '=', 'events.event_type_id')
-                            ->where('events.start_date','<', $this->endDate);
+                            ->where('events.start_date', '<', $this->endDate);
                     });
             })
             ->distinct();
