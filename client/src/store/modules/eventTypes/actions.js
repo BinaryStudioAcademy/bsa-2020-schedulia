@@ -177,6 +177,11 @@ export default {
                 root: true
             });
         } catch (error) {
+            dispatch(
+                'notification/' + notifyActions.SET_ERROR_NOTIFICATION,
+                error.message,
+                { root: true }
+            );
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
             });
