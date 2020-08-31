@@ -373,9 +373,14 @@ export default {
     RESET: 'Reset',
     INVITEE_EMAILS: 'Invitee Emails',
     ALL_INVITEE_EMAILS: 'All Invitee Emails',
+    STATUS: 'Status',
+    ACTIVE_EVENTS: 'Active Events',
+    ALL_EVENTS: 'All Events',
+    CANCELED_EVENTS: 'Canceled Events',
     WELCOME_TO_MY_SCHEDULING_PAGE: 'Welcome to my scheduling page.',
     PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT:
         'Please follow the instructions to add an event to my\n' +
         '                        calendar.',
-    NO_OPENINGS_AT_THE_MOMENT: 'No openings at the moment.'
+    NO_OPENINGS_AT_THE_MOMENT: 'No openings at the moment.',
+    NO_EVENTS_FOUND: 'No Events found'
 };
