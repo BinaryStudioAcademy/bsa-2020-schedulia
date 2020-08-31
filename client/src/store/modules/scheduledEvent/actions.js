@@ -39,6 +39,7 @@ export default {
             eventTypes = [],
             eventEmails = [],
             eventStatus = [],
+            tags = [],
             startDate = '',
             endDate = ''
         }
@@ -57,6 +58,7 @@ export default {
                 eventTypes,
                 eventEmails,
                 eventStatus,
+                tags,
                 startDate,
                 endDate
             );
