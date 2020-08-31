@@ -381,5 +381,6 @@ export default {
     PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT:
         'Please follow the instructions to add an event to my\n' +
         '                        calendar.',
-    NO_OPENINGS_AT_THE_MOMENT: 'No openings at the moment.'
+    NO_OPENINGS_AT_THE_MOMENT: 'No openings at the moment.',
+    NO_EVENTS_FOUND: 'No Events found'
 };

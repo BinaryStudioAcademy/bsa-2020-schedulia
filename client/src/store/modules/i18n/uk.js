@@ -302,5 +302,6 @@ export default {
         'Ласкаво просимо на мою сторінку планування.',
     PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT:
         'Будь ласка, дотримуйтесь інструкцій, щоб додати подію до мого календаря.',
-    NO_OPENINGS_AT_THE_MOMENT: 'Жодної доступної події на даний момент'
+    NO_OPENINGS_AT_THE_MOMENT: 'Жодної доступної події на даний момент',
+    NO_EVENTS_FOUND: 'Події не знайдено'
 };
