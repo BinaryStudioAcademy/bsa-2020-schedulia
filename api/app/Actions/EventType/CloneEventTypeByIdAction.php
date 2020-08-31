@@ -13,6 +13,7 @@ use App\Repositories\EventType\EventTypeRepositoryInterface;
 final class CloneEventTypeByIdAction
 {
     private EventTypeRepositoryInterface $eventTypeRepository;
+    private const MAX_NAME_LENGTH = 50;
 
     public function __construct(EventTypeRepositoryInterface $eventTypeRepository)
     {
@@ -35,7 +36,7 @@ final class CloneEventTypeByIdAction
             throw new NameIsAlreadyInUseException();
         }
 
-        if (mb_strlen($newName) <= 50) {
+        if (mb_strlen($newName) <= self::MAX_NAME_LENGTH) {
             $newEventType->name = $newName;
         }
         $newEventType->slug = $newSlug;
