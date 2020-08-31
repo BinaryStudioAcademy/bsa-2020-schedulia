@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-
 use App\Mail\BeforeEventMailForInvitee;
 use App\Mail\EventCreatedMailToInvitee;
 use App\Notifications\NotificationBeforeEventForInvitee;
@@ -20,12 +19,13 @@ use Illuminate\Support\Facades\Notification;
 
 class SendNotificationBeforeEvent implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public function __construct()
     {
-
     }
 
     public function handle(EventRepository $eventRepository)

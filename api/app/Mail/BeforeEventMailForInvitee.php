@@ -44,6 +44,6 @@ class BeforeEventMailForInvitee extends Mailable
             ->line(Lang::get('Owner of event:'))
             ->line($this->owner->getName())
             ->line(Lang::get('Event Date/Time:'))
-            ->line($this->event->start_date );
+            ->line($this->event->start_date);
     }
 }
