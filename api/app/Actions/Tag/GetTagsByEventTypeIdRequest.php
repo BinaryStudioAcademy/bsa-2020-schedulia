@@ -6,14 +6,14 @@ namespace App\Actions\Tag;
 
 final class GetTagsByEventTypeIdRequest
 {
-    private ?array $eventTypes;
+    private ?int $eventTypes;
 
-    public function __construct(?array $eventTypes)
+    public function __construct(?int $eventTypes)
     {
         $this->eventTypes = $eventTypes;
     }
 
-    public function getEventTypes(): ?array
+    public function getEventTypes(): ?int
     {
         return $this->eventTypes;
     }
