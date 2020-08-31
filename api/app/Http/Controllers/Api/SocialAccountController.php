@@ -11,6 +11,7 @@ use App\Http\Presenters\SocialAccountArrayPresenter;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class SocialAccountController extends ApiController
 {
@@ -54,8 +55,8 @@ class SocialAccountController extends ApiController
     public function oauthResponse(Request $request)
     {
         $provider = $request->route('provider');
-        $this->authAction->execute($provider, $request->input('code'), $request->input('state'));
+        $response = $this->authAction->execute($provider, $request->input('code'), $request->input('state'));
 
-        return $this->emptyResponse();
+        return Redirect::away($response->getUrl());
     }
 }

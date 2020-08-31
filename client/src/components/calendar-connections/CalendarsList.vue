@@ -64,7 +64,7 @@ export default {
             const response = await this.connect(provider);
 
             if (response.url) {
-                window.open(response.url);
+                location.replace(response.url);
             }
         }
     }
