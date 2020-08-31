@@ -79,7 +79,8 @@ export default {
         searchString: '',
         page: 1,
         loadMoreActive: false,
-        perPage: 4
+        perPage: 4,
+        lastPage: ''
     }),
     methods: {
         ...mapActions('eventTypes', {
@@ -89,14 +90,14 @@ export default {
             this.page = 1;
             this.loadMoreActive = true;
             this.$v.searchString.$touch();
-            await this.fetchEventTypes({
+            const response = await this.fetchEventTypes({
                 searchString: this.searchString,
                 page: this.page
             });
-            if (!Object.values(this.eventTypes)) {
-                this.loadMoreActive = false;
-            }
-            if (Object.values(this.eventTypes).length % this.perPage !== 0) {
+            this.lastPage = response.meta.last_page;
+            if (this.page !== this.lastPage) {
+                this.loadMoreActive = true;
+            } else {
                 this.loadMoreActive = false;
             }
         },
@@ -113,11 +114,12 @@ export default {
         }
     },
     async mounted() {
-        await this.fetchEventTypes({
+        const response = await this.fetchEventTypes({
             searchString: this.searchString,
             page: this.page
         });
-        if (Object.values(this.eventTypes).length === this.perPage) {
+        this.lastPage = response.meta.last_page;
+        if (this.page !== this.lastPage) {
             this.loadMoreActive = true;
         }
     },
