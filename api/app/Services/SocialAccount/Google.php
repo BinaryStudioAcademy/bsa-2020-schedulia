@@ -96,7 +96,7 @@ class Google implements SocialAccountService, CalendarService
     {
         $token = User::findOrFail($googleCalendarEvent->getUserId())->googleAccounts[0]->token;
 
-        if($token) {
+        if ($token) {
             $event = new \Google_Service_Calendar_Event($this->googleCalendarEventPresenter->present($googleCalendarEvent));
             $this->connect($token)->service('Calendar')->events->insert('primary', $event);
         }
