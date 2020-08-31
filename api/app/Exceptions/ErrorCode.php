@@ -20,4 +20,5 @@ final class ErrorCode
     public const EMAIL_IS_NOT_VERIFIED_EXCEPTION = 1011;
     public const WRONG_DATE_TIME_EXCEPTION = 1012;
     public const GOOGLE_OAUTH_EXCEPTION = 1013;
+    public const NICKNAME_NOT_EXIST_EXCEPTION = 1014;
 }
