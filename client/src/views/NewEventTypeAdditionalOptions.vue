@@ -159,7 +159,8 @@ export default {
         duration() {
             return (
                 (this.eventType.customDuration || this.eventType.duration) +
-                ' min'
+                ' ' +
+                this.lang.MIN
             );
         }
     }
