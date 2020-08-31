@@ -79,6 +79,13 @@ Route::group([
 });
 
 Route::group([
+                 'namespace' => 'Api\\',
+                 'prefix' => '/tags'
+             ], function () {
+    Route::post('/event_types_id', 'TagController@getTagsByEventTypeId');
+});
+
+Route::group([
     'middleware' => 'auth:api',
     'namespace' => 'Api\\',
     'prefix' => '/profiles',
