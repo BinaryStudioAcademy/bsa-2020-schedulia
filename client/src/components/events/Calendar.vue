@@ -136,7 +136,7 @@ export default {
             this.$refs.calendar.next();
         },
         viewEventDialog(data) {
-            let dayAvailabilities = this.getDayAvailabilities(data);
+            let dayAvailabilities = this.getDayAvailabilities(data, true);
             if (dayAvailabilities.length > 0) {
                 this.changeEventTypeProperty('selectDay', data);
                 this.setPropertyData('dayAvailabilities', dayAvailabilities);
@@ -170,16 +170,8 @@ export default {
                 let params = {
                     ...this.data.dateRange,
                     ...{
-                        startDate:
-                            this.data.dateRange.startDate +
-                            ' ' +
-                            this.data.dateRange.startTime +
-                            ':00',
-                        endDate:
-                            this.data.dateRange.endDate +
-                            ' ' +
-                            this.data.dateRange.endTime +
-                            ':00'
+                        startDate: day.date + ' ' + this.data.dateRange.startTime + ':00',
+                        endDate: day.date + ' ' + this.data.dateRange.endTime + ':00'
                     }
                 };
 

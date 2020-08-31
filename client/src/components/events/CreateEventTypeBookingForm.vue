@@ -211,6 +211,7 @@ import AvailabilityDialog from '@/components/events/AvailabilityDialog';
 import TimeZoneDialog from '@/components/events/TimeZoneDialog';
 import moment from 'moment';
 import Calendar from '@/components/events/Calendar';
+import momentTimezone from 'moment-timezone';
 export default {
     name: 'CreateEventTypeBooking',
     components: { Calendar, TimeZoneDialog, AvailabilityDialog },
@@ -260,8 +261,11 @@ export default {
             try {
                 if (this.$refs.form.validate()) {
                     this.prepareData();
-                    await this.addEventType(this.data);
-                    this.$router.push({ name: 'EventTypes' });
+                    await this.addEventType(this.data).then((response) => {
+                        if (response) {
+                            this.$router.push({ name: 'EventTypes' });
+                        }
+                    });
                 }
             } catch (error) {
                 this.showErrorMessage(error.message);
@@ -275,10 +279,31 @@ export default {
                     endDate: this.data.dateRange.endDate + ' 00:00:00'
                 }
             };
-            this.changeEventTypeProperty('availabilities', {
+
+            let availabilities = {
                 ...{ dateRange: [dateRangeData] },
                 ...this.data.availabilities
-            });
+            };
+            let data = {};
+            for (let key in availabilities) {
+                for (let index in availabilities[key]) {
+                    if (availabilities[key][index]['type'] !== 'exact_date') {
+                        continue;
+                    }
+
+                    availabilities[key][index]['startDate'] =
+                        momentTimezone(availabilities[key][index]['startDate'])
+                        .tz("Europe/London")
+                        .format('YYYY-MM-DD HH:mm:ss');
+
+                    availabilities[key][index]['endDate'] =
+                        momentTimezone(availabilities[key][index]['endDate'])
+                        .tz("Europe/London")
+                        .format('YYYY-MM-DD HH:mm:ss');
+                }
+                data[key] = availabilities[key];
+            }
+            this.changeEventTypeProperty('availabilities', data);
         }
     },
 

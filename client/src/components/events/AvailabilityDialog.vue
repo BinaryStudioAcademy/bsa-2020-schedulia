@@ -221,10 +221,9 @@ export default {
         },
         setEndDate() {
             if (this.subType === this.daysFormatItems[1]['value']) {
-                this.form.endDate = momentBusinessDays(
-                    moment().format('YYYY-MM-DD'),
-                    'YYYY-MM-DD'
-                ).businessAdd(+this.value - 1)._d;
+                this.form.endDate = momentBusinessDays(moment().format('YYYY-MM-DD'), 'YYYY-MM-DD')
+                    .businessAdd(+this.value - 1)
+                    .format('YYYY-MM-DD');
                 return;
             }
             this.form.endDate = moment()
