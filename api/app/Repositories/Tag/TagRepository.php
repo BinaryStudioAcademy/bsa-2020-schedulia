@@ -25,6 +25,8 @@ final class TagRepository extends BaseRepository implements TagRepositoryInterfa
             $query = $criterion->apply($query);
         }
 
-        return $query->get();
+        return $query
+            ->select('tags.*')
+            ->get();
     }
 }
