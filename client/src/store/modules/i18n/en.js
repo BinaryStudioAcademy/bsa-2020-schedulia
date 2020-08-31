@@ -394,5 +394,9 @@ export default {
         'Please follow the instructions to add an event to my\n' +
         '                        calendar.',
     NO_OPENINGS_AT_THE_MOMENT: 'No openings at the moment.',
-    NO_EVENTS_FOUND: 'No Events found'
+    NO_EVENTS_FOUND: 'No Events found',
+    EDIT_INTERNAL_NOTE: 'Edit Internal Note',
+    INTERNAL_NOTE: 'Internal Note',
+    INTERNAL_NOTE_DESCRIPTION: 'Write relevant information about this event type that you\n' +
+        '                    may want to reference later.'
 };

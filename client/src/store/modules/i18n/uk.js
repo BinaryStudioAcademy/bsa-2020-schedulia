@@ -313,5 +313,8 @@ export default {
     PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT:
         'Будь ласка, дотримуйтесь інструкцій, щоб додати подію до мого календаря.',
     NO_OPENINGS_AT_THE_MOMENT: 'Жодної доступної події на даний момент',
-    NO_EVENTS_FOUND: 'Події не знайдено'
+    NO_EVENTS_FOUND: 'Події не знайдено',
+    EDIT_INTERNAL_NOTE: 'Змінити внутрішню примітку',
+    INTERNAL_NOTE: 'Внутрішня примітка',
+    INTERNAL_NOTE_DESCRIPTION: 'Напишіть релевантну інформацію про цей тип події, на яку ви можете посилатися пізніше.'
 };
