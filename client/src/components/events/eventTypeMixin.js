@@ -23,7 +23,8 @@ export default {
                     id: 'green',
                     image: require('@/assets/images/green_circle.png')
                 }
-            }
+            },
+            showGeocoder: false
         };
     },
 
@@ -56,9 +57,11 @@ export default {
                     break;
                 case 'locationType':
                     data[property] = value;
+                    this.showGeocoder = false;
                     data['location'] = '';
+                    data['coordinates'] = [];
                     if (!!value && value.title === 'address on the map') {
-                        this.showMapDialog = true;
+                        this.showGeocoder = true;
                     } else if (!!value && value.title === 'zoom') {
                         this.showZoomDialog = true;
                     } else if (!!value && value.title === 'skype') {

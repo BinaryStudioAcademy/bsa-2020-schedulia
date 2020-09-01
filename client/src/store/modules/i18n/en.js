@@ -373,6 +373,7 @@ export default {
     RESET: 'Reset',
     INVITEE_EMAILS: 'Invitee Emails',
     ALL_INVITEE_EMAILS: 'All Invitee Emails',
+    PICK_NEEDED_LOCATION: 'Pick needed location',
     ADDITIONAL_OPTIONS: 'Additional options',
     QUESTIONS_TO_INVITEE: 'Questions to Invitee',
     NOW_YOU_CAN_ADD_CUSTOM_FIELDS:
