@@ -106,12 +106,13 @@ export default {
                 searchString: this.searchString,
                 page: this.page + 1
             });
+            this.lastPage = response.meta.last_page;
             if (response.data.length === this.perPage) {
                 this.page += 1;
             } else {
                 this.loadMoreActive = false;
             }
-            if (response.meta.last_page === this.page) {
+            if (this.lastPage === this.page) {
                 this.loadMoreActive = false;
             }
         }
