@@ -2,7 +2,6 @@
 
 namespace App\Repositories\EventCalendar;
 
-
 use App\Entity\EventCalendar;
 
 interface EventCalendarRepositoryInterface

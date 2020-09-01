@@ -18,7 +18,6 @@ final class DeleteEventAction
     public function __construct(
         EventRepositoryInterface $eventRepository,
         EventPresenter $eventPresenter
-
     ) {
         $this->eventRepository = $eventRepository;
         $this->eventPresenter = $eventPresenter;
@@ -28,7 +27,7 @@ final class DeleteEventAction
     {
         $event = $this->eventRepository->getById($request->getId());
 
-        if(!$event) {
+        if (!$event) {
             throw new ModelNotFoundException('Event not found');
         }
 

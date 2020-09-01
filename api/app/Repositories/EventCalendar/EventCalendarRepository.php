@@ -29,5 +29,4 @@ class EventCalendarRepository implements EventCalendarRepositoryInterface
     {
         EventCalendar::destroy($id);
     }
-
 }

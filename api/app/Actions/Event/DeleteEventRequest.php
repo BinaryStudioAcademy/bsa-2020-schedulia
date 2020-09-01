@@ -24,6 +24,4 @@ final class DeleteEventRequest
     {
         return $this->userId;
     }
-
-
 }
