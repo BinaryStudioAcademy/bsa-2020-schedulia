@@ -37,7 +37,7 @@ h4 {
     letter-spacing: -0.44px;
 }
 .color-danger {
-    color: var(--v-error-lighten5);
+    color: var(--v-error-base);
 }
 p {
     font-size: 20px;
@@ -46,6 +46,7 @@ p {
 }
 
 a {
+    color: var(--v-error-base);
     text-decoration: none;
 }
 </style>

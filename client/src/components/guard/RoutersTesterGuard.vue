@@ -7,11 +7,12 @@ import routersTesterService from '../../services/routersTester/routersTesterServ
 
 export default {
     name: 'RoutersTesterGuard',
+
     async beforeRouteEnter(to, from, next) {
         try {
             await routersTesterService.checkNickname(to.params.nickname);
         } catch (e) {
-            next({ name: 'SignUp' });
+            next({ name: 'Error404' });
         }
         next();
     }

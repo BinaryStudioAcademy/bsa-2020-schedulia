@@ -49,6 +49,12 @@ const routes = [
                         path: 'auth/social-callback',
                         name: 'socialCallback',
                         component: () => import('../views/SocialLogin')
+                    },
+
+                    {
+                        path: 'error404',
+                        name: 'Error404',
+                        component: () => import('../views/Error404')
                     }
                 ]
             },
@@ -152,6 +158,10 @@ const routes = [
                             import('../views/PublicEventDetails.vue')
                     }
                 ]
+            },
+            {
+                path: '*',
+                redirect: { name: 'Error404' }
             }
         ]
     }
