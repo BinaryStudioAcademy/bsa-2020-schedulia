@@ -9,21 +9,41 @@ export default {
             colorById: {
                 yellow: {
                     id: 'yellow',
-                    image: require('@/assets/images/yellow_circle.png')
+                    image: require('@/assets/images/color_circles/yellow_circle.svg')
                 },
                 red: {
                     id: 'red',
-                    image: require('@/assets/images/red_circle.png')
+                    image: require('@/assets/images/color_circles/red_circle.svg')
                 },
                 blue: {
                     id: 'blue',
-                    image: require('@/assets/images/blue_circle.png')
+                    image: require('@/assets/images/color_circles/blue_circle.svg')
                 },
                 green: {
                     id: 'green',
-                    image: require('@/assets/images/green_circle.png')
+                    image: require('@/assets/images/color_circles/green_circle.svg')
+                },
+
+                purple: {
+                    id: 'purple',
+                    image: require('@/assets/images/color_circles/purple_circle.svg')
+                },
+
+                turquoise: {
+                    id: 'turquoise',
+                    image: require('@/assets/images/color_circles/turquoise_circle.svg')
+                },
+
+                pink: {
+                    id: 'pink',
+                    image: require('@/assets/images/color_circles/pink_circle.svg')
+                },
+                dark_blue: {
+                    id: 'dark_blue',
+                    image: require('@/assets/images/color_circles/dark-blue_circle.svg')
                 }
-            }
+            },
+            showGeocoder: false
         };
     },
 
@@ -56,9 +76,11 @@ export default {
                     break;
                 case 'locationType':
                     data[property] = value;
+                    this.showGeocoder = false;
                     data['location'] = '';
+                    data['coordinates'] = [];
                     if (!!value && value.title === 'address on the map') {
-                        this.showMapDialog = true;
+                        this.showGeocoder = true;
                     } else if (!!value && value.title === 'zoom') {
                         this.showZoomDialog = true;
                     } else if (!!value && value.title === 'skype') {

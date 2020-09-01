@@ -5,6 +5,7 @@ namespace App\Services\SocialAccount;
 use App\Entity\SocialAccount;
 use App\Entity\User;
 use App\Exceptions\GoogleOauthException;
+use App\Exceptions\SocialAccount\SocialAccountNotFoundException;
 use App\Repositories\SocialAccount\SocialAccountRepositoryInterface;
 use App\Contracts\CalendarEventInterface;
 use App\Services\Calendar\Google\GoogleCalendarEventPresenter;
@@ -78,6 +79,21 @@ class Google implements SocialAccountService, CalendarService
         }
     }
 
+    public function delete(int $userId): void
+    {
+        $socialAccount = $this->socialAccountRepository->findByProvider(
+            SocialAccount::GOOGLE_SERVICE_ID,
+            $userId
+        );
+
+        if (!$socialAccount) {
+            throw new SocialAccountNotFoundException();
+        }
+
+        $this->revokeToken($socialAccount->token);
+        $socialAccount->delete();
+    }
+
     public function connect($token): Google
     {
         $this->client->setAccessToken($token);
@@ -85,7 +101,7 @@ class Google implements SocialAccountService, CalendarService
         return $this;
     }
 
-    public function revokeToken($token = null)
+    private function revokeToken($token = null)
     {
         $token = $token ?? $this->client->getAccesToken();
 

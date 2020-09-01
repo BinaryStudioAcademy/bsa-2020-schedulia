@@ -81,6 +81,11 @@ export default {
         delete customFields[id];
         state.customFields = customFields;
     },
+    [mutations.UPDATE_INTERNAL_NOTE]: (state, data) => {
+        const eventTypes = { ...state.eventTypes };
+        eventTypes[data.id].internalNote = data.internalNote;
+        state.eventTypes = eventTypes;
+    },
     [mutations.CLEAR_EVENT_TYPES_TAGS]: state => {
         state.eventTypesTags = [];
     },

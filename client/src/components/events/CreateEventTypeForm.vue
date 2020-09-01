@@ -18,30 +18,33 @@
             <label>{{ lang.LOCATION_LABEL }}</label>
         </div>
 
-        <VSelect
-            :value="data.locationType"
-            :items="items"
-            @change="changeEventTypeProperty('locationType', $event)"
-            outlined
-            :clearable="true"
-            placeholder="Option"
-            dense
-            class="mb-3"
-        >
-            <template slot="selection" slot-scope="data">
-                <VFlex xs2 md1>
-                    <VIcon>{{ data.item.icon }}</VIcon>
-                </VFlex>
-                <VFlex>{{ data.item.title }}</VFlex>
-            </template>
+        <div class="mb-3">
+            <VSelect
+                :value="data.locationType"
+                :items="items"
+                @change="changeEventTypeProperty('locationType', $event)"
+                outlined
+                :clearable="true"
+                placeholder="Option"
+                dense
+                class="mb-1"
+            >
+                <template slot="selection" slot-scope="data">
+                    <VFlex xs2 md1>
+                        <VIcon>{{ data.item.icon }}</VIcon>
+                    </VFlex>
+                    <VFlex>{{ data.item.title }}</VFlex>
+                </template>
 
-            <template slot="item" slot-scope="data">
-                <VFlex xs2 md1>
-                    <VIcon>{{ data.item.icon }}</VIcon>
-                </VFlex>
-                <VFlex>{{ data.item.title }}</VFlex>
-            </template>
-        </VSelect>
+                <template slot="item" slot-scope="data">
+                    <VFlex xs2 md1>
+                        <VIcon>{{ data.item.icon }}</VIcon>
+                    </VFlex>
+                    <VFlex>{{ data.item.title }}</VFlex>
+                </template>
+            </VSelect>
+            <FindLocationForm v-if="showGeocoder" />
+        </div>
 
         <div class="mb-2">
             <label>{{ lang.DESCRIPTION_LABEL }}</label>
@@ -83,6 +86,8 @@
                         :key="id"
                         :src="colorById[id].image"
                         alt=""
+                        width="44"
+                        height="44"
                         class="image-circle"
                         :class="{
                             'mr-5': $vuetify.breakpoint.xs,
@@ -150,38 +155,12 @@
                             outlined
                             width="114"
                             @click="cancelDialog = false"
-                            >{{ lang.NEVERMIND }}</VBtn
                         >
+                            {{ lang.NEVERMIND }}
+                        </VBtn>
                     </div>
                 </VCardActions>
             </VCard>
-        </VDialog>
-        <VDialog :value="showMapDialog" max-width="390" persistent>
-            <div class="set-location-container">
-                <h3 class="mb-4">{{ lang.SET_MEETING_LOCATION }}</h3>
-                <div class="basemap">
-                    <MglMap
-                        :accessToken="accessToken"
-                        :mapStyle="'mapbox://styles/mapbox/streets-v11'"
-                        @click="onMapClick"
-                    >
-                        <MglNavigationControl position="top-right" />
-                        <MglGeolocateControl position="top-right" />
-                        <MglMarker
-                            v-if="coordinates.length"
-                            :coordinates="coordinates"
-                            color="red"
-                        />
-                    </MglMap>
-                </div>
-                <VBtn
-                    color="primary"
-                    class="white--text mt-4"
-                    width="114"
-                    @click="onCloseMapDialog"
-                    >{{ lang.OK }}</VBtn
-                >
-            </div>
         </VDialog>
         <VDialog :value="showZoomDialog" max-width="390" persistent>
             <div class="set-location-container">
@@ -225,17 +204,10 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-import * as actionEventType from '@/store/modules/eventType/types/actions';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import { mapGetters } from 'vuex';
 import eventTypeMixin from '@/components/events/eventTypeMixin';
-import '../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
-import {
-    MglMap,
-    MglNavigationControl,
-    MglGeolocateControl,
-    MglMarker
-} from 'vue-mapbox';
-const VUE_APP_MAPBOX_TOKEN = process.env.VUE_APP_MAPBOX_TOKEN;
+import FindLocationForm from './FindLocationForm';
 
 export default {
     name: 'CreateEventTypeForm',
@@ -247,10 +219,7 @@ export default {
         }
     },
     components: {
-        MglMap,
-        MglNavigationControl,
-        MglGeolocateControl,
-        MglMarker
+        FindLocationForm
     },
     data() {
         return {
@@ -277,12 +246,18 @@ export default {
                     icon: 'mdi-skype'
                 }
             ],
-            accessToken: VUE_APP_MAPBOX_TOKEN,
-            showMapDialog: false,
-            coordinates: [],
             showZoomDialog: false,
             showSkypeDialog: false,
-            colors: ['yellow', 'red', 'blue', 'green'],
+            colors: [
+                'yellow',
+                'red',
+                'blue',
+                'green',
+                'purple',
+                'turquoise',
+                'pink',
+                'dark_blue'
+            ],
             nameRules: [
                 v => !!v || this.lang.PROVIDE_EVENT_NAME,
                 v =>
@@ -337,11 +312,13 @@ export default {
             ]
         };
     },
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        })
+    },
 
     methods: {
-        ...mapActions('eventType', {
-            setEventType: actionEventType.SET_EVENT_TYPE
-        }),
         clickNext() {
             if (this.$refs.form.validate()) {
                 if (this.isBooking) {
@@ -351,21 +328,15 @@ export default {
                 }
             }
         },
+        setColor(id) {
+            this.form.color = this.colorById[id].id;
+        },
+        changeName(val) {
+            this.form.name = val;
+            this.changeSlug(val);
+        },
         getSlug(value) {
             return value.replace(/\s/g, '-');
-        },
-        onMapClick(ev) {
-            this.coordinates = [
-                ev.mapboxEvent.lngLat.lng,
-                ev.mapboxEvent.lngLat.lat
-            ];
-            this.changeEventTypeProperty(
-                'location',
-                this.coordinates.toString()
-            );
-        },
-        onCloseMapDialog() {
-            this.showMapDialog = false;
         },
         onCloseZoomDialog() {
             this.showZoomDialog = false;
@@ -378,7 +349,6 @@ export default {
 </script>
 
 <style scoped>
-@import '../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 .v-text-field {
     width: 506px;
 }

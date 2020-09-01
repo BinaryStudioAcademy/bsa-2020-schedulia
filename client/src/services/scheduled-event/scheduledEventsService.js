@@ -11,6 +11,7 @@ const scheduledEventService = {
         event_emails,
         event_status,
         tags,
+        searchString,
         start_date,
         end_date
     ) {
@@ -22,6 +23,7 @@ const scheduledEventService = {
             event_emails,
             event_status,
             tags,
+            searchString,
             start_date,
             end_date
         });
