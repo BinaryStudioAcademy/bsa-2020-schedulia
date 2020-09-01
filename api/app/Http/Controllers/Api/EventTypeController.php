@@ -179,7 +179,7 @@ class EventTypeController extends ApiController
 
         return $this->emptyResponse();
     }
-
+    
     public function updateCustomFieldsByEventTypeId(
         CustomFieldRequest $request,
         UpdateCustomFieldsToEventTypeAction $action
@@ -219,7 +219,7 @@ class EventTypeController extends ApiController
 
         return $this->successResponse($this->eventTypePresenter->present($eventType->getNewEventType()));
     }
-  
+
     public function updateInternalNoteById(
         string $id,
         Request $request,
