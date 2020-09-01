@@ -58,6 +58,7 @@ class EventController extends ApiController
                 $request->query('event_emails'),
                 $request->query('event_status'),
                 $request->query('tags'),
+                $request->query('searchString'),
                 (int)$request->query('page'),
                 (int)$request->query('per_page'),
                 $request->query('sort'),
