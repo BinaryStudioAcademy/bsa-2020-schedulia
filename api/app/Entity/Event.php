@@ -41,6 +41,11 @@ class Event extends Model
         return $this->hasMany(EventCalendar::class);
     }
 
+    public function googleCalendars()
+    {
+        return $this->calendars()->google();
+    }
+
     public function getEventTimeAccordingTimezoneAttribute(): string
     {
         $utcTime = Carbon::createFromFormat('Y-m-d H:i:s', $this->start_date, 'UTC');

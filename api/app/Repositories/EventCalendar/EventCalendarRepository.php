@@ -8,27 +8,26 @@ class EventCalendarRepository implements EventCalendarRepositoryInterface
 {
     public function getById(int $id): ?EventCalendar
     {
-        // TODO: Implement getById() method.
+        return EventCalendar::find($id);
     }
 
-    public function getByEventId(int $eventId): ?EventCalendar
+    public function getByEventIdAndEventCalendarId(int $eventId, string $eventCalendarId): ?EventCalendar
     {
-        // TODO: Implement getByEventId() method.
+        return EventCalendar::where('event_id', $eventId)
+            ->where('provider_event_id', $eventCalendarId)
+            ->firstOrFail();
     }
 
-    public function getByEventAndProvider(int $eventId, int $providerId): ?EventCalendar
+    public function save(EventCalendar $eventCalendar): EventCalendar
     {
-        // TODO: Implement getByEventAndProvider() method.
+        $eventCalendar->save();
+
+        return $eventCalendar;
     }
 
-    public function save(EventCalendar $eventCalendar): void
+    public function deleteById(int $id): void
     {
-        // TODO: Implement save() method.
-    }
-
-    public function deleteById(): void
-    {
-        // TODO: Implement deleteById() method.
+        EventCalendar::destroy($id);
     }
 
 }

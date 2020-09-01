@@ -4,6 +4,7 @@ namespace App\Services\Calendar;
 
 interface DeleteEventInterface
 {
+    public function getEventId(): int;
     public function getUserId(): int;
-    public function getProviderId(): string;
+    public function getProviderEventId(): string;
 }

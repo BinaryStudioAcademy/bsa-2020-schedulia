@@ -22,7 +22,7 @@ class CreateEventCalendarsTable extends Migration
 
             $table->foreign('event_id')
                 ->references('id')
-                ->on('event')
+                ->on('events')
                 ->onDelete('cascade');
         });
     }

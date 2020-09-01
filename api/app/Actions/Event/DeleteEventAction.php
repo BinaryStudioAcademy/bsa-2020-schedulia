@@ -36,8 +36,9 @@ final class DeleteEventAction
             throw new AuthorizationException();
         }
 
-//        $this->eventRepository->deleteById($event->id);
+        $deletedEvent = $this->eventPresenter->present($event);
+        $this->eventRepository->deleteById($event->id);
 
-        event(new EventDeleted($this->eventPresenter->present($event)));
+        event(new EventDeleted($deletedEvent));
     }
 }

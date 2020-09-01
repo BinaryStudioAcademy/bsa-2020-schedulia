@@ -8,20 +8,28 @@ use App\Services\Calendar\DeleteEventInterface;
 
 final class GoogleCalendarDeleteEvent implements DeleteEventInterface
 {
+    private int $eventId;
     private int $userId;
-    private string $providerId;
+    private string $providerEventId;
 
     public function __construct(
+        int $eventId,
         int $userId,
-        string $providerId
+        string $providerEventId
     ) {
+        $this->eventId = $eventId;
         $this->userId = $userId;
-        $this->providerId = $providerId;
+        $this->providerEventId = $providerEventId;
     }
 
-    public function getProviderId(): string
+    public function getEventId(): int
     {
-        return $this->providerId;
+        return $this->eventId;
+    }
+
+    public function getProviderEventId(): string
+    {
+        return $this->providerEventId;
     }
 
     public function getUserId(): int

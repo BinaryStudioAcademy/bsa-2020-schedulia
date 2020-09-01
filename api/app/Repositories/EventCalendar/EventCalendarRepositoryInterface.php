@@ -8,8 +8,7 @@ use App\Entity\EventCalendar;
 interface EventCalendarRepositoryInterface
 {
     public function getById(int $id): ?EventCalendar;
-    public function getByEventId(int $eventId): ?EventCalendar;
-    public function getByEventAndProvider(int $eventId, int $providerId): ?EventCalendar;
-    public function save(EventCalendar $eventCalendar): void;
-    public function deleteById(): void;
+    public function getByEventIdAndEventCalendarId(int $eventId, string $eventCalendarId): ?EventCalendar;
+    public function save(EventCalendar $eventCalendar): EventCalendar;
+    public function deleteById(int $id): void;
 }

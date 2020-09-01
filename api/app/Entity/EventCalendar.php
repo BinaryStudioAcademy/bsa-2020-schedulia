@@ -16,4 +16,9 @@ class EventCalendar extends Model
     {
         return $this->belongsTo(Event::class);
     }
+
+    public function scopeGoogle($query)
+    {
+        return $query->where('provider_id', '=', SocialAccount::GOOGLE_SERVICE_ID);
+    }
 }
