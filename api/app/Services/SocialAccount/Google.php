@@ -8,8 +8,8 @@ use App\Exceptions\GoogleOauthException;
 use App\Exceptions\SocialAccount\SocialAccountNotFoundException;
 use App\Repositories\SocialAccount\SocialAccountRepositoryInterface;
 use App\Contracts\CalendarEventInterface;
+use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Calendar\Google\GoogleCalendarEventPresenter;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Config\Repository;
 use App\Contracts\CalendarService;
 use App\Contracts\SocialAccountService;
@@ -20,15 +20,18 @@ class Google implements SocialAccountService, CalendarService
     protected $client;
     private Repository $config;
     private SocialAccountRepositoryInterface $socialAccountRepository;
+    private UserRepositoryInterface $userRepository;
     private GoogleCalendarEventPresenter $googleCalendarEventPresenter;
 
     public function __construct(
         Repository $config,
         SocialAccountRepositoryInterface $socialAccountRepository,
+        UserRepositoryInterface $userRepository,
         GoogleCalendarEventPresenter $googleCalendarEventPresenter
     ) {
         $this->config = $config;
         $this->client = $this->setupClient();
+        $this->userRepository = $userRepository;
         $this->socialAccountRepository = $socialAccountRepository;
         $this->googleCalendarEventPresenter = $googleCalendarEventPresenter;
     }
@@ -110,7 +113,8 @@ class Google implements SocialAccountService, CalendarService
 
     public function createEvent(CalendarEventInterface $googleCalendarEvent): void
     {
-        $token = User::findOrFail($googleCalendarEvent->getUserId())->googleAccounts[0]->token;
+
+        $token = $this->userRepository->getGoogleCalendarTokenById($googleCalendarEvent->getUserId());
 
         if ($token) {
             $event = new \Google_Service_Calendar_Event($this->googleCalendarEventPresenter->present($googleCalendarEvent));

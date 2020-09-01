@@ -38,7 +38,7 @@ final class GoogleCalendarEvent implements CalendarEventInterface
         $this->description = $descritpion;
     }
 
-    private function getDefaultColor()
+    private function getDefaultColor(): int
     {
         return GoogleCalendarColors::GOOGLE_EVENT_COLOR_BOLD_GREEN;
     }
@@ -48,12 +48,12 @@ final class GoogleCalendarEvent implements CalendarEventInterface
         return $this->userId;
     }
 
-    public function getStartTime()
+    public function getStartTime(): string
     {
         return Carbon::parse($this->startTime)->toRfc3339String();
     }
 
-    public function getEndTime()
+    public function getEndTime(): string
     {
         return Carbon::parse($this->startTime)->addMinutes($this->duration)->toRfc3339String();
     }
@@ -78,8 +78,13 @@ final class GoogleCalendarEvent implements CalendarEventInterface
         return $this->atendeeEmail;
     }
 
-    public function getColorAccordingGoogle()
+    public function getColorAccordingGoogle(): int
     {
         return GoogleCalendarColors::getColors()[$this->color] ?? $this->getDefaultColor();
+    }
+
+    public function getColorByName($name): int
+    {
+        return GoogleCalendarColors::getColors()[$name] ?? $this->getDefaultColor();
     }
 }

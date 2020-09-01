@@ -36,7 +36,7 @@ class Event extends Model
         return $this->hasMany(CustomFieldValue::class, 'event_id');
     }
 
-    public function getEventTimeAccordingTimezoneAttribute()
+    public function getEventTimeAccordingTimezoneAttribute(): string
     {
         $utcTime = Carbon::createFromFormat('Y-m-d H:i:s', $this->start_date, 'UTC');
         $utcTime->setTimezone($this->timezone);
