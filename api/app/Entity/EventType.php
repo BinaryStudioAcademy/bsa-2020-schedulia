@@ -19,6 +19,8 @@ class EventType extends Model
         'duration',
         'timezone',
         'disabled',
+        'location_type',
+        'coordinates'
     ];
 
     /**
@@ -26,6 +28,7 @@ class EventType extends Model
      */
     protected $casts = [
         'disabled' => 'boolean',
+        'coordinates' => null
     ];
 
     /**
