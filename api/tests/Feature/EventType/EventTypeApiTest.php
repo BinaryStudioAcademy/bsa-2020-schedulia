@@ -32,6 +32,7 @@ final class EventTypeApiTest extends TestCase
                 'end_date' => '2020-08-06 22:00:00',
             ]
         ],
+        'location_type' => 'zoom'
     ];
 
     private const STRUCTURE = [
@@ -49,6 +50,7 @@ final class EventTypeApiTest extends TestCase
             'timezone'
         ],
         'availabilities',
+        'location_type'
     ];
 
     private const STRUCTURE_AVAILABILITIES = [
