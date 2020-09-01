@@ -10,7 +10,10 @@ export default {
             root: true
         });
         try {
-            const eventType = await publicEventService.getEventTypeById(data.id, data.nickname);
+            const eventType = await publicEventService.getEventTypeById(
+                data.id,
+                data.nickname
+            );
             context.commit(mutations.SET_EVENT_TYPE, eventType);
             context.commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
