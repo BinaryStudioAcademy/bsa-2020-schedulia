@@ -37,6 +37,8 @@ final class UpdateEventTypeAction
         $eventType->duration = $request->getDuration() ?: $eventType->duration;
         $eventType->timezone = $request->getTimezone() ?: $eventType->timezone;
         $eventType->disabled = $request->getDisabled() ?: $eventType->disabled;
+        $eventType->location_type = $request->getLocationType();
+        $eventType->coordinates = $request->getCoordinates();
 
         $eventType = $this->eventTypeRepository->save($eventType);
 

@@ -34,6 +34,8 @@ final class AddEventTypeAction
         $eventType->duration = $request->getDuration();
         $eventType->timezone = $request->getTimezone();
         $eventType->disabled = $request->getDisabled();
+        $eventType->location_type = $request->getLocationType();
+        $eventType->coordinates = $request->getCoordinates();
 
         $availabilities = collect($request->getAvailabilities())->map(function ($availability) {
             return new Availability($availability);

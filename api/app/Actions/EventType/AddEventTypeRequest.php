@@ -14,6 +14,8 @@ final class AddEventTypeRequest
     private string $timezone;
     private bool $disabled;
     private array $availabilities;
+    private string $locationType;
+    private ?string $coordinates;
 
     public function __construct(
         string $name,
@@ -23,7 +25,9 @@ final class AddEventTypeRequest
         int $duration,
         string $timezone,
         bool $disabled,
-        array $availabilities
+        array $availabilities,
+        string $locationType,
+        ?string $coordinates
     ) {
         $this->name = $name;
         $this->description = $description;
@@ -33,6 +37,8 @@ final class AddEventTypeRequest
         $this->timezone = $timezone;
         $this->disabled = $disabled;
         $this->availabilities = $availabilities;
+        $this->locationType = $locationType;
+        $this->coordinates = $coordinates;
     }
 
     public function getName(): string
@@ -73,5 +79,15 @@ final class AddEventTypeRequest
     public function getAvailabilities(): array
     {
         return $this->availabilities;
+    }
+
+    public function getLocationType(): string
+    {
+        return $this->locationType;
+    }
+
+    public function getCoordinates(): ?string
+    {
+        return $this->coordinates;
     }
 }

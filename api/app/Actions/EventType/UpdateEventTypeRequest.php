@@ -15,6 +15,8 @@ final class UpdateEventTypeRequest
     private string $timezone;
     private bool $disabled;
     private array $availabilities;
+    private string $locationType;
+    private ?string $coordinates;
 
     public function __construct(
         int $id,
@@ -25,7 +27,9 @@ final class UpdateEventTypeRequest
         int $duration,
         string $timezone,
         bool $disabled,
-        array $availabilities
+        array $availabilities,
+        string $locationType,
+        ?string $coordinates
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -36,6 +40,8 @@ final class UpdateEventTypeRequest
         $this->timezone = $timezone;
         $this->disabled = $disabled;
         $this->availabilities = $availabilities;
+        $this->locationType = $locationType;
+        $this->coordinates = $coordinates;
     }
 
     public function getId(): int
@@ -81,5 +87,15 @@ final class UpdateEventTypeRequest
     public function getAvailabilities(): array
     {
         return $this->availabilities;
+    }
+
+    public function getLocationType(): string
+    {
+        return $this->locationType;
+    }
+
+    public function getCoordinates(): ?string
+    {
+        return $this->coordinates;
     }
 }
