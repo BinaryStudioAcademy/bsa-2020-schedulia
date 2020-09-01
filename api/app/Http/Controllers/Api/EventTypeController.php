@@ -179,7 +179,7 @@ class EventTypeController extends ApiController
 
         return $this->emptyResponse();
     }
-    
+
     public function updateCustomFieldsByEventTypeId(
         CustomFieldRequest $request,
         UpdateCustomFieldsToEventTypeAction $action
