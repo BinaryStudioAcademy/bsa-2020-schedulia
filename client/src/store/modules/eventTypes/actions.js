@@ -173,6 +173,9 @@ export default {
                 eventTypeId
             );
             commit(mutations.ADD_EVENT_TYPE, eventType);
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         } catch (error) {
             dispatch(
                 'notification/' + notifyActions.SET_ERROR_NOTIFICATION,
