@@ -55,6 +55,10 @@ class EventController extends ApiController
                 $request->query('start_date'),
                 $request->query('end_date'),
                 $request->query('event_types'),
+                $request->query('event_emails'),
+                $request->query('event_status'),
+                $request->query('tags'),
+                $request->query('searchString'),
                 (int)$request->query('page'),
                 (int)$request->query('per_page'),
                 $request->query('sort'),
@@ -75,7 +79,8 @@ class EventController extends ApiController
         $response = $this->getEventsEmailsAction->execute(
             new GetEventsEmailsRequest(
                 $request->query('start_date'),
-                $request->query('end_date')
+                $request->query('end_date'),
+                $request->query('searchString')
             )
         );
 

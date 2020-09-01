@@ -16,4 +16,9 @@ class CustomFieldValue extends Model
     {
         return $this->belongsTo(CustomField::class);
     }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
 }

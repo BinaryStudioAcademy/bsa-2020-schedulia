@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Actions\SocialAccount\AuthAction;
+use App\Actions\SocialAccount\DeleteCalendarAccountAction;
+use App\Actions\SocialAccount\DeleteCalendarRequest;
 use App\Actions\SocialAccount\GetCalendarsCollectionAction;
 use App\Actions\SocialAccount\GetCalendarsCollectionRequest;
 use App\Entity\SocialAccount;
@@ -11,6 +13,7 @@ use App\Http\Presenters\SocialAccountArrayPresenter;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class SocialAccountController extends ApiController
 {
@@ -22,6 +25,7 @@ class SocialAccountController extends ApiController
     public function __construct(
         GetCalendarsCollectionAction $getCalendarsCollectionAction,
         AuthAction $authAction,
+        DeleteCalendarAccountAction $deleteCalendarAccountAction,
         SocialAccountArrayPresenter $socialAccountArrayPresenter,
         GoogleResponseArrayPresenter $googleResponseArrayPresenter
     ) {
@@ -29,6 +33,7 @@ class SocialAccountController extends ApiController
         $this->socialAccountArrayPresenter = $socialAccountArrayPresenter;
         $this->googleResponseArrayPresenter = $googleResponseArrayPresenter;
         $this->authAction = $authAction;
+        $this->deleteCalendarAccountAction = $deleteCalendarAccountAction;
     }
 
     public function calendars(Request $request): JsonResponse
@@ -43,6 +48,14 @@ class SocialAccountController extends ApiController
         return $this->successResponse($this->socialAccountArrayPresenter->presentCollection($response));
     }
 
+    public function destroyCalendar(Request $request): JsonResponse
+    {
+        $provider = $request->route('provider');
+        $this->deleteCalendarAccountAction->execute(new DeleteCalendarRequest(Auth::id(), $provider));
+
+        return $this->emptyResponse();
+    }
+
     public function oauth(Request $request): JsonResponse
     {
         $provider = $request->route('provider');
@@ -54,8 +67,8 @@ class SocialAccountController extends ApiController
     public function oauthResponse(Request $request)
     {
         $provider = $request->route('provider');
-        $response = $this->authAction->execute($provider, $request->input('code'));
+        $response = $this->authAction->execute($provider, $request->input('code'), $request->input('state'));
 
-        return $this->emptyResponse();
+        return Redirect::away($response->getUrl());
     }
 }

@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace App\Actions\Event;
 
 use App\Actions\PaginatedResponse;
+use App\Repositories\Event\Criterion\EventEmailsCriterion;
+use App\Repositories\Event\Criterion\EventStatusCriterion;
 use App\Repositories\Event\Criterion\EventTypesCriterion;
+use App\Repositories\Event\Criterion\SearchStringCriterion;
 use App\Repositories\Event\EventRepository;
 use App\Repositories\Event\EventRepositoryInterface;
 use App\Repositories\Event\Criterion\StartDateCriterion;
@@ -41,6 +44,18 @@ final class GetEventCollectionAction
 
         if ($request->getEventTypes()) {
             $criteria[] = new EventTypesCriterion($request->getEventTypes());
+        }
+
+        if ($request->getEventEmails()) {
+            $criteria[] = new EventEmailsCriterion($request->getEventEmails());
+        }
+
+        if ($request->getEventStatus()) {
+            $criteria[] = new EventStatusCriterion($request->getEventStatus());
+        }
+
+        if ($request->getSearchString()) {
+            $criteria[] = new SearchStringCriterion($request->getSearchString());
         }
 
         return new PaginatedResponse(
