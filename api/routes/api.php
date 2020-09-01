@@ -72,7 +72,7 @@ Route::group([
 });
 
 Route::get('/event-types/{id}/availabilities', 'Api\\EventTypeController@getAvailableTime');
-Route::get('/event-types/{id}', 'Api\\EventTypeController@getEventTypeById');
+Route::get('/event-types/{id}/public/{nickname}', 'Api\\EventTypeController@getEventTypeByIdAndNickname');
 
 Route::group([
     'namespace' => 'Api\\',
