@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\EventCreated;
 use App\Events\EventDeleted;
+use App\Events\EventUpdated;
 use App\Listeners\AddEventToElasticSearch;
 use App\Listeners\AddEventToGoogleCalendar;
 use App\Listeners\DeleteEventFromGoogleCalendar;
@@ -32,6 +33,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         EventDeleted::class => [
             DeleteEventFromGoogleCalendar::class,
+        ],
+        EventUpdated::class => [
+            DeleteEventFromGoogleCalendar::class,
+            AddEventToGoogleCalendar::class,
         ]
     ];
 
