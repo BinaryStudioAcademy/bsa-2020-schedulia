@@ -85,6 +85,7 @@ export default {
         state.eventTypes = {
             ...state.eventTypes,
             [eventType.id]: eventTypeMapper(eventType)
+        };
     },
     [mutations.UPDATE_INTERNAL_NOTE]: (state, data) => {
         const eventTypes = { ...state.eventTypes };
