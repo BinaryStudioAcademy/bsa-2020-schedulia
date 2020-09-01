@@ -14,7 +14,7 @@ class AddLocationFieldToEventTypesTable extends Migration
     public function up()
     {
         Schema::table('event_types', function (Blueprint $table) {
-            $table->string('location_type');
+            $table->string('location_type')->nullable();
             $table->string('coordinates')->nullable();
         });
     }
