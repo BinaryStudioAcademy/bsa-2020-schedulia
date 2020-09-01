@@ -12,6 +12,8 @@ use App\Actions\EventType\AddEventTypeAction;
 use App\Actions\EventType\AddEventTypeRequest;
 use App\Actions\EventType\ChangeDisabledByIdAction;
 use App\Actions\EventType\ChangeDisabledByIdRequest;
+use App\Actions\EventType\CloneEventTypeByIdAction;
+use App\Actions\EventType\CloneEventTypeByIdRequest;
 use App\Actions\EventType\DeleteEventTypeAction;
 use App\Actions\EventType\DeleteEventTypeRequest;
 use App\Actions\EventType\GetAvailableTimeAction;
@@ -205,6 +207,17 @@ class EventTypeController extends ApiController
                 $customFields->getCustomFields()
             )
         );
+    }
+
+    public function cloneEventTypeById(
+        string $id,
+        CloneEventTypeByIdAction $action
+    ): JsonResponse {
+        $eventType = $action->execute(new CloneEventTypeByIdRequest(
+            (int)$id
+        ));
+
+        return $this->successResponse($this->eventTypePresenter->present($eventType->getNewEventType()));
     }
 
     public function updateInternalNoteById(

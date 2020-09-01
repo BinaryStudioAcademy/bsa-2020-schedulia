@@ -48,6 +48,7 @@ Route::group([
         Route::get('/{id}', 'EventTypeController@getEventTypeById');
         Route::put('/{id}', 'EventTypeController@update');
         Route::put('/{id}/disabled', 'EventTypeController@changeDisabledById');
+        Route::post('/{id}/clone', 'EventTypeController@cloneEventTypeById');
         Route::put('/{id}/internal-note', 'EventTypeController@updateInternalNoteById');
         Route::post('/{id}/custom-fields', 'EventTypeController@saveCustomFieldsByEventTypeId');
         Route::put('/{id}/custom-fields', 'EventTypeController@updateCustomFieldsByEventTypeId');
