@@ -251,5 +251,4 @@ class EventTypeController extends ApiController
 
         return $this->successResponse($this->eventTypePresenter->present($eventType));
     }
-
 }
