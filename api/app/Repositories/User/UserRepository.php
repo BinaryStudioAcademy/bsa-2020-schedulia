@@ -75,7 +75,7 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
     {
         $user = User::findOrFail($id);
 
-        if(count($user->googleAccounts)) {
+        if (count($user->googleAccounts)) {
             return $user->googleAccounts[0]->token;
         } else {
             return null;
