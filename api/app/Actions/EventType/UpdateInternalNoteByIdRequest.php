@@ -7,9 +7,9 @@ namespace App\Actions\EventType;
 final class UpdateInternalNoteByIdRequest
 {
     private int $id;
-    private string $internalNote;
+    private ?string $internalNote;
 
-    public function __construct(int $id, string $internalNote)
+    public function __construct(int $id, ?string $internalNote)
     {
         $this->id = $id;
         $this->internalNote = $internalNote;
@@ -20,7 +20,7 @@ final class UpdateInternalNoteByIdRequest
         return $this->id;
     }
 
-    public function getInternalNote(): string
+    public function getInternalNote(): ?string
     {
         return $this->internalNote;
     }
