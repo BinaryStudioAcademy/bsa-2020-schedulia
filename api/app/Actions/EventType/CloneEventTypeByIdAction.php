@@ -9,6 +9,7 @@ use App\Exceptions\EventType\SlugIsAlreadyInUseException;
 use App\Repositories\EventType\Criterion\NameCriterion;
 use App\Repositories\EventType\Criterion\SlugCriterion;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
+use Illuminate\Support\Str;
 
 final class CloneEventTypeByIdAction
 {
@@ -26,6 +27,7 @@ final class CloneEventTypeByIdAction
         $newEventType = $eventType->replicate();
 
         $newSlug = $newEventType->slug . '-copy';
+        $newSlug = substr_replace($newSlug, Str::random(2), -1);
         $newName = $newEventType->name . ' (copy)';
 
         if (count($this->eventTypeRepository->findByCriteria(new SlugCriterion($newSlug)))) {
