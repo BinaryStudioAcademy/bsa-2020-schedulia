@@ -9,7 +9,7 @@
                                 <div>
                                     <img
                                         :src="colorById[color].image"
-                                        alt=""
+                                        alt
                                         :class="{
                                             'pl-3': $vuetify.breakpoint.xs,
                                             'pl-10': $vuetify.breakpoint.smAndUp
@@ -19,12 +19,10 @@
                             </VCol>
                             <VCol cols="10" class="pl-lg-5 pl-sm-10">
                                 <div>
-                                    <VCardTitle>
-                                        {{ lang.CREATE_EVENT_TYPE_TITLE }}
-                                    </VCardTitle>
-                                    <VCardSubtitle>
-                                        {{ name }}
-                                    </VCardSubtitle>
+                                    <VCardTitle>{{
+                                        lang.CREATE_EVENT_TYPE_TITLE
+                                    }}</VCardTitle>
+                                    <VCardSubtitle>{{ name }}</VCardSubtitle>
                                 </div>
                             </VCol>
                         </VRow>
@@ -42,9 +40,9 @@
                             >
                                 <VForm class="mt-9 mb-16" ref="form">
                                     <div class="mb-2">
-                                        <label>
-                                            {{ lang.EVENT_NAME_LABEL }}*
-                                        </label>
+                                        <label
+                                            >{{ lang.EVENT_NAME_LABEL }}*</label
+                                        >
                                     </div>
                                     <VTextField
                                         :value="name"
@@ -53,8 +51,7 @@
                                         outlined
                                         class="app-textfield"
                                         dense
-                                    >
-                                    </VTextField>
+                                    ></VTextField>
 
                                     <div class="mb-2">
                                         <label>{{ lang.LOCATION_LABEL }}</label>
@@ -74,31 +71,27 @@
                                             slot-scope="data"
                                         >
                                             <VFlex xs2 md1>
-                                                <VIcon>
-                                                    {{ data.item.icon }}
-                                                </VIcon>
+                                                <VIcon>{{
+                                                    data.item.icon
+                                                }}</VIcon>
                                             </VFlex>
-                                            <VFlex>
-                                                {{ data.item.title }}
-                                            </VFlex>
+                                            <VFlex>{{ data.item.title }}</VFlex>
                                         </template>
 
                                         <template slot="item" slot-scope="data">
                                             <VFlex xs2 md1>
-                                                <VIcon>
-                                                    {{ data.item.icon }}
-                                                </VIcon>
+                                                <VIcon>{{
+                                                    data.item.icon
+                                                }}</VIcon>
                                             </VFlex>
-                                            <VFlex>
-                                                {{ data.item.title }}
-                                            </VFlex>
+                                            <VFlex>{{ data.item.title }}</VFlex>
                                         </template>
                                     </VSelect>
 
                                     <div class="mb-2">
-                                        <label>{{
-                                            lang.DESCRIPTION_LABEL
-                                        }}</label>
+                                        <label>
+                                            {{ lang.DESCRIPTION_LABEL }}
+                                        </label>
                                     </div>
 
                                     <VTextarea
@@ -108,13 +101,12 @@
                                         placeholder="Placeholder"
                                         outlined
                                         class="mb-3 app-textfield"
-                                    >
-                                    </VTextarea>
+                                    ></VTextarea>
 
                                     <div class="mb-2">
-                                        <label>
-                                            {{ lang.EVENT_LINK_LABEL }}*
-                                        </label>
+                                        <label
+                                            >{{ lang.EVENT_LINK_LABEL }}*</label
+                                        >
                                     </div>
 
                                     <VTextField
@@ -125,8 +117,7 @@
                                         dense
                                         class="mb-4 app-textfield"
                                         required
-                                    >
-                                    </VTextField>
+                                    ></VTextField>
 
                                     <div class="mb-2">
                                         <p>{{ lang.EVENT_COLOR_LABEL }}</p>
@@ -138,8 +129,8 @@
                                                     v-for="id in colors"
                                                     :key="id"
                                                     :src="colorById[id].image"
-                                                    alt=""
-                                                    class=" image-circle"
+                                                    alt
+                                                    class="image-circle"
                                                     :class="{
                                                         'mr-5':
                                                             $vuetify.breakpoint
@@ -160,7 +151,7 @@
                                                             :src="
                                                                 require('@/assets/images/icon_check.png')
                                                             "
-                                                            alt=""
+                                                            alt
                                                         />
                                                     </VOverlay>
                                                 </VImg>
@@ -177,17 +168,15 @@
                                                 @click.stop="
                                                     cancelDialog = true
                                                 "
+                                                >{{ lang.CANCEL }}</VBtn
                                             >
-                                                {{ lang.CANCEL }}
-                                            </VBtn>
                                             <VBtn
                                                 @click="saveEventType"
                                                 color="primary"
                                                 class="white--text"
                                                 width="114"
+                                                >{{ lang.SAVE_AND_CLOSE }}</VBtn
                                             >
-                                                {{ lang.SAVE_AND_CLOSE }}
-                                            </VBtn>
                                         </div>
                                     </VRow>
                                 </VForm>
@@ -204,7 +193,7 @@
                                         :src="
                                             require('@/assets/images/calender_circle.png')
                                         "
-                                        alt=""
+                                        alt
                                         :class="{
                                             'pl-3': $vuetify.breakpoint.xs,
                                             'pl-10': $vuetify.breakpoint.smAndUp
@@ -214,12 +203,13 @@
                             </VCol>
                             <VCol cols="10" class="pl-lg-5 pl-sm-10">
                                 <div>
-                                    <VCardTitle>
-                                        {{ lang.WHEN_CAN_PEOPLE_BOOK_EVENT }}
-                                    </VCardTitle>
-                                    <VCardSubtitle>
-                                        {{ duration }}, {{ dateDuration }}
-                                    </VCardSubtitle>
+                                    <VCardTitle>{{
+                                        lang.WHEN_CAN_PEOPLE_BOOK_EVENT
+                                    }}</VCardTitle>
+                                    <VCardSubtitle
+                                        >{{ duration }},
+                                        {{ dateDuration }}</VCardSubtitle
+                                    >
                                 </div>
                             </VCol>
                         </VRow>
@@ -257,8 +247,7 @@
                                                 :value="n.value"
                                                 class="mr-6"
                                                 :rules="rules"
-                                            >
-                                            </VRadio>
+                                            ></VRadio>
                                         </VRadioGroup>
 
                                         <p class="app-text mr-3">
@@ -271,8 +260,7 @@
                                             dense
                                             class="shrink ma-0 pa-0 custom-textfield"
                                             placeholder="0"
-                                        >
-                                        </VTextField>
+                                        ></VTextField>
                                     </VRow>
                                     <VRow class="mb-2">
                                         <h3 class="app-label">
@@ -310,15 +298,13 @@
                                             {{
                                                 lang.EVENT_TIME_ZONE_EXPLANATION
                                             }}
-
                                             <span
                                                 @click.stop="
                                                     timeZoneDialog = true
                                                 "
                                                 class="edit-clicked ml-3 app-text"
+                                                >{{ lang.EDIT }}</span
                                             >
-                                                {{ lang.EDIT }}
-                                            </span>
                                         </p>
                                     </VRow>
                                     <VRow class="mb-5">
@@ -344,9 +330,9 @@
                                         <VTabs v-model="tab">
                                             <VTabsSlider></VTabsSlider>
                                             <VTab :href="'#tab-0'">
-                                                <span class="custom-text">{{
-                                                    lang.HOURS
-                                                }}</span>
+                                                <span class="custom-text">
+                                                    {{ lang.HOURS }}
+                                                </span>
                                             </VTab>
                                             <VTabItem :value="'tab-0'">
                                                 <VRow class="fill-height">
@@ -368,7 +354,7 @@
                                                                         :src="
                                                                             require('@/assets/images/chevrons/chevron_left.png')
                                                                         "
-                                                                        alt=""
+                                                                        alt
                                                                     />
                                                                 </VBtn>
                                                                 <VToolbarTitle
@@ -395,7 +381,7 @@
                                                                         :src="
                                                                             require('@/assets/images/chevrons/chevron_right.png')
                                                                         "
-                                                                        alt=""
+                                                                        alt
                                                                     />
                                                                 </VBtn>
                                                                 <VMenu
@@ -437,11 +423,10 @@
                                                                                 :src="
                                                                                     require('@/assets/images/calendar_dates.svg')
                                                                                 "
-                                                                                alt=""
+                                                                                alt
                                                                                 width="24"
                                                                                 height="24"
-                                                                            >
-                                                                            </VImg>
+                                                                            ></VImg>
                                                                         </VBtn>
                                                                     </template>
                                                                     <VDatePicker
@@ -458,8 +443,8 @@
                                                                             @click="
                                                                                 menu = false
                                                                             "
-                                                                            >Cancel
-                                                                        </VBtn>
+                                                                            >Cancel</VBtn
+                                                                        >
                                                                         <VBtn
                                                                             text
                                                                             color="primary"
@@ -468,8 +453,8 @@
                                                                                     date
                                                                                 )
                                                                             "
-                                                                            >OK
-                                                                        </VBtn>
+                                                                            >OK</VBtn
+                                                                        >
                                                                     </VDatePicker>
                                                                 </VMenu>
                                                                 <VSpacer></VSpacer>
@@ -490,16 +475,15 @@
                                                                 @click:date="
                                                                     viewEventDialog
                                                                 "
-                                                            >
-                                                            </VCalendar>
+                                                            ></VCalendar>
                                                         </VSheet>
                                                     </VCol>
                                                 </VRow>
                                             </VTabItem>
                                             <VTab :href="'#tab-1'">
-                                                <span class="custom-text">{{
-                                                    lang.ADVANCED
-                                                }}</span>
+                                                <span class="custom-text">
+                                                    {{ lang.ADVANCED }}
+                                                </span>
                                             </VTab>
                                             <VTabItem :value="'tab-1'">
                                                 <VRow class="pt-3">
@@ -534,8 +518,7 @@
                                                             placeholder="Option"
                                                             dense
                                                             class="app-select"
-                                                        >
-                                                        </VSelect>
+                                                        ></VSelect>
                                                     </VCol>
                                                 </VRow>
                                                 <VRow>
@@ -567,8 +550,7 @@
                                                             dense
                                                             class="shrink custom-textfield"
                                                             placeholder="0"
-                                                        >
-                                                        </VTextField>
+                                                        ></VTextField>
                                                     </VCol>
                                                 </VRow>
                                                 <VRow>
@@ -605,13 +587,14 @@
                                                                     dense
                                                                     class="shrink custom-textfield"
                                                                     placeholder="0"
-                                                                >
-                                                                </VTextField>
+                                                                ></VTextField>
                                                             </VCol>
                                                             <VCol>
-                                                                <span>{{
-                                                                    lang.HOURS_AWAY
-                                                                }}</span>
+                                                                <span>
+                                                                    {{
+                                                                        lang.HOURS_AWAY
+                                                                    }}
+                                                                </span>
                                                             </VCol>
                                                         </VRow>
                                                     </VCol>
@@ -629,17 +612,15 @@
                                                 @click.stop="
                                                     cancelDialog = true
                                                 "
+                                                >{{ lang.CANCEL }}</VBtn
                                             >
-                                                {{ lang.CANCEL }}
-                                            </VBtn>
                                             <VBtn
                                                 @click="saveEventType"
                                                 color="primary"
                                                 class="white--text"
                                                 width="114"
+                                                >{{ lang.SAVE_AND_CLOSE }}</VBtn
                                             >
-                                                {{ lang.SAVE_AND_CLOSE }}
-                                            </VBtn>
                                         </div>
                                     </VRow>
                                 </VForm>
@@ -659,8 +640,7 @@
                     :range="form.dateRange"
                     @cancel="cancelDateRange"
                     @apply="changeDateRange"
-                >
-                </AvailabilityDialog>
+                ></AvailabilityDialog>
             </VDialog>
         </VRow>
         <VRow justify="center">
@@ -669,9 +649,9 @@
                     <VRow justify="center">
                         <VCol cols="9">
                             <VRow justify="center">
-                                <VCardTitle class="headline">
-                                    {{ lang.TIME_ZONE_STYLE }}
-                                </VCardTitle>
+                                <VCardTitle class="headline">{{
+                                    lang.TIME_ZONE_STYLE
+                                }}</VCardTitle>
                                 <VRadioGroup
                                     dense
                                     row
@@ -705,13 +685,13 @@
                                 </VCardText>
 
                                 <div v-show="radioTimeZoneChecked === 'Locked'">
-                                    <VCardText class="px-0 pb-0"
-                                        ><p>
+                                    <VCardText class="px-0 pb-0">
+                                        <p>
                                             {{
                                                 lang.INVITEES_IN_PERSON_MEETINGS
                                             }}
-                                        </p></VCardText
-                                    >
+                                        </p>
+                                    </VCardText>
                                     <VCol cols="12" class="px-0 py-0">
                                         <VSelect
                                             :items="timeZones"
@@ -721,8 +701,7 @@
                                             placeholder="Option"
                                             dense
                                             class="app-select"
-                                        >
-                                        </VSelect>
+                                        ></VSelect>
                                     </VCol>
                                 </div>
                             </VRow>
@@ -735,16 +714,14 @@
                             color="primary"
                             text
                             @click="timeZoneDialog = false"
+                            >{{ lang.APPLY }}</VBtn
                         >
-                            {{ lang.APPLY }}
-                        </VBtn>
                         <VBtn
                             color="primary"
                             text
                             @click="timeZoneDialog = false"
+                            >{{ lang.CANCEL }}</VBtn
                         >
-                            {{ lang.CANCEL }}
-                        </VBtn>
                     </VCardActions>
                 </VCard>
             </VDialog>
@@ -753,16 +730,16 @@
             <VDialog v-model="eventDialog" width="380" v-if="selectedDay">
                 <VCard>
                     <VRow justify="center">
-                        <VCardTitle class="headline">{{
-                            lang.EDIT_AVAILABILITY
-                        }}</VCardTitle>
+                        <VCardTitle class="headline">
+                            {{ lang.EDIT_AVAILABILITY }}
+                        </VCardTitle>
                         <VCol cols="9">
                             <VRow align="baseline">
                                 <VCol cols="4">
                                     <VRow>
-                                        <label class="availability-label">{{
-                                            lang.FROM
-                                        }}</label>
+                                        <label class="availability-label">
+                                            {{ lang.FROM }}
+                                        </label>
                                     </VRow>
                                     <VRow>
                                         <VTextField
@@ -772,22 +749,21 @@
                                             outlined
                                             dense
                                             placeholder="hh:mm"
-                                        >
-                                        </VTextField>
+                                        ></VTextField>
                                     </VRow>
                                 </VCol>
                                 <VCol cols="2">
-                                    <VRow> </VRow>
+                                    <VRow></VRow>
                                     <VRow justify="center">
-                                        <span class="mt-3"> - </span>
+                                        <span class="mt-3">-</span>
                                     </VRow>
                                 </VCol>
 
                                 <VCol cols="4">
                                     <VRow>
-                                        <label class="availability-label">{{
-                                            lang.TO
-                                        }}</label>
+                                        <label class="availability-label">
+                                            {{ lang.TO }}
+                                        </label>
                                     </VRow>
                                     <VRow>
                                         <VTextField
@@ -797,8 +773,7 @@
                                             outlined
                                             dense
                                             placeholder="hh:mm"
-                                        >
-                                        </VTextField>
+                                        ></VTextField>
                                     </VRow>
                                 </VCol>
                             </VRow>
@@ -806,12 +781,18 @@
                     </VRow>
                     <VCardActions>
                         <VSpacer></VSpacer>
-                        <VBtn color="primary" text @click="eventDialog = false">
-                            {{ lang.APPLY }}
-                        </VBtn>
-                        <VBtn color="primary" text @click="eventDialog = false">
-                            {{ lang.CANCEL }}
-                        </VBtn>
+                        <VBtn
+                            color="primary"
+                            text
+                            @click="eventDialog = false"
+                            >{{ lang.APPLY }}</VBtn
+                        >
+                        <VBtn
+                            color="primary"
+                            text
+                            @click="eventDialog = false"
+                            >{{ lang.CANCEL }}</VBtn
+                        >
                     </VCardActions>
                 </VCard>
             </VDialog>
@@ -836,17 +817,15 @@
                                 class="white--text mr-3"
                                 width="114"
                                 :to="{ name: 'EventTypes' }"
+                                >{{ lang.YES }}</VBtn
                             >
-                                {{ lang.YES }}
-                            </VBtn>
                             <VBtn
                                 text
                                 outlined
                                 width="114"
                                 @click="cancelDialog = false"
+                                >{{ lang.NEVERMIND }}</VBtn
                             >
-                                {{ lang.NEVERMIND }}
-                            </VBtn>
                         </div>
                     </VCardActions>
                 </VCard>
@@ -928,22 +907,50 @@ export default {
             colorById: {
                 yellow: {
                     id: 'yellow',
-                    image: require('@/assets/images/yellow_circle.png')
+                    image: require('@/assets/images/color_circles/yellow_circle.svg')
                 },
                 red: {
                     id: 'red',
-                    image: require('@/assets/images/red_circle.png')
+                    image: require('@/assets/images/color_circles/red_circle.svg')
                 },
                 blue: {
                     id: 'blue',
-                    image: require('@/assets/images/blue_circle.png')
+                    image: require('@/assets/images/color_circles/blue_circle.svg')
                 },
                 green: {
                     id: 'green',
-                    image: require('@/assets/images/green_circle.png')
+                    image: require('@/assets/images/color_circles/green_circle.svg')
+                },
+
+                purple: {
+                    id: 'purple',
+                    image: require('@/assets/images/color_circles/purple_circle.svg')
+                },
+
+                turquoise: {
+                    id: 'turquoise',
+                    image: require('@/assets/images/color_circles/turquoise_circle.svg')
+                },
+
+                pink: {
+                    id: 'pink',
+                    image: require('@/assets/images/color_circles/pink_circle.svg')
+                },
+                dark_blue: {
+                    id: 'dark_blue',
+                    image: require('@/assets/images/color_circles/dark-blue_circle.svg')
                 }
             },
-            colors: ['yellow', 'red', 'blue', 'green'],
+            colors: [
+                'yellow',
+                'red',
+                'blue',
+                'green',
+                'purple',
+                'turquoise',
+                'pink',
+                'dark_blue'
+            ],
             nameRules: [
                 v => !!v || this.lang.PROVIDE_EVENT_NAME,
                 v =>

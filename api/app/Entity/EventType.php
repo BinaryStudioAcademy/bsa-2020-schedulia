@@ -15,6 +15,7 @@ class EventType extends Model
         'color',
         'slug',
         'description',
+        'internal_note',
         'duration',
         'timezone',
         'disabled',
@@ -48,5 +49,15 @@ class EventType extends Model
     public function events()
     {
         return $this->hasMany(Event::class, 'event_type_id');
+    }
+
+    public function tags()
+    {
+        return $this->hasMany(Tag::class, 'event_type_id');
+    }
+
+    public function customFields()
+    {
+        return $this->hasMany(CustomField::class, 'event_type_id');
     }
 }

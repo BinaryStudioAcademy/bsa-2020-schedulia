@@ -14,6 +14,7 @@ class Event extends Model
         'start_date',
         'timezone',
         'status',
+        'location'
     ];
 
     protected $attributes = [
@@ -27,5 +28,10 @@ class Event extends Model
     public function eventType()
     {
         return $this->belongsTo(EventType::class, 'event_type_id', 'id');
+    }
+
+    public function customFieldValues()
+    {
+        return $this->hasMany(CustomFieldValue::class, 'event_id');
     }
 }

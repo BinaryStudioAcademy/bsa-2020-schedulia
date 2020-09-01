@@ -3,7 +3,7 @@
         <VCol class="col-1 col-sm-2 col-md-3"></VCol>
         <VCol class="detail-content col-10 col-sm-8 col-md-6">
             <div class="detail-content-top mt-3 mb-5">
-                <VLayout justify-center>
+                <VLayout justify-center v-if="eventType.owner.avatar">
                     <VAvatar :size="70" class="avatar">
                         <img :src="eventType.owner.avatar" alt="Avatar" />
                     </VAvatar>
@@ -26,15 +26,15 @@
                 </div>
                 <div class="event-info">
                     <VIcon dark color="primary">mdi-calendar-blank</VIcon>
-                    {{ publicEvent.startDate }}
+                    {{ startDateFormatted }}
                 </div>
                 <div class="event-info">
                     <VIcon dark color="primary">mdi-earth</VIcon>
                     {{ publicEvent.timezone }}
                 </div>
                 <div class="event-info">
-                    <VIcon dark color="primary">mdi-map-marker</VIcon>
-                    {{ eventType.location }}
+                    <VIcon dark color="primary">mdi-map-marker</VIcon>Vyacheslav
+                    Chornovol Avenue, 59, Lviv
                 </div>
                 <div class="event-info">{{ eventType.description }}</div>
             </div>
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import * as getters from '@/store/modules/publicEvent/types/getters';
 import { mapGetters } from 'vuex';
@@ -60,19 +61,38 @@ export default {
         colorById: {
             yellow: {
                 id: 'yellow',
-                image: require('@/assets/images/yellow_circle.png')
+                image: require('@/assets/images/color_circles/yellow_circle.svg')
             },
             red: {
                 id: 'red',
-                image: require('@/assets/images/red_circle.png')
+                image: require('@/assets/images/color_circles/red_circle.svg')
             },
             blue: {
                 id: 'blue',
-                image: require('@/assets/images/blue_circle.png')
+                image: require('@/assets/images/color_circles/blue_circle.svg')
             },
             green: {
                 id: 'green',
-                image: require('@/assets/images/green_circle.png')
+                image: require('@/assets/images/color_circles/green_circle.svg')
+            },
+
+            purple: {
+                id: 'purple',
+                image: require('@/assets/images/color_circles/purple_circle.svg')
+            },
+
+            turquoise: {
+                id: 'turquoise',
+                image: require('@/assets/images/color_circles/turquoise_circle.svg')
+            },
+
+            pink: {
+                id: 'pink',
+                image: require('@/assets/images/color_circles/pink_circle.svg')
+            },
+            dark_blue: {
+                id: 'dark_blue',
+                image: require('@/assets/images/color_circles/dark-blue_circle.svg')
             }
         }
     }),
@@ -83,7 +103,12 @@ export default {
         ...mapGetters('publicEvent', {
             eventType: getters.GET_EVENT_TYPE,
             publicEvent: getters.GET_PUBLIC_EVENT
-        })
+        }),
+        startDateFormatted() {
+            return moment(this.publicEvent.startDate).format(
+                'dddd, YYYY-MM-DD, HH:mm'
+            );
+        }
     }
 };
 </script>

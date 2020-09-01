@@ -41,6 +41,10 @@ final class AddEventAction
 
             $this->eventRepository->save($event);
 
+            if ($request->getCustomFieldValues()) {
+                $this->eventRepository->saveCustomFieldValues($event, $request->getCustomFieldValues());
+            }
+
             event(new EventCreated($event));
         }
     }

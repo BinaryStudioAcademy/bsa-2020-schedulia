@@ -2,6 +2,10 @@ export const eventTypeMapper = EventType => ({
     id: EventType.id,
     name: EventType.name,
     description: EventType.description,
+    internalNote: EventType.internal_note,
+    location: EventType.location,
+    locationType: EventType.location_type,
+    coordinates: EventType.coordinates,
     slug: EventType.slug,
     color: EventType.color,
     duration: EventType.duration,
@@ -15,7 +19,8 @@ export const userMapper = user => ({
     id: user.id,
     email: user.email,
     name: user.name,
-    timezone: user.timezone
+    timezone: user.timezone,
+    nickname: user.nickname
 });
 
 export const availabilityMapper = availability => ({
@@ -27,12 +32,16 @@ export const availabilityMapper = availability => ({
 export const availabilityApiMapper = availability => ({
     type: availability.type,
     start_date: availability.startDate,
-    end_date: availability.endDate
+    end_date: availability.endDate,
+    start_time: availability?.startTime,
+    end_time: availability?.endTime
 });
 
 export const eventTypeFormMapper = eventTypeForm => ({
     name: eventTypeForm.name,
     location: eventTypeForm.location,
+    location_type: eventTypeForm.locationType,
+    coordinates: eventTypeForm.coordinates,
     description: eventTypeForm.description,
     slug: eventTypeForm.slug,
     color: eventTypeForm.color,
@@ -51,3 +60,8 @@ export const availabilitiesMapper = function(availabilities) {
             .map(availability => availabilityApiMapper(availability))
     );
 };
+
+export const eventTypeTagMapper = EventTypeTag => ({
+    id: EventTypeTag.id,
+    name: EventTypeTag.name
+});

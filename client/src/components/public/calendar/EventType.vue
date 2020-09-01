@@ -8,7 +8,7 @@
         :name="eventType.owner.name"
         :eventName="eventType.name"
         :duration="eventType.duration"
-        :location="eventType.location"
+        :location="'Vyacheslav Chornovol Avenue, 59, Lviv'"
         :description="eventType.description"
         :lang="lang"
       />
@@ -17,8 +17,8 @@
 
     <VDivider vertical class="hidden-md-and-down"></VDivider>
 
-    <VCol sm="12" md="6" lg="5" class="calendar-container col-12 pa-0 mt-0 ml-0">
-      <div class="calendar-content">
+    <VCol sm="12" md="6" lg="5" class="calendar-container col-12 pa-0 mt-0 ml-0"
+      ><div class="calendar-content">
         <h3>{{ lang.SELECT_DATE_AND_TIME }}</h3>
         <VDatePicker
           v-model="date"
@@ -44,19 +44,32 @@
             <VListItem>
               <VListItemContent>
                 <VListItemTitle>{{ lang.CHOOSE_YOUR_TIMEZONE }}</VListItemTitle>
-                <VTextField v-model="timezoneFieldSearch" label="Enter timezone"></VTextField>
+                <VTextField
+                  v-model="timezoneFieldSearch"
+                  label="Enter timezone"
+                ></VTextField>
               </VListItemContent>
             </VListItem>
             <VDivider></VDivider>
           </template>
         </VSelect>
+        {{ currentTimezoneAvailabilities }}
+        <br />
+        <br />
+        {{ normalizedRemainderTimes }}
       </div>
     </VCol>
 
     <VDivider v-if="show" vertical class="hidden-md-and-down"></VDivider>
 
     <VSpacer class="hidden-md-and-down"></VSpacer>
-    <VCol v-if="show" sm="12" md="4" lg="3" class="select-time-container col-12 pa-0 mt-0">
+    <VCol
+      v-if="show"
+      sm="12"
+      md="4"
+      lg="3"
+      class="select-time-container col-12 pa-0 mt-0"
+    >
       <h3>{{ formattedDate }}</h3>
       <div class="time-items-container">
         <div v-for="(time, i) in availableTimes" :key="i" text>
@@ -66,7 +79,8 @@
                 <VCardText
                   dense
                   class="text-center pa-0 justify-center primary--text font-weight-bold"
-                >{{ time }}</VCardText>
+                  >{{ time }}</VCardText
+                >
               </VCard>
               <VBtn
                 class="select-time-btn text-capitalize"
@@ -74,7 +88,8 @@
                 color="primary"
                 dark
                 @click="onConfirmDate(time)"
-              >{{ lang.CONFIRM_DATE }}</VBtn>
+                >{{ lang.CONFIRM_DATE }}</VBtn
+              >
             </div>
           </div>
           <VBtn
@@ -83,7 +98,8 @@
             outlined
             @click="selectTime(i)"
             v-else
-          >{{ time }}</VBtn>
+            >{{ time }}</VBtn
+          >
         </div>
       </div>
     </VCol>
@@ -99,17 +115,16 @@ import EventInfo from "./EventInfo";
 import AutoFillSpacer from "./AutoFillSpacer";
 import * as actions from "@/store/modules/publicEvent/types/actions";
 import * as getters from "@/store/modules/publicEvent/types/getters";
-import * as mutations from "@/store/modules/publicEvent/types/mutations";
-import { mapActions, mapGetters, mapMutations } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "EventType",
   components: {
     EventInfo,
-    AutoFillSpacer
+    AutoFillSpacer,
   },
   async mounted() {
-    await this.getEventTypeById(5);
+    await this.getEventTypeById(this.$route.params.id);
 
     this.currentTimezoneTime = this.getFormattedTimezoneTime(
       this.currentTimezone
@@ -123,12 +138,16 @@ export default {
         this.currentTimezone
       );
     },
-    date() {
-      this.selectedTime = null;
+    async mounted() {
+      await this.getEventTypeById(this.$route.params.id);
+
+      this.currentTimezoneTime = this.getFormattedTimezoneTime(
+        this.currentTimezone
+      );
     },
     eventType() {
       this.isReady = true;
-    }
+    },
   },
   data: () => ({
     isReady: false,
@@ -138,47 +157,46 @@ export default {
     date: "",
     selectedTime: null,
     availabilities: {
-      "2020-09-14": [
-        {
-          type: "date_range_weekdays",
-          start_time: "11:00:00",
-          end_time: "14:00:00",
-          unavailable: []
-        },
-        {
-          type: "date_range_weekdays",
-          start_time: "15:00:00",
-          end_time: "22:00:00",
-          unavailable: []
-        }
-      ],
-
       "2020-08-20": [],
       "2020-09-01": [
         {
           type: "date_range_weekdays",
           start_time: "09:00:00",
           end_time: "19:00:00",
-          unavailable: ["15:00:00", "16:00:00"]
-        }
+          unavailable: ["15:00:00", "16:00:00"],
+        },
       ],
       "2020-09-02": [
         {
           type: "date_range_weekdays",
-          start_time: "23:00:00",
-          end_time: "08:00:00",
-          unavailable: ["15:00:00", "16:00:00"]
-        }
-      ]
-    }
+          start_time: "05:00:00",
+          end_time: "11:00:00",
+          unavailable: ["15:00:00", "16:00:00"],
+        },
+      ],
+      "2020-09-14": [
+        {
+          type: "date_range_weekdays",
+          start_time: "11:00:00",
+          end_time: "14:00:00",
+          unavailable: [],
+        },
+        {
+          type: "date_range_weekdays",
+          start_time: "15:00:00",
+          end_time: "22:00:00",
+          unavailable: [],
+        },
+      ],
+    },
   }),
 
   computed: {
     ...mapGetters("i18n", {
-      lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+      lang: i18nGetters.GET_LANGUAGE_CONSTANTS,
     }),
     ...mapGetters("publicEvent", {
-      eventType: getters.GET_EVENT_TYPE
+      eventType: getters.GET_EVENT_TYPE,
     }),
     currentTimezoneStartTime() {
       return moment
@@ -188,7 +206,7 @@ export default {
         .format();
     },
     currentTimezoneAvailabilities() {
-      const formatTime = time => {
+      const formatTime = (time) => {
         return moment
           .tz(time, this.eventType.timezone)
           .clone()
@@ -202,16 +220,16 @@ export default {
         for (let availability of this.availabilities[date]) {
           allTimes.push({
             startDate: `${date} ${availability.start_time.slice(0, 5)}`,
-            endDate: `${date} ${availability.end_time.slice(0, 5)}`
+            endDate: `${date} ${availability.end_time.slice(0, 5)}`,
           });
         }
       }
 
       console.log("current timezone availabilities", allTimes);
 
-      allTimes = allTimes.map(availability => ({
+      allTimes = allTimes.map((availability) => ({
         startDate: formatTime(availability.startDate),
-        endDate: formatTime(availability.endDate)
+        endDate: formatTime(availability.endDate),
       }));
 
       /* for (let i = 0; i < allTimes.length; i++) {
@@ -231,8 +249,54 @@ export default {
 
       return allTimes;
     },
+    normalizedRemainderTimes() {
+      console.log(
+        "x",
+        moment(this.currentTimezoneAvailabilities[0].startDate).format("x")
+      );
+      /* const getTimestampFormat = (date) => {
+        return moment(date).format("x")
+      } */
+      const getHours = (date) => {
+        console.log("hours", date.slice(11, 13));
+        //return +moment(date, "YYYY-MM-DD HH:mm:ss").hours();
+        return date.slice(11, 13);
+      };
+
+      const getMinutes = (date) => {
+        console.log("minutes", date.slice(14, 16));
+        //return +moment(date, "YYYY-MM-DD HH:mm:ss").minutes();
+        return date.slice(14, 16);
+      };
+
+      const getDate = (date) => {
+        return date.slice(0, 10);
+      };
+
+      let normalizedTimes = [];
+      for (let availability of this.currentTimezoneAvailabilities) {
+        if (getHours(availability.startDate) > getHours(availability.endDate)) {
+          console.log("is remainder");
+          normalizedTimes.push({
+            startDate: `${getDate(availability.startDate)} ${getHours(
+              availability.startDate
+            )}:${getMinutes(availability.startDate)}:00`,
+            endDate: `${getDate(availability.endDate)} 00:00:00`,
+          });
+          normalizedTimes.push({
+            startDate: `${getDate(availability.endDate)} 00:00:00`,
+            endDate: `${getDate(availability.endDate)} ${getHours(
+              availability.endDate
+            )}:${getMinutes(availability.endDate)}:00`,
+          });
+        } else {
+          normalizedTimes.push(availability);
+        }
+      }
+      return normalizedTimes;
+    },
     filterTimezones() {
-      return momentTimezones.tz.names().filter(zone => {
+      return momentTimezones.tz.names().filter((zone) => {
         return zone
           .toLowerCase()
           .includes(this.timezoneFieldSearch.toLowerCase());
@@ -255,32 +319,40 @@ export default {
       return moment(this.date).format("dddd, MMMM D");
     },
     availableTimesRange() {
-      const getCurrentDate = d => {
+      const getCurrentDate = (d) => {
         return moment(d).format();
       };
 
       const currentDate = getCurrentDate(this.date);
+      console.log(this.date, "currentDate", currentDate);
 
       let availableTime = {};
 
-      for (let availability of this.currentTimezoneAvailabilities) {
+      //for (let availability of this.currentTimezoneAvailabilities) {
+      for (let availability of this.normalizedRemainderTimes) {
         console.log("availability", availability);
-        const currentShortStartDate = getCurrentDate(
+        /* const currentShortStartDate = getCurrentDate(
           availability.startDate.slice(0, 10)
         );
         const currentShortEndDate = getCurrentDate(
           availability.endDate.slice(0, 10)
-        );
+        ); */
 
         if (
-          currentDate >= currentShortStartDate &&
-          currentDate <= currentShortEndDate
+          availability.startDate.includes(this.date)
+          /* currentDate >= currentShortStartDate &&
+          currentDate <= currentShortEndDate */
         ) {
+          console.log("startDate", availability.startDate);
           availableTime.startTime = moment(availability.startDate).format(
             "HH:mm"
           );
 
           availableTime.endTime = moment(availability.endDate).format("HH:mm");
+
+          if (availableTime.endTime.includes("00:")) {
+            availableTime.endTime = availableTime.endTime.replace("00:", "24:");
+          }
 
           break;
         }
@@ -288,21 +360,35 @@ export default {
       return availableTime;
     },
     availableTimes() {
+      let duration = 50; /* 
+      !
+      !
+      !
       let duration = this.eventType.duration;
+      !
+      !
+      !
+       */
       let times = [];
 
       console.log("availableTimesRange", this.availableTimesRange);
 
+      /* let start =
+        this.availableTimesRange.startTime.split(":")[0] * 60 +
+        +this.availableTimesRange.startTime.split(":")[1]; */
+      //const initialStart = start;
       let start =
         this.availableTimesRange.startTime.split(":")[0] * 60 +
         +this.availableTimesRange.startTime.split(":")[1];
-      const initialStart = start;
 
+      /* let end =
+        this.availableTimesRange.endTime.split(":")[0] * 60 +
+        +this.availableTimesRange.endTime.split(":")[1]; */
       let end =
         this.availableTimesRange.endTime.split(":")[0] * 60 +
         +this.availableTimesRange.endTime.split(":")[1];
 
-      if (start > end && 24 * 60 - start <= end) {
+      /* if (start > end && 24 * 60 - start <= end) {
         while (start > end) {
           let [hours, minutes] = [Math.trunc(start / 60), start % 60];
 
@@ -318,7 +404,7 @@ export default {
           times.push(`${hours}:${minutes}`);
           start += duration;
         }
-      }
+      } */
 
       while (end - start >= duration) {
         let [hours, minutes] = [Math.trunc(start / 60), start % 60];
@@ -336,26 +422,26 @@ export default {
           +next.split(":")[1]
       );
 
-      times = this.appropriateTimes(times, initialStart, end);
+      //times = this.appropriateTimes(times, initialStart, end);
 
       return this.convertToUserFormat(times);
-    }
+    },
   },
   methods: {
     ...mapActions("publicEvent", {
-      getEventTypeById: actions.GET_EVENT_TYPE_BY_ID
-    }),
-    ...mapMutations("publicEvent", {
-      setPublicEvent: mutations.SET_PUBLIC_EVENT
+      getEventTypeById: actions.GET_EVENT_TYPE_BY_ID,
+      setPublicEvent: actions.SET_PUBLIC_EVENT,
     }),
     onConfirmDate(time) {
       this.setPublicEvent({
         eventTypeId: this.eventType.id,
         startDate: `${this.date} ${time}`,
-        timezone: this.currentTimezone
+        timezone: this.currentTimezone,
       });
       this.$router.push({
-        name: "PublicEventConfirm"
+        path: `/${this.eventType.owner.nickname}/${
+          this.eventType.id
+        }/${this.getStartDate(time)}`,
       });
     },
     getFormattedTimezoneTime(timezone) {
@@ -371,26 +457,26 @@ export default {
       if (!this.eventType.owner.timeFormat12h) {
         return times;
       } else {
-        return times.map(time => moment(time, "HHmm").format("hh:mm A"));
+        return times.map((time) => moment(time, "HHmm").format("hh:mm A"));
       }
     },
-    appropriateTimes(times, initialStart, end) {
+    /* appropriateTimes(times, initialStart, end) {
       if (
-        this.currentTimezoneAvailabilities.some(date =>
+        this.currentTimezoneAvailabilities.some((date) =>
           date.startDate.includes(this.date)
         )
       ) {
-        return times.filter(time => +time.split(":")[0] * 60 >= initialStart);
+        return times.filter((time) => +time.split(":")[0] * 60 >= initialStart);
       } else if (
-        this.currentTimezoneAvailabilities.some(date =>
+        this.currentTimezoneAvailabilities.some((date) =>
           date.endDate.includes(this.date)
         )
       ) {
-        return times.filter(time => +time.split(":")[0] * 60 < end);
+        return times.filter((time) => +time.split(":")[0] * 60 < end);
       } else {
         return times;
       }
-    },
+    }, */
     dateFormat(date) {
       const [year, month] = date.split("-");
       const months = [
@@ -405,7 +491,7 @@ export default {
         this.lang.SEP,
         this.lang.OCT,
         this.lang.NOV,
-        this.lang.DEC
+        this.lang.DEC,
       ];
 
       if (month) {
@@ -425,40 +511,46 @@ export default {
         this.lang.WED,
         this.lang.THU,
         this.lang.FRI,
-        this.lang.SAT
+        this.lang.SAT,
       ];
       let i = new Date(date).getDay(date);
       return weekDays[i];
     },
     availableDates(date) {
-      const getCurrentDate = d => {
+      let present = false;
+      for (let normalizedDate of this.normalizedRemainderTimes) {
+        if (normalizedDate.startDate.includes(date)) {
+          present = true;
+        }
+      }
+      return present;
+      /* const getCurrentDate = (d) => {
         return moment(d).format("YYYY-MM-DD");
       };
       const currentDate = getCurrentDate(date);
-      console.log(typeof moment(currentDate));
+      //console.log(typeof moment(currentDate));
+      //console.log(currentDate, "date ts", moment(currentDate).format("x"));
+
       const currentLocalDate = momentTimezones()
         .tz(this.currentTimezone)
         .format();
+      //console.log(currentLocalDate, "current ts", moment(currentLocalDate).format("x"));
 
       let present = false;
 
       for (let availability of this.currentTimezoneAvailabilities) {
         if (
-          moment(currentDate) >=
-            moment(getCurrentDate(availability.startDate.slice(0, 10))) &&
-          moment(currentDate) <=
-            moment(getCurrentDate(availability.endDate.slice(0, 10))) &&
-          moment(currentDate) >= moment(currentLocalDate)
+          currentDate >= getCurrentDate(availability.startDate.slice(0, 10)) &&
+          currentDate <= getCurrentDate(availability.endDate.slice(0, 10))
         ) {
-          console.log("PRESENT");
           present = true;
           break;
         }
       }
 
-      return present;
-    }
-  }
+      return present; */
+    },
+  },
 };
 </script>
 

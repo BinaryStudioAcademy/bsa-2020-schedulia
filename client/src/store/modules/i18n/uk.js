@@ -59,6 +59,7 @@ export default {
     DIALOG_EVENT_TYPE_DELETE_CONFIRM:
         'Користувачі не зможуть запланувати подальші зустрічі з видаленими типами подій. Це вплине на попередньо заплановані зустрічі.',
     DISPLAYING: 'Відображення',
+    DISCONNECT: 'Disconnect',
     DURATION_MIN: 'хв',
     EDIT: 'Редагувати',
     EDIT_AVAILABILITY: 'Змінити доступність',
@@ -267,14 +268,58 @@ export default {
     CALENDAR_CONNECTIONS: 'Підключення до календаря',
     ADD_CALENDAR_ACCOUNT: 'Додати обліковий запис календаря',
     MY_EVENTS: 'Мої події',
+
+    OK: 'Ok',
+    SET_MEETING_LOCATION: 'Виберіть місце зустрічі',
+    ZOOM_CONFERENCE_LINK: 'Ссилка на Zoom конференцію',
+    SKYPE_CALL_DETAILS: 'Деталі Skype виклику',
+
+    INFO_MUST_BE_NO_MORE_THAN_1000_CHARACTERS_LONG:
+        'Додаткова інформація не має перевищувати 1000 символів',
     NO_ITEMS_FOUND: 'Нічого не знайдено',
     UNAUTHENTICATED_ERROR: 'Час сессії минув! Авторизуйтесь знову, будь ласка!',
-    NAME_IS_REQUIRED: "Ім'я обов'язковим",
+    NAME_IS_REQUIRED: "Ім'я є обов'язковим",
     PASSWORD_CONFIRMATION_IS_REQUIRED: "Підтвердження паролю є обов'язковим",
     NAME_MUST_BE_AT_LEAST_2_CHARACTERS_LONG:
         "Ім'я має бути не менше 2 символів",
     NAME_MUST_BE_NO_MORE_THAN_50_CHARACTERS_LONG:
         "Ім'я має бути не більше 50 символів",
     ONLY_LETTER_AND_SYMBOLS_PERMITTED:
-        'Дозволені лише літери та символи  \\|/,._ '
+        'Дозволені лише літери та символи  \\|/,._ ',
+    LOCALIZATION: 'uk-UA',
+    ENABLED: 'Увімкнено',
+    LOAD_MORE: 'Завантажити ще',
+    PLEASE_WAIT_WHILE_WE_ARE_LOGGING_YOU_IN:
+        'Будь ласка, зачекайте, поки ми реєструємо Вас...',
+    RESET: 'Скинути фільтр',
+    INVITEE_EMAILS: 'Emails у запросі ',
+    ALL_INVITEE_EMAILS: 'Відмітити усі Emails',
+    PICK_NEEDED_LOCATION: 'Виберіть потрібну локацію',
+    ADDITIONAL_OPTIONS: 'Додаткові опції',
+    QUESTIONS_TO_INVITEE: 'Запитання для запрошеного',
+    NOW_YOU_CAN_ADD_CUSTOM_FIELDS:
+        'Тепер ви можете додати кілька спеціальних полів із запитаннями або щось подібне для своїх запрошених',
+    PLEASE_SHARE_ANYTHING:
+        'Будь ласка, поділіться будь-чим, що допоможе підготуватися до нашої зустрічі',
+    DELETE_FIELD: 'Видалити поле',
+    ANSWER_TYPE: 'Тип відповіді',
+    QUESTION: 'Запитання',
+    ADD_NEW_FIELD: 'Додати поле',
+    STATUS: 'Статус',
+    ACTIVE_EVENTS: 'Активні події',
+    ALL_EVENTS: 'Усі події',
+    CANCELED_EVENTS: 'Відмінені події',
+    WELCOME_TO_MY_SCHEDULING_PAGE:
+        'Ласкаво просимо на мою сторінку планування.',
+    PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT:
+        'Будь ласка, дотримуйтесь інструкцій, щоб додати подію до мого календаря.',
+    NO_OPENINGS_AT_THE_MOMENT: 'Жодної доступної події на даний момент',
+    NO_EVENTS_FOUND: 'Події не знайдено',
+    EDIT_INTERNAL_NOTE: 'Змінити внутрішню примітку',
+    INTERNAL_NOTE: 'Внутрішня примітка',
+    INTERNAL_NOTE_DESCRIPTION:
+        'Напишіть релевантну інформацію про цей тип події, на яку ви можете посилатися пізніше.',
+    PUBLIC_LINK_WAS_COPIED: 'Публічне посилання було скопійоване!',
+    TAGS: 'Теги',
+    ALL_TAGS: 'Усі теги'
 };
