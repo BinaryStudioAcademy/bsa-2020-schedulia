@@ -41,6 +41,12 @@ const eventTypesService = {
             customFields
         );
     },
+    async updateInternalNoteByEventTypeId(eventTypeId, internalNote) {
+        return await requestService.put(
+            apiEndpoint + '/' + eventTypeId + '/internal-note',
+            internalNote
+        );
+    },
     async fetchAllEventTypesTags(search_string, start_date, end_date) {
         const response = await requestService.get('/tags/events', {
             search_string,

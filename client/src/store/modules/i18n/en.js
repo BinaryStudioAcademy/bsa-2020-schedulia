@@ -373,6 +373,7 @@ export default {
     RESET: 'Reset',
     INVITEE_EMAILS: 'Invitee Emails',
     ALL_INVITEE_EMAILS: 'All Invitee Emails',
+    PICK_NEEDED_LOCATION: 'Pick needed location',
     ADDITIONAL_OPTIONS: 'Additional options',
     QUESTIONS_TO_INVITEE: 'Questions to Invitee',
     NOW_YOU_CAN_ADD_CUSTOM_FIELDS:
@@ -395,6 +396,11 @@ export default {
         '                        calendar.',
     NO_OPENINGS_AT_THE_MOMENT: 'No openings at the moment.',
     NO_EVENTS_FOUND: 'No Events found',
+    EDIT_INTERNAL_NOTE: 'Edit Internal Note',
+    INTERNAL_NOTE: 'Internal Note',
+    INTERNAL_NOTE_DESCRIPTION:
+        'Write relevant information about this event type that you\n' +
+        '                    may want to reference later.',
     PUBLIC_LINK_WAS_COPIED: 'Public Link was copied!',
     TAGS: 'Tags',
     ALL_TAGS: 'All Tags',
