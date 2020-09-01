@@ -211,7 +211,6 @@ import AvailabilityDialog from '@/components/events/AvailabilityDialog';
 import TimeZoneDialog from '@/components/events/TimeZoneDialog';
 import moment from 'moment';
 import Calendar from '@/components/events/Calendar';
-import momentTimezone from 'moment-timezone';
 export default {
     name: 'CreateEventTypeBooking',
     components: { Calendar, TimeZoneDialog, AvailabilityDialog },
@@ -282,33 +281,10 @@ export default {
                     endDate: this.data.dateRange.endDate + ' 00:00:00'
                 }
             };
-
-            let availabilities = {
+            this.changeEventTypeProperty('availabilities', {
                 ...{ dateRange: [dateRangeData] },
                 ...this.data.availabilities
-            };
-            let data = {};
-            for (let key in availabilities) {
-                for (let index in availabilities[key]) {
-                    if (availabilities[key][index]['type'] !== 'exact_date') {
-                        continue;
-                    }
-
-                    availabilities[key][index]['startDate'] = momentTimezone(
-                        availabilities[key][index]['startDate']
-                    )
-                        .tz('Europe/London')
-                        .format('YYYY-MM-DD HH:mm:ss');
-
-                    availabilities[key][index]['endDate'] = momentTimezone(
-                        availabilities[key][index]['endDate']
-                    )
-                        .tz('Europe/London')
-                        .format('YYYY-MM-DD HH:mm:ss');
-                }
-                data[key] = availabilities[key];
-            }
-            this.changeEventTypeProperty('availabilities', data);
+            });
         }
     },
 

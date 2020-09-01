@@ -1,3 +1,4 @@
+import moment from 'moment';
 export const eventTypeMapper = EventType => ({
     id: EventType.id,
     name: EventType.name,
@@ -25,8 +26,12 @@ export const userMapper = user => ({
 
 export const availabilityMapper = availability => ({
     type: availability.type,
-    startDate: availability.start_date,
-    endDate: availability.end_date
+    startDate: moment
+        .utc(availability.start_date)
+        .format('YYYY-MM-DD HH:mm:ss'),
+    endDate: moment
+        .utc(availability.end_date)
+        .format('YYYY-MM-DD HH:mm:ss'),
 });
 
 export const availabilityApiMapper = availability => ({
