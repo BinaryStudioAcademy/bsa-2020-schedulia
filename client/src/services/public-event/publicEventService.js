@@ -3,8 +3,10 @@ const EVENT_TYPES_URL = '/event-types';
 const EVENTS_URL = '/events';
 
 const publicEventService = {
-    async getEventTypeById(id) {
-        const response = await requestService.get(`${EVENT_TYPES_URL}/${id}`);
+    async getEventTypeById(id, nickname) {
+        const response = await requestService.get(
+            `${EVENT_TYPES_URL}/${id}/public/${nickname}`
+        );
         return response?.data?.data;
     },
     async addPublicEvent(data) {

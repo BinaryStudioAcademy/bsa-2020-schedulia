@@ -130,8 +130,10 @@ export default {
         AutoFillSpacer
     },
     async mounted() {
-        await this.getEventTypeById(this.$route.params.id);
-
+        await this.getEventTypeById({
+            id: this.$route.params.id,
+            nickname: this.$route.params.owner
+        });
         this.currentTimezoneTime = this.getFormattedTimezoneTime(
             this.currentTimezone
         );

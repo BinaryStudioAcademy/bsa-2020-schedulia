@@ -5,12 +5,12 @@ import * as loaderMutations from '@/store/modules/loader/types/mutations';
 import { SET_ERROR_NOTIFICATION } from '@/store/modules/notification/types/actions';
 
 export default {
-    [actions.GET_EVENT_TYPE_BY_ID]: async (context, id) => {
+    [actions.GET_EVENT_TYPE_BY_ID]: async (context, data) => {
         context.commit('loader/' + loaderMutations.SET_LOADING, true, {
             root: true
         });
         try {
-            const eventType = await publicEventService.getEventTypeById(id);
+            const eventType = await publicEventService.getEventTypeById(data.id, data.nickname);
             context.commit(mutations.SET_EVENT_TYPE, eventType);
             context.commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
