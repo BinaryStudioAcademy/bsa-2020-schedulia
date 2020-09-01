@@ -20,7 +20,7 @@ class DeleteEventFromGoogleCalendar implements ShouldQueue
     {
         $this->googleCalendar->deleteEvent(new GoogleCalendarDeleteEvent(
             $eventDeleted->event['event_type']['owner']['id'],
-            'fhohe0bf6agkfc5gl6ovd2qsts'
+            '5g0u8pcqejabtjllaqiecnbf4o'
         ));
     }
 }
