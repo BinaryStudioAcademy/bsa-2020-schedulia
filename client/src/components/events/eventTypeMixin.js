@@ -58,7 +58,10 @@ export default {
             switch (property) {
                 case 'name':
                     data[property] = value;
-                    if (this.data.slug.toLowerCase() === this.data.name.toLowerCase()) {
+                    if (
+                        this.data.slug.toLowerCase() ===
+                        this.data.name.toLowerCase()
+                    ) {
                         data['slug'] = this.getSlug(value);
                     }
                     break;

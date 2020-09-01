@@ -29,9 +29,7 @@ export const availabilityMapper = availability => ({
     startDate: moment
         .utc(availability.start_date)
         .format('YYYY-MM-DD HH:mm:ss'),
-    endDate: moment
-        .utc(availability.end_date)
-        .format('YYYY-MM-DD HH:mm:ss'),
+    endDate: moment.utc(availability.end_date).format('YYYY-MM-DD HH:mm:ss')
 });
 
 export const availabilityApiMapper = availability => ({
