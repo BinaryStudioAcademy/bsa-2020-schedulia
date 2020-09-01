@@ -255,7 +255,8 @@ export default {
                     event_types: this.eventTypes,
                     event_emails: this.$route.query.event_emails,
                     event_status: this.$route.query.event_status,
-                    tags: this.$route.query.tags
+                    tags: this.$route.query.tags,
+                    search: this.$route.query.search
                 }
             });
             this.closeMenu();

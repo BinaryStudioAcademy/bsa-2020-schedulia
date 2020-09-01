@@ -7,4 +7,6 @@ export const SET_CUSTOM_FIELD = 'setCustomField';
 export const SAVE_CUSTOM_FIELDS = 'saveCustomFields';
 export const EDIT_CUSTOM_FIELD = 'editCustomField';
 export const DELETE_CUSTOM_FIELD = 'deleteCustomField';
+export const CLONE_EVENT_TYPE_BY_ID = 'cloneEventTypById';
+export const UPDATE_INTERNAL_NOTE = 'updateInternalNote';
 export const FETCH_EVENT_TYPES_TAGS = 'fetchEventTypesTags';

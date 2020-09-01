@@ -20,10 +20,14 @@ class AddEventToGoogleCalendar implements ShouldQueue
     {
         $this->googleCalendar->createEvent(
             new GoogleCalendarEvent(
+                $eventCreated->event->eventType->owner_id,
                 $eventCreated->event->eventType->name,
                 $eventCreated->event->start_date,
                 $eventCreated->event->eventType->duration,
-                $eventCreated->event->eventType->description
+                $eventCreated->event->eventType->description,
+                $eventCreated->event->eventType->color,
+                $eventCreated->event->invitee_email,
+                $eventCreated->event->location
             )
         );
     }
