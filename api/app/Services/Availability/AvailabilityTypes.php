@@ -14,6 +14,7 @@ final class AvailabilityTypes
     public const EVERY_SATURDAY = 'every_saturday';
     public const EVERY_SUNDAY = 'every_sunday';
     public const EXACT_DATE = 'exact_date';
+    public const UNAVAILABLE = 'unavailable';
     public const DATE_RANGE_WEEKDAYS = 'date_range_weekdays';
     public const DATE_RANGE_WEEKDAYS_INDEFINITE = 'date_range_weekdays_indefinite';
     public const DATE_RANGE = 'date_range';
@@ -34,6 +35,7 @@ final class AvailabilityTypes
             self::DATE_RANGE_INDEFINITE,
             self::DATE_RANGE_WEEKDAYS,
             self::DATE_RANGE_WEEKDAYS_INDEFINITE,
+            self::UNAVAILABLE
         ];
     }
 
