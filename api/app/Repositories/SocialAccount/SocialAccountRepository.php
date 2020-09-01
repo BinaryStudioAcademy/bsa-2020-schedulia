@@ -19,6 +19,11 @@ final class SocialAccountRepository extends BaseRepository implements SocialAcco
         return $socialAccount;
     }
 
+    public function delete(SocialAccount $socialAccount): SocialAccount
+    {
+        $socialAccount->delete();
+    }
+
     public function findByCriteria(EloquentCriterion ...$criteria): Collection
     {
         $query = SocialAccount::query();
