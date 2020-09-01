@@ -86,6 +86,8 @@ class EventTypeController extends ApiController
                 $request->get('timezone'),
                 (bool)$request->get('disabled'),
                 $request->get('availabilities'),
+                $request->get('location_type'),
+                $request->get('coordinates'),
             ))
             ->getEventType();
 
@@ -115,6 +117,8 @@ class EventTypeController extends ApiController
                     $request->get('timezone'),
                     (bool)$request->get('disabled'),
                     $request->get('availabilities'),
+                    $request->get('location_type'),
+                    $request->get('coordinates'),
                 )
             )->getEventType();
 
