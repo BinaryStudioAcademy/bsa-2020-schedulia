@@ -149,6 +149,9 @@ export default {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
             });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         }
     },
     [actions.EDIT_CUSTOM_FIELD]: ({ commit, dispatch }, data) => {
@@ -156,6 +159,30 @@ export default {
             commit(mutations.EDIT_CUSTOM_FIELD, data);
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+        }
+    },
+    [actions.CLONE_EVENT_TYPE_BY_ID]: async (
+        { commit, dispatch },
+        eventTypeId
+    ) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+        try {
+            const eventType = await eventTypesService.cloneEventTypeById(
+                eventTypeId
+            );
+            commit(mutations.ADD_EVENT_TYPE, eventType);
+        } catch (error) {
+            dispatch(
+                'notification/' + notifyActions.SET_ERROR_NOTIFICATION,
+                error.message,
+                { root: true }
+            );
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });
         }
@@ -171,14 +198,14 @@ export default {
                 root: true
             });
         } catch (error) {
+            dispatch(
+                'notification/' + notifyActions.SET_ERROR_NOTIFICATION,
+                error.message,
+                { root: true }
+            );
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
             });
-            dispatch(
-                'notification/' + notifyActions.SET_ERROR_NOTIFICATION,
-                error?.response?.data?.error?.message,
-                { root: true }
-            );
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });

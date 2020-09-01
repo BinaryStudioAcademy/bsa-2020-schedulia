@@ -7,17 +7,17 @@ namespace App\Repositories\EventType\Criterion;
 use App\Contracts\EloquentCriterion;
 use Illuminate\Database\Eloquent\Builder;
 
-final class NameCriterion implements EloquentCriterion
+final class SlugCriterion implements EloquentCriterion
 {
-    private string $name;
+    private string $slug;
 
-    public function __construct(string $name)
+    public function __construct(string $slug)
     {
-        $this->name = $name;
+        $this->slug = $slug;
     }
 
     public function apply(Builder $builder): Builder
     {
-        return $builder->where('name', $this->name);
+        return $builder->where('slug', $this->slug);
     }
 }
