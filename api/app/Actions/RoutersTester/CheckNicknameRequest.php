@@ -17,5 +17,4 @@ class CheckNicknameRequest
     {
         return $this->nickname;
     }
-
 }
