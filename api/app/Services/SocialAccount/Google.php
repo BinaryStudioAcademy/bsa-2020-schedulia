@@ -9,6 +9,8 @@ use App\Exceptions\SocialAccount\SocialAccountNotFoundException;
 use App\Repositories\SocialAccount\SocialAccountRepositoryInterface;
 use App\Contracts\CalendarEventInterface;
 use App\Repositories\User\UserRepositoryInterface;
+use App\Services\Calendar\DeleteEventInterface;
+use App\Services\Calendar\Google\GoogleCalendarDeleteEvent;
 use App\Services\Calendar\Google\GoogleCalendarEventPresenter;
 use Illuminate\Config\Repository;
 use App\Contracts\CalendarService;
@@ -117,13 +119,19 @@ class Google implements SocialAccountService, CalendarService
 
         if ($token) {
             $event = new \Google_Service_Calendar_Event($this->googleCalendarEventPresenter->present($googleCalendarEvent));
-            $this->connect($token)->service('Calendar')->events->insert('primary', $event);
+            $result = $this->connect($token)->service('Calendar')->events->insert('primary', $event);
+            //Save googleEventId $result->getId();
+            dd($result->getId());
         }
     }
 
-    public function deleteEvent(): void
+    public function deleteEvent(DeleteEventInterface $event): void
     {
-        // TODO: Implement deleteEvent() method.
+        $token = $this->userRepository->getGoogleCalendarTokenById($event->getUserId());
+
+        if ($token) {
+            $this->connect($token)->service('Calendar')->events->delete('primary', $event->getProviderId());
+        }
     }
 
     private function setupClient(): \Google_Client

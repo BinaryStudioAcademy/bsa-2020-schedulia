@@ -83,6 +83,14 @@ Route::group([
 });
 
 Route::group([
+    'middleware' => 'auth:api',
+    'namespace' => 'Api\\',
+    'prefix' => '/events',
+], function () {
+    Route::delete('/{id}', 'EventController@destroy');
+});
+
+Route::group([
     'namespace' => 'Api\\',
     'prefix' => '/tags'
 ], function () {

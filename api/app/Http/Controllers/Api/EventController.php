@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Actions\Event\AddEventAction;
 use App\Actions\Event\AddEventRequest;
+use App\Actions\Event\DeleteEventAction;
+use App\Actions\Event\DeleteEventRequest;
 use App\Actions\Event\GetEventCollectionAction;
 use App\Actions\Event\GetEventCollectionRequest;
 use App\Actions\Event\GetEventsEmailsAction;
@@ -11,22 +13,27 @@ use App\Actions\Event\GetEventsEmailsRequest;
 use App\Http\Presenters\EventPresenter;
 use App\Http\Presenters\EventsEmailsPresenter;
 use App\Http\Requests\Api\Event\EventRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends ApiController
 {
     private AddEventAction $addEventAction;
+    private DeleteEventAction $deleteEventAction;
     private GetEventCollectionAction $getEventCollectionAction;
     private GetEventsEmailsAction $getEventsEmailsAction;
     private $presenter;
 
     public function __construct(
         AddEventAction $addEventAction,
+        DeleteEventAction $deleteEventAction,
         GetEventCollectionAction $getEventCollectionAction,
         GetEventsEmailsAction $getEventsEmailsAction,
         EventPresenter $eventPresenter
     ) {
         $this->addEventAction = $addEventAction;
+        $this->deleteEventAction = $deleteEventAction;
         $this->getEventCollectionAction = $getEventCollectionAction;
         $this->getEventsEmailsAction = $getEventsEmailsAction;
         $this->presenter = $eventPresenter;
@@ -87,5 +94,14 @@ class EventController extends ApiController
         return $this->successResponse(
             $eventsEmailsPresenter->presentCollection($response->getEvent())
         );
+    }
+
+    public function destroy(string $id): JsonResponse
+    {
+        $this->deleteEventAction->execute(
+            new DeleteEventRequest((int)$id, Auth::id())
+        );
+
+        return $this->emptyResponse();
     }
 }
