@@ -81,20 +81,22 @@
                     <template v-slot:day="data">
                         <div
                             :class="[
-                                availability.type === 'exact_date'
-                                    ? 'custom-availability'
-                                    : 'default-availability'
+                                availability.type === 'date_range'
+                                    ? 'default-availability'
+                                    : 'custom-availability'
                             ]"
                             v-for="(availability,
                             index) in getDayAvailabilities(data)"
                             :key="index"
                         >
-                            <div v-if="index < 2">
-                                {{ availability.startTime }} -
-                                {{ availability.endTime }}
-                            </div>
-                            <div class="more-availability" v-else>
-                                + {{ index - 1 }} {{ lang.MORE }}...
+                            <div v-if="availability.type !== 'unavailable'">
+                                <div v-if="index < 2">
+                                    {{ availability.startTime }} -
+                                    {{ availability.endTime }}
+                                </div>
+                                <div class="more-availability" v-else>
+                                    + {{ index - 1 }} {{ lang.MORE }}...
+                                </div>
                             </div>
                         </div>
                     </template>

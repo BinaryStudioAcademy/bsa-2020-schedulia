@@ -115,8 +115,9 @@ export default {
         deleteAvailability() {
             if (this.dayAvailabilities.length === 1) {
                 let params = {
-                    ...this.exampleAvailability,
-                    ...{ type: 'unavailable' }
+                    type: 'unavailable',
+                    startDate: this.dayAvailabilities[0]['startDate'],
+                    endDate: this.dayAvailabilities[0]['endDate']
                 };
                 this.setPropertyData('dayAvailabilities', [params]);
             } else {
