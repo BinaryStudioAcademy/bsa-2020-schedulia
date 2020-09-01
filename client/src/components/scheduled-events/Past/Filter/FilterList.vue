@@ -7,6 +7,9 @@
             <EventTypes />
         </VCol>
         <VCol>
+            <EventTypesTags />
+        </VCol>
+        <VCol>
             <Status />
         </VCol>
         <VCol>
@@ -27,11 +30,13 @@ import EventTypes from './EventTypes';
 import Status from './Status';
 import InviteeEmails from './InviteeEmails';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import EventTypesTags from './EventTypesTags';
 
 export default {
     name: 'FilterList',
 
     components: {
+        EventTypesTags,
         InviteeEmails,
         Status,
         EventTypes,

@@ -184,4 +184,38 @@ export default {
             });
         }
     }
+    [actions.FETCH_EVENT_TYPES_TAGS]: async (
+        { commit, dispatch },
+        { searchString = '', startDate = '', endDate = '' }
+    ) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+
+        try {
+            const tags = await eventTypesService.fetchAllEventTypesTags(
+                searchString,
+                startDate,
+                endDate
+            );
+            if (searchString) {
+                commit(mutations.CLEAR_EVENT_TYPES_TAGS);
+            }
+            commit(mutations.SET_EVENT_TYPES_TAGS, tags);
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+            return tags;
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+            dispatch(
+                'notification/' + notifyActions.SET_ERROR_NOTIFICATION,
+                error?.response?.data?.error?.message,
+                { root: true }
+            );
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        }
+    }
 };

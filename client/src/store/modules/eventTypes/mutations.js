@@ -1,5 +1,8 @@
 import * as mutations from './types/mutations';
-import { eventTypeMapper } from '@/store/modules/eventType/normalizer';
+import {
+    eventTypeMapper,
+    eventTypeTagMapper
+} from '@/store/modules/eventType/normalizer';
 
 export default {
     [mutations.SET_EVENT_TYPES]: (state, eventTypes) => {
@@ -82,5 +85,20 @@ export default {
         const eventTypes = { ...state.eventTypes };
         eventTypes[data.id].internalNote = data.internalNote;
         state.eventTypes = eventTypes;
+    },
+    [mutations.CLEAR_EVENT_TYPES_TAGS]: state => {
+        state.eventTypesTags = [];
+    },
+    [mutations.SET_EVENT_TYPES_TAGS]: (state, tags) => {
+        state.eventTypesTags = {
+            ...state.eventTypesTags,
+            ...tags.reduce(
+                (prev, tag) => ({
+                    ...prev,
+                    [tag.id]: eventTypeTagMapper(tag)
+                }),
+                {}
+            )
+        };
     }
 };

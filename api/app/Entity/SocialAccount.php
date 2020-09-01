@@ -13,6 +13,8 @@ class SocialAccount extends Model
     protected $primaryKey = null;
     public $incrementing = false;
 
+    protected $casts = ['token' => 'json'];
+
     protected $fillable = [
         'user_id',
         'provider_id',
@@ -21,10 +23,9 @@ class SocialAccount extends Model
         'refresh_token'
     ];
 
-    protected $casts = ['token' => 'json'];
-
     public static $services = [
-        self::GOOGLE_SERVICE_ID => 'Google'
+        self::GOOGLE_SERVICE_ID => 'google',
+        self::FACEBOOK_SERVICE_ID => 'facebook',
     ];
 
     public function user()

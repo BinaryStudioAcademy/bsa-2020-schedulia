@@ -10,6 +10,13 @@ use Illuminate\Support\Collection;
 
 final class TagRepository extends BaseRepository implements TagRepositoryInterface
 {
+    public function save(Tag $tag): Tag
+    {
+        $tag->save();
+
+        return $tag;
+    }
+
     public function findByCriteria(array $criteria): Collection
     {
         $query = Tag::query();
@@ -18,6 +25,8 @@ final class TagRepository extends BaseRepository implements TagRepositoryInterfa
             $query = $criterion->apply($query);
         }
 
-        return $query->get();
+        return $query
+            ->select('tags.*')
+            ->get();
     }
 }

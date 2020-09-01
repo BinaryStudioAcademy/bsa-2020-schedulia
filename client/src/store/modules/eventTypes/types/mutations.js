@@ -8,3 +8,5 @@ export const SET_CUSTOM_FIELD = 'setCustomField';
 export const EDIT_CUSTOM_FIELD = 'editCustomField';
 export const DELETE_CUSTOM_FIELD = 'deleteCustomField';
 export const UPDATE_INTERNAL_NOTE = 'updateInternalNote';
+export const SET_EVENT_TYPES_TAGS = 'setEventTypesTags';
+export const CLEAR_EVENT_TYPES_TAGS = 'setSearchedEventTypesTags';

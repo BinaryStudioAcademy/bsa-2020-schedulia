@@ -318,5 +318,7 @@ export default {
     INTERNAL_NOTE: 'Внутрішня примітка',
     INTERNAL_NOTE_DESCRIPTION:
         'Напишіть релевантну інформацію про цей тип події, на яку ви можете посилатися пізніше.',
-    PUBLIC_LINK_WAS_COPIED: 'Публічне посилання було скопійоване!'
+    PUBLIC_LINK_WAS_COPIED: 'Публічне посилання було скопійоване!',
+    TAGS: 'Теги',
+    ALL_TAGS: 'Усі теги'
 };

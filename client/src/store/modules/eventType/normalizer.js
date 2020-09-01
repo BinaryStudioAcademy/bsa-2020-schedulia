@@ -55,3 +55,8 @@ export const availabilitiesMapper = function(availabilities) {
             .map(availability => availabilityApiMapper(availability))
     );
 };
+
+export const eventTypeTagMapper = EventTypeTag => ({
+    id: EventTypeTag.id,
+    name: EventTypeTag.name
+});

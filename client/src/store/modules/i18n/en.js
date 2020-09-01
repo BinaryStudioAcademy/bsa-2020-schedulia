@@ -400,5 +400,7 @@ export default {
     INTERNAL_NOTE_DESCRIPTION:
         'Write relevant information about this event type that you\n' +
         '                    may want to reference later.',
-    PUBLIC_LINK_WAS_COPIED: 'Public Link was copied!'
+    PUBLIC_LINK_WAS_COPIED: 'Public Link was copied!',
+    TAGS: 'Tags',
+    ALL_TAGS: 'All Tags'
 };

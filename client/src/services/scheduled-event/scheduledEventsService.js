@@ -10,6 +10,7 @@ const scheduledEventService = {
         event_types,
         event_emails,
         event_status,
+        tags,
         start_date,
         end_date
     ) {
@@ -20,6 +21,7 @@ const scheduledEventService = {
             event_types,
             event_emails,
             event_status,
+            tags,
             start_date,
             end_date
         });
