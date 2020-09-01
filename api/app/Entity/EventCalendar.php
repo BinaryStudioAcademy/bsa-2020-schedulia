@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EventCalendars extends Model
+class EventCalendar extends Model
 {
     protected $fillable = [
         'event_id',
