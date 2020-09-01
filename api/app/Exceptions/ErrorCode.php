@@ -19,7 +19,7 @@ final class ErrorCode
     public const USER_ALREADY_VERIFIED_EXCEPTION = 1010;
     public const EMAIL_IS_NOT_VERIFIED_EXCEPTION = 1011;
     public const WRONG_DATE_TIME_EXCEPTION = 1012;
-    public const EVENT_TYPE_NAME_IS_ALREADY_IN_USE = 1013;
+    public const GOOGLE_OAUTH_EXCEPTION = 1013;
     public const EVENT_TYPE_SLUG_IS_ALREADY_IN_USE = 1014;
-    public const GOOGLE_OAUTH_EXCEPTION = 1015;
+    public const EVENT_TYPE_NAME_IS_ALREADY_IN_USE = 1015;
 }
