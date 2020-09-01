@@ -46,6 +46,7 @@ const eventTypesService = {
         const response = await requestService.post(
             apiEndpoint + '/' + eventTypeId + '/clone'
         );
+        return response?.data?.data;
     },
     async updateInternalNoteByEventTypeId(eventTypeId, internalNote) {
         return await requestService.put(

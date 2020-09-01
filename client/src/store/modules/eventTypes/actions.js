@@ -174,18 +174,19 @@ export default {
             );
             commit(mutations.ADD_EVENT_TYPE, eventType);
         } catch (error) {
-          dispatch(
+            dispatch(
                 'notification/' + notifyActions.SET_ERROR_NOTIFICATION,
                 error.message,
                 { root: true }
-          );
-          dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+            );
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
-          });
-          commit('loader/' + loaderMutations.SET_LOADING, false, {
+            });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
-          });
-        },
+            });
+        }
+    },
     [actions.UPDATE_INTERNAL_NOTE]: async ({ commit, dispatch }, data) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
         try {
