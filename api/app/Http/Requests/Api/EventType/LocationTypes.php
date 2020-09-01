@@ -7,7 +7,7 @@ namespace App\Http\Requests\Api\EventType;
 final class LocationTypes
 {
     private const LOCATION = 'location';
-    private const ZOOM = 'location';
+    private const ZOOM = 'zoom';
 
     public static function getAllLocationTypes(): array
     {

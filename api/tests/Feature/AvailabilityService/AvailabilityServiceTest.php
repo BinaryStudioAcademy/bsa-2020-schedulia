@@ -70,7 +70,8 @@ class AvailabilityServiceTest extends TestCase
         'disabled' => true,
         'availabilities' => [
             self::DATE_RANGE_AVAILABILITY
-        ]
+        ],
+        'location_type' => 'zoom'
     ];
 
     private const EVENT_TYPE_END_TIME_BEFORE_START_TIME_INVALID = [
@@ -83,7 +84,8 @@ class AvailabilityServiceTest extends TestCase
         'disabled' => true,
         'availabilities' => [
             self::END_TIME_BEFORE_START_TIME_AVAILABILITY
-        ]
+        ],
+        'location_type' => 'zoom'
     ];
 
     private const EVENT_TYPE_SMALL_INTERVAL = [
@@ -96,7 +98,8 @@ class AvailabilityServiceTest extends TestCase
         'disabled' => true,
         'availabilities' => [
             self::SMALL_INTERVAL_AVAILABILITY
-        ]
+        ],
+        'location_type' => 'zoom'
     ];
 
     private const EVENT_TYPE_WITHOUT_MAIN_AVAILABILITY = [
@@ -109,7 +112,8 @@ class AvailabilityServiceTest extends TestCase
         'disabled' => true,
         'availabilities' => [
             self::EVERY_MONDAY_AVAILABILITY
-        ]
+        ],
+        'location_type' => 'zoom'
     ];
 
     private const EVENT_TYPE_WITH_UNKNOWN_AVAILABILITY = [
@@ -123,7 +127,8 @@ class AvailabilityServiceTest extends TestCase
         'availabilities' => [
             self::DATE_RANGE_AVAILABILITY,
             self::UNKNOWN_AVAILABILITY_TYPE,
-        ]
+        ],
+        'location_type' => 'zoom'
     ];
 
     private const EVENT_TYPE_WITH_WRONG_AVAILABILITY_INTERVAL = [
@@ -137,7 +142,8 @@ class AvailabilityServiceTest extends TestCase
         'availabilities' => [
             self::DATE_RANGE_AVAILABILITY,
             self::AVAILABILITY_FROM_NOT_ONE_DAY,
-        ]
+        ],
+        'location_type' => 'zoom'
     ];
 
     private const EVENT_TYPE_WITH_AVAILABILITY_OVERLAPPED_INTERVALS = [
@@ -160,7 +166,8 @@ class AvailabilityServiceTest extends TestCase
                 'start_date' => '2020-08-08 13:00:00',
                 'end_date' => '2020-08-08 19:00:00',
             ],
-        ]
+        ],
+        'location_type' => 'zoom'
     ];
 
     private const EVENT_TYPE_STRUCTURE = [
@@ -177,7 +184,9 @@ class AvailabilityServiceTest extends TestCase
             'name',
             'timezone'
         ],
-        'availabilities'
+        'availabilities',
+        'location_type',
+        'coordinates'
     ];
 
     private const AVAILABILITY_STRUCTURE = [
@@ -366,6 +375,7 @@ class AvailabilityServiceTest extends TestCase
             'duration' => 60,
             'timezone' => 'Europe/Kiev',
             'disabled' => true,
+            'location_type' => 'zoom'
         ]);
         $eventType->save();
         $eventType->customFields()->createMany($this->returnDataForCustomFields());
@@ -395,6 +405,7 @@ class AvailabilityServiceTest extends TestCase
             'duration' => 60,
             'timezone' => 'Europe/Kiev',
             'disabled' => true,
+            'location_type' => 'zoom'
         ]);
         $eventType->save();
 
@@ -469,6 +480,7 @@ class AvailabilityServiceTest extends TestCase
             'duration' => 60,
             'timezone' => 'Europe/Kiev',
             'disabled' => true,
+            'location_type' => 'zoom'
         ]);
         $eventType->save();
         $availability = new Availability([
@@ -533,6 +545,7 @@ class AvailabilityServiceTest extends TestCase
             'duration' => 60,
             'timezone' => 'Europe/Kiev',
             'disabled' => true,
+            'location_type' => 'zoom'
         ]);
         $eventType->save();
         $availability = new Availability([
@@ -608,6 +621,7 @@ class AvailabilityServiceTest extends TestCase
             'duration' => 60,
             'timezone' => 'Europe/Kiev',
             'disabled' => true,
+            'location_type' => 'zoom'
         ]);
         $eventType->save();
         $eventType->availabilities()->saveMany([
@@ -678,6 +692,7 @@ class AvailabilityServiceTest extends TestCase
             'duration' => 60,
             'timezone' => 'Europe/Kiev',
             'disabled' => true,
+            'location_type' => 'zoom'
         ]);
         $eventType->save();
 
@@ -761,6 +776,7 @@ class AvailabilityServiceTest extends TestCase
             'duration' => 60,
             'timezone' => 'Europe/Kiev',
             'disabled' => true,
+            'location_type' => 'zoom'
         ]);
         $eventType->save();
         $eventType->availabilities()->saveMany([
@@ -811,6 +827,7 @@ class AvailabilityServiceTest extends TestCase
             'duration' => 60,
             'timezone' => 'Europe/Kiev',
             'disabled' => true,
+            'location_type' => 'zoom'
         ]);
         $eventType->save();
         $eventType->availabilities()->saveMany([
