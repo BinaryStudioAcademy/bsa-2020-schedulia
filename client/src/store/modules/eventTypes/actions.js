@@ -183,7 +183,7 @@ export default {
                 root: true
             });
         }
-    }
+    },
     [actions.FETCH_EVENT_TYPES_TAGS]: async (
         { commit, dispatch },
         { searchString = '', startDate = '', endDate = '' }
