@@ -15,6 +15,12 @@ const routes = [
         component: UserDataProvider,
         children: [
             {
+                path: 'error404',
+                name: 'Error404',
+                component: () => import('../views/Error404')
+            },
+
+            {
                 path: '',
                 component: AuthGuard,
                 children: [
@@ -49,12 +55,6 @@ const routes = [
                         path: 'auth/social-callback',
                         name: 'socialCallback',
                         component: () => import('../views/SocialLogin')
-                    },
-
-                    {
-                        path: 'error404',
-                        name: 'Error404',
-                        component: () => import('../views/Error404')
                     }
                 ]
             },
