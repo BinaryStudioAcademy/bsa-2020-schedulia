@@ -294,6 +294,7 @@ export default {
     RESET: 'Скинути',
     INVITEE_EMAILS: 'Emails у запросі ',
     ALL_INVITEE_EMAILS: 'Відмітити усі Emails',
+    PICK_NEEDED_LOCATION: 'Виберіть потрібну локацію',
     ADDITIONAL_OPTIONS: 'Додаткові опції',
     QUESTIONS_TO_INVITEE: 'Запитання для запрошеного',
     NOW_YOU_CAN_ADD_CUSTOM_FIELDS:
