@@ -8,6 +8,7 @@ export default {
     eventType: {
         name: '',
         location: '',
+        coordinates: [],
         locationType: '',
         description: '',
         slug: '',

@@ -10,7 +10,7 @@ class SocialAccount extends Model
     public const FACEBOOK_SERVICE_ID = 1002;
     public const LINKEDIN_SERVICE_ID = 1003;
 
-    protected $primaryKey = null;
+    protected $primaryKey = 'token';
     public $incrementing = false;
 
     protected $casts = ['token' => 'json'];
