@@ -78,7 +78,6 @@ Route::group([
 });
 Route::get('/event-types/{id}/availabilities', 'Api\\EventTypeController@getAvailableTime');
 
-
 Route::group([
     'namespace' => 'Api\\',
     'prefix' => '/events'
