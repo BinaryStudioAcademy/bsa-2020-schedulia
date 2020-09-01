@@ -7,7 +7,7 @@
                 :label="lang.SEARCH"
                 prepend-inner-icon="mdi-magnify"
                 dense
-                v-model="searchString"
+                :value="searchString"
                 @input="onSearchInput"
                 color="var(--v-customDark-base)"
                 clearable
@@ -26,6 +26,14 @@
             searchString: '',
         }),
 
+        watch: {
+            $route: 'setSearchInput'
+        },
+
+        async mounted() {
+                await this.setSearchInput();
+        },
+
         computed: {
             ...mapGetters('i18n', {
                 lang: i18nGetters.GET_LANGUAGE_CONSTANTS
@@ -33,8 +41,25 @@
         },
 
         methods: {
-            onSearchInput() {
+            onSearchInput(searchString) {
+                this.$router.push({
+                    name: 'Past',
+                    query: {
+                        event_types: this.$route.query.event_types,
+                        event_emails: this.$route.query.event_emails,
+                        event_status: this.$route.query.event_status,
+                        tags: this.$route.query.tags,
+                        search: searchString
+                    }
+                });
+            },
 
+            setSearchInput() {
+                if (this.$route.query.search) {
+                    this.searchString = this.$route.query.search;
+                } else {
+                    this.searchString = '';
+                }
             }
         }
     };
