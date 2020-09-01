@@ -263,7 +263,7 @@ export default {
                     const response = await this.addEventType(this.data);
                     this.$router.push({
                         path: 'new-event-type-options',
-                        props: { eventTypeId: response.id }
+                        query: { eventTypeId: response.id }
                     });
                 }
             } catch (error) {

@@ -17,7 +17,11 @@ export default {
                 data.page,
                 data.all
             );
-            if (data.searchString || data.page === 1 || data.all) {
+            if (
+                ((data.searchString || !data.searchString) &&
+                    data.page === 1) ||
+                data.all
+            ) {
                 commit(mutations.CLEAR_EVENT_TYPES);
             }
             commit(mutations.SET_EVENT_TYPES, response.data);
