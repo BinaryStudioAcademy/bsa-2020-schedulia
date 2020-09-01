@@ -7,4 +7,5 @@ namespace App\Contracts;
 interface SocialAccountService
 {
     public function auth();
+    public function delete(int $userId): void;
 }

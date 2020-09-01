@@ -260,7 +260,9 @@ export default {
                 query: {
                     event_types: this.$route.query.event_types,
                     event_emails: this.eventEmails,
-                    event_status: this.$route.query.event_status
+                    event_status: this.$route.query.event_status,
+                    tags: this.$route.query.tags,
+                    search: this.$route.query.search
                 }
             });
             this.closeMenu();
@@ -288,7 +290,7 @@ export default {
 
 <style scoped>
 .no-items {
-    color: #2c2c2c;
+    color: var(--v-customDark-base);
     font-weight: 500;
     font-size: 13px;
     line-height: 16px;

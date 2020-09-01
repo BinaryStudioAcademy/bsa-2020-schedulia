@@ -85,7 +85,9 @@ export default {
                 endDate: this.endDate,
                 eventTypes: this.$route.query.event_types,
                 eventEmails: this.$route.query.event_emails,
-                eventStatus: this.$route.query.event_status
+                eventStatus: this.$route.query.event_status,
+                tags: this.$route.query.tags,
+                searchString: this.$route.query.search
             });
 
             if (
@@ -107,7 +109,9 @@ export default {
                 endDate: this.endDate,
                 eventTypes: this.$route.query.event_types,
                 eventEmails: this.$route.query.event_emails,
-                eventStatus: this.$route.query.event_status
+                eventStatus: this.$route.query.event_status,
+                tags: this.$route.query.tags,
+                searchString: this.$route.query.search
             });
 
             if (

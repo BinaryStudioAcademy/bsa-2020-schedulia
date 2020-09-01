@@ -17,10 +17,16 @@
                     {{ lang.EDIT }}
                 </VListItemTitle>
             </VListItem>
-            <VListItem dense disabled>
+            <VListItem dense :id="'internal-note-' + eventType.id">
                 <VListItemTitle>
                     <VIcon color="primary">mdi-file-outline</VIcon>
-                    {{ lang.ADD_INTERNAL_NOTE }}
+                    <span v-if="eventType.internalNote">
+                        {{ lang.EDIT_INTERNAL_NOTE }}
+                    </span>
+                    <span v-else>
+                        {{ lang.ADD_INTERNAL_NOTE }}
+                    </span>
+                    <AddInternalNoteDialog :event-type="eventType" />
                 </VListItemTitle>
             </VListItem>
             <VListItem dense @click="onClone">
@@ -66,11 +72,13 @@ import * as actions from '@/store/modules/eventTypes/types/actions';
 import { mapActions, mapGetters } from 'vuex';
 import DeleteConfirmDialog from '@/components/event-types/all-event-types/DeleteConfirmDialog';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import AddInternalNoteDialog from '@/components/event-types/all-event-types/AddInternalNoteDialog';
 
 export default {
     name: 'DropDown',
     components: {
-        DeleteConfirmDialog
+        DeleteConfirmDialog,
+        AddInternalNoteDialog
     },
     data: () => ({
         switchStatus: false,

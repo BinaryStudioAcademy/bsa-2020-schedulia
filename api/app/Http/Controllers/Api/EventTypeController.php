@@ -25,6 +25,8 @@ use App\Actions\EventType\GetEventTypeCollectionByNicknameRequest;
 use App\Actions\EventType\GetEventTypeCollectionRequest;
 use App\Actions\EventType\UpdateEventTypeAction;
 use App\Actions\EventType\UpdateEventTypeRequest;
+use App\Actions\EventType\UpdateInternalNoteByIdAction;
+use App\Actions\EventType\UpdateInternalNoteByIdRequest;
 use App\Actions\GetByIdRequest;
 use App\Http\Presenters\AvailabilityServicePresenter;
 use App\Http\Presenters\CustomFieldPresenter;
@@ -216,5 +218,17 @@ class EventTypeController extends ApiController
         ));
 
         return $this->successResponse($this->eventTypePresenter->present($eventType->getNewEventType()));
+    }
+  
+    public function updateInternalNoteById(
+        string $id,
+        Request $request,
+        UpdateInternalNoteByIdAction $action
+    ): JsonResponse {
+        $action->execute(new UpdateInternalNoteByIdRequest(
+            (int)$id,
+            $request->internal_note
+        ));
+        return $this->emptyResponse();
     }
 }

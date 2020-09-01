@@ -39,6 +39,8 @@ export default {
             eventTypes = [],
             eventEmails = [],
             eventStatus = [],
+            tags = [],
+            searchString = null,
             startDate = '',
             endDate = ''
         }
@@ -57,6 +59,8 @@ export default {
                 eventTypes,
                 eventEmails,
                 eventStatus,
+                tags,
+                searchString,
                 startDate,
                 endDate
             );

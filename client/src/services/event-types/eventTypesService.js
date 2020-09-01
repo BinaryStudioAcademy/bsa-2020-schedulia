@@ -41,10 +41,24 @@ const eventTypesService = {
             customFields
         );
     },
+
     async cloneEventTypeById(eventTypeId) {
         const response = await requestService.post(
             apiEndpoint + '/' + eventTypeId + '/clone'
         );
+    },
+    async updateInternalNoteByEventTypeId(eventTypeId, internalNote) {
+        return await requestService.put(
+            apiEndpoint + '/' + eventTypeId + '/internal-note',
+            internalNote
+        );
+    },
+    async fetchAllEventTypesTags(search_string, start_date, end_date) {
+        const response = await requestService.get('/tags/events', {
+            search_string,
+            start_date,
+            end_date
+        });
         return response?.data?.data;
     }
 };

@@ -49,6 +49,7 @@ Route::group([
         Route::put('/{id}', 'EventTypeController@update');
         Route::put('/{id}/disabled', 'EventTypeController@changeDisabledById');
         Route::post('/{id}/clone', 'EventTypeController@cloneEventTypeById');
+        Route::put('/{id}/internal-note', 'EventTypeController@updateInternalNoteById');
         Route::post('/{id}/custom-fields', 'EventTypeController@saveCustomFieldsByEventTypeId');
         Route::put('/{id}/custom-fields', 'EventTypeController@updateCustomFieldsByEventTypeId');
         Route::delete('/{id}', 'EventTypeController@destroy');
@@ -113,6 +114,7 @@ Route::group([
     'prefix' => '/social-accounts',
 ], function () {
     Route::get('/calendars', 'SocialAccountController@calendars');
+    Route::delete('/calendars/{provider?}/', 'SocialAccountController@destroyCalendar');
 });
 
 Route::get('/social-accounts/{provider?}/oauth', 'Api\\SocialAccountController@oauth');

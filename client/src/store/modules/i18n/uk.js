@@ -291,9 +291,10 @@ export default {
     LOAD_MORE: 'Завантажити ще',
     PLEASE_WAIT_WHILE_WE_ARE_LOGGING_YOU_IN:
         'Будь ласка, зачекайте, поки ми реєструємо Вас...',
-    RESET: 'Скинути',
+    RESET: 'Скинути фільтр',
     INVITEE_EMAILS: 'Emails у запросі ',
     ALL_INVITEE_EMAILS: 'Відмітити усі Emails',
+    PICK_NEEDED_LOCATION: 'Виберіть потрібну локацію',
     ADDITIONAL_OPTIONS: 'Додаткові опції',
     QUESTIONS_TO_INVITEE: 'Запитання для запрошеного',
     NOW_YOU_CAN_ADD_CUSTOM_FIELDS:
@@ -314,5 +315,11 @@ export default {
         'Будь ласка, дотримуйтесь інструкцій, щоб додати подію до мого календаря.',
     NO_OPENINGS_AT_THE_MOMENT: 'Жодної доступної події на даний момент',
     NO_EVENTS_FOUND: 'Події не знайдено',
-    PUBLIC_LINK_WAS_COPIED: 'Публічне посилання було скопійоване!'
+    EDIT_INTERNAL_NOTE: 'Змінити внутрішню примітку',
+    INTERNAL_NOTE: 'Внутрішня примітка',
+    INTERNAL_NOTE_DESCRIPTION:
+        'Напишіть релевантну інформацію про цей тип події, на яку ви можете посилатися пізніше.',
+    PUBLIC_LINK_WAS_COPIED: 'Публічне посилання було скопійоване!',
+    TAGS: 'Теги',
+    ALL_TAGS: 'Усі теги'
 };
