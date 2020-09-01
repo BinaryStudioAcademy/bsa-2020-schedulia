@@ -8,6 +8,7 @@ use App\Actions\PaginatedResponse;
 use App\Repositories\Event\Criterion\EventEmailsCriterion;
 use App\Repositories\Event\Criterion\EventStatusCriterion;
 use App\Repositories\Event\Criterion\EventTypesCriterion;
+use App\Repositories\Event\Criterion\SearchStringCriterion;
 use App\Repositories\Event\EventRepository;
 use App\Repositories\Event\EventRepositoryInterface;
 use App\Repositories\Event\Criterion\StartDateCriterion;
@@ -51,6 +52,10 @@ final class GetEventCollectionAction
 
         if ($request->getEventStatus()) {
             $criteria[] = new EventStatusCriterion($request->getEventStatus());
+        }
+
+        if ($request->getSearchString()) {
+            $criteria[] = new SearchStringCriterion($request->getSearchString());
         }
 
         return new PaginatedResponse(

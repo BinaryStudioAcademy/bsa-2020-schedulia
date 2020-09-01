@@ -291,7 +291,7 @@ export default {
     LOAD_MORE: 'Завантажити ще',
     PLEASE_WAIT_WHILE_WE_ARE_LOGGING_YOU_IN:
         'Будь ласка, зачекайте, поки ми реєструємо Вас...',
-    RESET: 'Скинути',
+    RESET: 'Скинути фільтр',
     INVITEE_EMAILS: 'Emails у запросі ',
     ALL_INVITEE_EMAILS: 'Відмітити усі Emails',
     PICK_NEEDED_LOCATION: 'Виберіть потрібну локацію',
