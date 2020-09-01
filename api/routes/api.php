@@ -73,7 +73,7 @@ Route::group([
 
 Route::group([
     'prefix' => 'public'
-], function() {
+], function () {
     Route::get('/users/{nickname}/event-types/{id}', 'Api\\EventTypeController@getEventTypeByIdAndNickname');
 });
 Route::get('/event-types/{id}/availabilities', 'Api\\EventTypeController@getAvailableTime');
