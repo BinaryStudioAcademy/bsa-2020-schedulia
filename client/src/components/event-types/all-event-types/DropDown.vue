@@ -35,12 +35,6 @@
                     {{ lang.CLONE }}
                 </VListItemTitle>
             </VListItem>
-            <VListItem dense disabled>
-                <VListItemTitle>
-                    <VIcon color="primary">mdi-xml</VIcon>
-                    {{ lang.ADD_TO_WEBSITE }}
-                </VListItemTitle>
-            </VListItem>
             <VListItem dense>
                 <VListItemTitle>
                     <VIcon color="primary">mdi-delete</VIcon>
