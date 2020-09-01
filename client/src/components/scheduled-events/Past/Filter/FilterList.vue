@@ -1,9 +1,6 @@
 <template>
     <VRow class="filter">
         <VCol>
-            <Teams />
-        </VCol>
-        <VCol>
             <EventTypes />
         </VCol>
         <VCol>
@@ -25,7 +22,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Teams from './Teams';
 import EventTypes from './EventTypes';
 import Status from './Status';
 import InviteeEmails from './InviteeEmails';
@@ -39,8 +35,7 @@ export default {
         EventTypesTags,
         InviteeEmails,
         Status,
-        EventTypes,
-        Teams
+        EventTypes
     },
 
     computed: {
