@@ -102,13 +102,16 @@ export default {
             }
         },
         async onLoadMore() {
-            const eventTypes = await this.fetchEventTypes({
+            const response = await this.fetchEventTypes({
                 searchString: this.searchString,
                 page: this.page + 1
             });
-            if (eventTypes.length === this.perPage) {
+            if (response.data.length === this.perPage) {
                 this.page += 1;
             } else {
+                this.loadMoreActive = false;
+            }
+            if (response.meta.last_page === this.page) {
                 this.loadMoreActive = false;
             }
         }
