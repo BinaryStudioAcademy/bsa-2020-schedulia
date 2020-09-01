@@ -25,8 +25,8 @@ final class CloneEventTypeByIdAction
         $eventType = $this->eventTypeRepository->getById($request->getId());
         $newEventType = $eventType->replicate();
 
-        $newSlug = $newEventType->slug . '-clone';
-        $newName = $newEventType->name . ' (clone)';
+        $newSlug = $newEventType->slug . '-copy';
+        $newName = $newEventType->name . ' (copy)';
 
         if (count($this->eventTypeRepository->findByCriteria(new SlugCriterion($newSlug)))) {
             throw new SlugIsAlreadyInUseException();
