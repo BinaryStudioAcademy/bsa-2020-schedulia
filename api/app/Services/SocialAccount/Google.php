@@ -113,7 +113,6 @@ class Google implements SocialAccountService, CalendarService
 
     public function createEvent(CalendarEventInterface $googleCalendarEvent): void
     {
-
         $token = $this->userRepository->getGoogleCalendarTokenById($googleCalendarEvent->getUserId());
 
         if ($token) {
