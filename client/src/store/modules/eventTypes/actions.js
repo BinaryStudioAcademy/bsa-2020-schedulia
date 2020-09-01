@@ -160,6 +160,30 @@ export default {
             });
         }
     },
+    [actions.UPDATE_INTERNAL_NOTE]: async ({ commit, dispatch }, data) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+        try {
+            await eventTypesService.updateInternalNoteByEventTypeId(data.id, {
+                internal_note: data.internalNote
+            });
+            commit(mutations.UPDATE_INTERNAL_NOTE, data);
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+            dispatch(
+                'notification/' + notifyActions.SET_ERROR_NOTIFICATION,
+                error?.response?.data?.error?.message,
+                { root: true }
+            );
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        }
+    },
     [actions.FETCH_EVENT_TYPES_TAGS]: async (
         { commit, dispatch },
         { searchString = '', startDate = '', endDate = '' }
@@ -184,6 +208,11 @@ export default {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
             });
+            dispatch(
+                'notification/' + notifyActions.SET_ERROR_NOTIFICATION,
+                error?.response?.data?.error?.message,
+                { root: true }
+            );
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });

@@ -2,6 +2,7 @@ export const eventTypeMapper = EventType => ({
     id: EventType.id,
     name: EventType.name,
     description: EventType.description,
+    internalNote: EventType.internal_note,
     location: EventType.location,
     locationType: EventType.location_type,
     coordinates: EventType.coordinates,
