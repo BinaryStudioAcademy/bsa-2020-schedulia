@@ -370,7 +370,7 @@ export default {
     PLEASE_WAIT_WHILE_WE_ARE_LOGGING_YOU_IN:
         "Please wait while we're logging you in...",
     ADD_ONE_ON_ONE_EVENT_TYPE: 'Add One-on-One Event Type',
-    RESET: 'Reset',
+    RESET: 'Reset filter',
     INVITEE_EMAILS: 'Invitee Emails',
     ALL_INVITEE_EMAILS: 'All Invitee Emails',
     ADDITIONAL_OPTIONS: 'Additional options',
