@@ -71,8 +71,13 @@ Route::group([
     Route::get('{id}/tags', 'TagController@getTagsByEventTypeId');
 });
 
+Route::group([
+    'prefix' => 'public'
+], function() {
+    Route::get('/users/{nickname}/event-types/{id}', 'Api\\EventTypeController@getEventTypeByIdAndNickname');
+});
 Route::get('/event-types/{id}/availabilities', 'Api\\EventTypeController@getAvailableTime');
-Route::get('/event-types/{id}/public/{nickname}', 'Api\\EventTypeController@getEventTypeByIdAndNickname');
+
 
 Route::group([
     'namespace' => 'Api\\',

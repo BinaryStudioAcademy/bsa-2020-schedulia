@@ -5,7 +5,7 @@ const EVENTS_URL = '/events';
 const publicEventService = {
     async getEventTypeById(id, nickname) {
         const response = await requestService.get(
-            `${EVENT_TYPES_URL}/${id}/public/${nickname}`
+            `/public/users/${nickname}${EVENT_TYPES_URL}/${id}`
         );
         return response?.data?.data;
     },
