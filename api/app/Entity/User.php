@@ -117,4 +117,9 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail, CanRe
     {
         return $this->branding_logo ? Storage::disk()->url($this->branding_logo) : null;
     }
+
+    public function routeNotificationForSlack($notification = null)
+    {
+        return env('SLACK_WEBHOOK_URL');
+    }
 }
