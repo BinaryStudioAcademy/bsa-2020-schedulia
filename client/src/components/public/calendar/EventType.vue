@@ -17,8 +17,8 @@
 
     <VDivider vertical class="hidden-md-and-down"></VDivider>
 
-    <VCol sm="12" md="6" lg="5" class="calendar-container col-12 pa-0 mt-0 ml-0"
-      ><div class="calendar-content">
+    <VCol sm="12" md="6" lg="5" class="calendar-container col-12 pa-0 mt-0 ml-0">
+      <div class="calendar-content">
         <h3>{{ lang.SELECT_DATE_AND_TIME }}</h3>
         <VDatePicker
           v-model="date"
@@ -44,10 +44,7 @@
             <VListItem>
               <VListItemContent>
                 <VListItemTitle>{{ lang.CHOOSE_YOUR_TIMEZONE }}</VListItemTitle>
-                <VTextField
-                  v-model="timezoneFieldSearch"
-                  label="Enter timezone"
-                ></VTextField>
+                <VTextField v-model="timezoneFieldSearch" label="Enter timezone"></VTextField>
               </VListItemContent>
             </VListItem>
             <VDivider></VDivider>
@@ -63,13 +60,7 @@
     <VDivider v-if="show" vertical class="hidden-md-and-down"></VDivider>
 
     <VSpacer class="hidden-md-and-down"></VSpacer>
-    <VCol
-      v-if="show"
-      sm="12"
-      md="4"
-      lg="3"
-      class="select-time-container col-12 pa-0 mt-0"
-    >
+    <VCol v-if="show" sm="12" md="4" lg="3" class="select-time-container col-12 pa-0 mt-0">
       <h3>{{ formattedDate }}</h3>
       <div class="time-items-container">
         <div v-for="(time, i) in availableTimes" :key="i" text>
@@ -79,8 +70,7 @@
                 <VCardText
                   dense
                   class="text-center pa-0 justify-center primary--text font-weight-bold"
-                  >{{ time }}</VCardText
-                >
+                >{{ time }}</VCardText>
               </VCard>
               <VBtn
                 class="select-time-btn text-capitalize"
@@ -88,8 +78,7 @@
                 color="primary"
                 dark
                 @click="onConfirmDate(time)"
-                >{{ lang.CONFIRM_DATE }}</VBtn
-              >
+              >{{ lang.CONFIRM_DATE }}</VBtn>
             </div>
           </div>
           <VBtn
@@ -98,8 +87,7 @@
             outlined
             @click="selectTime(i)"
             v-else
-            >{{ time }}</VBtn
-          >
+          >{{ time }}</VBtn>
         </div>
       </div>
     </VCol>
@@ -117,11 +105,13 @@ import * as actions from "@/store/modules/publicEvent/types/actions";
 import * as getters from "@/store/modules/publicEvent/types/getters";
 import { mapActions, mapGetters } from "vuex";
 
+const DURATION = 200; /* delete */
+
 export default {
   name: "EventType",
   components: {
     EventInfo,
-    AutoFillSpacer,
+    AutoFillSpacer
   },
   async mounted() {
     await this.getEventTypeById(this.$route.params.id);
@@ -147,7 +137,7 @@ export default {
     },
     eventType() {
       this.isReady = true;
-    },
+    }
   },
   data: () => ({
     isReady: false,
@@ -163,40 +153,40 @@ export default {
           type: "date_range_weekdays",
           start_time: "09:00:00",
           end_time: "19:00:00",
-          unavailable: ["15:00:00", "16:00:00"],
-        },
+          unavailable: ["15:00:00", "16:00:00"]
+        }
       ],
       "2020-09-02": [
         {
           type: "date_range_weekdays",
           start_time: "05:00:00",
           end_time: "11:00:00",
-          unavailable: ["15:00:00", "16:00:00"],
-        },
+          unavailable: ["15:00:00", "16:00:00"]
+        }
       ],
       "2020-09-14": [
         {
           type: "date_range_weekdays",
           start_time: "11:00:00",
           end_time: "14:00:00",
-          unavailable: [],
+          unavailable: []
         },
         {
           type: "date_range_weekdays",
           start_time: "15:00:00",
           end_time: "22:00:00",
-          unavailable: [],
-        },
-      ],
-    },
+          unavailable: []
+        }
+      ]
+    }
   }),
 
   computed: {
     ...mapGetters("i18n", {
-      lang: i18nGetters.GET_LANGUAGE_CONSTANTS,
+      lang: i18nGetters.GET_LANGUAGE_CONSTANTS
     }),
     ...mapGetters("publicEvent", {
-      eventType: getters.GET_EVENT_TYPE,
+      eventType: getters.GET_EVENT_TYPE
     }),
     currentTimezoneStartTime() {
       return moment
@@ -206,7 +196,7 @@ export default {
         .format();
     },
     currentTimezoneAvailabilities() {
-      const formatTime = (time) => {
+      const formatTime = time => {
         return moment
           .tz(time, this.eventType.timezone)
           .clone()
@@ -220,16 +210,16 @@ export default {
         for (let availability of this.availabilities[date]) {
           allTimes.push({
             startDate: `${date} ${availability.start_time.slice(0, 5)}`,
-            endDate: `${date} ${availability.end_time.slice(0, 5)}`,
+            endDate: `${date} ${availability.end_time.slice(0, 5)}`
           });
         }
       }
 
       console.log("current timezone availabilities", allTimes);
 
-      allTimes = allTimes.map((availability) => ({
+      allTimes = allTimes.map(availability => ({
         startDate: formatTime(availability.startDate),
-        endDate: formatTime(availability.endDate),
+        endDate: formatTime(availability.endDate)
       }));
 
       /* for (let i = 0; i < allTimes.length; i++) {
@@ -257,46 +247,192 @@ export default {
       /* const getTimestampFormat = (date) => {
         return moment(date).format("x")
       } */
-      const getHours = (date) => {
+      const getHours = date => {
         console.log("hours", date.slice(11, 13));
         //return +moment(date, "YYYY-MM-DD HH:mm:ss").hours();
         return date.slice(11, 13);
       };
 
-      const getMinutes = (date) => {
+      const getMinutes = date => {
         console.log("minutes", date.slice(14, 16));
         //return +moment(date, "YYYY-MM-DD HH:mm:ss").minutes();
         return date.slice(14, 16);
       };
 
-      const getDate = (date) => {
+      const getDate = date => {
         return date.slice(0, 10);
       };
 
       let normalizedTimes = [];
       for (let availability of this.currentTimezoneAvailabilities) {
-        if (getHours(availability.startDate) > getHours(availability.endDate)) {
+        console.log("getHoursStart", +getHours(availability.startDate));
+        console.log("getHoursEnd", +getHours(availability.endDate));
+        if (
+          +getHours(availability.startDate) > +getHours(availability.endDate)
+        ) {
+          console.log("INSIDE START > END");
           console.log("is remainder");
-          normalizedTimes.push({
-            startDate: `${getDate(availability.startDate)} ${getHours(
-              availability.startDate
-            )}:${getMinutes(availability.startDate)}:00`,
-            endDate: `${getDate(availability.endDate)} 00:00:00`,
-          });
-          normalizedTimes.push({
-            startDate: `${getDate(availability.endDate)} 00:00:00`,
-            endDate: `${getDate(availability.endDate)} ${getHours(
-              availability.endDate
-            )}:${getMinutes(availability.endDate)}:00`,
-          });
+
+          let start =
+            availability.startDate.slice(11, 16).split(":")[0] * 60 +
+            +availability.startDate.slice(11, 16).split(":")[1];
+
+          let end =
+            availability.endDate.slice(11, 16).split(":")[0] * 60 +
+            +availability.endDate.slice(11, 16).split(":")[1] +
+            24 * 60;
+
+          let nextInterval = true;
+          //let time;
+          let maxTimePrevDay = start;
+          let minTimeNextDay;
+
+          while (nextInterval) {
+            /* let [hours, minutes] = [Math.trunc(start / 60), start % 60]; */
+            /* hours = String(hours).length === 2 ? hours : "0" + hours;
+        minutes = String(minutes).length === 2 ? minutes : minutes + "0"; */
+            /* time.push(`${hours}:${minutes}`); */
+            //start += eventType.duration;
+            maxTimePrevDay = start;
+            // this.eventType.duration ====== 50
+            if (start + DURATION < 24 * 60 && start + DURATION <= end) {
+              // додавши інтервал все одно менше ніж 00:00 і поміщається в енд інтервал
+              // можливо тут не будуть добавдятися дати типу 23:05 23:10 в LA тому що час тільки збільшується
+              console.log("INSIDE JUST INCREMENT");
+              console.log("start", start);
+              console.log("end", end);
+              console.log("duration", DURATION);
+              start += DURATION;
+            } else if (start + DURATION >= 24 * 60 && start + DURATION <= end) {
+              // додавши інтервал більше рівне 00:00 і поміщається в енд інтервал
+              console.log("INSIDE DIFFICULT LOGIC");
+              console.log("start", start);
+              console.log("end", end);
+              console.log("duration", DURATION);
+              if (start < 24 * 60) {
+                maxTimePrevDay = start;
+                let [maxHours, maxMinutes] = [
+                  Math.trunc(maxTimePrevDay / 60),
+                  maxTimePrevDay % 60
+                ];
+                minTimeNextDay = start + DURATION;
+                minTimeNextDay -= 24 * 60;
+
+                let [minHours, minMinutes] = [
+                  Math.trunc(minTimeNextDay / 60),
+                  minTimeNextDay % 60
+                ];
+                if (
+                  getHours(availability.startDate) !==
+                    this.normalizeTime(maxHours) &&
+                  getMinutes(availability.startDate) !==
+                    this.normalizeTime(maxMinutes)
+                ) {
+                  normalizedTimes.push({
+                    startDate: `${getDate(availability.startDate)} ${getHours(
+                      availability.startDate
+                    )}:${getMinutes(availability.startDate)}:00`,
+                    endDate: `${getDate(
+                      availability.startDate
+                    )} ${this.normalizeTime(maxHours)}:${this.normalizeTime(
+                      maxMinutes
+                    )}:00`
+                  });
+                  // N EQ
+                }
+                normalizedTimes.push({
+                  startDate: `${getDate(
+                    availability.startDate
+                  )} ${this.normalizeTime(maxHours)}:${this.normalizeTime(
+                    maxMinutes
+                  )}:00`,
+                  endDate: `${getDate(
+                    availability.endDate
+                  )} ${this.normalizeTime(minHours)}:${this.normalizeTime(
+                    minMinutes
+                  )}:00`
+                });
+                // BETW
+                if (minTimeNextDay + DURATION <= end) {
+                  normalizedTimes.push({
+                    startDate: `${getDate(
+                      availability.endDate
+                    )} ${this.normalizeTime(minHours)}:${this.normalizeTime(
+                      minMinutes
+                    )}:00`,
+                    endDate: `${getDate(availability.endDate)} ${getHours(
+                      availability.endDate
+                    )}:${getMinutes(availability.endDate)}:00`
+                  });
+                  // NDLTE
+                }
+              } else if (start > 24 * 60) {
+                //let startTime = start;
+                start -= 24 * 60;
+                end -= 24 * 60;
+                let [startHours, startMinutes] = [
+                  Math.trunc(start / 60),
+                  start % 60
+                ];
+
+                let endTime = start + DURATION;
+
+                let [endHours, endMinutes] = [
+                  Math.trunc(endTime / 60),
+                  endTime % 60
+                ];
+
+                if (
+                  !normalizedTimes.some(
+                    interval =>
+                      `${getDate(availability.endDate)} ${this.normalizeTime(
+                        endHours
+                      )}:${this.normalizeTime(endMinutes)}:00` ===
+                      interval.endDate
+                  )
+                ) {
+                  // delete this IF
+                  //below was startDate
+                  normalizedTimes.push({
+                    startDate: `${getDate(
+                      availability.endDate
+                    )} ${this.normalizeTime(startHours)}:${this.normalizeTime(
+                      startMinutes
+                    )}:00`,
+                    endDate: `${getDate(
+                      availability.endDate
+                    )} ${this.normalizeTime(endHours)}:${this.normalizeTime(
+                      endMinutes
+                    )}:00`
+                  });
+                  //ST IS MORE
+                }
+              }
+              start += DURATION;
+              //nextInterval = false;
+            } else {
+              console.log("INSIDE NO MORE INTERVALS CAN BE PUSHED");
+              console.log("start", start);
+              console.log("end", end);
+              console.log("duration", DURATION);
+              nextInterval = false;
+            }
+          }
         } else {
+          console.log("INSIDE JUST PUSH");
           normalizedTimes.push(availability);
+          /* normalizedTimes.push({
+            startDate: availability.startDate + "J",
+            endDate: availability.endDate + "J"
+          }); */
         }
       }
+      console.log("normalizedTimes", normalizedTimes);
       return normalizedTimes;
+      //return [...new Set(normalizedTimes)];
     },
     filterTimezones() {
-      return momentTimezones.tz.names().filter((zone) => {
+      return momentTimezones.tz.names().filter(zone => {
         return zone
           .toLowerCase()
           .includes(this.timezoneFieldSearch.toLowerCase());
@@ -319,15 +455,16 @@ export default {
       return moment(this.date).format("dddd, MMMM D");
     },
     availableTimesRange() {
-      const getCurrentDate = (d) => {
+      const getCurrentDate = d => {
         return moment(d).format();
       };
 
       const currentDate = getCurrentDate(this.date);
       console.log(this.date, "currentDate", currentDate);
 
-      let availableTime = {};
-
+      //let availableTime = {};
+      let availableTimes = [];
+      let i = 0;
       //for (let availability of this.currentTimezoneAvailabilities) {
       for (let availability of this.normalizedRemainderTimes) {
         console.log("availability", availability);
@@ -344,23 +481,48 @@ export default {
           currentDate <= currentShortEndDate */
         ) {
           console.log("startDate", availability.startDate);
-          availableTime.startTime = moment(availability.startDate).format(
+          availableTimes.push({
+            startTime: moment(availability.startDate).format("HH:mm"),
+            endTime: moment(availability.endDate).format("HH:mm")
+          });
+          /* availableTimes[i].endTime = moment(availability.endDate).format(
             "HH:mm"
-          );
+          ); */
 
-          availableTime.endTime = moment(availability.endDate).format("HH:mm");
+          /* if (availableTimes[i].endTime.includes("00:")) {
+            availableTimes[i].endTime = availableTimes[i].endTime.replace(
+              "00:",
+              "24:"
+            );
+          } */
+          console.log(
+            "BEFORE REPLACER",
+            +availability.startDate.slice(11, 13),
+            +availability.endDate.slice(11, 13)
+          );
+          if (
+            +availability.startDate.slice(11, 13) >
+            +availability.endDate.slice(11, 13)
+          ) {
+            console.log("INSIDE REPLACER");
+            availableTimes[i].endTime = `${+availability.endDate.slice(11, 13) +
+              24}:${availability.endDate.slice(14, 16)}`;
+          }
+
+          /* availableTime.endTime = moment(availability.endDate).format("HH:mm");
 
           if (availableTime.endTime.includes("00:")) {
             availableTime.endTime = availableTime.endTime.replace("00:", "24:");
-          }
+          } */
 
-          break;
+          //break;
+          i++;
         }
       }
-      return availableTime;
+      return availableTimes;
     },
     availableTimes() {
-      let duration = 50; /* 
+      let duration = DURATION; /* 
       !
       !
       !
@@ -377,18 +539,19 @@ export default {
         this.availableTimesRange.startTime.split(":")[0] * 60 +
         +this.availableTimesRange.startTime.split(":")[1]; */
       //const initialStart = start;
-      let start =
-        this.availableTimesRange.startTime.split(":")[0] * 60 +
-        +this.availableTimesRange.startTime.split(":")[1];
+      for (let timeRange of this.availableTimesRange) {
+        let start =
+          timeRange.startTime.split(":")[0] * 60 +
+          +timeRange.startTime.split(":")[1];
 
-      /* let end =
+        /* let end =
         this.availableTimesRange.endTime.split(":")[0] * 60 +
         +this.availableTimesRange.endTime.split(":")[1]; */
-      let end =
-        this.availableTimesRange.endTime.split(":")[0] * 60 +
-        +this.availableTimesRange.endTime.split(":")[1];
+        let end =
+          timeRange.endTime.split(":")[0] * 60 +
+          +timeRange.endTime.split(":")[1];
 
-      /* if (start > end && 24 * 60 - start <= end) {
+        /* if (start > end && 24 * 60 - start <= end) {
         while (start > end) {
           let [hours, minutes] = [Math.trunc(start / 60), start % 60];
 
@@ -406,14 +569,14 @@ export default {
         }
       } */
 
-      while (end - start >= duration) {
-        let [hours, minutes] = [Math.trunc(start / 60), start % 60];
-        hours = String(hours).length === 2 ? hours : "0" + hours;
-        minutes = String(minutes).length === 2 ? minutes : minutes + "0";
-        times.push(`${hours}:${minutes}`);
-        start += duration;
+        while (end - start >= duration) {
+          let [hours, minutes] = [Math.trunc(start / 60), start % 60];
+          hours = String(hours).length === 2 ? hours : "0" + hours;
+          minutes = String(minutes).length === 2 ? minutes : "0" + minutes;
+          times.push(`${hours}:${minutes}`);
+          start += duration;
+        }
       }
-
       times.sort(
         (prev, next) =>
           prev.split(":")[0] * 60 +
@@ -424,24 +587,27 @@ export default {
 
       //times = this.appropriateTimes(times, initialStart, end);
 
-      return this.convertToUserFormat(times);
-    },
+      console.log("times", times);
+
+      //return this.convertToUserFormat(times);
+      return this.convertToUserFormat([...new Set(times)]);
+    }
   },
   methods: {
     ...mapActions("publicEvent", {
       getEventTypeById: actions.GET_EVENT_TYPE_BY_ID,
-      setPublicEvent: actions.SET_PUBLIC_EVENT,
+      setPublicEvent: actions.SET_PUBLIC_EVENT
     }),
     onConfirmDate(time) {
       this.setPublicEvent({
         eventTypeId: this.eventType.id,
         startDate: `${this.date} ${time}`,
-        timezone: this.currentTimezone,
+        timezone: this.currentTimezone
       });
       this.$router.push({
         path: `/${this.eventType.owner.nickname}/${
           this.eventType.id
-        }/${this.getStartDate(time)}`,
+        }/${this.getStartDate(time)}`
       });
     },
     getFormattedTimezoneTime(timezone) {
@@ -457,7 +623,7 @@ export default {
       if (!this.eventType.owner.timeFormat12h) {
         return times;
       } else {
-        return times.map((time) => moment(time, "HHmm").format("hh:mm A"));
+        return times.map(time => moment(time, "HHmm").format("hh:mm A"));
       }
     },
     /* appropriateTimes(times, initialStart, end) {
@@ -491,7 +657,7 @@ export default {
         this.lang.SEP,
         this.lang.OCT,
         this.lang.NOV,
-        this.lang.DEC,
+        this.lang.DEC
       ];
 
       if (month) {
@@ -511,10 +677,13 @@ export default {
         this.lang.WED,
         this.lang.THU,
         this.lang.FRI,
-        this.lang.SAT,
+        this.lang.SAT
       ];
       let i = new Date(date).getDay(date);
       return weekDays[i];
+    },
+    normalizeTime(time) {
+      return String(time).length === 2 ? time : "0" + time;
     },
     availableDates(date) {
       let present = false;
@@ -549,8 +718,8 @@ export default {
       }
 
       return present; */
-    },
-  },
+    }
+  }
 };
 </script>
 
