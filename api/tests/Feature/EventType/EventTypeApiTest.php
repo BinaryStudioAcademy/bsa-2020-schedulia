@@ -7,6 +7,7 @@ namespace Tests\Feature\EventType;
 use App\Entity\Availability;
 use App\Entity\EventType;
 use App\Entity\User;
+use App\Http\Requests\Api\EventType\LocationTypes;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\JsonResponse;
 use Tests\TestCase;
@@ -36,6 +37,7 @@ final class EventTypeApiTest extends TestCase
     ];
 
     private const STRUCTURE = [
+        'id',
         'name',
         'description',
         'slug',
@@ -50,7 +52,8 @@ final class EventTypeApiTest extends TestCase
             'timezone'
         ],
         'availabilities',
-        'location_type'
+        'location_type',
+        'coordinates'
     ];
 
     private const STRUCTURE_AVAILABILITIES = [
@@ -313,5 +316,40 @@ final class EventTypeApiTest extends TestCase
             ->actingAs($authorizedUser)
             ->json('DELETE', self::API_URL . '/' . $eventType->id, self::DATA)
             ->assertStatus(JsonResponse::HTTP_FORBIDDEN);
+    }
+
+    public function test_add_event_type_with_address_valid()
+    {
+        $authorizedUser = factory(User::class)->create();
+
+        $eventTypeData = self::DATA;
+        $eventTypeData['location_type'] = LocationTypes::ADDRESS;
+        $eventTypeData['coordinates']['lat'] = '2.34355';
+        $eventTypeData['coordinates']['lng'] = '2.34355';
+
+        $this
+            ->actingAs($authorizedUser)
+            ->json('POST', self::API_URL, self::DATA)
+            ->assertStatus(JsonResponse::HTTP_CREATED)
+            ->assertJsonStructure(['data' => self::STRUCTURE]);
+    }
+
+    public function test_add_event_type_with_address_invalid()
+    {
+        $authorizedUser = factory(User::class)->create();
+
+        $eventTypeData = self::DATA;
+        $eventTypeData['location_type'] = LocationTypes::ADDRESS;
+
+        $this
+            ->actingAs($authorizedUser)
+            ->json('POST', self::API_URL, $eventTypeData)
+            ->assertStatus(JsonResponse::HTTP_BAD_REQUEST)
+            ->assertJsonStructure([
+                'error' => [
+                    'message',
+                    'code',
+                ]
+            ]);
     }
 }
