@@ -11,7 +11,7 @@ export default {
 
     async disconnect(provider) {
         return await requestService.delete(
-            `${SOCIAL_ACCOUNTS_ENDPOINT}/calendar/${provider}`
+            `${SOCIAL_ACCOUNTS_ENDPOINT}/calendars/${provider}`
         );
     }
 };
