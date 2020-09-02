@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "820f8968f24297724b15d1f0c43910ad",
+    "content-hash": "fc350abdae47fb060ce7c710c0ab4cdf",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2950,45 +2950,6 @@
                 "twitter"
             ],
             "time": "2016-08-17T00:36:58+00:00"
-        },
-        {
-            "name": "marktopper/doctrine-dbal-timestamp-type",
-            "version": "v1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/marktopper/doctrine-dbal-timestamp-type.git",
-                "reference": "200ba3320a44d461ad35290e0cf1117dfc43e536"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/marktopper/doctrine-dbal-timestamp-type/zipball/200ba3320a44d461ad35290e0cf1117dfc43e536",
-                "reference": "200ba3320a44d461ad35290e0cf1117dfc43e536",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/dbal": "^2.5",
-                "php": ">=5.6.4"
-            },
-            "type": "package",
-            "autoload": {
-                "psr-4": {
-                    "MarkTopper\\DoctrineDBALTimestampType\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Add the timestamp type for Doctrine/DBAL",
-            "keywords": [
-                "database",
-                "dbal",
-                "doctrine",
-                "laravel",
-                "mysql",
-                "timestamp"
-            ],
-            "time": "2020-05-04T10:11:44+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -8602,6 +8563,45 @@
                 "test"
             ],
             "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
+            "name": "marktopper/doctrine-dbal-timestamp-type",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marktopper/doctrine-dbal-timestamp-type.git",
+                "reference": "200ba3320a44d461ad35290e0cf1117dfc43e536"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marktopper/doctrine-dbal-timestamp-type/zipball/200ba3320a44d461ad35290e0cf1117dfc43e536",
+                "reference": "200ba3320a44d461ad35290e0cf1117dfc43e536",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^2.5",
+                "php": ">=5.6.4"
+            },
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "MarkTopper\\DoctrineDBALTimestampType\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Add the timestamp type for Doctrine/DBAL",
+            "keywords": [
+                "database",
+                "dbal",
+                "doctrine",
+                "laravel",
+                "mysql",
+                "timestamp"
+            ],
+            "time": "2020-05-04T10:11:44+00:00"
         },
         {
             "name": "mockery/mockery",
