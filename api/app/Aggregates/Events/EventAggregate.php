@@ -14,6 +14,7 @@ class EventAggregate
     private string $inviteeEmail;
     private string $inviteeName;
     private string $timezone;
+    private ?string $location;
     private string $status;
     private string $startDate;
     private int $startDateTimestamp;
@@ -27,6 +28,7 @@ class EventAggregate
         $this->inviteeEmail = $event->invitee_email;
         $this->inviteeName = $event->invitee_name;
         $this->timezone = $event->timezone;
+        $this->location = $event->location;
         $this->status = $event->status;
         $this->startDate = $event->start_date;
         $this->startDateTimestamp = Carbon::parse($event->start_date)->timestamp;
@@ -47,6 +49,7 @@ class EventAggregate
             'invitee_email' => $this->inviteeEmail,
             'invitee_name' => $this->inviteeName,
             'timezone' => $this->timezone,
+            'location' => $this->location,
             'status' => $this->status,
             'start_date_timestamp' => $this->startDateTimestamp,
             'start_date' => $this->startDate,
