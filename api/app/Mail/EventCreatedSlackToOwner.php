@@ -35,7 +35,7 @@ class EventCreatedSlackToOwner extends SlackMessage implements ShouldQueue
         $greetings = "Hi, {$this->owner->name}" . PHP_EOL . "A new event was scheduled.";
         return (new SlackMessage())
             ->success()
-            ->to('test-slack-notifcation-shedulia')
+            ->to($this->owner->slack_channel)
             ->content($greetings)
             ->attachment(function ($attachment) use ($event, $eventType) {
                 $attachment->fields([
