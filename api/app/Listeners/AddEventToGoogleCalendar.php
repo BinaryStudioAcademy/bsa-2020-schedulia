@@ -16,7 +16,7 @@ class AddEventToGoogleCalendar implements ShouldQueue
         $this->googleCalendar = $googleCalendar;
     }
 
-    public function handle(EventCreated $eventCreated): void
+    public function handle($eventCreated): void
     {
         $this->googleCalendar->createEvent(
             new GoogleCalendarEvent(

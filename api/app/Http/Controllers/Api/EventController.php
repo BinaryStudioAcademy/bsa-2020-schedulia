@@ -10,6 +10,8 @@ use App\Actions\Event\GetEventCollectionAction;
 use App\Actions\Event\GetEventCollectionRequest;
 use App\Actions\Event\GetEventsEmailsAction;
 use App\Actions\Event\GetEventsEmailsRequest;
+use App\Actions\Event\UpdateEventAction;
+use App\Actions\Event\UpdateEventRequest;
 use App\Http\Presenters\EventPresenter;
 use App\Http\Presenters\EventsEmailsPresenter;
 use App\Http\Requests\Api\Event\EventRequest;
@@ -20,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
 class EventController extends ApiController
 {
     private AddEventAction $addEventAction;
+    private UpdateEventAction $updateEventAction;
     private DeleteEventAction $deleteEventAction;
     private GetEventCollectionAction $getEventCollectionAction;
     private GetEventsEmailsAction $getEventsEmailsAction;
@@ -27,16 +30,18 @@ class EventController extends ApiController
 
     public function __construct(
         AddEventAction $addEventAction,
+        UpdateEventAction $updateEventAction,
         DeleteEventAction $deleteEventAction,
         GetEventCollectionAction $getEventCollectionAction,
         GetEventsEmailsAction $getEventsEmailsAction,
         EventPresenter $eventPresenter
     ) {
         $this->addEventAction = $addEventAction;
+        $this->updadeEventAction = $updateEventAction;
         $this->deleteEventAction = $deleteEventAction;
         $this->getEventCollectionAction = $getEventCollectionAction;
         $this->getEventsEmailsAction = $getEventsEmailsAction;
-        $this->presenter = $eventPresenter;
+        $this->eventPresenter = $eventPresenter;
     }
 
     public function store(EventRequest $request)
@@ -77,6 +82,26 @@ class EventController extends ApiController
             $response->getPaginator(),
             $this->presenter
         );
+    }
+
+    public function update(string $id, EventRequest $request): JsonResponse
+    {
+        $response = $this->updadeEventAction->execute(
+            new UpdateEventRequest(
+                (int)$id,
+                Auth::id(),
+                (int)$request->event_type_id,
+                $request->invitee_name,
+                $request->invitee_email,
+                $request->start_date,
+                $request->timezone,
+                $request->location,
+                $request->status,
+                $request->custom_field_values
+            )
+        );
+
+        return $this->successResponse($this->eventPresenter->present($response->getEvent()));
     }
 
     public function getEventsEmails(

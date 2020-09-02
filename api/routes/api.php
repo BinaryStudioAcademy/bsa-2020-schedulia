@@ -92,7 +92,8 @@ Route::group([
     'namespace' => 'Api\\',
     'prefix' => '/events',
 ], function () {
-    Route::delete('/{id}', 'EventController@destroy');
+    Route::patch('/{id}', 'EventController@update');
+    Route::put('/{id}', 'EventController@update');
 });
 
 Route::group([

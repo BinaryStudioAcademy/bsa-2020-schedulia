@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\EventDeleted;
+use App\Events\EventUpdated;
 use App\Services\Calendar\Google\GoogleCalendarDeleteEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Services\SocialAccount\Google;
@@ -16,13 +17,13 @@ class DeleteEventFromGoogleCalendar implements ShouldQueue
         $this->googleCalendar = $googleCalendar;
     }
 
-    public function handle(EventDeleted $eventDeleted): void
+    public function handle(EventUpdated $eventUpdated): void
     {
-        if (count($eventDeleted->event['google_calendar_event'])) {
+        if (count($eventUpdated->event->googleCalendars)) {
             $this->googleCalendar->deleteEvent(new GoogleCalendarDeleteEvent(
-                $eventDeleted->event['id'],
-                $eventDeleted->event['event_type']['owner']['id'],
-                $eventDeleted->event['google_calendar_event'][0]['provider_event_id']
+                $eventUpdated->event->id,
+                $eventUpdated->event->eventType->owner->id,
+                $eventUpdated->event->googleCalendars[0]->provider_event_id
             ));
         }
     }

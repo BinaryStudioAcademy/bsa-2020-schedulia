@@ -133,6 +133,7 @@ class Google implements SocialAccountService, CalendarService
 
         if ($token) {
             $this->connect($token)->service('Calendar')->events->delete('primary', $event->getProviderEventId());
+            
         }
     }
 
