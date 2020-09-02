@@ -12,7 +12,7 @@ final class StartDateCriterion implements ElasticSearchCriterion
     {
         return [
             'range' => [
-                'start_date' => [
+                'start_date_timestamp' => [
                     'gte' => $startDate,
                 ]
             ]
