@@ -7,9 +7,9 @@ use App\Mail\EventCreatedMailToInvitee;
 use App\Notifications\NotificationBeforeEventForInvitee;
 use App\Notifications\NotificationBeforeEventForOwner;
 use App\Repositories\Event\Criterion\EndDateCriterion;
-use App\Repositories\Event\Criterion\OwnerCriterion;
-use App\Repositories\Event\Criterion\StartDateCriterion;
+use App\Repositories\Event\Criterion\NotifiedCriterion;
 use App\Repositories\Event\EventRepository;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -30,16 +30,20 @@ class SendNotificationBeforeEvent implements ShouldQueue
 
     public function handle(EventRepository $eventRepository)
     {
-        $tenMinutesFutureBigger = (new \DateTime())->modify('+610 seconds');
-        $tenMinutesFutureLess = (new \DateTime())->modify('+590 seconds');
-        $criteria = [new StartDateCriterion($tenMinutesFutureLess->format('Y-m-d H:i:s')),
-            new EndDateCriterion($tenMinutesFutureBigger->format('Y-m-d H:i:s'))];
+        $now = new Carbon();
+        $tenMinutesLater = $now->addMinutes(10);
+        $criteria = [
+            new EndDateCriterion($tenMinutesLater->toDateTimeString()),
+            new NotifiedCriterion(false)
+           ];
         $events = $eventRepository->findByCriteria(...$criteria);
 
         foreach ($events as $event) {
             $event->eventType->owner->notify(new NotificationBeforeEventForOwner($event));
             Notification::route('mail', $event->invitee_email)
                 ->notify(new NotificationBeforeEventForInvitee($event));
+            $event->notified = true;
+            $event->save();
         }
     }
 }

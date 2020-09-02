@@ -5,6 +5,7 @@ namespace App\Mail;
 use App\Entity\Event;
 use App\Entity\EventType;
 use App\Entity\User;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -30,6 +31,8 @@ class BeforeEventMailForOwner extends Mailable
 
     public function build()
     {
+        $eventTimeInUTCZone = new Carbon($this->event->start_date);
+
         return (new MailMessage())
             ->subject(Lang::get('A reminder of an upcoming event from Schedulia'))
             ->line(Lang::get('We remind you that you have been invited to the event, the details of which are given below and it will start in 10 minutes.'))
@@ -39,7 +42,9 @@ class BeforeEventMailForOwner extends Mailable
             ->line($this->eventType->description)
             ->line(Lang::get('You have meeting with :'))
             ->line("Name: {$this->event->invitee_name}   Email: {$this->event->invitee_email}")
-            ->line(Lang::get('Event Date/Time:'))
-            ->line($this->event->start_date);
+            ->line(Lang::get('Event Date/Time in UTC timezone:'))
+            ->line($this->event->start_date)
+            ->line(Lang::get("Event Date/Time in {$this->event->timezone} timezone:"))
+            ->line($eventTimeInUTCZone->timezone($this->event->timezone));
     }
 }
