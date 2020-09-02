@@ -22,7 +22,12 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail, CanRe
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'timezone',
+        'name',
+        'email',
+        'password',
+        'timezone',
+        'slack_webhook',
+        'slack_channel'
     ];
 
     /**
@@ -120,6 +125,6 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail, CanRe
 
     public function routeNotificationForSlack($notification = null)
     {
-        return env('SLACK_WEBHOOK_URL');
+        return $this->slack_webhook;
     }
 }
