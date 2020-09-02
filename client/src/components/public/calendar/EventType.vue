@@ -105,7 +105,7 @@ import * as actions from "@/store/modules/publicEvent/types/actions";
 import * as getters from "@/store/modules/publicEvent/types/getters";
 import { mapActions, mapGetters } from "vuex";
 
-const DURATION = 200; /* delete */
+//const DURATION = 45; /* delete */
 
 export default {
   name: "EventType",
@@ -286,6 +286,7 @@ export default {
           //let time;
           let maxTimePrevDay = start;
           let minTimeNextDay;
+          let wasVisited = false;
 
           while (nextInterval) {
             /* let [hours, minutes] = [Math.trunc(start / 60), start % 60]; */
@@ -295,27 +296,60 @@ export default {
             //start += eventType.duration;
             maxTimePrevDay = start;
             // this.eventType.duration ====== 50
-            if (start + DURATION < 24 * 60 && start + DURATION <= end) {
+            if (
+              start + this.eventType.duration < 24 * 60 &&
+              start + this.eventType.duration <= end
+            ) {
               // додавши інтервал все одно менше ніж 00:00 і поміщається в енд інтервал
               // можливо тут не будуть добавдятися дати типу 23:05 23:10 в LA тому що час тільки збільшується
               console.log("INSIDE JUST INCREMENT");
               console.log("start", start);
               console.log("end", end);
-              console.log("duration", DURATION);
-              start += DURATION;
-            } else if (start + DURATION >= 24 * 60 && start + DURATION <= end) {
+              console.log("duration", this.eventType.duration);
+              if (!wasVisited) {
+                let [startHours, startMinutes] = [
+                  Math.trunc(start / 60),
+                  start % 60
+                ];
+
+                let endTime = start + this.eventType.duration;
+
+                let [endHours, endMinutes] = [
+                  Math.trunc(endTime / 60),
+                  endTime % 60
+                ];
+                normalizedTimes.push({
+                  startDate: `${getDate(
+                    availability.startDate
+                  )} ${this.normalizeTime(startHours)}:${this.normalizeTime(
+                    startMinutes
+                  )}:00`,
+                  endDate: `${getDate(
+                    availability.startDate
+                  )} ${this.normalizeTime(endHours)}:${this.normalizeTime(
+                    endMinutes
+                  )}:00`
+                });
+              }
+              start += this.eventType.duration;
+            } else if (
+              start + this.eventType.duration >= 24 * 60 &&
+              start + this.eventType.duration <= end
+            ) {
+              wasVisited = true;
               // додавши інтервал більше рівне 00:00 і поміщається в енд інтервал
               console.log("INSIDE DIFFICULT LOGIC");
               console.log("start", start);
               console.log("end", end);
-              console.log("duration", DURATION);
+              console.log("duration", this.eventType.duration);
               if (start < 24 * 60) {
                 maxTimePrevDay = start;
                 let [maxHours, maxMinutes] = [
                   Math.trunc(maxTimePrevDay / 60),
                   maxTimePrevDay % 60
                 ];
-                minTimeNextDay = start + DURATION;
+                minTimeNextDay = start + this.eventType.duration;
+                const unformattedMinTimeNextDay = minTimeNextDay;
                 minTimeNextDay -= 24 * 60;
 
                 let [minHours, minMinutes] = [
@@ -353,7 +387,10 @@ export default {
                   )}:00`
                 });
                 // BETW
-                if (minTimeNextDay + DURATION <= end) {
+                if (
+                  unformattedMinTimeNextDay + this.eventType.duration <=
+                  end
+                ) {
                   normalizedTimes.push({
                     startDate: `${getDate(
                       availability.endDate
@@ -375,7 +412,7 @@ export default {
                   start % 60
                 ];
 
-                let endTime = start + DURATION;
+                let endTime = start + this.eventType.duration;
 
                 let [endHours, endMinutes] = [
                   Math.trunc(endTime / 60),
@@ -408,15 +445,16 @@ export default {
                   //ST IS MORE
                 }
               }
-              start += DURATION;
+              start += this.eventType.duration;
               //nextInterval = false;
             } else {
               console.log("INSIDE NO MORE INTERVALS CAN BE PUSHED");
               console.log("start", start);
               console.log("end", end);
-              console.log("duration", DURATION);
+              console.log("duration", this.eventType.duration);
               nextInterval = false;
             }
+            //debugger;
           }
         } else {
           console.log("INSIDE JUST PUSH");
@@ -522,7 +560,7 @@ export default {
       return availableTimes;
     },
     availableTimes() {
-      let duration = DURATION; /* 
+      /* let duration = this.eventType.duration; */ /* 
       !
       !
       !
@@ -569,12 +607,12 @@ export default {
         }
       } */
 
-        while (end - start >= duration) {
+        while (end - start >= this.eventType.duration) {
           let [hours, minutes] = [Math.trunc(start / 60), start % 60];
           hours = String(hours).length === 2 ? hours : "0" + hours;
           minutes = String(minutes).length === 2 ? minutes : "0" + minutes;
           times.push(`${hours}:${minutes}`);
-          start += duration;
+          start += this.eventType.duration;
         }
       }
       times.sort(
