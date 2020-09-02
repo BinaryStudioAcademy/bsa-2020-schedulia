@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Repositories\ElasticSearch\Events;
 
 use App\Aggregates\Events\EventAggregate;
+use App\DataTransformer\Events\EventFlowCollection;
 use App\Repositories\BaseRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 final class ElasticsearchEventAggregateRepository extends BaseRepository implements EventAggregateRepositoryInterface
 {
@@ -36,8 +38,8 @@ final class ElasticsearchEventAggregateRepository extends BaseRepository impleme
         int $perPage = self::DEFAULT_PER_PAGE,
         string $sort = self::DEFAULT_SORT,
         string $direction = self::DEFAULT_DIRECTION
-    ) {
-        return \Elasticsearch::search([
+    ):LengthAwarePaginator {
+        $response = \Elasticsearch::search([
             'index' => self::INDEX_NAME,
             'type' => self::TYPE,
             'size' => $perPage,
@@ -55,5 +57,13 @@ final class ElasticsearchEventAggregateRepository extends BaseRepository impleme
                 ],
             ]
         ]);
+
+        $eventFlow = new EventFlowCollection($response['hits']['hits']);
+
+        return new LengthAwarePaginator(
+            $eventFlow->getCollection(),
+            $response['hits']['total']['value'],
+            $perPage
+        );
     }
 }
