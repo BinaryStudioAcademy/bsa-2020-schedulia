@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Aggregates\Events;
 
 use App\Entity\Event;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
 class EventAggregate
@@ -26,7 +27,7 @@ class EventAggregate
         $this->inviteeName = $event->invitee_name;
         $this->timezone = $event->timezone;
         $this->status = $event->status;
-        $this->startDate = $event->start_date;
+        $this->startDate = Carbon::parse($event->start_date)->format('Y-m-d H:m');
         $this->eventTypeId = $event->event_type_id;
         $this->eventTypeOwnerId = $event->eventType->owner_id;
         $this->eventTypeTagsId = $event->eventType->tags;
