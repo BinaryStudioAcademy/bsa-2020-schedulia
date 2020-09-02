@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Actions\EventType;
 
+use App\Exceptions\EventType\CoordinatesFieldIsRequiredException;
 use App\Exceptions\EventTypeNotFoundException;
+use App\Http\Requests\Api\EventType\LocationTypes;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Auth;
@@ -37,6 +39,15 @@ final class UpdateEventTypeAction
         $eventType->duration = $request->getDuration() ?: $eventType->duration;
         $eventType->timezone = $request->getTimezone() ?: $eventType->timezone;
         $eventType->disabled = $request->getDisabled() ?: $eventType->disabled;
+        $eventType->location_type = $request->getLocationType();
+
+        if ($request->getLocationType() === LocationTypes::ADDRESS) {
+            if ($request->getCoordinates()) {
+                $eventType->coordinates = $request->getCoordinates();
+            } else {
+                throw new CoordinatesFieldIsRequiredException();
+            }
+        }
 
         $eventType = $this->eventTypeRepository->save($eventType);
 

@@ -336,7 +336,7 @@ export default {
             this.changeSlug(val);
         },
         getSlug(value) {
-            return value.replace(/\s/g, '-');
+            return value.replace(/\s/g, '-').toLowerCase();
         },
         onCloseZoomDialog() {
             this.showZoomDialog = false;
