@@ -41,6 +41,13 @@ const eventTypesService = {
             customFields
         );
     },
+
+    async cloneEventTypeById(eventTypeId) {
+        const response = await requestService.post(
+            apiEndpoint + '/' + eventTypeId + '/clone'
+        );
+        return response?.data?.data;
+    },
     async updateInternalNoteByEventTypeId(eventTypeId, internalNote) {
         return await requestService.put(
             apiEndpoint + '/' + eventTypeId + '/internal-note',

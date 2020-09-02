@@ -65,7 +65,8 @@ export default {
             this.$route.query.event_types ||
             this.$route.query.event_emails ||
             this.$route.query.event_status ||
-            this.$route.query.tags
+            this.$route.query.tags ||
+            this.$route.query.search
         ) {
             this.setScheduledEventsFilterView(true);
         }

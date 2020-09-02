@@ -7,7 +7,7 @@ namespace App\Actions\EventType;
 use App\Actions\PaginatedResponse;
 use App\Repositories\Event\Criterion\GetAllCriterion;
 use App\Repositories\EventType\Criterion\OwnerCriterion;
-use App\Repositories\EventType\Criterion\NameCriterion;
+use App\Repositories\EventType\Criterion\NameSearchCriterion;
 use App\Repositories\EventType\EventTypeRepository;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +26,7 @@ final class GetEventTypeCollectionAction
         $criteria = [new OwnerCriterion(Auth::id())];
 
         if ($request->getSearchString()) {
-            $criteria[] = new NameCriterion($request->getSearchString());
+            $criteria[] = new NameSearchCriterion($request->getSearchString());
         }
 
         $paginator = $this->eventTypeRepository->paginateByCriteria(

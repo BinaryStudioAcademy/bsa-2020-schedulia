@@ -7,6 +7,7 @@ namespace App\Services\Availability;
 use App\Actions\AvailabilityService\ModificateDateTimeListRequest;
 use App\Actions\AvailabilityService\ProcessEveryDayAction;
 use App\Actions\AvailabilityService\ProcessExactDatesAction;
+use App\Actions\AvailabilityService\ProcessUnavailableDatesAction;
 use App\Actions\AvailabilityService\ProcessUnavailableTimeAction;
 use App\Contracts\AvailabilityServiceInterface;
 use App\Entity\Availability;
@@ -31,17 +32,20 @@ final class AvailabilityService implements AvailabilityServiceInterface
     private ProcessEveryDayAction $processEveryDayAction;
     private ProcessExactDatesAction $processExactDatesAction;
     private ProcessUnavailableTimeAction $processUnavailableTimeAction;
+    private ProcessUnavailableDatesAction $processUnavailableDatesAction;
     private AvailabilityRepository $availabilityRepository;
 
     public function __construct(
         ProcessEveryDayAction $processEveryDayAction,
         ProcessExactDatesAction $processExactDatesAction,
         ProcessUnavailableTimeAction $processUnavailableTimeAction,
+        ProcessUnavailableDatesAction $processUnavailableDatesAction,
         AvailabilityRepository $availabilityRepository
     ) {
         $this->processEveryDayAction = $processEveryDayAction;
         $this->processExactDatesAction = $processExactDatesAction;
         $this->processUnavailableTimeAction = $processUnavailableTimeAction;
+        $this->processUnavailableDatesAction = $processUnavailableDatesAction;
         $this->availabilityRepository = $availabilityRepository;
     }
 
@@ -98,6 +102,10 @@ final class AvailabilityService implements AvailabilityServiceInterface
 
         $dateTimeList = $this->processUnavailableTimeAction->execute(
             new ModificateDateTimeListRequest($dateTimeList, $eventType)
+        )->getModifiedTimeList();
+
+        $dateTimeList = $this->processUnavailableDatesAction->execute(
+            new ModificateDateTimeListRequest($dateTimeList)
         )->getModifiedTimeList();
 
         return $dateTimeList;
@@ -195,13 +203,13 @@ final class AvailabilityService implements AvailabilityServiceInterface
 
         $endTime = $endDateTime->toTimeString();
 
-        if ($startDateTime->gt($endDateTime->toDateTimeString())) {
+        if ($startDateTime->gt($endDateTime->toDateTimeString()) && $availability->type !== AvailabilityTypes::UNAVAILABLE) {
             throw new EndTimeBeforeStartTimeException();
         } else {
             $startDateWithDuration = new Carbon($availability->start_date);
             $startDateWithDuration->addMinutes($duration);
 
-            if ($startDateWithDuration->gt($endDateTime) && $endTime !== self::MIDNIGHT_TIME) {
+            if ($startDateWithDuration->gt($endDateTime) && $endTime !== self::MIDNIGHT_TIME && $availability->type !== AvailabilityTypes::UNAVAILABLE) {
                 throw new AvailabilityValidationException("Intervals must be at least {$duration} minutes!");
             }
         }
@@ -225,12 +233,12 @@ final class AvailabilityService implements AvailabilityServiceInterface
             if ($index > 0 && $availability->type === $availabilities[$index - 1]->type) {
                 if (
                     ($availability->start_date > $availabilities[$index - 1]->start_date
-                    &&
-                    $availability->start_date < $availabilities[$index - 1]->end_date)
+                        &&
+                        $availability->start_date < $availabilities[$index - 1]->end_date)
                     ||
                     ($availability->end_date < $availabilities[$index - 1]->end_date
-                    &&
-                    $availability->end_date > $availabilities[$index - 1]->start_date)
+                        &&
+                        $availability->end_date > $availabilities[$index - 1]->start_date)
                 ) {
                     throw new IntervalsOverlappedException();
                 }

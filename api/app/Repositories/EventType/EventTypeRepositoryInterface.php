@@ -18,4 +18,5 @@ interface EventTypeRepositoryInterface
     public function saveCustomFields(EventType $eventType, array $customFields): void;
     public function deleteCustomFields(EventType $eventType): void;
     public function findByCriteria(EloquentCriterion ...$criteria): Collection;
+    public function findOneByCriteria(EloquentCriterion ...$criteria): ?EventType;
 }

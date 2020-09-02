@@ -12,6 +12,7 @@ final class GetEventCollectionRequest
     private ?array $eventEmails;
     private ?array $eventStatus;
     private ?array $tags;
+    private ?string $searchString;
     private ?int $page;
     private ?int $perPage;
     private ?string $sort;
@@ -24,6 +25,7 @@ final class GetEventCollectionRequest
         ?array $eventEmails,
         ?array $eventStatus,
         ?array $tags,
+        ?string $searchString,
         ?int $page,
         ?int $perPage,
         ?string $sort,
@@ -35,6 +37,7 @@ final class GetEventCollectionRequest
         $this->eventEmails = $eventEmails;
         $this->eventStatus = $eventStatus;
         $this->tags = $tags;
+        $this->searchString = $searchString;
         $this->page = $page;
         $this->perPage = $perPage;
         $this->sort = $sort;
@@ -89,5 +92,10 @@ final class GetEventCollectionRequest
     public function getTags(): ?array
     {
         return $this->tags;
+    }
+
+    public function getSearchString(): ?string
+    {
+        return $this->searchString;
     }
 }

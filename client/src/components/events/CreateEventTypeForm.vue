@@ -86,6 +86,8 @@
                         :key="id"
                         :src="colorById[id].image"
                         alt=""
+                        width="44"
+                        height="44"
                         class="image-circle"
                         :class="{
                             'mr-5': $vuetify.breakpoint.xs,
@@ -246,7 +248,16 @@ export default {
             ],
             showZoomDialog: false,
             showSkypeDialog: false,
-            colors: ['yellow', 'red', 'blue', 'green'],
+            colors: [
+                'yellow',
+                'red',
+                'blue',
+                'green',
+                'purple',
+                'turquoise',
+                'pink',
+                'dark_blue'
+            ],
             nameRules: [
                 v => !!v || this.lang.PROVIDE_EVENT_NAME,
                 v =>
@@ -325,7 +336,7 @@ export default {
             this.changeSlug(val);
         },
         getSlug(value) {
-            return value.replace(/\s/g, '-');
+            return value.replace(/\s/g, '-').toLowerCase();
         },
         onCloseZoomDialog() {
             this.showZoomDialog = false;

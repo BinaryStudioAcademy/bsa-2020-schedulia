@@ -6,5 +6,14 @@ export default {
             ...state.calendars,
             calendars
         };
+    },
+    [mutations.DELETE_CALENDAR_BY_PROVIDER]: (state, providerToDelete) => {
+        const calendars = { ...state.calendars };
+
+        const result = calendars.calendars.filter(({ provider }) => {
+            return provider !== providerToDelete;
+        });
+
+        state.calendars.calendars = result;
     }
 };

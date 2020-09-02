@@ -93,12 +93,7 @@ export default {
         },
         apply() {
             let result = {};
-            result[this.data.selectDay.date] = this.dayAvailabilitiesData.map(
-                function(item) {
-                    item.type = 'exact_date';
-                    return item;
-                }
-            );
+            result[this.data.selectDay.date] = this.dayAvailabilitiesData;
             this.changeEventTypeProperty('availabilities', {
                 ...this.data.availabilities,
                 ...result
