@@ -3,7 +3,6 @@
 namespace App\Listeners;
 
 use App\Constants\EventStatus;
-use App\Events\EventCreated;
 use App\Services\Calendar\Google\GoogleCalendarEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Services\SocialAccount\Google;
@@ -19,7 +18,7 @@ class AddEventToGoogleCalendar implements ShouldQueue
 
     public function handle($eventCreated): void
     {
-        if($eventCreated->event->status === EventStatus::SCHEDULED) {
+        if ($eventCreated->event->status === EventStatus::SCHEDULED) {
             $this->googleCalendar->createEvent(
                 new GoogleCalendarEvent(
                     $eventCreated->event->id,
