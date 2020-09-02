@@ -6,13 +6,13 @@ namespace App\Http\Requests\Api\EventType;
 
 final class LocationTypes
 {
-    private const LOCATION = 'location';
-    private const ZOOM = 'zoom';
+    private const ADDRESS = 'address';
+    private const ZOOM = 'zoom';g
 
     public static function getAllLocationTypes(): array
     {
         return [
-            self::LOCATION,
+            self::ADDRESS,
             self::ZOOM
         ];
     }

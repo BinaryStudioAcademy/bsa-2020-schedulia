@@ -37,7 +37,9 @@ class EventTypeRequest extends FormRequest
                 'date_format:Y-m-d H:i:s'
             ],
             "location_type" => Rule::in(LocationTypes::getAllLocationTypes()),
-            "coordinates" => "json"
+            "coordinates" => 'array',
+            "coordinates.lng" => 'string',
+            "coordinates.lat" => 'string'
         ];
     }
 }

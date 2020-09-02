@@ -28,7 +28,7 @@ class EventType extends Model
      */
     protected $casts = [
         'disabled' => 'boolean',
-        'coordinates' => null
+        'coordinates' => 'json'
     ];
 
     /**
