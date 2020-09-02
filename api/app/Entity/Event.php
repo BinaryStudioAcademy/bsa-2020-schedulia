@@ -46,6 +46,16 @@ class Event extends Model
         return $this->calendars()->google();
     }
 
+    public function scopeScheduled($query)
+    {
+        return $query->where('status', '=', EventStatus::SCHEDULED);
+    }
+
+    public function scopeCancelled($query)
+    {
+        return $query->where('status', '=', EventStatus::CANCELLED);
+    }
+
     public function getEventTimeAccordingTimezoneAttribute(): string
     {
         $utcTime = Carbon::createFromFormat('Y-m-d H:i:s', $this->start_date, 'UTC');
