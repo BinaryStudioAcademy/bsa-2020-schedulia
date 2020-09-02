@@ -16,6 +16,7 @@ class AddSlackHookToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('slack_webhook')->nullable();
             $table->string('slack_channel')->nullable();
+            $table->boolean('slack_active')->default(false);
         });
     }
 
@@ -29,6 +30,7 @@ class AddSlackHookToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('slack_webhook');
             $table->dropColumn('slack_channel');
+            $table->dropColumn('slack_active');
         });
     }
 }
