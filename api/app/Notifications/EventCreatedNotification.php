@@ -53,7 +53,9 @@ class EventCreatedNotification extends Notification implements ShouldQueue
 
     public function toSlack($notifiable)
     {
-        return (new EventCreatedSlackToOwner($this->event))->getSlackMessage();
+        if ($this->user->slack_active) {
+            return (new EventCreatedSlackToOwner($this->event));
+        }
     }
 
     /**
