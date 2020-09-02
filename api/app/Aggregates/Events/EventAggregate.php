@@ -15,7 +15,8 @@ class EventAggregate
     private string $inviteeName;
     private string $timezone;
     private string $status;
-    private int $startDate;
+    private string $startDate;
+    private int $startDateTimestamp;
     private int $eventTypeId;
     private int $eventTypeOwnerId;
     private ?Collection $eventTypeTagsId;
@@ -27,7 +28,8 @@ class EventAggregate
         $this->inviteeName = $event->invitee_name;
         $this->timezone = $event->timezone;
         $this->status = $event->status;
-        $this->startDate = Carbon::parse($event->start_date)->timestamp;
+        $this->startDate = $event->start_date;
+        $this->startDateTimestamp = Carbon::parse($event->start_date)->timestamp;
         $this->eventTypeId = $event->event_type_id;
         $this->eventTypeOwnerId = $event->eventType->owner_id;
         $this->eventTypeTagsId = $event->eventType->tags;
@@ -46,6 +48,7 @@ class EventAggregate
             'invitee_name' => $this->inviteeName,
             'timezone' => $this->timezone,
             'status' => $this->status,
+            'start_date_timestamp' => $this->startDateTimestamp,
             'start_date' => $this->startDate,
             'event_type_id' => $this->eventTypeId,
             'event_type_owner_id' => $this->eventTypeOwnerId,
