@@ -34,7 +34,6 @@ final class GetEventTypeByIdAndOwnerNicknameAction
         $criteria = [
             new OwnerCriterion($owner->id),
             new IdCriterion($request->getEventTypeId()),
-            new ActiveCriterion(),
         ];
 
         $eventType = $this->eventTypeRepository->findOneByCriteria(...$criteria);
