@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Mail;
+namespace App\Mail\SlackMessages;
 
 use App\Entity\Event;
 use App\Entity\EventType;
@@ -28,7 +28,7 @@ class EventCreatedSlackToOwner extends SlackMessage implements ShouldQueue
         $this->owner = $event->eventType->owner;
     }
 
-    public function getSlackMessage()
+    public function getMessage()
     {
         $event = $this->event;
         $eventType = $this->event->eventType;
