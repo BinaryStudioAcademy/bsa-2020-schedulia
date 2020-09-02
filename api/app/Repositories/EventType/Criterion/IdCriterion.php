@@ -7,17 +7,17 @@ namespace App\Repositories\EventType\Criterion;
 use App\Contracts\EloquentCriterion;
 use Illuminate\Database\Eloquent\Builder;
 
-final class NameCriterion implements EloquentCriterion
+class IdCriterion implements EloquentCriterion
 {
-    private string $name;
+    private int $eventTypeId;
 
-    public function __construct(string $name)
+    public function __construct(int $eventTypeId)
     {
-        $this->name = $name;
+        $this->eventTypeId = $eventTypeId;
     }
 
     public function apply(Builder $builder): Builder
     {
-        return $builder->where('name', $this->name);
+        return $builder->where('id', $this->eventTypeId);
     }
 }

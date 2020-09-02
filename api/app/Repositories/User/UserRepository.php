@@ -70,4 +70,15 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
 
         return $query->first();
     }
+
+    public function getGoogleCalendarTokenById(int $id): ?array
+    {
+        $user = User::findOrFail($id);
+
+        if (count($user->googleAccounts)) {
+            return $user->googleAccounts[0]->token;
+        } else {
+            return null;
+        }
+    }
 }

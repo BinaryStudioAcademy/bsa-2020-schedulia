@@ -48,6 +48,7 @@ Route::group([
         Route::get('/{id}', 'EventTypeController@getEventTypeById');
         Route::put('/{id}', 'EventTypeController@update');
         Route::put('/{id}/disabled', 'EventTypeController@changeDisabledById');
+        Route::post('/{id}/clone', 'EventTypeController@cloneEventTypeById');
         Route::put('/{id}/internal-note', 'EventTypeController@updateInternalNoteById');
         Route::post('/{id}/custom-fields', 'EventTypeController@saveCustomFieldsByEventTypeId');
         Route::put('/{id}/custom-fields', 'EventTypeController@updateCustomFieldsByEventTypeId');
@@ -70,6 +71,11 @@ Route::group([
     Route::get('{id}/tags', 'TagController@getTagsByEventTypeId');
 });
 
+Route::group([
+    'prefix' => 'public'
+], function () {
+    Route::get('/users/{nickname}/event-types/{id}', 'Api\\EventTypeController@getEventTypeByIdAndNickname');
+});
 Route::get('/event-types/{id}/availabilities', 'Api\\EventTypeController@getAvailableTime');
 
 Route::group([

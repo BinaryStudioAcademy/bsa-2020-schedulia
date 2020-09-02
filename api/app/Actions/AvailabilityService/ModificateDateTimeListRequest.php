@@ -6,12 +6,12 @@ namespace App\Actions\AvailabilityService;
 
 use App\Entity\EventType;
 
-class ModificateDateTimeListRequest
+final class ModificateDateTimeListRequest
 {
     private array $dateTimeList;
-    private EventType $eventType;
+    private ?EventType $eventType;
 
-    public function __construct(array $dateTimeList, EventType $eventType)
+    public function __construct(array $dateTimeList, ?EventType $eventType = null)
     {
         $this->dateTimeList = $dateTimeList;
         $this->eventType = $eventType;
@@ -22,7 +22,7 @@ class ModificateDateTimeListRequest
         return $this->dateTimeList;
     }
 
-    public function getEventType(): EventType
+    public function getEventType(): ?EventType
     {
         return $this->eventType;
     }
