@@ -2,14 +2,13 @@
 
 namespace App\Jobs;
 
-use App\Mail\BeforeEventMailForInvitee;
-use App\Mail\EventCreatedMailToInvitee;
 use App\Notifications\NotificationBeforeEventForInvitee;
 use App\Notifications\NotificationBeforeEventForOwner;
-use App\Repositories\Event\Criterion\EndDateCriterion;
+use App\Repositories\Event\Criterion\EventsAfterDateTimeCriterion;
+use App\Repositories\Event\Criterion\EventsBeforeDateTimeCriterion;
 use App\Repositories\Event\Criterion\NotifiedCriterion;
 use App\Repositories\Event\EventRepository;
-use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -30,10 +29,11 @@ class SendNotificationBeforeEvent implements ShouldQueue
 
     public function handle(EventRepository $eventRepository)
     {
-        $now = new Carbon();
+        $now = CarbonImmutable::now();
         $tenMinutesLater = $now->addMinutes(10);
         $criteria = [
-            new EndDateCriterion($tenMinutesLater->toDateTimeString()),
+            new EventsAfterDateTimeCriterion($now->toDateTimeString()),
+            new EventsBeforeDateTimeCriterion($tenMinutesLater->toDateTimeString()),
             new NotifiedCriterion(false)
            ];
         $events = $eventRepository->findByCriteria(...$criteria);
@@ -43,7 +43,7 @@ class SendNotificationBeforeEvent implements ShouldQueue
             Notification::route('mail', $event->invitee_email)
                 ->notify(new NotificationBeforeEventForInvitee($event));
             $event->notified = true;
-            $event->save();
+            $eventRepository->save($event);
         }
     }
 }
