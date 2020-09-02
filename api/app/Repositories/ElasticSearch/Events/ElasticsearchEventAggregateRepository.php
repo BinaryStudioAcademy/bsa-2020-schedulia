@@ -11,6 +11,10 @@ final class ElasticsearchEventAggregateRepository extends BaseRepository impleme
 {
     public const INDEX_NAME = 'events';
     public const TYPE = '_doc';
+    public const DEFAULT_PAGE = 1;
+    public const DEFAULT_PER_PAGE = 8;
+    public const DEFAULT_SORT = 'start_date';
+    public const DEFAULT_DIRECTION = 'ASC';
 
     public function save(EventAggregate $eventAggregate): EventAggregate
     {
@@ -26,29 +30,30 @@ final class ElasticsearchEventAggregateRepository extends BaseRepository impleme
         return $eventAggregate;
     }
 
-    public function search()
-    {
+    public function search(
+        array $criteria,
+        int $page = self::DEFAULT_PAGE,
+        int $perPage = self::DEFAULT_PER_PAGE,
+        string $sort = self::DEFAULT_SORT,
+        string $direction = self::DEFAULT_DIRECTION
+    ) {
         return \Elasticsearch::search([
-                                          'index' => self::INDEX_NAME,
-                                          'type' => self::TYPE,
-                                          'body' => [
-                                              'query' => [
-                                                  'bool' => [
-                                                      'must' => [
-                                                          [
-                                                              'terms' => [
-                                                                  'event_type_id' => implode(array(2, 5))
-                                                              ]
-                                                          ],
-                                                          [
-                                                              'terms' => [
-                                                                  'event_type_owner_id' => 1
-                                                              ]
-                                                          ],
-                                                      ]
-                                                  ]
-                                              ],
-                                          ]
+            'index' => self::INDEX_NAME,
+            'type' => self::TYPE,
+            'size' => $perPage,
+            'from' => $perPage*($page-1),
+            'body' => [
+                'sort' => [
+                    $sort => [
+                        'order' => $direction
+                    ]
+                ],
+                'query' => [
+                    'bool' => [
+                        'must' => $criteria
+                    ]
+                ],
+            ]
         ]);
     }
 }
