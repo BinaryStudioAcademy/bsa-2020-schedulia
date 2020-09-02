@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace App\Actions\Event;
 
 use App\Actions\PaginatedResponse;
-use App\Repositories\ElasticSearch\Events\Criterion\OwnerCriterion;
+use App\Repositories\ElasticSearch\Events\Criterion\EndDateCriterion;
+use App\Repositories\ElasticSearch\Events\Criterion\EventEmailsCriterion;
+use App\Repositories\ElasticSearch\Events\Criterion\EventStatusCriterion;
+use App\Repositories\ElasticSearch\Events\Criterion\SearchStringCriterion;
+use App\Repositories\ElasticSearch\Events\Criterion\StartDateCriterion;
+use App\Repositories\ElasticSearch\Events\ElasticsearchEventAggregateRepository;
 use App\Repositories\ElasticSearch\Events\EventAggregateRepositoryInterface;
-use App\Repositories\Event\Criterion\EventEmailsCriterion;
-use App\Repositories\Event\Criterion\EventStatusCriterion;
+use App\Repositories\ElasticSearch\Events\Criterion\OwnerCriterion;
 use App\Repositories\ElasticSearch\Events\Criterion\EventTypesCriterion;
-use App\Repositories\Event\Criterion\SearchStringCriterion;
-use App\Repositories\Event\EventRepository;
-use App\Repositories\Event\EventRepositoryInterface;
-use App\Repositories\Event\Criterion\StartDateCriterion;
-use App\Repositories\Event\Criterion\EndDateCriterion;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,52 +28,44 @@ final class GetEventCollectionAction
 
     public function execute(GetEventCollectionRequest $request)
     {
-//        $criteria[] = [new OwnerCriterion(Auth::id())];
-//
-//        if ($request->getEventTypes()) {
-//            $criteria[] = new EventTypesCriterion($request->getEventTypes());
-//        }
+        $criteria = [OwnerCriterion::getCriteria(Auth::id())];
 
-       return $this->repository->search();
+        if ($request->getEventTypes()) {
+            $criteria[] = EventTypesCriterion::getCriteria($request->getEventTypes());
+        }
 
-//        $criteria = [new OwnerCriterion(Auth::id())];
-//
-//        if ($request->getStartDate()) {
-//            $startDate = Carbon::parse($request->getStartDate())->format('Y-m-d H:m');
-//
-//            $criteria[] = new StartDateCriterion($startDate);
-//        }
-//
-//        if ($request->getEndDate()) {
-//            $endDate = Carbon::parse($request->getEndDate())->format('Y-m-d H:m');
-//
-//            $criteria[] = new EndDateCriterion($endDate);
-//        }
-//
-//        if ($request->getEventTypes()) {
-//            $criteria[] = new EventTypesCriterion($request->getEventTypes());
-//        }
-//
-//        if ($request->getEventEmails()) {
-//            $criteria[] = new EventEmailsCriterion($request->getEventEmails());
-//        }
-//
-//        if ($request->getEventStatus()) {
-//            $criteria[] = new EventStatusCriterion($request->getEventStatus());
-//        }
-//
-//        if ($request->getSearchString()) {
-//            $criteria[] = new SearchStringCriterion($request->getSearchString());
-//        }
-//
-//        return new PaginatedResponse(
-//            $this->repository->paginate(
-//                $criteria,
-//                $request->getPage() ?: EventRepository::DEFAULT_PAGE,
-//                $request->getPerPage() ?: EventRepository::DEFAULT_PER_PAGE,
-//                $request->getSort() ?: EventRepository::DEFAULT_SORT,
-//                $request->getDirection() ?: EventRepository::DEFAULT_DIRECTION,
-//            )
-//        );
+        if ($request->getEventEmails()) {
+            $criteria[] = EventEmailsCriterion::getCriteria($request->getEventEmails());
+        }
+
+        if ($request->getEventStatus()) {
+            $criteria[] = EventStatusCriterion::getCriteria($request->getEventStatus());
+        }
+
+        if ($request->getStartDate()) {
+            $startDate = Carbon::parse($request->getStartDate())->timestamp;
+
+            $criteria[] = StartDateCriterion::getCriteria($startDate);
+        }
+
+        if ($request->getEndDate()) {
+            $endDate = Carbon::parse($request->getEndDate())->timestamp;
+
+            $criteria[] = EndDateCriterion::getCriteria($endDate);
+        }
+
+        if ($request->getSearchString()) {
+            $criteria[] = SearchStringCriterion::getCriteria($request->getSearchString());
+        }
+
+        return new PaginatedResponse(
+            $this->repository->search(
+                $criteria,
+                $request->getPage() ?: ElasticsearchEventAggregateRepository::DEFAULT_PAGE,
+                $request->getPerPage() ?: ElasticsearchEventAggregateRepository::DEFAULT_PER_PAGE,
+                $request->getSort() ?: ElasticsearchEventAggregateRepository::DEFAULT_SORT,
+                $request->getDirection() ?: ElasticsearchEventAggregateRepository::DEFAULT_DIRECTION,
+            )
+        );
     }
 }
