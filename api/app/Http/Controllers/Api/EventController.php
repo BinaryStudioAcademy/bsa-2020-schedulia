@@ -50,7 +50,7 @@ class EventController extends ApiController
 
     public function index(Request $request)
     {
-        $response = $this->getEventCollectionAction->execute(
+        return $response = $this->getEventCollectionAction->execute(
             new GetEventCollectionRequest(
                 $request->query('start_date'),
                 $request->query('end_date'),
@@ -66,10 +66,10 @@ class EventController extends ApiController
             )
         );
 
-        return $this->createPaginatedResponse(
-            $response->getPaginator(),
-            $this->presenter
-        );
+//        return $this->createPaginatedResponse(
+//            $response->getPaginator(),
+//            $this->presenter
+//        );
     }
 
     public function getEventsEmails(
