@@ -18,8 +18,7 @@ class DeleteEventFromGoogleCalendar implements ShouldQueue
 
     public function handle(EventDeleted $eventDeleted): void
     {
-        if (count($eventDeleted->event['google_calendar_event']))
-        {
+        if (count($eventDeleted->event['google_calendar_event'])) {
             $this->googleCalendar->deleteEvent(new GoogleCalendarDeleteEvent(
                 $eventDeleted->event['id'],
                 $eventDeleted->event['event_type']['owner']['id'],
