@@ -16,7 +16,7 @@ final class UpdateEventTypeRequest
     private bool $disabled;
     private array $availabilities;
     private string $locationType;
-    private ?string $coordinates;
+    private ?array $coordinates;
 
     public function __construct(
         int $id,
@@ -29,7 +29,7 @@ final class UpdateEventTypeRequest
         bool $disabled,
         array $availabilities,
         string $locationType,
-        ?string $coordinates
+        ?array $coordinates
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -94,7 +94,7 @@ final class UpdateEventTypeRequest
         return $this->locationType;
     }
 
-    public function getCoordinates(): ?string
+    public function getCoordinates(): ?array
     {
         return $this->coordinates;
     }
