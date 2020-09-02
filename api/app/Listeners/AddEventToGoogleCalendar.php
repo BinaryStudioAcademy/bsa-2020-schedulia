@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Constants\EventStatus;
 use App\Events\EventCreated;
 use App\Services\Calendar\Google\GoogleCalendarEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -18,18 +19,20 @@ class AddEventToGoogleCalendar implements ShouldQueue
 
     public function handle($eventCreated): void
     {
-        $this->googleCalendar->createEvent(
-            new GoogleCalendarEvent(
-                $eventCreated->event->id,
-                $eventCreated->event->eventType->owner_id,
-                $eventCreated->event->eventType->name,
-                $eventCreated->event->start_date,
-                $eventCreated->event->eventType->duration,
-                $eventCreated->event->eventType->description,
-                $eventCreated->event->eventType->color,
-                $eventCreated->event->invitee_email,
-                $eventCreated->event->location
-            )
-        );
+        if($eventCreated->event->status === EventStatus::SCHEDULED) {
+            $this->googleCalendar->createEvent(
+                new GoogleCalendarEvent(
+                    $eventCreated->event->id,
+                    $eventCreated->event->eventType->owner_id,
+                    $eventCreated->event->eventType->name,
+                    $eventCreated->event->start_date,
+                    $eventCreated->event->eventType->duration,
+                    $eventCreated->event->eventType->description,
+                    $eventCreated->event->eventType->color,
+                    $eventCreated->event->invitee_email,
+                    $eventCreated->event->location
+                )
+            );
+        }
     }
 }
