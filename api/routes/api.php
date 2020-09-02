@@ -128,5 +128,5 @@ Route::get('/social-accounts/{provider?}/oauthResponse', 'Api\\SocialAccountCont
 Route::group([
     'namespace' => 'Api\\',
 ], function () {
-    Route::get('/users/{nickname}', 'RoutersTester@checkNickname');
+    Route::get('/users/{nickname}', 'UserController@checkNickname');
 });

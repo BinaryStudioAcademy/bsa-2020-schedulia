@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\RoutersTester\CheckNicknameAction;
+use App\Actions\RoutersTester\CheckNicknameRequest;
 use App\Actions\User\UpdateUserPasswordAction;
 use App\Actions\User\DeleteUserAction;
 use App\Actions\User\DeleteUserRequest;
@@ -70,4 +72,14 @@ class UserController extends ApiController
 
         return $this->emptyResponse();
     }
+
+    public function checkNickname(
+        string $nickname,
+        CheckNicknameAction $action
+    ) {
+        $action->execute(new CheckNicknameRequest($nickname));
+        return $this->emptyResponse();
+    }
+
+
 }

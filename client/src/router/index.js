@@ -5,7 +5,7 @@ import qs from 'qs';
 import UserDataProvider from '@/components/guard/UserDataProvider';
 import LoginGuard from '@/components/guard/LoginGuard';
 import AuthGuard from '@/components/guard/AuthGuard';
-import RoutersTesterGuard from '../components/guard/RoutersTesterGuard';
+import RoutersTesterGuard from '@/components/guard/UseExistGuard';
 
 Vue.use(VueRouter);
 

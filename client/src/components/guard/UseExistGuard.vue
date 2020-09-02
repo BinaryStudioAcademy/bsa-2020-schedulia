@@ -6,15 +6,15 @@
 import routersTesterService from '../../services/routersTester/routersTesterService';
 
 export default {
-    name: 'RoutersTesterGuard',
+    name: 'UseExistGuard',
 
     async beforeRouteEnter(to, from, next) {
         try {
             await routersTesterService.checkNickname(to.params.nickname);
+            next();
         } catch (e) {
             next({ name: 'Error404' });
         }
-        next();
     }
 };
 </script>
