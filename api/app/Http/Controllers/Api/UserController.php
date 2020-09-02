@@ -80,6 +80,4 @@ class UserController extends ApiController
         $action->execute(new CheckNicknameRequest($nickname));
         return $this->emptyResponse();
     }
-
-
 }
