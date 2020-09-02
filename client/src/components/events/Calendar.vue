@@ -81,20 +81,22 @@
                     <template v-slot:day="data">
                         <div
                             :class="[
-                                availability.type === 'exact_date'
-                                    ? 'custom-availability'
-                                    : 'default-availability'
+                                availability.type === 'date_range'
+                                    ? 'default-availability'
+                                    : 'custom-availability'
                             ]"
                             v-for="(availability,
                             index) in getDayAvailabilities(data)"
                             :key="index"
                         >
-                            <div v-if="index < 2">
-                                {{ availability.startTime }} -
-                                {{ availability.endTime }}
-                            </div>
-                            <div class="more-availability" v-else>
-                                + {{ index - 1 }} {{ lang.MORE }}...
+                            <div v-if="availability.type !== 'unavailable'">
+                                <div v-if="index < 2">
+                                    {{ availability.startTime }} -
+                                    {{ availability.endTime }}
+                                </div>
+                                <div class="more-availability" v-else>
+                                    + {{ index - 1 }} {{ lang.MORE }}...
+                                </div>
                             </div>
                         </div>
                     </template>
@@ -136,7 +138,7 @@ export default {
             this.$refs.calendar.next();
         },
         viewEventDialog(data) {
-            let dayAvailabilities = this.getDayAvailabilities(data);
+            let dayAvailabilities = this.getDayAvailabilities(data, true);
             if (dayAvailabilities.length > 0) {
                 this.changeEventTypeProperty('selectDay', data);
                 this.setPropertyData('dayAvailabilities', dayAvailabilities);
@@ -171,15 +173,12 @@ export default {
                     ...this.data.dateRange,
                     ...{
                         startDate:
-                            this.data.dateRange.startDate +
+                            day.date +
                             ' ' +
                             this.data.dateRange.startTime +
                             ':00',
                         endDate:
-                            this.data.dateRange.endDate +
-                            ' ' +
-                            this.data.dateRange.endTime +
-                            ':00'
+                            day.date + ' ' + this.data.dateRange.endTime + ':00'
                     }
                 };
 
