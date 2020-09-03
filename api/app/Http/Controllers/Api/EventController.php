@@ -61,7 +61,7 @@ class EventController extends ApiController
                 $request->query('searchString'),
                 (int)$request->query('page'),
                 (int)$request->query('per_page'),
-                null,
+                $request->query('sort'),
                 $request->query('direction')
             )
         );
