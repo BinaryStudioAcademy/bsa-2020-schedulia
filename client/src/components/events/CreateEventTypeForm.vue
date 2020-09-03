@@ -15,13 +15,14 @@
         </VTextField>
 
         <div class="mb-2">
-            <label>{{ lang.LOCATION_LABEL }}</label>
+            <label>{{ lang.LOCATION_LABEL }}*</label>
         </div>
 
         <div class="mb-3">
             <VSelect
                 :value="data.locationType"
                 :items="items"
+                :rules="locationRules"
                 @change="changeEventTypeProperty('locationType', $event)"
                 outlined
                 :clearable="true"
@@ -43,7 +44,7 @@
                     <VFlex>{{ data.item.title }}</VFlex>
                 </template>
             </VSelect>
-            <FindLocationForm v-if="showGeocoder" />
+            <FindLocationForm class="find-location-form" v-if="showGeocoder" />
         </div>
 
         <div class="mb-2">
@@ -166,7 +167,7 @@
             <div class="set-location-container">
                 <h3 class="mb-4">{{ lang.SET_MEETING_LOCATION }}</h3>
                 <VTextField
-                    :value="form.location"
+                    :value="data.location"
                     @change="changeEventTypeProperty('location', $event)"
                     :placeholder="lang.ZOOM_CONFERENCE_LINK"
                     outlined
@@ -185,7 +186,7 @@
             <div class="set-location-container">
                 <h3 class="mb-4">{{ lang.SET_MEETING_LOCATION }}</h3>
                 <VTextField
-                    :value="form.location"
+                    :value="data.location"
                     @change="changeEventTypeProperty('location', $event)"
                     :placeholder="lang.SKYPE_CALL_DETAILS"
                     outlined
@@ -224,24 +225,19 @@ export default {
     data() {
         return {
             cancelDialog: false,
-            form: {
-                name: '',
-                location: '',
-                locationType: '',
-                description: '',
-                slug: '',
-                color: 'yellow'
-            },
             items: [
                 {
+                    key: 'address',
                     title: 'address on the map',
                     icon: 'mdi-google-maps'
                 },
                 {
+                    key: 'zoom',
                     title: 'zoom',
                     icon: 'mdi-video-box'
                 },
                 {
+                    key: 'skype',
                     title: 'skype',
                     icon: 'mdi-skype'
                 }
@@ -309,7 +305,8 @@ export default {
                             'value',
                             1000
                         )
-            ]
+            ],
+            locationRules: [v => !!v || this.lang.SELECT_LOCATION]
         };
     },
     computed: {
@@ -327,13 +324,6 @@ export default {
                     this.$router.push({ name: 'newEventTypeEdit' });
                 }
             }
-        },
-        setColor(id) {
-            this.form.color = this.colorById[id].id;
-        },
-        changeName(val) {
-            this.form.name = val;
-            this.changeSlug(val);
         },
         getSlug(value) {
             return value.replace(/\s/g, '-').toLowerCase();
@@ -378,5 +368,9 @@ export default {
     width: 350px;
     min-width: 250px;
     height: 250px;
+}
+
+.find-location-form {
+    max-width: 507px;
 }
 </style>
