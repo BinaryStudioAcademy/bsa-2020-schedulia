@@ -139,3 +139,12 @@ Route::group([
 ], function () {
     Route::get('/users/{nickname}', 'UserController@checkNickname');
 });
+
+Route::group([
+    'middleware' => 'auth:api',
+    'namespace' => 'Api\\'
+], function () {
+    Route::post('/slack-notifications', 'SlackController@addSlackNotifications');
+    Route::delete('/slack-notifications', 'SlackController@deleteSlackNotifications');
+    Route::put('/slack-notifications', 'SlackController@changeActivitySlackNotifications');
+});
