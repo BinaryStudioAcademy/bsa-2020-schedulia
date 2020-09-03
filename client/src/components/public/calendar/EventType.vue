@@ -130,10 +130,15 @@ export default {
         AutoFillSpacer
     },
     async mounted() {
-        await this.getEventTypeById({
+        const eventType = await this.getEventTypeByIdAndNickname({
             id: this.$route.params.id,
             nickname: this.$route.params.owner
         });
+        eventType &&
+            eventType.disabled &&
+            this.$router.push({
+                name: 'DisabledEvent'
+            });
         this.currentTimezoneTime = this.getFormattedTimezoneTime(
             this.currentTimezone
         );
@@ -303,7 +308,8 @@ export default {
     },
     methods: {
         ...mapActions('publicEvent', {
-            getEventTypeById: actions.GET_EVENT_TYPE_BY_ID,
+            getEventTypeByIdAndNickname:
+                actions.GET_EVENT_TYPE_BY_ID_AND_NICKNAME,
             setPublicEvent: actions.SET_PUBLIC_EVENT
         }),
         getStartDate(time) {
