@@ -42,6 +42,8 @@ final class EventTypePresenter implements PresenterCollectionInterface
             'availabilities' => $eventType->availabilities()->get()->map(function ($availability) {
                 return $this->availabilityPresenter->present($availability);
             }),
+            'location_type' => $eventType->location_type,
+            'coordinates' => $eventType->coordinates
         ];
     }
 }
