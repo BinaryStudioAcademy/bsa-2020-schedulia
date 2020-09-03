@@ -13,10 +13,10 @@
         </template>
         <VCard>
             <VCardTitle>
-                <span class="headline">Connect Slack</span>
+                <span class="headline">{{ lang.CONNECT_SLACK }}</span>
             </VCardTitle>
             <VCardText>
-                <span class="subtitle-2">Incoming Webhook</span>
+                <span class="subtitle-2">{{ lang.INCOMING_WEBHOOK }}</span>
                 <VListItem>
                     <VListItemContent>
                         <VListItemTitle
@@ -25,9 +25,9 @@
                                 href="https://slack.com/apps/A0F7XDUAZ-incoming-webhooks"
                                 target="_blank"
                             >
-                                Incoming Webhook
+                                {{ lang.INCOMING_WEBHOOK }}
                             </a>
-                            to your <b>Slack</b> workspace.</VListItemTitle
+                            {{ lang.TO_YOUR }} <b>Slack</b> {{ lang.WORKSPACE }}.</VListItemTitle
                         >
                     </VListItemContent>
                 </VListItem>
@@ -35,15 +35,15 @@
                 <VListItem>
                     <VListItemContent>
                         <VListItemTitle
-                            >Past <b>Incoming Webhook</b> in the
-                            field:</VListItemTitle
+                            >{{ lang.PAST }} <b>{{ lang.INCOMING_WEBHOOK }}</b>
+                            {{ lang.IN_THE_FIELD }}:</VListItemTitle
                         >
                     </VListItemContent>
                 </VListItem>
                 <VTextField dense solo outlined v-model="slackData.webhook">
                 </VTextField>
 
-                <span class="subtitle-2">Channel name</span>
+                <span class="subtitle-2">{{ lang.CHANNEL_NAME }}/span>
                 <VTextField
                     dense
                     solo
@@ -56,16 +56,16 @@
             <VCardActions>
                 <VSpacer></VSpacer>
                 <VBtn color="blue darken-1" text @click="dialog = false"
-                    >Close</VBtn
+                    >{{ lang.CLOSE }}</VBtn
                 >
                 <VBtn color="green" @click="onConnect" v-if="!slackIsActive"
-                    >Connect</VBtn
+                    >{{ lang.CONNECT }}</VBtn
                 >
                 <VBtn
                     color="orange"
                     @click="onConnect"
                     v-else-if="slackIsActive && slackData.webhook"
-                    >Update</VBtn
+                    >{{ lang.UPDATE }}</VBtn
                 >
             </VCardActions>
         </VCard>
@@ -76,6 +76,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import * as getters from '@/store/modules/auth/types/getters';
 import * as actions from '@/store/modules/auth/types/actions';
+import * as langGetters from '@/store/modules/i18n/types/getters';
 
 export default {
     name: 'SlackModalIntegration',
@@ -107,6 +108,9 @@ export default {
     computed: {
         ...mapGetters('auth', {
             user: getters.GET_LOGGED_USER
+        }),
+        ...mapGetters('i18n', {
+            lang: langGetters.GET_LANGUAGE_CONSTANTS
         })
     }
 };

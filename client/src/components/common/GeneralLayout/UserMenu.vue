@@ -58,7 +58,7 @@
                         class="user-menu__link"
                     >
                         <VIcon>mdi-clock</VIcon>
-                        Notifications Connections
+                        {{ lang.NOTIFICATION_CONNECTIONS }}
                     </RouterLink>
                 </VListItemTitle>
             </VListItem>
