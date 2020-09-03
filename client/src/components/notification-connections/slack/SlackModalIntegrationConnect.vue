@@ -73,23 +73,12 @@
 </template>
 
 <script>
-// import { required } from 'vuelidate/lib/validators';
-import { validationMixin } from 'vuelidate';
 import { mapGetters, mapActions } from 'vuex';
 import * as getters from '@/store/modules/auth/types/getters';
 import * as actions from '@/store/modules/auth/types/actions';
 
 export default {
     name: 'SlackModalIntegration',
-    mixins: [validationMixin],
-    // validations: {
-    //     incomingWebhook: {
-    //         required
-    //     },
-    //     channelName: {
-    //         required
-    //     }
-    // },
     data: () => ({
         dialog: false,
         slackData: {
