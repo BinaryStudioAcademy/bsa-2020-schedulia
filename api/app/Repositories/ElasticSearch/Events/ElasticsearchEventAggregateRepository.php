@@ -38,7 +38,7 @@ final class ElasticsearchEventAggregateRepository extends BaseRepository impleme
         int $perPage = self::DEFAULT_PER_PAGE,
         string $sort = self::DEFAULT_SORT,
         string $direction = self::DEFAULT_DIRECTION
-    ):LengthAwarePaginator {
+    ): LengthAwarePaginator {
         $response = \Elasticsearch::search([
             'index' => self::INDEX_NAME,
             'type' => self::TYPE,

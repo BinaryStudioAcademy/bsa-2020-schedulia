@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\DataTransformer\Events;
@@ -14,5 +15,5 @@ abstract class ParameterFlowCollection
         $this->collection = $collection;
     }
 
-    abstract public function getCollection():Collection;
+    abstract public function getCollection(): Collection;
 }

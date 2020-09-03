@@ -13,7 +13,7 @@ final class SearchStringCriterion implements ElasticSearchCriterion
         return [
             'query_string' => [
                 'fields' => ['invitee_name^2','event_type_tags'],
-                'query' => '*'.$searchString.'*',
+                'query' => '*' . $searchString . '*',
             ]
         ];
     }
