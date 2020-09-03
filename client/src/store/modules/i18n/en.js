@@ -419,5 +419,6 @@ export default {
     PLEASE_MAKE_SURE_THAT_YOU_TYPED_IN_THE_URL_CORRECTLY:
         " Please make sure that you've typed in the URL correctly",
     PLEASE_RETYPE_ADDRESS_OR_RETURN_TO: 'Please retype address or return to',
-    MAIN_PAGE: ' main page'
+    MAIN_PAGE: ' main page',
+    SELECT_LOCATION: 'Please select location'
 };

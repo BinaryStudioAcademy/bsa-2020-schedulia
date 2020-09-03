@@ -331,5 +331,6 @@ export default {
         ' Переконайтесь, що ви правильно ввели URL-адресу',
     PLEASE_RETYPE_ADDRESS_OR_RETURN_TO:
         'Будь ласка, введіть адресу або поверніться на',
-    MAIN_PAGE: ' головну сторінку'
+    MAIN_PAGE: ' головну сторінку',
+    SELECT_LOCATION: 'Виберіть локацію'
 };
