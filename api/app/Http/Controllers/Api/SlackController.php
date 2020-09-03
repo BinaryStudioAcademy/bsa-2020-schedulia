@@ -37,7 +37,7 @@ class SlackController extends ApiController
         SlackChangeActivityRequest $request,
         ChangeActivitySlackNotificationsAction $action
     ): JsonResponse {
-        $action->execute(new ChangeActivitySlackNotificationsRequest($request->slack_active));
+        $action->execute(new ChangeActivitySlackNotificationsRequest((bool)$request->slack_active));
         return $this->emptyResponse();
     }
 }
