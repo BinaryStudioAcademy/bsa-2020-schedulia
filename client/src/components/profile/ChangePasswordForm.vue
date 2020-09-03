@@ -241,4 +241,11 @@ export default {
     font-size: 13px;
     line-height: 16px;
 }
+
+.v-text-field.error--text::v-deep .v-input__slot {
+    background-color: var(--v-validationError-base);
+}
+.v-text-field.error--text::v-deep .v-text-field__slot input {
+    color: var(--v-error-darken1);
+}
 </style>
