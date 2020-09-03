@@ -210,6 +210,12 @@ export default {
     LOCKED: 'Locked',
     EDIT_AVAILABILITY: 'Edit Availability',
     APPLY: 'Apply',
+    APPLY_ONLY: 'Apply to _ only',
+    APPLY_TO_ALL: 'Apply to all ',
+    OR_APPLY_MULTIPLE: 'Or apply to multiple...',
+    APPLY_MULTIPLE: 'Apply to multiple...',
+    REPEATING_DAYS: 'repeating days of the week',
+    SPECIFIC_DATES: 'specific dates',
     EVENT_TIME_ZONE_EXPLANATION:
         'You are viewing times in Eastern\n' +
         '                                            European Time. Your invitees will\n' +
@@ -404,6 +410,7 @@ export default {
     PUBLIC_LINK_WAS_COPIED: 'Public Link was copied!',
     TAGS: 'Tags',
     ALL_TAGS: 'All Tags',
+    I_AM_UNAVAILABLE: "I'm unavailable",
     ERROR_404: 'Error 404',
     THE_PAGE_YOU_ARE_LOOKING_FOR_COULD_NOT_BE_FOUND:
         'The page you are looking for could not be found',
