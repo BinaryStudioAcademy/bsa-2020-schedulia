@@ -60,6 +60,8 @@ export default {
         },
 
         dateRangeRoutePush() {
+            this.closeMenu();
+
             this.$router.push({
                 name: 'DateRange',
                 query: {
