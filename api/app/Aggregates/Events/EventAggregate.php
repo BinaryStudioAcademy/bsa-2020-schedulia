@@ -11,15 +11,15 @@ class EventAggregate
 {
     private int $id;
     private string $inviteeEmail;
-    private string $startDate;
-    private int $eventType;
+    private Carbon $startDate;
+    private string $eventType;
 
     public function __construct(Event $event)
     {
         $this->id = $event->id;
         $this->inviteeEmail = $event->invitee_email;
         $this->startDate = $event->start_date;
-        $this->eventType = $event->eventType;
+        $this->eventType = $event->event_type_id;
     }
 
     public function getId(): int
