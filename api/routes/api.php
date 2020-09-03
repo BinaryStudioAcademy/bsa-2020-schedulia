@@ -88,6 +88,15 @@ Route::group([
 });
 
 Route::group([
+    'middleware' => 'auth:api',
+    'namespace' => 'Api\\',
+    'prefix' => '/events',
+], function () {
+    Route::patch('/{id}', 'EventController@update');
+    Route::put('/{id}', 'EventController@update');
+});
+
+Route::group([
     'namespace' => 'Api\\',
     'prefix' => '/tags'
 ], function () {
@@ -124,3 +133,9 @@ Route::group([
 
 Route::get('/social-accounts/{provider?}/oauth', 'Api\\SocialAccountController@oauth');
 Route::get('/social-accounts/{provider?}/oauthResponse', 'Api\\SocialAccountController@oauthResponse');
+
+Route::group([
+    'namespace' => 'Api\\',
+], function () {
+    Route::get('/users/{nickname}', 'UserController@checkNickname');
+});

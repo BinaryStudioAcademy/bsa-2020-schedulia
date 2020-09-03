@@ -16,7 +16,9 @@ class EventRequest extends ApiFormRequest
             'event_type_id' => 'required|integer|exists:event_types,id',
             'custom_field_values' => 'array',
             'custom_field_values.*.custom_field_id' => 'required',
-            'custom_field_values.*.value' => 'required|string'
+            'custom_field_values.*.value' => 'required|string',
+            'status' => 'string|nullable',
+            'location' => 'string|nullable'
         ];
     }
 }

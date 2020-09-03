@@ -7,6 +7,8 @@ use App\Repositories\Availability\AvailabilityRepository;
 use App\Repositories\Availability\AvailabilityRepositoryInterface;
 use App\Repositories\ElasticSearch\Events\ElasticsearchEventAggregateRepository;
 use App\Repositories\ElasticSearch\Events\EventAggregateRepositoryInterface;
+use App\Repositories\EventCalendar\EventCalendarRepository;
+use App\Repositories\EventCalendar\EventCalendarRepositoryInterface;
 use App\Repositories\EventType\EventTypeRepository;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
 use App\Repositories\SocialAccount\SocialAccountRepository;
@@ -30,7 +32,8 @@ class AppServiceProvider extends ServiceProvider
         UserRepositoryInterface::class => UserRepository::class,
         SocialAccountRepositoryInterface::class => SocialAccountRepository::class,
         EventAggregateRepositoryInterface::class => ElasticsearchEventAggregateRepository::class,
-        TagRepositoryInterface::class => TagRepository::class
+        TagRepositoryInterface::class => TagRepository::class,
+        EventCalendarRepositoryInterface::class => EventCalendarRepository::class
     ];
 
     /**

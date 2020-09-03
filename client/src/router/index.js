@@ -5,6 +5,7 @@ import qs from 'qs';
 import UserDataProvider from '@/components/guard/UserDataProvider';
 import LoginGuard from '@/components/guard/LoginGuard';
 import AuthGuard from '@/components/guard/AuthGuard';
+import RoutersTesterGuard from '@/components/guard/UseExistGuard';
 
 Vue.use(VueRouter);
 
@@ -13,6 +14,12 @@ const routes = [
         path: '/',
         component: UserDataProvider,
         children: [
+            {
+                path: 'error404',
+                name: 'Error404',
+                component: () => import('../views/Error404')
+            },
+
             {
                 path: '',
                 component: AuthGuard,
@@ -125,23 +132,36 @@ const routes = [
             },
             {
                 path: ':nickname',
-                name: 'UserEventTypes',
-                component: () => import('../views/UserEventTypesList.vue')
+                component: RoutersTesterGuard,
+                children: [
+                    {
+                        path: '',
+                        name: 'UserEventTypes',
+                        component: () =>
+                            import('../views/UserEventTypesList.vue')
+                    },
+                    {
+                        path: ':id',
+                        name: 'PublicEvent',
+                        component: () => import('../views/PublicEvent.vue')
+                    },
+                    {
+                        path: ':id/:date',
+                        name: 'PublicEventConfirm',
+                        component: () =>
+                            import('../views/PublicEventConfirm.vue')
+                    },
+                    {
+                        path: ':id/invitee/details',
+                        name: 'PublicEventDetails',
+                        component: () =>
+                            import('../views/PublicEventDetails.vue')
+                    }
+                ]
             },
             {
-                path: ':owner/:id',
-                name: 'PublicEvent',
-                component: () => import('../views/PublicEvent.vue')
-            },
-            {
-                path: ':owner/:id/:date',
-                name: 'PublicEventConfirm',
-                component: () => import('../views/PublicEventConfirm.vue')
-            },
-            {
-                path: ':owner/:id/invitee/details',
-                name: 'PublicEventDetails',
-                component: () => import('../views/PublicEventDetails.vue')
+                path: '*',
+                redirect: { name: 'Error404' }
             }
         ]
     }

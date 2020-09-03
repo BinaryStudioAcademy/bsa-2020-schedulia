@@ -6,7 +6,6 @@ namespace App\Actions\Event;
 
 use App\Entity\Event;
 use App\Events\EventCreated;
-use App\Repositories\Event\EventRepository;
 use App\Repositories\Event\EventRepositoryInterface;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
 use App\Services\Availability\AvailabilityService;
@@ -18,7 +17,7 @@ final class AddEventAction
     private AvailabilityService $availabilityService;
 
     public function __construct(
-        EventRepository $eventRepository,
+        EventRepositoryInterface $eventRepository,
         EventTypeRepositoryInterface $eventTypeRepository,
         AvailabilityService $availabilityService
     ) {
