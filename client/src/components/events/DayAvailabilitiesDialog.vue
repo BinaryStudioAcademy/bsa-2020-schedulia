@@ -236,13 +236,14 @@ export default {
             this.dates.push(this.data.selectDay.date);
         },
         applyMultiple() {
+            debugger;
             if (this.radio === 'repeat-days') {
                 let params = {
                     ...this.data.availabilities_week_days
                 };
 
-                for (let weekDay in this.selectedWeekDays) {
-                    weekDay = weekDay.toLowerCase();
+                for (let index in this.selectedWeekDays) {
+                    let weekDay =  this.selectedWeekDays[index].toLowerCase();
                     params[weekDay] = this.dayAvailabilitiesData.map(function(
                         availability
                     ) {
@@ -256,8 +257,8 @@ export default {
                 this.cancel();
             } else {
                 let result = {};
-                for (let date in this.dates) {
-                    result[date] = this.dayAvailabilitiesData;
+                for (let index in this.dates) {
+                    result[this.dates[index]] = this.dayAvailabilitiesData;
                 }
                 this.changeEventTypeProperty('availabilities', {
                     ...this.data.availabilities,
