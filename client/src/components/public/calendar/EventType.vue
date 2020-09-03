@@ -48,9 +48,9 @@
                     <template v-slot:prepend-item>
                         <VListItem>
                             <VListItemContent>
-                                <VListItemTitle>{{
-                                    lang.CHOOSE_YOUR_TIMEZONE
-                                }}</VListItemTitle>
+                                <VListItemTitle>
+                                    {{ lang.CHOOSE_YOUR_TIMEZONE }}
+                                </VListItemTitle>
                                 <VTextField
                                     v-model="timezoneFieldSearch"
                                     label="Enter timezone"
@@ -60,10 +60,6 @@
                         <VDivider></VDivider>
                     </template>
                 </VSelect>
-                {{ currentTimezoneAvailabilities }}
-                <br />
-                <br />
-                {{ normalizedRemainderTimes }}
             </div>
         </VCol>
 
@@ -138,7 +134,7 @@ export default {
             id: this.$route.params.id,
             nickname: this.$route.params.nickname
         });
-        console.log('eventType', eventType);
+
         eventType &&
             eventType.disabled &&
             this.$router.push({
@@ -474,20 +470,10 @@ export default {
             return moment(this.date).format('dddd, MMMM D');
         },
         availableTimesRange() {
-            /* const getCurrentDate = d => {
-        return moment(d).format();
-      }; */
-
-            // const currentDate = getCurrentDate(this.date);
-
             let availableTimes = [];
             let i = 0;
             for (let availability of this.normalizedRemainderTimes) {
-                if (
-                    availability.startDate.includes(this.date)
-                    /* currentDate >= currentShortStartDate &&
-          currentDate <= currentShortEndDate */
-                ) {
+                if (availability.startDate.includes(this.date)) {
                     availableTimes.push({
                         startTime: moment(availability.startDate).format(
                             'HH:mm'
@@ -568,25 +554,6 @@ export default {
                 }/${this.getStartDate(time)}`
             });
         },
-        /* appropriateTimes(times, initialStart, end) {
-            if (
-                this.currentTimezoneAvailabilities.some(date =>
-                    date.startDate.includes(this.date)
-                )
-            ) {
-                return times.filter(
-                    time => +time.split(':')[0] * 60 >= initialStart
-                );
-            } else if (
-                this.currentTimezoneAvailabilities.some(date =>
-                    date.endDate.includes(this.date)
-                )
-            ) {
-                return times.filter(time => +time.split(':')[0] * 60 < end);
-            } else {
-                return times;
-            }
-        }, */
         getFormattedTimezoneTime(timezone) {
             return (
                 timezone +
