@@ -70,8 +70,7 @@ export default {
 
     YOU_DONT_HAVE_ANY_CONNECTED_CALENDARS:
         "You don't have any connected calendars yet",
-    YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD:
-        'You log in with an email address and password',
+    YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS: 'You log in with an email address:',
 
     WELCOME_MESSAGE: 'Welcome message',
 
@@ -421,5 +420,6 @@ export default {
     PLEASE_RETYPE_ADDRESS_OR_RETURN_TO: 'Please retype address or return to',
     MAIN_PAGE: ' main page',
     SELECT_LOCATION: 'Please select location',
-    CONFIRM_NEW_PASSWORD: 'Confirm new password'
+    CONFIRM_NEW_PASSWORD: 'Confirm new password',
+    PASSWORD_WAS_SUCCESSFULLY_CHANGED: 'Password was successfully changed'
 };

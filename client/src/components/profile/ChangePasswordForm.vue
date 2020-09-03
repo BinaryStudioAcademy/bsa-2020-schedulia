@@ -78,7 +78,7 @@
                     <VBtn
                         color="primary"
                         :disabled="!validateForm"
-                        @click="update"
+                        @click="onChangePassword"
                         >{{ lang.SAVE }}
                     </VBtn>
                     <VBtn
@@ -170,7 +170,8 @@ export default {
     methods: {
         ...mapActions('profile', ['updatePassword']),
         ...mapActions('notification', {
-            setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
+            setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION,
+            setSuccessNotification: notificationActions.SET_SUCCESS_NOTIFICATION
         }),
 
         setPassword(e) {
@@ -198,18 +199,17 @@ export default {
             this.$v.matchPassword.$touch();
         },
 
-        async update() {
+        async onChangePassword() {
             try {
                 if (this.validateForm) {
                     await this.updatePassword({
                         password: this.newPassword,
                         oldPassword: this.password
                     });
-                    this.dialog = false;
-                } else {
-                    this.showErrorMessage(
-                        this.lang.PLEASE_FILL_ALL_FORM_FIELDS
+                    this.setSuccessNotification(
+                        this.lang.PASSWORD_WAS_SUCCESSFULLY_CHANGED
                     );
+                    this.dialog = false;
                 }
             } catch (error) {
                 this.setErrorNotification(error?.message);
@@ -237,7 +237,7 @@ export default {
 
 .v-subheader {
     padding: 0;
-    color: #2c2c2c;
+    color: var(--v-customDark-base);
     font-size: 13px;
     line-height: 16px;
 }

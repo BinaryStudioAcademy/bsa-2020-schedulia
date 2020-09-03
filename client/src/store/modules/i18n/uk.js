@@ -255,8 +255,7 @@ export default {
         'Вашим запрошеним буде запропоновано\n                                        доступність протягом декількох днів з\n                                        майбутньому.',
     YOU_ARE_SCHEDULED_WITH: 'У вас заплановано з',
     YOU_DONT_HAVE_ANY_EVENT_TYPES: 'У вас ще немає типів подій.',
-    YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD:
-        'Ви входите з електронною адресою та паролем',
+    YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS: 'Ви входите з електронною адресою:',
     YOU_WILL_WANT_TO_ADD_EVENT_TYPE:
         'Ви зможете додати тип події, щоб люди могли планувати з\n            вами.',
     YOU_CAN_CHANGE_LANGUAGE_TO: 'Ви можете змінити мову на',
@@ -333,5 +332,6 @@ export default {
         'Будь ласка, введіть адресу або поверніться на',
     MAIN_PAGE: ' головну сторінку',
     SELECT_LOCATION: 'Виберіть локацію',
-    CONFIRM_NEW_PASSWORD: 'Підтвердить новий пароль'
+    CONFIRM_NEW_PASSWORD: 'Підтвердить новий пароль',
+    PASSWORD_WAS_SUCCESSFULLY_CHANGED: 'Пароль успішно змінено'
 };
