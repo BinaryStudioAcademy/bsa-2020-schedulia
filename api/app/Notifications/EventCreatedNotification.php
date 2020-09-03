@@ -6,7 +6,7 @@ use App\Entity\Event;
 use App\Entity\EventType;
 use App\Entity\User;
 use App\Mail\EventCreatedMailToOwner;
-use App\Mail\SlackMessages\EventCreatedSlackMessage;
+use App\Notifications\SlackMessages\EventCreatedSlackMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
@@ -55,7 +55,7 @@ class EventCreatedNotification extends Notification implements ShouldQueue
 
     public function toSlack($notifiable)
     {
-        return (new EventCreatedSlackMessage($this->event))->getMessage();
+        return (new EventCreatedSlackMessage($this->event));
     }
 
     /**
