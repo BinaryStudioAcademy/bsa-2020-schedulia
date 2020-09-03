@@ -11,8 +11,7 @@
             outlined
             class="app-textfield"
             dense
-        >
-        </VTextField>
+        ></VTextField>
 
         <div class="mb-2">
             <label>{{ lang.LOCATION_LABEL }}*</label>
@@ -58,8 +57,7 @@
             placeholder="Placeholder"
             outlined
             class="mb-3"
-        >
-        </VTextarea>
+        ></VTextarea>
 
         <div class="mb-2">
             <label>{{ lang.EVENT_LINK_LABEL }}*</label>
@@ -73,8 +71,7 @@
             dense
             class="mb-4 app-textfield"
             required
-        >
-        </VTextField>
+        ></VTextField>
 
         <div class="mb-2">
             <p>{{ lang.EVENT_COLOR_LABEL }}</p>
@@ -86,7 +83,7 @@
                         v-for="id in colors"
                         :key="id"
                         :src="colorById[id].image"
-                        alt=""
+                        alt
                         width="44"
                         height="44"
                         class="image-circle"
@@ -104,7 +101,7 @@
                         >
                             <img
                                 :src="require('@/assets/images/icon_check.png')"
-                                alt=""
+                                alt
                             />
                         </VOverlay>
                     </VImg>
@@ -118,17 +115,15 @@
                 width="114"
                 class="mr-3"
                 :to="{ name: 'EventTypes' }"
+                >{{ lang.CANCEL }}</VBtn
             >
-                {{ lang.CANCEL }}
-            </VBtn>
             <VBtn
                 @click="clickNext"
                 color="primary"
                 class="white--text"
                 width="114"
+                >{{ lang.NEXT }}</VBtn
             >
-                {{ lang.NEXT }}
-            </VBtn>
         </div>
         <VDialog v-model="cancelDialog" width="380">
             <VCard>
@@ -156,9 +151,8 @@
                             outlined
                             width="114"
                             @click="cancelDialog = false"
+                            >{{ lang.NEVERMIND }}</VBtn
                         >
-                            {{ lang.NEVERMIND }}
-                        </VBtn>
                     </div>
                 </VCardActions>
             </VCard>

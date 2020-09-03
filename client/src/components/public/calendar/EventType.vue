@@ -132,8 +132,9 @@ export default {
     async mounted() {
         const eventType = await this.getEventTypeByIdAndNickname({
             id: this.$route.params.id,
-            nickname: this.$route.params.owner
+            nickname: this.$route.params.nickname
         });
+
         eventType &&
             eventType.disabled &&
             this.$router.push({
@@ -151,9 +152,6 @@ export default {
                 this.currentTimezone
             );
         },
-        date() {
-            this.selectedTime = null;
-        },
         eventType() {
             this.isReady = true;
         }
@@ -164,7 +162,48 @@ export default {
         currentTimezoneTime: null,
         timezoneFieldSearch: '',
         date: '',
-        selectedTime: null
+        selectedTime: null,
+        availabilities: {
+            '2020-08-20': [],
+            '2020-09-01': [
+                {
+                    type: 'date_range_weekdays',
+                    start_time: '09:00:00',
+                    end_time: '19:00:00',
+                    unavailable: ['15:00:00', '16:00:00']
+                }
+            ],
+            '2020-09-02': [
+                {
+                    type: 'date_range_weekdays',
+                    start_time: '05:00:00',
+                    end_time: '11:00:00',
+                    unavailable: ['15:00:00', '16:00:00']
+                }
+            ],
+            '2020-09-03': [
+                {
+                    type: 'date_range_weekdays',
+                    start_time: '00:00:00',
+                    end_time: '23:59:00',
+                    unavailable: []
+                }
+            ],
+            '2020-09-14': [
+                {
+                    type: 'date_range_weekdays',
+                    start_time: '11:00:00',
+                    end_time: '14:00:00',
+                    unavailable: []
+                },
+                {
+                    type: 'date_range_weekdays',
+                    start_time: '15:00:00',
+                    end_time: '22:00:00',
+                    unavailable: []
+                }
+            ]
+        }
     }),
 
     computed: {
@@ -190,10 +229,222 @@ export default {
                     .format('YYYY-MM-DD HH:mm:ss');
             };
 
-            return this.eventType.availabilities.map(availability => ({
+            let allTimes = [];
+
+            for (let date in this.availabilities) {
+                for (let availability of this.availabilities[date]) {
+                    allTimes.push({
+                        startDate: `${date} ${availability.start_time.slice(
+                            0,
+                            5
+                        )}`,
+                        endDate: `${date} ${availability.end_time.slice(0, 5)}`
+                    });
+                }
+            }
+
+            allTimes = allTimes.map(availability => ({
                 startDate: formatTime(availability.startDate),
                 endDate: formatTime(availability.endDate)
             }));
+
+            return allTimes;
+        },
+        normalizedRemainderTimes() {
+            const getHours = date => {
+                return date.slice(11, 13);
+            };
+
+            const getMinutes = date => {
+                return date.slice(14, 16);
+            };
+
+            const getDate = date => {
+                return date.slice(0, 10);
+            };
+
+            let normalizedTimes = [];
+            for (let availability of this.currentTimezoneAvailabilities) {
+                if (
+                    +getHours(availability.startDate) >
+                    +getHours(availability.endDate)
+                ) {
+                    let start =
+                        availability.startDate.slice(11, 16).split(':')[0] *
+                            60 +
+                        +availability.startDate.slice(11, 16).split(':')[1];
+
+                    let end =
+                        availability.endDate.slice(11, 16).split(':')[0] * 60 +
+                        +availability.endDate.slice(11, 16).split(':')[1] +
+                        24 * 60;
+
+                    let computeNextInterval = true;
+                    let maxTimePrevDay = start;
+                    let minTimeNextDay;
+                    let nextDayWasVisited = false;
+
+                    while (computeNextInterval) {
+                        maxTimePrevDay = start;
+
+                        if (
+                            start + this.eventType.duration < 24 * 60 &&
+                            start + this.eventType.duration <= end
+                        ) {
+                            if (!nextDayWasVisited) {
+                                let [startHours, startMinutes] = [
+                                    Math.trunc(start / 60),
+                                    start % 60
+                                ];
+
+                                let endTime = start + this.eventType.duration;
+
+                                let [endHours, endMinutes] = [
+                                    Math.trunc(endTime / 60),
+                                    endTime % 60
+                                ];
+                                normalizedTimes.push({
+                                    startDate: `${getDate(
+                                        availability.startDate
+                                    )} ${this.normalizeTime(
+                                        startHours
+                                    )}:${this.normalizeTime(startMinutes)}:00`,
+                                    endDate: `${getDate(
+                                        availability.startDate
+                                    )} ${this.normalizeTime(
+                                        endHours
+                                    )}:${this.normalizeTime(endMinutes)}:00`
+                                });
+                            }
+                            start += this.eventType.duration;
+                        } else if (
+                            start + this.eventType.duration >= 24 * 60 &&
+                            start + this.eventType.duration <= end
+                        ) {
+                            nextDayWasVisited = true;
+                            if (start < 24 * 60) {
+                                maxTimePrevDay = start;
+                                let [maxHours, maxMinutes] = [
+                                    Math.trunc(maxTimePrevDay / 60),
+                                    maxTimePrevDay % 60
+                                ];
+                                minTimeNextDay =
+                                    start + this.eventType.duration;
+                                const unformattedMinTimeNextDay = minTimeNextDay;
+                                minTimeNextDay -= 24 * 60;
+
+                                let [minHours, minMinutes] = [
+                                    Math.trunc(minTimeNextDay / 60),
+                                    minTimeNextDay % 60
+                                ];
+                                if (
+                                    getHours(availability.startDate) !==
+                                        this.normalizeTime(maxHours) &&
+                                    getMinutes(availability.startDate) !==
+                                        this.normalizeTime(maxMinutes)
+                                ) {
+                                    normalizedTimes.push({
+                                        startDate: `${getDate(
+                                            availability.startDate
+                                        )} ${getHours(
+                                            availability.startDate
+                                        )}:${getMinutes(
+                                            availability.startDate
+                                        )}:00`,
+                                        endDate: `${getDate(
+                                            availability.startDate
+                                        )} ${this.normalizeTime(
+                                            maxHours
+                                        )}:${this.normalizeTime(maxMinutes)}:00`
+                                    });
+                                }
+                                normalizedTimes.push({
+                                    startDate: `${getDate(
+                                        availability.startDate
+                                    )} ${this.normalizeTime(
+                                        maxHours
+                                    )}:${this.normalizeTime(maxMinutes)}:00`,
+                                    endDate: `${getDate(
+                                        availability.endDate
+                                    )} ${this.normalizeTime(
+                                        minHours
+                                    )}:${this.normalizeTime(minMinutes)}:00`
+                                });
+                                if (
+                                    unformattedMinTimeNextDay +
+                                        this.eventType.duration <=
+                                    end
+                                ) {
+                                    normalizedTimes.push({
+                                        startDate: `${getDate(
+                                            availability.endDate
+                                        )} ${this.normalizeTime(
+                                            minHours
+                                        )}:${this.normalizeTime(
+                                            minMinutes
+                                        )}:00`,
+                                        endDate: `${getDate(
+                                            availability.endDate
+                                        )} ${getHours(
+                                            availability.endDate
+                                        )}:${getMinutes(
+                                            availability.endDate
+                                        )}:00`
+                                    });
+                                }
+                            } else if (start > 24 * 60) {
+                                start -= 24 * 60;
+                                end -= 24 * 60;
+                                let [startHours, startMinutes] = [
+                                    Math.trunc(start / 60),
+                                    start % 60
+                                ];
+
+                                let endTime = start + this.eventType.duration;
+
+                                let [endHours, endMinutes] = [
+                                    Math.trunc(endTime / 60),
+                                    endTime % 60
+                                ];
+
+                                if (
+                                    !normalizedTimes.some(
+                                        interval =>
+                                            `${getDate(
+                                                availability.endDate
+                                            )} ${this.normalizeTime(
+                                                endHours
+                                            )}:${this.normalizeTime(
+                                                endMinutes
+                                            )}:00` === interval.endDate
+                                    )
+                                ) {
+                                    normalizedTimes.push({
+                                        startDate: `${getDate(
+                                            availability.endDate
+                                        )} ${this.normalizeTime(
+                                            startHours
+                                        )}:${this.normalizeTime(
+                                            startMinutes
+                                        )}:00`,
+                                        endDate: `${getDate(
+                                            availability.endDate
+                                        )} ${this.normalizeTime(
+                                            endHours
+                                        )}:${this.normalizeTime(endMinutes)}:00`
+                                    });
+                                }
+                            }
+                            start += this.eventType.duration;
+                        } else {
+                            computeNextInterval = false;
+                        }
+                    }
+                } else {
+                    normalizedTimes.push(availability);
+                }
+            }
+            return normalizedTimes;
         },
         filterTimezones() {
             return momentTimezones.tz.names().filter(zone => {
@@ -219,80 +470,53 @@ export default {
             return moment(this.date).format('dddd, MMMM D');
         },
         availableTimesRange() {
-            const getCurrentDate = d => {
-                return moment(d).format();
-            };
+            let availableTimes = [];
+            let i = 0;
+            for (let availability of this.normalizedRemainderTimes) {
+                if (availability.startDate.includes(this.date)) {
+                    availableTimes.push({
+                        startTime: moment(availability.startDate).format(
+                            'HH:mm'
+                        ),
+                        endTime: moment(availability.endDate).format('HH:mm')
+                    });
 
-            const currentDate = getCurrentDate(this.date);
-
-            let availableTime = {};
-
-            for (let availability of this.currentTimezoneAvailabilities) {
-                const currentShortStartDate = getCurrentDate(
-                    availability.startDate.slice(0, 10)
-                );
-                const currentShortEndDate = getCurrentDate(
-                    availability.endDate.slice(0, 10)
-                );
-
-                if (
-                    currentDate >= currentShortStartDate &&
-                    currentDate <= currentShortEndDate
-                ) {
-                    availableTime.startTime = moment(
-                        availability.startDate
-                    ).format('HH:mm');
-
-                    availableTime.endTime = moment(availability.endDate).format(
-                        'HH:mm'
-                    );
-
-                    break;
-                }
-            }
-            return availableTime;
-        },
-        availableTimes() {
-            let duration = this.eventType.duration;
-            let times = [];
-
-            let start =
-                this.availableTimesRange.startTime.split(':')[0] * 60 +
-                +this.availableTimesRange.startTime.split(':')[1];
-            const initialStart = start;
-
-            let end =
-                this.availableTimesRange.endTime.split(':')[0] * 60 +
-                +this.availableTimesRange.endTime.split(':')[1];
-
-            if (start > end && 24 * 60 - start <= end) {
-                while (start > end) {
-                    let [hours, minutes] = [Math.trunc(start / 60), start % 60];
-
-                    if (24 * 60 - start + duration >= 0) {
-                        hours = hours > 23 ? hours - 24 : hours;
-                    } else {
-                        hours -= 24;
-                        start -= 24 * 60;
+                    if (
+                        +availability.startDate.slice(11, 13) >
+                        +availability.endDate.slice(11, 13)
+                    ) {
+                        availableTimes[
+                            i
+                        ].endTime = `${+availability.endDate.slice(11, 13) +
+                            24}:${availability.endDate.slice(14, 16)}`;
                     }
 
-                    hours = String(hours).length === 2 ? hours : '0' + hours;
-                    minutes =
-                        String(minutes).length === 2 ? minutes : minutes + '0';
-                    times.push(`${hours}:${minutes}`);
-                    start += duration;
+                    i++;
                 }
             }
+            return availableTimes;
+        },
+        availableTimes() {
+            let times = [];
 
-            while (end - start >= duration) {
-                let [hours, minutes] = [Math.trunc(start / 60), start % 60];
-                hours = String(hours).length === 2 ? hours : '0' + hours;
-                minutes =
-                    String(minutes).length === 2 ? minutes : minutes + '0';
-                times.push(`${hours}:${minutes}`);
-                start += duration;
+            for (let timeRange of this.availableTimesRange) {
+                let start =
+                    timeRange.startTime.split(':')[0] * 60 +
+                    +timeRange.startTime.split(':')[1];
+
+                let end =
+                    timeRange.endTime.split(':')[0] * 60 +
+                    +timeRange.endTime.split(':')[1];
+
+                while (end - start >= this.eventType.duration) {
+                    let [hours, minutes] = [Math.trunc(start / 60), start % 60];
+                    hours = String(hours).length === 2 ? hours : '0' + hours;
+                    minutes =
+                        String(minutes).length === 2 ? minutes : '0' + minutes;
+                    times.push(`${hours}:${minutes}`);
+                    start += this.eventType.duration;
+                }
             }
-
             times.sort(
                 (prev, next) =>
                     prev.split(':')[0] * 60 +
@@ -301,9 +525,7 @@ export default {
                     +next.split(':')[1]
             );
 
-            times = this.appropriateTimes(times, initialStart, end);
-
-            return this.convertToUserFormat(times);
+            return this.convertToUserFormat([...new Set(times)]);
         }
     },
     methods: {
@@ -323,10 +545,9 @@ export default {
         onConfirmDate(time) {
             this.setPublicEvent({
                 eventTypeId: this.eventType.id,
-                startDate: this.getStartDate(time),
+                startDate: `${this.date} ${time}`,
                 timezone: this.currentTimezone
             });
-
             this.$router.push({
                 path: `/${this.eventType.owner.nickname}/${
                     this.eventType.id
@@ -349,25 +570,6 @@ export default {
                 return times.map(time =>
                     moment(time, 'HHmm').format('hh:mm A')
                 );
-            }
-        },
-        appropriateTimes(times, initialStart, end) {
-            if (
-                this.currentTimezoneAvailabilities.some(date =>
-                    date.startDate.includes(this.date)
-                )
-            ) {
-                return times.filter(
-                    time => +time.split(':')[0] * 60 >= initialStart
-                );
-            } else if (
-                this.currentTimezoneAvailabilities.some(date =>
-                    date.endDate.includes(this.date)
-                )
-            ) {
-                return times.filter(time => +time.split(':')[0] * 60 < end);
-            } else {
-                return times;
             }
         },
         dateFormat(date) {
@@ -409,26 +611,16 @@ export default {
             let i = new Date(date).getDay(date);
             return weekDays[i];
         },
+        normalizeTime(time) {
+            return String(time).length === 2 ? time : '0' + time;
+        },
         availableDates(date) {
-            const getCurrentDate = d => {
-                return moment(d).format();
-            };
-            const currentDate = getCurrentDate(date);
-
             let present = false;
-
-            for (let availability of this.currentTimezoneAvailabilities) {
-                if (
-                    currentDate >=
-                        getCurrentDate(availability.startDate.slice(0, 10)) &&
-                    currentDate <=
-                        getCurrentDate(availability.endDate.slice(0, 10))
-                ) {
+            for (let normalizedDate of this.normalizedRemainderTimes) {
+                if (normalizedDate.startDate.includes(date)) {
                     present = true;
-                    break;
                 }
             }
-
             return present;
         }
     }
