@@ -16,9 +16,10 @@ export default {
                 eventTypeMapper(eventType)
             );
         } catch (error) {
-            context.commit(
-                SET_ERROR_NOTIFICATION,
-                error?.response?.data?.message || error.message
+            context.dispatch(
+                'notification/' + SET_ERROR_NOTIFICATION,
+                error?.response?.data?.message || error.message,
+                { root: true }
             );
         }
     },
@@ -29,9 +30,10 @@ export default {
 
             return Promise.resolve(eventTypes.map(eventTypeMapper));
         } catch (error) {
-            context.commit(
-                SET_ERROR_NOTIFICATION,
-                error?.response?.data?.message || error.message
+            context.dispatch(
+                'notification/' + SET_ERROR_NOTIFICATION,
+                error?.response?.data?.message || error.message,
+                { root: true }
             );
         }
     },
@@ -42,9 +44,10 @@ export default {
             );
             return Promise.resolve(eventTypeMapper(eventType));
         } catch (error) {
-            context.commit(
-                SET_ERROR_NOTIFICATION,
-                error?.response?.data?.message || error.message
+            context.dispatch(
+                'notification/' + SET_ERROR_NOTIFICATION,
+                error?.response?.data?.message || error.message,
+                { root: true }
             );
         }
     },
@@ -55,9 +58,10 @@ export default {
 
             return Promise.resolve(eventTypeMapper(eventType));
         } catch (error) {
-            context.commit(
-                SET_ERROR_NOTIFICATION,
-                error?.response?.data?.message || error.message
+            context.dispatch(
+                'notification/' + SET_ERROR_NOTIFICATION,
+                error?.response?.data?.message || error.message,
+                { root: true }
             );
         }
     },
@@ -67,9 +71,10 @@ export default {
 
             return Promise.resolve();
         } catch (error) {
-            context.commit(
-                SET_ERROR_NOTIFICATION,
-                error?.response?.data?.message || error.message
+            context.dispatch(
+                'notification/' + SET_ERROR_NOTIFICATION,
+                error?.response?.data?.message || error.message,
+                { root: true }
             );
         }
     },
@@ -78,9 +83,10 @@ export default {
         try {
             context.commit(mutations.SET_EVENT_TYPE, data);
         } catch (error) {
-            context.commit(
-                SET_ERROR_NOTIFICATION,
-                error?.response?.data?.message || error.message
+            context.dispatch(
+                'notification/' + SET_ERROR_NOTIFICATION,
+                error?.response?.data?.message || error.message,
+                { root: true }
             );
         }
     },
@@ -89,9 +95,10 @@ export default {
         try {
             context.commit(mutations.SET_PROPERTY, data);
         } catch (error) {
-            context.commit(
-                SET_ERROR_NOTIFICATION,
-                error?.response?.data?.message || error.message
+            context.dispatch(
+                'notification/' + SET_ERROR_NOTIFICATION,
+                error?.response?.data?.message || error.message,
+                { root: true }
             );
         }
     }

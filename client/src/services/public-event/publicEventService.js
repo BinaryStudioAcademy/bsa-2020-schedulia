@@ -1,10 +1,11 @@
 import requestService from '@/services/requestService';
-const EVENT_TYPES_URL = '/event-types';
 const EVENTS_URL = '/events';
 
 const publicEventService = {
-    async getEventTypeById(id) {
-        const response = await requestService.get(`${EVENT_TYPES_URL}/${id}`);
+    async getEventTypeByIdAndNickname(id, nickname) {
+        const response = await requestService.get(
+            `/public/users/${nickname}/event-types/${id}`
+        );
         return response?.data?.data;
     },
     async addPublicEvent(data) {

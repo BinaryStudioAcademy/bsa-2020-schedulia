@@ -13,13 +13,16 @@ final class EventPresenter implements PresenterCollectionInterface
 {
     private EventTypePresenter $eventTypePresenter;
     private CustomFieldValuePresenter $customFieldValuePresenter;
+    private EventCalendarPresenter $eventCalendarPresenter;
 
     public function __construct(
         EventTypePresenter $eventTypePresenter,
-        CustomFieldValuePresenter $customFieldValuePresenter
+        CustomFieldValuePresenter $customFieldValuePresenter,
+        EventCalendarPresenter $eventCalendarPresenter
     ) {
         $this->eventTypePresenter = $eventTypePresenter;
         $this->customFieldValuePresenter = $customFieldValuePresenter;
+        $this->eventCalendarPresenter = $eventCalendarPresenter;
     }
 
     public function present(Event $event): array
@@ -33,7 +36,8 @@ final class EventPresenter implements PresenterCollectionInterface
             'timezone' => $event->timezone,
             'created_at' => $event->created_at,
             'event_type' => $this->eventTypePresenter->present($event->eventType),
-            'custom_field_values' => $this->customFieldValuePresenter->presentCollection($event->customFieldValues)
+            'custom_field_values' => $this->customFieldValuePresenter->presentCollection($event->customFieldValues),
+            'google_calendar_event' => $this->eventCalendarPresenter->presentCollection($event->googleCalendars)
         ];
     }
 

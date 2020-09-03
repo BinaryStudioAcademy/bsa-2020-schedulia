@@ -13,7 +13,7 @@ export default {
         description: '',
         slug: '',
         color: 'yellow',
-        disabled: true,
+        disabled: false,
         duration: 30,
         customDuration: 0,
         timezone: '',
