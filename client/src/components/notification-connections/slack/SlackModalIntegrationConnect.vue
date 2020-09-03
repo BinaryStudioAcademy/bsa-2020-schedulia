@@ -7,8 +7,19 @@
                 v-bind="attrs"
                 v-on="on"
                 @click="updSlackData"
+                v-if="!slackIsActive"
             >
                 <VIcon color="white">mdi-plus</VIcon>
+            </VBtn>
+            <VBtn
+                color="orange"
+                class="mr-3 slack-connect"
+                v-bind="attrs"
+                v-on="on"
+                @click="updSlackData"
+                v-else
+            >
+                <VIcon color="white" >mdi-pencil</VIcon>
             </VBtn>
         </template>
         <VCard>
@@ -27,7 +38,8 @@
                             >
                                 {{ lang.INCOMING_WEBHOOK }}
                             </a>
-                            {{ lang.TO_YOUR }} <b>Slack</b> {{ lang.WORKSPACE }}.</VListItemTitle
+                            {{ lang.TO_YOUR }} <b>Slack</b>
+                            {{ lang.WORKSPACE }}.</VListItemTitle
                         >
                     </VListItemContent>
                 </VListItem>
@@ -55,12 +67,12 @@
             </VCardText>
             <VCardActions>
                 <VSpacer></VSpacer>
-                <VBtn color="blue darken-1" text @click="dialog = false"
-                    >{{ lang.CLOSE }}</VBtn
-                >
-                <VBtn color="green" @click="onConnect" v-if="!slackIsActive"
-                    >{{ lang.CONNECT }}</VBtn
-                >
+                <VBtn color="blue darken-1" text @click="dialog = false">{{
+                    lang.CLOSE
+                }}</VBtn>
+                <VBtn color="green" @click="onConnect" v-if="!slackIsActive">{{
+                    lang.CONNECT
+                }}</VBtn>
                 <VBtn
                     color="orange"
                     @click="onConnect"
