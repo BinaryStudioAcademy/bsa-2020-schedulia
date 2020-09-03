@@ -6,7 +6,7 @@ namespace App\Http\Requests\Api\Slack;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SlackRequest  extends FormRequest
+class SlackRequest extends FormRequest
 {
     public function rules()
     {

@@ -16,7 +16,7 @@ class SlackController extends ApiController
     public function addSlackNotifications(
         SlackRequest $request,
         AddSlackNotificationsAction $action
-    ): JsonResponse{
+    ): JsonResponse {
         $action->execute(new AddSlackNotificationsRequest(
             $request->incoming_webhook,
             $request->channel_name
