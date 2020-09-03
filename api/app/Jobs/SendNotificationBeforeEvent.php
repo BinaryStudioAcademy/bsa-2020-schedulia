@@ -2,10 +2,12 @@
 
 namespace App\Jobs;
 
+use App\Constants\EventStatus;
 use App\Notifications\NotificationBeforeEventForInvitee;
 use App\Notifications\NotificationBeforeEventForOwner;
 use App\Repositories\Event\Criterion\EventsAfterDateTimeCriterion;
 use App\Repositories\Event\Criterion\EventsBeforeDateTimeCriterion;
+use App\Repositories\Event\Criterion\EventStatusCriterion;
 use App\Repositories\Event\Criterion\NotifiedCriterion;
 use App\Repositories\Event\EventRepository;
 use Carbon\CarbonImmutable;
@@ -34,7 +36,8 @@ class SendNotificationBeforeEvent implements ShouldQueue
         $criteria = [
             new EventsAfterDateTimeCriterion($now->toDateTimeString()),
             new EventsBeforeDateTimeCriterion($tenMinutesLater->toDateTimeString()),
-            new NotifiedCriterion(false)
+            new NotifiedCriterion(false),
+            new EventStatusCriterion([EventStatus::SCHEDULED])
            ];
         $events = $eventRepository->findByCriteria(...$criteria);
 

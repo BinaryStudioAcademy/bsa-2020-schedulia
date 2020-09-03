@@ -337,5 +337,6 @@ export default {
     IN_THE_FIELD: 'в поле',
     CHANNEL_NAME: "Им'я каналу",
     CONNECT: 'Підключити',
-    NOTIFICATION_CONNECTIONS: 'Підключення повідомлень'
+    NOTIFICATION_CONNECTIONS: 'Підключення повідомлень',
+    SELECT_LOCATION: 'Виберіть локацію'
 };

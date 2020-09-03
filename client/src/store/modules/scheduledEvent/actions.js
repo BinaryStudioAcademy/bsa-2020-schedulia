@@ -48,7 +48,7 @@ export default {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
 
         if (!eventStatus.length) {
-            eventStatus = ['scheduled', 'canceled'];
+            eventStatus = ['scheduled', 'cancelled'];
         }
 
         try {

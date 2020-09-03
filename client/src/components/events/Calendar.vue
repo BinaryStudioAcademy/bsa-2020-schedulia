@@ -166,10 +166,19 @@ export default {
                 return result;
             }
 
-            if (this.data.availabilities[day.date]) {
+            let weekDayName = moment(day.date)
+                .format('dddd')
+                .toLowerCase();
+            let params = {};
+            if (
+                this.data.availabilities_week_days[weekDayName] &&
+                !this.data.availabilities[day.date]
+            ) {
+                return this.data.availabilities_week_days[weekDayName];
+            } else if (this.data.availabilities[day.date]) {
                 return this.data.availabilities[day.date];
             } else {
-                let params = {
+                params = {
                     ...this.data.dateRange,
                     ...{
                         startDate:
@@ -181,21 +190,21 @@ export default {
                             day.date + ' ' + this.data.dateRange.endTime + ':00'
                     }
                 };
+            }
 
-                if (this.data.dateRange.type.includes('weekdays')) {
-                    if (day.weekday > 0 && day.weekday < 6) {
-                        result.push(params);
-                    }
-                } else {
+            if (this.data.dateRange.type.includes('weekdays')) {
+                if (day.weekday > 0 && day.weekday < 6) {
                     result.push(params);
                 }
-
-                if (isExactDate) {
-                    result[0]['type'] = 'exact_date';
-                }
-
-                return result;
+            } else {
+                result.push(params);
             }
+
+            if (isExactDate) {
+                result[0]['type'] = 'exact_date';
+            }
+
+            return result;
         }
     }
 };

@@ -277,12 +277,22 @@ export default {
             let dateRangeData = {
                 ...this.data.dateRange,
                 ...{
-                    startDate: this.data.dateRange.startDate + ' 00:00:00',
-                    endDate: this.data.dateRange.endDate + ' 00:00:00'
+                    startDate:
+                        this.data.dateRange.startDate +
+                        ' ' +
+                        this.data.dateRange.startTime +
+                        ':00',
+                    endDate:
+                        this.data.dateRange.endDate +
+                        ' ' +
+                        this.data.dateRange.endTime +
+                        ':00'
                 }
             };
+
             this.changeEventTypeProperty('availabilities', {
                 ...{ dateRange: [dateRangeData] },
+                ...this.data.availabilities_week_days,
                 ...this.data.availabilities
             });
         }

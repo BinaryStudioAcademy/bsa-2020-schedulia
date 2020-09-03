@@ -88,6 +88,15 @@ Route::group([
 });
 
 Route::group([
+    'middleware' => 'auth:api',
+    'namespace' => 'Api\\',
+    'prefix' => '/events',
+], function () {
+    Route::patch('/{id}', 'EventController@update');
+    Route::put('/{id}', 'EventController@update');
+});
+
+Route::group([
     'namespace' => 'Api\\',
     'prefix' => '/tags'
 ], function () {

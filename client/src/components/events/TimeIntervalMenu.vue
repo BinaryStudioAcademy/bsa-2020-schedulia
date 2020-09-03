@@ -1,6 +1,6 @@
 <template>
-    <VRow>
-        <VCol>
+    <VRow class="time-interval-wrapper">
+        <VCol class="start-time">
             <VMenu
                 ref="menu"
                 :value="startTimeMenu"
@@ -30,7 +30,7 @@
                 </VTimePicker>
             </VMenu>
         </VCol>
-        <VCol>
+        <VCol class="end-time">
             <VMenu
                 ref="menu"
                 :value="endTimeMenu"
@@ -141,7 +141,15 @@ export default {
     }
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
+.time-interval-wrapper {
+    .start-time {
+        padding: 0 0 0 21px;
+    }
+    .end-time {
+        padding: 0 0 0 60px;
+    }
+}
 .theme--light.v-icon:focus::after {
     opacity: 0;
 }
