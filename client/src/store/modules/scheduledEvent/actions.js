@@ -3,6 +3,7 @@ import * as mutations from './types/mutations';
 import * as authActions from '@/store/modules/auth/types/actions';
 import scheduledEventService from '@/services/scheduled-event/scheduledEventsService';
 import * as loaderMutations from '@/store/modules/loader/types/mutations';
+import { eventApiMapper } from '@/store/modules/scheduledEvent/normalizer';
 
 export default {
     [actions.SET_SCHEDULED_EVENT_FILTER_VIEW]: async (
@@ -121,11 +122,10 @@ export default {
         try {
             const updatedEvent = await scheduledEventService.updateEvent(
                 event.id,
-                {
-                    status: event.status,
-                    start_date: event.startDate
-                }
+                eventApiMapper(event)
             );
+
+            commit(mutations.UPDATE_EVENT, event);
 
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true

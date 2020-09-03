@@ -15,6 +15,7 @@ use App\Actions\Event\UpdateEventRequest;
 use App\Http\Presenters\EventPresenter;
 use App\Http\Presenters\EventsEmailsPresenter;
 use App\Http\Requests\Api\Event\EventRequest;
+use App\Http\Requests\Api\Event\UpdateEventRequest as UpdateRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +38,7 @@ class EventController extends ApiController
         EventPresenter $eventPresenter
     ) {
         $this->addEventAction = $addEventAction;
-        $this->updadeEventAction = $updateEventAction;
+        $this->updateEventAction = $updateEventAction;
         $this->deleteEventAction = $deleteEventAction;
         $this->getEventCollectionAction = $getEventCollectionAction;
         $this->getEventsEmailsAction = $getEventsEmailsAction;
@@ -84,20 +85,20 @@ class EventController extends ApiController
         );
     }
 
-    public function update(string $id, UpdateEventRequest $request): JsonResponse
+    public function update(string $id, UpdateRequest $request): JsonResponse
     {
-        $response = $this->updadeEventAction->execute(
+        $response = $this->updateEventAction->execute(
             new UpdateEventRequest(
                 (int)$id,
                 Auth::id(),
-                (int)$request->event_type_id,
-                $request->invitee_name,
-                $request->invitee_email,
-                $request->start_date,
-                $request->timezone,
-                $request->location,
-                $request->status,
-                $request->custom_field_values
+                (int)$request->get('event_type_id'),
+                $request->get('invitee_name'),
+                $request->get('invitee_email'),
+                $request->get('start_date'),
+                $request->get('timezone'),
+                $request->get('location'),
+                $request->get('status'),
+                $request->get('custom_field_value')
             )
         );
 

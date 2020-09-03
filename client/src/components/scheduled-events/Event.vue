@@ -221,7 +221,10 @@ export default {
         },
 
         async onCancelHandle() {
-            const updatedEvent = { ...this.scheduledEvent, status: EventStatus.EVENT_STATUS_CANCELLED };
+            const updatedEvent = {
+                ...this.scheduledEvent,
+                status: EventStatus.EVENT_STATUS_CANCELLED
+            };
             await this.updateEvent(updatedEvent);
         }
     }

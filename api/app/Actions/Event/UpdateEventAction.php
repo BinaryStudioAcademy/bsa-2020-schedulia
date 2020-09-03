@@ -46,13 +46,13 @@ final class UpdateEventAction
         if ($request->getStatus() == EventStatus::CANCELLED
             || $this->availabilityService->checkIfTimeIsAvailable($eventType, $request->getStartDate())
         ) {
-            $event->event_type_id = $request->getEventTypeId();
-            $event->invitee_name = $request->getInviteeName();
-            $event->invitee_email = $request->getInviteeEmail();
-            $event->start_date = $request->getStartDate();
-            $event->timezone = $request->getTimezone();
-            $event->location = $request->getLocation();
-            $event->status = $request->getStatus();
+            $event->event_type_id = $request->getEventTypeId() ?: $event->event_type_id;
+            $event->invitee_name = $request->getInviteeName() ?: $event->invitee_name;
+            $event->invitee_email = $request->getInviteeEmail() ?: $event->invitee_email;
+            $event->start_date = $request->getStartDate() ?: $event->start_date;
+            $event->timezone = $request->getTimezone() ?: $event->timezone;
+            $event->location = $request->getLocation() ?: $event->location;
+            $event->status = $request->getStatus() ?: $event->status;
 
             $this->eventRepository->save($event);
 
