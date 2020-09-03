@@ -162,6 +162,14 @@ export default {
           unavailable: ["15:00:00", "16:00:00"]
         }
       ],
+      "2020-09-03": [
+        {
+          type: "date_range_weekdays",
+          start_time: "00:00:00",
+          end_time: "23:59:00",
+          unavailable: []
+        }
+      ],
       "2020-09-14": [
         {
           type: "date_range_weekdays",
