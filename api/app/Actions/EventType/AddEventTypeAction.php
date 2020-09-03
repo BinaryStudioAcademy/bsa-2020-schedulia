@@ -37,6 +37,7 @@ final class AddEventTypeAction
         $eventType->timezone = $request->getTimezone();
         $eventType->disabled = $request->getDisabled();
         $eventType->location_type = $request->getLocationType();
+        $eventType->address = $request->getAddress();
 
         if ($request->getLocationType() === LocationTypes::ADDRESS) {
             if ($request->getCoordinates()) {

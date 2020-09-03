@@ -20,7 +20,8 @@ class EventType extends Model
         'timezone',
         'disabled',
         'location_type',
-        'coordinates'
+        'coordinates',
+        'address'
     ];
 
     /**

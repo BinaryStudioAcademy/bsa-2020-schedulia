@@ -39,7 +39,8 @@ class EventTypeRequest extends FormRequest
             "location_type" => Rule::in(LocationTypes::getAllLocationTypes()),
             "coordinates" => 'array',
             "coordinates.lng" => 'string',
-            "coordinates.lat" => 'string'
+            "coordinates.lat" => 'string',
+            'address' => 'string',
         ];
     }
 }
