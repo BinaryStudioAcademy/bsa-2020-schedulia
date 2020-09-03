@@ -38,10 +38,6 @@ class MeetingController extends Controller
 
         return $response;
 
-//        return [
-//        'success' => $response->status() === 201,
-//        'data' => json_decode($response->body(), true),
-//    ];
     }
 
     public function handleCallback(Request $request)
@@ -52,5 +48,6 @@ class MeetingController extends Controller
 
         $this->zoomCallbackAction->execute($zoomRequest);
 
+        return redirect(env('CLIENT_APP_URL') . '/calendar-connections');
     }
 }
