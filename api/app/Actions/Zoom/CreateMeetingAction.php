@@ -15,19 +15,19 @@ final class CreateMeetingAction
         $this->integrationRepository = $integrationRepository;
     }
 
-    public function execute(CreateMeetingRequest $request)
+    public function execute($startTime, $eventName)
     {
-
         $integration = $this->integrationRepository->getAccessToken(1);
 
         $response = Http::withHeaders([
             "Authorization" => "Bearer " . $integration->access_token,
         ])->post('https://api.zoom.us/v2/users/me/meetings',[
-            "topic" => $request->getTopic(),
-            "start_time" => $request->getStartTime(),
-            "agenda" => $request->getAgenda()
+            "topic" => $eventName,
+            "start_time" => $startTime,
         ]);
 
-        return $response;
+        $response = json_decode($response->body(), true);
+
+        return $response['start_url'];
     }
 }

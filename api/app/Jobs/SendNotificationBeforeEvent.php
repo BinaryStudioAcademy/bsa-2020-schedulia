@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Actions\Zoom\CreateMeetingAction;
 use App\Constants\EventStatus;
 use App\Notifications\NotificationBeforeEventForInvitee;
 use App\Notifications\NotificationBeforeEventForOwner;
@@ -29,7 +30,7 @@ class SendNotificationBeforeEvent implements ShouldQueue
     {
     }
 
-    public function handle(EventRepository $eventRepository)
+    public function handle(EventRepository $eventRepository, CreateMeetingAction $meetingAction)
     {
         $now = CarbonImmutable::now();
         $tenMinutesLater = $now->addMinutes(10);
@@ -43,8 +44,9 @@ class SendNotificationBeforeEvent implements ShouldQueue
 
         foreach ($events as $event) {
             $event->eventType->owner->notify(new NotificationBeforeEventForOwner($event));
+            $startMeetingUrl = $meetingAction->execute($event->startDate, $event->eventType->name);
             Notification::route('mail', $event->invitee_email)
-                ->notify(new NotificationBeforeEventForInvitee($event));
+                ->notify(new NotificationBeforeEventForInvitee($event, $startMeetingUrl));
             $event->notified = true;
             $eventRepository->save($event);
         }
