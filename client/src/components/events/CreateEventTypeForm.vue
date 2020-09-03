@@ -301,9 +301,7 @@ export default {
                             1000
                         )
             ],
-            locationRules: [
-                v => !!v || this.lang.SELECT_LOCATION
-            ]
+            locationRules: [v => !!v || this.lang.SELECT_LOCATION]
         };
     },
     computed: {
