@@ -30,7 +30,7 @@ import Status from './Status';
 import InviteeEmails from './InviteeEmails';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import EventTypesTags from './EventTypesTags';
-import SearchInput from '../../SearchInput';
+import SearchInput from './SearchInput';
 
 export default {
     name: 'FilterList',

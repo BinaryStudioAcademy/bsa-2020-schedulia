@@ -43,13 +43,15 @@ export default {
     methods: {
         onSearchInput(searchString) {
             this.$router.push({
-                name: 'Past',
+                name: 'DateRange',
                 query: {
                     event_types: this.$route.query.event_types,
                     event_emails: this.$route.query.event_emails,
                     event_status: this.$route.query.event_status,
                     tags: this.$route.query.tags,
-                    search: searchString
+                    search: searchString,
+                    startDate: this.$route.query.start_date,
+                    endDate: this.$route.query.end_date
                 }
             });
         },
