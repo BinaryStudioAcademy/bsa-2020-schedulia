@@ -10,7 +10,7 @@
     >
         <template v-slot:activator="{ on, attrs }">
             <VTab v-model="date" v-bind="attrs" v-on="on">
-                Date Range
+                {{ lang.DATE_RANGE }}
             </VTab>
         </template>
         <VDatePicker v-model="dates" no-title scrollable range>
@@ -24,7 +24,7 @@
                     <VCol>
                         <VBtn
                             class="apply-button primary"
-                            @click="$refs.menu.save(date)"
+                            @click="dateRangeRoutePush"
                         >
                             {{ lang.APPLY }}
                         </VBtn>
@@ -50,13 +50,23 @@ export default {
 
     data: () => ({
         tab: null,
-        dates: ['2019-09-10', '2019-09-20'],
+        dates: [new Date().toISOString().substr(0, 10)],
         menu: false
     }),
 
     methods: {
         closeMenu() {
             this.menu = false;
+        },
+
+        dateRangeRoutePush() {
+            this.$router.push({
+                name: 'DateRange',
+                query: {
+                    start_date: this.dates[0],
+                    end_date: this.dates[1],
+                }
+            });
         }
     }
 };
