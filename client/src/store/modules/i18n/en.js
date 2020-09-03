@@ -410,7 +410,7 @@ export default {
     PUBLIC_LINK_WAS_COPIED: 'Public Link was copied!',
     TAGS: 'Tags',
     ALL_TAGS: 'All Tags',
-    I_AM_UNAVAILABLE: 'I\'m unavailable',
+    I_AM_UNAVAILABLE: "I'm unavailable",
     ERROR_404: 'Error 404',
     THE_PAGE_YOU_ARE_LOOKING_FOR_COULD_NOT_BE_FOUND:
         'The page you are looking for could not be found',

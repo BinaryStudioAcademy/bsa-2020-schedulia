@@ -4,7 +4,8 @@
             v-model="tab"
             background-color="deep-purple accent-4"
             class="day-availabilities"
-            dark>
+            dark
+        >
             <VTabsSlider></VTabsSlider>
             <VTabItem value="tab-edit-availability">
                 <VCard>
@@ -28,7 +29,7 @@
                                 </VRow>
                                 <VRow
                                     v-for="(availability,
-                                index) in dayAvailabilitiesData"
+                                    index) in dayAvailabilitiesData"
                                     :key="index"
                                 >
                                     <TimeIntervalMenu
@@ -44,32 +45,58 @@
                         </VCol>
                         <VRow class="button-wrapper">
                             <VCol class="new-interval-wrapper">
-                                <div class="new-interval" @click="addNewInterval">
+                                <div
+                                    class="new-interval"
+                                    @click="addNewInterval"
+                                >
                                     + {{ lang.NEW_INTERVAL }}
                                 </div>
                             </VCol>
                             <VCol class="button-unavailablev">
-                                <div class="button-unavailable" @click="addUnavailable">
+                                <div
+                                    class="button-unavailable"
+                                    @click="addUnavailable"
+                                >
                                     {{ lang.I_AM_UNAVAILABLE }}
                                 </div>
                             </VCol>
                             <VCol class="apply-wrapper">
-                                <VBtn color="primary" text @click="applyDay" class="button-apply-only">
+                                <VBtn
+                                    color="primary"
+                                    text
+                                    @click="applyDay"
+                                    class="button-apply-only"
+                                >
                                     {{ nameApplyButton }}
                                 </VBtn>
                             </VCol>
                             <VCol class="apply-week-wrapper">
-                                <VBtn color="primary" text @click="applyDayWeek" class="button-apply-week">
+                                <VBtn
+                                    color="primary"
+                                    text
+                                    @click="applyDayWeek"
+                                    class="button-apply-week"
+                                >
                                     {{ nameApplyWeekDayButton }}
                                 </VBtn>
                             </VCol>
                         </VRow>
                     </VRow>
                     <VCardActions class="action-button">
-                        <VBtn color="primary" text @click="applyOrMultiple" class="button-apply-multiple">
+                        <VBtn
+                            color="primary"
+                            text
+                            @click="applyOrMultiple"
+                            class="button-apply-multiple"
+                        >
                             {{ lang.OR_APPLY_MULTIPLE }}
                         </VBtn>
-                        <VBtn color="primary" text @click="cancel" class="button-cancel">
+                        <VBtn
+                            color="primary"
+                            text
+                            @click="cancel"
+                            class="button-cancel"
+                        >
                             {{ lang.CANCEL }}
                         </VBtn>
                     </VCardActions>
@@ -78,15 +105,23 @@
             <VTabItem value="tab-multiple">
                 <VCard>
                     <VRow justify="center">
-                        <VIcon @click="tab = 'tab-edit-availability'">mdi-arrow-left</VIcon>
+                        <VIcon @click="tab = 'tab-edit-availability'"
+                            >mdi-arrow-left</VIcon
+                        >
                         <VCardTitle class="headline">
                             {{ lang.APPLY_MULTIPLE }}
                         </VCardTitle>
                     </VRow>
                     <VRow class="radio-group-wrapper">
                         <VRadioGroup :value="radio" @change="changeRadio">
-                            <VRadio :label="lang.SPECIFIC_DATES" value="specific-dates"></VRadio>
-                            <VRadio :label="lang.REPEATING_DAYS" value="repeat-days"></VRadio>
+                            <VRadio
+                                :label="lang.SPECIFIC_DATES"
+                                value="specific-dates"
+                            ></VRadio>
+                            <VRadio
+                                :label="lang.REPEATING_DAYS"
+                                value="repeat-days"
+                            ></VRadio>
                         </VRadioGroup>
                     </VRow>
                     <VRow v-if="radio === 'specific-dates'" class="date-picker">
@@ -96,24 +131,37 @@
                             @input="changeSelectDate"
                             multiple
                             no-title
-                            scrollable>
+                            scrollable
+                        >
                         </VDatePicker>
                     </VRow>
                     <VRow v-else class="checkbox-weekdays">
-                        <VCheckbox v-for="(day, id) in weekdays"
-                                   :key="id"
-                                   @change="changeWeekDays(day)"
-                                   :value="day"
-                                   :disabled="day === weekDayName"
-                                   :input-value="selectedWeekDays"
-                                   :label="day">
+                        <VCheckbox
+                            v-for="(day, id) in weekdays"
+                            :key="id"
+                            @change="changeWeekDays(day)"
+                            :value="day"
+                            :disabled="day === weekDayName"
+                            :input-value="selectedWeekDays"
+                            :label="day"
+                        >
                         </VCheckbox>
                     </VRow>
                     <VCardActions class="action-button-multiple">
-                        <VBtn color="primary" text @click="applyMultiple" class="button-apply">
+                        <VBtn
+                            color="primary"
+                            text
+                            @click="applyMultiple"
+                            class="button-apply"
+                        >
                             {{ lang.APPLY }}
                         </VBtn>
-                        <VBtn color="primary" text @click="cancel" class="button-cancel">
+                        <VBtn
+                            color="primary"
+                            text
+                            @click="cancel"
+                            class="button-cancel"
+                        >
                             {{ lang.CANCEL }}
                         </VBtn>
                     </VCardActions>
@@ -128,7 +176,7 @@ import { mapGetters } from 'vuex';
 import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
 import eventTypeMixin from '@/components/events/eventTypeMixin';
 import TimeIntervalMenu from '@/components/events/TimeIntervalMenu';
-import moment from "moment";
+import moment from 'moment';
 export default {
     name: 'DayAvailabilitiesDialog',
     components: { TimeIntervalMenu },
@@ -171,11 +219,15 @@ export default {
                 ...this.data.availabilities_week_days
             };
             let weekDayName = this.weekDayName.toLowerCase();
-            params[weekDayName] = this.dayAvailabilitiesData.map(function(availability) {
+            params[weekDayName] = this.dayAvailabilitiesData.map(function(
+                availability
+            ) {
                 availability.type = `every_${weekDayName}`;
                 return availability;
             });
-            this.changeEventTypeProperty('availabilities_week_days', {...params});
+            this.changeEventTypeProperty('availabilities_week_days', {
+                ...params
+            });
             this.cancel();
         },
         applyOrMultiple() {
@@ -191,12 +243,16 @@ export default {
 
                 for (let weekDay in this.selectedWeekDays) {
                     weekDay = weekDay.toLowerCase();
-                    params[weekDay] = this.dayAvailabilitiesData.map(function(availability) {
+                    params[weekDay] = this.dayAvailabilitiesData.map(function(
+                        availability
+                    ) {
                         availability.type = `every_${weekDay}`;
                         return availability;
                     });
                 }
-                this.changeEventTypeProperty('availabilities_week_days', {...params});
+                this.changeEventTypeProperty('availabilities_week_days', {
+                    ...params
+                });
                 this.cancel();
             } else {
                 let result = {};
@@ -228,7 +284,13 @@ export default {
         allowedDates(value) {
             let result = true;
             if (this.dayAvailabilities && this.dayAvailabilities[0]) {
-                result = moment(value) >= moment(moment(this.data.dateRange.startDate).format('YYYY-MM-DD'));
+                result =
+                    moment(value) >=
+                    moment(
+                        moment(this.data.dateRange.startDate).format(
+                            'YYYY-MM-DD'
+                        )
+                    );
             }
 
             return result;
@@ -272,13 +334,16 @@ export default {
             return this.visibleDayAvailabilitiesDialog;
         },
         monthName() {
-            return moment(this.data.selectDay.date).format("MMM");
+            return moment(this.data.selectDay.date).format('MMM');
         },
         weekDayName() {
-            return moment(this.data.selectDay.date).format("dddd");
+            return moment(this.data.selectDay.date).format('dddd');
         },
         nameApplyButton() {
-            return this.lang.APPLY_ONLY.replace('_', `${this.monthName} ${this.data.selectDay.day}`);
+            return this.lang.APPLY_ONLY.replace(
+                '_',
+                `${this.monthName} ${this.data.selectDay.day}`
+            );
         },
         nameApplyWeekDayButton() {
             return this.lang.APPLY_TO_ALL + this.weekDayName;
@@ -317,23 +382,28 @@ export default {
         width: 42%;
     }
 
-    .apply-wrapper, .apply-week-wrapper {
+    .apply-wrapper,
+    .apply-week-wrapper {
         display: flex;
         justify-content: center;
-        .button-apply-only, .button-apply-week {
+        .button-apply-only,
+        .button-apply-week {
             text-transform: none;
         }
     }
 
     .button-wrapper {
         display: block;
-        .new-interval-wrapper, .button-unavailablev {
+        .new-interval-wrapper,
+        .button-unavailablev {
             padding: 0 0 0 45px;
         }
     }
 
     .action-button {
-        .button-apply-only, .button-apply-multiple, .button-cancel {
+        .button-apply-only,
+        .button-apply-multiple,
+        .button-cancel {
             text-transform: none;
         }
         .button-apply-multiple {
@@ -341,20 +411,21 @@ export default {
         }
         .button-cancel {
             .v-btn__content {
-                color: #666A73;
+                color: #666a73;
             }
         }
     }
 
-    .radio-group-wrapper, .date-picker {
+    .radio-group-wrapper,
+    .date-picker {
         display: flex;
         justify-content: center;
         .v-input {
             padding: 30px 30px 10px 30px;
             flex: 0 1 auto;
-            color: #666A73;
+            color: #666a73;
             border-radius: 3px;
-            border: 1px solid #D0D0D0;
+            border: 1px solid #d0d0d0;
         }
     }
 
@@ -370,7 +441,8 @@ export default {
     .action-button-multiple {
         display: flex;
         justify-content: center;
-        .button-apply, .button-cancel {
+        .button-apply,
+        .button-cancel {
             text-transform: none;
         }
     }

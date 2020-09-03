@@ -58,7 +58,10 @@ export default {
             switch (property) {
                 case 'name':
                     data[property] = value;
-                    if (this.getSlug(this.data.slug) === this.getSlug(this.data.name)) {
+                    if (
+                        this.getSlug(this.data.slug) ===
+                        this.getSlug(this.data.name)
+                    ) {
                         data['slug'] = this.getSlug(value);
                     }
                     break;

@@ -166,19 +166,28 @@ export default {
                 return result;
             }
 
-            let weekDayName = moment(day.date).format("dddd").toLowerCase();
+            let weekDayName = moment(day.date)
+                .format('dddd')
+                .toLowerCase();
             let params = {};
-            if (this.data.availabilities_week_days[weekDayName] && !this.data.availabilities[day.date]) {
-                return  this.data.availabilities_week_days[weekDayName];
+            if (
+                this.data.availabilities_week_days[weekDayName] &&
+                !this.data.availabilities[day.date]
+            ) {
+                return this.data.availabilities_week_days[weekDayName];
             } else if (this.data.availabilities[day.date]) {
                 return this.data.availabilities[day.date];
             } else {
                 params = {
                     ...this.data.dateRange,
                     ...{
-                        startDate: day.date + ' ' +
-                            this.data.dateRange.startTime + ':00',
-                        endDate: day.date + ' ' + this.data.dateRange.endTime + ':00'
+                        startDate:
+                            day.date +
+                            ' ' +
+                            this.data.dateRange.startTime +
+                            ':00',
+                        endDate:
+                            day.date + ' ' + this.data.dateRange.endTime + ':00'
                     }
                 };
             }
