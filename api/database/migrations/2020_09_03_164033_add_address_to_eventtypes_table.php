@@ -14,7 +14,7 @@ class AddAddressToEventtypesTable extends Migration
     public function up()
     {
         Schema::table('event_types', function (Blueprint $table) {
-            $table->longText('address')->nullable();
+            $table->string('address')->nullable();
         });
     }
 
