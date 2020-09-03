@@ -235,6 +235,11 @@ export default {
                     key: 'zoom',
                     title: 'zoom',
                     icon: 'mdi-video-box'
+                },
+                {
+                    key: 'skype',
+                    title: 'skype',
+                    icon: 'mdi-skype'
                 }
             ],
             showZoomDialog: false,
