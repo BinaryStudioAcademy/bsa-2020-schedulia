@@ -12,7 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Queue\SerializesModels;
 
-class EventCreatedSlackToOwner extends SlackMessage implements ShouldQueue
+class EventCreatedSlackMessage implements ShouldQueue
 {
     use Queueable;
     use SerializesModels;
