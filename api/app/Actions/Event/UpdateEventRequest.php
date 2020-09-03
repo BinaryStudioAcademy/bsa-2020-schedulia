@@ -58,7 +58,7 @@ final class UpdateEventRequest
         return $this->location;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): string
     {
         return $this->status === 'cancelled' ? EventStatus::CANCELLED : EventStatus::SCHEDULED;
     }
