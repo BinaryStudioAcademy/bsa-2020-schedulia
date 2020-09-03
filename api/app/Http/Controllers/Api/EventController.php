@@ -26,7 +26,7 @@ class EventController extends ApiController
     private DeleteEventAction $deleteEventAction;
     private GetEventCollectionAction $getEventCollectionAction;
     private GetEventsEmailsAction $getEventsEmailsAction;
-    private $presenter;
+    private EventPresenter $eventPresenter;
 
     public function __construct(
         AddEventAction $addEventAction,
