@@ -65,6 +65,16 @@ final class EventRepository extends BaseRepository implements EventRepositoryInt
             ->get();
     }
 
+    public function getById(int $id): ?Event
+    {
+        return Event::find($id);
+    }
+
+    public function deleteById(int $id): void
+    {
+        Event::destroy($id);
+    }
+
     public function findByCriteria(EloquentCriterion ...$criteria): Collection
     {
         $query = Event::query();

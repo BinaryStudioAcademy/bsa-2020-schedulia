@@ -2,13 +2,15 @@
 
 namespace App\Services\SocialAccount;
 
+use App\Entity\EventCalendar;
 use App\Entity\SocialAccount;
-use App\Entity\User;
 use App\Exceptions\GoogleOauthException;
 use App\Exceptions\SocialAccount\SocialAccountNotFoundException;
+use App\Repositories\EventCalendar\EventCalendarRepositoryInterface;
 use App\Repositories\SocialAccount\SocialAccountRepositoryInterface;
 use App\Contracts\CalendarEventInterface;
 use App\Repositories\User\UserRepositoryInterface;
+use App\Services\Calendar\DeleteEventInterface;
 use App\Services\Calendar\Google\GoogleCalendarEventPresenter;
 use Illuminate\Config\Repository;
 use App\Contracts\CalendarService;
@@ -21,17 +23,20 @@ class Google implements SocialAccountService, CalendarService
     private Repository $config;
     private SocialAccountRepositoryInterface $socialAccountRepository;
     private UserRepositoryInterface $userRepository;
+    private EventCalendarRepositoryInterface $eventCalendarRepository;
     private GoogleCalendarEventPresenter $googleCalendarEventPresenter;
 
     public function __construct(
         Repository $config,
         SocialAccountRepositoryInterface $socialAccountRepository,
         UserRepositoryInterface $userRepository,
+        EventCalendarRepositoryInterface $eventCalendarRepository,
         GoogleCalendarEventPresenter $googleCalendarEventPresenter
     ) {
         $this->config = $config;
         $this->client = $this->setupClient();
         $this->userRepository = $userRepository;
+        $this->eventCalendarRepository = $eventCalendarRepository;
         $this->socialAccountRepository = $socialAccountRepository;
         $this->googleCalendarEventPresenter = $googleCalendarEventPresenter;
     }
@@ -117,13 +122,20 @@ class Google implements SocialAccountService, CalendarService
 
         if ($token) {
             $event = new \Google_Service_Calendar_Event($this->googleCalendarEventPresenter->present($googleCalendarEvent));
-            $this->connect($token)->service('Calendar')->events->insert('primary', $event);
+            $result = $this->connect($token)->service('Calendar')->events->insert('primary', $event);
+            $this->saveEventIdToCalendar($googleCalendarEvent->getEventId(), $result->getId());
         }
     }
 
-    public function deleteEvent(): void
+    public function deleteEvent(DeleteEventInterface $event): void
     {
-        // TODO: Implement deleteEvent() method.
+        $token = $this->userRepository->getGoogleCalendarTokenById($event->getUserId());
+
+        if ($token) {
+            $this->connect($token)->service('Calendar')->events->delete('primary', $event->getProviderEventId());
+            $eventCalendar = $this->eventCalendarRepository->getByEventIdAndEventCalendarId($event->getEventId(), $event->getProviderEventId());
+            $this->eventCalendarRepository->deleteById($eventCalendar->id);
+        }
     }
 
     private function setupClient(): \Google_Client
@@ -150,5 +162,15 @@ class Google implements SocialAccountService, CalendarService
     private function decodeUser($state)
     {
         return json_decode(base64_decode($state));
+    }
+
+    private function saveEventIdToCalendar(int $eventId, string $providerEventId): void
+    {
+        $eventCalendar = new EventCalendar();
+        $eventCalendar->event_id = $eventId;
+        $eventCalendar->provider_id = SocialAccount::GOOGLE_SERVICE_ID;
+        $eventCalendar->provider_event_id = $providerEventId;
+
+        $this->eventCalendarRepository->save($eventCalendar);
     }
 }

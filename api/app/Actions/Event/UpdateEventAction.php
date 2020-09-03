@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace App\Actions\Event;
 
-use App\Entity\Event;
-use App\Events\EventCreated;
+use App\Constants\EventStatus;
+use App\Events\EventUpdated;
+
 use App\Repositories\Event\EventRepositoryInterface;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
 use App\Services\Availability\AvailabilityService;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-final class AddEventAction
+final class UpdateEventAction
 {
     private EventRepositoryInterface $eventRepository;
     private EventTypeRepositoryInterface $eventTypeRepository;
@@ -26,17 +29,30 @@ final class AddEventAction
         $this->availabilityService = $availabilityService;
     }
 
-    public function execute(AddEventRequest $request): void
+    public function execute(UpdateEventRequest $request): UpdateEventResponse
     {
-        $eventType = $this->eventTypeRepository->getById($request->getEventTypeId());
-        if ($this->availabilityService->checkIfTimeIsAvailable($eventType, $request->getStartDate())) {
-            $event = new Event();
+        $event = $this->eventRepository->getById($request->getEventId());
 
+        if (!$event) {
+            throw new ModelNotFoundException('Event not found');
+        }
+
+        if ($event->eventType->owner->id !== $request->getUserId()) {
+            throw new AuthorizationException();
+        }
+
+        $eventType = $this->eventTypeRepository->getById($request->getEventTypeId());
+
+        if ($request->getStatus() == EventStatus::CANCELLED
+            || $this->availabilityService->checkIfTimeIsAvailable($eventType, $request->getStartDate())
+        ) {
             $event->event_type_id = $request->getEventTypeId();
             $event->invitee_name = $request->getInviteeName();
             $event->invitee_email = $request->getInviteeEmail();
             $event->start_date = $request->getStartDate();
             $event->timezone = $request->getTimezone();
+            $event->location = $request->getLocation();
+            $event->status = $request->getStatus();
 
             $this->eventRepository->save($event);
 
@@ -44,7 +60,9 @@ final class AddEventAction
                 $this->eventRepository->saveCustomFieldValues($event, $request->getCustomFieldValues());
             }
 
-            event(new EventCreated($event));
+            event(new EventUpdated($event));
+
+            return new UpdateEventResponse($event);
         }
     }
 }
