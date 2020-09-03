@@ -12,7 +12,7 @@ final class EndDateCriterion implements ElasticSearchCriterion
     {
         return [
             'range' => [
-                'start_date_timestamp' => [
+                'start_date' => [
                     'lt' => $endDate,
                 ]
             ]

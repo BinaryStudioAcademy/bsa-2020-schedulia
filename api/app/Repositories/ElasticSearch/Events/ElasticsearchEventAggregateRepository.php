@@ -15,7 +15,7 @@ final class ElasticsearchEventAggregateRepository extends BaseRepository impleme
     public const TYPE = '_doc';
     public const DEFAULT_PAGE = 1;
     public const DEFAULT_PER_PAGE = 8;
-    public const DEFAULT_SORT = 'start_date_timestamp';
+    public const DEFAULT_SORT = 'start_date';
     public const DEFAULT_DIRECTION = 'ASC';
 
     public function save(EventAggregate $eventAggregate): EventAggregate
