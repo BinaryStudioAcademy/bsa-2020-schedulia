@@ -1,37 +1,35 @@
 <template>
-    <VContainer class="container">
-        <VRow>
-            <VCol cols="12" md="3" lg="3" sm="6" class="notification-block">
-                <div class="notification-main">
-                    <div class="notification-content text-center">
-                        <h3 class="notification-name">Slack</h3>
-                        <VChip class="ma-2" v-if="!user.slack_active">
-                            Disabled
-                        </VChip>
-                        <VChip class="ma-2" color="green" v-else>
-                            Active
-                        </VChip>
-                    </div>
-                    <VDivider></VDivider>
-                    <div class="actions mt-3 mb-3 text-center row">
-                        <div class="col text-left">
-                            <SlackModalIntegrationConnect />
-                            <VBtn
-                                color="red"
-                                class="slack-delete"
-                                :disabled="!user.slack_active"
-                            >
-                                <VIcon color="white">mdi-delete</VIcon>
-                            </VBtn>
-                        </div>
-                        <div class="col text-right"></div>
-                    </div>
+    <VCol cols="12" md="3" lg="3" sm="6">
+        <div class="notification-block">
+            <div class="notification-main p-4">
+                <div class="notification-content text-center">
+                    <h3 class="notification-name">Slack</h3>
+                    <VChip class="ma-2" v-if="!user.slack_active">
+                        Disabled
+                    </VChip>
+                    <VChip class="ma-2" color="#36c5f0" v-else>
+                        Active
+                    </VChip>
                 </div>
-            </VCol>
-        </VRow>
+                <VDivider></VDivider>
+                <div class="actions mt-3 mb-3 text-center row">
+                    <div class="col text-left">
+                        <SlackModalIntegrationConnect />
+                        <VBtn
+                            color="red"
+                            class="slack-delete"
+                            :disabled="!user.slack_active"
+                        >
+                            <VIcon color="white">mdi-delete</VIcon>
+                        </VBtn>
+                    </div>
+                    <div class="col text-right"></div>
+                </div>
+            </div>
+        </div>
 
         <DeleteSlackIntegrationModal />
-    </VContainer>
+    </VCol>
 </template>
 
 <script>
