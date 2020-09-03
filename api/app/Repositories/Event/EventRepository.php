@@ -64,9 +64,10 @@ final class EventRepository extends BaseRepository implements EventRepositoryInt
             ->distinct()
             ->get();
     }
-    
+
     public function getById(int $id): ?Event
     {
+        
         return Event::find($id);
     }
 
