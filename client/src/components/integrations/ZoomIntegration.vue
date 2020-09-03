@@ -19,7 +19,7 @@
                     v-on="on"
                     @click="activateAccount"
                 >
-                    Activate zoom
+                    {{ lang.ACTIVATE_ZOOM }}
                     <VIcon right dark>mdi-plus</VIcon>
                 </VBtn>
             </VCol>
@@ -31,7 +31,7 @@
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapGetters } from 'vuex';
 export default {
-    name: "ZoomIntegration",
+    name: 'ZoomIntegration',
 
     computed: {
         ...mapGetters('i18n', {
@@ -42,12 +42,14 @@ export default {
     methods: {
         activateAccount() {
             window.location.href =
-                process.env.VUE_APP_ZOOM_AUTHORIZE + '?response_type=code&client_id='+ process.env.VUE_APP_ZOOM_CLIENT_ID +'&redirect_uri=' + process.env.VUE_APP_ZOOM_REDIRECT_URI;
+                process.env.VUE_APP_ZOOM_AUTHORIZE +
+                '?response_type=code&client_id=' +
+                process.env.VUE_APP_ZOOM_CLIENT_ID +
+                '&redirect_uri=' +
+                process.env.VUE_APP_ZOOM_REDIRECT_URI;
         }
     }
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

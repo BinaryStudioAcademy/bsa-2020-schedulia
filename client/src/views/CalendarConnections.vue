@@ -9,7 +9,6 @@
         <VRow>
             <ZoomIntegration />
         </VRow>
-
     </GeneralLayout>
 </template>
 

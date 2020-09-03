@@ -44,7 +44,7 @@ class SendNotificationBeforeEvent implements ShouldQueue
 
         foreach ($events as $event) {
             $event->eventType->owner->notify(new NotificationBeforeEventForOwner($event));
-            $startMeetingUrl = $meetingAction->execute($event->startDate, $event->eventType->name);
+            $startMeetingUrl = $meetingAction->execute($event);
             Notification::route('mail', $event->invitee_email)
                 ->notify(new NotificationBeforeEventForInvitee($event, $startMeetingUrl));
             $event->notified = true;

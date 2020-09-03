@@ -414,7 +414,8 @@ export default {
     ALL_TAGS: 'All Tags',
 
     MY_ZOOM_ACCOUNT: 'My zoom account',
-    INCLUDE_ZOOM_MEETING: 'Automatically include Zoom meeting details in Schedulia events'
+    INCLUDE_ZOOM_MEETING:
+        'Automatically include Zoom meeting details in Schedulia events',
 
     I_AM_UNAVAILABLE: "I'm unavailable",
     ERROR_404: 'Error 404',
@@ -424,6 +425,7 @@ export default {
         " Please make sure that you've typed in the URL correctly",
     PLEASE_RETYPE_ADDRESS_OR_RETURN_TO: 'Please retype address or return to',
     MAIN_PAGE: ' main page',
-    SELECT_LOCATION: 'Please select location'
+    SELECT_LOCATION: 'Please select location',
 
+    ACTIVATE_ZOOM: 'Activate zoom'
 };

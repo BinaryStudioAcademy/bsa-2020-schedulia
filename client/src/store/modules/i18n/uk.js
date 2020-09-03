@@ -332,5 +332,9 @@ export default {
     PLEASE_RETYPE_ADDRESS_OR_RETURN_TO:
         'Будь ласка, введіть адресу або поверніться на',
     MAIN_PAGE: ' головну сторінку',
-    SELECT_LOCATION: 'Виберіть локацію'
+    SELECT_LOCATION: 'Виберіть локацію',
+
+    MY_ZOOM_ACCOUNT: 'Мій zoom аккаунт',
+    INCLUDE_ZOOM_MEETING: 'Автоматично вмикайте Zoom мітинги в Schedulia',
+    ACTIVATE_ZOOM: 'Активувати zoom'
 };
