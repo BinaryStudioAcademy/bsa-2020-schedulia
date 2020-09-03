@@ -43,8 +43,7 @@ class ReindexCommand extends Command
     {
         $this->info('Indexing all events. This might take a while...');
 
-        foreach (Event::cursor() as $event)
-        {
+        foreach (Event::cursor() as $event) {
             $eventAggregate = new EventAggregate($event);
 
             $this->elasticsearchEventAggregateRepository->save($eventAggregate);
