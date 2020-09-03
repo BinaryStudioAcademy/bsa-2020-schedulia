@@ -19,7 +19,7 @@
                 @click="updSlackData"
                 v-else
             >
-                <VIcon color="white" >mdi-pencil</VIcon>
+                <VIcon color="white">mdi-pencil</VIcon>
             </VBtn>
         </template>
         <VCard>
