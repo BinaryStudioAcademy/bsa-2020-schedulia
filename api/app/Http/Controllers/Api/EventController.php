@@ -80,7 +80,7 @@ class EventController extends ApiController
 
         return $this->createPaginatedResponse(
             $response->getPaginator(),
-            $this->presenter
+            $this->eventPresenter
         );
     }
 
