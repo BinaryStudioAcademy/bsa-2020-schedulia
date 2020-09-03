@@ -264,7 +264,7 @@ export default {
                         if (response) {
                             this.$router.push({
                                 path: 'new-event-type-options',
-                                props: { eventTypeId: response.id }
+                                query: { eventTypeId: response.id }
                             });
                         }
                     });
