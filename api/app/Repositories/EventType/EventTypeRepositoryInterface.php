@@ -15,5 +15,8 @@ interface EventTypeRepositoryInterface
     public function deleteById(int $id): void;
     public function saveAvailabilities(EventType $eventType, array $availabilities): void;
     public function deleteAvailabilities(EventType $eventType): void;
+    public function saveCustomFields(EventType $eventType, array $customFields): void;
+    public function deleteCustomFields(EventType $eventType): void;
     public function findByCriteria(EloquentCriterion ...$criteria): Collection;
+    public function findOneByCriteria(EloquentCriterion ...$criteria): ?EventType;
 }

@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Actions\EventType;
 
+use App\Actions\PaginatedResponse;
+use App\Repositories\Event\Criterion\GetAllCriterion;
 use App\Repositories\EventType\Criterion\OwnerCriterion;
-use App\Repositories\EventType\Criterion\NameCriterion;
+use App\Repositories\EventType\Criterion\NameSearchCriterion;
+use App\Repositories\EventType\EventTypeRepository;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,11 +26,18 @@ final class GetEventTypeCollectionAction
         $criteria = [new OwnerCriterion(Auth::id())];
 
         if ($request->getSearchString()) {
-            $criteria[] = new NameCriterion($request->getSearchString());
+            $criteria[] = new NameSearchCriterion($request->getSearchString());
         }
 
-        $response = $this->eventTypeRepository->findByCriteria(...$criteria);
+        $paginator = $this->eventTypeRepository->paginateByCriteria(
+            $criteria,
+            $request->getPage() ?: EventTypeRepository::DEFAULT_PAGE,
+            $request->getPerPage() ?: EventTypeRepository::DEFAULT_PER_PAGE,
+            $request->getSorting() ?: EventTypeRepository::DEFAULT_SORTING,
+            $request->getDirection() ?: EventTypeRepository::DEFAULT_DIRECTION,
+            $request->getAll() ?: EventTypeRepository::DEFAULT_ALL
+        );
 
-        return new GetEventTypeCollectionResponse($response);
+        return new PaginatedResponse($paginator);
     }
 }

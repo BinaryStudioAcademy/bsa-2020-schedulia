@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import qs from 'qs';
 
 import UserDataProvider from '@/components/guard/UserDataProvider';
 import LoginGuard from '@/components/guard/LoginGuard';
 import AuthGuard from '@/components/guard/AuthGuard';
+import RoutersTesterGuard from '@/components/guard/UseExistGuard';
 
 Vue.use(VueRouter);
 
@@ -13,25 +15,11 @@ const routes = [
         component: UserDataProvider,
         children: [
             {
-                path: 'event',
-                name: 'PublicEvent',
-                component: () => import('../views/PublicEvent.vue')
+                path: 'error404',
+                name: 'Error404',
+                component: () => import('../views/Error404')
             },
-            {
-                path: 'confirm-event',
-                name: 'PublicEventConfirm',
-                component: () => import('../views/PublicEventConfirm.vue')
-            },
-            {
-                path: 'event-details',
-                name: 'PublicEventDetails',
-                component: () => import('../views/PublicEventDetails.vue')
-            },
-            {
-                path: 'event-disabled',
-                name: 'DisabledEvent',
-                component: () => import('../views/DisabledEvent.vue')
-            },
+
             {
                 path: '',
                 component: AuthGuard,
@@ -55,6 +43,18 @@ const routes = [
                         path: 'reset-password',
                         name: 'ResetPassword',
                         component: () => import('../views/ResetPassword')
+                    },
+
+                    {
+                        path: 'verified-email',
+                        name: 'verifiedEmail',
+                        component: () => import('../views/VerifiedEmail')
+                    },
+
+                    {
+                        path: 'auth/social-callback',
+                        name: 'socialCallback',
+                        component: () => import('../views/SocialLogin')
                     }
                 ]
             },
@@ -89,22 +89,79 @@ const routes = [
                         component: () => import('../views/CalendarConnections')
                     },
                     {
-                        path: 'new-event',
-                        name: 'newEvent',
+                        path: 'new-event-type',
+                        name: 'newEventType',
                         component: () => import('../views/NewEventType')
                     },
                     {
-                        path: 'new-event-edit',
-                        name: 'newEventEdit',
+                        path: 'new-event-type-edit',
+                        name: 'newEventTypeEdit',
                         component: () => import('../views/NewEventTypeBooking')
+                    },
+                    {
+                        path: 'new-event-type-options',
+                        name: 'newEventTypeAdditionalOptions',
+                        component: () =>
+                            import('../views/NewEventTypeAdditionalOptions')
+                    },
+                    {
+                        path: 'scheduled-events',
+                        name: 'ScheduledEvents',
+                        component: () => import('../views/ScheduledEvents'),
+                        children: [
+                            {
+                                path: '',
+                                name: 'Upcoming'
+                            },
+                            {
+                                path: 'past',
+                                name: 'Past'
+                            },
+                            {
+                                path: 'date-range',
+                                name: 'DateRange'
+                            }
+                        ]
                     }
                 ]
             },
-
             {
-                path: 'verified-email',
-                name: 'verified-email',
-                component: () => import('../views/VerifiedEmail')
+                path: 'event-disabled',
+                name: 'DisabledEvent',
+                component: () => import('../views/DisabledEvent.vue')
+            },
+            {
+                path: ':nickname',
+                component: RoutersTesterGuard,
+                children: [
+                    {
+                        path: '',
+                        name: 'UserEventTypes',
+                        component: () =>
+                            import('../views/UserEventTypesList.vue')
+                    },
+                    {
+                        path: ':id',
+                        name: 'PublicEvent',
+                        component: () => import('../views/PublicEvent.vue')
+                    },
+                    {
+                        path: ':id/:date',
+                        name: 'PublicEventConfirm',
+                        component: () =>
+                            import('../views/PublicEventConfirm.vue')
+                    },
+                    {
+                        path: ':id/invitee/details',
+                        name: 'PublicEventDetails',
+                        component: () =>
+                            import('../views/PublicEventDetails.vue')
+                    }
+                ]
+            },
+            {
+                path: '*',
+                redirect: { name: 'Error404' }
             }
         ]
     }
@@ -113,7 +170,15 @@ const routes = [
 const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
-    routes
+    routes,
+    parseQuery(query) {
+        return qs.parse(query);
+    },
+    stringifyQuery(query) {
+        let result = qs.stringify(query, { encode: false });
+
+        return result ? '?' + result : '';
+    }
 });
 
 export default router;

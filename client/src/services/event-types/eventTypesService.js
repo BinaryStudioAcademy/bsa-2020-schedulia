@@ -3,10 +3,18 @@ import requestService from '@/services/requestService';
 const apiEndpoint = '/event-types';
 
 const eventTypesService = {
-    async fetchAllEventTypes(searchString) {
+    async fetchAllEventTypes(searchString, page, all) {
         const response = await requestService.get(apiEndpoint, {
-            searchString
+            searchString,
+            page,
+            all
         });
+        return response?.data;
+    },
+    async fetchEventTypesByNickname(nickName) {
+        const response = await requestService.get(
+            apiEndpoint + '/nickname/' + nickName
+        );
         return response?.data?.data;
     },
     async changeDisabledEventTypeById(updateData) {
@@ -20,6 +28,39 @@ const eventTypesService = {
     },
     async createEventType(eventTypeData) {
         return await requestService.post(apiEndpoint, eventTypeData);
+    },
+    async fetchCustomFieldsByEventTypeId(eventTypeId) {
+        const response = await requestService.get(
+            apiEndpoint + '/' + eventTypeId + '/custom-fields'
+        );
+        return response?.data?.data;
+    },
+    async saveCustomFieldsByEventTypeId(eventTypeId, customFields) {
+        return await requestService.post(
+            apiEndpoint + '/' + eventTypeId + '/custom-fields',
+            customFields
+        );
+    },
+
+    async cloneEventTypeById(eventTypeId) {
+        const response = await requestService.post(
+            apiEndpoint + '/' + eventTypeId + '/clone'
+        );
+        return response?.data?.data;
+    },
+    async updateInternalNoteByEventTypeId(eventTypeId, internalNote) {
+        return await requestService.put(
+            apiEndpoint + '/' + eventTypeId + '/internal-note',
+            internalNote
+        );
+    },
+    async fetchAllEventTypesTags(search_string, start_date, end_date) {
+        const response = await requestService.get('/tags/events', {
+            search_string,
+            start_date,
+            end_date
+        });
+        return response?.data?.data;
     }
 };
 

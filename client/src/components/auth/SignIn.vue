@@ -8,7 +8,7 @@
             </RouterLink>
             <VSpacer class="pa-2"></VSpacer>
         </VCardSubtitle>
-        <VForm v-model="formValid" ref="form">
+        <VForm v-model="formValid" ref="form" @submit.prevent="onSignIn">
             <VCardText>
                 <VCol cols="12" sm="12" md="8" class="pa-0">
                     <label for="email">{{ lang.EMAIL }}*</label>
@@ -54,22 +54,40 @@
                 </VCol>
             </VCardText>
             <VCardActions>
-                <VCol cols="12" sm="12" md="9" class="pa-0">
-                    <VRow no-gutters align="center" justify="space-between">
-                        <VCol>
-                            <VBtn
-                                width="158"
-                                height="44"
-                                class="login-button  primary"
-                                depressed
-                                @click="onSignIn"
-                                >{{ lang.LOG_IN }}
-                            </VBtn>
-                        </VCol>
-                        <VCol class="ma-1"> </VCol>
-                        <VCol> </VCol>
-                    </VRow>
-                </VCol>
+                <VRow no-gutters align="center" justify="" class="ma-1">
+                    <VCol cols="12" sm="5" md="12" lg="5">
+                        <VBtn
+                            width="158"
+                            height="44"
+                            class="login-button  primary"
+                            depressed
+                            type="submit"
+                            @click="onSignIn"
+                            >{{ lang.LOG_IN }}
+                        </VBtn>
+                    </VCol>
+
+                    <VCol
+                        cols="6"
+                        sm="3"
+                        md="6"
+                        lg="3"
+                        :class="{ 'mt-3': $vuetify.breakpoint.xs }"
+                    >
+                        <p class="login-with-text mt-3">
+                            {{ lang.OR_LOGIN_WITH }}
+                        </p>
+                    </VCol>
+                    <VCol
+                        cols="5"
+                        sm="3"
+                        md="5"
+                        lg="4"
+                        :class="{ 'mt-3': $vuetify.breakpoint.xs }"
+                    >
+                        <SocialLoginButtons />
+                    </VCol>
+                </VRow>
             </VCardActions>
         </VForm>
     </VCard>
@@ -82,6 +100,7 @@ import * as notificationActions from '@/store/modules/notification/types/actions
 import { validationMixin } from 'vuelidate';
 import { required, email, minLength } from 'vuelidate/lib/validators';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import SocialLoginButtons from '@/components/auth/SocialLoginButtons';
 
 export default {
     name: 'SingIn',
@@ -92,7 +111,9 @@ export default {
             password: { required, minLength: minLength(8) }
         }
     },
-    components: {},
+    components: {
+        SocialLoginButtons
+    },
     data: () => ({
         formValid: false,
         showPassword: false,
@@ -206,5 +227,10 @@ label {
 }
 .login-button {
     text-transform: none;
+}
+
+.login-with-text {
+    font-size: 12px;
+    color: #8b90a0;
 }
 </style>

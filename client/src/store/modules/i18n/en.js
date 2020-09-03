@@ -5,6 +5,8 @@ export default {
     BRANDING: 'Branding',
 
     CANCEL: 'Cancel',
+    CANCELLATION_EVENT: 'Cancellation event!',
+    CANCEL_EVENT_TEXT: 'Are you sure that you want cancel this event?',
     CALENDAR_CONNECTIONS: 'Calendar connections',
     CHARACTERS: 'Characters',
     CHANGE_PASSWORD: 'Change password',
@@ -16,6 +18,7 @@ export default {
     CURRENT_PASSWORD: 'Current password',
 
     DATE_FORMAT: 'Date format',
+    DISCONNECT: 'Disconnect',
     DELETE_ACCOUNT: 'Delete account',
     DELETE_ACCOUNT_WARNING_TEXT:
         'You are about to delete your Schedulia account. This will go into effect immediately and you will no longer have access to your account data.',
@@ -209,6 +212,12 @@ export default {
     LOCKED: 'Locked',
     EDIT_AVAILABILITY: 'Edit Availability',
     APPLY: 'Apply',
+    APPLY_ONLY: 'Apply to _ only',
+    APPLY_TO_ALL: 'Apply to all ',
+    OR_APPLY_MULTIPLE: 'Or apply to multiple...',
+    APPLY_MULTIPLE: 'Apply to multiple...',
+    REPEATING_DAYS: 'repeating days of the week',
+    SPECIFIC_DATES: 'specific dates',
     EVENT_TIME_ZONE_EXPLANATION:
         'You are viewing times in Eastern\n' +
         '                                            European Time. Your invitees will\n' +
@@ -335,10 +344,82 @@ export default {
     UNSAVE_CHANGES_WILL_BE_LOST: 'Any unsaved changes will be lost.',
     EXPLANATION_PASSWORD_RESET:
         'Go to the SignIn page and use your new password to authenticate on the site.',
+    MORE: 'more',
+    TODAY: 'Today',
+    NEW_INTERVAL: 'New Interval',
+    UNAVAILABLE: 'Unavailable',
+
     INVITEES_WILL_BE_OFFERED_INDEFINITELY:
         'Your invitees will be offered availability indefinitely into the future. ',
     YOU_CAN_CHANGE_LANGUAGE_TO: 'Your can change language to',
     DISPLAY_LANGUAGE: 'Display language',
     MY_EVENTS: 'My Events',
+
+    OK: 'Ok',
+    SET_MEETING_LOCATION: 'Set meeting location',
+    ZOOM_CONFERENCE_LINK: 'Zoom conference link',
+    SKYPE_CALL_DETAILS: 'Skype call details',
+
+    INFO_MUST_BE_NO_MORE_THAN_1000_CHARACTERS_LONG:
+        'Additional info must be no more than 1000 characters long',
+    NO_ITEMS_FOUND: 'No items found',
+    UNAUTHENTICATED_ERROR: 'Session time is expired! Sign In again, please!',
+    NAME_IS_REQUIRED: 'Name is required',
+    PASSWORD_CONFIRMATION_IS_REQUIRED: 'Password confirmation is required',
+    NAME_MUST_BE_AT_LEAST_2_CHARACTERS_LONG:
+        'Name must be at least 2 characters long',
+    NAME_MUST_BE_NO_MORE_THAN_50_CHARACTERS_LONG:
+        'The name must be no more than 50 characters',
+    ONLY_LETTER_AND_SYMBOLS_PERMITTED:
+        'Only letter and symbols  \\|/,._ are permitted ',
+    LOCALIZATION: 'en-US',
+    ENABLED: 'Enabled',
+    LOAD_MORE: 'Load more',
+    PLEASE_WAIT_WHILE_WE_ARE_LOGGING_YOU_IN:
+        "Please wait while we're logging you in...",
+    ADD_ONE_ON_ONE_EVENT_TYPE: 'Add One-on-One Event Type',
+    RESET: 'Reset filter',
+    INVITEE_EMAILS: 'Invitee Emails',
+    ALL_INVITEE_EMAILS: 'All Invitee Emails',
+    PICK_NEEDED_LOCATION: 'Pick needed location',
+    ADDITIONAL_OPTIONS: 'Additional options',
+    QUESTIONS_TO_INVITEE: 'Questions to Invitee',
+    NOW_YOU_CAN_ADD_CUSTOM_FIELDS:
+        'Now you can add some custom fields with\n' +
+        '                                questions or something like that for your\n' +
+        '                                invitees',
+    PLEASE_SHARE_ANYTHING:
+        'Please share anything that will help prepare for our meeting',
+    DELETE_FIELD: 'Delete field',
+    ANSWER_TYPE: 'Answer type',
+    QUESTION: 'Question',
+    ADD_NEW_FIELD: 'Add new field',
+    STATUS: 'Status',
+    ACTIVE_EVENTS: 'Active Events',
+    ALL_EVENTS: 'All Events',
+    CANCELED_EVENTS: 'Cancelled Events',
+    WELCOME_TO_MY_SCHEDULING_PAGE: 'Welcome to my scheduling page.',
+    PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT:
+        'Please follow the instructions to add an event to my\n' +
+        '                        calendar.',
+    NO_OPENINGS_AT_THE_MOMENT: 'No openings at the moment.',
+    NO_EVENTS_FOUND: 'No Events found',
+    EDIT_INTERNAL_NOTE: 'Edit Internal Note',
+    INTERNAL_NOTE: 'Internal Note',
+    INTERNAL_NOTE_DESCRIPTION:
+        'Write relevant information about this event type that you\n' +
+        '                    may want to reference later.',
+    PUBLIC_LINK_WAS_COPIED: 'Public Link was copied!',
+    TAGS: 'Tags',
+    ALL_TAGS: 'All Tags',
+    I_AM_UNAVAILABLE: "I'm unavailable",
+    ERROR_404: 'Error 404',
+    THE_PAGE_YOU_ARE_LOOKING_FOR_COULD_NOT_BE_FOUND:
+        'The page you are looking for could not be found',
+    PLEASE_MAKE_SURE_THAT_YOU_TYPED_IN_THE_URL_CORRECTLY:
+        " Please make sure that you've typed in the URL correctly",
+    PLEASE_RETYPE_ADDRESS_OR_RETURN_TO: 'Please retype address or return to',
+    MAIN_PAGE: ' main page',
+    SELECT_LOCATION: 'Please select location',
     CONFIRM_NEW_PASSWORD: 'Confirm new password'
 };

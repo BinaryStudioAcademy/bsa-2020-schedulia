@@ -16,11 +16,11 @@ export default {
 
 <style scoped>
 div.loader-wrapper {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     z-index: 99;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 1);
 }
 .v-progress-circular {
     position: absolute;

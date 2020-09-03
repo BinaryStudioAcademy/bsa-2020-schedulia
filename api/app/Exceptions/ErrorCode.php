@@ -16,4 +16,12 @@ final class ErrorCode
     public const END_TIME_BEFORE_START_TIME_EXCEPTION = 1007;
     public const TIME_IS_ALREADY_BOOKED = 1008;
     public const WEEKEND_EXCEPTION = 1009;
+    public const USER_ALREADY_VERIFIED_EXCEPTION = 1010;
+    public const EMAIL_IS_NOT_VERIFIED_EXCEPTION = 1011;
+    public const WRONG_DATE_TIME_EXCEPTION = 1012;
+    public const GOOGLE_OAUTH_EXCEPTION = 1013;
+    public const EVENT_TYPE_SLUG_IS_ALREADY_IN_USE = 1014;
+    public const EVENT_TYPE_NAME_IS_ALREADY_IN_USE = 1015;
+    public const COORDINATES_FIELD_IS_REQUIRED = 1016;
+    public const NICKNAME_NOT_EXIST_EXCEPTION = 1017;
 }

@@ -58,6 +58,18 @@ export default {
         ...mapActions('scheduledEvent', {
             setScheduledEventsFilterView: SET_SCHEDULED_EVENT_FILTER_VIEW
         })
+    },
+
+    mounted() {
+        if (
+            this.$route.query.event_types ||
+            this.$route.query.event_emails ||
+            this.$route.query.event_status ||
+            this.$route.query.tags ||
+            this.$route.query.search
+        ) {
+            this.setScheduledEventsFilterView(true);
+        }
     }
 };
 </script>

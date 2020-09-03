@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Presenters;
 
+use App\Contracts\PresenterCollectionInterface;
 use App\Entity\EventType;
 use Illuminate\Support\Collection;
 
-final class EventTypePresenter
+final class EventTypePresenter implements PresenterCollectionInterface
 {
     private UserArrayPresenter $userPresenter;
     private AvailabilityArrayPresenter $availabilityPresenter;
@@ -31,6 +32,7 @@ final class EventTypePresenter
             'id' => $eventType->id,
             'name' => $eventType->name,
             'description' => $eventType->description,
+            'internal_note' => $eventType->internal_note,
             'slug' => $eventType->slug,
             'color' => $eventType->color,
             'duration' => $eventType->duration,
@@ -40,6 +42,8 @@ final class EventTypePresenter
             'availabilities' => $eventType->availabilities()->get()->map(function ($availability) {
                 return $this->availabilityPresenter->present($availability);
             }),
+            'location_type' => $eventType->location_type,
+            'coordinates' => $eventType->coordinates
         ];
     }
 }

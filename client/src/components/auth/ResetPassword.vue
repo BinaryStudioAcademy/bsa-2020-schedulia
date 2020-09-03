@@ -5,7 +5,7 @@
             {{ lang.PLEASE_ENTER_NEW_PASSWORD_FOR_USER_WITH_EMAIL }}
             <em>{{ $route.query.email }}</em>
         </p>
-        <VForm>
+        <VForm @submit.prevent="onSubmit">
             <VCol cols="11" sm="11" md="8" class="pa-0 py-4">
                 <label>{{ lang.PASSWORD }}*</label>
                 <VTextField
@@ -22,7 +22,7 @@
                 />
             </VCol>
             <VCol cols="11" sm="11" md="8" class="pa-0 py-4">
-                <label>{{ lang.PASSWORD }}*</label>
+                <label>{{ lang.CONFIRM_PASSWORD }}*</label>
                 <VTextField
                     :type="showPassword ? 'text' : 'password'"
                     :value="resetPasswordData.confirmPassword"
@@ -42,7 +42,7 @@
                         height="44"
                         class="login-button  primary"
                         depressed
-                        @click="onSubmit"
+                        type="submit"
                         >{{ lang.SET_NEW_PASSWORD }}
                     </VBtn>
                     <RouterLink
@@ -82,7 +82,7 @@ export default {
     validations: {
         resetPasswordData: {
             password: { required, minLength: minLength(8) },
-            confirmPassword: { sameAsPassword: sameAs('password') }
+            confirmPassword: { required, sameAsPassword: sameAs('password') }
         }
     },
     components: { ExplanationAlert },
@@ -156,6 +156,8 @@ export default {
             if (!this.$v.resetPasswordData['confirmPassword'].$dirty) {
                 return errors;
             }
+            !this.$v.resetPasswordData['confirmPassword'].required &&
+                errors.push(this.lang.PASSWORD_IS_REQUIRED);
             !this.$v.resetPasswordData['confirmPassword'].sameAsPassword &&
                 errors.push(this.lang.PASSWORDS_DONT_MATCH);
             return errors;

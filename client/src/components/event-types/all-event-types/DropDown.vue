@@ -11,40 +11,28 @@
             </VBtn>
         </template>
         <VList>
-            <VListItem dense>
-                <VListItemTitle>
-                    <VIcon color="primary">mdi-calculator</VIcon>
-                    {{ lang.MANAGE_AVAILABILITY }}
-                </VListItemTitle>
-            </VListItem>
-            <VListItem dense>
+            <VListItem dense disabled>
                 <VListItemTitle>
                     <VIcon color="primary">mdi-pencil</VIcon>
                     {{ lang.EDIT }}
                 </VListItemTitle>
             </VListItem>
-            <VListItem dense>
+            <VListItem dense :id="'internal-note-' + eventType.id">
                 <VListItemTitle>
                     <VIcon color="primary">mdi-file-outline</VIcon>
-                    {{ lang.ADD_INTERNAL_NOTE }}
+                    <span v-if="eventType.internalNote">
+                        {{ lang.EDIT_INTERNAL_NOTE }}
+                    </span>
+                    <span v-else>
+                        {{ lang.ADD_INTERNAL_NOTE }}
+                    </span>
+                    <AddInternalNoteDialog :event-type="eventType" />
                 </VListItemTitle>
             </VListItem>
-            <VListItem dense>
+            <VListItem dense @click="onClone">
                 <VListItemTitle>
                     <VIcon color="primary">mdi-content-copy</VIcon>
                     {{ lang.CLONE }}
-                </VListItemTitle>
-            </VListItem>
-            <VListItem dense>
-                <VListItemTitle>
-                    <VIcon color="primary">mdi-plus-minus-box</VIcon>
-                    {{ lang.SAVE_TO_TEMPLATE }}
-                </VListItemTitle>
-            </VListItem>
-            <VListItem dense>
-                <VListItemTitle>
-                    <VIcon color="primary">mdi-xml</VIcon>
-                    {{ lang.ADD_TO_WEBSITE }}
                 </VListItemTitle>
             </VListItem>
             <VListItem dense>
@@ -57,12 +45,12 @@
                 <VListItemTitle>
                     <div class="switch-item">
                         <div class="pa-0 ma-0">
-                            {{ lang.ON }}/{{ lang.OFF }}
+                            {{ lang.ENABLED }}
                         </div>
                         <div class="pa-0 ma-0">
                             <VSwitch
                                 inset
-                                v-model="disabled"
+                                v-model="switchStatus"
                                 @change="onSwitch"
                             ></VSwitch>
                         </div>
@@ -78,14 +66,16 @@ import * as actions from '@/store/modules/eventTypes/types/actions';
 import { mapActions, mapGetters } from 'vuex';
 import DeleteConfirmDialog from '@/components/event-types/all-event-types/DeleteConfirmDialog';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import AddInternalNoteDialog from '@/components/event-types/all-event-types/AddInternalNoteDialog';
 
 export default {
     name: 'DropDown',
     components: {
-        DeleteConfirmDialog
+        DeleteConfirmDialog,
+        AddInternalNoteDialog
     },
     data: () => ({
-        disabled: '',
+        switchStatus: false,
         dialog: false
     }),
     props: {
@@ -94,17 +84,22 @@ export default {
         }
     },
     created() {
-        this.disabled = this.eventType.disabled;
+        this.switchStatus = !this.eventType.disabled;
     },
     methods: {
         ...mapActions('eventTypes', {
-            disableEventType: actions.DISABLE_EVENT_TYPE_BY_ID
+            disableEventType: actions.DISABLE_EVENT_TYPE_BY_ID,
+            cloneEventType: actions.CLONE_EVENT_TYPE_BY_ID,
+            fetchAllEventTypes: actions.FETCH_EVENT_TYPES
         }),
         onSwitch() {
             this.disableEventType({
                 id: this.eventType.id,
-                disabled: this.disabled
+                disabled: !this.switchStatus
             });
+        },
+        async onClone() {
+            await this.cloneEventType(this.eventType.id);
         }
     },
     computed: {

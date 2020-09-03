@@ -24,12 +24,17 @@ final class RegisterAction
         $user->password = Hash::make($request->getPassword());
         $user->name = $request->getName();
         $user->timezone = $request->getTimezone();
-        $user->nickname = Hash::make($request->getEmail());
+        $user->nickname = $this->generateNickname($request->getEmail());
 
         $user = $this->userRepository->save($user);
 
         $user->sendEmailVerificationNotification();
 
         return new RegisterResponse($user);
+    }
+
+    private function generateNickname(string $email): string
+    {
+        return explode('@', $email)[0];
     }
 }

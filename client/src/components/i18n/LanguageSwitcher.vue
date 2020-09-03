@@ -29,8 +29,7 @@ export default {
     },
     computed: {
         ...mapGetters('i18n', {
-            lang: i18nGetters.GET_LANGUAGE_CONSTANTS,
-            currentLanguage: i18nGetters.GET_CURRENT_LANGUAGE
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         }),
         languageList() {
             return [

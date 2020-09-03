@@ -1,178 +1,130 @@
 <template>
-    <VContainer>
-        <VCard class="mt-7">
-            <VRow align="center">
-                <VCol cols="2" md="1" sm="1" lg="1">
-                    <div>
-                        <img
-                            :src="colorById[data.color].image"
-                            alt=""
-                            :class="{
-                                'pl-3': $vuetify.breakpoint.xs,
-                                'pl-10': $vuetify.breakpoint.smAndUp
-                            }"
-                        />
-                    </div>
-                </VCol>
-                <VCol cols="10" class="pl-lg-5 pl-sm-10">
-                    <div>
-                        <VCardTitle>
-                            {{ lang.CREATE_EVENT_TYPE_TITLE }}
-                        </VCardTitle>
-                        <VCardSubtitle>
-                            {{ data.name }}
-                        </VCardSubtitle>
-                    </div>
-                </VCol>
-            </VRow>
-            <VDivider class="mx-4"></VDivider>
+    <VForm class="mt-9 mb-16" ref="form">
+        <div class="mb-2">
+            <label>{{ lang.EVENT_NAME_LABEL }}*</label>
+        </div>
+
+        <VTextField
+            :value="data.name"
+            @input="changeEventTypeProperty('name', $event)"
+            :rules="nameRules"
+            outlined
+            class="app-textfield"
+            dense
+        ></VTextField>
+
+        <div class="mb-2">
+            <label>{{ lang.LOCATION_LABEL }}*</label>
+        </div>
+
+        <div class="mb-3">
+            <VSelect
+                :value="data.locationType"
+                :items="items"
+                :rules="locationRules"
+                @change="changeEventTypeProperty('locationType', $event)"
+                outlined
+                :clearable="true"
+                placeholder="Option"
+                dense
+                class="mb-1"
+            >
+                <template slot="selection" slot-scope="data">
+                    <VFlex xs2 md1>
+                        <VIcon>{{ data.item.icon }}</VIcon>
+                    </VFlex>
+                    <VFlex>{{ data.item.title }}</VFlex>
+                </template>
+
+                <template slot="item" slot-scope="data">
+                    <VFlex xs2 md1>
+                        <VIcon>{{ data.item.icon }}</VIcon>
+                    </VFlex>
+                    <VFlex>{{ data.item.title }}</VFlex>
+                </template>
+            </VSelect>
+            <FindLocationForm class="find-location-form" v-if="showGeocoder" />
+        </div>
+
+        <div class="mb-2">
+            <label>{{ lang.DESCRIPTION_LABEL }}</label>
+        </div>
+
+        <VTextarea
+            :value="data.description"
+            @change="changeEventTypeProperty('description', $event)"
+            :rules="descRules"
+            placeholder="Placeholder"
+            outlined
+            class="mb-3"
+        ></VTextarea>
+
+        <div class="mb-2">
+            <label>{{ lang.EVENT_LINK_LABEL }}*</label>
+        </div>
+
+        <VTextField
+            :rules="eventLinkRules"
+            outlined
+            :value="data.slug"
+            @input="changeEventTypeProperty('slug', $event)"
+            dense
+            class="mb-4 app-textfield"
+            required
+        ></VTextField>
+
+        <div class="mb-2">
+            <p>{{ lang.EVENT_COLOR_LABEL }}</p>
+        </div>
+        <div class="mb-12">
             <VRow>
-                <VCol
-                    cols="10"
-                    offset-sm="3"
-                    offset-md="3"
-                    md="6"
-                    sm="6"
-                    :class="{ 'ml-10': $vuetify.breakpoint.xs }"
-                >
-                    <VForm class="mt-9 mb-16" ref="form">
-                        <div class="mb-2">
-                            <label>{{ lang.EVENT_NAME_LABEL }}*</label>
-                        </div>
-
-                        <VTextField
-                            :value="data.name"
-                            @change="changeName"
-                            :rules="nameRules"
-                            outlined
-                            class="app-textfield"
-                            dense
+                <div class="d-flex">
+                    <VImg
+                        v-for="id in colors"
+                        :key="id"
+                        :src="colorById[id].image"
+                        alt
+                        width="44"
+                        height="44"
+                        class="image-circle"
+                        :class="{
+                            'mr-5': $vuetify.breakpoint.xs,
+                            'mr-7 ml-3': $vuetify.breakpoint.smAndUp
+                        }"
+                        v-on:click="changeEventTypeProperty('color', id)"
+                    >
+                        <VOverlay
+                            absolute
+                            :value="data.color === id"
+                            class="rounded-circle"
+                            color="eventColor"
                         >
-                        </VTextField>
-
-                        <div class="mb-2">
-                            <label>{{ lang.LOCATION_LABEL }}</label>
-                        </div>
-
-                        <VSelect
-                            :value="data.location"
-                            :items="items"
-                            @change="changeLocation"
-                            outlined
-                            placeholder="Option"
-                            dense
-                            class="mb-3"
-                        >
-                            <template slot="selection" slot-scope="data">
-                                <VFlex xs2 md1>
-                                    <VIcon>
-                                        {{ data.item.icon }}
-                                    </VIcon>
-                                </VFlex>
-                                <VFlex>
-                                    {{ data.item.title }}
-                                </VFlex>
-                            </template>
-
-                            <template slot="item" slot-scope="data">
-                                <VFlex xs2 md1>
-                                    <VIcon>
-                                        {{ data.item.icon }}
-                                    </VIcon>
-                                </VFlex>
-                                <VFlex>
-                                    {{ data.item.title }}
-                                </VFlex>
-                            </template>
-                        </VSelect>
-
-                        <div class="mb-2">
-                            <label>{{ lang.DESCRIPTION_LABEL }}</label>
-                        </div>
-
-                        <VTextarea
-                            :value="data.description"
-                            @change="changeDescription"
-                            :rules="descRules"
-                            placeholder="Placeholder"
-                            outlined
-                            class="mb-3"
-                        >
-                        </VTextarea>
-
-                        <div class="mb-2">
-                            <label>{{ lang.EVENT_LINK_LABEL }}*</label>
-                        </div>
-
-                        <VTextField
-                            :rules="eventLinkRules"
-                            outlined
-                            :value="data.slug"
-                            @input="changeSlug"
-                            dense
-                            class="mb-4 app-textfield"
-                        >
-                        </VTextField>
-
-                        <div class="mb-2">
-                            <p>{{ lang.EVENT_COLOR_LABEL }}</p>
-                        </div>
-                        <div class="mb-12">
-                            <VRow>
-                                <div class="d-flex">
-                                    <VImg
-                                        v-for="id in colors"
-                                        :key="id"
-                                        :src="colorById[id].image"
-                                        alt=""
-                                        class="image-circle"
-                                        :class="{
-                                            'mr-5': $vuetify.breakpoint.xs,
-                                            'mr-7 ml-3':
-                                                $vuetify.breakpoint.smAndUp
-                                        }"
-                                        v-on:click="setColor(id)"
-                                    >
-                                        <VOverlay
-                                            absolute
-                                            :value="data.color === id"
-                                            class="rounded-circle"
-                                            color="eventColor"
-                                        >
-                                            <img
-                                                :src="
-                                                    require('@/assets/images/icon_check.png')
-                                                "
-                                                alt=""
-                                            />
-                                        </VOverlay>
-                                    </VImg>
-                                </div>
-                            </VRow>
-                        </div>
-                        <div>
-                            <VBtn
-                                text
-                                outlined
-                                width="114"
-                                class="mr-3"
-                                @click.stop="cancelDialog = true"
-                            >
-                                {{ lang.CANCEL }}
-                            </VBtn>
-                            <VBtn
-                                @click="clickNext"
-                                color="primary"
-                                class="white--text"
-                                width="114"
-                            >
-                                {{ lang.NEXT }}
-                            </VBtn>
-                        </div>
-                    </VForm>
-                </VCol>
+                            <img
+                                :src="require('@/assets/images/icon_check.png')"
+                                alt
+                            />
+                        </VOverlay>
+                    </VImg>
+                </div>
             </VRow>
-        </VCard>
+        </div>
+        <div>
+            <VBtn
+                text
+                outlined
+                width="114"
+                class="mr-3"
+                :to="{ name: 'EventTypes' }"
+                >{{ lang.CANCEL }}</VBtn
+            >
+            <VBtn
+                @click="clickNext"
+                color="primary"
+                class="white--text"
+                width="114"
+                >{{ lang.NEXT }}</VBtn
+            >
+        </div>
         <VDialog v-model="cancelDialog" width="380">
             <VCard>
                 <VCardTitle class="mb-5">
@@ -192,76 +144,110 @@
                             class="white--text mr-3"
                             width="114"
                             :to="{ name: 'EventTypes' }"
+                            >{{ lang.YES }}</VBtn
                         >
-                            {{ lang.YES }}
-                        </VBtn>
                         <VBtn
                             text
                             outlined
                             width="114"
                             @click="cancelDialog = false"
+                            >{{ lang.NEVERMIND }}</VBtn
                         >
-                            {{ lang.NEVERMIND }}
-                        </VBtn>
                     </div>
                 </VCardActions>
             </VCard>
         </VDialog>
-    </VContainer>
+        <VDialog :value="showZoomDialog" max-width="390" persistent>
+            <div class="set-location-container">
+                <h3 class="mb-4">{{ lang.SET_MEETING_LOCATION }}</h3>
+                <VTextField
+                    :value="data.location"
+                    @change="changeEventTypeProperty('location', $event)"
+                    :placeholder="lang.ZOOM_CONFERENCE_LINK"
+                    outlined
+                    dense
+                ></VTextField>
+                <VBtn
+                    color="primary"
+                    class="white--text"
+                    width="114"
+                    @click="onCloseZoomDialog"
+                    >{{ lang.OK }}</VBtn
+                >
+            </div>
+        </VDialog>
+        <VDialog :value="showSkypeDialog" max-width="390" persistent>
+            <div class="set-location-container">
+                <h3 class="mb-4">{{ lang.SET_MEETING_LOCATION }}</h3>
+                <VTextField
+                    :value="data.location"
+                    @change="changeEventTypeProperty('location', $event)"
+                    :placeholder="lang.SKYPE_CALL_DETAILS"
+                    outlined
+                    dense
+                ></VTextField>
+                <VBtn
+                    color="primary"
+                    class="white--text"
+                    width="114"
+                    @click="onCloseSkypeDialog"
+                    >{{ lang.OK }}</VBtn
+                >
+            </div>
+        </VDialog>
+    </VForm>
 </template>
 
 <script>
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
-import { mapGetters, mapMutations } from 'vuex';
-import * as eventTypeMutations from '@/store/modules/eventType/types/mutations';
-import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
+import { mapGetters } from 'vuex';
+import eventTypeMixin from '@/components/events/eventTypeMixin';
+import FindLocationForm from './FindLocationForm';
 
 export default {
     name: 'CreateEventTypeForm',
+    mixins: [eventTypeMixin],
+    props: {
+        isBooking: {
+            type: Boolean,
+            default: false
+        }
+    },
+    components: {
+        FindLocationForm
+    },
     data() {
         return {
             cancelDialog: false,
-            form: {
-                name: '',
-                location: '',
-                description: '',
-                slug: '',
-                color: 'yellow'
-            },
             items: [
                 {
+                    key: 'address',
                     title: 'address on the map',
                     icon: 'mdi-google-maps'
                 },
                 {
+                    key: 'zoom',
                     title: 'zoom',
                     icon: 'mdi-video-box'
                 },
                 {
+                    key: 'skype',
                     title: 'skype',
                     icon: 'mdi-skype'
                 }
             ],
-
-            colorById: {
-                yellow: {
-                    id: 'yellow',
-                    image: require('@/assets/images/yellow_circle.png')
-                },
-                red: {
-                    id: 'red',
-                    image: require('@/assets/images/red_circle.png')
-                },
-                blue: {
-                    id: 'blue',
-                    image: require('@/assets/images/blue_circle.png')
-                },
-                green: {
-                    id: 'green',
-                    image: require('@/assets/images/green_circle.png')
-                }
-            },
-            colors: ['yellow', 'red', 'blue', 'green'],
+            showZoomDialog: false,
+            showSkypeDialog: false,
+            colors: [
+                'yellow',
+                'red',
+                'blue',
+                'green',
+                'purple',
+                'turquoise',
+                'pink',
+                'dark_blue'
+            ],
             nameRules: [
                 v => !!v || this.lang.PROVIDE_EVENT_NAME,
                 v =>
@@ -313,50 +299,34 @@ export default {
                             'value',
                             1000
                         )
-            ]
+            ],
+            locationRules: [v => !!v || this.lang.SELECT_LOCATION]
         };
     },
-
     computed: {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
-        }),
-        ...mapGetters('eventType', {
-            getEventTypeForm: eventTypeGetters.GET_EVENT_TYPE_FORM
-        }),
-        data() {
-            return {
-                ...this.getEventTypeForm,
-                ...this.form
-            };
-        }
+        })
     },
 
     methods: {
-        ...mapMutations('eventType', {
-            setEventTypeForm: eventTypeMutations.SET_EVENT_TYPE_FORM
-        }),
         clickNext() {
             if (this.$refs.form.validate()) {
-                this.setEventTypeForm(this.form);
-                this.$router.push({ name: 'newEventEdit' });
+                if (this.isBooking) {
+                    this.$emit('changePanel');
+                } else {
+                    this.$router.push({ name: 'newEventTypeEdit' });
+                }
             }
         },
-        setColor(id) {
-            this.form.color = this.colorById[id].id;
+        getSlug(value) {
+            return value.replace(/\s/g, '-').toLowerCase();
         },
-        changeName(val) {
-            this.form.name = val;
-            this.changeSlug(val);
+        onCloseZoomDialog() {
+            this.showZoomDialog = false;
         },
-        changeLocation(val) {
-            this.form.location = val;
-        },
-        changeDescription(val) {
-            this.form.description = val;
-        },
-        changeSlug(val) {
-            this.form.slug = val.replace(/\s/g, '-');
+        onCloseSkypeDialog() {
+            this.showSkypeDialog = false;
         }
     }
 };
@@ -381,5 +351,20 @@ export default {
 
 .image-circle:hover {
     opacity: 0.9;
+}
+
+.set-location-container {
+    background-color: white;
+    padding: 30px 20px 15px 20px;
+}
+
+.basemap {
+    width: 350px;
+    min-width: 250px;
+    height: 250px;
+}
+
+.find-location-form {
+    max-width: 507px;
 }
 </style>
