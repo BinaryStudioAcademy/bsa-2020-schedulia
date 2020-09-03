@@ -7,7 +7,9 @@ namespace App\Http\Controllers\Api;
 use App\Actions\Slack\AddSlackNotificationsAction;
 use App\Actions\Slack\AddSlackNotificationsRequest;
 use App\Actions\Slack\ChangeActivitySlackNotificationsAction;
+use App\Actions\Slack\ChangeActivitySlackNotificationsRequest;
 use App\Actions\Slack\DeleteSlackNotificationsAction;
+use App\Http\Requests\Api\Slack\SlackChangeActivityRequest;
 use App\Http\Requests\Api\Slack\SlackRequest;
 use Illuminate\Http\JsonResponse;
 
@@ -31,9 +33,11 @@ class SlackController extends ApiController
         return $this->emptyResponse();
     }
 
-    public function changeActivitySlackNotifications(ChangeActivitySlackNotificationsAction $action): JsonResponse
-    {
-        $action->execute();
+    public function changeActivitySlackNotifications(
+        SlackChangeActivityRequest $request,
+        ChangeActivitySlackNotificationsAction $action
+    ): JsonResponse {
+        $action->execute(new ChangeActivitySlackNotificationsRequest($request->slack_active));
         return $this->emptyResponse();
     }
 }
