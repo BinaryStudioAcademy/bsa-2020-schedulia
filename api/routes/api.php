@@ -126,6 +126,12 @@ Route::get('/social-accounts/{provider?}/oauth', 'Api\\SocialAccountController@o
 Route::get('/social-accounts/{provider?}/oauthResponse', 'Api\\SocialAccountController@oauthResponse');
 
 Route::group([
+    'namespace' => 'Api\\',
+], function () {
+    Route::get('/users/{nickname}', 'UserController@checkNickname');
+});
+  
+  Route::group([
     'middleware' => 'auth:api',
     'namespace' => 'Api\\'
 ], function () {

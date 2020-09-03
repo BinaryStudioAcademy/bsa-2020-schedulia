@@ -60,7 +60,7 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
         return $query->get();
     }
 
-    public function findOneByCriteria(EloquentCriterion ...$criteria): User
+    public function findOneByCriteria(EloquentCriterion ...$criteria): ?User
     {
         $query = User::query();
 
