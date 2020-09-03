@@ -84,7 +84,7 @@ class EventController extends ApiController
         );
     }
 
-    public function update(string $id, EventRequest $request): JsonResponse
+    public function update(string $id, UpdateEventRequest $request): JsonResponse
     {
         $response = $this->updadeEventAction->execute(
             new UpdateEventRequest(

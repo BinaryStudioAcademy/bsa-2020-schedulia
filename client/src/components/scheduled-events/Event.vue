@@ -24,10 +24,7 @@
                             </span>
                         </VCol>
                         <VCol sm="2">
-                            <VChip
-                                    class="ma-2"
-                                    :color=statusColor
-                            >
+                            <VChip class="ma-2" :color="statusColor">
                                 {{ scheduledEvent.status }}
                             </VChip>
                         </VCol>
@@ -79,6 +76,15 @@
                                 <VIcon>mdi-refresh</VIcon>
                                 {{ lang.INVITE_AGAIN }}
                             </VBtn>
+
+                            <ConfirmDialog
+                                v-if="!isCancelled"
+                                :header="lang.CANCELLATION_EVENT"
+                                :content="lang.CANCEL_EVENT_TEXT"
+                                :buttonText="lang.CANCEL"
+                                icon="mdi-table-cancel"
+                                @confirm="onCancelHandle"
+                            />
                         </VCol>
                         <VCol class="info-col">
                             <ul>
@@ -126,10 +132,12 @@
 
 <script>
 import BorderBottom from '@/components/common/GeneralLayout/BorderBottom';
+import * as actions from '@/store/modules/scheduledEvent/types/actions';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import * as EventStatus from '@/store/modules/scheduledEvent/types/statuses';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import EventTypesColor from '../common/EventTypesColor/EventTypesColor';
+import ConfirmDialog from '@/components/confirm/ConfirmDialog.vue';
 
 export default {
     name: 'Event',
@@ -138,7 +146,8 @@ export default {
 
     components: {
         EventTypesColor,
-        BorderBottom
+        BorderBottom,
+        ConfirmDialog
     },
 
     props: {
@@ -153,13 +162,23 @@ export default {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         }),
 
+        isCancelled() {
+            return (
+                this.scheduledEvent.status ===
+                EventStatus.EVENT_STATUS_CANCELLED
+            );
+        },
+
         statusColor() {
-            console.log(this.scheduledEvent.status);
-            return this.scheduledEvent.status === EventStatus.EVENT_STATUS_SCHEDULED ? 'green' : 'red';
+            return this.isCancelled ? 'red' : 'green';
         }
     },
 
     methods: {
+        ...mapActions('scheduledEvent', {
+            updateEvent: actions.UPDATE_EVENT
+        }),
+
         getDurationTime(startDate, duration) {
             let timeStart = new Date(startDate);
             let timeEnd = new Date(startDate);
@@ -199,11 +218,12 @@ export default {
                 .padStart(2, '0');
 
             return day + ' ' + month + ' ' + year;
-        }
-    },
+        },
 
-    created() {
-        console.log(this.scheduledEvent);
+        async onCancelHandle() {
+            const updatedEvent = { ...this.scheduledEvent, status: EventStatus.EVENT_STATUS_CANCELLED };
+            await this.updateEvent(updatedEvent);
+        }
     }
 };
 </script>

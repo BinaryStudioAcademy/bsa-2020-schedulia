@@ -27,6 +27,8 @@ export default {
     CALENDAR_INVITATION_HAS_BEEN_SENT:
         'Запрошення до календаря надіслано на вашу електронну адресу',
     CANCEL: 'Скасувати',
+    CANCEL_EVENT_TEXT: 'Are you sure that you want cancel this event?',
+    CANCELLATION_EVENT: 'Cancellation event!',
     CHANGE_PASSWORD: 'Змінити пароль',
     CHANGE_YOUR_PASSWORD: 'Змінити пароль',
     CHARACTERS: 'Символи',

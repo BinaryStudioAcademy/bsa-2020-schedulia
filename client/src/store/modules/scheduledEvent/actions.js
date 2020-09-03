@@ -113,5 +113,32 @@ export default {
                 root: true
             });
         }
+    },
+
+    [actions.UPDATE_EVENT]: async ({ commit, dispatch }, event) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+
+        try {
+            const updatedEvent = await scheduledEventService.updateEvent(
+                event.id,
+                {
+                    status: event.status,
+                    start_date: event.startDate
+                }
+            );
+
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+
+            return updatedEvent;
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        }
     }
 };
