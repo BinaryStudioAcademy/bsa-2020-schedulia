@@ -12,11 +12,15 @@ use App\Actions\EventType\AddEventTypeAction;
 use App\Actions\EventType\AddEventTypeRequest;
 use App\Actions\EventType\ChangeDisabledByIdAction;
 use App\Actions\EventType\ChangeDisabledByIdRequest;
+use App\Actions\EventType\CloneEventTypeByIdAction;
+use App\Actions\EventType\CloneEventTypeByIdRequest;
 use App\Actions\EventType\DeleteEventTypeAction;
 use App\Actions\EventType\DeleteEventTypeRequest;
 use App\Actions\EventType\GetAvailableTimeAction;
 use App\Actions\EventType\GetAvailableTimeRequest;
 use App\Actions\EventType\GetEventTypeByIdAction;
+use App\Actions\EventType\GetEventTypeByIdAndOwnerNicknameAction;
+use App\Actions\EventType\GetEventTypeByIdAndOwnerNicknameRequest;
 use App\Actions\EventType\GetEventTypeCollectionAction;
 use App\Actions\EventType\GetEventTypeCollectionByNicknameAction;
 use App\Actions\EventType\GetEventTypeCollectionByNicknameRequest;
@@ -82,6 +86,8 @@ class EventTypeController extends ApiController
                 $request->get('timezone'),
                 (bool)$request->get('disabled'),
                 $request->get('availabilities'),
+                $request->get('location_type'),
+                $request->get('coordinates'),
             ))
             ->getEventType();
 
@@ -111,6 +117,8 @@ class EventTypeController extends ApiController
                     $request->get('timezone'),
                     (bool)$request->get('disabled'),
                     $request->get('availabilities'),
+                    $request->get('location_type'),
+                    $request->get('coordinates'),
                 )
             )->getEventType();
 
@@ -207,6 +215,17 @@ class EventTypeController extends ApiController
         );
     }
 
+    public function cloneEventTypeById(
+        string $id,
+        CloneEventTypeByIdAction $action
+    ): JsonResponse {
+        $eventType = $action->execute(new CloneEventTypeByIdRequest(
+            (int)$id
+        ));
+
+        return $this->successResponse($this->eventTypePresenter->present($eventType->getNewEventType()));
+    }
+
     public function updateInternalNoteById(
         string $id,
         Request $request,
@@ -217,5 +236,23 @@ class EventTypeController extends ApiController
             $request->internal_note
         ));
         return $this->emptyResponse();
+    }
+
+    public function getEventTypeByIdAndNickname(
+        Request $request,
+        GetEventTypeByIdAndOwnerNicknameAction $action
+    ): JsonResponse {
+        $eventType = $action->execute(
+            new GetEventTypeByIdAndOwnerNicknameRequest(
+                (int)$request->id,
+                $request->nickname
+            )
+        )->getEventType();
+
+        if (is_null($eventType)) {
+            return $this->emptyResponse();
+        }
+
+        return $this->successResponse($this->eventTypePresenter->present($eventType));
     }
 }

@@ -5,6 +5,8 @@ export default {
     BRANDING: 'Branding',
 
     CANCEL: 'Cancel',
+    CANCELLATION_EVENT: 'Cancellation event!',
+    CANCEL_EVENT_TEXT: 'Are you sure that you want cancel this event?',
     CALENDAR_CONNECTIONS: 'Calendar connections',
     CHARACTERS: 'Characters',
     CHANGE_PASSWORD: 'Change password',
@@ -210,6 +212,12 @@ export default {
     LOCKED: 'Locked',
     EDIT_AVAILABILITY: 'Edit Availability',
     APPLY: 'Apply',
+    APPLY_ONLY: 'Apply to _ only',
+    APPLY_TO_ALL: 'Apply to all ',
+    OR_APPLY_MULTIPLE: 'Or apply to multiple...',
+    APPLY_MULTIPLE: 'Apply to multiple...',
+    REPEATING_DAYS: 'repeating days of the week',
+    SPECIFIC_DATES: 'specific dates',
     EVENT_TIME_ZONE_EXPLANATION:
         'You are viewing times in Eastern\n' +
         '                                            European Time. Your invitees will\n' +
@@ -389,7 +397,7 @@ export default {
     STATUS: 'Status',
     ACTIVE_EVENTS: 'Active Events',
     ALL_EVENTS: 'All Events',
-    CANCELED_EVENTS: 'Canceled Events',
+    CANCELED_EVENTS: 'Cancelled Events',
     WELCOME_TO_MY_SCHEDULING_PAGE: 'Welcome to my scheduling page.',
     PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT:
         'Please follow the instructions to add an event to my\n' +
@@ -407,4 +415,15 @@ export default {
 
     MY_ZOOM_ACCOUNT: 'My zoom account',
     INCLUDE_ZOOM_MEETING: 'Automatically include Zoom meeting details in Schedulia events'
+
+    I_AM_UNAVAILABLE: "I'm unavailable",
+    ERROR_404: 'Error 404',
+    THE_PAGE_YOU_ARE_LOOKING_FOR_COULD_NOT_BE_FOUND:
+        'The page you are looking for could not be found',
+    PLEASE_MAKE_SURE_THAT_YOU_TYPED_IN_THE_URL_CORRECTLY:
+        " Please make sure that you've typed in the URL correctly",
+    PLEASE_RETYPE_ADDRESS_OR_RETURN_TO: 'Please retype address or return to',
+    MAIN_PAGE: ' main page',
+    SELECT_LOCATION: 'Please select location'
+
 };

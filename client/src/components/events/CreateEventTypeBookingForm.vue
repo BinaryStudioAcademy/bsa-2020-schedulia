@@ -260,10 +260,13 @@ export default {
             try {
                 if (this.$refs.form.validate()) {
                     this.prepareData();
-                    const response = await this.addEventType(this.data);
-                    this.$router.push({
-                        path: 'new-event-type-options',
-                        props: { eventTypeId: response.id }
+                    await this.addEventType(this.data).then(response => {
+                        if (response) {
+                            this.$router.push({
+                                path: 'new-event-type-options',
+                                query: { eventTypeId: response.id }
+                            });
+                        }
                     });
                 }
             } catch (error) {
@@ -274,12 +277,22 @@ export default {
             let dateRangeData = {
                 ...this.data.dateRange,
                 ...{
-                    startDate: this.data.dateRange.startDate + ' 00:00:00',
-                    endDate: this.data.dateRange.endDate + ' 00:00:00'
+                    startDate:
+                        this.data.dateRange.startDate +
+                        ' ' +
+                        this.data.dateRange.startTime +
+                        ':00',
+                    endDate:
+                        this.data.dateRange.endDate +
+                        ' ' +
+                        this.data.dateRange.endTime +
+                        ':00'
                 }
             };
+
             this.changeEventTypeProperty('availabilities', {
                 ...{ dateRange: [dateRangeData] },
+                ...this.data.availabilities_week_days,
                 ...this.data.availabilities
             });
         }

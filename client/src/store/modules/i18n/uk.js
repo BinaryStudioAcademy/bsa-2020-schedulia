@@ -27,6 +27,8 @@ export default {
     CALENDAR_INVITATION_HAS_BEEN_SENT:
         'Запрошення до календаря надіслано на вашу електронну адресу',
     CANCEL: 'Скасувати',
+    CANCEL_EVENT_TEXT: 'Ви дійсно бажаете скасувати цю подію?',
+    CANCELLATION_EVENT: 'Скасування події!',
     CHANGE_PASSWORD: 'Змінити пароль',
     CHANGE_YOUR_PASSWORD: 'Змінити пароль',
     CHARACTERS: 'Символи',
@@ -321,5 +323,14 @@ export default {
         'Напишіть релевантну інформацію про цей тип події, на яку ви можете посилатися пізніше.',
     PUBLIC_LINK_WAS_COPIED: 'Публічне посилання було скопійоване!',
     TAGS: 'Теги',
-    ALL_TAGS: 'Усі теги'
+    ALL_TAGS: 'Усі теги',
+    ERROR_404: 'Помилка 404',
+    THE_PAGE_YOU_ARE_LOOKING_FOR_COULD_NOT_BE_FOUND:
+        'Сторінку, яку ви шукаєте, не вдалося знайти',
+    PLEASE_MAKE_SURE_THAT_YOU_TYPED_IN_THE_URL_CORRECTLY:
+        ' Переконайтесь, що ви правильно ввели URL-адресу',
+    PLEASE_RETYPE_ADDRESS_OR_RETURN_TO:
+        'Будь ласка, введіть адресу або поверніться на',
+    MAIN_PAGE: ' головну сторінку',
+    SELECT_LOCATION: 'Виберіть локацію'
 };

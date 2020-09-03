@@ -70,11 +70,9 @@ export default {
             fields: getters.GET_CUSTOM_FIELDS
         })
     },
-    props: {
-        eventTypeId: {
-            required: true
-        }
-    },
+    data: () => ({
+        eventTypeId: ''
+    }),
     methods: {
         ...mapActions('eventTypes', {
             saveCustomFields: actions.SAVE_CUSTOM_FIELDS
@@ -86,6 +84,9 @@ export default {
             });
             this.$router.push({ name: 'EventTypes' });
         }
+    },
+    async mounted() {
+        this.eventTypeId = this.$route.query.eventTypeId;
     }
 };
 </script>

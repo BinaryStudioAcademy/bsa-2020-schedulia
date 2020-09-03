@@ -5,8 +5,8 @@
             md="4"
             lg="3"
             sm="6"
-            v-for="calendar in connected.calendars"
-            :key="calendar.account_id"
+            v-for="(calendar, index) in connected.calendars"
+            :key="index"
         >
             <CalendarDetails :calendar="calendar" />
         </VCol>

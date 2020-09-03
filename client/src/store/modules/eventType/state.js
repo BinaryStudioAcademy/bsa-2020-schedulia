@@ -13,7 +13,7 @@ export default {
         description: '',
         slug: '',
         color: 'yellow',
-        disabled: true,
+        disabled: false,
         duration: 30,
         customDuration: 0,
         timezone: '',
@@ -29,6 +29,7 @@ export default {
             startTime: '09:00',
             endTime: '17:00'
         },
+        availabilities_week_days: {},
         availabilities: {},
         selectDay: ''
     },

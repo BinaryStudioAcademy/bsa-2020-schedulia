@@ -115,9 +115,7 @@
                                     lg="7"
                                     :class="{ 'ml-10': $vuetify.breakpoint.xs }"
                                 >
-                                    <CreateEventTypeQuestions
-                                        :eventTypeId="$route.query.eventTypeId"
-                                    />
+                                    <CreateEventTypeQuestions />
                                 </VCol>
                             </VRow>
                         </VExpansionPanelContent>

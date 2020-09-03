@@ -111,6 +111,7 @@ class CustomFieldTest extends TestCase
             'duration' => 60,
             'timezone' => 'Europe/Kiev',
             'disabled' => true,
+            'location_type' => 'zoom'
         ]);
         $eventType->save();
 
@@ -145,6 +146,7 @@ class CustomFieldTest extends TestCase
             'duration' => 60,
             'timezone' => 'Europe/Kiev',
             'disabled' => true,
+            'location_type' => 'zoom'
         ]);
         $eventType->save();
 

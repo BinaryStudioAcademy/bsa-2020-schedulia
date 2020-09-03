@@ -3,6 +3,7 @@
         <VDialog v-model="dialog" persistent width="500">
             <template v-slot:activator="{ on, attrs }">
                 <VBtn color="red darken-4" dark v-bind="attrs" v-on="on">
+                    <VIcon v-if="icon" left>{{ icon }}</VIcon>
                     {{ buttonText }}
                 </VBtn>
             </template>
@@ -50,6 +51,9 @@ export default {
         buttonText: {
             type: String,
             required: true
+        },
+        icon: {
+            type: String
         }
     },
     data: () => ({

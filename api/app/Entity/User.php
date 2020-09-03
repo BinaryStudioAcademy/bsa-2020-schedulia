@@ -22,7 +22,13 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail, CanRe
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'timezone',
+        'name',
+        'email',
+        'password',
+        'timezone',
+        'slack_webhook',
+        'slack_channel',
+        'slack_active'
     ];
 
     /**
@@ -41,6 +47,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail, CanRe
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'slack_active' => 'bool'
     ];
 
     public function refreshTokens(): HasMany
@@ -116,5 +123,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail, CanRe
     public function getBrandingLogoUrl(): ?string
     {
         return $this->branding_logo ? Storage::disk()->url($this->branding_logo) : null;
+    }
+
+    public function routeNotificationForSlack($notification = null)
+    {
+        return $this->slack_webhook;
     }
 }

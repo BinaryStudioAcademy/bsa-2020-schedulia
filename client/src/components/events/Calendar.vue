@@ -81,20 +81,22 @@
                     <template v-slot:day="data">
                         <div
                             :class="[
-                                availability.type === 'exact_date'
-                                    ? 'custom-availability'
-                                    : 'default-availability'
+                                availability.type === 'date_range'
+                                    ? 'default-availability'
+                                    : 'custom-availability'
                             ]"
                             v-for="(availability,
                             index) in getDayAvailabilities(data)"
                             :key="index"
                         >
-                            <div v-if="index < 2">
-                                {{ availability.startTime }} -
-                                {{ availability.endTime }}
-                            </div>
-                            <div class="more-availability" v-else>
-                                + {{ index - 1 }} {{ lang.MORE }}...
+                            <div v-if="availability.type !== 'unavailable'">
+                                <div v-if="index < 2">
+                                    {{ availability.startTime }} -
+                                    {{ availability.endTime }}
+                                </div>
+                                <div class="more-availability" v-else>
+                                    + {{ index - 1 }} {{ lang.MORE }}...
+                                </div>
                             </div>
                         </div>
                     </template>
@@ -136,7 +138,7 @@ export default {
             this.$refs.calendar.next();
         },
         viewEventDialog(data) {
-            let dayAvailabilities = this.getDayAvailabilities(data);
+            let dayAvailabilities = this.getDayAvailabilities(data, true);
             if (dayAvailabilities.length > 0) {
                 this.changeEventTypeProperty('selectDay', data);
                 this.setPropertyData('dayAvailabilities', dayAvailabilities);
@@ -164,39 +166,45 @@ export default {
                 return result;
             }
 
-            if (this.data.availabilities[day.date]) {
+            let weekDayName = moment(day.date)
+                .format('dddd')
+                .toLowerCase();
+            let params = {};
+            if (
+                this.data.availabilities_week_days[weekDayName] &&
+                !this.data.availabilities[day.date]
+            ) {
+                return this.data.availabilities_week_days[weekDayName];
+            } else if (this.data.availabilities[day.date]) {
                 return this.data.availabilities[day.date];
             } else {
-                let params = {
+                params = {
                     ...this.data.dateRange,
                     ...{
                         startDate:
-                            this.data.dateRange.startDate +
+                            day.date +
                             ' ' +
                             this.data.dateRange.startTime +
                             ':00',
                         endDate:
-                            this.data.dateRange.endDate +
-                            ' ' +
-                            this.data.dateRange.endTime +
-                            ':00'
+                            day.date + ' ' + this.data.dateRange.endTime + ':00'
                     }
                 };
+            }
 
-                if (this.data.dateRange.type.includes('weekdays')) {
-                    if (day.weekday > 0 && day.weekday < 6) {
-                        result.push(params);
-                    }
-                } else {
+            if (this.data.dateRange.type.includes('weekdays')) {
+                if (day.weekday > 0 && day.weekday < 6) {
                     result.push(params);
                 }
-
-                if (isExactDate) {
-                    result[0]['type'] = 'exact_date';
-                }
-
-                return result;
+            } else {
+                result.push(params);
             }
+
+            if (isExactDate) {
+                result[0]['type'] = 'exact_date';
+            }
+
+            return result;
         }
     }
 };

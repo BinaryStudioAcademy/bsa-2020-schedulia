@@ -48,6 +48,7 @@ Route::group([
         Route::get('/{id}', 'EventTypeController@getEventTypeById');
         Route::put('/{id}', 'EventTypeController@update');
         Route::put('/{id}/disabled', 'EventTypeController@changeDisabledById');
+        Route::post('/{id}/clone', 'EventTypeController@cloneEventTypeById');
         Route::put('/{id}/internal-note', 'EventTypeController@updateInternalNoteById');
         Route::post('/{id}/custom-fields', 'EventTypeController@saveCustomFieldsByEventTypeId');
         Route::put('/{id}/custom-fields', 'EventTypeController@updateCustomFieldsByEventTypeId');
@@ -70,6 +71,11 @@ Route::group([
     Route::get('{id}/tags', 'TagController@getTagsByEventTypeId');
 });
 
+Route::group([
+    'prefix' => 'public'
+], function () {
+    Route::get('/users/{nickname}/event-types/{id}', 'Api\\EventTypeController@getEventTypeByIdAndNickname');
+});
 Route::get('/event-types/{id}/availabilities', 'Api\\EventTypeController@getAvailableTime');
 
 Route::group([
@@ -79,6 +85,15 @@ Route::group([
     Route::post('/', 'EventController@store');
     Route::get('/', 'EventController@index');
     Route::get('/emails', 'EventController@getEventsEmails');
+});
+
+Route::group([
+    'middleware' => 'auth:api',
+    'namespace' => 'Api\\',
+    'prefix' => '/events',
+], function () {
+    Route::patch('/{id}', 'EventController@update');
+    Route::put('/{id}', 'EventController@update');
 });
 
 Route::group([
@@ -121,3 +136,19 @@ Route::get('/social-accounts/{provider?}/oauthResponse', 'Api\\SocialAccountCont
 
 Route::post('/meetings', 'Api\\Zoom\\MeetingController@create');
 Route::get('/meetings/zoom/callback', 'Api\\Zoom\\MeetingController@handleCallback');
+
+Route::group([
+    'namespace' => 'Api\\',
+], function () {
+    Route::get('/users/{nickname}', 'UserController@checkNickname');
+});
+
+Route::group([
+    'middleware' => 'auth:api',
+    'namespace' => 'Api\\'
+], function () {
+    Route::post('/slack-notifications', 'SlackController@addSlackNotifications');
+    Route::delete('/slack-notifications', 'SlackController@deleteSlackNotifications');
+    Route::put('/slack-notifications', 'SlackController@changeActivitySlackNotifications');
+});
+

@@ -49,5 +49,12 @@ export default {
 
     [mutations.CLEAR_EVENT_EMAILS_FILTER]: state => {
         state.eventEmails = [];
+    },
+
+    [mutations.UPDATE_EVENT]: (state, event) => {
+        state.scheduledEvents = {
+            ...state.scheduledEvents,
+            [event.id]: { ...event }
+        };
     }
 };
