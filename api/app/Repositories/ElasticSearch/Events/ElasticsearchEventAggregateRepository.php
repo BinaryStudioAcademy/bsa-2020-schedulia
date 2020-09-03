@@ -66,4 +66,13 @@ final class ElasticsearchEventAggregateRepository extends BaseRepository impleme
             $perPage
         );
     }
+
+    public function deleteIndex()
+    {
+        $params = [
+            'index' => self::INDEX_NAME
+        ];
+
+        \Elasticsearch::Indices()->Delete($params);
+    }
 }
