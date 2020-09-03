@@ -39,7 +39,7 @@ class DeleteIndexCommand extends Command
     {
         $index = $this->argument('index');
 
-        $this->info('Delete Elasticksearch "' . $index . '" index. This might take a while...');
+        $this->info('Delete Elasticksearch " ' . $index . ' " index. This might take a while...');
 
         $params = [
             'index' => $index
