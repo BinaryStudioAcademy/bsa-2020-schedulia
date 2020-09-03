@@ -34,6 +34,7 @@ final class EventPresenter implements PresenterCollectionInterface
             'start_date' => Carbon::parse($event->start_date)->format('Y-m-d H:m:s'),
             'location' => $event->location,
             'timezone' => $event->timezone,
+            'status' => $event->status,
             'created_at' => $event->created_at,
             'event_type' => $this->eventTypePresenter->present($event->eventType),
             'custom_field_values' => $this->customFieldValuePresenter->presentCollection($event->customFieldValues),
