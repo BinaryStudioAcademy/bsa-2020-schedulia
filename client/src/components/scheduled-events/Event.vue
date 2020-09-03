@@ -23,6 +23,14 @@
                                 }}
                             </span>
                         </VCol>
+                        <VCol sm="2">
+                            <VChip
+                                    class="ma-2"
+                                    :color=statusColor
+                            >
+                                {{ scheduledEvent.status }}
+                            </VChip>
+                        </VCol>
                         <VCol>
                             <div class="user-name">
                                 {{ scheduledEvent.name }}
@@ -119,6 +127,7 @@
 <script>
 import BorderBottom from '@/components/common/GeneralLayout/BorderBottom';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import * as EventStatus from '@/store/modules/scheduledEvent/types/statuses';
 import { mapGetters } from 'vuex';
 import EventTypesColor from '../common/EventTypesColor/EventTypesColor';
 
@@ -142,7 +151,12 @@ export default {
     computed: {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
-        })
+        }),
+
+        statusColor() {
+            console.log(this.scheduledEvent.status);
+            return this.scheduledEvent.status === EventStatus.EVENT_STATUS_SCHEDULED ? 'green' : 'red';
+        }
     },
 
     methods: {
@@ -186,6 +200,10 @@ export default {
 
             return day + ' ' + month + ' ' + year;
         }
+    },
+
+    created() {
+        console.log(this.scheduledEvent);
     }
 };
 </script>

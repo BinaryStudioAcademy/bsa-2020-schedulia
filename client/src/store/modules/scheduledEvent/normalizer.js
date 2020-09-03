@@ -5,6 +5,7 @@ export const eventMapper = Event => ({
     name: Event.invitee_name,
     email: Event.invitee_email,
     question: Event.invitee_question,
+    status: Event.status,
     startDate: Event.start_date,
     location: Event.location,
     timezone: Event.timezone,
