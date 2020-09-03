@@ -16,12 +16,15 @@
                     <div class="actions mt-3 mb-3 text-center row">
                         <div class="col text-left">
                             <SlackModalIntegrationConnect />
-                            <VBtn color="red" class="slack-delete" :disabled="!user.slack_active">
+                            <VBtn
+                                color="red"
+                                class="slack-delete"
+                                :disabled="!user.slack_active"
+                            >
                                 <VIcon color="white">mdi-delete</VIcon>
                             </VBtn>
                         </div>
-                        <div class="col text-right">
-                        </div>
+                        <div class="col text-right"></div>
                     </div>
                 </div>
             </VCol>

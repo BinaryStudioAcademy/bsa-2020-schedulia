@@ -1,5 +1,10 @@
 <template>
-    <VDialog v-model="dialog" persistent max-width="600px" activator=".slack-delete">
+    <VDialog
+        v-model="dialog"
+        persistent
+        max-width="600px"
+        activator=".slack-delete"
+    >
         <VCard>
             <VCardTitle>
                 <span class="headline text-danger">Delete Slack</span>
@@ -12,10 +17,7 @@
                 <VBtn color="blue darken-1" text @click="dialog = false"
                     >Close</VBtn
                 >
-                <VBtn
-                    color="red"
-                    @click="onDelete"
-                >
+                <VBtn color="red" @click="onDelete">
                     Delete
                 </VBtn>
             </VCardActions>
@@ -43,6 +45,4 @@ export default {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

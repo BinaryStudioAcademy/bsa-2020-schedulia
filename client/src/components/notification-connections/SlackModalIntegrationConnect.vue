@@ -19,25 +19,28 @@
                 <span class="subtitle-2">Incoming Webhook</span>
                 <VListItem>
                     <VListItemContent>
-                        <VListItemTitle>Add
-                            <a href="https://slack.com/apps/A0F7XDUAZ-incoming-webhooks" target="_blank">
+                        <VListItemTitle
+                            >Add
+                            <a
+                                href="https://slack.com/apps/A0F7XDUAZ-incoming-webhooks"
+                                target="_blank"
+                            >
                                 Incoming Webhook
                             </a>
-                            to your <b>Slack</b> workspace.</VListItemTitle>
+                            to your <b>Slack</b> workspace.</VListItemTitle
+                        >
                     </VListItemContent>
                 </VListItem>
 
                 <VListItem>
                     <VListItemContent>
-                        <VListItemTitle>Past <b>Incoming Webhook</b> in the field:</VListItemTitle>
+                        <VListItemTitle
+                            >Past <b>Incoming Webhook</b> in the
+                            field:</VListItemTitle
+                        >
                     </VListItemContent>
                 </VListItem>
-                <VTextField
-                    dense
-                    solo
-                    outlined
-                    v-model="slackData.webhook"
-                >
+                <VTextField dense solo outlined v-model="slackData.webhook">
                 </VTextField>
 
                 <span class="subtitle-2">Channel name</span>
@@ -55,10 +58,7 @@
                 <VBtn color="blue darken-1" text @click="dialog = false"
                     >Close</VBtn
                 >
-                <VBtn
-                    color="green"
-                    @click="onConnect"
-                    v-if="!slackIsActive"
+                <VBtn color="green" @click="onConnect" v-if="!slackIsActive"
                     >Connect</VBtn
                 >
                 <VBtn
@@ -123,6 +123,4 @@ export default {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
