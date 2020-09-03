@@ -130,8 +130,8 @@ Route::group([
 ], function () {
     Route::get('/users/{nickname}', 'UserController@checkNickname');
 });
-  
-  Route::group([
+
+Route::group([
     'middleware' => 'auth:api',
     'namespace' => 'Api\\'
 ], function () {
