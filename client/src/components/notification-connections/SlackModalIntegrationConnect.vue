@@ -64,8 +64,8 @@
                 <VBtn
                     color="orange"
                     @click="onConnect"
-                    v-else
-                >Update</VBtn
+                    v-else-if="slackIsActive && slackData.webhook"
+                    >Update</VBtn
                 >
             </VCardActions>
         </VCard>
@@ -105,6 +105,7 @@ export default {
         updSlackData() {
             this.slackData.webhook = this.user.slack_webhook;
             this.slackData.channel_name = this.user.slack_channel;
+            this.slackIsActive = this.user.slack_active;
         },
         async onConnect() {
             await this.connectSlack({
