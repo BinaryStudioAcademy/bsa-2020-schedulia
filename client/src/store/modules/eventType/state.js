@@ -29,6 +29,7 @@ export default {
             startTime: '09:00',
             endTime: '17:00'
         },
+        availabilities_week_days: {},
         availabilities: {},
         selectDay: ''
     },

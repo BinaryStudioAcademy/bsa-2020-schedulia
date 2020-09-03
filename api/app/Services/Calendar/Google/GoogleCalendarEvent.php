@@ -9,6 +9,7 @@ use Carbon\Carbon;
 
 final class GoogleCalendarEvent implements CalendarEventInterface
 {
+    private int $eventId;
     private int $userId;
     private string $summary;
     private ?string $location;
@@ -19,6 +20,7 @@ final class GoogleCalendarEvent implements CalendarEventInterface
     private string $color;
 
     public function __construct(
+        int $eventId,
         int $userId,
         string $summary,
         $startTime,
@@ -28,6 +30,7 @@ final class GoogleCalendarEvent implements CalendarEventInterface
         string $attendeeEmail,
         ?string $location = null
     ) {
+        $this->eventId = $eventId;
         $this->userId = $userId;
         $this->startTime = $startTime;
         $this->duration = $duration;
@@ -41,6 +44,11 @@ final class GoogleCalendarEvent implements CalendarEventInterface
     private function getDefaultColor(): int
     {
         return GoogleCalendarColors::GOOGLE_EVENT_COLOR_BOLD_GREEN;
+    }
+
+    public function getEventId(): int
+    {
+        return $this->eventId;
     }
 
     public function getUserId(): int

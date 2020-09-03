@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     protected $fillable = [
+        'id',
         'event_type_id',
         'invitee_name',
         'invitee_email',
@@ -34,6 +35,26 @@ class Event extends Model
     public function customFieldValues()
     {
         return $this->hasMany(CustomFieldValue::class, 'event_id');
+    }
+
+    public function calendars()
+    {
+        return $this->hasMany(EventCalendar::class);
+    }
+
+    public function googleCalendars()
+    {
+        return $this->calendars()->google();
+    }
+
+    public function scopeScheduled($query)
+    {
+        return $query->where('status', '=', EventStatus::SCHEDULED);
+    }
+
+    public function scopeCancelled($query)
+    {
+        return $query->where('status', '=', EventStatus::CANCELLED);
     }
 
     public function getEventTimeAccordingTimezoneAttribute(): string
