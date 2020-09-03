@@ -48,9 +48,9 @@
                     <template v-slot:prepend-item>
                         <VListItem>
                             <VListItemContent>
-                                <VListItemTitle>
-                                    {{ lang.CHOOSE_YOUR_TIMEZONE }}
-                                </VListItemTitle>
+                                <VListItemTitle>{{
+                                    lang.CHOOSE_YOUR_TIMEZONE
+                                }}</VListItemTitle>
                                 <VTextField
                                     v-model="timezoneFieldSearch"
                                     label="Enter timezone"
@@ -135,6 +135,11 @@ export default {
             nickname: this.$route.params.nickname
         });
 
+        this.currentMonthAvailabilities = await this.getAvailabilitiesByMonth({
+            id: eventType.id,
+            date: '2020-09'
+        });
+
         eventType &&
             eventType.disabled &&
             this.$router.push({
@@ -158,6 +163,7 @@ export default {
     },
     data: () => ({
         isReady: false,
+        currentMonthAvailabilities: null,
         currentTimezone: momentTimezones.tz.guess(),
         currentTimezoneTime: null,
         timezoneFieldSearch: '',
@@ -203,6 +209,17 @@ export default {
                     unavailable: []
                 }
             ]
+        },
+        dateRange: {
+            type: 'date_range',
+            scheduleType: 'period',
+            subType: 'date_range',
+            value: 60,
+            date: [],
+            startDate: '2020-09-03',
+            endDate: '2020-11-05',
+            startTime: '09:00',
+            endTime: '17:00'
         }
     }),
 
@@ -231,8 +248,10 @@ export default {
 
             let allTimes = [];
 
-            for (let date in this.availabilities) {
-                for (let availability of this.availabilities[date]) {
+            for (let date in this.currentMonthAvailabilities) {
+                for (let availability of this.currentMonthAvailabilities[
+                    date
+                ]) {
                     allTimes.push({
                         startDate: `${date} ${availability.start_time.slice(
                             0,
@@ -532,7 +551,8 @@ export default {
         ...mapActions('publicEvent', {
             getEventTypeByIdAndNickname:
                 actions.GET_EVENT_TYPE_BY_ID_AND_NICKNAME,
-            setPublicEvent: actions.SET_PUBLIC_EVENT
+            setPublicEvent: actions.SET_PUBLIC_EVENT,
+            getAvailabilitiesByMonth: actions.GET_AVAILABILITIES_BY_MONTH
         }),
         getStartDate(time) {
             return `${momentTimezones(
