@@ -150,7 +150,8 @@ export default {
             eventEmails: [],
             moreEventEmails: false,
             eventEmailsChecked: [],
-            endDate: new Date().toLocaleDateString()
+            startDate: this.$route.query.start_date,
+            endDate: this.$route.query.end_date
         };
     },
 
@@ -214,7 +215,8 @@ export default {
             this.eventEmailsChecked = this.eventEmails;
 
             await this.setEventEmailsFilter({
-                endDate: this.endDate
+                endDate: this.endDate,
+                startDate: this.startDate
             });
         },
 
@@ -249,6 +251,7 @@ export default {
             this.clearSelectAll();
             this.setEventEmailsFilter({
                 endDate: this.endDate,
+                startDate: this.startDate,
                 searchString: searchString
             });
         },
