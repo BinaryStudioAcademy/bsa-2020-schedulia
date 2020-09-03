@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Repositories\ElasticSearch\Events\EventAggregateRepositoryInterface;
 use Illuminate\Console\Command;
 
 class DeleteIndexCommand extends Command
@@ -11,7 +12,7 @@ class DeleteIndexCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'elasticksearch:deleteIndex {index}';
+    protected $signature = 'elasticksearch:deleteIndex';
 
     /**
      * The console command description.
@@ -20,14 +21,17 @@ class DeleteIndexCommand extends Command
      */
     protected $description = 'Delete Index from Elasticksearch index';
 
+    private EventAggregateRepositoryInterface $elasticsearchEventAggregateRepository;
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(EventAggregateRepositoryInterface $elasticsearchEventAggregateRepository)
     {
         parent::__construct();
+
+        $this->elasticsearchEventAggregateRepository = $elasticsearchEventAggregateRepository;
     }
 
     /**
@@ -37,15 +41,9 @@ class DeleteIndexCommand extends Command
      */
     public function handle()
     {
-        $index = $this->argument('index');
+        $this->info('Delete Elasticksearch index. This might take a while...');
 
-        $this->info('Delete Elasticksearch " ' . $index . ' " index. This might take a while...');
-
-        $params = [
-            'index' => $index
-        ];
-
-        \Elasticsearch::Indices()->Delete($params);
+        $this->elasticsearchEventAggregateRepository->deleteIndex();
 
         $this->info('Done!');
     }

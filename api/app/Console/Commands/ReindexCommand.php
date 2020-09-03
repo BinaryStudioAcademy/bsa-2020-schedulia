@@ -23,6 +23,8 @@ class ReindexCommand extends Command
      */
     protected $description = 'Indexes all events to Elasticsearch';
 
+    private EventAggregateRepositoryInterface $elasticsearchEventAggregateRepository;
+
     /**
      * Create a new command instance.
      *
@@ -31,6 +33,7 @@ class ReindexCommand extends Command
     public function __construct(EventAggregateRepositoryInterface $elasticsearchEventAggregateRepository)
     {
         parent::__construct();
+
         $this->elasticsearchEventAggregateRepository = $elasticsearchEventAggregateRepository;
     }
 
