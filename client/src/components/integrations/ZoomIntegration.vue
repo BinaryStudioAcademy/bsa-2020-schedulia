@@ -1,7 +1,7 @@
 <template>
     <VContainer class="container-content">
         <VRow>
-            <VCol md="6" lg="6" sm="12">
+            <VCol md="6" lg="9" sm="12">
                 <VCardTitle>
                     {{ lang.MY_ZOOM_ACCOUNT }}
                 </VCardTitle>
@@ -9,10 +9,10 @@
                     {{ lang.INCLUDE_ZOOM_MEETING }}
                 </VCardSubtitle>
             </VCol>
-            <VCol cols="3"></VCol>
+            <VSpacer></VSpacer>
             <VCol>
                 <VBtn
-                    class="ma-2"
+                    class="mt-2 mr-4"
                     outlined
                     color="indigo"
                     v-bind="attrs"
