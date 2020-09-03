@@ -236,14 +236,13 @@ export default {
             this.dates.push(this.data.selectDay.date);
         },
         applyMultiple() {
-            debugger;
             if (this.radio === 'repeat-days') {
                 let params = {
                     ...this.data.availabilities_week_days
                 };
 
                 for (let index in this.selectedWeekDays) {
-                    let weekDay =  this.selectedWeekDays[index].toLowerCase();
+                    let weekDay = this.selectedWeekDays[index].toLowerCase();
                     params[weekDay] = this.dayAvailabilitiesData.map(function(
                         availability
                     ) {
