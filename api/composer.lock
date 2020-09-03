@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "820f8968f24297724b15d1f0c43910ad",
+    "content-hash": "ec2987db4e1ce7b1496e8d086fe5bbc7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -64,12 +64,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "5b9afeff4f6234dd6182c88cd6387296743e478a"
+                "reference": "7191394eb44edee26db739207c432e408cd6a26f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5b9afeff4f6234dd6182c88cd6387296743e478a",
-                "reference": "5b9afeff4f6234dd6182c88cd6387296743e478a",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7191394eb44edee26db739207c432e408cd6a26f",
+                "reference": "7191394eb44edee26db739207c432e408cd6a26f",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +141,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-08-27T18:13:21+00:00"
+            "time": "2020-08-28T18:11:11+00:00"
         },
         {
             "name": "brick/math",
@@ -2348,6 +2348,63 @@
             "time": "2020-08-27T14:22:46+00:00"
         },
         {
+            "name": "laravel/slack-notification-channel",
+            "version": "v2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/slack-notification-channel.git",
+                "reference": "98e0fe5c8dda645e6af914285af7b742e167462a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/slack-notification-channel/zipball/98e0fe5c8dda645e6af914285af7b742e167462a",
+                "reference": "98e0fe5c8dda645e6af914285af7b742e167462a",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.0|^7.0",
+                "illuminate/notifications": "~5.8.0|^6.0|^7.0|^8.0",
+                "php": "^7.1.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^7.0|^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Illuminate\\Notifications\\SlackChannelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Notifications\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Slack Notification Channel for laravel.",
+            "keywords": [
+                "laravel",
+                "notifications",
+                "slack"
+            ],
+            "time": "2020-08-25T18:21:34+00:00"
+        },
+        {
             "name": "laravel/socialite",
             "version": "v4.4.1",
             "source": {
@@ -2950,45 +3007,6 @@
                 "twitter"
             ],
             "time": "2016-08-17T00:36:58+00:00"
-        },
-        {
-            "name": "marktopper/doctrine-dbal-timestamp-type",
-            "version": "v1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/marktopper/doctrine-dbal-timestamp-type.git",
-                "reference": "200ba3320a44d461ad35290e0cf1117dfc43e536"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/marktopper/doctrine-dbal-timestamp-type/zipball/200ba3320a44d461ad35290e0cf1117dfc43e536",
-                "reference": "200ba3320a44d461ad35290e0cf1117dfc43e536",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/dbal": "^2.5",
-                "php": ">=5.6.4"
-            },
-            "type": "package",
-            "autoload": {
-                "psr-4": {
-                    "MarkTopper\\DoctrineDBALTimestampType\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Add the timestamp type for Doctrine/DBAL",
-            "keywords": [
-                "database",
-                "dbal",
-                "doctrine",
-                "laravel",
-                "mysql",
-                "timestamp"
-            ],
-            "time": "2020-05-04T10:11:44+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -8604,6 +8622,45 @@
             "time": "2020-07-09T08:09:16+00:00"
         },
         {
+            "name": "marktopper/doctrine-dbal-timestamp-type",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marktopper/doctrine-dbal-timestamp-type.git",
+                "reference": "200ba3320a44d461ad35290e0cf1117dfc43e536"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marktopper/doctrine-dbal-timestamp-type/zipball/200ba3320a44d461ad35290e0cf1117dfc43e536",
+                "reference": "200ba3320a44d461ad35290e0cf1117dfc43e536",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^2.5",
+                "php": ">=5.6.4"
+            },
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "MarkTopper\\DoctrineDBALTimestampType\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Add the timestamp type for Doctrine/DBAL",
+            "keywords": [
+                "database",
+                "dbal",
+                "doctrine",
+                "laravel",
+                "mysql",
+                "timestamp"
+            ],
+            "time": "2020-05-04T10:11:44+00:00"
+        },
+        {
             "name": "mockery/mockery",
             "version": "1.4.2",
             "source": {
@@ -9370,7 +9427,6 @@
             "keywords": [
                 "tokenizer"
             ],
-            "abandoned": true,
             "time": "2019-09-17T06:23:10+00:00"
         },
         {
