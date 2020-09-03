@@ -23,4 +23,5 @@ final class ErrorCode
     public const EVENT_TYPE_SLUG_IS_ALREADY_IN_USE = 1014;
     public const EVENT_TYPE_NAME_IS_ALREADY_IN_USE = 1015;
     public const COORDINATES_FIELD_IS_REQUIRED = 1016;
+    public const NICKNAME_NOT_EXIST_EXCEPTION = 1017;
 }

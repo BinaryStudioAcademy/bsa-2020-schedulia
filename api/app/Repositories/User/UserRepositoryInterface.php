@@ -15,5 +15,5 @@ interface UserRepositoryInterface
     public function save(User $user): User;
     public function deleteById(int $id): void;
     public function findByCriteria(EloquentCriterion ...$criteria): Collection;
-    public function findOneByCriteria(EloquentCriterion ...$criteria): User;
+    public function findOneByCriteria(EloquentCriterion ...$criteria): ?User;
 }
