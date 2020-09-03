@@ -2,56 +2,32 @@
 
 namespace App\Actions\Zoom;
 
+use App\Repositories\Integrations\ZoomIntegrationRepository;
 use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\Http;
 
 final class CreateMeetingAction
 {
+    private $integrationRepository;
 
-    public function execute()
+    public function __construct(ZoomIntegrationRepository $integrationRepository)
     {
-        $path = 'users/univer1857@gmail.com/meetings';
+        $this->integrationRepository = $integrationRepository;
+    }
 
-        $meeting = $this->zoomPost($path, [
-            'topic' => 'test',
-            'start_time' => '2020-09-03T12:02:00Z',
-            'agenda' => 'test description',
-            'duration' => 30
+    public function execute(CreateMeetingRequest $request)
+    {
 
+        $integration = $this->integrationRepository->getAccessToken(1);
+
+        $response = Http::withHeaders([
+            "Authorization" => "Bearer " . $integration->access_token,
+        ])->post('https://api.zoom.us/v2/users/me/meetings',[
+            "topic" => $request->getTopic(),
+            "start_time" => $request->getStartTime(),
+            "agenda" => $request->getAgenda()
         ]);
 
-        return $meeting;
-    }
-
-    private function zoomPost(string $path, array $body = [])
-    {
-        $url = $this->retrieveZoomUrl();
-        $request = $this->zoomRequest();
-        return $request->post($url . $path, $body);
-    }
-
-    private function retrieveZoomUrl()
-    {
-        return env('ZOOM_API_URL');
-    }
-
-    private function zoomRequest()
-    {
-        $jwt = $this->generateZoomToken();
-        return Http::withHeaders([
-            'authorization' => 'Bearer ' . $jwt,
-            'content-type' => 'application/json',
-        ]);
-    }
-
-    private function generateZoomToken()
-    {
-        $key = env('ZOOM_API_KEY');
-        $secret = env('ZOOM_API_SECRET');
-        $payload = [
-            'iss' => $key,
-            'exp' => strtotime('+1 minute'),
-        ];
-        return JWT::encode($payload, $secret, 'HS256');
+        return $response;
     }
 }

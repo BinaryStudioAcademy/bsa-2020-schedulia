@@ -120,3 +120,4 @@ Route::get('/social-accounts/{provider?}/oauth', 'Api\\SocialAccountController@o
 Route::get('/social-accounts/{provider?}/oauthResponse', 'Api\\SocialAccountController@oauthResponse');
 
 Route::post('/meetings', 'Api\\Zoom\\MeetingController@create');
+Route::get('/meetings/zoom/callback', 'Api\\Zoom\\MeetingController@handleCallback');

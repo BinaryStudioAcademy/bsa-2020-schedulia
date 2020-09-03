@@ -403,5 +403,8 @@ export default {
         '                    may want to reference later.',
     PUBLIC_LINK_WAS_COPIED: 'Public Link was copied!',
     TAGS: 'Tags',
-    ALL_TAGS: 'All Tags'
+    ALL_TAGS: 'All Tags',
+
+    MY_ZOOM_ACCOUNT: 'My zoom account',
+    INCLUDE_ZOOM_MEETING: 'Automatically include Zoom meeting details in Schedulia events'
 };
