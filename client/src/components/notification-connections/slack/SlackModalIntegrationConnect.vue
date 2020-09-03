@@ -43,7 +43,7 @@
                 <VTextField dense solo outlined v-model="slackData.webhook">
                 </VTextField>
 
-                <span class="subtitle-2">{{ lang.CHANNEL_NAME }}/span>
+                <span class="subtitle-2">{{ lang.CHANNEL_NAME }}</span>
                 <VTextField
                     dense
                     solo
