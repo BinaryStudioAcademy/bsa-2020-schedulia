@@ -9,7 +9,7 @@
 
 <script>
 import GeneralLayout from '@/components/common/GeneralLayout/GeneralLayout';
-import SlackNotificationConnection from '@/components/notification-connections/SlackNotificationConnection';
+import SlackNotificationConnection from '@/components/notification-connections/slack/SlackNotificationConnection';
 import { mapGetters } from 'vuex';
 import * as getters from '@/store/modules/auth/types/getters';
 export default {

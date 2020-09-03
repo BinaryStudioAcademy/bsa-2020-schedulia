@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import SlackModalIntegrationConnect from '@/components/notification-connections/SlackModalIntegrationConnect';
-import DeleteSlackIntegrationModal from '@/components/notification-connections/DeleteSlackIntegrationModal';
+import SlackModalIntegrationConnect from '@/components/notification-connections/slack/SlackModalIntegrationConnect';
+import DeleteSlackIntegrationModal from '@/components/notification-connections/slack/DeleteSlackIntegrationModal';
 import { mapGetters } from 'vuex';
 import * as getters from '@/store/modules/auth/types/getters';
 export default {
