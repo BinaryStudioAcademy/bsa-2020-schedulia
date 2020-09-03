@@ -256,13 +256,15 @@ export default {
         filterScheduledEvent() {
             this.eventEmailsChecked = this.eventEmails;
             this.$router.push({
-                name: 'Past',
+                name: 'DateRange',
                 query: {
                     event_types: this.$route.query.event_types,
                     event_emails: this.eventEmails,
                     event_status: this.$route.query.event_status,
                     tags: this.$route.query.tags,
-                    search: this.$route.query.search
+                    search: this.$route.query.search,
+                    startDate: this.$route.query.start_date,
+                    endDate: this.$route.query.end_date
                 }
             });
             this.closeMenu();

@@ -249,13 +249,15 @@ export default {
         filterScheduledEvent() {
             this.eventTypesTagsChecked = this.eventTypesTags;
             this.$router.push({
-                name: 'Past',
+                name: 'DateRange',
                 query: {
                     event_types: this.$route.query.event_types,
                     event_emails: this.$route.query.event_emails,
                     event_status: this.$route.query.event_status,
                     tags: this.eventTypesTags,
-                    search: this.$route.query.search
+                    search: this.$route.query.search,
+                    startDate: this.$route.query.start_date,
+                    endDate: this.$route.query.end_date
                 }
             });
             this.closeMenu();
