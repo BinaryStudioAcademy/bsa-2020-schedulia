@@ -37,6 +37,14 @@ const scheduledEventService = {
             searchString
         });
         return response?.data?.data;
+    },
+
+    async updateEvent(id, event) {
+        const response = await requestService.put(`${apiEndpoint}/${id}`, {
+            ...event
+        });
+
+        return response?.data?.data;
     }
 };
 
