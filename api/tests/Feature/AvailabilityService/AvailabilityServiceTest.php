@@ -405,7 +405,8 @@ class AvailabilityServiceTest extends TestCase
             'duration' => 60,
             'timezone' => 'Europe/Kiev',
             'disabled' => true,
-            'location_type' => 'zoom'
+            'location_type' => 'zoom',
+            'address' => 'Odesa'
         ]);
         $eventType->save();
 
@@ -827,7 +828,8 @@ class AvailabilityServiceTest extends TestCase
             'duration' => 60,
             'timezone' => 'Europe/Kiev',
             'disabled' => true,
-            'location_type' => 'zoom'
+            'location_type' => 'zoom',
+            'address' => 'Kiev, Bankova, 11'
         ]);
         $eventType->save();
         $eventType->availabilities()->saveMany([
