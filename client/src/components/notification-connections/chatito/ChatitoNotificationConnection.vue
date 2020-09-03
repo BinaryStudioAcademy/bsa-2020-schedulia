@@ -4,18 +4,18 @@
             <div class="notification-main">
                 <div class="notification-content text-center">
                     <h3 class="notification-name">Chatito</h3>
-                    <VChip class="ma-2" color="#ec634c">
+                    <VChip class="ma-2" v-if="!chatitoIsActive">
+                        Disabled
+                    </VChip>
+                    <VChip class="ma-2" color="#ec634c" v-else>
                         Active
                     </VChip>
                 </div>
                 <VDivider></VDivider>
-                <div class="actions mt-3 mb-3 text-center row">
-                    <div class="col text-left">
-                        <VBtn color="red" class="slack-delete">
-                            <VIcon color="white">mdi-delete</VIcon>
-                        </VBtn>
+                <div class="actions mt-3 mb-3 text-center d-flex">
+                    <div class="">
+                        <VSwitch inset v-model="chatitoIsActive"></VSwitch>
                     </div>
-                    <div class="col text-right"></div>
                 </div>
             </div>
         </div>
@@ -24,7 +24,10 @@
 
 <script>
 export default {
-    name: 'ChatitoNotificationConnection'
+    name: 'ChatitoNotificationConnection',
+    data: () => ({
+        chatitoIsActive: false
+    })
 };
 </script>
 
