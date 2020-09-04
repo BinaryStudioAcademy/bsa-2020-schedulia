@@ -48,7 +48,8 @@ class EventCreatedMailToInvitee extends Mailable
                 'eventType' => $this->eventType,
                 'owner' => $this->owner,
                 'inviteeName' => $this->inviteeName,
-                'inviteeEmail' => $this->inviteeEmail
+                'inviteeEmail' => $this->inviteeEmail,
+                'customFieldValues' => $this->event->customFieldValues
             ]);
     }
 }

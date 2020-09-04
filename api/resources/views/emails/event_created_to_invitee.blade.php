@@ -21,4 +21,16 @@ You have been invited to an Event!
 <b>Event Date/Time:</b><br>
 {{ $event->start_date }}
 
+@if($customFieldValues)
+<b>Questions:</b><br>
+@foreach($customFieldValues as $customFieldValue)
+<u>{{ $customFieldValue->customField->name }}</u><br>
+{{ $customFieldValue->value }}
+@endforeach
+@endif
+
+@component('mail::button', ['url' => env('APP_URL'), 'color' => 'blue'])
+Visit {{ env('APP_NAME') }}
+@endcomponent
+
 @endcomponent
