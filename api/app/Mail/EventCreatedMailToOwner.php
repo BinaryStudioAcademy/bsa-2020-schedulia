@@ -46,7 +46,8 @@ class EventCreatedMailToOwner extends Mailable
             ->markdown('notifications.event_created', [
             'event' => $this->event,
             'eventType' => $this->eventType,
-            'user' => $this->owner
+            'user' => $this->owner,
+            'customFieldValues' => $this->event->customFieldValues
         ]);
     }
 }
