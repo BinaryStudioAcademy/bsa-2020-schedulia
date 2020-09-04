@@ -34,7 +34,7 @@ import Event from '../Event';
 import NoEvents from '../NoEvents';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import * as notificationActions from '@/store/modules/notification/types/actions';
-import FilterList from "./Filter/FilterList";
+import FilterList from './Filter/FilterList';
 
 export default {
     name: 'Upcoming',

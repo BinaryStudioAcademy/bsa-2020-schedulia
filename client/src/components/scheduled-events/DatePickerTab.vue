@@ -66,7 +66,7 @@ export default {
                 name: 'DateRange',
                 query: {
                     start_date: this.dates[0],
-                    end_date: this.dates[1],
+                    end_date: this.dates[1]
                 }
             });
         }
