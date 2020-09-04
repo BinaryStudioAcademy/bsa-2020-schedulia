@@ -35,6 +35,7 @@ import Event from '../Event';
 import NoEvents from '../NoEvents';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import * as notificationActions from '@/store/modules/notification/types/actions';
+import moment from 'moment-timezone';
 
 export default {
     name: 'DateRange',
@@ -44,9 +45,7 @@ export default {
         loadMoreActive: false,
         perPage: 8,
         sort: 'start_date',
-        direction: 'desc',
-        startDate: this.$route.query.start_date,
-        endDate: this.$route.query.end_date
+        direction: 'desc'
     }),
 
     components: {
@@ -84,7 +83,7 @@ export default {
                 sort: this.sort,
                 direction: this.direction,
                 startDate: this.$route.query.start_date,
-                endDate: this.$route.query.end_date,
+                endDate: this.getEndDateDateRange(this.$route.query.end_date),
                 eventTypes: this.$route.query.event_types,
                 eventEmails: this.$route.query.event_emails,
                 eventStatus: this.$route.query.event_status,
@@ -109,7 +108,7 @@ export default {
                 sort: this.sort,
                 direction: this.direction,
                 startDate: this.$route.query.start_date,
-                endDate: this.$route.query.end_date,
+                endDate: this.getEndDateDateRange(this.$route.query.end_date),
                 eventTypes: this.$route.query.event_types,
                 eventEmails: this.$route.query.event_emails,
                 eventStatus: this.$route.query.event_status,
@@ -125,6 +124,13 @@ export default {
             } else {
                 this.loadMoreActive = false;
             }
+        },
+
+        getEndDateDateRange(endDate) {
+            return moment
+                .utc(endDate)
+                .add(1, 'day')
+                .format('YYYY-MM-DD');
         }
     },
 

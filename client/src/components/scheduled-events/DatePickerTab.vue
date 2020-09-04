@@ -3,13 +3,13 @@
         ref="menu"
         v-model="menu"
         :close-on-content-click="false"
-        :return-value.sync="date"
+        :return-value.sync="dates"
         transition="scale-transition"
         offset-y
         min-width="290px"
     >
         <template v-slot:activator="{ on, attrs }">
-            <VTab v-model="date" v-bind="attrs" v-on="on">
+            <VTab v-model="dates" v-bind="attrs" v-on="on">
                 {{ lang.DATE_RANGE }}
             </VTab>
         </template>
@@ -62,13 +62,36 @@ export default {
         dateRangeRoutePush() {
             this.closeMenu();
 
+            let dateRange = this.dateRangePosition(this.dates);
+
             this.$router.push({
                 name: 'DateRange',
                 query: {
-                    start_date: this.dates[0],
-                    end_date: this.dates[1]
+                    start_date: dateRange[0],
+                    end_date: dateRange[1]
                 }
             });
+        },
+
+        dateRangePosition(dates) {
+            if (dates.length > 1) {
+                let startDate = new Date(dates[0]);
+                let endDate = new Date(dates[1]);
+
+                if (startDate.getTime() > endDate.getTime()) {
+                    let dateRange = [];
+                    dateRange[0] = new Date(endDate)
+                        .toISOString()
+                        .substr(0, 10);
+                    dateRange[1] = new Date(startDate)
+                        .toISOString()
+                        .substr(0, 10);
+
+                    return dateRange;
+                } else {
+                    return dates;
+                }
+            }
         }
     }
 };
