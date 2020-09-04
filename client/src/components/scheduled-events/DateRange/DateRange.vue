@@ -35,6 +35,7 @@ import Event from '../Event';
 import NoEvents from '../NoEvents';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import * as notificationActions from '@/store/modules/notification/types/actions';
+import moment from 'moment-timezone';
 
 export default {
     name: 'DateRange',
@@ -128,13 +129,7 @@ export default {
         },
 
         getEndDateDateRange(endDate) {
-            let endDateFormatter = new Date(endDate);
-            endDateFormatter = endDateFormatter.getTime() + 86400000;
-            endDateFormatter = new Date(endDateFormatter)
-                .toISOString()
-                .substr(0, 10);
-
-            return endDateFormatter;
+            return moment.utc(endDate).add(1,'day').format('YYYY-MM-DD');
         }
     },
 
