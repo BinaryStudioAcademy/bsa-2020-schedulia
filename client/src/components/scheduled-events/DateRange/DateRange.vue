@@ -45,9 +45,7 @@ export default {
         loadMoreActive: false,
         perPage: 8,
         sort: 'start_date',
-        direction: 'desc',
-        startDate: this.$route.query.start_date,
-        endDate: this.$route.query.end_date
+        direction: 'desc'
     }),
 
     components: {
