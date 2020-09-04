@@ -80,8 +80,12 @@ export default {
 
                 if (startDate.getTime() > endDate.getTime()) {
                     let dateRange = [];
-                    dateRange[0] = new Date(endDate).toISOString().substr(0, 10);
-                    dateRange[1] = new Date(startDate).toISOString().substr(0, 10);
+                    dateRange[0] = new Date(endDate)
+                        .toISOString()
+                        .substr(0, 10);
+                    dateRange[1] = new Date(startDate)
+                        .toISOString()
+                        .substr(0, 10);
 
                     return dateRange;
                 } else {

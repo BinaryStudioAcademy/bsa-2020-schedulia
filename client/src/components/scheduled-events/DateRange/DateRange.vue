@@ -130,7 +130,9 @@ export default {
         getEndDateDateRange(endDate) {
             let endDateFormatter = new Date(endDate);
             endDateFormatter = endDateFormatter.getTime() + 86400000;
-            endDateFormatter = new Date(endDateFormatter).toISOString().substr(0, 10);
+            endDateFormatter = new Date(endDateFormatter)
+                .toISOString()
+                .substr(0, 10);
 
             return endDateFormatter;
         }
