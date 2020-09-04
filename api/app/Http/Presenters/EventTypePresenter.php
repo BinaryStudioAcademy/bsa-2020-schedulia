@@ -44,7 +44,8 @@ final class EventTypePresenter implements PresenterCollectionInterface
             }),
             'location_type' => $eventType->location_type,
             'coordinates' => $eventType->coordinates,
-            'address' => $eventType->address
+            'address' => $eventType->address,
+            'created_at' => $eventType->created_at
         ];
     }
 }
