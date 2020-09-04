@@ -20,7 +20,8 @@ export const eventTypeMapper = EventType => ({
     availabilities_week_days: availabilitiesWeekDays(EventType.availabilities),
     selectDay: {
         date: moment().format('YYYY-MM-DD')
-    }
+    },
+    createdAt: EventType.created_at
 });
 
 export const userMapper = user => ({
