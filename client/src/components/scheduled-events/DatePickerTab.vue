@@ -3,13 +3,13 @@
         ref="menu"
         v-model="menu"
         :close-on-content-click="false"
-        :return-value.sync="date"
+        :return-value.sync="dates"
         transition="scale-transition"
         offset-y
         min-width="290px"
     >
         <template v-slot:activator="{ on, attrs }">
-            <VTab v-model="date" v-bind="attrs" v-on="on">
+            <VTab v-model="dates" v-bind="attrs" v-on="on">
                 {{ lang.DATE_RANGE }}
             </VTab>
         </template>
