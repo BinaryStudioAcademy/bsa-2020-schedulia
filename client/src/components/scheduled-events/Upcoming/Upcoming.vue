@@ -3,7 +3,6 @@
         <FilterList v-if="this.scheduledEventsFilterView" />
         <BorderBottom />
         <div v-if="this.eventsPagination.total">
-            {{ startDate }}
             <template v-for="scheduledEvent in scheduledEvents">
                 <Event
                     :key="scheduledEvent.id"
