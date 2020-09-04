@@ -38,9 +38,9 @@
                                 hide-details
                                 dense
                                 flat
-                                color="#2C2C2C"
+                                color="var(--v-customDark-base)"
                                 background-color="rgba(224, 224, 224, 0.3)"
-                                label="Search"
+                                :label="lang.SEARCH"
                                 clearable
                                 prepend-inner-icon="mdi-magnify"
                                 @input="searchEventTypes"

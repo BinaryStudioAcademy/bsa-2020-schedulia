@@ -6,6 +6,7 @@ export default {
         eventTypes: []
     },
     eventType: {
+        id: null,
         name: '',
         location: '',
         coordinates: [],
@@ -31,7 +32,9 @@ export default {
         },
         availabilities_week_days: {},
         availabilities: {},
-        selectDay: ''
+        selectDay: {
+            date: now.format('YYYY-MM-DD')
+        }
     },
     dayAvailabilities: [],
     visibleAvailabilityDialog: false,
