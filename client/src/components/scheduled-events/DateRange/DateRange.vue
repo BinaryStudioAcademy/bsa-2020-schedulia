@@ -109,7 +109,7 @@ export default {
                 sort: this.sort,
                 direction: this.direction,
                 startDate: this.$route.query.start_date,
-                endDate: this.$route.query.end_date,
+                endDate: this.getEndDateDateRange(this.$route.query.end_date),
                 eventTypes: this.$route.query.event_types,
                 eventEmails: this.$route.query.event_emails,
                 eventStatus: this.$route.query.event_status,
@@ -125,6 +125,14 @@ export default {
             } else {
                 this.loadMoreActive = false;
             }
+        },
+
+        getEndDateDateRange(endDate) {
+            let endDateFormatter = new Date(endDate);
+            endDateFormatter = endDateFormatter.getTime() + 86400000;
+            endDateFormatter = new Date(endDateFormatter).toISOString().substr(0, 10);
+
+            return endDateFormatter;
         }
     },
 
