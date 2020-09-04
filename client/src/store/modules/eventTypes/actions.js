@@ -4,7 +4,6 @@ import * as mutations from './types/mutations';
 import * as authActions from '@/store/modules/auth/types/actions';
 import * as loaderMutations from '@/store/modules/loader/types/mutations';
 import * as notifyActions from '@/store/modules/notification/types/actions';
-
 export default {
     [actions.FETCH_EVENT_TYPES]: async (
         { commit, dispatch },
