@@ -48,6 +48,7 @@
                     <VRow class="event-detail">
                         <VCol sm="3" class="text-left action-col">
                             <VBtn
+                                v-if="!isCancelled"
                                 :ripple="false"
                                 :hover="false"
                                 class="action-col__button"
@@ -68,6 +69,7 @@
                             </VBtn>
 
                             <VBtn
+                                v-if="!isCancelled"
                                 :ripple="false"
                                 :hover="false"
                                 class="action-col__button"
