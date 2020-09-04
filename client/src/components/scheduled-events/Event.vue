@@ -1,8 +1,7 @@
 <template>
-    <div class="event" :data-event-id=scheduledEvent.id>
+    <div class="event" :data-event-id="scheduledEvent.id">
         <VContainer class="event-date">
             <span>
-
                 {{ getEventDate(scheduledEvent.startDate) }}
             </span>
         </VContainer>
