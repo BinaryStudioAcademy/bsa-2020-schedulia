@@ -40,7 +40,7 @@
                                 flat
                                 color="var(--v-customDark-base)"
                                 background-color="rgba(224, 224, 224, 0.3)"
-                                :label="this.loc.SEARCH"
+                                :label="lang.SEARCH"
                                 clearable
                                 prepend-inner-icon="mdi-magnify"
                                 @input="searchEventTypes"
