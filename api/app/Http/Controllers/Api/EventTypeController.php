@@ -88,6 +88,7 @@ class EventTypeController extends ApiController
                 $request->get('availabilities'),
                 $request->get('location_type'),
                 $request->get('coordinates'),
+                $request->get('address'),
             ))
             ->getEventType();
 
@@ -119,6 +120,7 @@ class EventTypeController extends ApiController
                     $request->get('availabilities'),
                     $request->get('location_type'),
                     $request->get('coordinates'),
+                    $request->get('address'),
                 )
             )->getEventType();
 
