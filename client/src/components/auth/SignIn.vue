@@ -8,20 +8,19 @@
             </RouterLink>
             <VSpacer class="pa-2"></VSpacer>
         </VCardSubtitle>
-        <VForm v-model="formValid" ref="form" @submit.prevent="onSignIn">
+        <VForm @submit.prevent="onSignIn">
             <VCardText>
                 <VCol cols="12" sm="12" md="8" class="pa-0">
                     <label for="email">{{ lang.EMAIL }}*</label>
                     <VTextField
-                        id="email"
-                        placeholder="Email address"
-                        :value="loginData.email"
                         :error-messages="emailErrors"
-                        @input="setEmailOnInput"
+                        :value="loginData.email"
                         @blur="setEmail"
-                        outlined
+                        @input="setEmailOnInput"
                         dense
-                        type="email"
+                        id="email"
+                        outlined
+                        placeholder="happyuser@binary-studio.com"
                     >
                     </VTextField>
                 </VCol>
@@ -49,12 +48,13 @@
                         :type="showPassword ? 'text' : 'password'"
                         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="showPassword = !showPassword"
+                        placeholder="••••••••••"
                     >
                     </VTextField>
                 </VCol>
             </VCardText>
             <VCardActions>
-                <VRow no-gutters align="center" justify="" class="ma-1">
+                <VRow no-gutters align="center" class="ma-1">
                     <VCol cols="12" sm="5" md="12" lg="5">
                         <VBtn
                             width="158"
@@ -62,7 +62,6 @@
                             class="login-button  primary"
                             depressed
                             type="submit"
-                            @click="onSignIn"
                             >{{ lang.LOG_IN }}
                         </VBtn>
                     </VCol>
@@ -120,11 +119,6 @@ export default {
         loginData: {
             email: '',
             password: ''
-        },
-        alert: {
-            visible: false,
-            message: '',
-            type: ''
         }
     }),
     methods: {
@@ -232,5 +226,11 @@ label {
 .login-with-text {
     font-size: 12px;
     color: #8b90a0;
+}
+.v-text-field.error--text::v-deep .v-input__slot {
+    background-color: var(--v-validationError-base);
+}
+.v-text-field.error--text::v-deep .v-text-field__slot input {
+    color: var(--v-error-darken1);
 }
 </style>

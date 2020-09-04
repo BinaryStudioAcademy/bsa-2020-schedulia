@@ -4,6 +4,8 @@ import authService from '@/services/auth/authService';
 import router from '@/router';
 import * as notifyActions from '@/store/modules/notification/types/actions';
 import * as langGetters from '@/store/modules/i18n/types/getters';
+import * as loaderMutations from '@/store/modules/loader/types/mutations';
+import notificationConnectionService from '@/services/notification-connections/notificationConnectionService';
 
 export default {
     [actions.SIGN_IN]: async (context, loginData) => {
@@ -121,6 +123,43 @@ export default {
                 ].EXPLANATION_ERROR_PASSWORD_RESET
             );
             context.commit(mutations.SET_VISIBILITY_RESET, true);
+        }
+    },
+    [actions.CONNECT_SLACK_NOTIFICATIONS]: async (
+        { commit, dispatch },
+        slackData
+    ) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+        try {
+            await notificationConnectionService.connectSlack(slackData);
+            commit(mutations.CONNECT_SLACK_NOTIFICATIONS, slackData);
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        } catch (error) {
+            dispatch(actions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        }
+    },
+    [actions.DELETE_SLACK_NOTIFICATIONS]: async ({ commit, dispatch }) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+        try {
+            await notificationConnectionService.deleteSlack();
+            commit(mutations.DELETE_SLACK_NOTIFICATIONS);
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        } catch (error) {
+            dispatch(actions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
         }
     }
 };

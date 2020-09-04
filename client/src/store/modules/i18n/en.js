@@ -420,6 +420,14 @@ export default {
         " Please make sure that you've typed in the URL correctly",
     PLEASE_RETYPE_ADDRESS_OR_RETURN_TO: 'Please retype address or return to',
     MAIN_PAGE: ' main page',
+    CONNECT_SLACK: 'Connect Slack',
+    INCOMING_WEBHOOK: 'Incoming Webhook',
+    TO_YOUR: 'to your',
+    WORKSPACE: 'workspace',
+    IN_THE_FIELD: 'in the field',
+    CHANNEL_NAME: 'Channel name',
+    CONNECT: 'Connect',
+    NOTIFICATION_CONNECTIONS: 'Notification Connections',
     SELECT_LOCATION: 'Please select location',
     NO_DATE_RANGE_EVENTS: 'No Events In This Range'
 };
