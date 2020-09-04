@@ -271,7 +271,8 @@ export default {
                             if (!this.data.id) {
                                 this.changeEventTypeProperty('id', response.id);
                                 this.$router.push({
-                                    path: 'new-event-type-options'
+                                    path: 'new-event-type-options',
+                                    query: { eventTypeId: response.id }
                                 });
                             }
                         }
