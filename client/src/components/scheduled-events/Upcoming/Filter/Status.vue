@@ -138,7 +138,7 @@ export default {
                     name: this.lang.ACTIVE_EVENTS
                 },
                 {
-                    id: 'canceled',
+                    id: 'cancelled',
                     name: this.lang.CANCELED_EVENTS
                 }
             ];
@@ -162,12 +162,12 @@ export default {
         statusFilterTitle() {
             if (
                 this.eventStatusChecked.includes('scheduled') &&
-                this.eventStatusChecked.includes('canceled')
+                this.eventStatusChecked.includes('cancelled')
             ) {
                 return this.lang.ALL_EVENTS;
             } else if (this.eventStatusChecked.includes('scheduled')) {
                 return this.lang.ACTIVE_EVENTS;
-            } else if (this.eventStatusChecked.includes('canceled')) {
+            } else if (this.eventStatusChecked.includes('cancelled')) {
                 return this.lang.CANCELED_EVENTS;
             } else {
                 return this.lang.ALL_EVENTS;
