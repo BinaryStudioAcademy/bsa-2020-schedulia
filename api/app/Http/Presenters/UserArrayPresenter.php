@@ -23,7 +23,10 @@ final class UserArrayPresenter implements PresenterInterface
             'date_format' => $user->date_format,
             'time_format_12h' => $user->time_format_12h,
             'country' => $user->country,
-            'nickname' => $user->nickname
+            'nickname' => $user->nickname,
+            'slack_webhook' => $user->slack_webhook,
+            'slack_channel' => $user->slack_channel,
+            'slack_active' => $user->slack_active,
         ];
     }
 }

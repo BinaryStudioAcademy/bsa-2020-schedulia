@@ -11,3 +11,4 @@ export const ADD_EVENT_TYPE = 'addEventType';
 export const UPDATE_INTERNAL_NOTE = 'updateInternalNote';
 export const SET_EVENT_TYPES_TAGS = 'setEventTypesTags';
 export const CLEAR_EVENT_TYPES_TAGS = 'setSearchedEventTypesTags';
+export const CLEAR_CUSTOM_FIELDS = 'clearCustomFields';

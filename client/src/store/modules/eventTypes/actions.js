@@ -4,7 +4,6 @@ import * as mutations from './types/mutations';
 import * as authActions from '@/store/modules/auth/types/actions';
 import * as loaderMutations from '@/store/modules/loader/types/mutations';
 import * as notifyActions from '@/store/modules/notification/types/actions';
-
 export default {
     [actions.FETCH_EVENT_TYPES]: async (
         { commit, dispatch },
@@ -146,6 +145,7 @@ export default {
             await eventTypesService.saveCustomFieldsByEventTypeId(id, {
                 custom_fields: Object.values(custom_fields)
             });
+            commit(mutations.CLEAR_CUSTOM_FIELDS);
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });

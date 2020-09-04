@@ -13,6 +13,7 @@
                                 >
                                     {{ item.title }}
                                 </VTab>
+                                <slot name="left-side"></slot>
                             </VTabs>
                         </VCol>
                         <VCol class="text-right" align-self="center">

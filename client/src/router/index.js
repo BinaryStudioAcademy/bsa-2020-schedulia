@@ -89,6 +89,12 @@ const routes = [
                         component: () => import('../views/CalendarConnections')
                     },
                     {
+                        path: 'notification-connections',
+                        name: 'NotificationConnections',
+                        component: () =>
+                            import('../views/NotificationConnections')
+                    },
+                    {
                         path: 'new-event-type',
                         name: 'newEventType',
                         component: () => import('../views/NewEventType')

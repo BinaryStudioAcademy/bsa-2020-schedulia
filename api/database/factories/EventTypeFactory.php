@@ -14,5 +14,6 @@ $factory->define(EventType::class, function (Faker $faker) {
         'duration' => $faker->numberBetween(30, 120),
         'timezone' => $faker->timezone,
         'disabled' => $faker->boolean,
+        'address' =>$faker->address
     ];
 });

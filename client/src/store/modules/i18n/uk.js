@@ -331,7 +331,16 @@ export default {
     PLEASE_RETYPE_ADDRESS_OR_RETURN_TO:
         'Будь ласка, введіть адресу або поверніться на',
     MAIN_PAGE: ' головну сторінку',
+    CONNECT_SLACK: 'Підключити Slack',
+    INCOMING_WEBHOOK: 'Incoming Webhook',
+    TO_YOUR: 'до вашого',
+    WORKSPACE: 'робочого чату',
+    IN_THE_FIELD: 'в поле',
+    CHANNEL_NAME: "Им'я каналу",
+    CONNECT: 'Підключити',
+    NOTIFICATION_CONNECTIONS: 'Підключення повідомлень',
     SELECT_LOCATION: 'Виберіть локацію',
+    NO_DATE_RANGE_EVENTS: 'У цьому діапазоні немає подій',
     CONFIRM_NEW_PASSWORD: 'Підтвердити новий пароль',
     PASSWORD_WAS_SUCCESSFULLY_CHANGED: 'Пароль успішно змінено'
 };

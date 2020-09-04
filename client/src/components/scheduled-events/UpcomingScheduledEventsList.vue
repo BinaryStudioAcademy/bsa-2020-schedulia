@@ -3,6 +3,9 @@
         <Pagination />
         <VContainer class="container-content pagination">
             <TabsLink class="scheduled-tabs" :tabs="tabs">
+                <template v-slot:left-side>
+                    <DatePickerTab />
+                </template>
                 <template v-slot:right-side>
                     <FilterButton />
                     <ExportButton />
@@ -21,11 +24,13 @@ import FilterButton from './FilterButton';
 import ExportButton from './ExportButton';
 import Pagination from './Pagination';
 import { mapGetters } from 'vuex';
+import DatePickerTab from './DatePickerTab';
 
 export default {
     name: 'UpcomingScheduledEventsList',
 
     components: {
+        DatePickerTab,
         Pagination,
         ExportButton,
         FilterButton,
@@ -46,10 +51,6 @@ export default {
                 {
                     title: this.lang.PAST,
                     routeName: 'Past'
-                },
-                {
-                    title: this.lang.DATE_RANGE,
-                    routeName: 'DateRange'
                 }
             ];
         }

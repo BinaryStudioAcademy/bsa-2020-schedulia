@@ -30,6 +30,9 @@ final class DeleteEventTypeAction
             throw new AuthorizationException();
         }
 
+        // TODO: notify invities about cancelled events
+        $eventType->events()->delete();
+        $eventType->customFields()->delete();
         $this->eventTypeRepository->deleteById($eventType->id);
     }
 }

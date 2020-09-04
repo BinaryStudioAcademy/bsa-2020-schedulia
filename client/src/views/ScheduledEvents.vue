@@ -13,6 +13,7 @@ import GeneralLayout from '@/components/common/GeneralLayout/GeneralLayout';
 import TabsLink from '@/components/tabs/TabsLink.vue';
 import Upcoming from '@/components/scheduled-events/UpcomingScheduledEventsList';
 import Past from '@/components/scheduled-events/PastScheduledEventsList';
+import DateRange from '@/components/scheduled-events/DateRangeScheduledEventsList';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapGetters } from 'vuex';
 
@@ -22,6 +23,7 @@ export default {
         GeneralLayout,
         Upcoming,
         Past,
+        DateRange,
         TabsLink
     },
     data: () => ({}),

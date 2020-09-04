@@ -1,6 +1,5 @@
 <template>
     <VRow class="ma-0 pa-0" v-if="isReady">
-        <AutoFillSpacer />
         <VCol :class="colEventInfoClass">
             <EventInfo
                 :brandingLogo="eventType.owner.brandingLogo"
@@ -13,7 +12,6 @@
                 :lang="lang"
             />
         </VCol>
-        <AutoFillSpacer />
 
         <VDivider vertical class="hidden-md-and-down"></VDivider>
 
@@ -48,9 +46,9 @@
                     <template v-slot:prepend-item>
                         <VListItem>
                             <VListItemContent>
-                                <VListItemTitle>{{
-                                    lang.CHOOSE_YOUR_TIMEZONE
-                                }}</VListItemTitle>
+                                <VListItemTitle>
+                                    {{ lang.CHOOSE_YOUR_TIMEZONE }}
+                                </VListItemTitle>
                                 <VTextField
                                     v-model="timezoneFieldSearch"
                                     label="Enter timezone"
@@ -118,7 +116,6 @@ import moment from 'moment';
 import momentTimezones from 'moment-timezone';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import EventInfo from './EventInfo';
-import AutoFillSpacer from './AutoFillSpacer';
 import * as actions from '@/store/modules/publicEvent/types/actions';
 import * as getters from '@/store/modules/publicEvent/types/getters';
 import { mapActions, mapGetters } from 'vuex';
@@ -126,18 +123,12 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
     name: 'EventType',
     components: {
-        EventInfo,
-        AutoFillSpacer
+        EventInfo
     },
     async mounted() {
         const eventType = await this.getEventTypeByIdAndNickname({
             id: this.$route.params.id,
             nickname: this.$route.params.nickname
-        });
-
-        this.currentMonthAvailabilities = await this.getAvailabilitiesByMonth({
-            id: eventType.id,
-            date: '2020-09'
         });
 
         eventType &&
@@ -159,10 +150,22 @@ export default {
         },
         eventType() {
             this.isReady = true;
+        },
+        async currentMonth() {
+            this.currentMonthAvailabilities = await this.getAvailabilitiesByMonth(
+                {
+                    id: this.eventType.id,
+                    date: `${this.currentMonth.slice(
+                        0,
+                        4
+                    )}-${this.currentMonth.slice(5)}`
+                }
+            );
         }
     },
     data: () => ({
         isReady: false,
+        currentMonth: null,
         currentMonthAvailabilities: null,
         currentTimezone: momentTimezones.tz.guess(),
         currentTimezoneTime: null,
@@ -610,6 +613,7 @@ export default {
             ];
 
             if (month) {
+                this.currentMonth = year + '-' + month;
                 return months[month - 1] + ' ' + year;
             } else {
                 return year;
