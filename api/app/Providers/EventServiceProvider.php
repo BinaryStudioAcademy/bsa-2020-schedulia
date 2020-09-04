@@ -10,6 +10,7 @@ use App\Listeners\AddEventToGoogleCalendar;
 use App\Listeners\DeleteEventFromGoogleCalendar;
 use App\Listeners\SendEventCreatedNotificationToInvitee;
 use App\Listeners\SendEventCreatedNotificationToOwner;
+use App\Listeners\UpdateEventToElasticSearch;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -37,6 +38,7 @@ class EventServiceProvider extends ServiceProvider
         EventUpdated::class => [
             DeleteEventFromGoogleCalendar::class,
             AddEventToGoogleCalendar::class,
+            UpdateEventToElasticSearch::class
         ]
     ];
 
