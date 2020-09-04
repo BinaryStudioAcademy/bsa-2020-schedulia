@@ -332,6 +332,6 @@ export default {
         'Будь ласка, введіть адресу або поверніться на',
     MAIN_PAGE: ' головну сторінку',
     SELECT_LOCATION: 'Виберіть локацію',
-    CONFIRM_NEW_PASSWORD: 'Підтвердить новий пароль',
+    CONFIRM_NEW_PASSWORD: 'Підтвердити новий пароль',
     PASSWORD_WAS_SUCCESSFULLY_CHANGED: 'Пароль успішно змінено'
 };
