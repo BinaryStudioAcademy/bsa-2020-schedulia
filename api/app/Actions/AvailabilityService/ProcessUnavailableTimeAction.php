@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\AvailabilityService;
 
+use App\Constants\EventStatus;
 use App\Entity\EventType;
 use Carbon\Carbon;
 
@@ -21,7 +22,7 @@ final class ProcessUnavailableTimeAction
 
     private function getUnavailableTime(array $dateTimeList, EventType $eventType)
     {
-        $events = $eventType->events
+        $events = $eventType->scheduledEvents
             ->map(fn ($event) => [
                 'start_date' => (new Carbon($event->start_date))->toDateString(),
                 'start_time' => (new Carbon($event->start_date))->toTimeString(),
