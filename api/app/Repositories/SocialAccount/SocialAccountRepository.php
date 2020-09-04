@@ -19,6 +19,11 @@ final class SocialAccountRepository extends BaseRepository implements SocialAcco
         return $socialAccount;
     }
 
+    public function delete(SocialAccount $socialAccount): SocialAccount
+    {
+        $socialAccount->delete();
+    }
+
     public function findByCriteria(EloquentCriterion ...$criteria): Collection
     {
         $query = SocialAccount::query();
@@ -30,8 +35,8 @@ final class SocialAccountRepository extends BaseRepository implements SocialAcco
         return $query->get();
     }
 
-    public function findMyByProvider(int $provider): SocialAccount
+    public function findByProvider(int $provider, int $userId): SocialAccount
     {
-        return SocialAccount::where('provider_id', '=', $provider)->where('user_id', '=', Auth::id())->firstOrFail();
+        return SocialAccount::firstOrNew(['provider_id' => $provider, 'user_id' => $userId]);
     }
 }

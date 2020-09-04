@@ -48,6 +48,8 @@ Route::group([
         Route::get('/{id}', 'EventTypeController@getEventTypeById');
         Route::put('/{id}', 'EventTypeController@update');
         Route::put('/{id}/disabled', 'EventTypeController@changeDisabledById');
+        Route::post('/{id}/clone', 'EventTypeController@cloneEventTypeById');
+        Route::put('/{id}/internal-note', 'EventTypeController@updateInternalNoteById');
         Route::post('/{id}/custom-fields', 'EventTypeController@saveCustomFieldsByEventTypeId');
         Route::put('/{id}/custom-fields', 'EventTypeController@updateCustomFieldsByEventTypeId');
         Route::delete('/{id}', 'EventTypeController@destroy');
@@ -65,8 +67,15 @@ Route::group([
     'namespace' => 'Api\\'
 ], function () {
     Route::get('/nickname/{nickname}', 'EventTypeController@getEventTypesByNickname');
+    Route::get('/{id}/custom-fields', 'EventTypeController@getCustomFieldsById');
+    Route::get('{id}/tags', 'TagController@getTagsByEventTypeId');
 });
 
+Route::group([
+    'prefix' => 'public'
+], function () {
+    Route::get('/users/{nickname}/event-types/{id}', 'Api\\EventTypeController@getEventTypeByIdAndNickname');
+});
 Route::get('/event-types/{id}/availabilities', 'Api\\EventTypeController@getAvailableTime');
 
 Route::group([
@@ -76,6 +85,23 @@ Route::group([
     Route::post('/', 'EventController@store');
     Route::get('/', 'EventController@index');
     Route::get('/emails', 'EventController@getEventsEmails');
+});
+
+Route::group([
+    'middleware' => 'auth:api',
+    'namespace' => 'Api\\',
+    'prefix' => '/events',
+], function () {
+    Route::patch('/{id}', 'EventController@update');
+    Route::put('/{id}', 'EventController@update');
+});
+
+Route::group([
+    'namespace' => 'Api\\',
+    'prefix' => '/tags'
+], function () {
+    Route::get('/events', 'TagController@getTagsByEventDateRange');
+    Route::post('/', 'TagController@store');
 });
 
 Route::group([
@@ -102,7 +128,23 @@ Route::group([
     'prefix' => '/social-accounts',
 ], function () {
     Route::get('/calendars', 'SocialAccountController@calendars');
+    Route::delete('/calendars/{provider?}/', 'SocialAccountController@destroyCalendar');
 });
 
 Route::get('/social-accounts/{provider?}/oauth', 'Api\\SocialAccountController@oauth');
 Route::get('/social-accounts/{provider?}/oauthResponse', 'Api\\SocialAccountController@oauthResponse');
+
+Route::group([
+    'namespace' => 'Api\\',
+], function () {
+    Route::get('/users/{nickname}', 'UserController@checkNickname');
+});
+
+Route::group([
+    'middleware' => 'auth:api',
+    'namespace' => 'Api\\'
+], function () {
+    Route::post('/slack-notifications', 'SlackController@addSlackNotifications');
+    Route::delete('/slack-notifications', 'SlackController@deleteSlackNotifications');
+    Route::put('/slack-notifications', 'SlackController@changeActivitySlackNotifications');
+});

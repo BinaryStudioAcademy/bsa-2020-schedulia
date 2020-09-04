@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Constants\EventStatus;
 use Illuminate\Database\Eloquent\Model;
 
 class EventType extends Model
@@ -15,9 +16,13 @@ class EventType extends Model
         'color',
         'slug',
         'description',
+        'internal_note',
         'duration',
         'timezone',
         'disabled',
+        'location_type',
+        'coordinates',
+        'address'
     ];
 
     /**
@@ -25,6 +30,7 @@ class EventType extends Model
      */
     protected $casts = [
         'disabled' => 'boolean',
+        'coordinates' => 'json'
     ];
 
     /**
@@ -50,8 +56,18 @@ class EventType extends Model
         return $this->hasMany(Event::class, 'event_type_id');
     }
 
+    public function tags()
+    {
+        return $this->hasMany(Tag::class, 'event_type_id');
+    }
+
     public function customFields()
     {
         return $this->hasMany(CustomField::class, 'event_type_id');
+    }
+
+    public function scheduledEvents()
+    {
+        return $this->events()->where('status', EventStatus::SCHEDULED);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\Event;
 
+use App\Repositories\Event\Criterion\EmailsNameCriterion;
 use App\Repositories\Event\EventRepositoryInterface;
 use App\Repositories\Event\Criterion\StartDateCriterion;
 use App\Repositories\Event\Criterion\EndDateCriterion;
@@ -34,6 +35,10 @@ final class GetEventsEmailsAction
             $endDate = Carbon::parse($request->getEndDate())->format('Y-m-d H:m');
 
             $criteria[] = new EndDateCriterion($endDate);
+        }
+
+        if ($request->getSearchString()) {
+            $criteria[] = new EmailsNameCriterion($request->getSearchString());
         }
 
         return new GetEventsEmailsResponse(

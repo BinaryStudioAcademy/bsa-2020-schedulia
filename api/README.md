@@ -38,6 +38,12 @@ If you would like to preserve Postgres data on your computer, you should rename 
 
 To debug the application we highly recommend you to use xDebug, it is already pre-installed in dockerized environment, but you should setup your IDE. To do this see [the instruction](../docs/debug.md).
 
+## Elasticsearch
+
+You can use Elasticsearch locally, it is set up in `docker-compose.override.yml`.
+
+To make it work, please, follow the next guide: [Using the Docker images in production](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-prod-prerequisites)
+
 ## Useful links
 
 - [Laravel docs](https://laravel.com/docs/7.x/installation)

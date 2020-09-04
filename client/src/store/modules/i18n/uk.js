@@ -27,6 +27,8 @@ export default {
     CALENDAR_INVITATION_HAS_BEEN_SENT:
         'Запрошення до календаря надіслано на вашу електронну адресу',
     CANCEL: 'Скасувати',
+    CANCEL_EVENT_TEXT: 'Ви дійсно бажаете скасувати цю подію?',
+    CANCELLATION_EVENT: 'Скасування події!',
     CHANGE_PASSWORD: 'Змінити пароль',
     CHANGE_YOUR_PASSWORD: 'Змінити пароль',
     CHARACTERS: 'Символи',
@@ -289,7 +291,55 @@ export default {
     LOCALIZATION: 'uk-UA',
     ENABLED: 'Увімкнено',
     LOAD_MORE: 'Завантажити ще',
-    RESET: 'Скинути',
+    PLEASE_WAIT_WHILE_WE_ARE_LOGGING_YOU_IN:
+        'Будь ласка, зачекайте, поки ми реєструємо Вас...',
+    RESET: 'Скинути фільтр',
     INVITEE_EMAILS: 'Emails у запросі ',
-    ALL_INVITEE_EMAILS: 'Відмітити усі Emails'
+    ALL_INVITEE_EMAILS: 'Відмітити усі Emails',
+    PICK_NEEDED_LOCATION: 'Виберіть потрібну локацію',
+    ADDITIONAL_OPTIONS: 'Додаткові опції',
+    QUESTIONS_TO_INVITEE: 'Запитання для запрошеного',
+    NOW_YOU_CAN_ADD_CUSTOM_FIELDS:
+        'Тепер ви можете додати кілька спеціальних полів із запитаннями або щось подібне для своїх запрошених',
+    PLEASE_SHARE_ANYTHING:
+        'Будь ласка, поділіться будь-чим, що допоможе підготуватися до нашої зустрічі',
+    DELETE_FIELD: 'Видалити поле',
+    ANSWER_TYPE: 'Тип відповіді',
+    QUESTION: 'Запитання',
+    ADD_NEW_FIELD: 'Додати поле',
+    STATUS: 'Статус',
+    ACTIVE_EVENTS: 'Активні події',
+    ALL_EVENTS: 'Усі події',
+    CANCELED_EVENTS: 'Відмінені події',
+    WELCOME_TO_MY_SCHEDULING_PAGE:
+        'Ласкаво просимо на мою сторінку планування.',
+    PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT:
+        'Будь ласка, дотримуйтесь інструкцій, щоб додати подію до мого календаря.',
+    NO_OPENINGS_AT_THE_MOMENT: 'Жодної доступної події на даний момент',
+    NO_EVENTS_FOUND: 'Події не знайдено',
+    EDIT_INTERNAL_NOTE: 'Змінити внутрішню примітку',
+    INTERNAL_NOTE: 'Внутрішня примітка',
+    INTERNAL_NOTE_DESCRIPTION:
+        'Напишіть релевантну інформацію про цей тип події, на яку ви можете посилатися пізніше.',
+    PUBLIC_LINK_WAS_COPIED: 'Публічне посилання було скопійоване!',
+    TAGS: 'Теги',
+    ALL_TAGS: 'Усі теги',
+    ERROR_404: 'Помилка 404',
+    THE_PAGE_YOU_ARE_LOOKING_FOR_COULD_NOT_BE_FOUND:
+        'Сторінку, яку ви шукаєте, не вдалося знайти',
+    PLEASE_MAKE_SURE_THAT_YOU_TYPED_IN_THE_URL_CORRECTLY:
+        ' Переконайтесь, що ви правильно ввели URL-адресу',
+    PLEASE_RETYPE_ADDRESS_OR_RETURN_TO:
+        'Будь ласка, введіть адресу або поверніться на',
+    MAIN_PAGE: ' головну сторінку',
+    CONNECT_SLACK: 'Підключити Slack',
+    INCOMING_WEBHOOK: 'Incoming Webhook',
+    TO_YOUR: 'до вашого',
+    WORKSPACE: 'робочого чату',
+    IN_THE_FIELD: 'в поле',
+    CHANNEL_NAME: "Им'я каналу",
+    CONNECT: 'Підключити',
+    NOTIFICATION_CONNECTIONS: 'Підключення повідомлень',
+    SELECT_LOCATION: 'Виберіть локацію',
+    NO_DATE_RANGE_EVENTS: 'У цьому діапазоні немає подій'
 };

@@ -1,7 +1,8 @@
 import * as mutations from './types/mutations';
 import {
     eventMapper,
-    eventPaginationMapper
+    eventPaginationMapper,
+    eventEmailMapper
 } from '@/store/modules/scheduledEvent/normalizer';
 
 export default {
@@ -31,5 +32,29 @@ export default {
 
     [mutations.CLEAR_SCHEDULED_EVENTS]: state => {
         state.scheduledEvents = [];
+    },
+
+    [mutations.SET_EVENT_EMAILS_FILTER]: (state, eventEmails) => {
+        state.eventEmails = {
+            ...state.eventEmails,
+            ...eventEmails.reduce(
+                (prev, eventEmail) => ({
+                    ...prev,
+                    [eventEmail.email]: eventEmailMapper(eventEmail)
+                }),
+                {}
+            )
+        };
+    },
+
+    [mutations.CLEAR_EVENT_EMAILS_FILTER]: state => {
+        state.eventEmails = [];
+    },
+
+    [mutations.UPDATE_EVENT]: (state, event) => {
+        state.scheduledEvents = {
+            ...state.scheduledEvents,
+            [event.id]: { ...event }
+        };
     }
 };

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\User;
 
+use App\Entity\SocialAccount;
 use App\Contracts\EloquentCriterion;
 use App\Entity\User;
 use App\Repositories\BaseRepository;
@@ -24,6 +25,11 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
     public function getByVerifiedEmail(string $email): ?User
     {
         return User::where('email', $email)->whereNotNull('email_verified_at')->first();
+    }
+
+    public function getByAccountId(string $id): ?SocialAccount
+    {
+        return SocialAccount::where('account_id', $id)->first();
     }
 
     public function save(User $user): User
@@ -54,7 +60,7 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
         return $query->get();
     }
 
-    public function findOneByCriteria(EloquentCriterion ...$criteria): User
+    public function findOneByCriteria(EloquentCriterion ...$criteria): ?User
     {
         $query = User::query();
 
@@ -63,5 +69,16 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
         }
 
         return $query->first();
+    }
+
+    public function getGoogleCalendarTokenById(int $id): ?array
+    {
+        $user = User::findOrFail($id);
+
+        if (count($user->googleAccounts)) {
+            return $user->googleAccounts[0]->token;
+        } else {
+            return null;
+        }
     }
 }

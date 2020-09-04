@@ -5,6 +5,8 @@ export default {
     BRANDING: 'Branding',
 
     CANCEL: 'Cancel',
+    CANCELLATION_EVENT: 'Cancellation event!',
+    CANCEL_EVENT_TEXT: 'Are you sure that you want cancel this event?',
     CALENDAR_CONNECTIONS: 'Calendar connections',
     CHARACTERS: 'Characters',
     CHANGE_PASSWORD: 'Change password',
@@ -210,6 +212,12 @@ export default {
     LOCKED: 'Locked',
     EDIT_AVAILABILITY: 'Edit Availability',
     APPLY: 'Apply',
+    APPLY_ONLY: 'Apply to _ only',
+    APPLY_TO_ALL: 'Apply to all ',
+    OR_APPLY_MULTIPLE: 'Or apply to multiple...',
+    APPLY_MULTIPLE: 'Apply to multiple...',
+    REPEATING_DAYS: 'repeating days of the week',
+    SPECIFIC_DATES: 'specific dates',
     EVENT_TIME_ZONE_EXPLANATION:
         'You are viewing times in Eastern\n' +
         '                                            European Time. Your invitees will\n' +
@@ -336,6 +344,11 @@ export default {
     UNSAVE_CHANGES_WILL_BE_LOST: 'Any unsaved changes will be lost.',
     EXPLANATION_PASSWORD_RESET:
         'Go to the SignIn page and use your new password to authenticate on the site.',
+    MORE: 'more',
+    TODAY: 'Today',
+    NEW_INTERVAL: 'New Interval',
+    UNAVAILABLE: 'Unavailable',
+
     INVITEES_WILL_BE_OFFERED_INDEFINITELY:
         'Your invitees will be offered availability indefinitely into the future. ',
     YOU_CAN_CHANGE_LANGUAGE_TO: 'Your can change language to',
@@ -362,7 +375,59 @@ export default {
     LOCALIZATION: 'en-US',
     ENABLED: 'Enabled',
     LOAD_MORE: 'Load more',
-    RESET: 'Reset',
+    PLEASE_WAIT_WHILE_WE_ARE_LOGGING_YOU_IN:
+        "Please wait while we're logging you in...",
+    ADD_ONE_ON_ONE_EVENT_TYPE: 'Add One-on-One Event Type',
+    RESET: 'Reset filter',
     INVITEE_EMAILS: 'Invitee Emails',
-    ALL_INVITEE_EMAILS: 'All Invitee Emails'
+    ALL_INVITEE_EMAILS: 'All Invitee Emails',
+    PICK_NEEDED_LOCATION: 'Pick needed location',
+    ADDITIONAL_OPTIONS: 'Additional options',
+    QUESTIONS_TO_INVITEE: 'Questions to Invitee',
+    NOW_YOU_CAN_ADD_CUSTOM_FIELDS:
+        'Now you can add some custom fields with\n' +
+        '                                questions or something like that for your\n' +
+        '                                invitees',
+    PLEASE_SHARE_ANYTHING:
+        'Please share anything that will help prepare for our meeting',
+    DELETE_FIELD: 'Delete field',
+    ANSWER_TYPE: 'Answer type',
+    QUESTION: 'Question',
+    ADD_NEW_FIELD: 'Add new field',
+    STATUS: 'Status',
+    ACTIVE_EVENTS: 'Active Events',
+    ALL_EVENTS: 'All Events',
+    CANCELED_EVENTS: 'Cancelled Events',
+    WELCOME_TO_MY_SCHEDULING_PAGE: 'Welcome to my scheduling page.',
+    PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT:
+        'Please follow the instructions to add an event to my\n' +
+        '                        calendar.',
+    NO_OPENINGS_AT_THE_MOMENT: 'No openings at the moment.',
+    NO_EVENTS_FOUND: 'No Events found',
+    EDIT_INTERNAL_NOTE: 'Edit Internal Note',
+    INTERNAL_NOTE: 'Internal Note',
+    INTERNAL_NOTE_DESCRIPTION:
+        'Write relevant information about this event type that you\n' +
+        '                    may want to reference later.',
+    PUBLIC_LINK_WAS_COPIED: 'Public Link was copied!',
+    TAGS: 'Tags',
+    ALL_TAGS: 'All Tags',
+    I_AM_UNAVAILABLE: "I'm unavailable",
+    ERROR_404: 'Error 404',
+    THE_PAGE_YOU_ARE_LOOKING_FOR_COULD_NOT_BE_FOUND:
+        'The page you are looking for could not be found',
+    PLEASE_MAKE_SURE_THAT_YOU_TYPED_IN_THE_URL_CORRECTLY:
+        " Please make sure that you've typed in the URL correctly",
+    PLEASE_RETYPE_ADDRESS_OR_RETURN_TO: 'Please retype address or return to',
+    MAIN_PAGE: ' main page',
+    CONNECT_SLACK: 'Connect Slack',
+    INCOMING_WEBHOOK: 'Incoming Webhook',
+    TO_YOUR: 'to your',
+    WORKSPACE: 'workspace',
+    IN_THE_FIELD: 'in the field',
+    CHANNEL_NAME: 'Channel name',
+    CONNECT: 'Connect',
+    NOTIFICATION_CONNECTIONS: 'Notification Connections',
+    SELECT_LOCATION: 'Please select location',
+    NO_DATE_RANGE_EVENTS: 'No Events In This Range'
 };

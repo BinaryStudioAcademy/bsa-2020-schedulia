@@ -5,7 +5,7 @@
         :style="{ 'border-bottom': '18px solid ' + borderColor }"
     >
         <div class="action-button text-right">
-            <DropDown :eventType="eventType" />
+            <DropDown :select-event-type="eventType" />
         </div>
         <div class="event-type-main">
             <div class="event-type-content">
@@ -13,8 +13,19 @@
                 <span class="event-type-about"
                     >{{ eventType.duration }} {{ lang.MINS }}</span
                 >
+                <span
+                    class="d-block mt-3 internal-note"
+                    v-if="eventType.internalNote"
+                    ><i>"{{ eventType.internalNote }}"</i></span
+                >
             </div>
         </div>
+        <input
+            style="opacity: 0;position: absolute"
+            type="text"
+            :value="publicLink"
+            :id="'publicLinkInp-' + eventType.id"
+        />
         <div class="event-type-invitee mb-2">
             <Avatar :size="24" :color="'black'"></Avatar>
         </div>
@@ -36,12 +47,18 @@
                     small
                     :color="eventType.color"
                     :disabled="isDisabled"
+                    @click="onCopyLink"
                 >
                     {{ lang.COPY_LINK }}
                     <VIcon right dark>mdi-vector-arrange-below</VIcon>
                 </VBtn>
             </VCol>
         </VRow>
+        <Alert
+            :type="alert.type"
+            :message="alert.message"
+            :visibility="alert.visibility"
+        />
     </div>
 </template>
 
@@ -50,10 +67,17 @@ import DropDown from '@/components/event-types/all-event-types/DropDown';
 import Avatar from '@/components/common/Avatar/Avatar';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapGetters } from 'vuex';
+import Alert from '@/components/alert/Alert';
 
 export default {
     name: 'EventType',
-    data: () => ({}),
+    data: () => ({
+        alert: {
+            type: '',
+            message: '',
+            visibility: false
+        }
+    }),
     props: {
         eventType: {
             required: true
@@ -61,9 +85,35 @@ export default {
     },
     components: {
         DropDown,
-        Avatar
+        Avatar,
+        Alert
+    },
+    methods: {
+        onCopyLink() {
+            const publicLinkInp = document.getElementById(
+                'publicLinkInp-' + this.eventType.id
+            );
+            publicLinkInp.select();
+            document.execCommand('copy');
+            this.alert.visibility = true;
+            this.alert.type = 'success';
+            this.alert.message = this.lang.PUBLIC_LINK_WAS_COPIED;
+            setTimeout(() => {
+                this.alert.visibility = false;
+            }, 1500);
+        }
     },
     computed: {
+        publicLink() {
+            const domain = window.location.hostname;
+            return (
+                domain +
+                '/' +
+                this.eventType.owner.nickname +
+                '/' +
+                this.eventType.id
+            );
+        },
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         }),
@@ -123,5 +173,9 @@ export default {
 .disabled-event .event-type-about,
 .disabled-event .event-type-actions .duration span {
     color: #e5e5e5;
+}
+.internal-note {
+    color: gray;
+    font-size: 14px;
 }
 </style>

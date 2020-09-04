@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class SocialAccount extends Model
 {
     public const GOOGLE_SERVICE_ID = 1001;
+    public const FACEBOOK_SERVICE_ID = 1002;
+    public const LINKEDIN_SERVICE_ID = 1003;
+
+    protected $primaryKey = 'token';
+    public $incrementing = false;
+
+    protected $casts = ['token' => 'json'];
 
     protected $fillable = [
         'user_id',
@@ -16,10 +23,9 @@ class SocialAccount extends Model
         'refresh_token'
     ];
 
-    protected $casts = ['token' => 'json'];
-
     public static $services = [
-        self::GOOGLE_SERVICE_ID => 'Google'
+        self::GOOGLE_SERVICE_ID => 'google',
+        self::FACEBOOK_SERVICE_ID => 'facebook',
     ];
 
     public function user()

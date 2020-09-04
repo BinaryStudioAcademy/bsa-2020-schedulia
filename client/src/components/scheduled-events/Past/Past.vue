@@ -83,7 +83,11 @@ export default {
                 sort: this.sort,
                 direction: this.direction,
                 endDate: this.endDate,
-                eventTypes: this.$route.query.event_types
+                eventTypes: this.$route.query.event_types,
+                eventEmails: this.$route.query.event_emails,
+                eventStatus: this.$route.query.event_status,
+                tags: this.$route.query.tags,
+                searchString: this.$route.query.search
             });
 
             if (
@@ -91,6 +95,7 @@ export default {
                 this.eventsPagination.lastPage
             ) {
                 this.page += 1;
+                this.loadMoreActive = true;
             } else {
                 this.loadMoreActive = false;
             }
@@ -98,11 +103,15 @@ export default {
 
         async setEvents() {
             await this.setScheduledEvents({
-                page: this.page,
+                page: 1,
                 sort: this.sort,
                 direction: this.direction,
                 endDate: this.endDate,
-                eventTypes: this.$route.query.event_types
+                eventTypes: this.$route.query.event_types,
+                eventEmails: this.$route.query.event_emails,
+                eventStatus: this.$route.query.event_status,
+                tags: this.$route.query.tags,
+                searchString: this.$route.query.search
             });
 
             if (
@@ -110,6 +119,8 @@ export default {
                 this.eventsPagination.lastPage
             ) {
                 this.loadMoreActive = true;
+            } else {
+                this.loadMoreActive = false;
             }
         }
     },

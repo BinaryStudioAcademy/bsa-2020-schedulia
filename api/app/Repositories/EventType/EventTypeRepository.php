@@ -74,6 +74,17 @@ final class EventTypeRepository extends BaseRepository implements EventTypeRepos
         return $query->get();
     }
 
+    public function findOneByCriteria(EloquentCriterion ...$criteria): ?EventType
+    {
+        $query = EventType::query();
+
+        foreach ($criteria as $criterion) {
+            $query = $criterion->apply($query);
+        }
+
+        return $query->get()->first();
+    }
+
     public function paginateByCriteria(
         array $criteria,
         int $page = self::DEFAULT_PAGE,

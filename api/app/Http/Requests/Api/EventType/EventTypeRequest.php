@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\EventType;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EventTypeRequest extends FormRequest
 {
@@ -35,6 +36,17 @@ class EventTypeRequest extends FormRequest
                 'string',
                 'date_format:Y-m-d H:i:s'
             ],
+            "location_type" => Rule::in(LocationTypes::getAllLocationTypes()),
+            "coordinates" => 'array',
+            "coordinates.lng" => [
+                'nullable',
+                'between: between(-90, 90)'
+            ],
+            "coordinates.lat" => [
+                'nullable',
+                'between: between(-180, 180)'
+            ],
+            'address' => 'string'
         ];
     }
 }

@@ -21,6 +21,15 @@ export default {
         });
     },
 
+    [actions.SET_SUCCESS_NOTIFICATION]: async ({ commit }, text) => {
+        commit(mutations.SET_NOTIFICATION, {
+            id: uuidv4(),
+            showing: true,
+            text: text,
+            typeSnackbar: 'success'
+        });
+    },
+
     [actions.REMOVE_ERROR_NOTIFICATION]: async ({ commit }, id) => {
         commit(mutations.CLOSE_NOTIFICATION, id);
         commit(mutations.REMOVE_NOTIFICATION, id);

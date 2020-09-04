@@ -1,10 +1,10 @@
 <template>
     <VRow class="filter">
         <VCol>
-            <Teams />
+            <EventTypes />
         </VCol>
         <VCol>
-            <EventTypes />
+            <EventTypesTags />
         </VCol>
         <VCol>
             <Status />
@@ -12,30 +12,35 @@
         <VCol>
             <InviteeEmails />
         </VCol>
-        <VCol class="text-right" align-self="center">
+        <VCol class="text-center" align-self="center">
             <VBtn :to="{ name: 'Past' }" class="reset-button" outlined>
                 {{ lang.RESET }}
             </VBtn>
+        </VCol>
+        <VCol align-self="center">
+            <SearchInput />
         </VCol>
     </VRow>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import Teams from './Teams';
 import EventTypes from './EventTypes';
 import Status from './Status';
 import InviteeEmails from './InviteeEmails';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import EventTypesTags from './EventTypesTags';
+import SearchInput from './SearchInput';
 
 export default {
     name: 'FilterList',
 
     components: {
+        SearchInput,
+        EventTypesTags,
         InviteeEmails,
         Status,
-        EventTypes,
-        Teams
+        EventTypes
     },
 
     computed: {

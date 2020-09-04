@@ -3,6 +3,7 @@ import * as mutations from './types/mutations';
 import * as authActions from '@/store/modules/auth/types/actions';
 import scheduledEventService from '@/services/scheduled-event/scheduledEventsService';
 import * as loaderMutations from '@/store/modules/loader/types/mutations';
+import { eventApiMapper } from '@/store/modules/scheduledEvent/normalizer';
 
 export default {
     [actions.SET_SCHEDULED_EVENT_FILTER_VIEW]: async (
@@ -37,11 +38,19 @@ export default {
             sort = 'start_date',
             direction = 'desc',
             eventTypes = [],
+            eventEmails = [],
+            eventStatus = [],
+            tags = [],
+            searchString = null,
             startDate = '',
             endDate = ''
         }
     ) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+
+        if (!eventStatus.length) {
+            eventStatus = ['scheduled', 'cancelled'];
+        }
 
         try {
             const events = await scheduledEventService.getScheduledEvents(
@@ -49,6 +58,10 @@ export default {
                 sort,
                 direction,
                 eventTypes,
+                eventEmails,
+                eventStatus,
+                tags,
+                searchString,
                 startDate,
                 endDate
             );
@@ -62,6 +75,63 @@ export default {
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        }
+    },
+    [actions.FETCH_EVENT_EMAILS_FILTER]: async (
+        { commit, dispatch },
+        { startDate = '', endDate = '', searchString = '' }
+    ) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+
+        try {
+            const eventEmails = await scheduledEventService.getEventEmailsFilter(
+                startDate,
+                endDate,
+                searchString
+            );
+
+            if (searchString) {
+                commit(mutations.CLEAR_EVENT_EMAILS_FILTER);
+            }
+
+            commit(mutations.SET_EVENT_EMAILS_FILTER, eventEmails);
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+            return eventEmails;
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        }
+    },
+
+    [actions.UPDATE_EVENT]: async ({ commit, dispatch }, event) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+
+        try {
+            const updatedEvent = await scheduledEventService.updateEvent(
+                event.id,
+                eventApiMapper(event)
+            );
+
+            commit(mutations.UPDATE_EVENT, event);
+
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+
+            return updatedEvent;
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true

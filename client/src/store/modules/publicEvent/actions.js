@@ -5,16 +5,22 @@ import * as loaderMutations from '@/store/modules/loader/types/mutations';
 import { SET_ERROR_NOTIFICATION } from '@/store/modules/notification/types/actions';
 
 export default {
-    [actions.GET_EVENT_TYPE_BY_ID]: async (context, id) => {
+    [actions.GET_EVENT_TYPE_BY_ID_AND_NICKNAME]: async (context, data) => {
         context.commit('loader/' + loaderMutations.SET_LOADING, true, {
             root: true
         });
         try {
-            const eventType = await publicEventService.getEventTypeById(id);
-            context.commit(mutations.SET_EVENT_TYPE, eventType);
+            const eventType = await publicEventService.getEventTypeByIdAndNickname(
+                data.id,
+                data.nickname
+            );
+            if (!eventType.disabled) {
+                context.commit(mutations.SET_EVENT_TYPE, eventType);
+            }
             context.commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });
+            return eventType;
         } catch (error) {
             context.commit(SET_ERROR_NOTIFICATION, error.message);
             context.commit('loader/' + loaderMutations.SET_LOADING, false, {
@@ -25,6 +31,18 @@ export default {
     [actions.SET_PUBLIC_EVENT]: (context, data) => {
         try {
             context.commit(mutations.SET_PUBLIC_EVENT, data);
+        } catch (error) {
+            context.commit(SET_ERROR_NOTIFICATION, error.message);
+        }
+    },
+    [actions.GET_AVAILABILITIES_BY_MONTH]: async (context, data) => {
+        try {
+            const availabilities = await publicEventService.getAvailabilitiesByMonth(
+                data.id,
+                data.date
+            );
+
+            return availabilities;
         } catch (error) {
             context.commit(SET_ERROR_NOTIFICATION, error.message);
         }

@@ -7,6 +7,8 @@ namespace App\Actions\EventType;
 use App\Contracts\AvailabilityServiceInterface;
 use App\Entity\Availability;
 use App\Entity\EventType;
+use App\Exceptions\EventType\CoordinatesFieldIsRequiredException;
+use App\Http\Requests\Api\EventType\LocationTypes;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,6 +36,16 @@ final class AddEventTypeAction
         $eventType->duration = $request->getDuration();
         $eventType->timezone = $request->getTimezone();
         $eventType->disabled = $request->getDisabled();
+        $eventType->location_type = $request->getLocationType();
+        $eventType->address = $request->getAddress();
+
+        if ($request->getLocationType() === LocationTypes::ADDRESS) {
+            if ($request->getCoordinates()) {
+                $eventType->coordinates = $request->getCoordinates();
+            } else {
+                throw new CoordinatesFieldIsRequiredException();
+            }
+        }
 
         $availabilities = collect($request->getAvailabilities())->map(function ($availability) {
             return new Availability($availability);

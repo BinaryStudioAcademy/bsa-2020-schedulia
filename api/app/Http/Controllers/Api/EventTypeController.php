@@ -4,25 +4,34 @@ namespace App\Http\Controllers\Api;
 
 use App\Actions\CustomField\AddCustomFieldsToEventTypeAction;
 use App\Actions\CustomField\AddCustomFieldsToEventTypeRequest;
+use App\Actions\CustomField\GetCustomFieldCollectionByEventTypeIdAction;
+use App\Actions\CustomField\GetCustomFieldCollectionByEventTypeIdRequest;
 use App\Actions\CustomField\UpdateCustomFieldsToEventTypeAction;
 use App\Actions\CustomField\UpdateCustomFieldsToEventTypeRequest;
 use App\Actions\EventType\AddEventTypeAction;
 use App\Actions\EventType\AddEventTypeRequest;
 use App\Actions\EventType\ChangeDisabledByIdAction;
 use App\Actions\EventType\ChangeDisabledByIdRequest;
+use App\Actions\EventType\CloneEventTypeByIdAction;
+use App\Actions\EventType\CloneEventTypeByIdRequest;
 use App\Actions\EventType\DeleteEventTypeAction;
 use App\Actions\EventType\DeleteEventTypeRequest;
 use App\Actions\EventType\GetAvailableTimeAction;
 use App\Actions\EventType\GetAvailableTimeRequest;
 use App\Actions\EventType\GetEventTypeByIdAction;
+use App\Actions\EventType\GetEventTypeByIdAndOwnerNicknameAction;
+use App\Actions\EventType\GetEventTypeByIdAndOwnerNicknameRequest;
 use App\Actions\EventType\GetEventTypeCollectionAction;
 use App\Actions\EventType\GetEventTypeCollectionByNicknameAction;
 use App\Actions\EventType\GetEventTypeCollectionByNicknameRequest;
 use App\Actions\EventType\GetEventTypeCollectionRequest;
 use App\Actions\EventType\UpdateEventTypeAction;
 use App\Actions\EventType\UpdateEventTypeRequest;
+use App\Actions\EventType\UpdateInternalNoteByIdAction;
+use App\Actions\EventType\UpdateInternalNoteByIdRequest;
 use App\Actions\GetByIdRequest;
 use App\Http\Presenters\AvailabilityServicePresenter;
+use App\Http\Presenters\CustomFieldPresenter;
 use App\Http\Presenters\EventTypePresenter;
 use App\Http\Requests\Api\CustomField\CustomFieldRequest;
 use App\Http\Requests\Api\EventType\ChangeDisabledEventTypeRequest;
@@ -34,13 +43,16 @@ class EventTypeController extends ApiController
 {
     private EventTypePresenter $eventTypePresenter;
     private AvailabilityServicePresenter $availabilityServicePresenter;
+    private CustomFieldPresenter $customFieldPresenter;
 
     public function __construct(
         EventTypePresenter $eventTypePresenter,
-        AvailabilityServicePresenter $availabilityServicePresenter
+        AvailabilityServicePresenter $availabilityServicePresenter,
+        CustomFieldPresenter $customFieldPresenter
     ) {
         $this->eventTypePresenter = $eventTypePresenter;
         $this->availabilityServicePresenter = $availabilityServicePresenter;
+        $this->customFieldPresenter = $customFieldPresenter;
     }
 
     public function index(Request $request, GetEventTypeCollectionAction $action)
@@ -74,6 +86,9 @@ class EventTypeController extends ApiController
                 $request->get('timezone'),
                 (bool)$request->get('disabled'),
                 $request->get('availabilities'),
+                $request->get('location_type'),
+                $request->get('coordinates'),
+                $request->get('address'),
             ))
             ->getEventType();
 
@@ -103,6 +118,9 @@ class EventTypeController extends ApiController
                     $request->get('timezone'),
                     (bool)$request->get('disabled'),
                     $request->get('availabilities'),
+                    $request->get('location_type'),
+                    $request->get('coordinates'),
+                    $request->get('address'),
                 )
             )->getEventType();
 
@@ -144,11 +162,16 @@ class EventTypeController extends ApiController
         string $nickname,
         GetEventTypeCollectionByNicknameAction $action
     ): JsonResponse {
-        $eventTypes = $action->execute(
+        $response = $action->execute(
             new GetEventTypeCollectionByNicknameRequest($nickname)
-        )->getEventTypes();
+        );
 
-        return $this->successResponse($this->eventTypePresenter->presentCollection($eventTypes));
+        $data = [
+            'eventTypes' => $this->eventTypePresenter->presentCollection($response->getEventTypes()),
+            'owner' => $response->getOwnerName()
+        ];
+
+        return $this->successResponse($data);
     }
 
     public function saveCustomFieldsByEventTypeId(
@@ -177,5 +200,61 @@ class EventTypeController extends ApiController
         );
 
         return $this->emptyResponse();
+    }
+
+    public function getCustomFieldsById(
+        string $id,
+        GetCustomFieldCollectionByEventTypeIdAction $action
+    ): JsonResponse {
+        $customFields = $action->execute(
+            new GetCustomFieldCollectionByEventTypeIdRequest((int)$id)
+        );
+
+        return $this->successResponse(
+            $this->customFieldPresenter->presentCollection(
+                $customFields->getCustomFields()
+            )
+        );
+    }
+
+    public function cloneEventTypeById(
+        string $id,
+        CloneEventTypeByIdAction $action
+    ): JsonResponse {
+        $eventType = $action->execute(new CloneEventTypeByIdRequest(
+            (int)$id
+        ));
+
+        return $this->successResponse($this->eventTypePresenter->present($eventType->getNewEventType()));
+    }
+
+    public function updateInternalNoteById(
+        string $id,
+        Request $request,
+        UpdateInternalNoteByIdAction $action
+    ): JsonResponse {
+        $action->execute(new UpdateInternalNoteByIdRequest(
+            (int)$id,
+            $request->internal_note
+        ));
+        return $this->emptyResponse();
+    }
+
+    public function getEventTypeByIdAndNickname(
+        Request $request,
+        GetEventTypeByIdAndOwnerNicknameAction $action
+    ): JsonResponse {
+        $eventType = $action->execute(
+            new GetEventTypeByIdAndOwnerNicknameRequest(
+                (int)$request->id,
+                $request->nickname
+            )
+        )->getEventType();
+
+        if (is_null($eventType)) {
+            return $this->emptyResponse();
+        }
+
+        return $this->successResponse($this->eventTypePresenter->present($eventType));
     }
 }

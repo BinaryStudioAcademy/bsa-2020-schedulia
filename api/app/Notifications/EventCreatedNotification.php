@@ -5,10 +5,10 @@ namespace App\Notifications;
 use App\Entity\Event;
 use App\Entity\EventType;
 use App\Entity\User;
-use App\Mail\EventCreatedMail;
+use App\Mail\EventCreatedMailToOwner;
+use App\Notifications\SlackMessages\EventCreatedSlackMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class EventCreatedNotification extends Notification implements ShouldQueue
@@ -37,7 +37,11 @@ class EventCreatedNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        $channels = ['mail'];
+        if ($this->user->slack_active) {
+            $channels[] = 'slack';
+        }
+        return $channels;
     }
 
     /**
@@ -46,7 +50,12 @@ class EventCreatedNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return new EventCreatedMail($this->event);
+        return new EventCreatedMailToOwner($this->event);
+    }
+
+    public function toSlack($notifiable)
+    {
+        return (new EventCreatedSlackMessage($this->event));
     }
 
     /**

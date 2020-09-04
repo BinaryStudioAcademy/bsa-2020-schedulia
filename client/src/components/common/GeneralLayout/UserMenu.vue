@@ -51,6 +51,17 @@
                     </RouterLink>
                 </VListItemTitle>
             </VListItem>
+            <VListItem class="v-list-item--link">
+                <VListItemTitle align-self="center">
+                    <RouterLink
+                        :to="{ name: 'NotificationConnections' }"
+                        class="user-menu__link"
+                    >
+                        <VIcon>mdi-clock</VIcon>
+                        {{ lang.NOTIFICATION_CONNECTIONS }}
+                    </RouterLink>
+                </VListItemTitle>
+            </VListItem>
             <VListItem class="v-list-item--link" @click="onSignOut">
                 <VListItemTitle align-self="center">
                     <VIcon>mdi-logout-variant</VIcon>{{ lang.LOGOUT }}
