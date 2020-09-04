@@ -146,6 +146,7 @@ export default {
             await eventTypesService.saveCustomFieldsByEventTypeId(id, {
                 custom_fields: Object.values(custom_fields)
             });
+            commit(mutations.CLEAR_CUSTOM_FIELDS);
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });
