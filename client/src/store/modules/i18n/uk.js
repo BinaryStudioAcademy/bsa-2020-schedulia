@@ -27,6 +27,8 @@ export default {
     CALENDAR_INVITATION_HAS_BEEN_SENT:
         'Запрошення до календаря надіслано на вашу електронну адресу',
     CANCEL: 'Скасувати',
+    CANCEL_EVENT_TEXT: 'Ви дійсно бажаете скасувати цю подію?',
+    CANCELLATION_EVENT: 'Скасування події!',
     CHANGE_PASSWORD: 'Змінити пароль',
     CHANGE_YOUR_PASSWORD: 'Змінити пароль',
     CHARACTERS: 'Символи',
@@ -338,5 +340,6 @@ export default {
     CHANNEL_NAME: "Им'я каналу",
     CONNECT: 'Підключити',
     NOTIFICATION_CONNECTIONS: 'Підключення повідомлень',
-    SELECT_LOCATION: 'Виберіть локацію'
+    SELECT_LOCATION: 'Виберіть локацію',
+    NO_DATE_RANGE_EVENTS: 'У цьому діапазоні немає подій'
 };

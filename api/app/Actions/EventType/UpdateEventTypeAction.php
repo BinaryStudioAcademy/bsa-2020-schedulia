@@ -40,6 +40,7 @@ final class UpdateEventTypeAction
         $eventType->timezone = $request->getTimezone() ?: $eventType->timezone;
         $eventType->disabled = $request->getDisabled() ?: $eventType->disabled;
         $eventType->location_type = $request->getLocationType();
+        $eventType->address = $request->getAddress() ?: $eventType->address;
 
         if ($request->getLocationType() === LocationTypes::ADDRESS) {
             if ($request->getCoordinates()) {

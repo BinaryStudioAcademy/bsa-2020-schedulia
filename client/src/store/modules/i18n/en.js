@@ -5,6 +5,8 @@ export default {
     BRANDING: 'Branding',
 
     CANCEL: 'Cancel',
+    CANCELLATION_EVENT: 'Cancellation event!',
+    CANCEL_EVENT_TEXT: 'Are you sure that you want cancel this event?',
     CALENDAR_CONNECTIONS: 'Calendar connections',
     CHARACTERS: 'Characters',
     CHANGE_PASSWORD: 'Change password',
@@ -395,7 +397,7 @@ export default {
     STATUS: 'Status',
     ACTIVE_EVENTS: 'Active Events',
     ALL_EVENTS: 'All Events',
-    CANCELED_EVENTS: 'Canceled Events',
+    CANCELED_EVENTS: 'Cancelled Events',
     WELCOME_TO_MY_SCHEDULING_PAGE: 'Welcome to my scheduling page.',
     PLEASE_FOLLOW_INSTRUCTIONS_TO_CREATE_EVENT:
         'Please follow the instructions to add an event to my\n' +
@@ -426,5 +428,6 @@ export default {
     CHANNEL_NAME: 'Channel name',
     CONNECT: 'Connect',
     NOTIFICATION_CONNECTIONS: 'Notification Connections',
-    SELECT_LOCATION: 'Please select location'
+    SELECT_LOCATION: 'Please select location',
+    NO_DATE_RANGE_EVENTS: 'No Events In This Range'
 };

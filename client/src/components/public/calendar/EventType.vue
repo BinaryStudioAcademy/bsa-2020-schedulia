@@ -154,10 +154,23 @@ export default {
         },
         eventType() {
             this.isReady = true;
+        },
+        async currentMonth() {
+            this.currentMonthAvailabilities = await this.getAvailabilitiesByMonth(
+                {
+                    id: this.eventType.id,
+                    date: `${this.currentMonth.slice(
+                        0,
+                        4
+                    )}-${this.currentMonth.slice(5)}`
+                }
+            );
         }
     },
     data: () => ({
         isReady: false,
+        currentMonth: null,
+        currentMonthAvailabilities: null,
         currentTimezone: momentTimezones.tz.guess(),
         currentTimezoneTime: null,
         timezoneFieldSearch: '',
@@ -203,6 +216,17 @@ export default {
                     unavailable: []
                 }
             ]
+        },
+        dateRange: {
+            type: 'date_range',
+            scheduleType: 'period',
+            subType: 'date_range',
+            value: 60,
+            date: [],
+            startDate: '2020-09-03',
+            endDate: '2020-11-05',
+            startTime: '09:00',
+            endTime: '17:00'
         }
     }),
 
@@ -231,8 +255,10 @@ export default {
 
             let allTimes = [];
 
-            for (let date in this.availabilities) {
-                for (let availability of this.availabilities[date]) {
+            for (let date in this.currentMonthAvailabilities) {
+                for (let availability of this.currentMonthAvailabilities[
+                    date
+                ]) {
                     allTimes.push({
                         startDate: `${date} ${availability.start_time.slice(
                             0,
@@ -532,7 +558,8 @@ export default {
         ...mapActions('publicEvent', {
             getEventTypeByIdAndNickname:
                 actions.GET_EVENT_TYPE_BY_ID_AND_NICKNAME,
-            setPublicEvent: actions.SET_PUBLIC_EVENT
+            setPublicEvent: actions.SET_PUBLIC_EVENT,
+            getAvailabilitiesByMonth: actions.GET_AVAILABILITIES_BY_MONTH
         }),
         getStartDate(time) {
             return `${momentTimezones(
@@ -590,6 +617,7 @@ export default {
             ];
 
             if (month) {
+                this.currentMonth = year + '-' + month;
                 return months[month - 1] + ' ' + year;
             } else {
                 return year;
