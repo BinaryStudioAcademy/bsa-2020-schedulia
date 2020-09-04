@@ -6,3 +6,7 @@ export const CHECK_IF_UNAUTHORIZED = 'checkIfUnauthorized';
 export const VERIFY_EMAIL = 'verifyEmail';
 export const FORGOT_PASSWORD = 'forgotPassword';
 export const RESET_PASSWORD = 'resetPassword';
+export const CONNECT_SLACK_NOTIFICATIONS = 'connectSlackNotifications';
+export const DELETE_SLACK_NOTIFICATIONS = 'deleteSlackNotifications';
+export const CHANGE_SLACK_NOTIFICATIONS_ACTIVITY =
+    'changeSlackNotificationsActivity';
