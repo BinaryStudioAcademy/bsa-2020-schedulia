@@ -1,7 +1,7 @@
 <template>
     <div class="text-left filter-menu">
         <div class="filter-title">
-            {{ lang.EVENT_TYPES }}
+            {{ lang.TAGS }}
         </div>
         <VMenu
             v-model="menu"
@@ -18,12 +18,12 @@
                     v-bind="attrs"
                     v-on="on"
                 >
-                    <span v-if="!eventTypesChecked.length">
-                        {{ lang.ALL_EVENT_TYPES }}
+                    <span v-if="!eventTypesTagsChecked.length">
+                        {{ lang.ALL_TAGS }}
                     </span>
                     <span v-else>
-                        {{ eventTypesChecked.length }}
-                        {{ lang.EVENT_TYPES }}
+                        {{ eventTypesTagsChecked.length }}
+                        {{ lang.TAGS }}
                     </span>
                     <VIcon>mdi-chevron-down</VIcon>
                 </VBtn>
@@ -43,10 +43,10 @@
                                 :label="lang.SEARCH"
                                 clearable
                                 prepend-inner-icon="mdi-magnify"
-                                @input="searchEventTypes"
+                                @input="searchEventTypesTags"
                             ></VTextField>
                             <VContainer class="filter-form" fluid>
-                                <span v-if="this.getEventTypes.length">
+                                <span v-if="this.getEventTypesTags.length">
                                     <VBtn
                                         :ripple="false"
                                         :hover="false"
@@ -76,7 +76,9 @@
                                             hide-details
                                             :label="checkbox.name"
                                             :input-value="
-                                                eventTypes.includes(checkbox.id)
+                                                eventTypesTags.includes(
+                                                    checkbox.id
+                                                )
                                             "
                                             @change="onChangeType(checkbox.id)"
                                         ></VCheckbox>
@@ -87,17 +89,17 @@
                                         class="filter-form__button more"
                                         text
                                         v-if="
-                                            !moreEventTypes &&
-                                                this.getEventTypes.length >
-                                                    countShowEventTypes
+                                            !moreEventTypesTags &&
+                                                this.getEventTypesTags.length >
+                                                    countShowEventTypesTags
                                         "
-                                        @click="showMoreEventTypes"
+                                        @click="showMoreEventTypesTags"
                                     >
                                         {{ lang.SHOW_MORE }}
                                     </VBtn>
                                     <div
                                         class="no-items"
-                                        v-if="!this.getEventTypes.length"
+                                        v-if="!this.getEventTypesTags.length"
                                     >
                                         {{ lang.NO_ITEMS_FOUND }}
                                     </div>
@@ -130,32 +132,33 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import * as scheduledEventActions from '@/store/modules/scheduledEvent/types/actions';
 import * as notificationActions from '@/store/modules/notification/types/actions';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import * as eventTypesActions from '@/store/modules/eventTypes/types/actions';
 import * as eventTypesGetters from '@/store/modules/eventTypes/types/getters';
 
 export default {
-    name: 'EventTypes',
+    name: 'EventTypesTags',
 
     data() {
         return {
-            countShowEventTypes: 12,
+            countShowEventTypesTags: 12,
             menu: false,
-            eventTypes: [],
-            moreEventTypes: false,
-            eventTypesChecked: []
+            eventTypesTags: [],
+            moreEventTypesTags: false,
+            eventTypesTagsChecked: [],
+            startDate: this.$route.query.start_date,
+            endDate: this.$route.query.end_date
         };
     },
 
     watch: {
-        $route: 'setEventTypesFilter'
+        $route: 'setEventTypesTagsFilter'
     },
 
     async mounted() {
         try {
-            await this.setEventTypesFilter();
+            await this.setEventTypesTagsFilter();
         } catch (error) {
             this.setErrorNotification(error.message);
         }
@@ -167,48 +170,46 @@ export default {
         }),
 
         ...mapGetters('eventTypes', {
-            getEventTypes: eventTypesGetters.GET_ALL_EVENT_TYPES
+            getEventTypesTags: eventTypesGetters.GET_ALL_EVENT_TYPES_TAGS
         }),
 
         checkboxes() {
-            if (!Array.isArray(this.getEventTypes)) {
+            if (!Array.isArray(this.getEventTypesTags)) {
                 return [];
             }
 
-            if (this.moreEventTypes) {
-                return this.getEventTypes;
+            if (this.moreEventTypesTags) {
+                return this.getEventTypesTags;
             } else {
-                return this.getEventTypes.slice(0, this.countShowEventTypes);
+                return this.getEventTypesTags.slice(
+                    0,
+                    this.countShowEventTypesTags
+                );
             }
         }
     },
 
     methods: {
-        ...mapActions('scheduledEvent', {
-            setScheduledEvents: scheduledEventActions.SET_SCHEDULED_EVENTS
-        }),
-
         ...mapActions('eventTypes', {
-            setEventTypes: eventTypesActions.FETCH_EVENT_TYPES
+            setEventTypesTags: eventTypesActions.FETCH_EVENT_TYPES_TAGS
         }),
 
         ...mapActions('notification', {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
         }),
 
-        async setEventTypesFilter() {
-            if (this.$route.query.event_types) {
-                this.eventTypes = this.arrayToInt(
-                    this.$route.query.event_types
-                );
+        async setEventTypesTagsFilter() {
+            if (this.$route.query.tags) {
+                this.eventTypesTags = this.arrayToInt(this.$route.query.tags);
             } else {
-                this.eventTypes = [];
+                this.eventTypesTags = [];
             }
 
-            this.eventTypesChecked = this.eventTypes;
+            this.eventTypesTagsChecked = this.eventTypesTags;
 
-            await this.setEventTypes({
-                all: true
+            await this.setEventTypesTags({
+                endDate: this.endDate,
+                startDate: this.startDate
             });
         },
 
@@ -216,59 +217,62 @@ export default {
             this.menu = false;
         },
 
-        showMoreEventTypes() {
-            this.moreEventTypes = true;
+        showMoreEventTypesTags() {
+            this.moreEventTypesTags = true;
         },
 
         selectAll() {
-            let eventTypes = [];
+            let eventTypesTags = [];
 
-            this.checkboxes.forEach(function(scheduledEventsType) {
-                eventTypes.push(scheduledEventsType.id);
+            this.checkboxes.forEach(function(scheduledEventsTypeTags) {
+                eventTypesTags.push(scheduledEventsTypeTags.id);
             });
 
-            this.eventTypes = eventTypes;
+            this.eventTypesTags = eventTypesTags;
         },
 
         clearSelectAll() {
-            this.eventTypes = [];
+            this.eventTypesTags = [];
         },
 
         clearChecked() {
-            this.eventTypes = [];
-            this.eventTypesChecked = [];
+            this.eventTypesTags = [];
+            this.eventTypesTagsChecked = [];
         },
 
-        searchEventTypes(searchString) {
+        searchEventTypesTags(searchString) {
             this.clearSelectAll();
-            this.setEventTypes({
+            this.setEventTypesTags({
                 searchString: searchString,
-                all: true
+                endDate: this.endDate,
+                startDate: this.startDate
             });
         },
 
         filterScheduledEvent() {
-            this.eventTypesChecked = this.eventTypes;
+            this.eventTypesTagsChecked = this.eventTypesTags;
             this.$router.push({
-                name: 'Past',
+                name: 'DateRange',
                 query: {
-                    event_types: this.eventTypes,
+                    event_types: this.$route.query.event_types,
                     event_emails: this.$route.query.event_emails,
                     event_status: this.$route.query.event_status,
-                    tags: this.$route.query.tags,
-                    search: this.$route.query.search
+                    tags: this.eventTypesTags,
+                    search: this.$route.query.search,
+                    startDate: this.$route.query.start_date,
+                    endDate: this.$route.query.end_date
                 }
             });
             this.closeMenu();
         },
 
         onChangeType(id) {
-            if (this.eventTypes.includes(id)) {
-                this.eventTypes = this.eventTypes.filter(
-                    eventType => eventType !== id
+            if (this.eventTypesTags.includes(id)) {
+                this.eventTypesTags = this.eventTypesTags.filter(
+                    eventTypeTags => eventTypeTags !== id
                 );
             } else {
-                this.eventTypes = this.eventTypes.concat(id);
+                this.eventTypesTags = this.eventTypesTags.concat(id);
             }
         },
 

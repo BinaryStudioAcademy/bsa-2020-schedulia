@@ -13,7 +13,7 @@
             <InviteeEmails />
         </VCol>
         <VCol class="text-center" align-self="center">
-            <VBtn :to="{ name: 'Past' }" class="reset-button" outlined>
+            <VBtn :to="{ name: 'Upcoming' }" class="reset-button" outlined>
                 {{ lang.RESET }}
             </VBtn>
         </VCol>

@@ -250,7 +250,7 @@ export default {
         filterScheduledEvent() {
             this.eventTypesChecked = this.eventTypes;
             this.$router.push({
-                name: 'Past',
+                name: 'Upcoming',
                 query: {
                     event_types: this.eventTypes,
                     event_emails: this.$route.query.event_emails,

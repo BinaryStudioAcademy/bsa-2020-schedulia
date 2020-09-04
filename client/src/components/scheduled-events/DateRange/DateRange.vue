@@ -10,7 +10,7 @@
                 />
             </template>
         </div>
-        <NoEvents v-else>{{ lang.NO_UPCOMING_EVENTS }}</NoEvents>
+        <NoEvents v-else>{{ lang.NO_DATE_RANGE_EVENTS }}</NoEvents>
         <div class="text-center" v-show="loadMoreActive">
             <VBtn
                 color="primary"
@@ -29,30 +29,31 @@
 import { mapGetters, mapActions } from 'vuex';
 import * as scheduledEventGetters from '@/store/modules/scheduledEvent/types/getters';
 import * as scheduledEventActions from '@/store/modules/scheduledEvent/types/actions';
+import FilterList from './Filter/FilterList';
 import BorderBottom from '../../common/GeneralLayout/BorderBottom';
 import Event from '../Event';
 import NoEvents from '../NoEvents';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import * as notificationActions from '@/store/modules/notification/types/actions';
-import FilterList from './Filter/FilterList';
 
 export default {
-    name: 'Upcoming',
+    name: 'DateRange',
 
     data: () => ({
         page: 1,
         loadMoreActive: false,
         perPage: 8,
         sort: 'start_date',
-        direction: 'asc',
-        startDate: new Date().toLocaleDateString()
+        direction: 'desc',
+        startDate: this.$route.query.start_date,
+        endDate: this.$route.query.end_date
     }),
 
     components: {
-        FilterList,
         NoEvents,
         Event,
-        BorderBottom
+        BorderBottom,
+        FilterList
     },
 
     computed: {
@@ -82,7 +83,13 @@ export default {
                 page: this.page + 1,
                 sort: this.sort,
                 direction: this.direction,
-                startDate: this.startDate
+                startDate: this.$route.query.start_date,
+                endDate: this.$route.query.end_date,
+                eventTypes: this.$route.query.event_types,
+                eventEmails: this.$route.query.event_emails,
+                eventStatus: this.$route.query.event_status,
+                tags: this.$route.query.tags,
+                searchString: this.$route.query.search
             });
 
             if (
@@ -90,19 +97,24 @@ export default {
                 this.eventsPagination.lastPage
             ) {
                 this.page += 1;
+                this.loadMoreActive = true;
             } else {
                 this.loadMoreActive = false;
             }
-        }
-    },
+        },
 
-    async mounted() {
-        try {
+        async setEvents() {
             await this.setScheduledEvents({
                 page: 1,
                 sort: this.sort,
                 direction: this.direction,
-                startDate: this.startDate
+                startDate: this.$route.query.start_date,
+                endDate: this.$route.query.end_date,
+                eventTypes: this.$route.query.event_types,
+                eventEmails: this.$route.query.event_emails,
+                eventStatus: this.$route.query.event_status,
+                tags: this.$route.query.tags,
+                searchString: this.$route.query.search
             });
 
             if (
@@ -110,7 +122,19 @@ export default {
                 this.eventsPagination.lastPage
             ) {
                 this.loadMoreActive = true;
+            } else {
+                this.loadMoreActive = false;
             }
+        }
+    },
+
+    watch: {
+        $route: 'setEvents'
+    },
+
+    async mounted() {
+        try {
+            await this.setEvents();
         } catch (error) {
             this.setErrorNotification(error.message);
         }

@@ -332,5 +332,6 @@ export default {
     PLEASE_RETYPE_ADDRESS_OR_RETURN_TO:
         'Будь ласка, введіть адресу або поверніться на',
     MAIN_PAGE: ' головну сторінку',
-    SELECT_LOCATION: 'Виберіть локацію'
+    SELECT_LOCATION: 'Виберіть локацію',
+    NO_DATE_RANGE_EVENTS: 'У цьому діапазоні немає подій'
 };

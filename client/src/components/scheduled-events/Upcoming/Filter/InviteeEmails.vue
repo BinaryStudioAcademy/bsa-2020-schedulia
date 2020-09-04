@@ -1,7 +1,7 @@
 <template>
     <div class="text-left filter-menu">
         <div class="filter-title">
-            {{ lang.EVENT_TYPES }}
+            {{ lang.INVITEE_EMAILS }}
         </div>
         <VMenu
             v-model="menu"
@@ -18,12 +18,12 @@
                     v-bind="attrs"
                     v-on="on"
                 >
-                    <span v-if="!eventTypesChecked.length">
-                        {{ lang.ALL_EVENT_TYPES }}
+                    <span v-if="!eventEmailsChecked.length">
+                        {{ lang.ALL_INVITEE_EMAILS }}
                     </span>
                     <span v-else>
-                        {{ eventTypesChecked.length }}
-                        {{ lang.EVENT_TYPES }}
+                        {{ eventEmailsChecked.length }}
+                        {{ lang.INVITEE_EMAILS }}
                     </span>
                     <VIcon>mdi-chevron-down</VIcon>
                 </VBtn>
@@ -43,10 +43,10 @@
                                 :label="lang.SEARCH"
                                 clearable
                                 prepend-inner-icon="mdi-magnify"
-                                @input="searchEventTypes"
+                                @input="searchEventEmails"
                             ></VTextField>
                             <VContainer class="filter-form" fluid>
-                                <span v-if="this.getEventTypes.length">
+                                <span v-if="this.getEventEmailsFilter.length">
                                     <VBtn
                                         :ripple="false"
                                         :hover="false"
@@ -76,9 +76,13 @@
                                             hide-details
                                             :label="checkbox.name"
                                             :input-value="
-                                                eventTypes.includes(checkbox.id)
+                                                eventEmails.includes(
+                                                    checkbox.name
+                                                )
                                             "
-                                            @change="onChangeType(checkbox.id)"
+                                            @change="
+                                                onChangeType(checkbox.name)
+                                            "
                                         ></VCheckbox>
                                     </div>
                                     <VBtn
@@ -87,17 +91,18 @@
                                         class="filter-form__button more"
                                         text
                                         v-if="
-                                            !moreEventTypes &&
-                                                this.getEventTypes.length >
-                                                    countShowEventTypes
+                                            !moreEventEmails &&
+                                                this.getEventEmailsFilter
+                                                    .length >
+                                                    countShowEventEmails
                                         "
-                                        @click="showMoreEventTypes"
+                                        @click="showMoreEventEmails"
                                     >
                                         {{ lang.SHOW_MORE }}
                                     </VBtn>
                                     <div
                                         class="no-items"
-                                        v-if="!this.getEventTypes.length"
+                                        v-if="!this.getEventEmailsFilter.length"
                                     >
                                         {{ lang.NO_ITEMS_FOUND }}
                                     </div>
@@ -133,29 +138,29 @@ import { mapGetters, mapActions } from 'vuex';
 import * as scheduledEventActions from '@/store/modules/scheduledEvent/types/actions';
 import * as notificationActions from '@/store/modules/notification/types/actions';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
-import * as eventTypesActions from '@/store/modules/eventTypes/types/actions';
-import * as eventTypesGetters from '@/store/modules/eventTypes/types/getters';
+import * as scheduledEventGetters from '@/store/modules/scheduledEvent/types/getters';
 
 export default {
-    name: 'EventTypes',
+    name: 'InviteeEmails',
 
     data() {
         return {
-            countShowEventTypes: 12,
+            countShowEventEmails: 12,
             menu: false,
-            eventTypes: [],
-            moreEventTypes: false,
-            eventTypesChecked: []
+            eventEmails: [],
+            moreEventEmails: false,
+            eventEmailsChecked: [],
+            startDate: new Date().toLocaleDateString()
         };
     },
 
     watch: {
-        $route: 'setEventTypesFilter'
+        $route: 'setEmailsFilter'
     },
 
     async mounted() {
         try {
-            await this.setEventTypesFilter();
+            await this.setEmailsFilter();
         } catch (error) {
             this.setErrorNotification(error.message);
         }
@@ -166,49 +171,50 @@ export default {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         }),
 
-        ...mapGetters('eventTypes', {
-            getEventTypes: eventTypesGetters.GET_ALL_EVENT_TYPES
+        ...mapGetters('scheduledEvent', {
+            getEventEmailsFilter: scheduledEventGetters.GET_EVENT_EMAILS_FILTER
         }),
 
         checkboxes() {
-            if (!Array.isArray(this.getEventTypes)) {
+            if (!Array.isArray(this.getEventEmailsFilter)) {
                 return [];
             }
 
-            if (this.moreEventTypes) {
-                return this.getEventTypes;
+            if (this.moreEventEmails) {
+                return this.getEventEmailsFilter;
             } else {
-                return this.getEventTypes.slice(0, this.countShowEventTypes);
+                return this.getEventEmailsFilter.slice(
+                    0,
+                    this.countShowEventEmails
+                );
             }
         }
     },
 
     methods: {
         ...mapActions('scheduledEvent', {
-            setScheduledEvents: scheduledEventActions.SET_SCHEDULED_EVENTS
-        }),
-
-        ...mapActions('eventTypes', {
-            setEventTypes: eventTypesActions.FETCH_EVENT_TYPES
+            setScheduledEvents: scheduledEventActions.SET_SCHEDULED_EVENTS,
+            setEventEmailsFilter:
+                scheduledEventActions.FETCH_EVENT_EMAILS_FILTER
         }),
 
         ...mapActions('notification', {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
         }),
 
-        async setEventTypesFilter() {
-            if (this.$route.query.event_types) {
-                this.eventTypes = this.arrayToInt(
-                    this.$route.query.event_types
+        async setEmailsFilter() {
+            if (this.$route.query.event_emails) {
+                this.eventEmails = this.arrayToInt(
+                    this.$route.query.event_emails
                 );
             } else {
-                this.eventTypes = [];
+                this.eventEmails = [];
             }
 
-            this.eventTypesChecked = this.eventTypes;
+            this.eventEmailsChecked = this.eventEmails;
 
-            await this.setEventTypes({
-                all: true
+            await this.setEventEmailsFilter({
+                startDate: this.startDate
             });
         },
 
@@ -216,59 +222,60 @@ export default {
             this.menu = false;
         },
 
-        showMoreEventTypes() {
-            this.moreEventTypes = true;
+        showMoreEventEmails() {
+            this.moreEventEmails = true;
         },
 
         selectAll() {
-            let eventTypes = [];
+            let eventEmails = [];
 
-            this.checkboxes.forEach(function(scheduledEventsType) {
-                eventTypes.push(scheduledEventsType.id);
+            this.checkboxes.forEach(function(scheduledEventsEmail) {
+                eventEmails.push(scheduledEventsEmail.name);
             });
 
-            this.eventTypes = eventTypes;
+            this.eventEmails = eventEmails;
         },
 
         clearSelectAll() {
-            this.eventTypes = [];
+            this.eventEmails = [];
         },
 
         clearChecked() {
-            this.eventTypes = [];
-            this.eventTypesChecked = [];
+            this.eventEmails = [];
+            this.eventEmailsChecked = [];
         },
 
-        searchEventTypes(searchString) {
+        searchEventEmails(searchString) {
             this.clearSelectAll();
-            this.setEventTypes({
-                searchString: searchString,
-                all: true
+            this.setEventEmailsFilter({
+                startDate: this.startDate,
+                searchString: searchString
             });
         },
 
         filterScheduledEvent() {
-            this.eventTypesChecked = this.eventTypes;
+            this.eventEmailsChecked = this.eventEmails;
             this.$router.push({
-                name: 'Past',
+                name: 'Upcoming',
                 query: {
-                    event_types: this.eventTypes,
-                    event_emails: this.$route.query.event_emails,
+                    event_types: this.$route.query.event_types,
+                    event_emails: this.eventEmails,
                     event_status: this.$route.query.event_status,
                     tags: this.$route.query.tags,
-                    search: this.$route.query.search
+                    search: this.$route.query.search,
+                    startDate: this.startDate
                 }
             });
             this.closeMenu();
         },
 
-        onChangeType(id) {
-            if (this.eventTypes.includes(id)) {
-                this.eventTypes = this.eventTypes.filter(
-                    eventType => eventType !== id
+        onChangeType(name) {
+            if (this.eventEmails.includes(name)) {
+                this.eventEmails = this.eventEmails.filter(
+                    eventEmails => eventEmails !== name
                 );
             } else {
-                this.eventTypes = this.eventTypes.concat(id);
+                this.eventEmails = this.eventEmails.concat(name);
             }
         },
 

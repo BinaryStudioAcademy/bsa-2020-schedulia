@@ -147,7 +147,7 @@ export default {
         filterScheduledEvent() {
             this.eventStatusChecked = this.eventStatus;
             this.$router.push({
-                name: 'Past',
+                name: 'Upcoming',
                 query: {
                     event_types: this.$route.query.event_types,
                     event_emails: this.$route.query.event_emails,

@@ -11,14 +11,14 @@
                     <ExportButton />
                 </template>
             </TabsLink>
-            <Past />
+            <DateRange />
         </VContainer>
     </div>
 </template>
 
 <script>
 import TabsLink from '@/components/tabs/TabsLink.vue';
-import Past from './Past/Past';
+import DateRange from './DateRange/DateRange';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import FilterButton from './FilterButton';
 import ExportButton from './ExportButton';
@@ -27,14 +27,14 @@ import { mapGetters } from 'vuex';
 import DatePickerTab from './DatePickerTab';
 
 export default {
-    name: 'PastScheduledEventsList',
+    name: 'DateRangeScheduledEventsList',
 
     components: {
         DatePickerTab,
         Pagination,
         ExportButton,
         FilterButton,
-        Past,
+        DateRange,
         TabsLink
     },
     data: () => ({}),
