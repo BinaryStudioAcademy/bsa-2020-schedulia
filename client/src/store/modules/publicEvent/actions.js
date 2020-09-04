@@ -35,6 +35,18 @@ export default {
             context.commit(SET_ERROR_NOTIFICATION, error.message);
         }
     },
+    [actions.GET_AVAILABILITIES_BY_MONTH]: async (context, data) => {
+        try {
+            const availabilities = await publicEventService.getAvailabilitiesByMonth(
+                data.id,
+                data.date
+            );
+
+            return availabilities;
+        } catch (error) {
+            context.commit(SET_ERROR_NOTIFICATION, error.message);
+        }
+    },
     [actions.ADD_PUBLIC_EVENT]: async (context, data) => {
         try {
             context.commit(mutations.SET_PUBLIC_EVENT, {

@@ -16,6 +16,7 @@ final class AddEventTypeRequest
     private array $availabilities;
     private string $locationType;
     private ?array $coordinates;
+    private ?string $address;
 
     public function __construct(
         string $name,
@@ -27,7 +28,8 @@ final class AddEventTypeRequest
         bool $disabled,
         array $availabilities,
         string $locationType,
-        ?array $coordinates
+        ?array $coordinates,
+        ?string $address
     ) {
         $this->name = $name;
         $this->description = $description;
@@ -39,6 +41,7 @@ final class AddEventTypeRequest
         $this->availabilities = $availabilities;
         $this->locationType = $locationType;
         $this->coordinates = $coordinates;
+        $this->address = $address;
     }
 
     public function getName(): string
@@ -89,5 +92,10 @@ final class AddEventTypeRequest
     public function getCoordinates(): ?array
     {
         return $this->coordinates;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
     }
 }

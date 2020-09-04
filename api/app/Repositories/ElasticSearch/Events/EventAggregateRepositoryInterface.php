@@ -15,4 +15,5 @@ interface EventAggregateRepositoryInterface
         string $sort,
         string $direction
     ): LengthAwarePaginator;
+    public function deleteIndex();
 }

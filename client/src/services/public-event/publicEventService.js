@@ -8,6 +8,13 @@ const publicEventService = {
         );
         return response?.data?.data;
     },
+    async getAvailabilitiesByMonth(id, date) {
+        const response = await requestService.get(
+            `/event-types/${id}/availabilities?month=${date}`
+        );
+
+        return response?.data?.data;
+    },
     async addPublicEvent(data) {
         const response = await requestService.post(EVENTS_URL, data);
         return response?.data?.data;

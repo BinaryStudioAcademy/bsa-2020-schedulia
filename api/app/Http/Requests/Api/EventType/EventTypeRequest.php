@@ -45,7 +45,8 @@ class EventTypeRequest extends FormRequest
             "coordinates.lat" => [
                 'nullable',
                 'between: between(-180, 180)'
-            ]
+            ],
+            'address' => 'string'
         ];
     }
 }

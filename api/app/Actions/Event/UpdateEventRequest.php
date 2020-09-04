@@ -10,11 +10,11 @@ final class UpdateEventRequest
 {
     private int $id;
     private int $userId;
-    private int $eventTypeId;
-    private string $inviteeName;
-    private string $inviteeEmail;
-    private string $startDate;
-    private string $timezone;
+    private ?int $eventTypeId;
+    private ?string $inviteeName;
+    private ?string $inviteeEmail;
+    private ?string $startDate;
+    private ?string $timezone;
     private ?string $location;
     private ?string $status;
     private ?array $customFieldValues;
@@ -22,11 +22,11 @@ final class UpdateEventRequest
     public function __construct(
         int $id,
         int $userId,
-        int $eventTypeId,
-        string $inviteeName,
-        string $inviteeEmail,
-        string $startDate,
-        string $timezone,
+        ?int $eventTypeId,
+        ?string $inviteeName,
+        ?string $inviteeEmail,
+        ?string $startDate,
+        ?string $timezone,
         ?string $location,
         ?string $status,
         ?array $customFieldValues
@@ -63,27 +63,27 @@ final class UpdateEventRequest
         return $this->status === 'cancelled' ? EventStatus::CANCELLED : EventStatus::SCHEDULED;
     }
 
-    public function getEventTypeId(): int
+    public function getEventTypeId(): ?int
     {
         return $this->eventTypeId;
     }
 
-    public function getInviteeName(): string
+    public function getInviteeName(): ?string
     {
         return $this->inviteeName;
     }
 
-    public function getInviteeEmail(): string
+    public function getInviteeEmail(): ?string
     {
         return $this->inviteeEmail;
     }
 
-    public function getStartDate(): string
+    public function getStartDate(): ?string
     {
         return $this->startDate;
     }
 
-    public function getTimezone(): string
+    public function getTimezone(): ?string
     {
         return $this->timezone;
     }
