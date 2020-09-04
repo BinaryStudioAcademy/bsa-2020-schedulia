@@ -3,6 +3,7 @@
         <FilterList v-if="this.scheduledEventsFilterView" />
         <BorderBottom />
         <div v-if="this.eventsPagination.total">
+            {{ startDate }}
             <template v-for="scheduledEvent in scheduledEvents">
                 <Event
                     :key="scheduledEvent.id"
@@ -45,7 +46,7 @@ export default {
         perPage: 8,
         sort: 'start_date',
         direction: 'asc',
-        startDate: new Date().toLocaleDateString()
+        startDate: new Date().toString()
     }),
 
     components: {
