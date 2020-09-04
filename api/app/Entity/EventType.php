@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Constants\EventStatus;
 use Illuminate\Database\Eloquent\Model;
 
 class EventType extends Model
@@ -62,5 +63,10 @@ class EventType extends Model
     public function customFields()
     {
         return $this->hasMany(CustomField::class, 'event_type_id');
+    }
+
+    public function scheduledEvents()
+    {
+        return $this->events()->where('status', EventStatus::SCHEDULED);
     }
 }

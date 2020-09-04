@@ -22,10 +22,7 @@ final class ProcessUnavailableTimeAction
 
     private function getUnavailableTime(array $dateTimeList, EventType $eventType)
     {
-        $events = $eventType->events
-            ->filter(function ($event) {
-                return $event->status === EventStatus::SCHEDULED;
-            })
+        $events = $eventType->scheduledEvents
             ->map(fn ($event) => [
                 'start_date' => (new Carbon($event->start_date))->toDateString(),
                 'start_time' => (new Carbon($event->start_date))->toTimeString(),
