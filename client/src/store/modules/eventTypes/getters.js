@@ -1,9 +1,10 @@
 import * as getters from './types/getters';
+import moment from 'moment';
 
 export default {
     [getters.GET_ALL_EVENT_TYPES]: state =>
         Object.values(state.eventTypes).sort((a, b) => {
-            return a.id - b.id;
+            return moment(b.createdAt) - moment(a.createdAt);
         }),
     [getters.GET_EVENT_TYPES_BY_NICKNAME]: state => state.eventTypesByNickname,
     [getters.GET_CUSTOM_FIELDS]: state => state.customFields,

@@ -32,6 +32,20 @@ final class ElasticsearchEventAggregateRepository extends BaseRepository impleme
         return $eventAggregate;
     }
 
+    public function update(EventAggregate $eventAggregate): EventAggregate
+    {
+        $data = [
+            'index' => self::INDEX_NAME,
+            'id' => $eventAggregate->getId(),
+            'type' => self::TYPE,
+            'body' => $eventAggregate->toArray()
+        ];
+
+        \Elasticsearch::update($data);
+
+        return $eventAggregate;
+    }
+
     public function search(
         array $criteria,
         int $page = self::DEFAULT_PAGE,

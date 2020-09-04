@@ -8,7 +8,6 @@
                 </template>
                 <template v-slot:right-side>
                     <FilterButton />
-                    <ExportButton />
                 </template>
             </TabsLink>
             <DateRange />
@@ -21,7 +20,6 @@ import TabsLink from '@/components/tabs/TabsLink.vue';
 import DateRange from './DateRange/DateRange';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import FilterButton from './FilterButton';
-import ExportButton from './ExportButton';
 import Pagination from './Pagination';
 import { mapGetters } from 'vuex';
 import DatePickerTab from './DatePickerTab';
@@ -32,7 +30,6 @@ export default {
     components: {
         DatePickerTab,
         Pagination,
-        ExportButton,
         FilterButton,
         DateRange,
         TabsLink
