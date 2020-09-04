@@ -48,9 +48,9 @@
                     <template v-slot:prepend-item>
                         <VListItem>
                             <VListItemContent>
-                                <VListItemTitle>{{
-                                    lang.CHOOSE_YOUR_TIMEZONE
-                                }}</VListItemTitle>
+                                <VListItemTitle>
+                                    {{ lang.CHOOSE_YOUR_TIMEZONE }}
+                                </VListItemTitle>
                                 <VTextField
                                     v-model="timezoneFieldSearch"
                                     label="Enter timezone"
@@ -135,11 +135,6 @@ export default {
             nickname: this.$route.params.nickname
         });
 
-        this.currentMonthAvailabilities = await this.getAvailabilitiesByMonth({
-            id: eventType.id,
-            date: '2020-09'
-        });
-
         eventType &&
             eventType.disabled &&
             this.$router.push({
@@ -159,10 +154,22 @@ export default {
         },
         eventType() {
             this.isReady = true;
+        },
+        async currentMonth() {
+            this.currentMonthAvailabilities = await this.getAvailabilitiesByMonth(
+                {
+                    id: this.eventType.id,
+                    date: `${this.currentMonth.slice(
+                        0,
+                        4
+                    )}-${this.currentMonth.slice(5)}`
+                }
+            );
         }
     },
     data: () => ({
         isReady: false,
+        currentMonth: null,
         currentMonthAvailabilities: null,
         currentTimezone: momentTimezones.tz.guess(),
         currentTimezoneTime: null,
@@ -610,6 +617,7 @@ export default {
             ];
 
             if (month) {
+                this.currentMonth = year + '-' + month;
                 return months[month - 1] + ' ' + year;
             } else {
                 return year;
