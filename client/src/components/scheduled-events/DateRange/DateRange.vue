@@ -129,7 +129,10 @@ export default {
         },
 
         getEndDateDateRange(endDate) {
-            return moment.utc(endDate).add(1,'day').format('YYYY-MM-DD');
+            return moment
+                .utc(endDate)
+                .add(1, 'day')
+                .format('YYYY-MM-DD');
         }
     },
 
