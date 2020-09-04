@@ -38,8 +38,14 @@ class EventTypeRequest extends FormRequest
             ],
             "location_type" => Rule::in(LocationTypes::getAllLocationTypes()),
             "coordinates" => 'array',
-            "coordinates.lng" => 'string',
-            "coordinates.lat" => 'string'
+            "coordinates.lng" => [
+                'nullable',
+                'between: between(-90, 90)'
+            ],
+            "coordinates.lat" => [
+                'nullable',
+                'between: between(-180, 180)'
+            ]
         ];
     }
 }

@@ -124,7 +124,7 @@ export default {
                     result =
                         this.data.dateRange.value +
                         ' ' +
-                        (this.data.dateRange.scheduleType === 'calendar'
+                        (this.data.dateRange.subType === 'date_range'
                             ? this.lang.DAYS_FORMAT_ITEMS_CALENDAR
                             : this.lang.DAYS_FORMAT_ITEMS_BUSINESS);
                     break;

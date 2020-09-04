@@ -254,18 +254,27 @@ export default {
 
     methods: {
         ...mapActions('eventType', {
-            addEventType: eventTypeActions.ADD_EVENT_TYPE
+            addEventType: eventTypeActions.ADD_EVENT_TYPE,
+            editEventType: eventTypeActions.EDIT_EVENT_TYPE
         }),
         async saveEventType() {
             try {
                 if (this.$refs.form.validate()) {
                     this.prepareData();
-                    await this.addEventType(this.data).then(response => {
+                    const action = this.data.id
+                        ? this.editEventType
+                        : this.addEventType;
+
+                    await action(this.data).then(response => {
                         if (response) {
-                            this.$router.push({
-                                path: 'new-event-type-options',
-                                props: { eventTypeId: response.id }
-                            });
+                            this.clearAvailabilitiesData();
+                            if (!this.data.id) {
+                                this.changeEventTypeProperty('id', response.id);
+                                this.$router.push({
+                                    path: 'new-event-type-options',
+                                    props: { eventTypeId: response.id }
+                                });
+                            }
                         }
                     });
                 }
@@ -295,6 +304,16 @@ export default {
                 ...this.data.availabilities_week_days,
                 ...this.data.availabilities
             });
+        },
+        clearAvailabilitiesData() {
+            let params = {
+                ...this.data.availabilities
+            };
+            delete params.dateRange;
+            for (let index in this.data.availabilities_week_days) {
+                delete params[index];
+            }
+            this.changeEventTypeProperty('availabilities', params);
         }
     },
 

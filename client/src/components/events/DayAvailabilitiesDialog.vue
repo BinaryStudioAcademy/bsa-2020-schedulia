@@ -201,10 +201,19 @@ export default {
 
     methods: {
         addNewInterval() {
-            this.setPropertyData('dayAvailabilities', [
-                ...this.dayAvailabilitiesData,
-                ...[{ ...this.exampleAvailability }]
-            ]);
+            if (
+                this.dayAvailabilitiesData.length === 1 &&
+                this.dayAvailabilitiesData[0]['type'] === 'unavailable'
+            ) {
+                this.setPropertyData('dayAvailabilities', [
+                    { ...this.exampleAvailability }
+                ]);
+            } else {
+                this.setPropertyData('dayAvailabilities', [
+                    ...this.dayAvailabilitiesData,
+                    ...[{ ...this.exampleAvailability }]
+                ]);
+            }
         },
         addUnavailable() {
             let params = {

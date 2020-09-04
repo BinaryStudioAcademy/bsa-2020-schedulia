@@ -5,7 +5,7 @@
         :style="{ 'border-bottom': '18px solid ' + borderColor }"
     >
         <div class="action-button text-right">
-            <DropDown :eventType="eventType" />
+            <DropDown :select-event-type="eventType" />
         </div>
         <div class="event-type-main">
             <div class="event-type-content">
