@@ -270,7 +270,9 @@ export default {
                             this.clearAvailabilitiesData();
                             if (!this.data.id) {
                                 this.changeEventTypeProperty('id', response.id);
-                                this.$router.push({path: 'new-event-type-options'});
+                                this.$router.push({
+                                    path: 'new-event-type-options'
+                                });
                             }
                         }
                     });
