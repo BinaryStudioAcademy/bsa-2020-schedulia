@@ -271,7 +271,7 @@ export default {
                         invitee_email: this.meetingFormData.email,
                         start_date: this.publicEvent.startDate,
                         timezone: this.publicEvent.timezone,
-                        custom_field_values: customFieldValues
+                        custom_field_values: customFieldValues,
                     });
 
                     this.$router.push({

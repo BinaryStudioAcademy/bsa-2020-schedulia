@@ -21,7 +21,8 @@ export const eventTypeMapper = EventType => ({
     selectDay: {
         date: moment().format('YYYY-MM-DD')
     },
-    createdAt: EventType.created_at
+    createdAt: EventType.created_at,
+    chatito_workspace: EventType.chatito_workspace
 });
 
 export const userMapper = user => ({
@@ -79,7 +80,8 @@ export const eventTypeFormMapper = eventTypeForm => ({
     duration: eventTypeForm.duration || eventTypeForm.customDuration,
     disabled: eventTypeForm.disabled,
     timezone: eventTypeForm.timezone,
-    availabilities: availabilitiesMapper(eventTypeForm.availabilities)
+    availabilities: availabilitiesMapper(eventTypeForm.availabilities),
+    chatito_workspace: eventTypeForm.chatito_workspace
 });
 
 export const availabilitiesMapper = function(availabilities) {
