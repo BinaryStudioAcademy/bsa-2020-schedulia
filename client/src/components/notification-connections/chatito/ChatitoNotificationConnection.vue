@@ -5,10 +5,10 @@
                 <div class="notification-content text-center">
                     <h3 class="notification-name">Chatito</h3>
                     <VChip class="ma-2" v-if="!user.chatito_active">
-                        Disabled
+                        {{ lang.DISABLED }}
                     </VChip>
                     <VChip class="ma-2" color="#ec634c" v-else>
-                        Active
+                        {{ lang.ACTIVE }}
                     </VChip>
                 </div>
                 <VDivider></VDivider>
@@ -44,6 +44,7 @@ import ConfirmRegistrationgInChatito from '@/components/notification-connections
 import DeleteChatitoNotifications from '@/components/notification-connections/chatito/DeleteChatitoNotifications';
 import { mapGetters } from 'vuex';
 import * as getters from '@/store/modules/auth/types/getters';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 export default {
     name: 'ChatitoNotificationConnection',
     components: {
@@ -53,6 +54,9 @@ export default {
     computed: {
         ...mapGetters('auth', {
             user: getters.GET_LOGGED_USER
+        }),
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         })
     }
 };
