@@ -19,54 +19,52 @@
                 <VCardText>
                     <VContainer>
                         <VRow>
-                            <VAlert cols="12" type="error" v-if="errorMessage">
-                                {{ errorMessage }}
-                            </VAlert>
                             <VCol cols="12">
                                 <VSubheader
-                                    >{{ lang.CURRENT_PASSWORD }}
+                                    >{{ lang.CURRENT_PASSWORD }}*
                                 </VSubheader>
                                 <VTextField
-                                    v-model="password"
-                                    :placeholder="lang.CURRENT_PASSWORD + ' *'"
-                                    :rules="[required]"
+                                    :placeholder="lang.CURRENT_PASSWORD"
+                                    :error-messages="passwordErrors"
+                                    @input="setPasswordOnInput"
+                                    @blur="setPassword"
                                     :type="showPassword ? 'text' : 'password'"
                                     :append-icon="
                                         showPassword ? 'mdi-eye' : 'mdi-eye-off'
                                     "
                                     @click:append="showPassword = !showPassword"
-                                    required
                                     dense
                                     outlined
                                 ></VTextField>
-                                <VSubheader>{{ lang.NEW_PASSWORD }}</VSubheader>
+                                <VSubheader>
+                                    {{ lang.NEW_PASSWORD }}*
+                                </VSubheader>
                                 <VTextField
-                                    v-model="newPassword"
-                                    :placeholder="lang.NEW_PASSWORD + ' *'"
-                                    type="password"
-                                    :rules="[
-                                        required,
-                                        min,
-                                        max,
-                                        confirmPassword
-                                    ]"
-                                    required
-                                    dense
-                                    outlined
-                                ></VTextField>
-                                <VTextField
-                                    v-model="matchPassword"
-                                    :placeholder="
-                                        lang.REPEAT_NEW_PASSWORD + ' *'
+                                    :placeholder="lang.NEW_PASSWORD"
+                                    :error-messages="newPasswordErrors"
+                                    @input="setNewPasswordOnInput"
+                                    @blur="setNewPassword"
+                                    :type="showPassword ? 'text' : 'password'"
+                                    :append-icon="
+                                        showPassword ? 'mdi-eye' : 'mdi-eye-off'
                                     "
-                                    type="password"
-                                    :rules="[
-                                        required,
-                                        min,
-                                        max,
-                                        confirmPassword
-                                    ]"
-                                    required
+                                    @click:append="showPassword = !showPassword"
+                                    dense
+                                    outlined
+                                ></VTextField>
+                                <VSubheader>
+                                    {{ lang.CONFIRM_NEW_PASSWORD }}*
+                                </VSubheader>
+                                <VTextField
+                                    :placeholder="lang.REPEAT_NEW_PASSWORD"
+                                    :error-messages="matchPasswordErrors"
+                                    @input="setMatchPasswordOnInput"
+                                    @blur="setMatchPassword"
+                                    :type="showPassword ? 'text' : 'password'"
+                                    :append-icon="
+                                        showPassword ? 'mdi-eye' : 'mdi-eye-off'
+                                    "
+                                    @click:append="showPassword = !showPassword"
                                     dense
                                     outlined
                                 ></VTextField>
@@ -80,7 +78,7 @@
                     <VBtn
                         color="primary"
                         :disabled="!validateForm"
-                        @click="update"
+                        @click="onChangePassword"
                         >{{ lang.SAVE }}
                     </VBtn>
                     <VBtn
@@ -97,77 +95,124 @@
 <script>
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapActions, mapGetters } from 'vuex';
+import { validationMixin } from 'vuelidate';
+import { required, minLength, sameAs } from 'vuelidate/lib/validators';
+import * as notificationActions from '@/store/modules/notification/types/actions';
 
 export default {
     name: 'LoginForm',
+    mixins: [validationMixin],
+    validations: {
+        password: { required, minLength: minLength(8) },
+        newPassword: { required, minLength: minLength(8) },
+        matchPassword: {
+            required,
+            sameAsPassword: sameAs('newPassword')
+        }
+    },
     data: () => ({
         password: '',
         newPassword: '',
         matchPassword: '',
         dialog: false,
         showPassword: false,
-        errorMessage: '',
-        rules: {
-            min: 8,
-            max: 255
-        }
+        errorMessage: ''
     }),
 
     computed: {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         }),
+        passwordErrors() {
+            const errors = [];
+            if (!this.$v.password.$dirty) {
+                return errors;
+            }
+            !this.$v.password.required &&
+                errors.push(this.lang.PASSWORD_IS_REQUIRED);
+            !this.$v.password.minLength &&
+                errors.push(
+                    this.lang.PASSWORD_MUST_BE_AT_LEAST_8_CHARACTERS_LONG
+                );
+            return errors;
+        },
+        newPasswordErrors() {
+            const errors = [];
+            if (!this.$v.newPassword.$dirty) {
+                return errors;
+            }
+            !this.$v.newPassword.required &&
+                errors.push(this.lang.PASSWORD_IS_REQUIRED);
+            !this.$v.newPassword.minLength &&
+                errors.push(
+                    this.lang.PASSWORD_MUST_BE_AT_LEAST_8_CHARACTERS_LONG
+                );
+            return errors;
+        },
+
+        matchPasswordErrors() {
+            const errors = [];
+            if (!this.$v.matchPassword.$dirty) {
+                return errors;
+            }
+            !this.$v.matchPassword.required &&
+                errors.push(this.lang.PASSWORD_IS_REQUIRED);
+            !this.$v.matchPassword.sameAsPassword &&
+                errors.push(this.lang.PASSWORDS_DONT_MATCH);
+            return errors;
+        },
+
         validateForm() {
-            return (
-                this.confirmPassword() === true &&
-                this.min(this.newPassword) === true &&
-                this.max(this.newPassword) === true
-            );
+            return !this.$v.$invalid;
         }
     },
 
     methods: {
         ...mapActions('profile', ['updatePassword']),
+        ...mapActions('notification', {
+            setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION,
+            setSuccessNotification: notificationActions.SET_SUCCESS_NOTIFICATION
+        }),
 
-        confirmPassword() {
-            return (
-                this.newPassword === this.matchPassword ||
-                this.lang.PASSWORD_DOESNT_MATCH
-            );
+        setPassword(e) {
+            this.password = e.target.value;
+            this.$v.password.$touch();
         },
-        required(value) {
-            return !!value || this.lang.REQUIRED;
+        setPasswordOnInput(value) {
+            this.password = value;
+            this.$v.password.$touch();
         },
-        min(value, min = this.rules.min) {
-            return (
-                value.length >= min ||
-                `${this.lang.MIN} ${min} ${this.lang.CHARACTERS.toLowerCase()}`
-            );
+        setNewPassword(e) {
+            this.newPassword = e.target.value;
+            this.$v.newPassword.$touch();
         },
-        max(value, max = this.rules.max) {
-            return (
-                value.length <= max ||
-                `${
-                    this.lang.MAX
-                } ${max} ${this.lang.CHARACTERS.toLocaleLowerCase()}`
-            );
+        setNewPasswordOnInput(value) {
+            this.newPassword = value;
+            this.$v.newPassword.$touch();
+        },
+        setMatchPassword(e) {
+            this.matchPassword = e.target.value;
+            this.$v.matchPassword.$touch();
+        },
+        setMatchPasswordOnInput(value) {
+            this.matchPassword = value;
+            this.$v.matchPassword.$touch();
         },
 
-        async update() {
+        async onChangePassword() {
             try {
                 if (this.validateForm) {
                     await this.updatePassword({
                         password: this.newPassword,
                         oldPassword: this.password
                     });
-                    this.dialog = false;
-                } else {
-                    this.showErrorMessage(
-                        this.lang.PLEASE_FILL_ALL_FORM_FIELDS
+                    this.setSuccessNotification(
+                        this.lang.PASSWORD_WAS_SUCCESSFULLY_CHANGED
                     );
+                    this.dialog = false;
                 }
             } catch (error) {
-                this.showErrorMessage(error.message);
+                this.setErrorNotification(error?.message);
             }
         },
 
@@ -192,8 +237,15 @@ export default {
 
 .v-subheader {
     padding: 0;
-    color: #2c2c2c;
+    color: var(--v-customDark-base);
     font-size: 13px;
     line-height: 16px;
+}
+
+.v-text-field.error--text::v-deep .v-input__slot {
+    background-color: var(--v-validationError-base);
+}
+.v-text-field.error--text::v-deep .v-text-field__slot input {
+    color: var(--v-error-darken1);
 }
 </style>
