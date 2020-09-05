@@ -161,5 +161,28 @@ export default {
                 root: true
             });
         }
+    },
+    [actions.CHANGE_CHATITO_NOTIFICATIONS_ACTIVITY]: async (
+        { commit, dispatch },
+        value
+    ) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+        try {
+            await notificationConnectionService.changeActivityChatito(value);
+            commit(
+                mutations.CHANGE_CHATITO_NOTIFICATIONS_ACTIVITY,
+                value.chatito_active
+            );
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        } catch (error) {
+            dispatch(actions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        }
     }
 };

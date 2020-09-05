@@ -22,7 +22,8 @@ class EventType extends Model
         'disabled',
         'location_type',
         'coordinates',
-        'address'
+        'address',
+        'chatito_workspace'
     ];
 
     /**
@@ -30,7 +31,8 @@ class EventType extends Model
      */
     protected $casts = [
         'disabled' => 'boolean',
-        'coordinates' => 'json'
+        'coordinates' => 'json',
+        'chatito_workspace' => 'string'
     ];
 
     /**
