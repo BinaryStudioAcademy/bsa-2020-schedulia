@@ -39,6 +39,10 @@ final class AddEventTypeAction
         $eventType->location_type = $request->getLocationType();
         $eventType->address = $request->getAddress();
 
+        if (Auth::user()->chatito_active) {
+            $eventType->chatito_workspace = $request->getChatitoWorkspace();
+        }
+
         if ($request->getLocationType() === LocationTypes::ADDRESS) {
             if ($request->getCoordinates()) {
                 $eventType->coordinates = $request->getCoordinates();

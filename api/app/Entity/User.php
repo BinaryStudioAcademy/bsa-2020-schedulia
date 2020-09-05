@@ -28,7 +28,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail, CanRe
         'timezone',
         'slack_webhook',
         'slack_channel',
-        'slack_active'
+        'slack_active',
+        'chatito_active'
     ];
 
     /**
@@ -47,7 +48,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail, CanRe
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'slack_active' => 'bool'
+        'slack_active' => 'bool',
+        'chatito_active' => 'bool'
     ];
 
     public function refreshTokens(): HasMany
