@@ -70,8 +70,7 @@ export default {
 
     YOU_DONT_HAVE_ANY_CONNECTED_CALENDARS:
         "You don't have any connected calendars yet",
-    YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD:
-        'You log in with an email address and password',
+    YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS: 'You log in with an email address',
 
     WELCOME_MESSAGE: 'Welcome message',
 
@@ -435,5 +434,7 @@ export default {
     DISABLED: 'Disabled',
     ACTIVE: 'Active',
     ARE_YOU_SURE_YOU_WANT_TO_DELETE: 'Are you sure you want to delete',
-    NOTIFICATIONS: 'Notifications'
+    NOTIFICATIONS: 'Notifications',
+    CONFIRM_NEW_PASSWORD: 'Confirm new password',
+    PASSWORD_WAS_SUCCESSFULLY_CHANGED: 'Password was successfully changed'
 };

@@ -71,7 +71,7 @@ export const availabilityApiMapper = function(availability) {
 
 export const eventTypeFormMapper = eventTypeForm => ({
     name: eventTypeForm.name,
-    location: eventTypeForm.location,
+    address: eventTypeForm.address,
     location_type: eventTypeForm.locationType.key,
     coordinates: eventTypeCoordinates(eventTypeForm.coordinates),
     description: eventTypeForm.description,

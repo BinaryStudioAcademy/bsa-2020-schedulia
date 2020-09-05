@@ -28,6 +28,7 @@ export default {
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });
+            throw new Error(error);
         }
     },
 
