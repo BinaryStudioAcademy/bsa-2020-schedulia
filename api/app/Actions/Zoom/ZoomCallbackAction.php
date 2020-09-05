@@ -10,15 +10,17 @@ use Illuminate\Support\Facades\Http;
 
 final class ZoomCallbackAction
 {
-    private $interactionRepository;
+    private $integrationRepository;
 
     public function __construct(ZoomIntegrationRepository $integrationRepository)
     {
-        $this->interactionRepository = $integrationRepository;
+        $this->integrationRepository = $integrationRepository;
     }
 
     public function execute(ZoomCallbackRequest $request)
     {
+        $accessTokenId = 1;
+
         $response = Http::withHeaders([
             "Authorization" => "Basic ". base64_encode(env('ZOOM_CLIENT_ID').':'. env('ZOOM_CLIENT_SECRET'))
         ])->asForm()->post('https://zoom.us/oauth/token', [
@@ -29,7 +31,7 @@ final class ZoomCallbackAction
 
         $token = json_decode($response->body(), true);
 
-        $integration = $this->interactionRepository->getInteraction();
+        $integration = $this->integrationRepository->getInteraction();
 
         if ($integration->isEmpty()) {
             $integration = new Integration([
@@ -37,7 +39,7 @@ final class ZoomCallbackAction
             ]);
             $integration->save();
         } else {
-            $this->interactionRepository->updateToken(1, $token);
+            $this->integrationRepository->updateToken($accessTokenId,$token);
         }
     }
 }

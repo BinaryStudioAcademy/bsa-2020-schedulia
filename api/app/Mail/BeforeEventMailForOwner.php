@@ -21,12 +21,14 @@ class BeforeEventMailForOwner extends Mailable
     public Event $event;
     public EventType $eventType;
     public User $owner;
+    private string $startMeetingUrl;
 
-    public function __construct(Event $event)
+    public function __construct(Event $event, string $startMeetingUrl)
     {
         $this->event = $event;
         $this->eventType = $event->eventType;
         $this->owner = $event->eventType->owner;
+        $this->startMeetingUrl = $startMeetingUrl;
     }
 
     public function build()
@@ -45,6 +47,8 @@ class BeforeEventMailForOwner extends Mailable
             ->line(Lang::get('Event Date/Time in UTC timezone:'))
             ->line($this->event->start_date)
             ->line(Lang::get("Event Date/Time in {$this->event->timezone} timezone:"))
-            ->line($eventTimeInUTCZone->timezone($this->event->timezone));
+            ->line($eventTimeInUTCZone->timezone($this->event->timezone))
+            ->line(Lang::get('Meeting link'))
+            ->line($this->startMeetingUrl);
     }
 }

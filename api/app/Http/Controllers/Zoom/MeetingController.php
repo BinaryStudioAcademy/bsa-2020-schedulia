@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Zoom;
+namespace App\Http\Controllers\Zoom;
 
 use App\Actions\Zoom\ZoomCallbackAction;
 use App\Actions\Zoom\ZoomCallbackRequest;

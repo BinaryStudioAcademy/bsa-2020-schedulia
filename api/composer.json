@@ -18,7 +18,6 @@
         "doctrine/dbal": "^2.10",
         "elasticsearch/elasticsearch": "^7.9",
         "fideloper/proxy": "^4.2",
-        "firebase/php-jwt": "^5.2",
         "fruitcake/laravel-cors": "^1.0",
         "google/apiclient": "^2.7",
         "google/cloud-logging": "^1.20",

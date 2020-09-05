@@ -134,8 +134,6 @@ Route::group([
 Route::get('/social-accounts/{provider?}/oauth', 'Api\\SocialAccountController@oauth');
 Route::get('/social-accounts/{provider?}/oauthResponse', 'Api\\SocialAccountController@oauthResponse');
 
-Route::get('/meetings/zoom/callback', 'Api\\Zoom\\MeetingController@handleCallback');
-
 Route::group([
     'namespace' => 'Api\\',
 ], function () {

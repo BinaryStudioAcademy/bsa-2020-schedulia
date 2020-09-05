@@ -42,9 +42,15 @@ class SendNotificationBeforeEvent implements ShouldQueue
            ];
         $events = $eventRepository->findByCriteria(...$criteria);
 
+        $startMeetingUrl = '';
+
         foreach ($events as $event) {
-            $event->eventType->owner->notify(new NotificationBeforeEventForOwner($event));
-            $startMeetingUrl = $meetingAction->execute($event);
+
+            if ($event->eventType()->location_type == 'zoom') {
+                $startMeetingUrl = $meetingAction->execute($event);
+            }
+
+            $event->eventType->owner->notify(new NotificationBeforeEventForOwner($event, $startMeetingUrl));
             Notification::route('mail', $event->invitee_email)
                 ->notify(new NotificationBeforeEventForInvitee($event, $startMeetingUrl));
             $event->notified = true;
