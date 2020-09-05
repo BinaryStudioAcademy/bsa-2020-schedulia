@@ -2,6 +2,7 @@ import { mapActions, mapGetters } from 'vuex';
 import * as actionEventType from '@/store/modules/eventType/types/actions';
 import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import * as authGetters from '@/store/modules/auth/types/getters';
 
 export default {
     data() {
@@ -79,6 +80,9 @@ export default {
                     data[property] = value;
                     data['duration'] = 0;
                     break;
+                case 'chatito_workspace':
+                    data[property] = value;
+                    break;
                 case 'locationType':
                     data[property] = value;
                     this.showGeocoder = false;
@@ -113,6 +117,9 @@ export default {
         }),
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
+        ...mapGetters('auth', {
+            user: authGetters.GET_LOGGED_USER
         }),
         data() {
             return this.eventType;

@@ -3,7 +3,6 @@
         <div class="mb-2">
             <label>{{ lang.EVENT_NAME_LABEL }}*</label>
         </div>
-
         <VTextField
             :value="data.name"
             @input="changeEventTypeProperty('name', $event)"
@@ -45,6 +44,20 @@
             </VSelect>
             <FindLocationForm class="find-location-form" v-if="showGeocoder" />
         </div>
+
+        <div class="mb-2" v-if="user.chatito_active">
+            <label>Chatito workspace (Notifications)*</label>
+        </div>
+
+        <VTextField
+            v-if="user.chatito_active"
+            :value="data.chatito_workspace"
+            @input="changeEventTypeProperty('chatito_workspace', $event)"
+            :rules="chatitoRules"
+            outlined
+            class="app-textfield"
+            dense
+        ></VTextField>
 
         <div class="mb-2">
             <label>{{ lang.DESCRIPTION_LABEL }}</label>
@@ -247,6 +260,9 @@ export default {
                 'turquoise',
                 'pink',
                 'dark_blue'
+            ],
+            chatitoRules: [
+                v => !!v || 'Please provide Chatito workspace name',
             ],
             nameRules: [
                 v => !!v || this.lang.PROVIDE_EVENT_NAME,
