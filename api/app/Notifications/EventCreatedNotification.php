@@ -70,7 +70,6 @@ class EventCreatedNotification extends Notification implements ShouldQueue
         return new EventCreatedChatitoMessage($this->event);
     }
 
-
     /**
      * Get the array representation of the notifications.
      *

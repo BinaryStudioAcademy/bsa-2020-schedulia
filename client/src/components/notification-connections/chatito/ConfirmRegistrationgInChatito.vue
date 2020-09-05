@@ -7,7 +7,9 @@
     >
         <VCard>
             <VCardTitle>
-                <span class="headline text-danger">{{ lang.CONNECT }} Chatito</span>
+                <span class="headline text-danger"
+                    >{{ lang.CONNECT }} Chatito</span
+                >
             </VCardTitle>
             <VCardText>
                 <h3>
@@ -15,13 +17,15 @@
                     <a href="http://chatito.xyz" target="_blank">Chatito</a>?
                 </h3>
                 <br />
-                <span class="subtitle-2">{{ lang.REGISTER_IF_YOU_DIDNT_IT_YET }}</span>
+                <span class="subtitle-2">{{
+                    lang.REGISTER_IF_YOU_DIDNT_IT_YET
+                }}</span>
             </VCardText>
             <VCardActions>
                 <VSpacer></VSpacer>
-                <VBtn color="blue darken-1" text @click="dialog = false"
-                    >{{ lang.CLOSE }}</VBtn
-                >
+                <VBtn color="blue darken-1" text @click="dialog = false">{{
+                    lang.CLOSE
+                }}</VBtn>
                 <VBtn color="red" @click="onConfirm">
                     {{ lang.CONFIRM }}
                 </VBtn>

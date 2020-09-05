@@ -261,9 +261,7 @@ export default {
                 'pink',
                 'dark_blue'
             ],
-            chatitoRules: [
-                v => !!v || 'Please provide Chatito workspace name',
-            ],
+            chatitoRules: [v => !!v || 'Please provide Chatito workspace name'],
             nameRules: [
                 v => !!v || this.lang.PROVIDE_EVENT_NAME,
                 v =>

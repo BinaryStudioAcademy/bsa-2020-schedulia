@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Notifications\Chatito;
-
 
 use App\Entity\Event;
 use Illuminate\Support\Facades\Http;

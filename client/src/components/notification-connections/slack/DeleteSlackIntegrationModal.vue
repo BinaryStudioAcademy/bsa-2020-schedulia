@@ -7,18 +7,21 @@
     >
         <VCard>
             <VCardTitle>
-                <span class="headline text-danger">{{ lang.DELETE }} Slack</span>
+                <span class="headline text-danger"
+                    >{{ lang.DELETE }} Slack</span
+                >
             </VCardTitle>
             <VCardText>
                 <h3>
-                    {{ lang.ARE_YOU_SURE_YOU_WANT_TO_DELETE }} Slack {{ lang.NOTIFICATIONS }}?
+                    {{ lang.ARE_YOU_SURE_YOU_WANT_TO_DELETE }} Slack
+                    {{ lang.NOTIFICATIONS }}?
                 </h3>
             </VCardText>
             <VCardActions>
                 <VSpacer></VSpacer>
-                <VBtn color="blue darken-1" text @click="dialog = false"
-                    >{{ lang.CLOSE }}</VBtn
-                >
+                <VBtn color="blue darken-1" text @click="dialog = false">{{
+                    lang.CLOSE
+                }}</VBtn>
                 <VBtn color="red" @click="onDelete">
                     {{ lang.DELETE }}
                 </VBtn>
@@ -28,7 +31,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters} from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import * as actions from '@/store/modules/auth/types/actions';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 

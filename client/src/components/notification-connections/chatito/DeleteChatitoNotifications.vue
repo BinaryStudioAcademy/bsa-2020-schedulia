@@ -7,7 +7,9 @@
     >
         <VCard>
             <VCardTitle>
-                <span class="headline text-danger">{{ lang.DELETE }} Chatito</span>
+                <span class="headline text-danger"
+                    >{{ lang.DELETE }} Chatito</span
+                >
             </VCardTitle>
             <VCardText>
                 <h3>
@@ -18,9 +20,9 @@
             </VCardText>
             <VCardActions>
                 <VSpacer></VSpacer>
-                <VBtn color="blue darken-1" text @click="dialog = false"
-                    >{{ lang.CLOSE }}</VBtn
-                >
+                <VBtn color="blue darken-1" text @click="dialog = false">{{
+                    lang.CLOSE
+                }}</VBtn>
                 <VBtn color="red" @click="onDelete">
                     {{ lang.DELETE }}
                 </VBtn>
