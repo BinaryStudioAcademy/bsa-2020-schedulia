@@ -429,5 +429,11 @@ export default {
     CONNECT: 'Connect',
     NOTIFICATION_CONNECTIONS: 'Notification Connections',
     SELECT_LOCATION: 'Please select location',
-    NO_DATE_RANGE_EVENTS: 'No Events In This Range'
+    NO_DATE_RANGE_EVENTS: 'No Events In This Range',
+    ARE_YOU_SURE_YOU_REGISTERED_IN: 'Are you sure you registered in',
+    REGISTER_IF_YOU_DIDNT_IT_YET: "Register if you didn't it yet.",
+    DISABLED: 'Disabled',
+    ACTIVE: 'Active',
+    ARE_YOU_SURE_YOU_WANT_TO_DELETE: 'Are you sure you want to delete',
+    NOTIFICATIONS: 'Notifications'
 };
