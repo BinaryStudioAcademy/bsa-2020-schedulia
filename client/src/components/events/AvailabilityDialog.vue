@@ -25,6 +25,7 @@
                             placeholder="Option"
                             dense
                             class="app-select"
+                            id="event-type-availability"
                         >
                         </VSelect>
 
@@ -64,6 +65,7 @@
                                 @change="changeRangeValue"
                                 outlined
                                 dense
+                                id="event-type-days-far-into-future-days"
                             >
                             </VTextField>
                         </VCol>
@@ -84,6 +86,7 @@
                                 placeholder="Option"
                                 dense
                                 class="mb-3 app-select"
+                                id="event-type-far-into-future-type"
                             >
                             </VSelect>
                         </VCol>

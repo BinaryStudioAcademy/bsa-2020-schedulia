@@ -10,6 +10,7 @@
                 :value="data.duration"
                 @change="changeEventTypeProperty('duration', $event)"
                 class="mr-5 app-text"
+                id="event-type-duration"
             >
                 <VRadio
                     v-for="n in eventDuration"
@@ -18,6 +19,7 @@
                     :value="n.value"
                     class="mr-6"
                     :rules="rules"
+                    :id="'event-type-duration-' + n.id"
                 >
                 </VRadio>
             </VRadioGroup>
@@ -31,6 +33,7 @@
                 dense
                 class="shrink ma-0 pa-0 custom-textfield"
                 placeholder="0"
+                id="event-type-duration-custom"
             >
             </VTextField>
         </VRow>

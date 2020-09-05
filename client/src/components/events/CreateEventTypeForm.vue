@@ -11,6 +11,7 @@
             outlined
             class="app-textfield"
             dense
+            id="event-type-name"
         ></VTextField>
 
         <div class="mb-2">
@@ -28,6 +29,7 @@
                 placeholder="Option"
                 dense
                 class="mb-1"
+                id="event-type-location-type"
             >
                 <template slot="selection" slot-scope="data">
                     <VFlex xs2 md1>
@@ -57,6 +59,7 @@
             placeholder="Placeholder"
             outlined
             class="mb-3"
+            id="event-type-description"
         ></VTextarea>
 
         <div class="mb-2">
@@ -71,6 +74,7 @@
             dense
             class="mb-4 app-textfield"
             required
+            id="event-type-slug"
         ></VTextField>
 
         <div class="mb-2">
@@ -166,6 +170,7 @@
                     :placeholder="lang.ZOOM_CONFERENCE_LINK"
                     outlined
                     dense
+                    id="event-type-location-zoom"
                 ></VTextField>
                 <VBtn
                     color="primary"
@@ -185,6 +190,7 @@
                     :placeholder="lang.SKYPE_CALL_DETAILS"
                     outlined
                     dense
+                    id="event-type-location-skype"
                 ></VTextField>
                 <VBtn
                     color="primary"
