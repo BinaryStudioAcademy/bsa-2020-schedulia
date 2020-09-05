@@ -5,14 +5,9 @@ declare(strict_types=1);
 namespace App\Notifications\SlackMessages;
 
 use App\Entity\Event;
-use App\Entity\EventType;
-use App\Entity\User;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Illuminate\Queue\SerializesModels;
 
-class EventCreatedSlackMessage extends SlackMessage
+class BeforeEventSlackMessageToOwner extends SlackMessage
 {
     private Event $event;
 
@@ -22,7 +17,9 @@ class EventCreatedSlackMessage extends SlackMessage
         $eventType = $event->eventType;
         $owner = $event->eventType->owner;
 
-        $greetings = "Hi, {$owner->name}" . PHP_EOL . "A new event was scheduled.";
+        $greetings = "Hi, {$owner->name}" . PHP_EOL .
+            "An event {$eventType->name} will start in 10 minutes." . PHP_EOL .
+            "Prepare for it!";
 
         return $this
             ->success()
@@ -31,9 +28,9 @@ class EventCreatedSlackMessage extends SlackMessage
             ->attachment(function ($attachment) use ($event, $eventType) {
                 $attachment->fields([
                     'Event Type' => $eventType->name,
+                    'Event DateTime' => $event->start_date . ' (UTC)',
                     'Invitee Name' => $event->invitee_name,
                     'Invitee Email' => $event->invitee_email,
-                    'Event DateTime' => $event->start_date . ' (UTC)',
                     'Invitee Timezone' => $event->timezone,
                 ]);
             });

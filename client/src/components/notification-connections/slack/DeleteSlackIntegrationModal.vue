@@ -7,18 +7,23 @@
     >
         <VCard>
             <VCardTitle>
-                <span class="headline text-danger">Delete Slack</span>
+                <span class="headline text-danger"
+                    >{{ lang.DELETE }} Slack</span
+                >
             </VCardTitle>
             <VCardText>
-                <h3>Are you sure you want to delete Slack notifications?</h3>
+                <h3>
+                    {{ lang.ARE_YOU_SURE_YOU_WANT_TO_DELETE }} Slack
+                    {{ lang.NOTIFICATIONS }}?
+                </h3>
             </VCardText>
             <VCardActions>
                 <VSpacer></VSpacer>
-                <VBtn color="blue darken-1" text @click="dialog = false"
-                    >Close</VBtn
-                >
+                <VBtn color="blue darken-1" text @click="dialog = false">{{
+                    lang.CLOSE
+                }}</VBtn>
                 <VBtn color="red" @click="onDelete">
-                    Delete
+                    {{ lang.DELETE }}
                 </VBtn>
             </VCardActions>
         </VCard>
@@ -26,8 +31,10 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import * as actions from '@/store/modules/auth/types/actions';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
+
 export default {
     name: 'DeleteSlackIntegrationModal',
     data: () => ({
@@ -41,6 +48,11 @@ export default {
             await this.deleteSlackNotifications();
             this.dialog = false;
         }
+    },
+    computed: {
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        })
     }
 };
 </script>

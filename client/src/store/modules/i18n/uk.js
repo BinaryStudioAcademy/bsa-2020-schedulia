@@ -341,6 +341,12 @@ export default {
     NOTIFICATION_CONNECTIONS: 'Підключення повідомлень',
     SELECT_LOCATION: 'Виберіть локацію',
     NO_DATE_RANGE_EVENTS: 'У цьому діапазоні немає подій',
+    ARE_YOU_SURE_YOU_REGISTERED_IN: 'Ви впевнені, що вже зареєстровані в',
+    REGISTER_IF_YOU_DIDNT_IT_YET: 'Зареєструйтесь, якщо досі цього не зробили',
+    DISABLED: 'Не активний',
+    ACTIVE: 'Активний',
+    ARE_YOU_SURE_YOU_WANT_TO_DELETE: 'Ви впевнені, що хочете видалити',
+    NOTIFICATIONS: 'Сповіщення',
     CONFIRM_NEW_PASSWORD: 'Підтвердити новий пароль',
     PASSWORD_WAS_SUCCESSFULLY_CHANGED: 'Пароль успішно змінено'
 };

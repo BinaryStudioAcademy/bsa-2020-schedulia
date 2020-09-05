@@ -5,10 +5,10 @@
                 <div class="notification-content text-center">
                     <h3 class="notification-name">Slack</h3>
                     <VChip class="ma-2" v-if="!user.slack_active">
-                        Disabled
+                        {{ lang.DISABLED }}
                     </VChip>
                     <VChip class="ma-2" color="#36c5f0" v-else>
-                        Active
+                        {{ lang.ACTIVE }}
                     </VChip>
                 </div>
                 <VDivider></VDivider>
@@ -37,6 +37,7 @@ import SlackModalIntegrationConnect from '@/components/notification-connections/
 import DeleteSlackIntegrationModal from '@/components/notification-connections/slack/DeleteSlackIntegrationModal';
 import { mapGetters } from 'vuex';
 import * as getters from '@/store/modules/auth/types/getters';
+import * as i18nGetters from '@/store/modules/i18n/types/getters';
 export default {
     name: 'SlackNotificationConnection',
     components: {
@@ -46,6 +47,9 @@ export default {
     computed: {
         ...mapGetters('auth', {
             user: getters.GET_LOGGED_USER
+        }),
+        ...mapGetters('i18n', {
+            lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         })
     }
 };

@@ -429,6 +429,12 @@ export default {
     NOTIFICATION_CONNECTIONS: 'Notification Connections',
     SELECT_LOCATION: 'Please select location',
     NO_DATE_RANGE_EVENTS: 'No Events In This Range',
+    ARE_YOU_SURE_YOU_REGISTERED_IN: 'Are you sure you registered in',
+    REGISTER_IF_YOU_DIDNT_IT_YET: "Register if you didn't it yet.",
+    DISABLED: 'Disabled',
+    ACTIVE: 'Active',
+    ARE_YOU_SURE_YOU_WANT_TO_DELETE: 'Are you sure you want to delete',
+    NOTIFICATIONS: 'Notifications',
     CONFIRM_NEW_PASSWORD: 'Confirm new password',
     PASSWORD_WAS_SUCCESSFULLY_CHANGED: 'Password was successfully changed'
 };
