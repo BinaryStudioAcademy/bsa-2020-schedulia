@@ -46,9 +46,9 @@
                     <template v-slot:prepend-item>
                         <VListItem>
                             <VListItemContent>
-                                <VListItemTitle>
-                                    {{ lang.CHOOSE_YOUR_TIMEZONE }}
-                                </VListItemTitle>
+                                <VListItemTitle>{{
+                                    lang.CHOOSE_YOUR_TIMEZONE
+                                }}</VListItemTitle>
                                 <VTextField
                                     v-model="timezoneFieldSearch"
                                     label="Enter timezone"
@@ -161,12 +161,33 @@ export default {
                     )}-${this.currentMonth.slice(5)}`
                 }
             );
+        },
+        date() {
+            if (this.date) {
+                for (let date of this.currentTimezoneAvailabilities) {
+                    if (date.startDate.includes(this.date)) {
+                        this.currentDayUnavailibilities = date.unavailable.map(
+                            time =>
+                                moment
+                                    .tz(
+                                        `2010-10-10 ${time}`,
+                                        this.eventType.timezone
+                                    )
+                                    .clone()
+                                    .tz(this.currentTimezone)
+                                    .format('HH:mm')
+                        );
+                        break;
+                    }
+                }
+            }
         }
     },
     data: () => ({
         isReady: false,
         currentMonth: null,
         currentMonthAvailabilities: null,
+        currentDayUnavailibilities: null,
         currentTimezone: momentTimezones.tz.guess(),
         currentTimezoneTime: null,
         timezoneFieldSearch: '',
@@ -194,7 +215,23 @@ export default {
                 {
                     type: 'date_range_weekdays',
                     start_time: '00:00:00',
-                    end_time: '23:59:00',
+                    end_time: '24:00:00',
+                    unavailable: []
+                }
+            ],
+            '2020-09-04': [
+                {
+                    type: 'date_range_weekdays',
+                    start_time: '00:00:00',
+                    end_time: '24:00:00',
+                    unavailable: []
+                }
+            ],
+            '2020-09-05': [
+                {
+                    type: 'date_range_weekdays',
+                    start_time: '05:00:00',
+                    end_time: '10:00:00',
                     unavailable: []
                 }
             ],
@@ -260,14 +297,35 @@ export default {
                             0,
                             5
                         )}`,
-                        endDate: `${date} ${availability.end_time.slice(0, 5)}`
+                        endDate: `${date} ${
+                            availability.end_time.slice(0, 5) === '00:00'
+                                ? '24:00'
+                                : availability.end_time.slice(0, 5)
+                        }`,
+                        unavailable: availability.unavailable
                     });
                 }
             }
 
             allTimes = allTimes.map(availability => ({
                 startDate: formatTime(availability.startDate),
-                endDate: formatTime(availability.endDate)
+                endDate:
+                    formatTime(availability.endDate) ===
+                    formatTime(availability.startDate)
+                        ? moment(
+                              formatTime(availability.endDate),
+                              'YYYY-MM-DD HH:mm:ss'
+                          )
+                              .add(1, 'days')
+                              .format('YYYY-MM-DD HH:mm:ss')
+                              .replace('00:00:00', '24:00:00')
+                        : moment(
+                              formatTime(availability.endDate),
+                              'YYYY-MM-DD HH:mm:ss'
+                          )
+                              .format('YYYY-MM-DD HH:mm:ss')
+                              .replace('00:00:00', '24:00:00'),
+                unavailable: availability.unavailable
             }));
 
             return allTimes;
@@ -289,7 +347,11 @@ export default {
             for (let availability of this.currentTimezoneAvailabilities) {
                 if (
                     +getHours(availability.startDate) >
-                    +getHours(availability.endDate)
+                        +getHours(availability.endDate) ||
+                    (+moment(availability.endDate).format('DD') >
+                        +moment(availability.startDate).format('DD') &&
+                        +getHours(availability.startDate) >=
+                            +getHours(availability.endDate))
                 ) {
                     let start =
                         availability.startDate.slice(11, 16).split(':')[0] *
@@ -497,10 +559,8 @@ export default {
             for (let availability of this.normalizedRemainderTimes) {
                 if (availability.startDate.includes(this.date)) {
                     availableTimes.push({
-                        startTime: moment(availability.startDate).format(
-                            'HH:mm'
-                        ),
-                        endTime: moment(availability.endDate).format('HH:mm')
+                        startTime: availability.startDate.slice(11, 16),
+                        endTime: availability.endDate.slice(11, 16)
                     });
 
                     if (
@@ -545,6 +605,10 @@ export default {
                     +prev.split(':')[1] -
                     next.split(':')[0] * 60 +
                     +next.split(':')[1]
+            );
+
+            times = times.filter(
+                time => !this.currentDayUnavailibilities.includes(time)
             );
 
             return this.convertToUserFormat([...new Set(times)]);
@@ -639,13 +703,33 @@ export default {
             return String(time).length === 2 ? time : '0' + time;
         },
         availableDates(date) {
-            let present = false;
-            for (let normalizedDate of this.normalizedRemainderTimes) {
-                if (normalizedDate.startDate.includes(date)) {
-                    present = true;
+            let datePresent = false;
+            let availableTimesPresent = false;
+            for (let day of this.currentTimezoneAvailabilities) {
+                if (
+                    day.unavailable.length <
+                    this.numberOfIntervals(day.startDate, day.endDate)
+                ) {
+                    availableTimesPresent = true;
+                    break;
                 }
             }
-            return present;
+            for (let normalizedDate of this.normalizedRemainderTimes) {
+                if (normalizedDate.startDate.includes(date)) {
+                    datePresent = true;
+                }
+            }
+            return availableTimesPresent && datePresent;
+        },
+        numberOfIntervals(startDate, endDate) {
+            let duration = moment.duration(
+                moment(endDate).diff(moment(startDate))
+            );
+            let minutes = duration.asMinutes();
+
+            let numberOfIntervals = minutes / this.eventType.duration;
+
+            return numberOfIntervals;
         }
     }
 };

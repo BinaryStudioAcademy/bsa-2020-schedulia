@@ -8,7 +8,7 @@ export default {
     eventType: {
         id: null,
         name: '',
-        location: '',
+        address: '',
         coordinates: [],
         locationType: '',
         description: '',
