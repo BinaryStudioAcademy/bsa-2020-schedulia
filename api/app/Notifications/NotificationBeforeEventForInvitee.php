@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Entity\Event;
 use App\Mail\BeforeEventMailForInvitee;
+use App\Notifications\Chatito\EventCreatedChatitoMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -17,6 +18,10 @@ class NotificationBeforeEventForInvitee extends Notification
     public function __construct(Event $event)
     {
         $this->event = $event;
+
+        if ($this->event->eventType->owner->chatito_active) {
+            $this->toSlack();
+        }
     }
 
     public function via($notifiable)
@@ -27,6 +32,11 @@ class NotificationBeforeEventForInvitee extends Notification
     public function toMail($notifiable)
     {
         return (new BeforeEventMailForInvitee($this->event))->build();
+    }
+
+    public function toSlack()
+    {
+        return (new EventCreatedChatitoMessage($this->event));
     }
 
     public function toArray($notifiable)
