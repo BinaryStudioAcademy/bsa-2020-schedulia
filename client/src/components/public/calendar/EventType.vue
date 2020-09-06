@@ -1,5 +1,6 @@
 <template>
     <VRow class="ma-0 pa-0" v-if="isReady">
+        <VSpacer class="hidden-md-and-down"></VSpacer>
         <VCol :class="colEventInfoClass">
             <EventInfo
                 :brandingLogo="eventType.owner.brandingLogo"
@@ -12,6 +13,7 @@
                 :lang="lang"
             />
         </VCol>
+        <VSpacer class="hidden-md-and-down"></VSpacer>
 
         <VDivider vertical class="hidden-md-and-down"></VDivider>
 
@@ -46,9 +48,9 @@
                     <template v-slot:prepend-item>
                         <VListItem>
                             <VListItemContent>
-                                <VListItemTitle>
-                                    {{ lang.CHOOSE_YOUR_TIMEZONE }}
-                                </VListItemTitle>
+                                <VListItemTitle>{{
+                                    lang.CHOOSE_YOUR_TIMEZONE
+                                }}</VListItemTitle>
                                 <VTextField
                                     v-model="timezoneFieldSearch"
                                     label="Enter timezone"
