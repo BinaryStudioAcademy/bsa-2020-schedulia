@@ -40,6 +40,9 @@ export default {
             );
         }
     },
+    [actions.CLEAR_SET_EVENT_TYPE]: async context => {
+        context.commit(mutations.CLEAR_SET_EVENT_TYPE);
+    },
     [actions.ADD_EVENT_TYPE]: async (context, data) => {
         try {
             const eventType = await eventTypeService.addEventType(
