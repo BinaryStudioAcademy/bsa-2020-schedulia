@@ -8,11 +8,9 @@ use App\Entity\User;
 use App\Mail\EventCreatedMailToOwner;
 use App\Notifications\Chatito\EventCreatedChatitoMessage;
 use App\Notifications\SlackMessages\EventCreatedSlackMessage;
-use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Http;
 
 class EventCreatedNotification extends Notification implements ShouldQueue
 {
