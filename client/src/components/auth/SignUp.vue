@@ -1,8 +1,8 @@
 <template>
-    <div class="signup container">
-        <div class="col-md-12">
+    <div>
+        <div>
             <h4 class="color-primary">{{ lang.CREATE_AN_ACCOUNT }}</h4>
-            <p class="label color-info-base">
+            <p class="label color-info-base mb-5">
                 {{ lang.ALREADY_REGISTERED }}
                 <RouterLink :to="{ name: 'SignIn' }">
                     {{ lang.LOG_IN }}
@@ -307,7 +307,7 @@ label {
     font-style: normal;
     font-size: 15px;
     line-height: 18px;
-    width: 146px;
+    min-width: 146px;
 }
 
 .v-snack__content a {
