@@ -1,3 +1,20 @@
+export const eventTypeMapper = EventType => ({
+    id: EventType.id,
+    name: EventType.name,
+    description: EventType.description || '',
+    internalNote: EventType.internal_note,
+    address: EventType.address,
+    locationType: EventType.location_type,
+    coordinates: eventTypeCoordinates(EventType.coordinates),
+    slug: EventType.slug,
+    color: EventType.color,
+    duration: EventType.duration,
+    disabled: EventType.disabled,
+    timezone: EventType.timezone,
+    owner: userMapper(EventType.owner),
+    createdAt: EventType.created_at,
+    chatito_workspace: EventType.chatito_workspace
+});
 export const userMapper = User => ({
     id: User.id,
     email: User.email,
@@ -13,4 +30,9 @@ export const availabilityMapper = Availability => ({
     type: Availability.type,
     startDate: Availability.start_date,
     endDate: Availability.end_date
+});
+
+export const eventTypeCoordinates = coordinate => ({
+    lng: coordinate['lng'] || coordinate[0],
+    lat: coordinate['lat'] || coordinate[1]
 });

@@ -8,7 +8,9 @@
                 :name="eventType.owner.name"
                 :eventName="eventType.name"
                 :duration="eventType.duration"
-                :location="'Vyacheslav Chornovol Avenue, 59, Lviv'"
+                :locationType="eventType.locationType"
+                :coordinates="eventType.coordinates"
+                :address="eventType.address"
                 :description="eventType.description"
                 :lang="lang"
             />
@@ -48,9 +50,9 @@
                     <template v-slot:prepend-item>
                         <VListItem>
                             <VListItemContent>
-                                <VListItemTitle>{{
-                                    lang.CHOOSE_YOUR_TIMEZONE
-                                }}</VListItemTitle>
+                                <VListItemTitle>
+                                    {{ lang.CHOOSE_YOUR_TIMEZONE }}
+                                </VListItemTitle>
                                 <VTextField
                                     v-model="timezoneFieldSearch"
                                     label="Enter timezone"
