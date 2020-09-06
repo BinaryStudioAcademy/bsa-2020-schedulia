@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Actions\Zoom;
+namespace App\Services\Zoom;
 
-final class CreateMeetingResponse
+final class ZoomMeetingResponse
 {
     private $zoomResponse;
 

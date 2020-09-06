@@ -28,7 +28,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail, CanRe
         'timezone',
         'slack_webhook',
         'slack_channel',
-        'slack_active'
+        'slack_active',
+        'zoom_access_token'
     ];
 
     /**

@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Actions\Zoom\CreateMeetingAction;
 use App\Constants\EventStatus;
 use App\Notifications\NotificationBeforeEventForInvitee;
 use App\Notifications\NotificationBeforeEventForOwner;
@@ -11,6 +10,7 @@ use App\Repositories\Event\Criterion\EventsBeforeDateTimeCriterion;
 use App\Repositories\Event\Criterion\EventStatusCriterion;
 use App\Repositories\Event\Criterion\NotifiedCriterion;
 use App\Repositories\Event\EventRepository;
+use App\Services\Zoom\ZoomService;
 use Carbon\CarbonImmutable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -30,7 +30,7 @@ class SendNotificationBeforeEvent implements ShouldQueue
     {
     }
 
-    public function handle(EventRepository $eventRepository, CreateMeetingAction $meetingAction)
+    public function handle(EventRepository $eventRepository, ZoomService $zoomService)
     {
         $now = CarbonImmutable::now();
         $tenMinutesLater = $now->addMinutes(10);
@@ -47,7 +47,7 @@ class SendNotificationBeforeEvent implements ShouldQueue
         foreach ($events as $event) {
 
             if ($event->eventType()->location_type == 'zoom') {
-                $startMeetingUrl = $meetingAction->execute($event);
+                $startMeetingUrl = $zoomService->meeting($event);
             }
 
             $event->eventType->owner->notify(new NotificationBeforeEventForOwner($event, $startMeetingUrl));

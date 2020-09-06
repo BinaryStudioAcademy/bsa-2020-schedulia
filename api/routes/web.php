@@ -21,4 +21,4 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
     Route::get('/{provider}/callback', 'SocialAuthController@handleProviderCallback');
 });
 
-Route::get('/meetings/zoom/callback', 'Zoom\\MeetingController@handleCallback');
+Route::get('/meetings/zoom/callback', 'Zoom\\ZoomController@handleCallback');

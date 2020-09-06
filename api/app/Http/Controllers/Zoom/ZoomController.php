@@ -7,7 +7,7 @@ use App\Actions\Zoom\ZoomCallbackRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class MeetingController extends Controller
+class ZoomController extends Controller
 {
     private $zoomCallbackAction;
 
@@ -26,6 +26,6 @@ class MeetingController extends Controller
 
         $this->zoomCallbackAction->execute($zoomRequest);
 
-        return redirect(env('CLIENT_APP_URL') . '/calendar-connections');
+        return redirect(env('CLIENT_APP_URL', 'http://localhost:8080') . '/calendar-connections');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIntegrationsTable extends Migration
+class AddZoomAccessTokenToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateIntegrationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('integrations', function (Blueprint $table) {
-            $table->id();
-            $table->text('access_token');
+        Schema::table('users', function (Blueprint $table) {
+            $table->text('zoom_access_token')->nullable();
         });
     }
 
@@ -26,6 +25,8 @@ class CreateIntegrationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('integrations');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('zoom_access_token');
+        });
     }
 }
