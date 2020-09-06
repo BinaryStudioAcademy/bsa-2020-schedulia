@@ -44,7 +44,7 @@
                             :value="meetingFormData.email"
                             @blur="setPropertyInMeetingFormData"
                             @input="setEmailOnInput"
-                            placeholder="user@gmail.com"
+                            placeholder="user@mail.com"
                             outlined
                             dense
                         ></VTextField>
