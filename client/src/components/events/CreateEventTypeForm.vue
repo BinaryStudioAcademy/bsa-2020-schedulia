@@ -91,6 +91,35 @@
         ></VTextField>
 
         <div class="mb-2">
+            <label>{{ lang.EVENT_TAGS_LABEL }}</label>
+        </div>
+
+        <VCombobox
+            v-model="tagChecks"
+            :items="tags"
+            :search-input.sync="search"
+            hide-selected
+            :label="lang.ADD_SOME_TAGS"
+            multiple
+            small-chips
+            dense
+            solo
+            flat
+            outlined
+        >
+            <template v-slot:no-data>
+                <VListItem>
+                    <VListItemContent>
+                        <VListItemTitle>
+                            {{ lang.NO_RESULT_MATCHING }} "<strong>{{ search }}</strong
+                            >". {{ lang.PRESS_ENTER_TO_CREATE }}
+                        </VListItemTitle>
+                    </VListItemContent>
+                </VListItem>
+            </template>
+        </VCombobox>
+
+        <div class="mb-2">
             <p>{{ lang.EVENT_COLOR_LABEL }}</p>
         </div>
         <div class="mb-12">
@@ -237,6 +266,9 @@ export default {
     },
     data() {
         return {
+            tagChecks: [],
+            tags: ['Gaming', 'Programming', 'Vue', 'Vuetify'],
+            search: null,
             cancelDialog: false,
             items: [
                 {
