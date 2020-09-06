@@ -95,10 +95,11 @@
         </div>
 
         <VCombobox
-            v-model="tagChecks"
+            :value="data.tagChecks"
             :items="tags"
             :search-input.sync="search"
             hide-selected
+            @input="changeEventTypeProperty('tagChecks', $event)"
             :label="lang.ADD_SOME_TAGS"
             multiple
             small-chips
@@ -111,7 +112,9 @@
                 <VListItem>
                     <VListItemContent>
                         <VListItemTitle>
-                            {{ lang.NO_RESULT_MATCHING }} "<strong>{{ search }}</strong
+                            {{ lang.NO_RESULT_MATCHING }} "<strong>{{
+                                search
+                            }}</strong
                             >". {{ lang.PRESS_ENTER_TO_CREATE }}
                         </VListItemTitle>
                     </VListItemContent>
@@ -266,7 +269,6 @@ export default {
     },
     data() {
         return {
-            tagChecks: [],
             tags: ['Gaming', 'Programming', 'Vue', 'Vuetify'],
             search: null,
             cancelDialog: false,

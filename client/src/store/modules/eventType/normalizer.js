@@ -199,6 +199,7 @@ export const eventTypeDefaultMapper = function() {
         selectDay: {
             date: moment().format('YYYY-MM-DD')
         },
-        chatito_workspace: ''
+        chatito_workspace: '',
+        tagChecks: []
     };
 };

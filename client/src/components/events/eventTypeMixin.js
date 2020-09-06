@@ -57,6 +57,9 @@ export default {
         changeEventTypeProperty(property, value) {
             let data = {};
             switch (property) {
+                case 'tagChecks':
+                    data[property] = value;
+                    break;
                 case 'name':
                     data[property] = value;
                     if (
