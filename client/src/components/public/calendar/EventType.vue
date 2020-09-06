@@ -25,7 +25,7 @@
                 <h3>{{ lang.SELECT_DATE_AND_TIME }}</h3>
                 <VDatePicker
                     v-model="date"
-                    min="2020-08-10"
+                    :min="minDate"
                     :first-day-of-week="1"
                     :weekday-format="getDay"
                     :header-date-format="dateFormat"
@@ -73,7 +73,11 @@
         >
             <h3>{{ formattedDate }}</h3>
             <div class="time-items-container">
-                <div v-for="(time, i) in availableTimes" :key="i" text>
+                <div
+                    v-for="(time, i) in currentDayAvailableTimes"
+                    :key="i"
+                    text
+                >
                     <div v-if="selectedTime === i">
                         <div class="confirm-event">
                             <VCard
@@ -180,6 +184,7 @@ export default {
                         break;
                     }
                 }
+                this.currentDayAvailableTimes = this.availableTimes;
             }
         }
     },
@@ -188,79 +193,12 @@ export default {
         currentMonth: null,
         currentMonthAvailabilities: null,
         currentDayUnavailibilities: null,
+        currentDayAvailableTimes: null,
         currentTimezone: momentTimezones.tz.guess(),
         currentTimezoneTime: null,
         timezoneFieldSearch: '',
         date: '',
-        selectedTime: null,
-        availabilities: {
-            '2020-08-20': [],
-            '2020-09-01': [
-                {
-                    type: 'date_range_weekdays',
-                    start_time: '09:00:00',
-                    end_time: '19:00:00',
-                    unavailable: ['15:00:00', '16:00:00']
-                }
-            ],
-            '2020-09-02': [
-                {
-                    type: 'date_range_weekdays',
-                    start_time: '05:00:00',
-                    end_time: '11:00:00',
-                    unavailable: ['15:00:00', '16:00:00']
-                }
-            ],
-            '2020-09-03': [
-                {
-                    type: 'date_range_weekdays',
-                    start_time: '00:00:00',
-                    end_time: '24:00:00',
-                    unavailable: []
-                }
-            ],
-            '2020-09-04': [
-                {
-                    type: 'date_range_weekdays',
-                    start_time: '00:00:00',
-                    end_time: '24:00:00',
-                    unavailable: []
-                }
-            ],
-            '2020-09-05': [
-                {
-                    type: 'date_range_weekdays',
-                    start_time: '05:00:00',
-                    end_time: '10:00:00',
-                    unavailable: []
-                }
-            ],
-            '2020-09-14': [
-                {
-                    type: 'date_range_weekdays',
-                    start_time: '11:00:00',
-                    end_time: '14:00:00',
-                    unavailable: []
-                },
-                {
-                    type: 'date_range_weekdays',
-                    start_time: '15:00:00',
-                    end_time: '22:00:00',
-                    unavailable: []
-                }
-            ]
-        },
-        dateRange: {
-            type: 'date_range',
-            scheduleType: 'period',
-            subType: 'date_range',
-            value: 60,
-            date: [],
-            startDate: '2020-09-03',
-            endDate: '2020-11-05',
-            startTime: '09:00',
-            endTime: '17:00'
-        }
+        selectedTime: null
     }),
 
     computed: {
@@ -276,6 +214,11 @@ export default {
                 .clone()
                 .tz(this.currentTimezone)
                 .format();
+        },
+        minDate() {
+            return moment()
+                .tz(this.currentTimezone)
+                .format('YYYY-MM-DD');
         },
         currentTimezoneAvailabilities() {
             const formatTime = time => {
