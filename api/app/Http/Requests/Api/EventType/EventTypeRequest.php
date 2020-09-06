@@ -46,7 +46,7 @@ class EventTypeRequest extends FormRequest
                 'nullable',
                 'between: between(-180, 180)'
             ],
-            'address' => 'string'
+            'address' => ['string', 'nullable']
         ];
     }
 }
