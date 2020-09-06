@@ -8,7 +8,7 @@ final class EventCreatedChatitoMessage extends ChatitoMessage
 {
     protected function generateMessage()
     {
-        return "Hi, <u>{$this->event->invitee_name}</u> and <u>{$this->user->name}</u><br>" .
+        return "Hi, <b>{$this->event->invitee_name}</b> and <b>{$this->user->name}</b><br>" .
             "A new event was scheduled!<br><br>" .
             "<b>Event Type:</b><br>" .
             "{$this->eventType->name}<br><br>" .
