@@ -7,22 +7,27 @@ namespace App\Actions\EventType;
 use App\Contracts\AvailabilityServiceInterface;
 use App\Entity\Availability;
 use App\Entity\EventType;
+use App\Entity\Tag;
 use App\Exceptions\EventType\CoordinatesFieldIsRequiredException;
 use App\Http\Requests\Api\EventType\LocationTypes;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
+use App\Repositories\Tag\TagRepository;
 use Illuminate\Support\Facades\Auth;
 
 final class AddEventTypeAction
 {
     private EventTypeRepositoryInterface $eventTypeRepository;
     private AvailabilityServiceInterface $availabilityService;
+    private TagRepository $tagRepository;
 
     public function __construct(
         EventTypeRepositoryInterface $eventTypeRepository,
-        AvailabilityServiceInterface $availabilityService
+        AvailabilityServiceInterface $availabilityService,
+        TagRepository $tagRepository
     ) {
         $this->eventTypeRepository = $eventTypeRepository;
         $this->availabilityService = $availabilityService;
+        $this->tagRepository = $tagRepository;
     }
 
     public function execute(AddEventTypeRequest $request): AddEventTypeResponse
@@ -58,6 +63,17 @@ final class AddEventTypeAction
         if ($this->availabilityService->validateAvailabilities($availabilities, $request->getDuration())) {
             $eventType = $this->eventTypeRepository->save($eventType);
             $this->eventTypeRepository->saveAvailabilities($eventType, $availabilities->toArray());
+        }
+
+        if ($request->getTags()) {
+            foreach ($request->getTags() as $newTag) {
+                $tag = new Tag();
+
+                $tag->event_type_id = $eventType->id;
+                $tag->name = $newTag;
+
+                $this->tagRepository->save($tag);
+            }
         }
 
         return new AddEventTypeResponse($eventType);
