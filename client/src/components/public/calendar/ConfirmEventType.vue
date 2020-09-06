@@ -18,7 +18,7 @@
         <VDivider vertical></VDivider>
 
         <VCol class="event-confirm-field col-12 col-sm-9 col-md-7">
-            <h3 class="mb-3">{{ lang.ENTER_DETAILS }} {{ eventType.id }}</h3>
+            <h3 class="mb-3">{{ lang.ENTER_DETAILS }}</h3>
 
             <VForm v-model="formValid" ref="form">
                 <VCardText class="pa-0">
@@ -44,7 +44,7 @@
                             :value="meetingFormData.email"
                             @blur="setPropertyInMeetingFormData"
                             @input="setEmailOnInput"
-                            placeholder="user@gmail.com"
+                            placeholder="user@mail.com"
                             outlined
                             dense
                         ></VTextField>
