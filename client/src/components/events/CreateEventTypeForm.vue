@@ -96,7 +96,7 @@
 
         <VCombobox
             :value="data.tagChecks"
-            :items="tags"
+            :items="setAllTags"
             :search-input.sync="search"
             hide-selected
             @input="changeEventTypeProperty('tagChecks', $event)"
@@ -251,9 +251,11 @@
 
 <script>
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import eventTypeMixin from '@/components/events/eventTypeMixin';
 import FindLocationForm from './FindLocationForm';
+import * as eventTypesActions from '@/store/modules/eventTypes/types/actions';
+import * as eventTypesGetters from '@/store/modules/eventTypes/types/getters';
 
 export default {
     name: 'CreateEventTypeForm',
@@ -360,10 +362,31 @@ export default {
     computed: {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
-        })
+        }),
+        ...mapGetters('eventTypes', {
+            getEventTypesTags: eventTypesGetters.GET_ALL_EVENT_TYPES_TAGS
+        }),
+
+        setAllTags() {
+            let allTags = [];
+
+            this.getEventTypesTags.forEach(tag => {
+                allTags.push(tag.name);
+            });
+
+            return allTags;
+        }
+    },
+
+    mounted() {
+        this.setEventTypesTags({ searchString: '' });
     },
 
     methods: {
+        ...mapActions('eventTypes', {
+            setEventTypesTags: eventTypesActions.FETCH_EVENT_TYPES_TAGS
+        }),
+
         clickNext() {
             if (this.$refs.form.validate()) {
                 if (this.isBooking) {

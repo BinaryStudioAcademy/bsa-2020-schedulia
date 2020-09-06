@@ -29,7 +29,7 @@ export const eventTypeMapper = EventType => ({
 export const tagMapper = function(tags) {
     let result = [];
 
-    tags.forEach((tag) => {
+    tags.forEach(tag => {
         result.push(tag.name);
     });
 
