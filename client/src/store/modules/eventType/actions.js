@@ -40,7 +40,7 @@ export default {
             );
         }
     },
-    [actions.CLEAR_SET_EVENT_TYPE]: async (context) => {
+    [actions.CLEAR_SET_EVENT_TYPE]: async context => {
         context.commit(mutations.CLEAR_SET_EVENT_TYPE);
     },
     [actions.ADD_EVENT_TYPE]: async (context, data) => {

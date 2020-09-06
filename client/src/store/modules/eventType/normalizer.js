@@ -166,7 +166,7 @@ export const locationTypeMapper = function(location) {
     return result;
 };
 
-export const eventTypeDefaultMapper = function () {
+export const eventTypeDefaultMapper = function() {
     return {
         id: null,
         name: '',
@@ -188,7 +188,9 @@ export const eventTypeDefaultMapper = function () {
             value: 60,
             date: [],
             startDate: moment().format('YYYY-MM-DD'),
-            endDate: moment().add(59, 'days').format('YYYY-MM-DD'),
+            endDate: moment()
+                .add(59, 'days')
+                .format('YYYY-MM-DD'),
             startTime: '09:00',
             endTime: '17:00'
         },

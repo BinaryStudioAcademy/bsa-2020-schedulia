@@ -16,10 +16,15 @@
         </VCol>
         <VCol cols="12" md="6" sm="6">
             <div class="new-event-type-btn text-right">
-                    <VBtn @click="onNewEventType" class="ma-2" outlined color="indigo">
-                        {{ lang.NEW_EVENT_TYPE }}
-                        <VIcon right dark>mdi-plus</VIcon>
-                    </VBtn>
+                <VBtn
+                    @click="onNewEventType"
+                    class="ma-2"
+                    outlined
+                    color="indigo"
+                >
+                    {{ lang.NEW_EVENT_TYPE }}
+                    <VIcon right dark>mdi-plus</VIcon>
+                </VBtn>
             </div>
         </VCol>
     </div>
@@ -28,7 +33,7 @@
 <script>
 import * as getters from '@/store/modules/auth/types/getters';
 import * as actionEventType from '@/store/modules/eventType/types/actions';
-import {mapActions, mapGetters} from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Avatar from '@/components/common/Avatar/Avatar';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 export default {
