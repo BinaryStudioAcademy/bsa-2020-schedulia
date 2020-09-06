@@ -32,8 +32,7 @@ export default {
     },
 
     [mutations.CLEAR_SET_EVENT_TYPE]: (state) => {
-        state.eventType = eventTypeDefaultMapper;
-        // _.assign(state.eventType, _.pick(eventTypeDefaultMapper));
+        state.eventType = eventTypeDefaultMapper();
     },
 
     [mutations.DELETE_EVENT_TYPE]: (state, id) => {
