@@ -81,7 +81,8 @@ export const eventTypeFormMapper = eventTypeForm => ({
     disabled: eventTypeForm.disabled,
     timezone: eventTypeForm.timezone,
     availabilities: availabilitiesMapper(eventTypeForm.availabilities),
-    chatito_workspace: eventTypeForm.chatito_workspace
+    chatito_workspace: eventTypeForm.chatito_workspace,
+    tags: eventTypeForm.tagChecks
 });
 
 export const availabilitiesMapper = function(availabilities) {
