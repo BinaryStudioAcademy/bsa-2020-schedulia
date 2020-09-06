@@ -123,7 +123,8 @@ class EventTypeController extends ApiController
                     $request->get('location_type'),
                     $request->get('coordinates'),
                     $request->get('address'),
-                    $request->get('chatito_workspace')
+                    $request->get('chatito_workspace'),
+                    $request->get('tags')
                 )
             )->getEventType();
 
