@@ -46,9 +46,9 @@
                     <template v-slot:prepend-item>
                         <VListItem>
                             <VListItemContent>
-                                <VListItemTitle>{{
-                                    lang.CHOOSE_YOUR_TIMEZONE
-                                }}</VListItemTitle>
+                                <VListItemTitle>
+                                    {{ lang.CHOOSE_YOUR_TIMEZONE }}
+                                </VListItemTitle>
                                 <VTextField
                                     v-model="timezoneFieldSearch"
                                     label="Enter timezone"
@@ -184,6 +184,7 @@ export default {
                         break;
                     }
                 }
+
                 this.currentDayAvailableTimes = this.availableTimes;
             }
         }
@@ -554,6 +555,25 @@ export default {
                 time => !this.currentDayUnavailibilities.includes(time)
             );
 
+            if (
+                moment()
+                    .tz(this.currentTimezone)
+                    .format('YYYY-MM-DD')
+                    .includes(this.date)
+            ) {
+                times = times.filter(
+                    time =>
+                        moment.duration(time).asMinutes() >
+                        moment
+                            .duration(
+                                moment()
+                                    .tz(this.currentTimezone)
+                                    .format('HH:mm')
+                            )
+                            .asMinutes()
+                );
+            }
+
             return this.convertToUserFormat([...new Set(times)]);
         }
     },
@@ -650,11 +670,20 @@ export default {
             let availableTimesPresent = false;
             for (let day of this.currentTimezoneAvailabilities) {
                 if (
+                    day.startDate.includes(date) &&
                     day.unavailable.length <
-                    this.numberOfIntervals(day.startDate, day.endDate)
+                        this.numberOfIntervals(day.startDate, day.endDate)
                 ) {
                     availableTimesPresent = true;
-                    break;
+
+                    if (
+                        moment()
+                            .tz(this.currentTimezone)
+                            .add(this.eventType.duration, 'minutes')
+                            .isAfter(moment(day.endDate))
+                    ) {
+                        availableTimesPresent = false;
+                    }
                 }
             }
             for (let normalizedDate of this.normalizedRemainderTimes) {

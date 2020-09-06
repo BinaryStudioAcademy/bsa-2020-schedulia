@@ -18,7 +18,7 @@
         <VDivider vertical></VDivider>
 
         <VCol class="event-confirm-field col-12 col-sm-9 col-md-7">
-            <h3 class="mb-3">{{ lang.ENTER_DETAILS }} {{ eventType.id }}</h3>
+            <h3 class="mb-3">{{ lang.ENTER_DETAILS }}</h3>
 
             <VForm v-model="formValid" ref="form">
                 <VCardText class="pa-0">
@@ -51,9 +51,9 @@
                     </VCol>
 
                     <VCol cols="12" sm="12" md="10" class="pa-0">
-                        <label for="additional-info">{{
-                            lang.ADDITIONAL_INFO_DESCRIPTION
-                        }}</label>
+                        <label for="additional-info">
+                            {{ lang.ADDITIONAL_INFO_DESCRIPTION }}
+                        </label>
                         <VTextarea
                             id="additional-info"
                             :error-messages="additionalInfoErrors"
