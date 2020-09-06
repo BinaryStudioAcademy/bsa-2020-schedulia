@@ -22,8 +22,19 @@ export const eventTypeMapper = EventType => ({
         date: moment().format('YYYY-MM-DD')
     },
     createdAt: EventType.created_at,
-    chatito_workspace: EventType.chatito_workspace
+    chatito_workspace: EventType.chatito_workspace,
+    tagChecks: tagMapper(EventType.tags)
 });
+
+export const tagMapper = function(tags) {
+    let result = [];
+
+    tags.forEach((tag) => {
+        result.push(tag.name);
+    });
+
+    return result;
+};
 
 export const userMapper = user => ({
     id: user.id,
