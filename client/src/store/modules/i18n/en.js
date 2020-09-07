@@ -440,5 +440,6 @@ export default {
     NO_RESULT_MATCHING: 'No results matching',
     PRESS_ENTER_TO_CREATE: 'Press enter to create a new one tag',
     ADD_SOME_TAGS: 'Add some tags',
-    PROFILE_WAS_UPDATED: 'Profile was updated!'
+    PROFILE_WAS_UPDATED: 'Profile was updated!',
+    NO: 'No'
 };
