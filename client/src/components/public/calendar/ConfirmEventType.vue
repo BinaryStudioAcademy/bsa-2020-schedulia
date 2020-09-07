@@ -53,9 +53,9 @@
                     </VCol>
 
                     <VCol cols="12" sm="12" md="10" class="pa-0">
-                        <label for="additional-info">{{
-                            lang.ADDITIONAL_INFO_DESCRIPTION
-                        }}</label>
+                        <label for="additional-info">
+                            {{ lang.ADDITIONAL_INFO_DESCRIPTION }}
+                        </label>
                         <VTextarea
                             id="additional-info"
                             :error-messages="additionalInfoErrors"
@@ -193,9 +193,20 @@ export default {
             fields: eventTypesGetters.GET_CUSTOM_FIELDS
         }),
         startDateFormatted() {
-            return moment(this.publicEvent.startDate).format(
-                'dddd, YYYY-MM-DD, HH:mm'
-            );
+            return moment
+                .tz(this.publicEvent.startDate, this.publicEvent.timezone)
+                .format('dddd, YYYY-MM-DD, HH:mm');
+        },
+        dateInUTC() {
+            return moment
+                .tz(
+                    this.publicEvent.startDate,
+                    'YYYY-MM-DD HH:mm',
+                    this.publicEvent.timezone
+                )
+                .clone()
+                .tz('UTC')
+                .format('YYYY-MM-DD HH:mm');
         },
         nameErrors() {
             const errors = [];
@@ -271,7 +282,7 @@ export default {
                         event_type_id: this.eventType.id,
                         invitee_name: this.meetingFormData.name,
                         invitee_email: this.meetingFormData.email,
-                        start_date: this.publicEvent.startDate,
+                        start_date: this.dateInUTC,
                         timezone: this.publicEvent.timezone,
                         custom_field_values: customFieldValues
                     });
