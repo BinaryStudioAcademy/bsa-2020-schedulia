@@ -195,6 +195,10 @@ export default {
                 ...this.scheduledEvent,
                 status: EventStatus.EVENT_STATUS_CANCELLED
             };
+            // updatedEvent.start_date = moment(updatedEvent.startDate).format(
+            //     'YYYY-MM-DD HH:mm:ss'
+            // );
+            // delete updatedEvent.startDate;
             await this.updateEvent(updatedEvent);
         }
     }

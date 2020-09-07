@@ -29,16 +29,11 @@ export const eventEmailMapper = Email => ({
 });
 
 export const eventApiMapper = Event => ({
-    id: Event.id,
-    invitee_name: Event.name,
-    invitee_email: Event.email,
-    invitee_question: Event.question,
     status: Event.status,
     start_date: moment(Event.startDate)
         .tz(Event.timezone)
         .utc()
         .format('YYYY-MM-DD HH:mm:ss'),
     location: Event.location,
-    timezone: Event.timezone,
-    event_type: eventTypeMapper(Event.eventType)
+    timezone: Event.timezone
 });
