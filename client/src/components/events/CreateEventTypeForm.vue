@@ -147,7 +147,7 @@
                             absolute
                             :value="data.color === id"
                             class="rounded-circle"
-                            color="eventColor"
+                            :color="id"
                         >
                             <img
                                 :src="require('@/assets/images/icon_check.png')"
