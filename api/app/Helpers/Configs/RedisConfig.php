@@ -45,15 +45,15 @@ class RedisConfig
                 $parsedUri[2],
                 $database
             );
-        } else {
-            return new RedisConfig(
-                $url,
-                $host,
-                $port,
-                $password,
-                $database
-            );
         }
+
+        return new RedisConfig(
+            $url,
+            $host,
+            $port,
+            $password,
+            $database
+        );
     }
 
     public function toArray(): array
