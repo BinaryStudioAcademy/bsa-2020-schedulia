@@ -94,7 +94,10 @@
                                     :defaultValue="user.time_format_12h"
                                     :items="timeFormats"
                                     @change="
-                                        onChangeHandle('time_format', $event)
+                                        onChangeHandle(
+                                            'time_format_12h',
+                                            $event
+                                        )
                                     "
                                 />
                             </VCol>
@@ -199,11 +202,11 @@ export default {
             name: '',
             nickname: '',
             welcome_message: '',
-            language: 'en',
-            date_format: 'american',
-            time_format_12h: true,
+            language: '',
+            date_format: '',
+            time_format_12h: '',
             country: '',
-            timeZone: null
+            timeZone: ''
         },
         dateFormats: [
             { value: 'american', text: 'MM/DD/YYYY' },
@@ -306,10 +309,11 @@ export default {
                 }
                 let filteredUserData = {};
                 for (const propName in newUserData) {
-                    if (newUserData[propName]) {
+                    if (newUserData[propName] !== '') {
                         filteredUserData[propName] = newUserData[propName];
                     }
                 }
+
                 await this.updateUserProfile(filteredUserData);
                 this.showAlert(this.lang.PROFILE_WAS_UPDATED);
             } catch (error) {

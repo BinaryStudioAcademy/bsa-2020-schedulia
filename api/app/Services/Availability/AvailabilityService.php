@@ -121,9 +121,18 @@ final class AvailabilityService implements AvailabilityServiceInterface
 
         if (!empty($dateTimeList[$date])) {
             foreach ($dateTimeList[$date] as $index => $interval) {
-                $startIntervalTime = (new Carbon($interval['start_time']))->toDateTimeString();
-                $endIntervalTime = (new Carbon($interval['end_time']))->toDateTimeString();
-                if ($time->gte($startIntervalTime) && $time->lte($endIntervalTime)) {
+                $startTimeObj = new Carbon($interval['start_time']);
+                $endTimeObj = new Carbon($interval['end_time']);
+                $startIntervalTime = $startTimeObj->toDateTimeString();
+                $endIntervalTime = $endTimeObj->toDateTimeString();
+
+                if (
+                    $time->gte($startIntervalTime) && $time->lte($endIntervalTime)
+                    ||
+                        ($startTimeObj->toTimeString() === self::MIDNIGHT_TIME
+                        &&
+                        $endTimeObj->toTimeString() === self::MIDNIGHT_TIME)
+                ) {
                     if (!in_array($time->toTimeString(), $interval['unavailable'])) {
                         return true;
                     } else {
