@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
+use App\Helpers\Configs\RedisConfig;
 
 return [
 
@@ -126,22 +127,21 @@ return [
             'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
         ],
 
-        'default' => [
-            'url' => env('REDIS_URL'),
-            'host' => env('REDIS_HOST', '127.0.0.1'),
-            'password' => env('REDIS_PASSWORD', null),
-            'port' => env('REDIS_PORT', '6379'),
-            'database' => env('REDIS_DB', '0'),
-        ],
+        'default' => RedisConfig::parse(
+            env('REDIS_URL'),
+            env('REDIS_HOST', '127.0.0.1'),
+            env('REDIS_PORT', '6379'),
+            env('REDIS_PASSWORD', null),
+            env('REDIS_DB', '0')
+        )->toArray(),
 
-        'cache' => [
-            'url' => env('REDIS_URL'),
-            'host' => env('REDIS_HOST', '127.0.0.1'),
-            'password' => env('REDIS_PASSWORD', null),
-            'port' => env('REDIS_PORT', '6379'),
-            'database' => env('REDIS_CACHE_DB', '1'),
-        ],
-
+        'cache' => RedisConfig::parse(
+            env('REDIS_URL'),
+            env('REDIS_HOST', '127.0.0.1'),
+            env('REDIS_PORT', '6379'),
+            env('REDIS_PASSWORD', null),
+            env('REDIS_CACHE_DB', '0')
+        )->toArray(),
     ],
 
 ];
