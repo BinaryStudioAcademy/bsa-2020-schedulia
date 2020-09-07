@@ -209,6 +209,8 @@ export default {
     }),
     created() {
         this.newAvatar = this.user.avatar;
+        this.userProfile.name = this.user.name;
+        this.userProfile.nickname = this.user.nickname;
     },
     computed: {
         ...mapGetters('i18n', {
@@ -265,6 +267,9 @@ export default {
         }),
         onChangeHandle(property, value) {
             this.userProfile[property] = value;
+            if (!this.userProfile[property] && this.user[property]) {
+                this.$v.userProfile[property].$touch();
+            }
         },
         updateImage(event) {
             this.file = event.target.files[0];
@@ -275,6 +280,9 @@ export default {
                 this.$v.$touch();
                 if (this.$v.$invalid) {
                     return;
+                }
+                if (this.userProfile.nickname === this.user.name) {
+                    delete this.userProfile.nickname;
                 }
                 if (this.avatarIsNew) {
                     const url = await this.updateAvatar(this.file);
