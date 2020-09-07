@@ -440,5 +440,6 @@ export default {
     EVENT_TAGS_LABEL: 'Event Tags',
     NO_RESULT_MATCHING: 'No results matching',
     PRESS_ENTER_TO_CREATE: 'Press enter to create a new one tag',
-    ADD_SOME_TAGS: 'Add some tags'
+    ADD_SOME_TAGS: 'Add some tags',
+    PROFILE_WAS_UPDATED: 'Profile was updated!'
 };
