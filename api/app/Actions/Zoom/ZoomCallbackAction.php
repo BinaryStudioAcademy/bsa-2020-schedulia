@@ -17,5 +17,4 @@ final class ZoomCallbackAction
     {
         $this->zoomService->saveToken($request);
     }
-
 }

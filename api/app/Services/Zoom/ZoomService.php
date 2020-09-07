@@ -24,7 +24,7 @@ final class ZoomService
 
         $response = Http::withHeaders([
             "Authorization" => "Bearer " . $user->zoom_access_token,
-        ])->post(self::ZOOM_MEETING_API_ENDPOINT,[
+        ])->post(self::ZOOM_MEETING_API_ENDPOINT, [
             "topic" => $event->eventType->name,
             "start_time" => $event->start_date,
             "timezone" => $event->timezone
@@ -55,16 +55,16 @@ final class ZoomService
     public function getZoomUser($token)
     {
         $responseUser = Http::withHeaders([
-            "Authorization" => "Bearer ". $token['access_token']
+            "Authorization" => "Bearer " . $token['access_token']
         ])->get(self::ZOOM_GET_USER_API_ENDPOINT);
 
-        return json_decode($responseUser->body(),true);
+        return json_decode($responseUser->body(), true);
     }
 
     public function getZoomToken($request)
     {
         $responseToken = Http::withHeaders([
-            "Authorization" => "Basic ". base64_encode(env('ZOOM_CLIENT_ID').':'. env('ZOOM_CLIENT_SECRET'))
+            "Authorization" => "Basic " . base64_encode(env('ZOOM_CLIENT_ID') . ':' . env('ZOOM_CLIENT_SECRET'))
         ])->asForm()->post(self::ZOOM_OAUTH_TOKEN_POST_REQUEST_URL, [
             "grant_type" => "authorization_code",
             "code" => $request->getCode(),

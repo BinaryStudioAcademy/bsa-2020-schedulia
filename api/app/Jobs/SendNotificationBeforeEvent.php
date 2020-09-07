@@ -43,9 +43,8 @@ class SendNotificationBeforeEvent implements ShouldQueue
         $events = $eventRepository->findByCriteria(...$criteria);
 
         foreach ($events as $event) {
-
             if ($event->eventType->location_type == 'zoom') {
-                 $zoomService->meeting($event);
+                $zoomService->meeting($event);
             }
 
             $event->eventType->owner->notify(new NotificationBeforeEventForOwner($event));

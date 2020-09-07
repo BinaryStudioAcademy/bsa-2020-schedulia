@@ -149,4 +149,3 @@ Route::group([
     Route::put('/slack-notifications', 'SlackController@changeActivitySlackNotifications');
     Route::put('/chatito-notifications', 'ChatitoController@changeActivity');
 });
-

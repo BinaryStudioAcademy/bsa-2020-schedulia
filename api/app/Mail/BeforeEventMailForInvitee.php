@@ -25,7 +25,6 @@ class BeforeEventMailForInvitee extends Mailable
     private string $inviteeName;
     private string $inviteeEmail;
 
-
     public function __construct(Event $event)
     {
         $this->event = $event;
@@ -33,7 +32,6 @@ class BeforeEventMailForInvitee extends Mailable
         $this->owner = $event->eventType->owner;
         $this->inviteeName = $event->invitee_name;
         $this->inviteeEmail = $event->invitee_email;
-
     }
 
     public function build()
@@ -54,6 +52,6 @@ class BeforeEventMailForInvitee extends Mailable
             ->line(Lang::get("Event Date/Time in {$this->event->timezone} timezone:"))
             ->line($eventTimeInUTCZone->timezone($this->event->timezone))
             ->line(Lang::get('Meeting link'))
-            ->line(new HtmlString('<a href="'.$this->event->zoom_meeting_link.'">'."{$this->event->zoom_meeting_link}".'</a>'));
+            ->line(new HtmlString('<a href="' . $this->event->zoom_meeting_link . '">' . "{$this->event->zoom_meeting_link}" . '</a>'));
     }
 }

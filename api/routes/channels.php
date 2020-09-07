@@ -20,4 +20,3 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 Broadcast::channel('events', function () {
     return true;
 });
-
