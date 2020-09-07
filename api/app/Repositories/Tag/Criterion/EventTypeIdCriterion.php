@@ -21,6 +21,7 @@ final class EventTypeIdCriterion implements EloquentCriterion
     {
         return $builder->where(
             'event_type_id',
+            '=',
             $this->eventTypeId
         );
     }

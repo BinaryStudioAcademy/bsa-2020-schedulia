@@ -41,7 +41,7 @@ class TagController extends ApiController
     ) {
         $response = $getTagsByEventTypeIdAction->execute(
             new GetTagsByEventTypeIdRequest(
-                $request->query('id')
+                (int)$request->id
             )
         );
 
