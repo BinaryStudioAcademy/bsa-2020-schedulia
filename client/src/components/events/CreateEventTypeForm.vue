@@ -51,7 +51,9 @@
                 class="find-location-form"
                 v-if="showGeocoder"
                 @changeLocation="changeEventTypeProperty('location', $event)"
-                @changeCoordinates="changeEventTypeProperty('coordinates', $event)"
+                @changeCoordinates="
+                    changeEventTypeProperty('coordinates', $event)
+                "
             />
         </div>
 
