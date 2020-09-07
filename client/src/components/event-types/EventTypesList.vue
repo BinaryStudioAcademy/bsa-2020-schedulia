@@ -84,13 +84,14 @@ export default {
     }),
     methods: {
         ...mapActions('eventTypes', {
-            fetchEventTypes: actions.FETCH_EVENT_TYPES
+            fetchEventTypes: actions.FETCH_EVENT_TYPES,
+            searchEventTypes: actions.SEARCH_EVENT_TYPES
         }),
         async onSearchInput() {
             this.page = 1;
             this.loadMoreActive = true;
             this.$v.searchString.$touch();
-            const response = await this.fetchEventTypes({
+            const response = await this.searchEventTypes({
                 searchString: this.searchString,
                 page: this.page
             });
