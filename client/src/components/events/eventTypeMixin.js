@@ -91,12 +91,10 @@ export default {
                     this.showGeocoder = false;
                     data['location'] = '';
                     data['coordinates'] = [];
-                    if (!!value && value.title === 'address on the map') {
+                    if (!!value && value.title === 'address') {
                         this.showGeocoder = true;
                     } else if (!!value && value.title === 'zoom') {
                         this.showZoomDialog = true;
-                    } else if (!!value && value.title === 'skype') {
-                        this.showSkypeDialog = true;
                     }
                     break;
                 default:

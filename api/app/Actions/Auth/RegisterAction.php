@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Actions\Auth;
 
 use App\Entity\User;
+use App\Repositories\User\Criterion\NicknameCriterion;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 final class RegisterAction
 {
@@ -35,6 +37,10 @@ final class RegisterAction
 
     private function generateNickname(string $email): string
     {
-        return explode('@', $email)[0];
+        $nickname = explode('@', $email)[0];
+        if ($this->userRepository->findOneByCriteria(new NicknameCriterion($nickname))) {
+            $nickname .= mb_strtolower(Str::random(2));
+        }
+        return $nickname;
     }
 }
