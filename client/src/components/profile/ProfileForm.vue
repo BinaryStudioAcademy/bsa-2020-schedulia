@@ -13,7 +13,7 @@
                                             :src="newAvatar"
                                         ></VImg>
                                         <VIcon size="144" v-else dark
-                                            >mdi-account-circle
+                                        >mdi-account-circle
                                         </VIcon>
                                     </VAvatar>
                                     <label
@@ -39,6 +39,7 @@
                                     :value="userProfile.name"
                                     :defaultValue="user.name"
                                     @change="onChangeHandle('name', $event)"
+                                    :errors="nameErrors"
                                 />
 
                                 <ProfileTextField
@@ -46,6 +47,7 @@
                                     :value="userProfile.nickname"
                                     :defaultValue="user.nickname"
                                     @change="onChangeHandle('nickname', $event)"
+                                    :errors="nicknameErrors"
                                 />
 
                                 <ProfileTextArea
@@ -131,7 +133,7 @@
                                     color="primary"
                                     dark
                                     @click="onSaveHandle"
-                                    >{{ lang.SAVE }}
+                                >{{ lang.SAVE }}
                                 </VBtn>
                             </VCol>
                             <VCol cols="12">
@@ -161,6 +163,8 @@ import ConfirmDialog from '@/components/confirm/ConfirmDialog.vue';
 import ProfileDisplayLanguage from './ProfileDisplayLanguage';
 import * as authActions from '@/store/modules/auth/types/actions';
 import * as authGetters from '@/store/modules/auth/types/getters';
+import { validationMixin } from 'vuelidate';
+import { required } from 'vuelidate/lib/validators';
 
 export default {
     name: 'ProfileForm',
@@ -171,6 +175,13 @@ export default {
         ProfileSelect,
         ConfirmDialog,
         TimeZoneSelect
+    },
+    mixins: [validationMixin],
+    validations: {
+        userProfile: {
+            name: { required },
+            nickname: { required }
+        }
     },
     data: () => ({
         file: null,
@@ -196,11 +207,9 @@ export default {
             { value: false, text: '24h' }
         ]
     }),
-
     created() {
         this.newAvatar = this.user.avatar;
     },
-
     computed: {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
@@ -215,35 +224,51 @@ export default {
                 { value: 'ua', text: this.lang.UKRAINIAN }
             ];
         },
-
         avatarIsNew() {
             return this.newAvatar !== this.userProfile.avatar;
+        },
+        nameErrors() {
+            const errors = [];
+            if (!this.$v.userProfile.name.$dirty) {
+                return errors;
+            }
+            !this.$v.userProfile.name.required &&
+                errors.push(this.lang.FIELD_IS_REQUIRED.replace('field', this.lang.NAME));
+            return errors;
+        },
+        nicknameErrors() {
+            const errors = [];
+            if (!this.$v.userProfile.name.$dirty) {
+                return errors;
+            }
+            !this.$v.userProfile.nickname.required &&
+                errors.push(this.lang.FIELD_IS_REQUIRED.replace('field', this.lang.NICKNAME));
+            return errors;
         }
     },
-
     methods: {
         ...mapActions('profile', [
             'updateAvatar',
             'updateProfile',
             'deleteProfile'
         ]),
-
         ...mapActions('auth', {
             signOut: authActions.SIGN_OUT,
             updateUserProfile: authActions.UPDATE_PROFILE
         }),
-
         onChangeHandle(property, value) {
             this.userProfile[property] = value;
         },
-
         updateImage(event) {
             this.file = event.target.files[0];
             this.newAvatar = URL.createObjectURL(this.file);
         },
-
         async onSaveHandle() {
             try {
+                this.$v.$touch();
+                if (this.$v.$invalid) {
+                    return;
+                }
                 if (this.avatarIsNew) {
                     const url = await this.updateAvatar(this.file);
                     this.userProfile.avatar = url;
@@ -263,7 +288,6 @@ export default {
                 this.showErrorMessage(error.message);
             }
         },
-
         async onDeleteHandle() {
             try {
                 await this.deleteProfile();
@@ -273,13 +297,11 @@ export default {
                 this.showErrorMessage(error.message);
             }
         },
-
         resetChanges() {
             this.userProfile = {
                 ...this.user
             };
         },
-
         showErrorMessage(msg) {
             this.errorMessage = msg;
         }
@@ -291,28 +313,23 @@ export default {
 .pointer {
     cursor: pointer;
 }
-
 .v-input {
     max-height: 32px;
 }
-
 .v-btn {
     font-size: 13px;
     text-transform: none;
-
     &.cancel {
         border-color: rgba(0, 0, 0, 0.12);
         background: none;
         box-shadow: none;
     }
 }
-
 .v-subheader {
     font-size: 13px;
     font-weight: 500;
     line-height: 16;
 }
-
 .updateAvatar {
     padding-left: 10px;
     font-weight: 500;
