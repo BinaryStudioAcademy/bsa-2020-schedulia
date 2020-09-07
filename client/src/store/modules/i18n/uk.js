@@ -40,7 +40,7 @@ export default {
     CONFIRMED: 'Підтверджено',
     CONFIRM_DATE: 'Підтвердити',
     CONFIRM_PASSWORD: 'Підтвердження паролю',
-    COPY_LINK: 'Скопіювати посилання',
+    COPY_LINK: 'Скопіювати',
     COUNTRY: 'Країна',
     CREATED: 'Створено',
     CREATE_AN_ACCOUNT: 'Створити аккаунт',
@@ -255,8 +255,7 @@ export default {
         'Вашим запрошеним буде запропоновано\n                                        доступність протягом декількох днів з\n                                        майбутньому.',
     YOU_ARE_SCHEDULED_WITH: 'У вас заплановано з',
     YOU_DONT_HAVE_ANY_EVENT_TYPES: 'У вас ще немає типів подій.',
-    YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD:
-        'Ви входите з електронною адресою та паролем',
+    YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS: 'Ви входите з електронною адресою:',
     YOU_WILL_WANT_TO_ADD_EVENT_TYPE:
         'Ви зможете додати тип події, щоб люди могли планувати з\n            вами.',
     YOU_CAN_CHANGE_LANGUAGE_TO: 'Ви можете змінити мову на',
@@ -274,7 +273,6 @@ export default {
     OK: 'Ok',
     SET_MEETING_LOCATION: 'Виберіть місце зустрічі',
     ZOOM_CONFERENCE_LINK: 'Ссилка на Zoom конференцію',
-    SKYPE_CALL_DETAILS: 'Деталі Skype виклику',
 
     INFO_MUST_BE_NO_MORE_THAN_1000_CHARACTERS_LONG:
         'Додаткова інформація не має перевищувати 1000 символів',
@@ -341,5 +339,18 @@ export default {
     CONNECT: 'Підключити',
     NOTIFICATION_CONNECTIONS: 'Підключення повідомлень',
     SELECT_LOCATION: 'Виберіть локацію',
-    NO_DATE_RANGE_EVENTS: 'У цьому діапазоні немає подій'
+    NO_DATE_RANGE_EVENTS: 'У цьому діапазоні немає подій',
+    ARE_YOU_SURE_YOU_REGISTERED_IN: 'Ви впевнені, що вже зареєстровані в',
+    REGISTER_IF_YOU_DIDNT_IT_YET: 'Зареєструйтесь, якщо досі цього не зробили',
+    DISABLED: 'Не активний',
+    ACTIVE: 'Активний',
+    ARE_YOU_SURE_YOU_WANT_TO_DELETE: 'Ви впевнені, що хочете видалити',
+    NOTIFICATIONS: 'Сповіщення',
+    CONFIRM_NEW_PASSWORD: 'Підтвердити новий пароль',
+    PASSWORD_WAS_SUCCESSFULLY_CHANGED: 'Пароль успішно змінено',
+    EVENT_TAGS_LABEL: 'Тегі події',
+    NO_RESULT_MATCHING: 'Немає результатів за запитом',
+    PRESS_ENTER_TO_CREATE: 'Натисніть Enter, щоб створити новий тег',
+    ADD_SOME_TAGS: 'Додайте кілька тегів',
+    PROFILE_WAS_UPDATED: 'Профіль оновлено!'
 };

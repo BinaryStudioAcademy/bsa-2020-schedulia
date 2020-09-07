@@ -8,7 +8,7 @@ export default {
     eventType: {
         id: null,
         name: '',
-        location: '',
+        address: '',
         coordinates: [],
         locationType: '',
         description: '',
@@ -34,10 +34,12 @@ export default {
         availabilities: {},
         selectDay: {
             date: now.format('YYYY-MM-DD')
-        }
+        },
+        chatito_workspace: ''
     },
     dayAvailabilities: [],
     visibleAvailabilityDialog: false,
     visibleTimeZoneDialog: false,
-    visibleDayAvailabilitiesDialog: false
+    visibleDayAvailabilitiesDialog: false,
+    tagChecks: []
 };

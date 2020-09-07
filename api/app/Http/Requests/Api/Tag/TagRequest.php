@@ -9,7 +9,7 @@ class TagRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|between:2,50',
+            'name' => 'required|string|regex:/^#[A-Za-z0-9_.]{3,20}$/',
             'event_type_id' => 'required|integer|exists:event_types,id',
         ];
     }

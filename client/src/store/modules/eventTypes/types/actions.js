@@ -10,3 +10,4 @@ export const DELETE_CUSTOM_FIELD = 'deleteCustomField';
 export const CLONE_EVENT_TYPE_BY_ID = 'cloneEventTypById';
 export const UPDATE_INTERNAL_NOTE = 'updateInternalNote';
 export const FETCH_EVENT_TYPES_TAGS = 'fetchEventTypesTags';
+export const SEARCH_EVENT_TYPES = 'searchEventTypes';

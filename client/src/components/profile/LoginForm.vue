@@ -6,22 +6,13 @@
                     <VContainer>
                         <VRow>
                             <VCol cols="12">
-                                {{
-                                    lang.YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD
-                                }}
+                                {{ lang.YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS }}
                             </VCol>
                             <VCol cols="12">
                                 <ProfileDisabledField
                                     :label="lang.EMAIL"
                                     :value="userProfile.email"
                                     :defaultValue="user.email"
-                                />
-                            </VCol>
-                            <VCol cols="12">
-                                <ProfileDisabledField
-                                    :label="lang.PASSWORD"
-                                    :value="password"
-                                    :defaultValue="password"
                                 />
                             </VCol>
                             <VCol>

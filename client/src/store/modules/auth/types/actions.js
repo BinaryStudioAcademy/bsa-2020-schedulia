@@ -10,3 +10,6 @@ export const CONNECT_SLACK_NOTIFICATIONS = 'connectSlackNotifications';
 export const DELETE_SLACK_NOTIFICATIONS = 'deleteSlackNotifications';
 export const CHANGE_SLACK_NOTIFICATIONS_ACTIVITY =
     'changeSlackNotificationsActivity';
+export const CHANGE_CHATITO_NOTIFICATIONS_ACTIVITY =
+    'changeChatitoNotificationsActivity';
+export const UPDATE_PROFILE = 'updateProfile';

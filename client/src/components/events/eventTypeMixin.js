@@ -2,6 +2,7 @@ import { mapActions, mapGetters } from 'vuex';
 import * as actionEventType from '@/store/modules/eventType/types/actions';
 import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
+import * as authGetters from '@/store/modules/auth/types/getters';
 
 export default {
     data() {
@@ -56,6 +57,9 @@ export default {
         changeEventTypeProperty(property, value) {
             let data = {};
             switch (property) {
+                case 'tagChecks':
+                    data[property] = value;
+                    break;
                 case 'name':
                     data[property] = value;
                     if (
@@ -79,17 +83,18 @@ export default {
                     data[property] = value;
                     data['duration'] = 0;
                     break;
+                case 'chatito_workspace':
+                    data[property] = value;
+                    break;
                 case 'locationType':
                     data[property] = value;
                     this.showGeocoder = false;
                     data['location'] = '';
                     data['coordinates'] = [];
-                    if (!!value && value.title === 'address on the map') {
+                    if (!!value && value.title === 'address') {
                         this.showGeocoder = true;
                     } else if (!!value && value.title === 'zoom') {
                         this.showZoomDialog = true;
-                    } else if (!!value && value.title === 'skype') {
-                        this.showSkypeDialog = true;
                     }
                     break;
                 default:
@@ -113,6 +118,9 @@ export default {
         }),
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
+        }),
+        ...mapGetters('auth', {
+            user: authGetters.GET_LOGGED_USER
         }),
         data() {
             return this.eventType;

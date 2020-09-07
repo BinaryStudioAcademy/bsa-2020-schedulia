@@ -12,11 +12,16 @@ final class EventTypePresenter implements PresenterCollectionInterface
 {
     private UserArrayPresenter $userPresenter;
     private AvailabilityArrayPresenter $availabilityPresenter;
+    private TagPresenter $tagPresenter;
 
-    public function __construct(UserArrayPresenter $userPresenter, AvailabilityArrayPresenter $availabilityPresenter)
-    {
+    public function __construct(
+        UserArrayPresenter $userPresenter,
+        AvailabilityArrayPresenter $availabilityPresenter,
+        TagPresenter $tagPresenter
+    ) {
         $this->userPresenter = $userPresenter;
         $this->availabilityPresenter = $availabilityPresenter;
+        $this->tagPresenter = $tagPresenter;
     }
 
     public function presentCollection(Collection $eventTypeCollection): array
@@ -45,7 +50,9 @@ final class EventTypePresenter implements PresenterCollectionInterface
             'location_type' => $eventType->location_type,
             'coordinates' => $eventType->coordinates,
             'address' => $eventType->address,
-            'created_at' => $eventType->created_at
+            'created_at' => $eventType->created_at,
+            'chatito_workspace' => $eventType->chatito_workspace,
+            'tags' => $this->tagPresenter->presentCollection($eventType->tags)
         ];
     }
 }

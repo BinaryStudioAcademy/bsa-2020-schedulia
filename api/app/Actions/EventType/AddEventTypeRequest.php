@@ -17,6 +17,8 @@ final class AddEventTypeRequest
     private string $locationType;
     private ?array $coordinates;
     private ?string $address;
+    private ?string $chatitoWorkspace;
+    private ?array $tags;
 
     public function __construct(
         string $name,
@@ -29,7 +31,9 @@ final class AddEventTypeRequest
         array $availabilities,
         string $locationType,
         ?array $coordinates,
-        ?string $address
+        ?string $address,
+        ?string $chatitoWorkspace,
+        ?array $tags
     ) {
         $this->name = $name;
         $this->description = $description;
@@ -42,6 +46,8 @@ final class AddEventTypeRequest
         $this->locationType = $locationType;
         $this->coordinates = $coordinates;
         $this->address = $address;
+        $this->chatitoWorkspace = $chatitoWorkspace;
+        $this->tags = $tags;
     }
 
     public function getName(): string
@@ -97,5 +103,15 @@ final class AddEventTypeRequest
     public function getAddress(): ?string
     {
         return $this->address;
+    }
+
+    public function getChatitoWorkspace(): ?string
+    {
+        return $this->chatitoWorkspace;
+    }
+
+    public function getTags(): ?array
+    {
+        return $this->tags;
     }
 }

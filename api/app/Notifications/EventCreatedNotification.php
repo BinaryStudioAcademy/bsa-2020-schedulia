@@ -6,6 +6,7 @@ use App\Entity\Event;
 use App\Entity\EventType;
 use App\Entity\User;
 use App\Mail\EventCreatedMailToOwner;
+use App\Notifications\Chatito\EventCreatedChatitoMessage;
 use App\Notifications\SlackMessages\EventCreatedSlackMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -28,6 +29,10 @@ class EventCreatedNotification extends Notification implements ShouldQueue
         $this->event = $event;
         $this->eventType = $event->eventType;
         $this->user = $event->eventType->owner;
+
+        if ($this->user->chatito_active) {
+            $this->toChatito();
+        }
     }
 
     /**
@@ -55,7 +60,12 @@ class EventCreatedNotification extends Notification implements ShouldQueue
 
     public function toSlack($notifiable)
     {
-        return (new EventCreatedSlackMessage($this->event));
+        return new EventCreatedSlackMessage($this->event);
+    }
+
+    private function toChatito()
+    {
+        return new EventCreatedChatitoMessage($this->event);
     }
 
     /**

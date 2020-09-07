@@ -1,6 +1,7 @@
 import requestService from '@/services/requestService';
 
 const apiEndpointSlack = '/slack-notifications';
+const apiEndpointChatito = '/chatito-notifications';
 
 const notificationConnectionService = {
     async connectSlack(slackData) {
@@ -11,6 +12,9 @@ const notificationConnectionService = {
     },
     async changeActivitySlack(activityData) {
         return await requestService.put(apiEndpointSlack, activityData);
+    },
+    async changeActivityChatito(activityValue) {
+        return await requestService.put(apiEndpointChatito, activityValue);
     }
 };
 

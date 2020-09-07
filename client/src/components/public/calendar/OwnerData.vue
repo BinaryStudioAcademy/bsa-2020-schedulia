@@ -1,11 +1,21 @@
 <template>
     <div>
-        <VImg v-if="brandingLogo" :max-height="150" :src="brandingLogo" />
+        <VImg
+            v-if="brandingLogo"
+            class="branding-logo"
+            :max-height="150"
+            :min-height="40"
+            :src="brandingLogo"
+        />
         <div v-if="!brandingLogo" class="no-branding-logo-fill"></div>
+
         <div class="event-info-content">
-            <VAvatar v-if="avatar" :size="70">
-                <img :src="avatar" alt="Avatar" />
-            </VAvatar>
+            <VImg
+                v-if="avatar"
+                :src="avatar"
+                class="avatar-image"
+                alt="Avatar"
+            />
             <div v-if="!avatar" class="no-avatar-fill"></div>
 
             <h4>{{ name }}</h4>
@@ -27,6 +37,9 @@ export default {
 </script>
 
 <style scoped>
+.branding-logo::v-deep .v-image__image--cover {
+    background-size: contain;
+}
 .event-info-content {
     margin-top: -40px;
     margin-bottom: 10px;
@@ -39,6 +52,12 @@ export default {
 }
 .no-branding-logo-fill {
     height: 100px;
+}
+.avatar-image {
+    object-fit: cover;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
 }
 .no-avatar-fill {
     height: 100px;

@@ -147,4 +147,5 @@ Route::group([
     Route::post('/slack-notifications', 'SlackController@addSlackNotifications');
     Route::delete('/slack-notifications', 'SlackController@deleteSlackNotifications');
     Route::put('/slack-notifications', 'SlackController@changeActivitySlackNotifications');
+    Route::put('/chatito-notifications', 'ChatitoController@changeActivity');
 });

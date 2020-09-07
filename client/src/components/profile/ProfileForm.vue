@@ -39,6 +39,7 @@
                                     :value="userProfile.name"
                                     :defaultValue="user.name"
                                     @change="onChangeHandle('name', $event)"
+                                    :errors="nameErrors"
                                 />
 
                                 <ProfileTextField
@@ -46,6 +47,7 @@
                                     :value="userProfile.nickname"
                                     :defaultValue="user.nickname"
                                     @change="onChangeHandle('nickname', $event)"
+                                    :errors="nicknameErrors"
                                 />
 
                                 <ProfileTextArea
@@ -92,7 +94,10 @@
                                     :defaultValue="user.time_format_12h"
                                     :items="timeFormats"
                                     @change="
-                                        onChangeHandle('time_format', $event)
+                                        onChangeHandle(
+                                            'time_format_12h',
+                                            $event
+                                        )
                                     "
                                 />
                             </VCol>
@@ -147,6 +152,11 @@
                 </VForm>
             </VCol>
         </VRow>
+        <Alert
+            :visibility="alert.visibility"
+            :type="alert.type"
+            :message="alert.message"
+        />
     </VContainer>
 </template>
 
@@ -159,6 +169,11 @@ import ProfileSelect from './ProfileSelect.vue';
 import TimeZoneSelect from '@/components/common/form/TimeZoneSelect.vue';
 import ConfirmDialog from '@/components/confirm/ConfirmDialog.vue';
 import ProfileDisplayLanguage from './ProfileDisplayLanguage';
+import * as authActions from '@/store/modules/auth/types/actions';
+import * as authGetters from '@/store/modules/auth/types/getters';
+import { validationMixin } from 'vuelidate';
+import { required } from 'vuelidate/lib/validators';
+import Alert from '@/components/alert/Alert';
 
 export default {
     name: 'ProfileForm',
@@ -168,7 +183,15 @@ export default {
         ProfileTextArea,
         ProfileSelect,
         ConfirmDialog,
-        TimeZoneSelect
+        TimeZoneSelect,
+        Alert
+    },
+    mixins: [validationMixin],
+    validations: {
+        userProfile: {
+            name: { required },
+            nickname: { required }
+        }
     },
     data: () => ({
         file: null,
@@ -179,11 +202,11 @@ export default {
             name: '',
             nickname: '',
             welcome_message: '',
-            language: 'en',
-            date_format: 'american',
-            time_format_12h: true,
+            language: '',
+            date_format: '',
+            time_format_12h: '',
             country: '',
-            timeZone: null
+            timeZone: ''
         },
         dateFormats: [
             { value: 'american', text: 'MM/DD/YYYY' },
@@ -192,19 +215,24 @@ export default {
         timeFormats: [
             { value: true, text: '12h' },
             { value: false, text: '24h' }
-        ]
+        ],
+        alert: {
+            type: 'success',
+            message: '',
+            visibility: false
+        }
     }),
-
     created() {
         this.newAvatar = this.user.avatar;
+        this.userProfile.name = this.user.name;
+        this.userProfile.nickname = this.user.nickname;
     },
-
     computed: {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         }),
         ...mapGetters('auth', {
-            user: 'getLoggedUser'
+            user: authGetters.GET_LOGGED_USER
         }),
         languages() {
             return [
@@ -213,48 +241,93 @@ export default {
                 { value: 'ua', text: this.lang.UKRAINIAN }
             ];
         },
-
         avatarIsNew() {
             return this.newAvatar !== this.userProfile.avatar;
+        },
+        nameErrors() {
+            const errors = [];
+            if (!this.$v.userProfile.name.$dirty) {
+                return errors;
+            }
+            !this.$v.userProfile.name.required &&
+                errors.push(
+                    this.lang.FIELD_IS_REQUIRED.replace('field', this.lang.NAME)
+                );
+            return errors;
+        },
+        nicknameErrors() {
+            const errors = [];
+            if (!this.$v.userProfile.name.$dirty) {
+                return errors;
+            }
+            !this.$v.userProfile.nickname.required &&
+                errors.push(
+                    this.lang.FIELD_IS_REQUIRED.replace(
+                        'field',
+                        this.lang.NICKNAME
+                    )
+                );
+            return errors;
         }
     },
-
     methods: {
         ...mapActions('profile', [
             'updateAvatar',
             'updateProfile',
             'deleteProfile'
         ]),
-
-        ...mapActions('auth', ['signOut']),
-
+        ...mapActions('auth', {
+            signOut: authActions.SIGN_OUT,
+            updateUserProfile: authActions.UPDATE_PROFILE
+        }),
         onChangeHandle(property, value) {
             this.userProfile[property] = value;
+            if (!this.userProfile[property] && this.user[property]) {
+                this.$v.userProfile[property].$touch();
+            }
         },
-
         updateImage(event) {
             this.file = event.target.files[0];
             this.newAvatar = URL.createObjectURL(this.file);
         },
-
         async onSaveHandle() {
             try {
+                this.$v.$touch();
+                if (this.$v.$invalid) {
+                    return;
+                }
                 if (this.avatarIsNew) {
                     const url = await this.updateAvatar(this.file);
                     this.userProfile.avatar = url;
                 }
-
-                const userData = await this.updateProfile({
+                const newUserData = {
                     ...this.user,
                     ...this.userProfile
-                });
+                };
+                if (this.userProfile.nickname === this.user.nickname) {
+                    delete newUserData.nickname;
+                }
+                let filteredUserData = {};
+                for (const propName in newUserData) {
+                    if (newUserData[propName] !== '') {
+                        filteredUserData[propName] = newUserData[propName];
+                    }
+                }
 
-                this.userProfile = { ...userData };
+                await this.updateUserProfile(filteredUserData);
+                this.showAlert(this.lang.PROFILE_WAS_UPDATED);
             } catch (error) {
                 this.showErrorMessage(error.message);
             }
         },
-
+        showAlert(message, type = 'success') {
+            this.alert.visibility = true;
+            this.alert.message = message;
+            this.alert.type = type;
+            setTimeout(() => {
+                this.alert.visibility = false;
+            }, 2000);
+        },
         async onDeleteHandle() {
             try {
                 await this.deleteProfile();
@@ -264,13 +337,11 @@ export default {
                 this.showErrorMessage(error.message);
             }
         },
-
         resetChanges() {
             this.userProfile = {
                 ...this.user
             };
         },
-
         showErrorMessage(msg) {
             this.errorMessage = msg;
         }
@@ -282,28 +353,23 @@ export default {
 .pointer {
     cursor: pointer;
 }
-
 .v-input {
     max-height: 32px;
 }
-
 .v-btn {
     font-size: 13px;
     text-transform: none;
-
     &.cancel {
         border-color: rgba(0, 0, 0, 0.12);
         background: none;
         box-shadow: none;
     }
 }
-
 .v-subheader {
     font-size: 13px;
     font-weight: 500;
     line-height: 16;
 }
-
 .updateAvatar {
     padding-left: 10px;
     font-weight: 500;

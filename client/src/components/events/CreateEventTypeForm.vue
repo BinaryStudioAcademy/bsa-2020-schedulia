@@ -3,7 +3,6 @@
         <div class="mb-2">
             <label>{{ lang.EVENT_NAME_LABEL }}*</label>
         </div>
-
         <VTextField
             :value="data.name"
             @input="changeEventTypeProperty('name', $event)"
@@ -11,6 +10,7 @@
             outlined
             class="app-textfield"
             dense
+            id="event-type-name"
         ></VTextField>
 
         <div class="mb-2">
@@ -28,6 +28,7 @@
                 placeholder="Option"
                 dense
                 class="mb-1"
+                id="event-type-location-type"
             >
                 <template slot="selection" slot-scope="data">
                     <VFlex xs2 md1>
@@ -40,11 +41,28 @@
                     <VFlex xs2 md1>
                         <VIcon>{{ data.item.icon }}</VIcon>
                     </VFlex>
-                    <VFlex>{{ data.item.title }}</VFlex>
+                    <VFlex
+                        :id="'event-type-location-type-' + data.item.title"
+                        >{{ data.item.title }}</VFlex
+                    >
                 </template>
             </VSelect>
             <FindLocationForm class="find-location-form" v-if="showGeocoder" />
         </div>
+
+        <div class="mb-2" v-if="user.chatito_active">
+            <label>Chatito workspace (Notifications)*</label>
+        </div>
+
+        <VTextField
+            v-if="user.chatito_active"
+            :value="data.chatito_workspace"
+            @input="changeEventTypeProperty('chatito_workspace', $event)"
+            :rules="chatitoRules"
+            outlined
+            class="app-textfield"
+            dense
+        ></VTextField>
 
         <div class="mb-2">
             <label>{{ lang.DESCRIPTION_LABEL }}</label>
@@ -57,6 +75,7 @@
             placeholder="Placeholder"
             outlined
             class="mb-3"
+            id="event-type-description"
         ></VTextarea>
 
         <div class="mb-2">
@@ -71,7 +90,41 @@
             dense
             class="mb-4 app-textfield"
             required
+            id="event-type-slug"
         ></VTextField>
+
+        <div class="mb-2">
+            <label>{{ lang.EVENT_TAGS_LABEL }}</label>
+        </div>
+
+        <VCombobox
+            :value="data.tagChecks"
+            :items="setAllTags"
+            :search-input.sync="search"
+            hide-selected
+            @input="changeEventTypeProperty('tagChecks', $event)"
+            :label="lang.ADD_SOME_TAGS"
+            multiple
+            small-chips
+            dense
+            solo
+            flat
+            outlined
+        >
+            <template v-slot:no-data>
+                <VListItem>
+                    <VListItemContent>
+                        <VListItemTitle>
+                            {{ lang.NO_RESULT_MATCHING }} "
+                            <strong>
+                                {{ search }}
+                            </strong>
+                            ". {{ lang.PRESS_ENTER_TO_CREATE }}
+                        </VListItemTitle>
+                    </VListItemContent>
+                </VListItem>
+            </template>
+        </VCombobox>
 
         <div class="mb-2">
             <p>{{ lang.EVENT_COLOR_LABEL }}</p>
@@ -97,7 +150,7 @@
                             absolute
                             :value="data.color === id"
                             class="rounded-circle"
-                            color="eventColor"
+                            :color="id"
                         >
                             <img
                                 :src="require('@/assets/images/icon_check.png')"
@@ -166,6 +219,7 @@
                     :placeholder="lang.ZOOM_CONFERENCE_LINK"
                     outlined
                     dense
+                    id="event-type-location-zoom"
                 ></VTextField>
                 <VBtn
                     color="primary"
@@ -176,33 +230,16 @@
                 >
             </div>
         </VDialog>
-        <VDialog :value="showSkypeDialog" max-width="390" persistent>
-            <div class="set-location-container">
-                <h3 class="mb-4">{{ lang.SET_MEETING_LOCATION }}</h3>
-                <VTextField
-                    :value="data.location"
-                    @change="changeEventTypeProperty('location', $event)"
-                    :placeholder="lang.SKYPE_CALL_DETAILS"
-                    outlined
-                    dense
-                ></VTextField>
-                <VBtn
-                    color="primary"
-                    class="white--text"
-                    width="114"
-                    @click="onCloseSkypeDialog"
-                    >{{ lang.OK }}</VBtn
-                >
-            </div>
-        </VDialog>
     </VForm>
 </template>
 
 <script>
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import eventTypeMixin from '@/components/events/eventTypeMixin';
 import FindLocationForm from './FindLocationForm';
+import * as eventTypesActions from '@/store/modules/eventTypes/types/actions';
+import * as eventTypesGetters from '@/store/modules/eventTypes/types/getters';
 
 export default {
     name: 'CreateEventTypeForm',
@@ -218,26 +255,22 @@ export default {
     },
     data() {
         return {
+            tags: ['Gaming', 'Programming', 'Vue', 'Vuetify'],
+            search: null,
             cancelDialog: false,
             items: [
                 {
                     key: 'address',
-                    title: 'address on the map',
+                    title: 'address',
                     icon: 'mdi-google-maps'
                 },
                 {
                     key: 'zoom',
                     title: 'zoom',
                     icon: 'mdi-video-box'
-                },
-                {
-                    key: 'skype',
-                    title: 'skype',
-                    icon: 'mdi-skype'
                 }
             ],
             showZoomDialog: false,
-            showSkypeDialog: false,
             colors: [
                 'yellow',
                 'red',
@@ -248,6 +281,7 @@ export default {
                 'pink',
                 'dark_blue'
             ],
+            chatitoRules: [v => !!v || 'Please provide Chatito workspace name'],
             nameRules: [
                 v => !!v || this.lang.PROVIDE_EVENT_NAME,
                 v =>
@@ -306,10 +340,31 @@ export default {
     computed: {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
-        })
+        }),
+        ...mapGetters('eventTypes', {
+            getEventTypesTags: eventTypesGetters.GET_ALL_EVENT_TYPES_TAGS
+        }),
+
+        setAllTags() {
+            let allTags = [];
+
+            this.getEventTypesTags.forEach(tag => {
+                allTags.push(tag.name);
+            });
+
+            return allTags;
+        }
+    },
+
+    mounted() {
+        this.setEventTypesTags({ searchString: '' });
     },
 
     methods: {
+        ...mapActions('eventTypes', {
+            setEventTypesTags: eventTypesActions.FETCH_EVENT_TYPES_TAGS
+        }),
+
         clickNext() {
             if (this.$refs.form.validate()) {
                 if (this.isBooking) {
@@ -324,9 +379,6 @@ export default {
         },
         onCloseZoomDialog() {
             this.showZoomDialog = false;
-        },
-        onCloseSkypeDialog() {
-            this.showSkypeDialog = false;
         }
     }
 };

@@ -17,7 +17,7 @@
                 v-bind="attrs"
                 v-on="on"
                 @click="updSlackData"
-                v-else
+                v-else-if="slackIsActive"
             >
                 <VIcon color="white">mdi-pencil</VIcon>
             </VBtn>

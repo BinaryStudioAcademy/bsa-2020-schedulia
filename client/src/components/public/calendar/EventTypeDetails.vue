@@ -4,9 +4,11 @@
         <VCol class="detail-content col-10 col-sm-8 col-md-6">
             <div class="detail-content-top mt-3 mb-5">
                 <VLayout justify-center v-if="eventType.owner.avatar">
-                    <VAvatar :size="70" class="avatar">
-                        <img :src="eventType.owner.avatar" alt="Avatar" />
-                    </VAvatar>
+                    <img
+                        :src="eventType.owner.avatar"
+                        class="avatar-image"
+                        alt="Avatar"
+                    />
                 </VLayout>
                 <h3 class="text-center mt-5 mb-2">{{ lang.CONFIRMED }}</h3>
                 <p class="text-center">
@@ -32,9 +34,9 @@
                     <VIcon dark color="primary">mdi-earth</VIcon>
                     {{ publicEvent.timezone }}
                 </div>
-                <div class="event-info">
-                    <VIcon dark color="primary">mdi-map-marker</VIcon>Vyacheslav
-                    Chornovol Avenue, 59, Lviv
+                <div v-if="showLocation" class="event-info">
+                    <VIcon dark color="primary">mdi-map-marker</VIcon>
+                    {{ location }}
                 </div>
                 <div class="event-info">{{ eventType.description }}</div>
             </div>
@@ -105,9 +107,26 @@ export default {
             publicEvent: getters.GET_PUBLIC_EVENT
         }),
         startDateFormatted() {
-            return moment(this.publicEvent.startDate).format(
-                'dddd, YYYY-MM-DD, HH:mm'
-            );
+            return moment
+                .tz(this.publicEvent.startDate, this.publicEvent.timezone)
+                .format('dddd, YYYY-MM-DD, HH:mm');
+        },
+        showLocation() {
+            if (this.eventType.locationType === 'address') {
+                if (this.eventType.address) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        },
+        location() {
+            if (this.eventType.locationType === 'address') {
+                return this.eventType.address;
+            }
+            return 'Zoom meeting';
         }
     }
 };
@@ -122,5 +141,11 @@ export default {
 
 .event-info i {
     margin-right: 10px;
+}
+.avatar-image {
+    object-fit: cover;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
 }
 </style>

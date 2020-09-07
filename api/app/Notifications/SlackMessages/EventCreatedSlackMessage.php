@@ -14,7 +14,7 @@ use Illuminate\Queue\SerializesModels;
 
 class EventCreatedSlackMessage extends SlackMessage
 {
-    public Event $event;
+    private Event $event;
 
     public function __construct(Event $event)
     {

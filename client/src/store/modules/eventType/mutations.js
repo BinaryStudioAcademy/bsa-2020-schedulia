@@ -1,5 +1,8 @@
 import * as mutations from './types/mutations';
-import { eventTypeMapper } from '@/store/modules/eventType/normalizer';
+import {
+    eventTypeMapper,
+    eventTypeDefaultMapper
+} from '@/store/modules/eventType/normalizer';
 import _ from 'lodash';
 
 export default {
@@ -29,6 +32,10 @@ export default {
 
     [mutations.SET_EVENT_TYPE]: (state, eventType) => {
         _.assign(state.eventType, _.pick(eventType, _.keys(state.eventType)));
+    },
+
+    [mutations.CLEAR_SET_EVENT_TYPE]: state => {
+        state.eventType = eventTypeDefaultMapper();
     },
 
     [mutations.DELETE_EVENT_TYPE]: (state, id) => {

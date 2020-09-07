@@ -37,6 +37,31 @@ export default {
             });
         }
     },
+    [actions.SEARCH_EVENT_TYPES]: async (
+        { commit, dispatch },
+        data = { searchString: '', all: false }
+    ) => {
+        try {
+            const response = await eventTypesService.fetchAllEventTypes(
+                data.searchString,
+                data.page,
+                data.all
+            );
+            if (
+                ((data.searchString || !data.searchString) &&
+                    data.page === 1) ||
+                data.all
+            ) {
+                commit(mutations.CLEAR_EVENT_TYPES);
+            }
+            commit(mutations.SET_EVENT_TYPES, response.data);
+            return response;
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+        }
+    },
     [actions.DISABLE_EVENT_TYPE_BY_ID]: async (
         { commit, dispatch },
         { id, disabled }

@@ -100,5 +100,14 @@ export default {
             slack_channel: null,
             slack_active: false
         };
+    },
+    [mutations.CHANGE_CHATITO_NOTIFICATIONS_ACTIVITY]: (state, value) => {
+        state.user = {
+            ...state.user,
+            chatito_active: value
+        };
+    },
+    [mutations.UPDATE_PROFILE]: (state, userData) => {
+        state.user = { ...state.user, ...userData };
     }
 };

@@ -70,8 +70,7 @@ export default {
 
     YOU_DONT_HAVE_ANY_CONNECTED_CALENDARS:
         "You don't have any connected calendars yet",
-    YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS_AND_PASSWORD:
-        'You log in with an email address and password',
+    YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS: 'You log in with an email address',
 
     WELCOME_MESSAGE: 'Welcome message',
 
@@ -358,7 +357,6 @@ export default {
     OK: 'Ok',
     SET_MEETING_LOCATION: 'Set meeting location',
     ZOOM_CONFERENCE_LINK: 'Zoom conference link',
-    SKYPE_CALL_DETAILS: 'Skype call details',
 
     INFO_MUST_BE_NO_MORE_THAN_1000_CHARACTERS_LONG:
         'Additional info must be no more than 1000 characters long',
@@ -429,5 +427,18 @@ export default {
     CONNECT: 'Connect',
     NOTIFICATION_CONNECTIONS: 'Notification Connections',
     SELECT_LOCATION: 'Please select location',
-    NO_DATE_RANGE_EVENTS: 'No Events In This Range'
+    NO_DATE_RANGE_EVENTS: 'No Events In This Range',
+    ARE_YOU_SURE_YOU_REGISTERED_IN: 'Are you sure you registered in',
+    REGISTER_IF_YOU_DIDNT_IT_YET: "Register if you didn't it yet.",
+    DISABLED: 'Disabled',
+    ACTIVE: 'Active',
+    ARE_YOU_SURE_YOU_WANT_TO_DELETE: 'Are you sure you want to delete',
+    NOTIFICATIONS: 'Notifications',
+    CONFIRM_NEW_PASSWORD: 'Confirm new password',
+    PASSWORD_WAS_SUCCESSFULLY_CHANGED: 'Password was successfully changed',
+    EVENT_TAGS_LABEL: 'Event Tags',
+    NO_RESULT_MATCHING: 'No results matching',
+    PRESS_ENTER_TO_CREATE: 'Press enter to create a new one tag',
+    ADD_SOME_TAGS: 'Add some tags',
+    PROFILE_WAS_UPDATED: 'Profile was updated!'
 };

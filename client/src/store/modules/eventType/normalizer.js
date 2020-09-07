@@ -6,7 +6,7 @@ export const eventTypeMapper = EventType => ({
     internalNote: EventType.internal_note,
     location: EventType.location,
     locationType: locationTypeMapper(EventType.location_type),
-    coordinates: EventType.coordinates,
+    coordinates: EventType.coordinates || [],
     slug: EventType.slug,
     color: EventType.color,
     duration: EventType.duration,
@@ -21,8 +21,20 @@ export const eventTypeMapper = EventType => ({
     selectDay: {
         date: moment().format('YYYY-MM-DD')
     },
-    createdAt: EventType.created_at
+    createdAt: EventType.created_at,
+    chatito_workspace: EventType.chatito_workspace,
+    tagChecks: tagMapper(EventType.tags)
 });
+
+export const tagMapper = function(tags) {
+    let result = [];
+
+    tags.forEach(tag => {
+        result.push(tag.name);
+    });
+
+    return result;
+};
 
 export const userMapper = user => ({
     id: user.id,
@@ -70,7 +82,7 @@ export const availabilityApiMapper = function(availability) {
 
 export const eventTypeFormMapper = eventTypeForm => ({
     name: eventTypeForm.name,
-    location: eventTypeForm.location,
+    address: eventTypeForm.address,
     location_type: eventTypeForm.locationType.key,
     coordinates: eventTypeCoordinates(eventTypeForm.coordinates),
     description: eventTypeForm.description,
@@ -79,7 +91,9 @@ export const eventTypeFormMapper = eventTypeForm => ({
     duration: eventTypeForm.duration || eventTypeForm.customDuration,
     disabled: eventTypeForm.disabled,
     timezone: eventTypeForm.timezone,
-    availabilities: availabilitiesMapper(eventTypeForm.availabilities)
+    availabilities: availabilitiesMapper(eventTypeForm.availabilities),
+    chatito_workspace: eventTypeForm.chatito_workspace,
+    tags: eventTypeForm.tagChecks
 });
 
 export const availabilitiesMapper = function(availabilities) {
@@ -152,7 +166,7 @@ export const locationTypeMapper = function(location) {
         case 'address':
             result = {
                 key: 'address',
-                title: 'address on the map',
+                title: 'address',
                 icon: 'mdi-google-maps'
             };
             break;
@@ -162,4 +176,42 @@ export const locationTypeMapper = function(location) {
     }
 
     return result;
+};
+
+export const eventTypeDefaultMapper = function() {
+    return {
+        id: null,
+        name: '',
+        address: '',
+        coordinates: [],
+        locationType: '',
+        description: '',
+        slug: '',
+        color: 'yellow',
+        disabled: false,
+        duration: 30,
+        customDuration: 0,
+        timezone: '',
+        radioTimeZone: 'Local',
+        dateRange: {
+            type: 'date_range',
+            scheduleType: 'period',
+            subType: 'date_range',
+            value: 60,
+            date: [],
+            startDate: moment().format('YYYY-MM-DD'),
+            endDate: moment()
+                .add(59, 'days')
+                .format('YYYY-MM-DD'),
+            startTime: '09:00',
+            endTime: '17:00'
+        },
+        availabilities_week_days: {},
+        availabilities: {},
+        selectDay: {
+            date: moment().format('YYYY-MM-DD')
+        },
+        chatito_workspace: '',
+        tagChecks: []
+    };
 };
