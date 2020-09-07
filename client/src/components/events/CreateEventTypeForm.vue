@@ -112,10 +112,11 @@
                 <VListItem>
                     <VListItemContent>
                         <VListItemTitle>
-                            {{ lang.NO_RESULT_MATCHING }} "<strong>{{
-                                search
-                            }}</strong
-                            >". {{ lang.PRESS_ENTER_TO_CREATE }}
+                            {{ lang.NO_RESULT_MATCHING }} "
+                            <strong>
+                                {{ search }}
+                            </strong>
+                            ". {{ lang.PRESS_ENTER_TO_CREATE }}
                         </VListItemTitle>
                     </VListItemContent>
                 </VListItem>
@@ -226,26 +227,6 @@
                 >
             </div>
         </VDialog>
-        <VDialog :value="showSkypeDialog" max-width="390" persistent>
-            <div class="set-location-container">
-                <h3 class="mb-4">{{ lang.SET_MEETING_LOCATION }}</h3>
-                <VTextField
-                    :value="data.location"
-                    @change="changeEventTypeProperty('location', $event)"
-                    :placeholder="lang.SKYPE_CALL_DETAILS"
-                    outlined
-                    dense
-                    id="event-type-location-skype"
-                ></VTextField>
-                <VBtn
-                    color="primary"
-                    class="white--text"
-                    width="114"
-                    @click="onCloseSkypeDialog"
-                    >{{ lang.OK }}</VBtn
-                >
-            </div>
-        </VDialog>
     </VForm>
 </template>
 
@@ -277,22 +258,16 @@ export default {
             items: [
                 {
                     key: 'address',
-                    title: 'address on the map',
+                    title: 'address',
                     icon: 'mdi-google-maps'
                 },
                 {
                     key: 'zoom',
                     title: 'zoom',
                     icon: 'mdi-video-box'
-                },
-                {
-                    key: 'skype',
-                    title: 'skype',
-                    icon: 'mdi-skype'
                 }
             ],
             showZoomDialog: false,
-            showSkypeDialog: false,
             colors: [
                 'yellow',
                 'red',
@@ -401,9 +376,6 @@ export default {
         },
         onCloseZoomDialog() {
             this.showZoomDialog = false;
-        },
-        onCloseSkypeDialog() {
-            this.showSkypeDialog = false;
         }
     }
 };
