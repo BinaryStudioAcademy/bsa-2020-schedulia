@@ -9,7 +9,7 @@
             <VIcon dark color="primary">mdi-clock-outline</VIcon>
             {{ duration }} {{ lang.DURATION_MIN }}
         </div>
-        <div class="event-info">
+        <div v-if="showLocation" class="event-info">
             <VIcon dark color="primary">mdi-map-marker</VIcon>
             {{ location }}
         </div>
@@ -41,10 +41,31 @@ export default {
         eventName: String,
 
         duration: Number,
-        location: String,
+        locationType: String,
+        address: String,
+        coordinates: Object,
         description: String,
         startDate: String,
         timezone: String
+    },
+    computed: {
+        showLocation() {
+            if (this.locationType === 'address') {
+                if (this.address) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        },
+        location() {
+            if (this.locationType === 'address') {
+                return this.address;
+            }
+            return 'Zoom meeting';
+        }
     }
 };
 </script>

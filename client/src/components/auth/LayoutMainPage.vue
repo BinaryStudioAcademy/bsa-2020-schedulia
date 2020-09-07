@@ -36,21 +36,14 @@
                         class="office-worker-image"
                     />
                 </VRow>
-                <VRow no-gutters justify="start">
-                    <img
-                        :src="require('@/assets/auth/icon_circle_mail.svg')"
-                        alt="envelop sign"
-                        class="envelop-image"
-                    />
-                </VRow>
             </VCol>
             <VCol class="secondary-vcol " xl="6" lg="6" md="6" cols="12">
                 <VRow no-gutters justify="end">
                     <VCol
                         class="first-column-in-secondary"
                         xl="4"
-                        lg="4"
-                        md="4"
+                        lg="2"
+                        md="2"
                         cols="1"
                     >
                         <img
@@ -64,8 +57,8 @@
                     <VCol
                         class="second-column-in-secondary"
                         xl="8"
-                        lg="8"
-                        md="8"
+                        lg="10"
+                        md="10"
                         cols="11"
                     >
                         <div class="logo-secondary-div ">
@@ -91,25 +84,20 @@
                                 <slot></slot>
                             </VCol>
                         </VRow>
-                        <VCol cols="12" class="pa-0">
-                            <VRow
-                                no-gutters
-                                justify="space-between"
-                                align="baseline"
-                            >
-                                <VCol cols="6">
-                                    <span class="info-text">
-                                        {{
-                                            lang.YOU_CAN_CHANGE_LANGUAGE_TO
-                                        }}</span
-                                    >
-                                </VCol>
-                                <VCol cols="5">
-                                    <LanguageSwitcher />
-                                </VCol>
-                                <VCol cols="1"> </VCol>
-                            </VRow>
-                        </VCol>
+                        <VRow no-gutters justify="start" align="baseline">
+                            <VCol cols="6" class="language-switcher">
+                                <LanguageSwitcher />
+                            </VCol>
+                        </VRow>
+                        <VRow no-gutters justify="end">
+                            <img
+                                :src="
+                                    require('@/assets/auth/icon_circle_mail.svg')
+                                "
+                                alt="envelop sign"
+                                class="envelop-image"
+                            />
+                        </VRow>
                     </VCol>
                 </VRow>
             </VCol>
@@ -164,8 +152,27 @@ html {
     display: none;
     margin-top: 1.7vh;
 }
-.info-text {
-    color: var(--v-info-base);
+
+.language-switcher {
+    margin-top: 5vh;
+}
+
+.envelop-image {
+    margin-right: -26px;
+    margin-top: 9vh;
+    z-index: 20;
+}
+
+@media screen and (max-height: 900px) {
+    .place-for-form-vcol {
+        margin-top: 2vh;
+    }
+    .envelop-image {
+        margin-top: 1vh;
+    }
+    .language-switcher {
+        margin-top: 2vh;
+    }
 }
 
 @media screen and (max-width: 959px) {
@@ -214,11 +221,7 @@ html {
     width: 60vmin;
     margin-top: 8.6vh;
 }
-.envelop-image {
-    margin-top: 7vh;
-    margin-left: -46px;
-    z-index: 20;
-}
+
 .rotated-ok-image {
     height: 33px;
     width: 33px;

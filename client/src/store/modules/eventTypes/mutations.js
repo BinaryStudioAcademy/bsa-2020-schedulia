@@ -106,5 +106,8 @@ export default {
                 {}
             )
         };
+    },
+    [mutations.CLEAR_CUSTOM_FIELDS]: state => {
+        state.customFields = [];
     }
 };

@@ -8,6 +8,7 @@
             outlined
             dense
             required
+            :error-messages="errors"
         ></VTextField>
     </div>
 </template>
@@ -21,7 +22,8 @@ export default {
             required: true
         },
         value: {},
-        defaultValue: {}
+        defaultValue: {},
+        errors: {}
     },
 
     computed: {

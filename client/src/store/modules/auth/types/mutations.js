@@ -16,3 +16,12 @@ export const SET_EMAIL_RESET = 'setEmail';
 export const SET_PASSWORD_RESET = 'setPassword';
 export const SET_PASSWORD_CONFIRM_RESET = 'setPasswordConfirm';
 export const SET_TOKEN_RESET = 'setToken';
+
+export const CONNECT_SLACK_NOTIFICATIONS = 'connectSlackNotifications';
+export const DELETE_SLACK_NOTIFICATIONS = 'deleteSlackNotifications';
+export const CHANGE_SLACK_NOTIFICATIONS_ACTIVITY =
+    'changeSlackNotificationsActivity';
+
+export const CHANGE_CHATITO_NOTIFICATIONS_ACTIVITY =
+    'changeChatitoNotificationsActivity';
+export const UPDATE_PROFILE = 'updateProfile';

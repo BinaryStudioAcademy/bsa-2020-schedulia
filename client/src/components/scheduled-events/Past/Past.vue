@@ -45,7 +45,7 @@ export default {
         perPage: 8,
         sort: 'start_date',
         direction: 'desc',
-        endDate: new Date().toLocaleDateString()
+        endDate: new Date().toISOString().substr(0, 16)
     }),
 
     components: {

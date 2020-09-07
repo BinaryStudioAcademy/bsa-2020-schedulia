@@ -11,22 +11,22 @@
             </VBtn>
         </template>
         <VList>
-            <VListItem dense disabled>
+            <VListItem dense @click="onEdit">
                 <VListItemTitle>
                     <VIcon color="primary">mdi-pencil</VIcon>
                     {{ lang.EDIT }}
                 </VListItemTitle>
             </VListItem>
-            <VListItem dense :id="'internal-note-' + eventType.id">
+            <VListItem dense :id="'internal-note-' + selectEventType.id">
                 <VListItemTitle>
                     <VIcon color="primary">mdi-file-outline</VIcon>
-                    <span v-if="eventType.internalNote">
+                    <span v-if="selectEventType.internalNote">
                         {{ lang.EDIT_INTERNAL_NOTE }}
                     </span>
                     <span v-else>
                         {{ lang.ADD_INTERNAL_NOTE }}
                     </span>
-                    <AddInternalNoteDialog :event-type="eventType" />
+                    <AddInternalNoteDialog :event-type="selectEventType" />
                 </VListItemTitle>
             </VListItem>
             <VListItem dense @click="onClone">
@@ -38,7 +38,7 @@
             <VListItem dense>
                 <VListItemTitle>
                     <VIcon color="primary">mdi-delete</VIcon>
-                    <DeleteConfirmDialog :eventType="eventType" />
+                    <DeleteConfirmDialog :eventType="selectEventType" />
                 </VListItemTitle>
             </VListItem>
             <VListItem dense>
@@ -67,9 +67,11 @@ import { mapActions, mapGetters } from 'vuex';
 import DeleteConfirmDialog from '@/components/event-types/all-event-types/DeleteConfirmDialog';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import AddInternalNoteDialog from '@/components/event-types/all-event-types/AddInternalNoteDialog';
+import eventTypeMixin from '@/components/events/eventTypeMixin';
 
 export default {
     name: 'DropDown',
+    mixins: [eventTypeMixin],
     components: {
         DeleteConfirmDialog,
         AddInternalNoteDialog
@@ -79,12 +81,12 @@ export default {
         dialog: false
     }),
     props: {
-        eventType: {
+        selectEventType: {
             required: true
         }
     },
     created() {
-        this.switchStatus = !this.eventType.disabled;
+        this.switchStatus = !this.selectEventType.disabled;
     },
     methods: {
         ...mapActions('eventTypes', {
@@ -94,12 +96,16 @@ export default {
         }),
         onSwitch() {
             this.disableEventType({
-                id: this.eventType.id,
+                id: this.selectEventType.id,
                 disabled: !this.switchStatus
             });
         },
         async onClone() {
-            await this.cloneEventType(this.eventType.id);
+            await this.cloneEventType(this.selectEventType.id);
+        },
+        onEdit() {
+            this.setPropertyData('eventType', this.selectEventType);
+            this.$router.push({ path: 'new-event-type-options' });
         }
     },
     computed: {

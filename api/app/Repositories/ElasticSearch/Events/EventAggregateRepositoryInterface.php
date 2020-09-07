@@ -8,6 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface EventAggregateRepositoryInterface
 {
     public function save(EventAggregate $eventAggregate): EventAggregate;
+    public function update(EventAggregate $eventAggregate): EventAggregate;
     public function search(
         array $criteria,
         int $page,

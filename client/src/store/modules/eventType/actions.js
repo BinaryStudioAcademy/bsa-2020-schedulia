@@ -1,7 +1,10 @@
 import * as actions from './types/actions';
 import * as mutations from './types/mutations';
 import eventTypeService from '@/services/eventType/eventTypeService';
-import { SET_ERROR_NOTIFICATION } from '@/store/modules/notification/types/actions';
+import {
+    SET_ERROR_NOTIFICATION,
+    SET_SUCCESS_NOTIFICATION
+} from '@/store/modules/notification/types/actions';
 import {
     eventTypeMapper,
     eventTypeFormMapper
@@ -37,10 +40,18 @@ export default {
             );
         }
     },
+    [actions.CLEAR_SET_EVENT_TYPE]: async context => {
+        context.commit(mutations.CLEAR_SET_EVENT_TYPE);
+    },
     [actions.ADD_EVENT_TYPE]: async (context, data) => {
         try {
             const eventType = await eventTypeService.addEventType(
                 eventTypeFormMapper(data)
+            );
+            context.dispatch(
+                'notification/' + SET_SUCCESS_NOTIFICATION,
+                `Event Type ${data.name} created success`,
+                { root: true }
             );
             return Promise.resolve(eventTypeMapper(eventType));
         } catch (error) {
@@ -51,11 +62,18 @@ export default {
             );
         }
     },
-    [actions.EDIT_EVENT_TYPE]: async (context, { id, data }) => {
+    [actions.EDIT_EVENT_TYPE]: async (context, data) => {
         try {
-            const eventType = await eventTypeService.editEventType(id, data);
-            context.commit(mutations.SET_EVENT_TYPES, eventType);
+            const eventType = await eventTypeService.editEventType(
+                data.id,
+                eventTypeFormMapper(data)
+            );
 
+            context.dispatch(
+                'notification/' + SET_SUCCESS_NOTIFICATION,
+                `Event Type ${data.name} updated success`,
+                { root: true }
+            );
             return Promise.resolve(eventTypeMapper(eventType));
         } catch (error) {
             context.dispatch(

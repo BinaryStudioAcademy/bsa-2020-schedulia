@@ -6,8 +6,9 @@ export default {
         eventTypes: []
     },
     eventType: {
+        id: null,
         name: '',
-        location: '',
+        address: '',
         coordinates: [],
         locationType: '',
         description: '',
@@ -31,10 +32,14 @@ export default {
         },
         availabilities_week_days: {},
         availabilities: {},
-        selectDay: ''
+        selectDay: {
+            date: now.format('YYYY-MM-DD')
+        },
+        chatito_workspace: ''
     },
     dayAvailabilities: [],
     visibleAvailabilityDialog: false,
     visibleTimeZoneDialog: false,
-    visibleDayAvailabilitiesDialog: false
+    visibleDayAvailabilitiesDialog: false,
+    tagChecks: []
 };

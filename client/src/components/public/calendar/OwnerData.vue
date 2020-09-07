@@ -1,19 +1,26 @@
 <template>
-    <div class="event-info-container">
+    <div>
+        <VImg
+            v-if="brandingLogo"
+            class="branding-logo"
+            :max-height="150"
+            :min-height="40"
+            :src="brandingLogo"
+        />
+        <div v-if="!brandingLogo" class="no-branding-logo-fill"></div>
+
         <div class="event-info-content">
             <VImg
-                v-if="brandingLogo"
-                :max-width="60"
-                :max-height="40"
-                :src="brandingLogo"
-                class="company-logo"
+                v-if="avatar"
+                :src="avatar"
+                class="avatar-image"
+                alt="Avatar"
             />
-            <VAvatar v-if="avatar" :size="70">
-                <img :src="avatar" alt="Avatar" />
-            </VAvatar>
+            <div v-if="!avatar" class="no-avatar-fill"></div>
+
+            <h4>{{ name }}</h4>
+            <p>{{ eventName }}</p>
         </div>
-        <h4>{{ name }}</h4>
-        <p>{{ eventName }}</p>
     </div>
 </template>
 
@@ -30,22 +37,29 @@ export default {
 </script>
 
 <style scoped>
-.event-info-container {
-    padding-left: 30px;
-    padding-right: 10px;
+.branding-logo::v-deep .v-image__image--cover {
+    background-size: contain;
 }
 .event-info-content {
-    margin-top: -80px;
+    margin-top: -40px;
     margin-bottom: 10px;
-    height: 100px;
+    padding-left: 30px;
+    padding-right: 10px;
 }
 
 .event-info-content h4 {
     margin-top: 15px;
 }
-
-.company-logo {
-    margin-bottom: -10px;
-    margin-left: 80px;
+.no-branding-logo-fill {
+    height: 100px;
+}
+.avatar-image {
+    object-fit: cover;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+.no-avatar-fill {
+    height: 100px;
 }
 </style>

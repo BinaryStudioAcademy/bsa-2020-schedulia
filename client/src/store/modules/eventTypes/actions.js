@@ -4,7 +4,6 @@ import * as mutations from './types/mutations';
 import * as authActions from '@/store/modules/auth/types/actions';
 import * as loaderMutations from '@/store/modules/loader/types/mutations';
 import * as notifyActions from '@/store/modules/notification/types/actions';
-
 export default {
     [actions.FETCH_EVENT_TYPES]: async (
         { commit, dispatch },
@@ -34,6 +33,31 @@ export default {
                 root: true
             });
             commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        }
+    },
+    [actions.SEARCH_EVENT_TYPES]: async (
+        { commit, dispatch },
+        data = { searchString: '', all: false }
+    ) => {
+        try {
+            const response = await eventTypesService.fetchAllEventTypes(
+                data.searchString,
+                data.page,
+                data.all
+            );
+            if (
+                ((data.searchString || !data.searchString) &&
+                    data.page === 1) ||
+                data.all
+            ) {
+                commit(mutations.CLEAR_EVENT_TYPES);
+            }
+            commit(mutations.SET_EVENT_TYPES, response.data);
+            return response;
+        } catch (error) {
+            dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
             });
         }
@@ -146,6 +170,7 @@ export default {
             await eventTypesService.saveCustomFieldsByEventTypeId(id, {
                 custom_fields: Object.values(custom_fields)
             });
+            commit(mutations.CLEAR_CUSTOM_FIELDS);
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });

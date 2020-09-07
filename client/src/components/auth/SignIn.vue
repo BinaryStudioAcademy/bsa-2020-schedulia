@@ -1,96 +1,80 @@
 <template>
-    <VCard elevation="0" :flat="true" tile class="secondary">
-        <VCardTitle class="title-of-card ">{{ lang.WELCOME }}</VCardTitle>
-        <VCardSubtitle class="info-text-in-title mt-1">
+    <div class="secondary">
+        <h4 class="title-of-card ">{{ lang.WELCOME }}</h4>
+        <p class="info-text-in-title mt-1">
             <span>{{ lang.NEW_HERE }} </span>
             <RouterLink :to="{ name: 'SignUp' }">
                 {{ lang.CREATE_AN_ACCOUNT }}
             </RouterLink>
             <VSpacer class="pa-2"></VSpacer>
-        </VCardSubtitle>
-        <VForm v-model="formValid" ref="form" @submit.prevent="onSignIn">
-            <VCardText>
-                <VCol cols="12" sm="12" md="8" class="pa-0">
-                    <label for="email">{{ lang.EMAIL }}*</label>
-                    <VTextField
-                        id="email"
-                        placeholder="Email address"
-                        :value="loginData.email"
-                        :error-messages="emailErrors"
-                        @input="setEmailOnInput"
-                        @blur="setEmail"
-                        outlined
-                        dense
-                        type="email"
+        </p>
+        <VForm @submit.prevent="onSignIn">
+            <VCol cols="12" sm="11" md="9" class="pa-0">
+                <label for="email">{{ lang.EMAIL }}*</label>
+                <VTextField
+                    :error-messages="emailErrors"
+                    :value="loginData.email"
+                    @blur="setEmail"
+                    @input="setEmailOnInput"
+                    dense
+                    id="email"
+                    outlined
+                    placeholder="happyuser@binary-studio.com"
+                >
+                </VTextField>
+            </VCol>
+            <VSpacer class="py-2"></VSpacer>
+            <VCol cols="12" sm="11" md="9" class="pa-0">
+                <VRow no-gutters justify="space-between">
+                    <label for="password">{{ lang.PASSWORD }}*</label>
+                    <RouterLink
+                        :to="{ name: 'ForgotPassword' }"
+                        class="forgot-password "
                     >
-                    </VTextField>
-                </VCol>
-                <VSpacer class="pa-2"></VSpacer>
-                <VCol cols="12" sm="12" md="8" class="pa-0">
-                    <VRow no-gutters justify="space-between">
-                        <label for="password">{{ lang.PASSWORD }}*</label>
-                        <RouterLink
-                            :to="{ name: 'ForgotPassword' }"
-                            class="forgot-password "
-                        >
-                            {{ lang.FORGOT_PASSWORD }}
-                        </RouterLink>
-                    </VRow>
-                </VCol>
-                <VCol cols="12" sm="12" md="8" class="pa-0">
-                    <VTextField
-                        id="password"
-                        outlined
-                        dense
-                        :value="loginData.password"
-                        :error-messages="passwordErrors"
-                        @input="setPasswordOnInput"
-                        @blur="setPassword"
-                        :type="showPassword ? 'text' : 'password'"
-                        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                        @click:append="showPassword = !showPassword"
-                    >
-                    </VTextField>
-                </VCol>
-            </VCardText>
-            <VCardActions>
-                <VRow no-gutters align="center" justify="" class="ma-1">
-                    <VCol cols="12" sm="5" md="12" lg="5">
+                        {{ lang.FORGOT_PASSWORD }}
+                    </RouterLink>
+                </VRow>
+            </VCol>
+            <VCol cols="12" sm="11" md="9" class="pa-0">
+                <VTextField
+                    id="password"
+                    outlined
+                    dense
+                    :value="loginData.password"
+                    :error-messages="passwordErrors"
+                    @input="setPasswordOnInput"
+                    @blur="setPassword"
+                    :type="showPassword ? 'text' : 'password'"
+                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="showPassword = !showPassword"
+                    placeholder="••••••••••"
+                >
+                </VTextField>
+            </VCol>
+            <VCol cols="12" sm="11" md="9" class="pa-0">
+                <VRow no-gutters align="center" justify="space-between">
+                    <div>
                         <VBtn
                             width="158"
                             height="44"
                             class="login-button  primary"
                             depressed
                             type="submit"
-                            @click="onSignIn"
                             >{{ lang.LOG_IN }}
                         </VBtn>
-                    </VCol>
-
-                    <VCol
-                        cols="6"
-                        sm="3"
-                        md="6"
-                        lg="3"
-                        :class="{ 'mt-3': $vuetify.breakpoint.xs }"
-                    >
+                    </div>
+                    <div>
                         <p class="login-with-text mt-3">
                             {{ lang.OR_LOGIN_WITH }}
                         </p>
-                    </VCol>
-                    <VCol
-                        cols="5"
-                        sm="3"
-                        md="5"
-                        lg="4"
-                        :class="{ 'mt-3': $vuetify.breakpoint.xs }"
-                    >
+                    </div>
+                    <div class="ma-3">
                         <SocialLoginButtons />
-                    </VCol>
+                    </div>
                 </VRow>
-            </VCardActions>
+            </VCol>
         </VForm>
-    </VCard>
+    </div>
 </template>
 
 <script>
@@ -120,11 +104,6 @@ export default {
         loginData: {
             email: '',
             password: ''
-        },
-        alert: {
-            visible: false,
-            message: '',
-            type: ''
         }
     }),
     methods: {
@@ -209,6 +188,7 @@ export default {
     font-weight: 500;
     font-size: small;
     line-height: 16px;
+    color: var(--v-info-base);
 }
 a {
     text-decoration: none;
@@ -232,5 +212,11 @@ label {
 .login-with-text {
     font-size: 12px;
     color: #8b90a0;
+}
+.v-text-field.error--text::v-deep .v-input__slot {
+    background-color: var(--v-validationError-base);
+}
+.v-text-field.error--text::v-deep .v-text-field__slot input {
+    color: var(--v-error-darken1);
 }
 </style>

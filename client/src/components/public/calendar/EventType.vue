@@ -1,6 +1,6 @@
 <template>
     <VRow class="ma-0 pa-0" v-if="isReady">
-        <AutoFillSpacer />
+        <VSpacer class="hidden-md-and-down"></VSpacer>
         <VCol :class="colEventInfoClass">
             <EventInfo
                 :brandingLogo="eventType.owner.brandingLogo"
@@ -8,12 +8,14 @@
                 :name="eventType.owner.name"
                 :eventName="eventType.name"
                 :duration="eventType.duration"
-                :location="'Vyacheslav Chornovol Avenue, 59, Lviv'"
+                :locationType="eventType.locationType"
+                :coordinates="eventType.coordinates"
+                :address="eventType.address"
                 :description="eventType.description"
                 :lang="lang"
             />
         </VCol>
-        <AutoFillSpacer />
+        <VSpacer class="hidden-md-and-down"></VSpacer>
 
         <VDivider vertical class="hidden-md-and-down"></VDivider>
 
@@ -27,7 +29,7 @@
                 <h3>{{ lang.SELECT_DATE_AND_TIME }}</h3>
                 <VDatePicker
                     v-model="date"
-                    min="2020-08-10"
+                    :min="minDate"
                     :first-day-of-week="1"
                     :weekday-format="getDay"
                     :header-date-format="dateFormat"
@@ -75,7 +77,11 @@
         >
             <h3>{{ formattedDate }}</h3>
             <div class="time-items-container">
-                <div v-for="(time, i) in availableTimes" :key="i" text>
+                <div
+                    v-for="(time, i) in currentDayAvailableTimes"
+                    :key="i"
+                    text
+                >
                     <div v-if="selectedTime === i">
                         <div class="confirm-event">
                             <VCard
@@ -118,7 +124,6 @@ import moment from 'moment';
 import momentTimezones from 'moment-timezone';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import EventInfo from './EventInfo';
-import AutoFillSpacer from './AutoFillSpacer';
 import * as actions from '@/store/modules/publicEvent/types/actions';
 import * as getters from '@/store/modules/publicEvent/types/getters';
 import { mapActions, mapGetters } from 'vuex';
@@ -126,18 +131,12 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
     name: 'EventType',
     components: {
-        EventInfo,
-        AutoFillSpacer
+        EventInfo
     },
     async mounted() {
         const eventType = await this.getEventTypeByIdAndNickname({
             id: this.$route.params.id,
             nickname: this.$route.params.nickname
-        });
-
-        this.currentMonthAvailabilities = await this.getAvailabilitiesByMonth({
-            id: eventType.id,
-            date: '2020-09'
         });
 
         eventType &&
@@ -159,68 +158,52 @@ export default {
         },
         eventType() {
             this.isReady = true;
+        },
+        async currentMonth() {
+            this.currentMonthAvailabilities = await this.getAvailabilitiesByMonth(
+                {
+                    id: this.eventType.id,
+                    date: `${this.currentMonth.slice(
+                        0,
+                        4
+                    )}-${this.currentMonth.slice(5)}`
+                }
+            );
+        },
+        date() {
+            if (this.date) {
+                for (let date of this.currentTimezoneAvailabilities) {
+                    if (date.startDate.includes(this.date)) {
+                        this.currentDayUnavailibilities = date.unavailable.map(
+                            time =>
+                                moment
+                                    .tz(
+                                        `2010-10-10 ${time}`,
+                                        this.eventType.timezone
+                                    )
+                                    .clone()
+                                    .tz(this.currentTimezone)
+                                    .format('HH:mm')
+                        );
+                        break;
+                    }
+                }
+
+                this.currentDayAvailableTimes = this.availableTimes;
+            }
         }
     },
     data: () => ({
         isReady: false,
+        currentMonth: null,
         currentMonthAvailabilities: null,
+        currentDayUnavailibilities: null,
+        currentDayAvailableTimes: null,
         currentTimezone: momentTimezones.tz.guess(),
         currentTimezoneTime: null,
         timezoneFieldSearch: '',
         date: '',
-        selectedTime: null,
-        availabilities: {
-            '2020-08-20': [],
-            '2020-09-01': [
-                {
-                    type: 'date_range_weekdays',
-                    start_time: '09:00:00',
-                    end_time: '19:00:00',
-                    unavailable: ['15:00:00', '16:00:00']
-                }
-            ],
-            '2020-09-02': [
-                {
-                    type: 'date_range_weekdays',
-                    start_time: '05:00:00',
-                    end_time: '11:00:00',
-                    unavailable: ['15:00:00', '16:00:00']
-                }
-            ],
-            '2020-09-03': [
-                {
-                    type: 'date_range_weekdays',
-                    start_time: '00:00:00',
-                    end_time: '23:59:00',
-                    unavailable: []
-                }
-            ],
-            '2020-09-14': [
-                {
-                    type: 'date_range_weekdays',
-                    start_time: '11:00:00',
-                    end_time: '14:00:00',
-                    unavailable: []
-                },
-                {
-                    type: 'date_range_weekdays',
-                    start_time: '15:00:00',
-                    end_time: '22:00:00',
-                    unavailable: []
-                }
-            ]
-        },
-        dateRange: {
-            type: 'date_range',
-            scheduleType: 'period',
-            subType: 'date_range',
-            value: 60,
-            date: [],
-            startDate: '2020-09-03',
-            endDate: '2020-11-05',
-            startTime: '09:00',
-            endTime: '17:00'
-        }
+        selectedTime: null
     }),
 
     computed: {
@@ -236,6 +219,11 @@ export default {
                 .clone()
                 .tz(this.currentTimezone)
                 .format();
+        },
+        minDate() {
+            return moment()
+                .tz(this.currentTimezone)
+                .format('YYYY-MM-DD');
         },
         currentTimezoneAvailabilities() {
             const formatTime = time => {
@@ -257,14 +245,35 @@ export default {
                             0,
                             5
                         )}`,
-                        endDate: `${date} ${availability.end_time.slice(0, 5)}`
+                        endDate: `${date} ${
+                            availability.end_time.slice(0, 5) === '00:00'
+                                ? '24:00'
+                                : availability.end_time.slice(0, 5)
+                        }`,
+                        unavailable: availability.unavailable
                     });
                 }
             }
 
             allTimes = allTimes.map(availability => ({
                 startDate: formatTime(availability.startDate),
-                endDate: formatTime(availability.endDate)
+                endDate:
+                    formatTime(availability.endDate) ===
+                    formatTime(availability.startDate)
+                        ? moment(
+                              formatTime(availability.endDate),
+                              'YYYY-MM-DD HH:mm:ss'
+                          )
+                              .add(1, 'days')
+                              .format('YYYY-MM-DD HH:mm:ss')
+                              .replace('00:00:00', '24:00:00')
+                        : moment(
+                              formatTime(availability.endDate),
+                              'YYYY-MM-DD HH:mm:ss'
+                          )
+                              .format('YYYY-MM-DD HH:mm:ss')
+                              .replace('00:00:00', '24:00:00'),
+                unavailable: availability.unavailable
             }));
 
             return allTimes;
@@ -286,7 +295,11 @@ export default {
             for (let availability of this.currentTimezoneAvailabilities) {
                 if (
                     +getHours(availability.startDate) >
-                    +getHours(availability.endDate)
+                        +getHours(availability.endDate) ||
+                    (+moment(availability.endDate).format('DD') >
+                        +moment(availability.startDate).format('DD') &&
+                        +getHours(availability.startDate) >=
+                            +getHours(availability.endDate))
                 ) {
                     let start =
                         availability.startDate.slice(11, 16).split(':')[0] *
@@ -494,10 +507,8 @@ export default {
             for (let availability of this.normalizedRemainderTimes) {
                 if (availability.startDate.includes(this.date)) {
                     availableTimes.push({
-                        startTime: moment(availability.startDate).format(
-                            'HH:mm'
-                        ),
-                        endTime: moment(availability.endDate).format('HH:mm')
+                        startTime: availability.startDate.slice(11, 16),
+                        endTime: availability.endDate.slice(11, 16)
                     });
 
                     if (
@@ -544,6 +555,29 @@ export default {
                     +next.split(':')[1]
             );
 
+            times = times.filter(
+                time => !this.currentDayUnavailibilities.includes(time)
+            );
+
+            if (
+                moment()
+                    .tz(this.currentTimezone)
+                    .format('YYYY-MM-DD')
+                    .includes(this.date)
+            ) {
+                times = times.filter(
+                    time =>
+                        moment.duration(time).asMinutes() >
+                        moment
+                            .duration(
+                                moment()
+                                    .tz(this.currentTimezone)
+                                    .format('HH:mm')
+                            )
+                            .asMinutes()
+                );
+            }
+
             return this.convertToUserFormat([...new Set(times)]);
         }
     },
@@ -555,17 +589,26 @@ export default {
             getAvailabilitiesByMonth: actions.GET_AVAILABILITIES_BY_MONTH
         }),
         getStartDate(time) {
-            return `${momentTimezones(
-                `${this.date} ${time}`,
-                'YYYY-MM-DD HH:mm'
-            )
-                .tz(this.currentTimezone)
+            const timeNormalized = moment(time, 'h:mm A').format('HH:mm');
+            return `${moment
+                .tz(
+                    `${this.date} ${timeNormalized}`,
+                    'YYYY-MM-DD HH:mm',
+                    this.currentTimezone
+                )
                 .format()}`;
         },
         onConfirmDate(time) {
+            const timeNormalized = moment(time, 'h:mm A').format('HH:mm');
             this.setPublicEvent({
                 eventTypeId: this.eventType.id,
-                startDate: `${this.date} ${time}`,
+                startDate: moment
+                    .tz(
+                        `${this.date} ${timeNormalized}`,
+                        'YYYY-MM-DD HH:mm',
+                        this.currentTimezone
+                    )
+                    .format('YYYY-MM-DD HH:mm'),
                 timezone: this.currentTimezone
             });
             this.$router.push({
@@ -610,6 +653,7 @@ export default {
             ];
 
             if (month) {
+                this.currentMonth = year + '-' + month;
                 return months[month - 1] + ' ' + year;
             } else {
                 return year;
@@ -635,13 +679,42 @@ export default {
             return String(time).length === 2 ? time : '0' + time;
         },
         availableDates(date) {
-            let present = false;
-            for (let normalizedDate of this.normalizedRemainderTimes) {
-                if (normalizedDate.startDate.includes(date)) {
-                    present = true;
+            let datePresent = false;
+            let availableTimesPresent = false;
+            for (let day of this.currentTimezoneAvailabilities) {
+                if (
+                    day.startDate.includes(date) &&
+                    day.unavailable.length <
+                        this.numberOfIntervals(day.startDate, day.endDate)
+                ) {
+                    availableTimesPresent = true;
+
+                    if (
+                        moment()
+                            .tz(this.currentTimezone)
+                            .add(this.eventType.duration, 'minutes')
+                            .isAfter(moment(day.endDate))
+                    ) {
+                        availableTimesPresent = false;
+                    }
                 }
             }
-            return present;
+            for (let normalizedDate of this.normalizedRemainderTimes) {
+                if (normalizedDate.startDate.includes(date)) {
+                    datePresent = true;
+                }
+            }
+            return availableTimesPresent && datePresent;
+        },
+        numberOfIntervals(startDate, endDate) {
+            let duration = moment.duration(
+                moment(endDate).diff(moment(startDate))
+            );
+            let minutes = duration.asMinutes();
+
+            let numberOfIntervals = minutes / this.eventType.duration;
+
+            return numberOfIntervals;
         }
     }
 };

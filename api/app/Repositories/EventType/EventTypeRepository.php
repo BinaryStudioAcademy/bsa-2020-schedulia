@@ -15,7 +15,7 @@ final class EventTypeRepository extends BaseRepository implements EventTypeRepos
     public const DEFAULT_PAGE = 1;
     public const DEFAULT_PER_PAGE = 4;
     public const DEFAULT_SORTING = 'created_at';
-    public const DEFAULT_DIRECTION = 'ASC';
+    public const DEFAULT_DIRECTION = 'DESC';
     public const DEFAULT_ALL = false;
 
     public function getById(int $id): ?EventType
@@ -46,6 +46,13 @@ final class EventTypeRepository extends BaseRepository implements EventTypeRepos
     {
         $eventType
             ->availabilities()
+            ->delete();
+    }
+
+    public function deleteTags(EventType $eventType): void
+    {
+        $eventType
+            ->tags()
             ->delete();
     }
 

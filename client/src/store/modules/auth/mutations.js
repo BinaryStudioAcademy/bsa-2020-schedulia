@@ -84,5 +84,30 @@ export default {
             ...state.resetPasswordData,
             token: value
         };
+    },
+    [mutations.CONNECT_SLACK_NOTIFICATIONS]: (state, slackData) => {
+        state.user = {
+            ...state.user,
+            slack_webhook: slackData.incoming_webhook,
+            slack_channel: slackData.channel_name,
+            slack_active: true
+        };
+    },
+    [mutations.DELETE_SLACK_NOTIFICATIONS]: state => {
+        state.user = {
+            ...state.user,
+            slack_webhook: null,
+            slack_channel: null,
+            slack_active: false
+        };
+    },
+    [mutations.CHANGE_CHATITO_NOTIFICATIONS_ACTIVITY]: (state, value) => {
+        state.user = {
+            ...state.user,
+            chatito_active: value
+        };
+    },
+    [mutations.UPDATE_PROFILE]: (state, userData) => {
+        state.user = { ...state.user, ...userData };
     }
 };

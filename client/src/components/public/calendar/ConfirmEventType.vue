@@ -7,7 +7,9 @@
                 :name="eventType.owner.name"
                 :eventName="eventType.name"
                 :duration="eventType.duration"
-                :location="'Vyacheslav Chornovol Avenue, 59, Lviv'"
+                :locationType="eventType.locationType"
+                :coordinates="eventType.coordinates"
+                :address="eventType.address"
                 :description="eventType.description"
                 :startDate="startDateFormatted"
                 :timezone="publicEvent.timezone"
@@ -18,7 +20,7 @@
         <VDivider vertical></VDivider>
 
         <VCol class="event-confirm-field col-12 col-sm-9 col-md-7">
-            <h3 class="mb-3">{{ lang.ENTER_DETAILS }} {{ eventType.id }}</h3>
+            <h3 class="mb-3">{{ lang.ENTER_DETAILS }}</h3>
 
             <VForm v-model="formValid" ref="form">
                 <VCardText class="pa-0">
@@ -44,16 +46,16 @@
                             :value="meetingFormData.email"
                             @blur="setPropertyInMeetingFormData"
                             @input="setEmailOnInput"
-                            placeholder="user@gmail.com"
+                            placeholder="user@mail.com"
                             outlined
                             dense
                         ></VTextField>
                     </VCol>
 
                     <VCol cols="12" sm="12" md="10" class="pa-0">
-                        <label for="additional-info">{{
-                            lang.ADDITIONAL_INFO_DESCRIPTION
-                        }}</label>
+                        <label for="additional-info">
+                            {{ lang.ADDITIONAL_INFO_DESCRIPTION }}
+                        </label>
                         <VTextarea
                             id="additional-info"
                             :error-messages="additionalInfoErrors"
@@ -191,9 +193,20 @@ export default {
             fields: eventTypesGetters.GET_CUSTOM_FIELDS
         }),
         startDateFormatted() {
-            return moment(this.publicEvent.startDate).format(
-                'dddd, YYYY-MM-DD, HH:mm'
-            );
+            return moment
+                .tz(this.publicEvent.startDate, this.publicEvent.timezone)
+                .format('dddd, YYYY-MM-DD, HH:mm');
+        },
+        dateInUTC() {
+            return moment
+                .tz(
+                    this.publicEvent.startDate,
+                    'YYYY-MM-DD HH:mm',
+                    this.publicEvent.timezone
+                )
+                .clone()
+                .tz('UTC')
+                .format('YYYY-MM-DD HH:mm');
         },
         nameErrors() {
             const errors = [];
@@ -269,7 +282,7 @@ export default {
                         event_type_id: this.eventType.id,
                         invitee_name: this.meetingFormData.name,
                         invitee_email: this.meetingFormData.email,
-                        start_date: this.publicEvent.startDate,
+                        start_date: this.dateInUTC,
                         timezone: this.publicEvent.timezone,
                         custom_field_values: customFieldValues
                     });

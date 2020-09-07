@@ -1,5 +1,5 @@
 <template>
-    <div class="event">
+    <div class="event" :data-event-id="scheduledEvent.id">
         <VContainer class="event-date">
             <span>
                 {{ getEventDate(scheduledEvent.startDate) }}
@@ -47,36 +47,6 @@
                 <VExpansionPanelContent>
                     <VRow class="event-detail">
                         <VCol sm="3" class="text-left action-col">
-                            <VBtn
-                                :ripple="false"
-                                :hover="false"
-                                class="action-col__button"
-                                text
-                            >
-                                <VIcon>mdi-pencil-outline</VIcon>
-                                {{ lang.EDIT }}
-                            </VBtn>
-
-                            <VBtn
-                                :ripple="false"
-                                :hover="false"
-                                class="action-col__button"
-                                text
-                            >
-                                <VIcon>mdi-filter-outline</VIcon>
-                                {{ lang.FILTER }}
-                            </VBtn>
-
-                            <VBtn
-                                :ripple="false"
-                                :hover="false"
-                                class="action-col__button"
-                                text
-                            >
-                                <VIcon>mdi-refresh</VIcon>
-                                {{ lang.INVITE_AGAIN }}
-                            </VBtn>
-
                             <ConfirmDialog
                                 v-if="!isCancelled"
                                 :header="lang.CANCELLATION_EVENT"

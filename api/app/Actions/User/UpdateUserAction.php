@@ -30,7 +30,7 @@ final class UpdateUserAction
         $profile->welcome_message = $request->getWelcomeMessage() ?: $profile->welcome_message;
         $profile->language = $request->getLanguage() ?: $profile->language;
         $profile->date_format = $request->getDateFormat() ?: $profile->date_format;
-        $profile->time_format_12h = $request->isTimeFormat12h() ?: $profile->time_format_12h;
+        $profile->time_format_12h = $request->isTimeFormat12h() ?? $profile->time_format_12h;
         $profile->country = $request->getCountry() ?: $profile->country;
         $profile->timezone = $request->getTimezone() ?: $profile->timezone;
         $profile->nickname = $request->getNickname() ?: $profile->nickname;

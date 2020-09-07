@@ -14,6 +14,7 @@ export default {
                 data.id,
                 data.nickname
             );
+
             if (!eventType.disabled) {
                 context.commit(mutations.SET_EVENT_TYPE, eventType);
             }

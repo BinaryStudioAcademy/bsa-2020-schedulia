@@ -10,6 +10,7 @@
                 :value="data.duration"
                 @change="changeEventTypeProperty('duration', $event)"
                 class="mr-5 app-text"
+                id="event-type-duration"
             >
                 <VRadio
                     v-for="n in eventDuration"
@@ -18,6 +19,7 @@
                     :value="n.value"
                     class="mr-6"
                     :rules="rules"
+                    :id="'event-type-duration-' + n.id"
                 >
                 </VRadio>
             </VRadioGroup>
@@ -31,6 +33,7 @@
                 dense
                 class="shrink ma-0 pa-0 custom-textfield"
                 placeholder="0"
+                id="event-type-duration-custom"
             >
             </VTextField>
         </VRow>
@@ -254,18 +257,27 @@ export default {
 
     methods: {
         ...mapActions('eventType', {
-            addEventType: eventTypeActions.ADD_EVENT_TYPE
+            addEventType: eventTypeActions.ADD_EVENT_TYPE,
+            editEventType: eventTypeActions.EDIT_EVENT_TYPE
         }),
         async saveEventType() {
             try {
                 if (this.$refs.form.validate()) {
                     this.prepareData();
-                    await this.addEventType(this.data).then(response => {
+                    const action = this.data.id
+                        ? this.editEventType
+                        : this.addEventType;
+
+                    await action(this.data).then(response => {
                         if (response) {
-                            this.$router.push({
-                                path: 'new-event-type-options',
-                                query: { eventTypeId: response.id }
-                            });
+                            this.clearAvailabilitiesData();
+                            if (!this.data.id) {
+                                this.changeEventTypeProperty('id', response.id);
+                                this.$router.push({
+                                    path: 'new-event-type-options',
+                                    query: { eventTypeId: response.id }
+                                });
+                            }
                         }
                     });
                 }
@@ -295,6 +307,16 @@ export default {
                 ...this.data.availabilities_week_days,
                 ...this.data.availabilities
             });
+        },
+        clearAvailabilitiesData() {
+            let params = {
+                ...this.data.availabilities
+            };
+            delete params.dateRange;
+            for (let index in this.data.availabilities_week_days) {
+                delete params[index];
+            }
+            this.changeEventTypeProperty('availabilities', params);
         }
     },
 

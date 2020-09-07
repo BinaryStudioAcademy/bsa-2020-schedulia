@@ -17,6 +17,7 @@ class EventTypeRequest extends FormRequest
             'duration' => 'required|integer',
             'timezone' => 'required|string',
             'disabled' => 'required|boolean',
+            'tags.*' => 'required|string|regex:/^#[A-Za-z0-9_.]{3,20}$/',
             "availabilities" => [
                 'required',
                 'array',
@@ -38,8 +39,15 @@ class EventTypeRequest extends FormRequest
             ],
             "location_type" => Rule::in(LocationTypes::getAllLocationTypes()),
             "coordinates" => 'array',
-            "coordinates.lng" => 'string',
-            "coordinates.lat" => 'string'
+            "coordinates.lng" => [
+                'nullable',
+                'between: between(-90, 90)'
+            ],
+            "coordinates.lat" => [
+                'nullable',
+                'between: between(-180, 180)'
+            ],
+            'address' => ['string', 'nullable']
         ];
     }
 }
