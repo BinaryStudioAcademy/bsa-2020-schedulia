@@ -159,6 +159,8 @@ import ProfileSelect from './ProfileSelect.vue';
 import TimeZoneSelect from '@/components/common/form/TimeZoneSelect.vue';
 import ConfirmDialog from '@/components/confirm/ConfirmDialog.vue';
 import ProfileDisplayLanguage from './ProfileDisplayLanguage';
+import * as authActions from '@/store/modules/auth/types/actions';
+import * as authGetters from '@/store/modules/auth/types/getters';
 
 export default {
     name: 'ProfileForm',
@@ -204,7 +206,7 @@ export default {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         }),
         ...mapGetters('auth', {
-            user: 'getLoggedUser'
+            user: authGetters.GET_LOGGED_USER
         }),
         languages() {
             return [
@@ -226,7 +228,10 @@ export default {
             'deleteProfile'
         ]),
 
-        ...mapActions('auth', ['signOut']),
+        ...mapActions('auth', {
+            signOut: authActions.SIGN_OUT,
+            updateUserProfile: authActions.UPDATE_PROFILE
+        }),
 
         onChangeHandle(property, value) {
             this.userProfile[property] = value;
@@ -243,13 +248,17 @@ export default {
                     const url = await this.updateAvatar(this.file);
                     this.userProfile.avatar = url;
                 }
-
-                const userData = await this.updateProfile({
+                const newUserData = {
                     ...this.user,
                     ...this.userProfile
-                });
-
-                this.userProfile = { ...userData };
+                };
+                let filteredUserData = {};
+                for (const propName in newUserData) {
+                    if (newUserData[propName]) {
+                        filteredUserData[propName] = newUserData[propName];
+                    }
+                }
+                await this.updateUserProfile(filteredUserData);
             } catch (error) {
                 this.showErrorMessage(error.message);
             }
