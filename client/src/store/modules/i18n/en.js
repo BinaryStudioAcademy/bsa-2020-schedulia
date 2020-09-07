@@ -436,5 +436,9 @@ export default {
     ARE_YOU_SURE_YOU_WANT_TO_DELETE: 'Are you sure you want to delete',
     NOTIFICATIONS: 'Notifications',
     CONFIRM_NEW_PASSWORD: 'Confirm new password',
-    PASSWORD_WAS_SUCCESSFULLY_CHANGED: 'Password was successfully changed'
+    PASSWORD_WAS_SUCCESSFULLY_CHANGED: 'Password was successfully changed',
+    EVENT_TAGS_LABEL: 'Event Tags',
+    NO_RESULT_MATCHING: 'No results matching',
+    PRESS_ENTER_TO_CREATE: 'Press enter to create a new one tag',
+    ADD_SOME_TAGS: 'Add some tags'
 };

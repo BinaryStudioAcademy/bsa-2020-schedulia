@@ -348,5 +348,9 @@ export default {
     ARE_YOU_SURE_YOU_WANT_TO_DELETE: 'Ви впевнені, що хочете видалити',
     NOTIFICATIONS: 'Сповіщення',
     CONFIRM_NEW_PASSWORD: 'Підтвердити новий пароль',
-    PASSWORD_WAS_SUCCESSFULLY_CHANGED: 'Пароль успішно змінено'
+    PASSWORD_WAS_SUCCESSFULLY_CHANGED: 'Пароль успішно змінено',
+    EVENT_TAGS_LABEL: 'Тегі події',
+    NO_RESULT_MATCHING: 'Немає результатів за запитом',
+    PRESS_ENTER_TO_CREATE: 'Натисніть Enter, щоб створити новий тег',
+    ADD_SOME_TAGS: 'Додайте кілька тегів'
 };

@@ -6,7 +6,7 @@ export const eventTypeMapper = EventType => ({
     internalNote: EventType.internal_note,
     location: EventType.location,
     locationType: locationTypeMapper(EventType.location_type),
-    coordinates: EventType.coordinates,
+    coordinates: EventType.coordinates || [],
     slug: EventType.slug,
     color: EventType.color,
     duration: EventType.duration,
@@ -22,8 +22,19 @@ export const eventTypeMapper = EventType => ({
         date: moment().format('YYYY-MM-DD')
     },
     createdAt: EventType.created_at,
-    chatito_workspace: EventType.chatito_workspace
+    chatito_workspace: EventType.chatito_workspace,
+    tagChecks: tagMapper(EventType.tags)
 });
+
+export const tagMapper = function(tags) {
+    let result = [];
+
+    tags.forEach(tag => {
+        result.push(tag.name);
+    });
+
+    return result;
+};
 
 export const userMapper = user => ({
     id: user.id,
@@ -81,7 +92,8 @@ export const eventTypeFormMapper = eventTypeForm => ({
     disabled: eventTypeForm.disabled,
     timezone: eventTypeForm.timezone,
     availabilities: availabilitiesMapper(eventTypeForm.availabilities),
-    chatito_workspace: eventTypeForm.chatito_workspace
+    chatito_workspace: eventTypeForm.chatito_workspace,
+    tags: eventTypeForm.tagChecks
 });
 
 export const availabilitiesMapper = function(availabilities) {
@@ -199,6 +211,7 @@ export const eventTypeDefaultMapper = function() {
         selectDay: {
             date: moment().format('YYYY-MM-DD')
         },
-        chatito_workspace: ''
+        chatito_workspace: '',
+        tagChecks: []
     };
 };
