@@ -4,25 +4,21 @@
             :accessToken="accessToken"
             :mapStyle="'mapbox://styles/mapbox/streets-v11'"
         >
-            <MglMarker
-                v-if="coordinates.length"
-                :coordinates="coordinates"
-                color="red"
-            />
+            <MglMarker v-if="coords.length" :coordinates="coords" color="red" />
         </MglMap>
     </div>
 </template>
 
 <script>
 import { MglMap, MglMarker } from 'vue-mapbox';
-import '../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 
 const VUE_APP_MAPBOX_TOKEN = process.env.VUE_APP_MAPBOX_TOKEN;
 
 export default {
     name: 'LocationMap',
     props: {
-        coordinates: Array
+        coords: Array
     },
     components: {
         MglMap,
@@ -30,9 +26,6 @@ export default {
     },
     data() {
         return {
-            form: {
-                location: ''
-            },
             accessToken: VUE_APP_MAPBOX_TOKEN
         };
     }
@@ -41,7 +34,7 @@ export default {
 
 <style scoped>
 .map-container {
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
 }
 </style>

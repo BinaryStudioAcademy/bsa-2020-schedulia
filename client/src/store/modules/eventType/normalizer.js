@@ -68,9 +68,9 @@ export const availabilityMapper = function(availabilities) {
     return result;
 };
 
-export const availabilityApiMapper = function(availability) {
-    let startDate = moment.utc(availability.startDate);
-    let endDate = moment.utc(availability.endDate);
+export const availabilityApiMapper = function(availability, timezone) {
+    let startDate = moment.utc(moment(availability.startDate), timezone);
+    let endDate = moment.utc(moment(availability.endDate), timezone);
     return {
         type: availability.type,
         start_date: startDate.format('YYYY-MM-DD HH:mm:ss'),
@@ -91,18 +91,22 @@ export const eventTypeFormMapper = eventTypeForm => ({
     duration: eventTypeForm.duration || eventTypeForm.customDuration,
     disabled: eventTypeForm.disabled,
     timezone: eventTypeForm.timezone,
-    availabilities: availabilitiesMapper(eventTypeForm.availabilities),
+    availabilities: availabilitiesMapper(eventTypeForm),
     chatito_workspace: eventTypeForm.chatito_workspace,
     tags: eventTypeForm.tagChecks
 });
 
-export const availabilitiesMapper = function(availabilities) {
-    return Object.entries(availabilities).flatMap(availabilities =>
+export const availabilitiesMapper = function(eventTypeForm) {
+    return Object.entries(
+        eventTypeForm.availabilities
+    ).flatMap(availabilities =>
         availabilities[1]
             .filter(
                 availability => availability.startDate && availability.endDate
             )
-            .map(availability => availabilityApiMapper(availability))
+            .map(availability =>
+                availabilityApiMapper(availability, eventTypeForm.timezone)
+            )
     );
 };
 

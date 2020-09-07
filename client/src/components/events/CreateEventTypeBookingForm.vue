@@ -57,6 +57,7 @@
                 text
                 color="primary"
                 dark
+                class="edit-button"
                 @click.stop="setPropertyData('visibleAvailabilityDialog', true)"
             >
                 {{ lang.EDIT }}
@@ -77,7 +78,7 @@
                     color="primary"
                     dark
                     @click.stop="setPropertyData('visibleTimeZoneDialog', true)"
-                    class="editTimeZoneButton ma-n2 pa-n3"
+                    class="editTimeZoneButton ma-n2 pa-n3 edit-button"
                 >
                     {{ lang.EDIT }}
                 </VBtn>
@@ -307,8 +308,8 @@ export default {
                             if (!this.data.id) {
                                 this.changeEventTypeProperty('id', response.id);
                                 this.$router.push({
-                                    path: 'new-event-type-options',
-                                    query: { eventTypeId: response.id }
+                                    name: 'EventType',
+                                    params: { id: response.id }
                                 });
                             }
                         }
@@ -368,7 +369,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .recommendation-block {
     background-color: var(--v-lightGrey-base);
     padding-left: 20px;
@@ -434,5 +435,10 @@ export default {
 
 .image-circle:hover {
     opacity: 0.9;
+}
+
+.edit-button {
+    padding: 0 5px !important;
+    min-width: 35px !important;
 }
 </style>

@@ -150,7 +150,7 @@
                             absolute
                             :value="data.color === id"
                             class="rounded-circle"
-                            color="eventColor"
+                            :color="id"
                         >
                             <img
                                 :src="require('@/assets/images/icon_check.png')"
@@ -387,9 +387,6 @@ export default {
 </script>
 
 <style scoped>
-.v-text-field {
-    width: 506px;
-}
 .v-btn {
     font-size: 13px;
     text-transform: none;
@@ -410,15 +407,5 @@ export default {
 .set-location-container {
     background-color: white;
     padding: 30px 20px 15px 20px;
-}
-
-.basemap {
-    width: 350px;
-    min-width: 250px;
-    height: 250px;
-}
-
-.find-location-form {
-    max-width: 507px;
 }
 </style>

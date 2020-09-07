@@ -353,5 +353,7 @@ export default {
     PRESS_ENTER_TO_CREATE: 'Натисніть Enter, щоб створити новий тег',
     ADD_SOME_TAGS: 'Додайте кілька тегів',
     PROFILE_WAS_UPDATED: 'Профіль оновлено!',
+    EVENT_TYPE_CREATED: 'Івент Тип _ успішно створино',
+    EVENT_TYPE_UPDATED: 'Івент Тип _ успішно оновлений',
     NO: 'Ні'
 };

@@ -104,8 +104,10 @@ export default {
             await this.cloneEventType(this.selectEventType.id);
         },
         onEdit() {
-            this.setPropertyData('eventType', this.selectEventType);
-            this.$router.push({ path: 'new-event-type-options' });
+            this.$router.push({
+                name: 'EventType',
+                params: { id: this.selectEventType.id }
+            });
         }
     },
     computed: {
