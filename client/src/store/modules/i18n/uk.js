@@ -352,5 +352,6 @@ export default {
     EVENT_TAGS_LABEL: 'Тегі події',
     NO_RESULT_MATCHING: 'Немає результатів за запитом',
     PRESS_ENTER_TO_CREATE: 'Натисніть Enter, щоб створити новий тег',
-    ADD_SOME_TAGS: 'Додайте кілька тегів'
+    ADD_SOME_TAGS: 'Додайте кілька тегів',
+    PROFILE_WAS_UPDATED: 'Профіль оновлено!'
 };

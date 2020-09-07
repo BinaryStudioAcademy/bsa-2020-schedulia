@@ -195,9 +195,7 @@ export default {
                 root: true
             });
         } catch (error) {
-            dispatch(actions.CHECK_IF_UNAUTHORIZED, error, {
-                root: true
-            });
+            dispatch(actions.CHECK_IF_UNAUTHORIZED, error);
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });

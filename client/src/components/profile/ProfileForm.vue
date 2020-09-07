@@ -149,6 +149,11 @@
                 </VForm>
             </VCol>
         </VRow>
+        <Alert
+            :visibility="alert.visibility"
+            :type="alert.type"
+            :message="alert.message"
+        />
     </VContainer>
 </template>
 
@@ -165,6 +170,7 @@ import * as authActions from '@/store/modules/auth/types/actions';
 import * as authGetters from '@/store/modules/auth/types/getters';
 import { validationMixin } from 'vuelidate';
 import { required } from 'vuelidate/lib/validators';
+import Alert from '@/components/alert/Alert';
 
 export default {
     name: 'ProfileForm',
@@ -174,7 +180,8 @@ export default {
         ProfileTextArea,
         ProfileSelect,
         ConfirmDialog,
-        TimeZoneSelect
+        TimeZoneSelect,
+        Alert
     },
     mixins: [validationMixin],
     validations: {
@@ -205,7 +212,12 @@ export default {
         timeFormats: [
             { value: true, text: '12h' },
             { value: false, text: '24h' }
-        ]
+        ],
+        alert: {
+            type: 'success',
+            message: '',
+            visibility: false
+        }
     }),
     created() {
         this.newAvatar = this.user.avatar;
@@ -281,9 +293,6 @@ export default {
                 if (this.$v.$invalid) {
                     return;
                 }
-                if (this.userProfile.nickname === this.user.name) {
-                    delete this.userProfile.nickname;
-                }
                 if (this.avatarIsNew) {
                     const url = await this.updateAvatar(this.file);
                     this.userProfile.avatar = url;
@@ -292,6 +301,9 @@ export default {
                     ...this.user,
                     ...this.userProfile
                 };
+                if (this.userProfile.nickname === this.user.nickname) {
+                    delete newUserData.nickname;
+                }
                 let filteredUserData = {};
                 for (const propName in newUserData) {
                     if (newUserData[propName]) {
@@ -299,9 +311,18 @@ export default {
                     }
                 }
                 await this.updateUserProfile(filteredUserData);
+                this.showAlert(this.lang.PROFILE_WAS_UPDATED);
             } catch (error) {
                 this.showErrorMessage(error.message);
             }
+        },
+        showAlert(message, type = 'success') {
+            this.alert.visibility = true;
+            this.alert.message = message;
+            this.alert.type = type;
+            setTimeout(() => {
+                this.alert.visibility = false;
+            }, 2000);
         },
         async onDeleteHandle() {
             try {
