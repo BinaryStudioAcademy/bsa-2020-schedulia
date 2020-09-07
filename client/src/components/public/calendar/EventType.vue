@@ -50,9 +50,9 @@
                     <template v-slot:prepend-item>
                         <VListItem>
                             <VListItemContent>
-                                <VListItemTitle>
-                                    {{ lang.CHOOSE_YOUR_TIMEZONE }}
-                                </VListItemTitle>
+                                <VListItemTitle>{{
+                                    lang.CHOOSE_YOUR_TIMEZONE
+                                }}</VListItemTitle>
                                 <VTextField
                                     v-model="timezoneFieldSearch"
                                     label="Enter timezone"
@@ -589,17 +589,26 @@ export default {
             getAvailabilitiesByMonth: actions.GET_AVAILABILITIES_BY_MONTH
         }),
         getStartDate(time) {
-            return `${momentTimezones(
-                `${this.date} ${time}`,
-                'YYYY-MM-DD HH:mm'
-            )
-                .tz(this.currentTimezone)
+            const timeNormalized = moment(time, 'h:mm A').format('HH:mm');
+            return `${moment
+                .tz(
+                    `${this.date} ${timeNormalized}`,
+                    'YYYY-MM-DD HH:mm',
+                    this.currentTimezone
+                )
                 .format()}`;
         },
         onConfirmDate(time) {
+            const timeNormalized = moment(time, 'h:mm A').format('HH:mm');
             this.setPublicEvent({
                 eventTypeId: this.eventType.id,
-                startDate: `${this.date} ${time}`,
+                startDate: moment
+                    .tz(
+                        `${this.date} ${timeNormalized}`,
+                        'YYYY-MM-DD HH:mm',
+                        this.currentTimezone
+                    )
+                    .format('YYYY-MM-DD HH:mm'),
                 timezone: this.currentTimezone
             });
             this.$router.push({
