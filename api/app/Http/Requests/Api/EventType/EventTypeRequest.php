@@ -17,6 +17,7 @@ class EventTypeRequest extends FormRequest
             'duration' => 'required|integer',
             'timezone' => 'required|string',
             'disabled' => 'required|boolean',
+            'tags.*' => 'required|string|regex:/^#[A-Za-z0-9_.]{3,20}$/',
             "availabilities" => [
                 'required',
                 'array',
