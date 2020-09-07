@@ -176,7 +176,8 @@ export default {
 }
 .disabled-event .event-type-content h3,
 .disabled-event .event-type-about,
-.disabled-event .event-type-actions .duration span {
+.disabled-event .event-type-actions .duration span,
+.disabled-event span.internal-note {
     color: #e5e5e5;
 }
 .internal-note {
