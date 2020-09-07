@@ -6,7 +6,7 @@ use App\Services\Zoom\ZoomService;
 
 final class ZoomCallbackAction
 {
-    private $zoomService;
+    private ZoomService $zoomService;
 
     public function __construct(ZoomService $zoomService)
     {
