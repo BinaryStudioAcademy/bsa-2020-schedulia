@@ -35,13 +35,11 @@ export default {
     }
 };
 </script>
-<style>
-.branding-logo .v-image__image--cover {
-    background-size: contain;
-}
-</style>
 
 <style scoped>
+.branding-logo::v-deep .v-image__image--cover {
+    background-size: contain;
+}
 .event-info-content {
     margin-top: -40px;
     margin-bottom: 10px;
