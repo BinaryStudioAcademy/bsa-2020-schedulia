@@ -106,5 +106,8 @@ export default {
             ...state.user,
             chatito_active: value
         };
+    },
+    [mutations.UPDATE_PROFILE]: (state, userData) => {
+        state.user = { ...state.user, ...userData };
     }
 };
