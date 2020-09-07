@@ -281,9 +281,6 @@ export default {
                 if (this.$v.$invalid) {
                     return;
                 }
-                if (this.userProfile.nickname === this.user.name) {
-                    delete this.userProfile.nickname;
-                }
                 if (this.avatarIsNew) {
                     const url = await this.updateAvatar(this.file);
                     this.userProfile.avatar = url;
@@ -292,6 +289,9 @@ export default {
                     ...this.user,
                     ...this.userProfile
                 };
+                if (this.userProfile.nickname === this.user.nickname) {
+                    delete newUserData.nickname;
+                }
                 let filteredUserData = {};
                 for (const propName in newUserData) {
                     if (newUserData[propName]) {
