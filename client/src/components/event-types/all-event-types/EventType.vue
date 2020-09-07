@@ -32,12 +32,16 @@
         <VDivider />
         <VRow class="event-type-actions">
             <VCol class="duration text-left" cols="4">
+                <span v-if="isDisabled">
+                    <span>/{{ eventType.slug }}</span>
+                </span>
                 <RouterLink
+                    v-else
                     :to="{
                         path: `/${eventType.owner.nickname}/${eventType.id}`
                     }"
                 >
-                    <span>/{{ eventType.slug }}</span>
+                    /{{ eventType.slug }}
                 </RouterLink>
             </VCol>
             <VCol class="text-right" cols="8">
@@ -158,7 +162,8 @@ export default {
     justify-content: center;
     align-items: center;
 }
-.duration a {
+.duration a,
+.duration span {
     color: var(--v-primary-base);
     font-size: 16px;
     text-decoration: none;
