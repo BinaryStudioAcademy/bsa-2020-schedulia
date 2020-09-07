@@ -390,7 +390,7 @@ class AvailabilityServiceTest extends TestCase
 
         $response = $this->json('POST', self::EVENT_API_URL, $this->returnEventDataByEventTypeId($eventType));
 
-        $response->assertStatus(JsonResponse::HTTP_NO_CONTENT);
+        $response->assertStatus(JsonResponse::HTTP_CREATED);
     }
 
     public function test_add_event_on_booked_time()

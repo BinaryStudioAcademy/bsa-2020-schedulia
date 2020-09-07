@@ -357,7 +357,6 @@ export default {
     OK: 'Ok',
     SET_MEETING_LOCATION: 'Set meeting location',
     ZOOM_CONFERENCE_LINK: 'Zoom conference link',
-    SKYPE_CALL_DETAILS: 'Skype call details',
 
     INFO_MUST_BE_NO_MORE_THAN_1000_CHARACTERS_LONG:
         'Additional info must be no more than 1000 characters long',

@@ -892,16 +892,12 @@ export default {
             },
             items: [
                 {
-                    title: 'address on the map',
+                    title: 'address',
                     icon: 'mdi-google-maps'
                 },
                 {
                     title: 'zoom',
                     icon: 'mdi-video-box'
-                },
-                {
-                    title: 'skype',
-                    icon: 'mdi-skype'
                 }
             ],
             colorById: {

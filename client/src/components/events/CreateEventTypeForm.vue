@@ -41,7 +41,10 @@
                     <VFlex xs2 md1>
                         <VIcon>{{ data.item.icon }}</VIcon>
                     </VFlex>
-                    <VFlex>{{ data.item.title }}</VFlex>
+                    <VFlex
+                        :id="'event-type-location-type-' + data.item.title"
+                        >{{ data.item.title }}</VFlex
+                    >
                 </template>
             </VSelect>
             <FindLocationForm class="find-location-form" v-if="showGeocoder" />
@@ -112,10 +115,11 @@
                 <VListItem>
                     <VListItemContent>
                         <VListItemTitle>
-                            {{ lang.NO_RESULT_MATCHING }} "<strong>{{
-                                search
-                            }}</strong
-                            >". {{ lang.PRESS_ENTER_TO_CREATE }}
+                            {{ lang.NO_RESULT_MATCHING }} "
+                            <strong>
+                                {{ search }}
+                            </strong>
+                            ". {{ lang.PRESS_ENTER_TO_CREATE }}
                         </VListItemTitle>
                     </VListItemContent>
                 </VListItem>
@@ -146,7 +150,7 @@
                             absolute
                             :value="data.color === id"
                             class="rounded-circle"
-                            color="eventColor"
+                            :color="id"
                         >
                             <img
                                 :src="require('@/assets/images/icon_check.png')"
@@ -226,26 +230,6 @@
                 >
             </div>
         </VDialog>
-        <VDialog :value="showSkypeDialog" max-width="390" persistent>
-            <div class="set-location-container">
-                <h3 class="mb-4">{{ lang.SET_MEETING_LOCATION }}</h3>
-                <VTextField
-                    :value="data.location"
-                    @change="changeEventTypeProperty('location', $event)"
-                    :placeholder="lang.SKYPE_CALL_DETAILS"
-                    outlined
-                    dense
-                    id="event-type-location-skype"
-                ></VTextField>
-                <VBtn
-                    color="primary"
-                    class="white--text"
-                    width="114"
-                    @click="onCloseSkypeDialog"
-                    >{{ lang.OK }}</VBtn
-                >
-            </div>
-        </VDialog>
     </VForm>
 </template>
 
@@ -277,7 +261,7 @@ export default {
             items: [
                 {
                     key: 'address',
-                    title: 'address on the map',
+                    title: 'address',
                     icon: 'mdi-google-maps'
                 },
                 {
@@ -287,7 +271,6 @@ export default {
                 }
             ],
             showZoomDialog: false,
-            showSkypeDialog: false,
             colors: [
                 'yellow',
                 'red',
@@ -396,9 +379,6 @@ export default {
         },
         onCloseZoomDialog() {
             this.showZoomDialog = false;
-        },
-        onCloseSkypeDialog() {
-            this.showSkypeDialog = false;
         }
     }
 };

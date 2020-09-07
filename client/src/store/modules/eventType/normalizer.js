@@ -170,7 +170,7 @@ export const locationTypeMapper = function(location) {
         case 'address':
             result = {
                 key: 'address',
-                title: 'address on the map',
+                title: 'address',
                 icon: 'mdi-google-maps'
             };
             break;
