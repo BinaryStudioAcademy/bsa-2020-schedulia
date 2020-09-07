@@ -60,7 +60,7 @@ class CustomFieldTest extends TestCase
                 '/custom-fields',
                 ['custom_fields' => self::CUSTOM_FIELDS_VALID]
             )
-            ->assertStatus(JsonResponse::HTTP_NO_CONTENT);
+            ->assertStatus(JsonResponse::HTTP_CREATED);
     }
 
     public function test_add_event_type_with_custom_field_invalid_type()

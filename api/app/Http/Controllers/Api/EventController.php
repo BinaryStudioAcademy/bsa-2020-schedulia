@@ -58,7 +58,7 @@ class EventController extends ApiController
             )
         );
 
-        return $this->successResponse($this->eventPresenter->present($response->getEvent()));
+        return $this->successResponse($this->eventPresenter->present($response->getEvent()), JsonResponse::HTTP_CREATED);
     }
 
     public function index(Request $request)
