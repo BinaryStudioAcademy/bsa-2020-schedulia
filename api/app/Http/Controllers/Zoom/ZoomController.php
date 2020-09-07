@@ -18,6 +18,11 @@ class ZoomController extends Controller
         $this->zoomCallbackAction = $zoomCallbackAction;
     }
 
+    public function redirectToZoom()
+    {
+        return redirect('https://zoom.us/oauth/authorize?response_type=code&client_id='. env('ZOOM_CLIENT_ID').'&redirect_uri=' . env('ZOOM_REDIRECT_URI'));
+    }
+
     public function handleCallback(Request $request)
     {
         $zoomRequest = new ZoomCallbackRequest(

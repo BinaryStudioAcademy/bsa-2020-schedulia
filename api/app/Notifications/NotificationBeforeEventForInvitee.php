@@ -13,12 +13,10 @@ class NotificationBeforeEventForInvitee extends Notification
 {
     use Queueable;
     private $event;
-    private $startMeetingUrl;
 
-    public function __construct(Event $event, string $startMeetingUrl)
+    public function __construct(Event $event)
     {
         $this->event = $event;
-        $this->startMeetingUrl = $startMeetingUrl;
     }
 
     public function via($notifiable)
@@ -28,7 +26,7 @@ class NotificationBeforeEventForInvitee extends Notification
 
     public function toMail($notifiable)
     {
-        return (new BeforeEventMailForInvitee($this->event, $this->startMeetingUrl))->build();
+        return (new BeforeEventMailForInvitee($this->event))->build();
     }
 
     public function toArray($notifiable)

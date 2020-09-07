@@ -12,6 +12,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\HtmlString;
 
 class BeforeEventMailForOwner extends Mailable
 {
@@ -21,14 +22,12 @@ class BeforeEventMailForOwner extends Mailable
     public Event $event;
     public EventType $eventType;
     public User $owner;
-    private string $startMeetingUrl;
 
-    public function __construct(Event $event, string $startMeetingUrl)
+    public function __construct(Event $event)
     {
         $this->event = $event;
         $this->eventType = $event->eventType;
         $this->owner = $event->eventType->owner;
-        $this->startMeetingUrl = $startMeetingUrl;
     }
 
     public function build()
@@ -49,6 +48,6 @@ class BeforeEventMailForOwner extends Mailable
             ->line(Lang::get("Event Date/Time in {$this->event->timezone} timezone:"))
             ->line($eventTimeInUTCZone->timezone($this->event->timezone))
             ->line(Lang::get('Meeting link'))
-            ->line($this->startMeetingUrl);
+            ->line(new HtmlString('<a href="'.$this->event->zoom_meeting_link.'">'."{$this->event->zoom_meeting_link}".'</a>'));
     }
 }

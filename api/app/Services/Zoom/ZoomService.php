@@ -2,12 +2,8 @@
 
 namespace App\Services\Zoom;
 
-
-use App\Entity\User;
 use App\Repositories\User\UserRepository;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 
 final class ZoomService
 {
@@ -16,19 +12,15 @@ final class ZoomService
     private const ZOOM_OAUTH_TOKEN_POST_REQUEST_URL = 'https://zoom.us/oauth/token';
 
     private $userRepository;
-    private $zoomUserInfo;
 
-    public function __construct(UserRepository $userRepository, ZoomUserInfo $zoomUserInfo)
+    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
-        $this->zoomUserInfo = $zoomUserInfo;
     }
 
     public function meeting($event)
     {
-        $zoomUserEmail = $this->zoomUserInfo->getZoomUserEmail();
-
-        $user = $this->userRepository->getByEmail($zoomUserEmail);
+        $user = $this->userRepository->getById($event->eventType->owner_id);
 
         $response = Http::withHeaders([
             "Authorization" => "Bearer " . $user->zoom_access_token,
@@ -38,9 +30,10 @@ final class ZoomService
             "timezone" => $event->timezone
         ]);
 
-        $zoomMeetingResponse = new ZoomMeetingResponse($response);
+        $zoomResponseArr = json_decode($response->body(), true);
 
-        return $zoomMeetingResponse->getStartUrl();
+        $event->zoom_meeting_link = $zoomResponseArr['start_url'];
+        $event->save();
     }
 
     public function saveToken($request)
@@ -48,32 +41,15 @@ final class ZoomService
         $token = $this->getZoomToken($request);
         $zoomUser = $this->getZoomUser($token);
 
-        $this->zoomUserInfo->setZoomUserEmail($zoomUser['email']);
-
         $user = $this->userRepository->getByEmail($zoomUser['email']);
-
-        if (!$user) {
-            $this->createUser($zoomUser);
-        }
 
         if ($user->zoom_access_token == null) {
 
             $user->zoom_access_token = $token['access_token'];
             $user->save();
         } else {
-            $user->update([$user->zoom_access_token = $token['access_token']]);
+            $user->update(['zoom_access_token' => $token['access_token']]);
         }
-    }
-
-    public function createUser($zoomUser)
-    {
-        $user = new User();
-        $user->name = $zoomUser['first_name'] .' '.$zoomUser['last_name'] ;
-        $user->email = $zoomUser['email'];
-        $user->email_verified_at = now();
-        $user->password = Hash::make(Str::random(40));
-
-        $user = $this->userRepository->save($user);
     }
 
     public function getZoomUser($token)
@@ -88,11 +64,11 @@ final class ZoomService
     public function getZoomToken($request)
     {
         $responseToken = Http::withHeaders([
-            "Authorization" => "Basic ". base64_encode('TqOhSFl3THurYIMqbrR58Q'.':'. 'rjzv7lpqebwLoBTQF7FPpkuSIGBiDpdF')
+            "Authorization" => "Basic ". base64_encode(env('ZOOM_CLIENT_ID').':'. env('ZOOM_CLIENT_SECRET'))
         ])->asForm()->post(self::ZOOM_OAUTH_TOKEN_POST_REQUEST_URL, [
             "grant_type" => "authorization_code",
             "code" => $request->getCode(),
-            "redirect_uri" => 'https://f39ac760c645.ngrok.io/meetings/zoom/callback'
+            "redirect_uri" => env('ZOOM_REDIRECT_URI')
         ]);
 
         return json_decode($responseToken->body(), true);

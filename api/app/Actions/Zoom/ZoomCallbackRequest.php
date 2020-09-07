@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Actions\Zoom;
-
 
 final class ZoomCallbackRequest
 {

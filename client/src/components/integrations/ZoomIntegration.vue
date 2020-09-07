@@ -29,6 +29,7 @@
 
 <script>
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
+
 import { mapGetters } from 'vuex';
 export default {
     name: 'ZoomIntegration',
@@ -41,12 +42,9 @@ export default {
 
     methods: {
         activateAccount() {
-            window.location.href =
-                process.env.VUE_APP_ZOOM_AUTHORIZE +
-                '?response_type=code&client_id=' +
-                process.env.VUE_APP_ZOOM_CLIENT_ID +
-                '&redirect_uri=' +
-                process.env.VUE_APP_ZOOM_REDIRECT_URI;
+            window.location.replace(
+                process.env.VUE_APP_SOCIAL_AUTH_URL + '/meetings/zoom/redirect'
+            );
         }
     }
 };
