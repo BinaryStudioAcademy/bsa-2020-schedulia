@@ -129,8 +129,9 @@ final class AvailabilityService implements AvailabilityServiceInterface
                 if (
                     $time->gte($startIntervalTime) && $time->lte($endIntervalTime)
                     ||
-                    ( $startTimeObj->toTimeString() === self::MIDNIGHT_TIME
-                        && $endTimeObj->toTimeString() === self::MIDNIGHT_TIME)
+                        ($startTimeObj->toTimeString() === self::MIDNIGHT_TIME
+                        &&
+                        $endTimeObj->toTimeString() === self::MIDNIGHT_TIME)
                 ) {
                     if (!in_array($time->toTimeString(), $interval['unavailable'])) {
                         return true;
