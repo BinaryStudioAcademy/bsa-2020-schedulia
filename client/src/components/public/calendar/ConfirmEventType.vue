@@ -278,7 +278,8 @@ export default {
                     ).filter(field => {
                         return field.value;
                     });
-                    await this.addPublicEvent({
+
+                    const response = await this.addPublicEvent({
                         event_type_id: this.eventType.id,
                         invitee_name: this.meetingFormData.name,
                         invitee_email: this.meetingFormData.email,
@@ -287,9 +288,11 @@ export default {
                         custom_field_values: customFieldValues
                     });
 
-                    this.$router.push({
-                        path: `/${this.eventType.owner.nickname}/${this.eventType.id}/invitee/details`
-                    });
+                    if (response) {
+                        this.$router.push({
+                            path: `/${this.eventType.owner.nickname}/${this.eventType.id}/invitee/details`
+                        });
+                    }
                 } catch (error) {
                     this.setErrorNotification(error);
                 }
