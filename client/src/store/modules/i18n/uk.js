@@ -40,7 +40,7 @@ export default {
     CONFIRMED: 'Підтверджено',
     CONFIRM_DATE: 'Підтвердити',
     CONFIRM_PASSWORD: 'Підтвердження паролю',
-    COPY_LINK: 'Скопіювати посилання',
+    COPY_LINK: 'Скопіювати',
     COUNTRY: 'Країна',
     CREATED: 'Створено',
     CREATE_AN_ACCOUNT: 'Створити аккаунт',
