@@ -23,6 +23,7 @@ export const eventTypeMapper = EventType => ({
     createdAt: EventType.created_at,
     chatito_workspace: EventType.chatito_workspace
     // tagChecks: tagMapper(EventType.tags)
+    // TODO: rename to 'tags' for correct cancelling
 });
 
 export const tagMapper = function(tags) {
