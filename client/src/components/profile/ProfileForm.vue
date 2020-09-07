@@ -149,7 +149,11 @@
                 </VForm>
             </VCol>
         </VRow>
-        <Alert :visibility="alert.visibility" :type="alert.type" :message="alert.message" />
+        <Alert
+            :visibility="alert.visibility"
+            :type="alert.type"
+            :message="alert.message"
+        />
     </VContainer>
 </template>
 
@@ -307,7 +311,7 @@ export default {
                     }
                 }
                 await this.updateUserProfile(filteredUserData);
-                this.showAlert('Profile was updated!');
+                this.showAlert(this.lang.PROFILE_WAS_UPDATED);
             } catch (error) {
                 this.showErrorMessage(error.message);
             }
