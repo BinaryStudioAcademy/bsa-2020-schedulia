@@ -48,10 +48,10 @@ class BeforeEventMailForOwner extends Mailable
             ->line(Lang::get("Event Date/Time in {$this->event->timezone} timezone:"))
             ->line($eventTimeInUTCZone->timezone($this->event->timezone));
 
-            if ($this->event->eventType->location_type == 'zoom') {
-                $message = $message->line(Lang::get('Meeting link'))
-                ->line(new HtmlString('<a href="' . $this->event->zoom_meeting_link . '">' . "{$this->event->zoom_meeting_link}" . '</a>'));
-            }
-            return $message;
+        if ($this->event->eventType->location_type == 'zoom') {
+            $message = $message->line(Lang::get('Meeting link'))
+            ->line(new HtmlString('<a href="' . $this->event->zoom_meeting_link . '">' . "{$this->event->zoom_meeting_link}" . '</a>'));
+        }
+        return $message;
     }
 }
