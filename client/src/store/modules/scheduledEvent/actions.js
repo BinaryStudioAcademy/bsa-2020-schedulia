@@ -118,7 +118,6 @@ export default {
     [actions.UPDATE_EVENT]: async ({ commit, dispatch }, event) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
         try {
-            console.log(event);
             const updatedEvent = await scheduledEventService.updateEvent(
                 event.id,
                 eventApiMapper(event)
