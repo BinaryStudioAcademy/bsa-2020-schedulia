@@ -45,9 +45,9 @@ class EventController extends ApiController
         $this->eventPresenter = $eventPresenter;
     }
 
-    public function store(EventRequest $request)
+    public function store(EventRequest $request): JsonResponse
     {
-        $this->addEventAction->execute(
+        $response = $this->addEventAction->execute(
             new AddEventRequest(
                 (int)$request->event_type_id,
                 $request->invitee_name,
@@ -58,7 +58,7 @@ class EventController extends ApiController
             )
         );
 
-        return $this->emptyResponse();
+        return $this->successResponse($this->eventPresenter->present($response->getEvent()), JsonResponse::HTTP_CREATED);
     }
 
     public function index(Request $request)

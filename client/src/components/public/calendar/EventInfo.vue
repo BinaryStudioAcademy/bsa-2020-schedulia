@@ -11,7 +11,10 @@
         </div>
         <div v-if="showLocation" class="event-info">
             <VIcon dark color="primary">mdi-map-marker</VIcon>
-            {{ location }}
+            <span v-if="coords" @click="onOpenMap" class="map-address">{{
+                location
+            }}</span>
+            <span v-else>{{ location }}</span>
         </div>
         <div v-if="startDate" class="event-info">
             <VIcon dark color="primary">mdi-calendar-blank</VIcon>
@@ -22,16 +25,30 @@
             {{ timezone }}
         </div>
         <div class="event-info">{{ description }}</div>
+        <VDialog :value="showMapDialog" width="320" persistent>
+            <div class="location-container">
+                <LocationMap :coords="coords" />
+                <VBtn
+                    color="primary"
+                    class="white--text mt-3"
+                    width="114"
+                    @click="onCloseMap"
+                    >{{ lang.OK }}</VBtn
+                >
+            </div>
+        </VDialog>
     </DetailLayout>
 </template>
 
 <script>
-import DetailLayout from './DetailLayout';
+import DetailLayout from '@/components/public/calendar/DetailLayout';
+import LocationMap from '@/components/public/calendar/LocationMap';
 
 export default {
     name: 'EventInfo',
     components: {
-        DetailLayout
+        DetailLayout,
+        LocationMap
     },
     props: {
         lang: Object,
@@ -43,11 +60,14 @@ export default {
         duration: Number,
         locationType: String,
         address: String,
-        coordinates: Object,
+        coordinates: null,
         description: String,
         startDate: String,
         timezone: String
     },
+    data: () => ({
+        showMapDialog: false
+    }),
     computed: {
         showLocation() {
             if (this.locationType === 'address') {
@@ -65,6 +85,19 @@ export default {
                 return this.address;
             }
             return 'Zoom meeting';
+        },
+        coords() {
+            return this.coordinates
+                ? [this.coordinates.lng, this.coordinates.lat]
+                : null;
+        }
+    },
+    methods: {
+        onOpenMap() {
+            this.showMapDialog = true;
+        },
+        onCloseMap() {
+            this.showMapDialog = false;
         }
     }
 };
@@ -83,5 +116,12 @@ export default {
 
 .event-info i {
     margin-right: 10px;
+}
+.map-address {
+    cursor: pointer;
+}
+.location-container {
+    background-color: white;
+    padding: 10px 10px 15px 10px;
 }
 </style>
