@@ -1,10 +1,16 @@
 <template>
     <div>
-        <VImg v-if="brandingLogo" :max-height="150" :src="brandingLogo" />
+        <VImg
+            v-if="brandingLogo"
+            class="branding-logo"
+            :max-height="150"
+            :min-height="40"
+            :src="brandingLogo"
+        />
         <div v-if="!brandingLogo" class="no-branding-logo-fill"></div>
 
         <div class="event-info-content">
-            <img
+            <VImg
                 v-if="avatar"
                 :src="avatar"
                 class="avatar-image"
@@ -30,7 +36,7 @@ export default {
 };
 </script>
 <style>
-.v-image__image--cover {
+.branding-logo .v-image__image--cover {
     background-size: contain;
 }
 </style>
