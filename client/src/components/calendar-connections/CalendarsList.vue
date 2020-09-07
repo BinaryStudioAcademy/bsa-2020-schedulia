@@ -42,11 +42,6 @@ export default {
                 title: 'Google',
                 provider: 'google',
                 ico: 'mdi-google'
-            },
-            {
-                title: 'iCal',
-                provider: 'iCal',
-                ico: 'mdi-apple'
             }
         ]
     }),

@@ -53,9 +53,9 @@
                     </VCol>
 
                     <VCol cols="12" sm="12" md="10" class="pa-0">
-                        <label for="additional-info">{{
-                            lang.ADDITIONAL_INFO_DESCRIPTION
-                        }}</label>
+                        <label for="additional-info">
+                            {{ lang.ADDITIONAL_INFO_DESCRIPTION }}
+                        </label>
                         <VTextarea
                             id="additional-info"
                             :error-messages="additionalInfoErrors"
@@ -282,7 +282,8 @@ export default {
                     this.setPublicEvent({
                         start_date: this.startDateFormatted
                     });
-                    await this.addPublicEvent({
+
+                    const response = await this.addPublicEvent({
                         event_type_id: this.eventType.id,
                         invitee_name: this.meetingFormData.name,
                         invitee_email: this.meetingFormData.email,
@@ -291,9 +292,11 @@ export default {
                         custom_field_values: customFieldValues
                     });
 
-                    this.$router.push({
-                        path: `/${this.eventType.owner.nickname}/${this.eventType.id}/invitee/details`
-                    });
+                    if (response) {
+                        this.$router.push({
+                            path: `/${this.eventType.owner.nickname}/${this.eventType.id}/invitee/details`
+                        });
+                    }
                 } catch (error) {
                     this.setErrorNotification(error);
                 }
