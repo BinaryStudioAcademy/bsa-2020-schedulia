@@ -53,9 +53,9 @@
                     </VCol>
 
                     <VCol cols="12" sm="12" md="10" class="pa-0">
-                        <label for="additional-info">
-                            {{ lang.ADDITIONAL_INFO_DESCRIPTION }}
-                        </label>
+                        <label for="additional-info">{{
+                            lang.ADDITIONAL_INFO_DESCRIPTION
+                        }}</label>
                         <VTextarea
                             id="additional-info"
                             :error-messages="additionalInfoErrors"
@@ -255,7 +255,8 @@ export default {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
         }),
         ...mapActions('publicEvent', {
-            addPublicEvent: actions.ADD_PUBLIC_EVENT
+            addPublicEvent: actions.ADD_PUBLIC_EVENT,
+            setPublicEvent: actions.SET_PUBLIC_EVENT
         }),
         ...mapActions('eventTypes', {
             fetchCustomFields: eventTypesActions.FETCH_CUSTOM_FIELDS_BY_EVENT_ID
@@ -277,6 +278,9 @@ export default {
                         this.customFieldValues
                     ).filter(field => {
                         return field.value;
+                    });
+                    this.setPublicEvent({
+                        start_date: this.startDateFormatted
                     });
                     await this.addPublicEvent({
                         event_type_id: this.eventType.id,

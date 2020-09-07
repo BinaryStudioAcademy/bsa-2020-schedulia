@@ -53,7 +53,6 @@ export default {
             context.commit(mutations.SET_PUBLIC_EVENT, {
                 inviteeName: data.invitee_name,
                 inviteeEmail: data.invitee_email,
-                startDate: data.start_date,
                 timezone: data.timezone
             });
             await publicEventService.addPublicEvent(data);
