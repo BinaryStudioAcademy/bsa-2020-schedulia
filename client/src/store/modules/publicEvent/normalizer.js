@@ -5,7 +5,9 @@ export const eventTypeMapper = EventType => ({
     internalNote: EventType.internal_note,
     address: EventType.address,
     locationType: EventType.location_type,
-    coordinates: eventTypeCoordinates(EventType.coordinates),
+    coordinates: EventType.coordinates
+        ? eventTypeCoordinates(EventType.coordinates)
+        : null,
     slug: EventType.slug,
     color: EventType.color,
     duration: EventType.duration,
