@@ -4,9 +4,11 @@
         <VCol class="detail-content col-10 col-sm-8 col-md-6">
             <div class="detail-content-top mt-3 mb-5">
                 <VLayout justify-center v-if="eventType.owner.avatar">
-                    <VAvatar :size="70" class="avatar">
-                        <img :src="eventType.owner.avatar" alt="Avatar" />
-                    </VAvatar>
+                    <img
+                        :src="eventType.owner.avatar"
+                        class="avatar-image"
+                        alt="Avatar"
+                    />
                 </VLayout>
                 <h3 class="text-center mt-5 mb-2">{{ lang.CONFIRMED }}</h3>
                 <p class="text-center">
@@ -122,5 +124,11 @@ export default {
 
 .event-info i {
     margin-right: 10px;
+}
+.avatar-image {
+    object-fit: cover;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
 }
 </style>

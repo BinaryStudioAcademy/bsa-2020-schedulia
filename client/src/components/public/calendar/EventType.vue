@@ -1,5 +1,6 @@
 <template>
     <VRow class="ma-0 pa-0" v-if="isReady">
+        <VSpacer class="hidden-md-and-down"></VSpacer>
         <VCol :class="colEventInfoClass">
             <EventInfo
                 :brandingLogo="eventType.owner.brandingLogo"
@@ -7,11 +8,14 @@
                 :name="eventType.owner.name"
                 :eventName="eventType.name"
                 :duration="eventType.duration"
-                :location="'Vyacheslav Chornovol Avenue, 59, Lviv'"
+                :locationType="eventType.locationType"
+                :coordinates="eventType.coordinates"
+                :address="eventType.address"
                 :description="eventType.description"
                 :lang="lang"
             />
         </VCol>
+        <VSpacer class="hidden-md-and-down"></VSpacer>
 
         <VDivider vertical class="hidden-md-and-down"></VDivider>
 

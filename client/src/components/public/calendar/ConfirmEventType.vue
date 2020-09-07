@@ -7,7 +7,9 @@
                 :name="eventType.owner.name"
                 :eventName="eventType.name"
                 :duration="eventType.duration"
-                :location="'Vyacheslav Chornovol Avenue, 59, Lviv'"
+                :locationType="eventType.locationType"
+                :coordinates="eventType.coordinates"
+                :address="eventType.address"
                 :description="eventType.description"
                 :startDate="startDateFormatted"
                 :timezone="publicEvent.timezone"
@@ -51,9 +53,9 @@
                     </VCol>
 
                     <VCol cols="12" sm="12" md="10" class="pa-0">
-                        <label for="additional-info">
-                            {{ lang.ADDITIONAL_INFO_DESCRIPTION }}
-                        </label>
+                        <label for="additional-info">{{
+                            lang.ADDITIONAL_INFO_DESCRIPTION
+                        }}</label>
                         <VTextarea
                             id="additional-info"
                             :error-messages="additionalInfoErrors"
