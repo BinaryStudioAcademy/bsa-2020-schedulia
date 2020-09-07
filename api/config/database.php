@@ -128,7 +128,7 @@ return [
         ],
 
         'default' => RedisConfig::parse(
-            env('REDIS_URL'),
+            env('REDIS_URL', ''),
             env('REDIS_HOST', '127.0.0.1'),
             env('REDIS_PORT', '6379'),
             env('REDIS_PASSWORD', null),
@@ -136,7 +136,7 @@ return [
         )->toArray(),
 
         'cache' => RedisConfig::parse(
-            env('REDIS_URL'),
+            env('REDIS_URL', ''),
             env('REDIS_HOST', '127.0.0.1'),
             env('REDIS_PORT', '6379'),
             env('REDIS_PASSWORD', null),

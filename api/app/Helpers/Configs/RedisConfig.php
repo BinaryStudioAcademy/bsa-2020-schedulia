@@ -11,15 +11,15 @@ class RedisConfig
     public string $url;
     public string $host;
     public string $port;
-    public string $password;
-    public string $database;
+    public ?string $password;
+    public ?string $database;
 
     public function __construct(
         string $url,
         string $host,
         string $port,
-        string $password,
-        string $database
+        ?string $password,
+        ?string $database
     ) {
         $this->url = $url;
         $this->host = $host;
@@ -32,8 +32,8 @@ class RedisConfig
         string $url,
         string $host,
         string $port,
-        string $password,
-        string $database
+        ?string $password,
+        ?string $database
     ): RedisConfig
     {
         $parsedUri = [];
