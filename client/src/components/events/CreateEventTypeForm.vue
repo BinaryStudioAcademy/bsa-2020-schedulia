@@ -162,14 +162,9 @@
             </VRow>
         </div>
         <div>
-            <VBtn
-                text
-                outlined
-                width="114"
-                class="mr-3"
-                :to="{ name: 'EventTypes' }"
-                >{{ lang.CANCEL }}</VBtn
-            >
+            <VBtn text outlined width="114" class="mr-3" @click="onCancel">{{
+                lang.CANCEL
+            }}</VBtn>
             <VBtn
                 @click="clickNext"
                 color="primary"
@@ -178,7 +173,7 @@
                 >{{ lang.NEXT }}</VBtn
             >
         </div>
-        <VDialog v-model="cancelDialog" width="380">
+        <VDialog :value="cancelDialog" width="380" persistent>
             <VCard>
                 <VCardTitle class="mb-5">
                     <VRow justify="center">
@@ -193,18 +188,18 @@
                 <VCardActions class="justify-center">
                     <div class="mb-5">
                         <VBtn
-                            color="primary"
-                            class="white--text mr-3"
-                            width="114"
-                            :to="{ name: 'EventTypes' }"
-                            >{{ lang.YES }}</VBtn
-                        >
-                        <VBtn
                             text
                             outlined
                             width="114"
+                            @click="cancelConfirm"
+                            >{{ lang.YES }}</VBtn
+                        >
+                        <VBtn
+                            color="primary"
+                            class="white--text mr-3"
+                            width="114"
                             @click="cancelDialog = false"
-                            >{{ lang.NEVERMIND }}</VBtn
+                            >{{ lang.NO }}</VBtn
                         >
                     </div>
                 </VCardActions>
@@ -379,6 +374,13 @@ export default {
         },
         onCloseZoomDialog() {
             this.showZoomDialog = false;
+        },
+        onCancel() {
+            this.cancelDialog = true;
+        },
+        cancelConfirm() {
+            this.cancelDialog = false;
+            this.$router.push({ name: 'EventTypes' });
         }
     }
 };

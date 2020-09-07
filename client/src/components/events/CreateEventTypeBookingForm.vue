@@ -188,16 +188,42 @@
                 </VTabItem>
             </VTabs>
         </VRow>
+        <VDialog :value="cancelDialog" width="380" persistent>
+            <VCard>
+                <VCardTitle class="mb-5">
+                    <VRow justify="center">
+                        <h3>{{ lang.ARE_YOU_SURE }}</h3>
+                    </VRow>
+                </VCardTitle>
+                <VCardText>
+                    <VRow justify="center">
+                        <p>{{ lang.UNSAVE_CHANGES_WILL_BE_LOST }}</p>
+                    </VRow>
+                </VCardText>
+                <VCardActions class="justify-center">
+                    <div class="mb-5">
+                        <VBtn
+                            text
+                            outlined
+                            width="114"
+                            @click="cancelConfirm"
+                            >{{ lang.YES }}</VBtn
+                        >
+                        <VBtn
+                            color="primary"
+                            class="white--text mr-3"
+                            width="114"
+                            @click="cancelDialog = false"
+                            >{{ lang.NO }}</VBtn
+                        >
+                    </div>
+                </VCardActions>
+            </VCard>
+        </VDialog>
 
         <VRow class="mt-10">
             <div>
-                <VBtn
-                    text
-                    outlined
-                    width="114"
-                    class="mr-3"
-                    :to="{ name: 'EventTypes' }"
-                >
+                <VBtn @click="onCancel" text outlined width="114" class="mr-3">
                     {{ lang.CANCEL }}
                 </VBtn>
                 <VBtn
@@ -206,7 +232,7 @@
                     class="white--text"
                     width="114"
                 >
-                    {{ lang.SAVE_AND_CLOSE }}
+                    {{ lang.SAVE }}
                 </VBtn>
             </div>
         </VRow>
@@ -230,7 +256,8 @@ export default {
             availabilityIncrementsSelected: '',
             maxEventsPerDay: '',
             preventEventsHours: '',
-            tab: null
+            tab: null,
+            cancelDialog: false
         };
     },
 
@@ -324,6 +351,13 @@ export default {
                 delete params[index];
             }
             this.changeEventTypeProperty('availabilities', params);
+        },
+        onCancel() {
+            this.cancelDialog = true;
+        },
+        cancelConfirm() {
+            this.cancelDialog = false;
+            this.$router.push({ name: 'EventTypes' });
         }
     },
 
