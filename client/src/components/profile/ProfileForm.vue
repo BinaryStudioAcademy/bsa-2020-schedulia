@@ -13,7 +13,7 @@
                                             :src="newAvatar"
                                         ></VImg>
                                         <VIcon size="144" v-else dark
-                                        >mdi-account-circle
+                                            >mdi-account-circle
                                         </VIcon>
                                     </VAvatar>
                                     <label
@@ -133,7 +133,7 @@
                                     color="primary"
                                     dark
                                     @click="onSaveHandle"
-                                >{{ lang.SAVE }}
+                                    >{{ lang.SAVE }}
                                 </VBtn>
                             </VCol>
                             <VCol cols="12">
@@ -233,7 +233,9 @@ export default {
                 return errors;
             }
             !this.$v.userProfile.name.required &&
-                errors.push(this.lang.FIELD_IS_REQUIRED.replace('field', this.lang.NAME));
+                errors.push(
+                    this.lang.FIELD_IS_REQUIRED.replace('field', this.lang.NAME)
+                );
             return errors;
         },
         nicknameErrors() {
@@ -242,7 +244,12 @@ export default {
                 return errors;
             }
             !this.$v.userProfile.nickname.required &&
-                errors.push(this.lang.FIELD_IS_REQUIRED.replace('field', this.lang.NICKNAME));
+                errors.push(
+                    this.lang.FIELD_IS_REQUIRED.replace(
+                        'field',
+                        this.lang.NICKNAME
+                    )
+                );
             return errors;
         }
     },
