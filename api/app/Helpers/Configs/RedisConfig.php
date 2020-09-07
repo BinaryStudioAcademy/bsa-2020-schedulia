@@ -6,7 +6,7 @@ namespace App\Helpers\Configs;
 
 class RedisConfig
 {
-    const REDIS_SCHEME_REGEXP = '/^redis:\/\/(.+):(.+)@(.+):(\d+)$/';
+    public const REDIS_SCHEME_REGEXP = '/^redis:\/\/(.+):(.+)@(.+):(\d+)$/';
 
     public string $url;
     public string $host;
@@ -34,8 +34,7 @@ class RedisConfig
         string $port,
         ?string $password,
         ?string $database
-    ): RedisConfig
-    {
+    ): RedisConfig {
         $parsedUri = [];
 
         if (preg_match(self::REDIS_SCHEME_REGEXP, $url, $parsedUri)) {
