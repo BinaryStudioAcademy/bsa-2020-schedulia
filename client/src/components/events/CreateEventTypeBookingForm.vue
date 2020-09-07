@@ -191,7 +191,13 @@
 
         <VRow class="mt-10">
             <div>
-                <VBtn text outlined width="114" class="mr-3" :to="{ name: 'EventTypes' }">
+                <VBtn
+                    text
+                    outlined
+                    width="114"
+                    class="mr-3"
+                    :to="{ name: 'EventTypes' }"
+                >
                     {{ lang.CANCEL }}
                 </VBtn>
                 <VBtn
