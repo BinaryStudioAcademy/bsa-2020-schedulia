@@ -188,15 +188,15 @@
                 <VCardActions class="justify-center">
                     <div class="mb-5">
                         <VBtn
-                            color="primary"
-                            class="white--text mr-3"
+                            text
+                            outlined
                             width="114"
                             @click="cancelConfirm"
                             >{{ lang.YES }}</VBtn
                         >
                         <VBtn
-                            text
-                            outlined
+                            color="primary"
+                            class="white--text mr-3"
                             width="114"
                             @click="cancelDialog = false"
                             >{{ lang.NO }}</VBtn
