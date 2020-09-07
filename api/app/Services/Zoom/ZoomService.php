@@ -2,7 +2,8 @@
 
 namespace App\Services\Zoom;
 
-use App\Repositories\User\UserRepository;
+use App\Entity\Event;
+use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\Facades\Http;
 
 final class ZoomService
@@ -11,14 +12,14 @@ final class ZoomService
     private const ZOOM_GET_USER_API_ENDPOINT = 'https://api.zoom.us/v2/users/me';
     private const ZOOM_OAUTH_TOKEN_POST_REQUEST_URL = 'https://zoom.us/oauth/token';
 
-    private $userRepository;
+    private UserRepositoryInterface $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
-    public function meeting($event)
+    public function meeting(Event $event): string
     {
         $user = $this->userRepository->getById($event->eventType->owner_id);
 
@@ -32,13 +33,12 @@ final class ZoomService
 
         $zoomResponseArr = json_decode($response->body(), true);
 
-        $event->zoom_meeting_link = $zoomResponseArr['start_url'];
-        $event->save();
+        return $zoomResponseArr['start_url'];
     }
 
-    public function saveToken($request)
+    public function saveToken($code)
     {
-        $token = $this->getZoomToken($request);
+        $token = $this->getZoomToken($code);
         $zoomUser = $this->getZoomUser($token);
 
         $user = $this->userRepository->getByEmail($zoomUser['email']);
@@ -51,7 +51,7 @@ final class ZoomService
         }
     }
 
-    public function getZoomUser($token)
+    public function getZoomUser($token): array
     {
         $responseUser = Http::withHeaders([
             "Authorization" => "Bearer " . $token['access_token']
@@ -60,13 +60,13 @@ final class ZoomService
         return json_decode($responseUser->body(), true);
     }
 
-    public function getZoomToken($request)
+    public function getZoomToken($code): array
     {
         $responseToken = Http::withHeaders([
             "Authorization" => "Basic " . base64_encode(env('ZOOM_CLIENT_ID') . ':' . env('ZOOM_CLIENT_SECRET'))
         ])->asForm()->post(self::ZOOM_OAUTH_TOKEN_POST_REQUEST_URL, [
             "grant_type" => "authorization_code",
-            "code" => $request->getCode(),
+            "code" => $code,
             "redirect_uri" => env('ZOOM_REDIRECT_URI')
         ]);
 

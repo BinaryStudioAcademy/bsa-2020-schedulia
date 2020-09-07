@@ -4,14 +4,14 @@ namespace App\Actions\Zoom;
 
 final class ZoomCallbackRequest
 {
-    private $code;
+    private string $code;
 
-    public function __construct($code)
+    public function __construct(string $code)
     {
         $this->code = $code;
     }
 
-    public function getCode()
+    public function getCode(): string
     {
         return $this->code;
     }

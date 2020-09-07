@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class ZoomController extends Controller
 {
-    private $zoomCallbackAction;
+    private ZoomCallbackAction $zoomCallbackAction;
 
     public function __construct(
         ZoomCallbackAction $zoomCallbackAction
