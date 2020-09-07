@@ -41,7 +41,10 @@
                     <VFlex xs2 md1>
                         <VIcon>{{ data.item.icon }}</VIcon>
                     </VFlex>
-                    <VFlex>{{ data.item.title }}</VFlex>
+                    <VFlex
+                        :id="'event-type-location-type-' + data.item.title"
+                        >{{ data.item.title }}</VFlex
+                    >
                 </template>
             </VSelect>
             <FindLocationForm class="find-location-form" v-if="showGeocoder" />
