@@ -45,8 +45,8 @@ export default {
                 e.suggestion.latlng.lat,
                 e.suggestion.latlng.lng
             ];
-            this.changeEventTypeProperty('location', e.suggestion.value);
-            this.changeEventTypeProperty('coordinates', [lng, lat]);
+            this.$emit('changeLocation', e.suggestion.value);
+            this.$emit('changeCoordinates', [lng, lat]);
         });
     }
 };

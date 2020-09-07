@@ -82,7 +82,7 @@ export const availabilityApiMapper = function(availability, timezone) {
 
 export const eventTypeFormMapper = eventTypeForm => ({
     name: eventTypeForm.name,
-    address: eventTypeForm.address,
+    address: eventTypeForm.location,
     location_type: eventTypeForm.locationType.key,
     coordinates: eventTypeCoordinates(eventTypeForm.coordinates),
     description: eventTypeForm.description,

@@ -47,7 +47,14 @@
                     >
                 </template>
             </VSelect>
-            <FindLocationForm class="find-location-form" v-if="showGeocoder" />
+            <FindLocationForm
+                class="find-location-form"
+                v-if="showGeocoder"
+                @changeLocation="changeEventTypeProperty('location', $event)"
+                @changeCoordinates="
+                    changeEventTypeProperty('coordinates', $event)
+                "
+            />
         </div>
 
         <div class="mb-2" v-if="user.chatito_active">
