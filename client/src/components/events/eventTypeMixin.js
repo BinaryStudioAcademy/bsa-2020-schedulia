@@ -149,6 +149,7 @@ export default {
                     result = 'indefinitely';
                     break;
             }
+            result += '.';
 
             return result;
         }
