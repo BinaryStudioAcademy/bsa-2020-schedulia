@@ -44,7 +44,6 @@ final class ZoomService
         $user = $this->userRepository->getByEmail($zoomUser['email']);
 
         if ($user->zoom_access_token == null) {
-
             $user->zoom_access_token = $token['access_token'];
             $user->save();
         } else {
