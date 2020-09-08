@@ -898,6 +898,10 @@ export default {
                 {
                     title: 'zoom',
                     icon: 'mdi-video-box'
+                },
+                {
+                    title: 'whale',
+                    icon: 'mdi-video'
                 }
             ],
             colorById: {

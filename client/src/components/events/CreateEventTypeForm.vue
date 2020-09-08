@@ -268,6 +268,11 @@ export default {
                     key: 'zoom',
                     title: 'zoom',
                     icon: 'mdi-video-box'
+                },
+                {
+                    key: 'whale',
+                    title: 'whale',
+                    icon: 'mdi-video'
                 }
             ],
             showZoomDialog: false,
