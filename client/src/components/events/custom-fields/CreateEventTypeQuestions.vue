@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <span class="subtitle-2"> </span>
+            <span class="subtitle-2"></span>
             <VCol cols="12" md="6">
                 <VTextarea
                     solo
@@ -45,7 +45,7 @@
                 class="white--text"
                 @click="onSaveCustomFields"
             >
-                {{ lang.SAVE_AND_CLOSE }}
+                {{ lang.SAVE_AND_CLOSE }} {{ eventTypeId }}
             </VBtn>
         </div>
     </div>
@@ -58,6 +58,7 @@ import { mapGetters, mapActions } from 'vuex';
 import * as getters from '@/store/modules/eventTypes/types/getters';
 import * as actions from '@/store/modules/eventTypes/types/actions';
 import customFieldMixin from '@/components/events/custom-fields/customFieldMixin';
+
 export default {
     name: 'CreateEventTypeQuestions',
     components: {
@@ -85,8 +86,8 @@ export default {
             this.$router.push({ name: 'EventTypes' });
         }
     },
-    async mounted() {
-        this.eventTypeId = this.$route.query.eventTypeId;
+    created() {
+        this.eventTypeId = this.$route.params.id;
     }
 };
 </script>
