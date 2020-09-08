@@ -1,16 +1,6 @@
 <template>
     <div>
         <div>
-            <span class="subtitle-2"></span>
-            <VCol cols="12" md="6">
-                <VTextarea
-                    solo
-                    outlined
-                    readonly
-                    no-resize
-                    :label="lang.ADDITIONAL_OPTIONS"
-                ></VTextarea>
-            </VCol>
             <VCol
                 cols="12"
                 md="6"
@@ -44,6 +34,7 @@
                 color="primary"
                 class="white--text"
                 @click="onSaveCustomFields"
+                :disabled="!Object.values(fields).length"
             >
                 {{ lang.SAVE_AND_CLOSE }}
             </VBtn>
@@ -68,7 +59,8 @@ export default {
     mixins: [customFieldMixin],
     computed: {
         ...mapGetters('eventTypes', {
-            fields: getters.GET_CUSTOM_FIELDS
+            fields: getters.GET_CUSTOM_FIELDS,
+            toDeleteIds: getters.GET_TO_DELETE_IDS
         })
     },
     data: () => ({
@@ -76,18 +68,21 @@ export default {
     }),
     methods: {
         ...mapActions('eventTypes', {
-            saveCustomFields: actions.SAVE_CUSTOM_FIELDS
+            saveCustomFields: actions.SAVE_CUSTOM_FIELDS,
+            fetchCustomFieldsByEventTypeId: actions.FETCH_CUSTOM_FIELDS_BY_EVENT_ID
         }),
         async onSaveCustomFields() {
             await this.saveCustomFields({
                 id: this.eventTypeId,
-                custom_fields: this.fields
+                custom_fields: this.fields,
+                to_delete_ids: this.toDeleteIds
             });
             this.$router.push({ name: 'EventTypes' });
         }
     },
-    created() {
+    async mounted() {
         this.eventTypeId = this.$route.params.id;
+        await this.fetchCustomFieldsByEventTypeId(this.eventTypeId);
     }
 };
 </script>
