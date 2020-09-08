@@ -360,5 +360,7 @@ export default {
     PROFILE_WAS_UPDATED: 'Профіль оновлено!',
     EVENT_TYPE_CREATED: 'Івент Тип _ успішно створино',
     EVENT_TYPE_UPDATED: 'Івент Тип _ успішно оновлений',
-    NO: 'Ні'
+    NO: 'Ні',
+    DISPLAY: 'Відображенно',
+    EVENT: 'Події'
 };
