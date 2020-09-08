@@ -142,18 +142,18 @@ const routes = [
                             import('../views/UserEventTypesList.vue')
                     },
                     {
-                        path: ':id',
+                        path: ':slug',
                         name: 'PublicEvent',
                         component: () => import('../views/PublicEvent.vue')
                     },
                     {
-                        path: ':id/:date',
+                        path: ':slug/:date',
                         name: 'PublicEventConfirm',
                         component: () =>
                             import('../views/PublicEventConfirm.vue')
                     },
                     {
-                        path: ':id/invitee/details',
+                        path: ':slug/invitee/details',
                         name: 'PublicEventDetails',
                         component: () =>
                             import('../views/PublicEventDetails.vue')
