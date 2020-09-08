@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Actions\CustomField;
 
 use App\Entity\CustomField;
-use App\Repositories\CustomFIeld\CustomFieldRepository;
+use App\Repositories\CustomField\CustomFieldRepository;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
 
 final class AddCustomFieldsToEventTypeAction
