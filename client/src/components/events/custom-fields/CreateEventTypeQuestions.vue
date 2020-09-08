@@ -45,7 +45,7 @@
                 class="white--text"
                 @click="onSaveCustomFields"
             >
-                {{ lang.SAVE_AND_CLOSE }} {{ eventTypeId }}
+                {{ lang.SAVE_AND_CLOSE }}
             </VBtn>
         </div>
     </div>
