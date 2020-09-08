@@ -19,9 +19,9 @@
                             </VCol>
                             <VCol cols="10" class="pl-lg-5 pl-sm-10">
                                 <div>
-                                    <VCardTitle>{{
-                                        lang.CREATE_EVENT_TYPE_TITLE
-                                    }}</VCardTitle>
+                                    <VCardTitle>
+                                        {{ lang.CREATE_EVENT_TYPE_TITLE }}
+                                    </VCardTitle>
                                     <VCardSubtitle>{{ name }}</VCardSubtitle>
                                 </div>
                             </VCol>
@@ -58,9 +58,9 @@
                                     </div>
 
                                     <VSelect
-                                        :value="address"
+                                        :value="locationType"
                                         :items="items"
-                                        @change="changeAddress"
+                                        @change="changeLocationType"
                                         outlined
                                         placeholder="Option"
                                         dense
@@ -71,27 +71,27 @@
                                             slot-scope="data"
                                         >
                                             <VFlex xs2 md1>
-                                                <VIcon>{{
-                                                    data.item.icon
-                                                }}</VIcon>
+                                                <VIcon>
+                                                    {{ data.item.icon }}
+                                                </VIcon>
                                             </VFlex>
                                             <VFlex>{{ data.item.title }}</VFlex>
                                         </template>
 
                                         <template slot="item" slot-scope="data">
                                             <VFlex xs2 md1>
-                                                <VIcon>{{
-                                                    data.item.icon
-                                                }}</VIcon>
+                                                <VIcon>
+                                                    {{ data.item.icon }}
+                                                </VIcon>
                                             </VFlex>
                                             <VFlex>{{ data.item.title }}</VFlex>
                                         </template>
                                     </VSelect>
 
                                     <div class="mb-2">
-                                        <label>
-                                            {{ lang.DESCRIPTION_LABEL }}
-                                        </label>
+                                        <label>{{
+                                            lang.DESCRIPTION_LABEL
+                                        }}</label>
                                     </div>
 
                                     <VTextarea
@@ -203,13 +203,13 @@
                             </VCol>
                             <VCol cols="10" class="pl-lg-5 pl-sm-10">
                                 <div>
-                                    <VCardTitle>{{
-                                        lang.WHEN_CAN_PEOPLE_BOOK_EVENT
-                                    }}</VCardTitle>
-                                    <VCardSubtitle
-                                        >{{ duration }},
-                                        {{ dateDuration }}</VCardSubtitle
-                                    >
+                                    <VCardTitle>
+                                        {{ lang.WHEN_CAN_PEOPLE_BOOK_EVENT }}
+                                    </VCardTitle>
+                                    <VCardSubtitle>
+                                        {{ duration }},
+                                        {{ dateDuration }}
+                                    </VCardSubtitle>
                                 </div>
                             </VCol>
                         </VRow>
@@ -330,9 +330,9 @@
                                         <VTabs v-model="tab">
                                             <VTabsSlider></VTabsSlider>
                                             <VTab :href="'#tab-0'">
-                                                <span class="custom-text">
-                                                    {{ lang.HOURS }}
-                                                </span>
+                                                <span class="custom-text">{{
+                                                    lang.HOURS
+                                                }}</span>
                                             </VTab>
                                             <VTabItem :value="'tab-0'">
                                                 <VRow class="fill-height">
@@ -481,9 +481,9 @@
                                                 </VRow>
                                             </VTabItem>
                                             <VTab :href="'#tab-1'">
-                                                <span class="custom-text">
-                                                    {{ lang.ADVANCED }}
-                                                </span>
+                                                <span class="custom-text">{{
+                                                    lang.ADVANCED
+                                                }}</span>
                                             </VTab>
                                             <VTabItem :value="'tab-1'">
                                                 <VRow class="pt-3">
@@ -649,9 +649,9 @@
                     <VRow justify="center">
                         <VCol cols="9">
                             <VRow justify="center">
-                                <VCardTitle class="headline">{{
-                                    lang.TIME_ZONE_STYLE
-                                }}</VCardTitle>
+                                <VCardTitle class="headline">
+                                    {{ lang.TIME_ZONE_STYLE }}
+                                </VCardTitle>
                                 <VRadioGroup
                                     dense
                                     row
@@ -730,16 +730,16 @@
             <VDialog v-model="eventDialog" width="380" v-if="selectedDay">
                 <VCard>
                     <VRow justify="center">
-                        <VCardTitle class="headline">
-                            {{ lang.EDIT_AVAILABILITY }}
-                        </VCardTitle>
+                        <VCardTitle class="headline">{{
+                            lang.EDIT_AVAILABILITY
+                        }}</VCardTitle>
                         <VCol cols="9">
                             <VRow align="baseline">
                                 <VCol cols="4">
                                     <VRow>
-                                        <label class="availability-label">
-                                            {{ lang.FROM }}
-                                        </label>
+                                        <label class="availability-label">{{
+                                            lang.FROM
+                                        }}</label>
                                     </VRow>
                                     <VRow>
                                         <VTextField
@@ -761,9 +761,9 @@
 
                                 <VCol cols="4">
                                     <VRow>
-                                        <label class="availability-label">
-                                            {{ lang.TO }}
-                                        </label>
+                                        <label class="availability-label">{{
+                                            lang.TO
+                                        }}</label>
                                     </VRow>
                                     <VRow>
                                         <VTextField
@@ -1068,8 +1068,8 @@ export default {
         name() {
             return this.form.name || this.eventTypeForm.name;
         },
-        address() {
-            return this.form.address || this.eventTypeForm.address;
+        locationType() {
+            return this.form.locationType || this.eventTypeForm.locationType;
         },
         description() {
             return this.form.description || this.eventTypeForm.description;
@@ -1131,8 +1131,8 @@ export default {
             this.form.name = val;
             this.changeSlug(val);
         },
-        changeAddress(val) {
-            this.form.address = val;
+        changeLocationType(val) {
+            this.form.locationType = val;
         },
         changeDescription(val) {
             this.form.description = val;
