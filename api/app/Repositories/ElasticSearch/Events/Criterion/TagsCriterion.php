@@ -18,7 +18,7 @@ final class TagsCriterion implements ElasticSearchCriterion
             ];
         }
 
-       return [
+        return [
             'bool' => [
                 'should' => $criteria
             ]
