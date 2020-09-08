@@ -183,6 +183,7 @@ import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
 import eventTypeMixin from '@/components/events/eventTypeMixin';
 import TimeIntervalMenu from '@/components/events/TimeIntervalMenu';
 import moment from 'moment';
+import _ from 'lodash';
 export default {
     name: 'DayAvailabilitiesDialog',
     components: { TimeIntervalMenu },
@@ -264,18 +265,19 @@ export default {
                 return;
             }
             if (this.radio === 'repeat-days') {
-                let params = {
-                    ...this.data.availabilities_week_days
-                };
+                let params = _.cloneDeep(this.data.availabilities_week_days);
 
                 for (let index in this.selectedWeekDays) {
                     let weekDay = this.selectedWeekDays[index].toLowerCase();
-                    params[weekDay] = this.dayAvailabilitiesData.map(function(
-                        availability
-                    ) {
+                    let data = [];
+                    for (let i in this.dayAvailabilitiesData) {
+                        let availability = _.clone(
+                            this.dayAvailabilitiesData[i]
+                        );
                         availability.type = `every_${weekDay}`;
-                        return availability;
-                    });
+                        data.push(availability);
+                    }
+                    params[weekDay] = data;
                 }
                 this.changeEventTypeProperty('availabilities_week_days', {
                     ...params
