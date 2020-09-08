@@ -22,12 +22,6 @@ class EventTypeDeletedToOwner extends Notification implements ShouldQueue
         $this->owner = $owner;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
     public function via($notifiable)
     {
         $channels = ['mail'];
@@ -37,17 +31,11 @@ class EventTypeDeletedToOwner extends Notification implements ShouldQueue
 
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
                     ->line(new HtmlString("Hi, <b>{$this->owner->name}</b>!"))
                     ->line(new HtmlString("EventType <u>{$this->eventTypeName}</u> was deleted, so all events was declined!"));
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
     public function toArray($notifiable)
     {
         return [

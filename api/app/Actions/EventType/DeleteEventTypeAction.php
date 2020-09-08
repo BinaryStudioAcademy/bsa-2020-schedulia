@@ -34,7 +34,7 @@ final class DeleteEventTypeAction
 
         $eventTypeName = $eventType->name;
         $eventTypeOwner = $eventType->owner;
-        $eventTypeEvents = $eventType->events->map(function ($event) use ($eventTypeName){
+        $eventTypeEvents = $eventType->events->map(function ($event) use ($eventTypeName) {
             return [
                 'invitee_email' => $event->invitee_email,
                 'invitee_name' => $event->invitee_name,

@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Mail;
 
 class SendNotificationWhenEventTypeDeleted implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     private $eventType;
     private $owner;

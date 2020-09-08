@@ -9,7 +9,8 @@ use Illuminate\Queue\SerializesModels;
 
 class EventTypeDeletedToInvitee extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     private string $startDate;
     private string $inviteeName;
