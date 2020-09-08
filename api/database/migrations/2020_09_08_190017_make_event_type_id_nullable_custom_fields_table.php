@@ -14,10 +14,7 @@ class MakeEventTypeIdNullableCustomFieldsTable extends Migration
     public function up()
     {
         Schema::table('custom_fields', function (Blueprint $table) {
-            $table->dropColumn('event_type_id');
-        });
-        Schema::table('custom_fields', function (Blueprint $table) {
-            $table->integer('event_type_id')->nullable();
+            $table->integer('event_type_id')->nullable()->change();
         });
     }
 
@@ -29,7 +26,7 @@ class MakeEventTypeIdNullableCustomFieldsTable extends Migration
     public function down()
     {
         Schema::table('custom_fields', function (Blueprint $table) {
-            $table->dropColumn('event_type_id');
+            $table->integer('event_type_id')->nullable(false)->change();
         });
     }
 }
