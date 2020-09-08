@@ -369,5 +369,8 @@ export default {
     INTEGRATIONS: 'Інтеграції',
 
     DISPLAY: 'Відображенно',
-    EVENT: 'Події'
+    EVENT: 'Події',
+
+    YOU_HAVE_UNSAVED_CHANGES:
+        'Ви дійсно хочете залишити сторінку? У вас незбережені зміни!'
 };

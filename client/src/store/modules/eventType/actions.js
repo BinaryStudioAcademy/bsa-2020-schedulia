@@ -44,11 +44,16 @@ export default {
     [actions.CLEAR_SET_EVENT_TYPE]: async context => {
         context.commit(mutations.CLEAR_SET_EVENT_TYPE);
     },
-    [actions.ADD_EVENT_TYPE]: async ({ dispatch, rootGetters }, data) => {
+    [actions.ADD_EVENT_TYPE]: async (
+        { dispatch, rootGetters, commit },
+        data
+    ) => {
         try {
             const eventType = await eventTypeService.addEventType(
                 eventTypeFormMapper(data)
             );
+
+            commit(mutations.SET_IS_SAVED, true);
             dispatch(
                 'notification/' + SET_SUCCESS_NOTIFICATION,
                 rootGetters[
@@ -117,6 +122,17 @@ export default {
     [actions.SET_PROPERTY]: async (context, data) => {
         try {
             context.commit(mutations.SET_PROPERTY, data);
+        } catch (error) {
+            context.dispatch(
+                'notification/' + SET_ERROR_NOTIFICATION,
+                error?.response?.data?.message || error.message,
+                { root: true }
+            );
+        }
+    },
+    [actions.SET_IS_SAVED]: async (context, data) => {
+        try {
+            context.commit(mutations.SET_IS_SAVED, data);
         } catch (error) {
             context.dispatch(
                 'notification/' + SET_ERROR_NOTIFICATION,

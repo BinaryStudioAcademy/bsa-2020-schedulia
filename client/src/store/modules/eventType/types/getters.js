@@ -6,3 +6,4 @@ export const GET_VISIBLE_AVAILABILITY_DIALOG = 'getVisibleAvailabilityDialog';
 export const GET_VISIBLE_TIME_ZONE_DIALOG = 'getVisibleTimeZoneDialog';
 export const GET_VISIBLE_DAY_AVAILABILITIES_DIALOG =
     'getVisibleDayAvailabilitiesDialog';
+export const GET_IS_SAVED = 'getIsSaved';

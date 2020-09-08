@@ -51,7 +51,8 @@ export default {
     methods: {
         ...mapActions('eventType', {
             setEventType: actionEventType.SET_EVENT_TYPE,
-            setProperty: actionEventType.SET_PROPERTY
+            setProperty: actionEventType.SET_PROPERTY,
+            setIsSaved: actionEventType.SET_IS_SAVED
         }),
 
         changeEventTypeProperty(property, value) {
@@ -114,7 +115,8 @@ export default {
 
     computed: {
         ...mapGetters('eventType', {
-            eventType: eventTypeGetters.GET_EVENT_TYPE
+            eventType: eventTypeGetters.GET_EVENT_TYPE,
+            isSaved: eventTypeGetters.GET_IS_SAVED
         }),
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
