@@ -451,5 +451,7 @@ export default {
     PROFILE_WAS_UPDATED: 'Profile was updated!',
     EVENT_TYPE_CREATED: 'Event Type _ created successfully',
     EVENT_TYPE_UPDATED: 'Event Type _ updated successfully',
-    NO: 'No'
+    NO: 'No',
+    DISPLAY: 'Displaying',
+    EVENT: 'Event'
 };
