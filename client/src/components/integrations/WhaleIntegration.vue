@@ -29,16 +29,12 @@
 <script>
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapGetters } from 'vuex';
-import * as getters from '../../store/modules/auth/types/getters';
 export default {
     name: 'WhaleIntegration',
 
     computed: {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
-        }),
-        ...mapGetters('auth', {
-            user: getters.GET_LOGGED_USER
         })
     },
 
