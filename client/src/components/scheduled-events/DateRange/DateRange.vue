@@ -45,7 +45,7 @@ export default {
         loadMoreActive: false,
         perPage: 8,
         sort: 'start_date',
-        direction: 'desc'
+        direction: 'asc'
     }),
 
     components: {

@@ -24,6 +24,10 @@ export default {
                 {}
             )
         };
+
+        state.scheduledEventsMap = state.scheduledEventsMap.concat(
+            events.map(event => event.id)
+        );
     },
 
     [mutations.SET_SCHEDULED_EVENTS_PAGINATION]: (state, pagination) => {
@@ -31,7 +35,8 @@ export default {
     },
 
     [mutations.CLEAR_SCHEDULED_EVENTS]: state => {
-        state.scheduledEvents = [];
+        state.scheduledEvents = {};
+        state.scheduledEventsMap = [];
     },
 
     [mutations.SET_EVENT_EMAILS_FILTER]: (state, eventEmails) => {
