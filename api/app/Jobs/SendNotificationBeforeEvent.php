@@ -60,14 +60,14 @@ class SendNotificationBeforeEvent implements ShouldQueue
     private function saveMeetingLink(string $location, Event $event, ZoomService $zoomService, WhaleService $whaleService): void
     {
         switch ($location) {
-            case $location == 'zoom':
+            case 'zoom':
                 $event->zoom_meeting_link = $zoomService->meeting($event);
                 $event->save();
-            break;
-            case $location == 'whale':
+                break;
+            case 'whale':
                 $event->whale_meeting_link = $whaleService->meeting($event);
                 $event->save();
-            break;
+                break;
         }
     }
 }
