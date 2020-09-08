@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Http;
 final class ZoomService
 {
     private const ZOOM_MEETING_API_ENDPOINT = 'https://api.zoom.us/v2/users/me/meetings';
-    private const ZOOM_GET_USER_API_ENDPOINT = 'https://api.zoom.us/v2/users/me';
     private const ZOOM_OAUTH_TOKEN_POST_REQUEST_URL = 'https://zoom.us/oauth/token';
 
     private UserRepositoryInterface $userRepository;
@@ -36,12 +35,11 @@ final class ZoomService
         return $zoomResponseArr['start_url'];
     }
 
-    public function saveToken($code)
+    public function saveToken(string $code, int $userId): void
     {
         $token = $this->getZoomToken($code);
-        $zoomUser = $this->getZoomUser($token);
 
-        $user = $this->userRepository->getByEmail($zoomUser['email']);
+        $user = $this->userRepository->getById($userId);
 
         if ($user->zoom_access_token == null) {
             $user->zoom_access_token = $token['access_token'];
@@ -51,16 +49,7 @@ final class ZoomService
         }
     }
 
-    public function getZoomUser($token): array
-    {
-        $responseUser = Http::withHeaders([
-            "Authorization" => "Bearer " . $token['access_token']
-        ])->get(self::ZOOM_GET_USER_API_ENDPOINT);
-
-        return json_decode($responseUser->body(), true);
-    }
-
-    public function getZoomToken($code): array
+    public function getZoomToken(string $code): array
     {
         $responseToken = Http::withHeaders([
             "Authorization" => "Basic " . base64_encode(env('ZOOM_CLIENT_ID') . ':' . env('ZOOM_CLIENT_SECRET'))

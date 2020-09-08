@@ -15,6 +15,6 @@ final class ZoomCallbackAction
 
     public function execute(ZoomCallbackRequest $request)
     {
-        $this->zoomService->saveToken($request->getCode());
+        $this->zoomService->saveToken($request->getCode(), $request->getUserId());
     }
 }
