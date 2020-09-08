@@ -53,9 +53,15 @@ class BeforeEventMailForInvitee extends Mailable
             ->line($eventTimeInUTCZone->timezone($this->event->timezone));
 
         if ($this->event->eventType->location_type == 'zoom') {
-            $message = $message->line(Lang::get('Meeting link'))
+            $message = $message->line(Lang::get('Your Zoom meeting link'))
                 ->line(new HtmlString('<a href="' . $this->event->zoom_meeting_link . '">' . "{$this->event->zoom_meeting_link}" . '</a>'));
         }
+
+        if ($this->event->eventType->location_type == 'whale') {
+            $message = $message->line(Lang::get('Your Whale meeting link'))
+                ->line(new HtmlString('<a href="' . $this->event->whale_meeting_link . '">' . "{$this->event->whale_meeting_link}" . '</a>'));
+        }
+
         return $message;
     }
 }

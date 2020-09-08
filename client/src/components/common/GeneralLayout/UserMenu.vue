@@ -47,7 +47,7 @@
                         class="user-menu__link"
                     >
                         <VIcon>mdi-calendar-sync</VIcon>
-                        {{ lang.CALENDAR_CONNECTIONS }}
+                        {{ lang.INTEGRATIONS }}
                     </RouterLink>
                 </VListItemTitle>
             </VListItem>
