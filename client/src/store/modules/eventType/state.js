@@ -41,5 +41,5 @@ export default {
     dayAvailabilities: [],
     visibleAvailabilityDialog: false,
     visibleTimeZoneDialog: false,
-    visibleDayAvailabilitiesDialog: false,
+    visibleDayAvailabilitiesDialog: false
 };
