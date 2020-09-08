@@ -410,6 +410,11 @@ export default {
     PUBLIC_LINK_WAS_COPIED: 'Public Link was copied!',
     TAGS: 'Tags',
     ALL_TAGS: 'All Tags',
+
+    MY_ZOOM_ACCOUNT: 'My zoom account',
+    INCLUDE_ZOOM_MEETING:
+        'Automatically include Zoom meeting details in Schedulia events',
+
     I_AM_UNAVAILABLE: "I'm unavailable",
     ERROR_404: 'Error 404',
     THE_PAGE_YOU_ARE_LOOKING_FOR_COULD_NOT_BE_FOUND:
@@ -418,6 +423,9 @@ export default {
         " Please make sure that you've typed in the URL correctly",
     PLEASE_RETYPE_ADDRESS_OR_RETURN_TO: 'Please retype address or return to',
     MAIN_PAGE: ' main page',
+
+    ACTIVATE_ZOOM: 'Activate zoom',
+
     CONNECT_SLACK: 'Connect Slack',
     INCOMING_WEBHOOK: 'Incoming Webhook',
     TO_YOUR: 'to your',
