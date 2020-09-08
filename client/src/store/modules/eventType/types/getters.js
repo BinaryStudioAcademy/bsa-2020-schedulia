@@ -7,3 +7,4 @@ export const GET_VISIBLE_TIME_ZONE_DIALOG = 'getVisibleTimeZoneDialog';
 export const GET_VISIBLE_DAY_AVAILABILITIES_DIALOG =
     'getVisibleDayAvailabilitiesDialog';
 export const GET_INTERVALS_OVERLAPPING_ERROR = 'getIntervalsOverlappingError';
+export const GET_IS_SAVED = 'getIsSaved';

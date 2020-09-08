@@ -10,5 +10,6 @@ export default {
     [types.GET_VISIBLE_DAY_AVAILABILITIES_DIALOG]: state =>
         state.visibleDayAvailabilitiesDialog,
     [types.GET_INTERVALS_OVERLAPPING_ERROR]: state =>
-        state.intervalsOverlappingError
+        state.intervalsOverlappingError,
+    [types.GET_IS_SAVED]: state => state.isSaved
 };

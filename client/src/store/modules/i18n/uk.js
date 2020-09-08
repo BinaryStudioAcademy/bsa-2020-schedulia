@@ -331,8 +331,8 @@ export default {
         'Будь ласка, введіть адресу або поверніться на',
     MAIN_PAGE: ' головну сторінку',
 
-    MY_ZOOM_ACCOUNT: 'Мій zoom аккаунт',
-    INCLUDE_ZOOM_MEETING: 'Автоматично вмикайте Zoom мітинги в Schedulia',
+    MY_ZOOM_ACCOUNT: 'Мій Zoom Аккаунт',
+    INCLUDE_ZOOM_MEETING: 'Автоматично підключайте Zoom мітинги в Schedulia',
     ACTIVATE_ZOOM: 'Активувати zoom',
 
     CONNECT_SLACK: 'Підключити Slack',
@@ -361,11 +361,21 @@ export default {
     EVENT_TYPE_CREATED: 'Івент Тип _ успішно створино',
     EVENT_TYPE_UPDATED: 'Івент Тип _ успішно оновлений',
     NO: 'Ні',
+
+    MY_WHALE_ACCOUNT: 'Мій Whale Аккаунт',
+    ACTIVATE_WHALE_ACCOUNT: 'Увійти у whale',
+    INCLUDE_WHALE_MEETING:
+        'Автоматично підключайте Whale мітинги в Schedulia. Щоб користуватися Whale, вам потрібно зареєструватися за тією самою електронною адресою.',
+    INTEGRATIONS: 'Інтеграції',
+
     DISPLAY: 'Відображенно',
     EVENT: 'Події',
 
     REQUIRED_START_TIME: 'Будь ласка, виберіть час',
     REQUIRED_END_TIME: 'Будь ласка, виберіть час',
     INTERVALS_MUST: 'Інтервал повинен бути не менше _ хвилин.',
-    INTERVALS_OVERLAPPING: 'Інтервали перекриваються..'
+    INTERVALS_OVERLAPPING: 'Інтервали перекриваються.',
+
+    YOU_HAVE_UNSAVED_CHANGES:
+        'Ви дійсно хочете залишити сторінку? У вас незбережені зміни!'
 };

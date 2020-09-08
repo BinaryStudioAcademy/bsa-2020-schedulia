@@ -255,7 +255,6 @@ export default {
     },
     data() {
         return {
-            tags: ['Gaming', 'Programming', 'Vue', 'Vuetify'],
             search: null,
             cancelDialog: false,
             items: [
@@ -268,6 +267,11 @@ export default {
                     key: 'zoom',
                     title: 'zoom',
                     icon: 'mdi-video-box'
+                },
+                {
+                    key: 'whale',
+                    title: 'whale',
+                    icon: 'mdi-video'
                 }
             ],
             showZoomDialog: false,

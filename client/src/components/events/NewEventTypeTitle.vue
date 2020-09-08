@@ -5,18 +5,14 @@
                 <VBtn outlined class="primary--text py-5 rounded-lg">
                     <VImg
                         src="https://img.icons8.com/metro/14/281AC8/back.png"
-                        alt=""
+                        alt
                     />
-                    <span class="back-button">
-                        {{ lang.BACK }}
-                    </span>
+                    <span class="back-button">{{ lang.BACK }}</span>
                 </VBtn>
             </RouterLink>
         </VCol>
         <VCol cols="12" md="6" sm="6">
-            <h3 class="text-center">
-                {{ lang.ADD_ONE_ON_ONE_EVENT_TYPE }}
-            </h3>
+            <h3 class="text-center">{{ lang.ADD_ONE_ON_ONE_EVENT_TYPE }}</h3>
         </VCol>
         <VCol cols="12" md="3" sm="3">
             <VFlex row class="align-center justify-end">

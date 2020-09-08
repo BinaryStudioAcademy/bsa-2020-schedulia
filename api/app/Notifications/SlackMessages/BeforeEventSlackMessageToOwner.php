@@ -21,7 +21,7 @@ class BeforeEventSlackMessageToOwner extends SlackMessage
             "An event {$eventType->name} will start in 10 minutes." . PHP_EOL .
             "Prepare for it!";
 
-        return $this
+        $message = $this
             ->success()
             ->to($owner->slack_channel)
             ->content($greetings)
@@ -34,5 +34,16 @@ class BeforeEventSlackMessageToOwner extends SlackMessage
                     'Invitee Timezone' => $event->timezone,
                 ]);
             });
+
+        if ($this->event->eventType->location_type == 'zoom') {
+            $message .= 'Your Zoom meeting link' .
+                '<a href="' . $this->event->zoom_meeting_link . '">' . "{$this->event->zoom_meeting_link}" . '</a>';
+        }
+
+        if ($this->event->eventType->location_type == 'whale') {
+            $message .= 'Your Whale meeting link' .
+                '<a href="' . $this->event->whale_meeting_link . '">' . "{$this->event->whale_meeting_link}" . '</a>';
+        }
+        return $message;
     }
 }

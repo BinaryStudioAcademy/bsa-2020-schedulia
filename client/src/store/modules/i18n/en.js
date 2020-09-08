@@ -411,9 +411,9 @@ export default {
     TAGS: 'Tags',
     ALL_TAGS: 'All Tags',
 
-    MY_ZOOM_ACCOUNT: 'My zoom account',
+    MY_ZOOM_ACCOUNT: 'My Zoom Account',
     INCLUDE_ZOOM_MEETING:
-        'Automatically include Zoom meeting details in Schedulia events',
+        'Automatically include Zoom meeting details in Schedulia events.',
 
     I_AM_UNAVAILABLE: "I'm unavailable",
     ERROR_404: 'Error 404',
@@ -452,11 +452,22 @@ export default {
     EVENT_TYPE_CREATED: 'Event Type _ created successfully',
     EVENT_TYPE_UPDATED: 'Event Type _ updated successfully',
     NO: 'No',
+
+    MY_WHALE_ACCOUNT: 'My Whale Account',
+    ACTIVATE_WHALE_ACCOUNT: 'Sign up Whale',
+    INCLUDE_WHALE_MEETING:
+        'Feel free to use Whale, a cloud-based video conferencing app with advanced abilities. To use Whale you have to sign up with the same email.',
+
+    INTEGRATIONS: 'Integrations',
+
     DISPLAY: 'Displaying',
     EVENT: 'Event',
 
     REQUIRED_START_TIME: 'Please select start time',
     REQUIRED_END_TIME: 'Please select end time',
     INTERVALS_MUST: 'Intervals must be at least _ minutes.',
-    INTERVALS_OVERLAPPING: 'Intervals are overlapping.'
+    INTERVALS_OVERLAPPING: 'Intervals are overlapping.',
+
+    YOU_HAVE_UNSAVED_CHANGES:
+        'Do you really want to leave? You have unsaved changes!'
 };
