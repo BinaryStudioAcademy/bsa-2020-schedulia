@@ -36,8 +36,7 @@ class SendNotificationBeforeEvent implements ShouldQueue
         EventRepository $eventRepository,
         ZoomService $zoomService,
         WhaleService $whaleService
-    )
-    {
+    ) {
         $now = CarbonImmutable::now();
         $tenMinutesLater = $now->addMinutes(10);
         $criteria = [
@@ -49,7 +48,7 @@ class SendNotificationBeforeEvent implements ShouldQueue
         $events = $eventRepository->findByCriteria(...$criteria);
 
         foreach ($events as $event) {
-            $this->saveMeetingLink($event->eventType->location_type, $event,$zoomService, $whaleService);
+            $this->saveMeetingLink($event->eventType->location_type, $event, $zoomService, $whaleService);
             $event->eventType->owner->notify(new NotificationBeforeEventForOwner($event));
             Notification::route('mail', $event->invitee_email)
                 ->notify(new NotificationBeforeEventForInvitee($event));

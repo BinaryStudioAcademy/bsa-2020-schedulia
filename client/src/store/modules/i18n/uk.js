@@ -363,6 +363,6 @@ export default {
     NO: 'Ні',
 
     MY_WHALE_ACCOUNT: 'Мій Whale Аккаунт',
-    ACTIVATE_WHALE_ACCOUNT: 'Зареєструватися у whale',
+    ACTIVATE_WHALE_ACCOUNT: 'Увійти у whale',
     INCLUDE_WHALE_MEETING: 'Автоматично підключайте Whale мітинги в Schedulia'
 };

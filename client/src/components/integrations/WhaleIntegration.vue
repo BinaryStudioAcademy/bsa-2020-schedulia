@@ -12,12 +12,12 @@
             <VSpacer></VSpacer>
             <VCol>
                 <VBtn
-                        class="mt-2 mr-4"
-                        outlined
-                        color="indigo"
-                        v-bind="attrs"
-                        v-on="on"
-                        @click="activateAccount"
+                    class="mt-2 mr-4"
+                    outlined
+                    color="indigo"
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="activateAccount"
                 >
                     {{ lang.ACTIVATE_WHALE_ACCOUNT }}
                 </VBtn>
@@ -44,14 +44,14 @@ export default {
 
     methods: {
         activateAccount() {
-            let win = window.open('https://bsa2020-whale.westeurope.cloudapp.azure.com/', '_blank');
+            let win = window.open(
+                'https://bsa2020-whale.westeurope.cloudapp.azure.com/',
+                '_blank'
+            );
             win.focus();
-
         }
     }
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
