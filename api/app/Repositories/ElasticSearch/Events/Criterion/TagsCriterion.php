@@ -10,9 +10,17 @@ final class TagsCriterion implements ElasticSearchCriterion
 {
     public static function getCriteria($eventTags): array
     {
-        return [
-            'match' => [
-                'event_type_tags.name' => $eventTags
+        foreach ($eventTags as $tag) {
+            $criteria[] = [
+                'match' => [
+                    'event_type_tags.name' => $tag
+                ]
+            ];
+        }
+
+       return [
+            'bool' => [
+                'should' => $criteria
             ]
         ];
     }
