@@ -66,9 +66,9 @@ final class ElasticsearchEventAggregateRepository extends BaseRepository impleme
                 ],
                 'query' => [
                     'bool' => [
-                        'must' => $criteria
-                    ]
-                ],
+                        'must' => $criteria,
+                    ],
+                ]
             ]
         ]);
 
