@@ -288,7 +288,7 @@ export default {
                     });
 
                     this.$router.push({
-                        path: `/${this.eventType.owner.nickname}/${this.eventType.id}/invitee/details`
+                        path: `/${this.eventType.owner.nickname}/${this.eventType.slug}/invitee/details`
                     });
                 } catch (error) {
                     this.setErrorNotification(error);
