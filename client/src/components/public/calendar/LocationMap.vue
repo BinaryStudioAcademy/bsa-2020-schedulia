@@ -3,6 +3,7 @@
         <MglMap
             :accessToken="accessToken"
             :mapStyle="'mapbox://styles/mapbox/streets-v11'"
+            @load="onMapLoaded"
         >
             <MglMarker v-if="coords.length" :coordinates="coords" color="red" />
         </MglMap>
@@ -28,6 +29,18 @@ export default {
         return {
             accessToken: VUE_APP_MAPBOX_TOKEN
         };
+    },
+    methods: {
+        async onMapLoaded(event) {
+            this.map = event.map;
+            const asyncActions = event.component.actions;
+
+            await asyncActions.flyTo({
+                center: this.coords,
+                zoom: 9,
+                speed: 1
+            });
+        }
     }
 };
 </script>
