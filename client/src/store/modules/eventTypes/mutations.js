@@ -101,7 +101,7 @@ export default {
             ...tags.reduce(
                 (prev, tag) => ({
                     ...prev,
-                    [tag.id]: eventTypeTagMapper(tag)
+                    [tag.name]: eventTypeTagMapper(tag)
                 }),
                 {}
             )

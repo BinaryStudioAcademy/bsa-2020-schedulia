@@ -125,7 +125,6 @@ export const availabilitiesMapper = function(eventTypeForm) {
 };
 
 export const eventTypeTagMapper = EventTypeTag => ({
-    id: EventTypeTag.id,
     name: EventTypeTag.name
 });
 
