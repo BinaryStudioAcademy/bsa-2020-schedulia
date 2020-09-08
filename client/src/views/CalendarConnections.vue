@@ -9,6 +9,9 @@
         <VRow>
             <ZoomIntegration />
         </VRow>
+        <VRow class="mb-5">
+            <WhaleIntegration />
+        </VRow>
     </GeneralLayout>
 </template>
 
@@ -16,6 +19,7 @@
 import GeneralLayout from '@/components/common/GeneralLayout/GeneralLayout';
 import ConnectedCalendars from '@/components/calendar-connections/ConnectedCalendars.vue';
 import ZoomIntegration from '@/components/integrations/ZoomIntegration';
+import WhaleIntegration from '@/components/integrations/WhaleIntegration';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapGetters } from 'vuex';
 
@@ -24,7 +28,8 @@ export default {
     components: {
         GeneralLayout,
         ConnectedCalendars,
-        ZoomIntegration
+        ZoomIntegration,
+        WhaleIntegration
     },
     data: () => ({}),
     computed: {

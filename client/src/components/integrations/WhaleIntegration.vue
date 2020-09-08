@@ -3,23 +3,23 @@
         <VRow>
             <VCol md="6" lg="9" sm="12">
                 <VCardTitle>
-                    {{ lang.MY_ZOOM_ACCOUNT }}
+                    {{ lang.MY_WHALE_ACCOUNT }}
                 </VCardTitle>
                 <VCardSubtitle>
-                    {{ lang.INCLUDE_ZOOM_MEETING }}
+                    {{ lang.INCLUDE_WHALE_MEETING }}
                 </VCardSubtitle>
             </VCol>
             <VSpacer></VSpacer>
             <VCol>
                 <VBtn
-                    class="mt-2 mr-4"
-                    outlined
-                    color="indigo"
-                    v-bind="attrs"
-                    v-on="on"
-                    @click="activateAccount"
+                        class="mt-2 mr-4"
+                        outlined
+                        color="indigo"
+                        v-bind="attrs"
+                        v-on="on"
+                        @click="activateAccount"
                 >
-                    {{ lang.ACTIVATE_ZOOM }}
+                    {{ lang.ACTIVATE_WHALE_ACCOUNT }}
                 </VBtn>
             </VCol>
         </VRow>
@@ -31,7 +31,7 @@ import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import { mapGetters } from 'vuex';
 import * as getters from '../../store/modules/auth/types/getters';
 export default {
-    name: 'ZoomIntegration',
+    name: 'WhaleIntegration',
 
     computed: {
         ...mapGetters('i18n', {
@@ -44,14 +44,14 @@ export default {
 
     methods: {
         activateAccount() {
-            window.location.replace(
-                process.env.VUE_APP_SOCIAL_AUTH_URL +
-                    '/meetings/zoom/redirect?user=' +
-                    this.user.id
-            );
+            let win = window.open('https://bsa2020-whale.westeurope.cloudapp.azure.com/', '_blank');
+            win.focus();
+
         }
     }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

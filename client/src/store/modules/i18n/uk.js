@@ -331,8 +331,8 @@ export default {
         'Будь ласка, введіть адресу або поверніться на',
     MAIN_PAGE: ' головну сторінку',
 
-    MY_ZOOM_ACCOUNT: 'Мій zoom аккаунт',
-    INCLUDE_ZOOM_MEETING: 'Автоматично вмикайте Zoom мітинги в Schedulia',
+    MY_ZOOM_ACCOUNT: 'Мій Zoom Аккаунт',
+    INCLUDE_ZOOM_MEETING: 'Автоматично підключайте Zoom мітинги в Schedulia',
     ACTIVATE_ZOOM: 'Активувати zoom',
 
     CONNECT_SLACK: 'Підключити Slack',
@@ -360,5 +360,9 @@ export default {
     PROFILE_WAS_UPDATED: 'Профіль оновлено!',
     EVENT_TYPE_CREATED: 'Івент Тип _ успішно створино',
     EVENT_TYPE_UPDATED: 'Івент Тип _ успішно оновлений',
-    NO: 'Ні'
+    NO: 'Ні',
+
+    MY_WHALE_ACCOUNT: 'Мій Whale Аккаунт',
+    ACTIVATE_WHALE_ACCOUNT: 'Зареєструватися у whale',
+    INCLUDE_WHALE_MEETING: 'Автоматично підключайте Whale мітинги в Schedulia'
 };

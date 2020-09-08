@@ -411,9 +411,9 @@ export default {
     TAGS: 'Tags',
     ALL_TAGS: 'All Tags',
 
-    MY_ZOOM_ACCOUNT: 'My zoom account',
+    MY_ZOOM_ACCOUNT: 'My Zoom Account',
     INCLUDE_ZOOM_MEETING:
-        'Automatically include Zoom meeting details in Schedulia events',
+        'Automatically include Zoom meeting details in Schedulia events.',
 
     I_AM_UNAVAILABLE: "I'm unavailable",
     ERROR_404: 'Error 404',
@@ -451,5 +451,9 @@ export default {
     PROFILE_WAS_UPDATED: 'Profile was updated!',
     EVENT_TYPE_CREATED: 'Event Type _ created successfully',
     EVENT_TYPE_UPDATED: 'Event Type _ updated successfully',
-    NO: 'No'
+    NO: 'No',
+
+    MY_WHALE_ACCOUNT: 'My Whale Account',
+    ACTIVATE_WHALE_ACCOUNT: 'Sign up Whale',
+    INCLUDE_WHALE_MEETING: 'Feel free to use Whale, a cloud-based video conferencing app with advanced abilities. You have to sign up before using. '
 };
