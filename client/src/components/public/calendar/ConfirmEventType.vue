@@ -291,10 +291,9 @@ export default {
                         timezone: this.publicEvent.timezone,
                         custom_field_values: customFieldValues
                     });
-
                     if (response) {
                         this.$router.push({
-                            path: `/${this.eventType.owner.nickname}/${this.eventType.id}/invitee/details`
+                            path: `/${this.eventType.owner.nickname}/${this.eventType.slug}/invitee/details`
                         });
                     }
                 } catch (error) {

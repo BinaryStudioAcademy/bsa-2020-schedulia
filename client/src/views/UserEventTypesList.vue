@@ -32,7 +32,7 @@
                     :key="eventType.id"
                 >
                     <RouterLink
-                        :to="`/${eventType.owner.nickname}/${eventType.id}`"
+                        :to="`/${eventType.owner.nickname}/${eventType.slug}`"
                     >
                         <UserEventType :event-type="eventType" />
                     </RouterLink>

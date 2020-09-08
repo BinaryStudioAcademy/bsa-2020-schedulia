@@ -21,6 +21,8 @@ use App\Actions\EventType\GetAvailableTimeRequest;
 use App\Actions\EventType\GetEventTypeByIdAction;
 use App\Actions\EventType\GetEventTypeByIdAndOwnerNicknameAction;
 use App\Actions\EventType\GetEventTypeByIdAndOwnerNicknameRequest;
+use App\Actions\EventType\GetEventTypeBySlugAndOwnerNicknameAction;
+use App\Actions\EventType\GetEventTypeBySlugAndOwnerNicknameRequest;
 use App\Actions\EventType\GetEventTypeCollectionAction;
 use App\Actions\EventType\GetEventTypeCollectionByNicknameAction;
 use App\Actions\EventType\GetEventTypeCollectionByNicknameRequest;
@@ -256,9 +258,19 @@ class EventTypeController extends ApiController
             )
         )->getEventType();
 
-        if (is_null($eventType)) {
-            return $this->emptyResponse();
-        }
+        return $this->successResponse($this->eventTypePresenter->present($eventType));
+    }
+
+    public function getEventTypeBySlugAndNickname(
+        Request $request,
+        GetEventTypeBySlugAndOwnerNicknameAction $action
+    ): JsonResponse {
+        $eventType = $action->execute(
+            new GetEventTypeBySlugAndOwnerNicknameRequest(
+                $request->slug,
+                $request->nickname
+            )
+        )->getEventType();
 
         return $this->successResponse($this->eventTypePresenter->present($eventType));
     }

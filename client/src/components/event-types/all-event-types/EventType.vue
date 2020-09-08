@@ -38,7 +38,7 @@
                 <RouterLink
                     v-else
                     :to="{
-                        path: `/${eventType.owner.nickname}/${eventType.id}`
+                        path: `/${eventType.owner.nickname}/${eventType.slug}`
                     }"
                 >
                     /{{ eventType.slug }}
@@ -115,7 +115,7 @@ export default {
                 '/' +
                 this.eventType.owner.nickname +
                 '/' +
-                this.eventType.id
+                this.eventType.slug
             );
         },
         ...mapGetters('i18n', {
