@@ -23,10 +23,15 @@ export default {
             });
             return eventType;
         } catch (error) {
-            context.commit(SET_ERROR_NOTIFICATION, error.message);
             context.commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });
+
+            context.dispatch(
+                'notification/' + SET_ERROR_NOTIFICATION,
+                error.message,
+                { root: true }
+            );
         }
     },
     [actions.GET_EVENT_TYPE_BY_SLUG_AND_NICKNAME]: async (context, data) => {
@@ -57,7 +62,11 @@ export default {
         try {
             context.commit(mutations.SET_PUBLIC_EVENT, data);
         } catch (error) {
-            context.commit(SET_ERROR_NOTIFICATION, error.message);
+            context.dispatch(
+                'notification/' + SET_ERROR_NOTIFICATION,
+                error.message,
+                { root: true }
+            );
         }
     },
     [actions.GET_AVAILABILITIES_BY_MONTH]: async (context, data) => {
@@ -69,7 +78,11 @@ export default {
 
             return availabilities;
         } catch (error) {
-            context.commit(SET_ERROR_NOTIFICATION, error.message);
+            context.dispatch(
+                'notification/' + SET_ERROR_NOTIFICATION,
+                error.message,
+                { root: true }
+            );
         }
     },
     [actions.ADD_PUBLIC_EVENT]: async (context, data) => {
@@ -77,12 +90,15 @@ export default {
             context.commit(mutations.SET_PUBLIC_EVENT, {
                 inviteeName: data.invitee_name,
                 inviteeEmail: data.invitee_email,
-                startDate: data.start_date,
                 timezone: data.timezone
             });
-            await publicEventService.addPublicEvent(data);
+            return await publicEventService.addPublicEvent(data);
         } catch (error) {
-            context.commit(SET_ERROR_NOTIFICATION, error.message);
+            context.dispatch(
+                'notification/' + SET_ERROR_NOTIFICATION,
+                error.message,
+                { root: true }
+            );
         }
     }
 };

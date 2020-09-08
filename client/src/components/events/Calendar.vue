@@ -11,8 +11,8 @@
                             alt=""
                         />
                     </VBtn>
-                    <VToolbarTitle v-if="this.$refs.calendar" class="pa-4">
-                        {{ $refs.calendar.title }}
+                    <VToolbarTitle v-if="calendarTitle" class="pa-4">
+                        {{ calendarTitle }}
                     </VToolbarTitle>
                     <VBtn fab text small @click="next">
                         <img
@@ -118,6 +118,7 @@
 import eventTypeMixin from '@/components/events/eventTypeMixin';
 import moment from 'moment';
 import DayAvailabilitiesDialog from '@/components/events/DayAvailabilitiesDialog';
+import _ from 'lodash';
 export default {
     name: 'Calendar',
     components: { DayAvailabilitiesDialog },
@@ -127,26 +128,45 @@ export default {
             focus: '',
             menu: false,
             type: 'month',
-            date: new Date().toISOString().substr(0, 10)
+            date: new Date().toISOString().substr(0, 10),
+            firstCalendarDay: '',
+            lastCalendarDay: ''
         };
     },
     methods: {
         prev() {
             this.$refs.calendar.prev();
+            this.firstCalendarDay = '';
+            this.lastCalendarDay = '';
         },
         next() {
             this.$refs.calendar.next();
+            this.firstCalendarDay = '';
+            this.lastCalendarDay = '';
         },
         viewEventDialog(data) {
-            let dayAvailabilities = this.getDayAvailabilities(data, true);
+            let dayAvailabilities = _.cloneDeep(
+                this.getDayAvailabilities(data, true)
+            );
             if (dayAvailabilities.length > 0) {
                 this.changeEventTypeProperty('selectDay', data);
                 this.setPropertyData('dayAvailabilities', dayAvailabilities);
                 this.setPropertyData('visibleDayAvailabilitiesDialog', true);
             }
         },
+        setCalendarDays(day) {
+            if (!this.firstCalendarDay) {
+                this.firstCalendarDay = day.date;
+                this.lastCalendarDay = moment(this.firstCalendarDay)
+                    .add(30, 'days')
+                    .format('YYYY-MM-DD');
+            } else if (moment(this.lastCalendarDay) < moment(day.date)) {
+                this.lastCalendarDay = day.date;
+            }
+        },
         getDayAvailabilities(day, isExactDate = false) {
             let result = [];
+            this.setCalendarDays(day);
             if (
                 !this.data.dateRange.type.includes('indefinite') &&
                 !moment(day.date).isBetween(
@@ -174,9 +194,13 @@ export default {
                 this.data.availabilities_week_days[weekDayName] &&
                 !this.data.availabilities[day.date]
             ) {
-                return this.data.availabilities_week_days[weekDayName];
+                let result = [
+                    ...this.data.availabilities_week_days[weekDayName]
+                ];
+                return result;
             } else if (this.data.availabilities[day.date]) {
-                return this.data.availabilities[day.date];
+                let result = [...this.data.availabilities[day.date]];
+                return result;
             } else {
                 params = {
                     ...this.data.dateRange,
@@ -206,13 +230,36 @@ export default {
 
             return result;
         }
+    },
+    computed: {
+        calendarTitle() {
+            let result = '';
+
+            if (!this.firstCalendarDay && !this.lastCalendarDay) {
+                return result;
+            }
+            if (
+                moment(this.firstCalendarDay).isSame(
+                    this.lastCalendarDay,
+                    'year'
+                )
+            ) {
+                result = `${moment(this.firstCalendarDay).format(
+                    'MMMM DD'
+                )} - ${moment(this.lastCalendarDay).format('MMMM DD, YYYY')}`;
+            } else {
+                result = `${moment(this.firstCalendarDay).format(
+                    'MMMM DD, YYYY'
+                )} - ${moment(this.lastCalendarDay).format('MMMM DD, YYYY')}`;
+            }
+
+            return result;
+        }
     }
 };
 </script>
 <style lang="scss" scoped>
 .title-wrapper {
-    text-align: left;
-    padding: 0 0 0 2px;
     .title-today {
         font-size: 12px;
         font-weight: bold;

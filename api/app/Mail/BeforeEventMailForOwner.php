@@ -12,6 +12,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\HtmlString;
 
 class BeforeEventMailForOwner extends Mailable
 {
@@ -33,7 +34,7 @@ class BeforeEventMailForOwner extends Mailable
     {
         $eventTimeInUTCZone = new Carbon($this->event->start_date);
 
-        return (new MailMessage())
+        $message = (new MailMessage())
             ->subject(Lang::get('A reminder of an upcoming event from Schedulia'))
             ->line(Lang::get('We remind you that you have been invited to the event, the details of which are given below and it will start in 10 minutes.'))
             ->line(Lang::get('Type of event:'))
@@ -46,5 +47,11 @@ class BeforeEventMailForOwner extends Mailable
             ->line($this->event->start_date)
             ->line(Lang::get("Event Date/Time in {$this->event->timezone} timezone:"))
             ->line($eventTimeInUTCZone->timezone($this->event->timezone));
+
+        if ($this->event->eventType->location_type == 'zoom') {
+            $message = $message->line(Lang::get('Meeting link'))
+            ->line(new HtmlString('<a href="' . $this->event->zoom_meeting_link . '">' . "{$this->event->zoom_meeting_link}" . '</a>'));
+        }
+        return $message;
     }
 }

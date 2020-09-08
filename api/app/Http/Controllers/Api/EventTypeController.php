@@ -40,6 +40,7 @@ use App\Http\Requests\Api\EventType\ChangeDisabledEventTypeRequest;
 use App\Http\Requests\Api\EventType\EventTypeRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventTypeController extends ApiController
 {

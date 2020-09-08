@@ -41,10 +41,20 @@
                     <VFlex xs2 md1>
                         <VIcon>{{ data.item.icon }}</VIcon>
                     </VFlex>
-                    <VFlex>{{ data.item.title }}</VFlex>
+                    <VFlex
+                        :id="'event-type-location-type-' + data.item.title"
+                        >{{ data.item.title }}</VFlex
+                    >
                 </template>
             </VSelect>
-            <FindLocationForm class="find-location-form" v-if="showGeocoder" />
+            <FindLocationForm
+                class="find-location-form"
+                v-if="showGeocoder"
+                @changeLocation="changeEventTypeProperty('location', $event)"
+                @changeCoordinates="
+                    changeEventTypeProperty('coordinates', $event)
+                "
+            />
         </div>
 
         <div class="mb-2" v-if="user.chatito_active">
@@ -147,7 +157,7 @@
                             absolute
                             :value="data.color === id"
                             class="rounded-circle"
-                            color="eventColor"
+                            :color="id"
                         >
                             <img
                                 :src="require('@/assets/images/icon_check.png')"
@@ -159,14 +169,9 @@
             </VRow>
         </div>
         <div>
-            <VBtn
-                text
-                outlined
-                width="114"
-                class="mr-3"
-                :to="{ name: 'EventTypes' }"
-                >{{ lang.CANCEL }}</VBtn
-            >
+            <VBtn text outlined width="114" class="mr-3" @click="onCancel">{{
+                lang.CANCEL
+            }}</VBtn>
             <VBtn
                 @click="clickNext"
                 color="primary"
@@ -175,7 +180,7 @@
                 >{{ lang.NEXT }}</VBtn
             >
         </div>
-        <VDialog v-model="cancelDialog" width="380">
+        <VDialog :value="cancelDialog" width="380" persistent>
             <VCard>
                 <VCardTitle class="mb-5">
                     <VRow justify="center">
@@ -190,18 +195,18 @@
                 <VCardActions class="justify-center">
                     <div class="mb-5">
                         <VBtn
-                            color="primary"
-                            class="white--text mr-3"
-                            width="114"
-                            :to="{ name: 'EventTypes' }"
-                            >{{ lang.YES }}</VBtn
-                        >
-                        <VBtn
                             text
                             outlined
                             width="114"
+                            @click="cancelConfirm"
+                            >{{ lang.YES }}</VBtn
+                        >
+                        <VBtn
+                            color="primary"
+                            class="white--text mr-3"
+                            width="114"
                             @click="cancelDialog = false"
-                            >{{ lang.NEVERMIND }}</VBtn
+                            >{{ lang.NO }}</VBtn
                         >
                     </div>
                 </VCardActions>
@@ -376,15 +381,19 @@ export default {
         },
         onCloseZoomDialog() {
             this.showZoomDialog = false;
+        },
+        onCancel() {
+            this.cancelDialog = true;
+        },
+        cancelConfirm() {
+            this.cancelDialog = false;
+            this.$router.push({ name: 'EventTypes' });
         }
     }
 };
 </script>
 
 <style scoped>
-.v-text-field {
-    width: 506px;
-}
 .v-btn {
     font-size: 13px;
     text-transform: none;
@@ -405,15 +414,5 @@ export default {
 .set-location-container {
     background-color: white;
     padding: 30px 20px 15px 20px;
-}
-
-.basemap {
-    width: 350px;
-    min-width: 250px;
-    height: 250px;
-}
-
-.find-location-form {
-    max-width: 507px;
 }
 </style>

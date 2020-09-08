@@ -57,6 +57,7 @@
                 text
                 color="primary"
                 dark
+                class="edit-button"
                 @click.stop="setPropertyData('visibleAvailabilityDialog', true)"
             >
                 {{ lang.EDIT }}
@@ -77,7 +78,7 @@
                     color="primary"
                     dark
                     @click.stop="setPropertyData('visibleTimeZoneDialog', true)"
-                    class="editTimeZoneButton ma-n2 pa-n3"
+                    class="editTimeZoneButton ma-n2 pa-n3 edit-button"
                 >
                     {{ lang.EDIT }}
                 </VBtn>
@@ -187,10 +188,42 @@
                 </VTabItem>
             </VTabs>
         </VRow>
+        <VDialog :value="cancelDialog" width="380" persistent>
+            <VCard>
+                <VCardTitle class="mb-5">
+                    <VRow justify="center">
+                        <h3>{{ lang.ARE_YOU_SURE }}</h3>
+                    </VRow>
+                </VCardTitle>
+                <VCardText>
+                    <VRow justify="center">
+                        <p>{{ lang.UNSAVE_CHANGES_WILL_BE_LOST }}</p>
+                    </VRow>
+                </VCardText>
+                <VCardActions class="justify-center">
+                    <div class="mb-5">
+                        <VBtn
+                            text
+                            outlined
+                            width="114"
+                            @click="cancelConfirm"
+                            >{{ lang.YES }}</VBtn
+                        >
+                        <VBtn
+                            color="primary"
+                            class="white--text mr-3"
+                            width="114"
+                            @click="cancelDialog = false"
+                            >{{ lang.NO }}</VBtn
+                        >
+                    </div>
+                </VCardActions>
+            </VCard>
+        </VDialog>
 
         <VRow class="mt-10">
             <div>
-                <VBtn text outlined width="114" class="mr-3">
+                <VBtn @click="onCancel" text outlined width="114" class="mr-3">
                     {{ lang.CANCEL }}
                 </VBtn>
                 <VBtn
@@ -199,7 +232,7 @@
                     class="white--text"
                     width="114"
                 >
-                    {{ lang.SAVE_AND_CLOSE }}
+                    {{ lang.SAVE }}
                 </VBtn>
             </div>
         </VRow>
@@ -223,7 +256,8 @@ export default {
             availabilityIncrementsSelected: '',
             maxEventsPerDay: '',
             preventEventsHours: '',
-            tab: null
+            tab: null,
+            cancelDialog: false
         };
     },
 
@@ -274,8 +308,8 @@ export default {
                             if (!this.data.id) {
                                 this.changeEventTypeProperty('id', response.id);
                                 this.$router.push({
-                                    path: 'new-event-type-options',
-                                    query: { eventTypeId: response.id }
+                                    name: 'EventType',
+                                    params: { id: response.id }
                                 });
                             }
                         }
@@ -317,6 +351,13 @@ export default {
                 delete params[index];
             }
             this.changeEventTypeProperty('availabilities', params);
+        },
+        onCancel() {
+            this.cancelDialog = true;
+        },
+        cancelConfirm() {
+            this.cancelDialog = false;
+            this.$router.push({ name: 'EventTypes' });
         }
     },
 
@@ -328,7 +369,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .recommendation-block {
     background-color: var(--v-lightGrey-base);
     padding-left: 20px;
@@ -394,5 +435,10 @@ export default {
 
 .image-circle:hover {
     opacity: 0.9;
+}
+
+.edit-button {
+    padding: 0 5px !important;
+    min-width: 35px !important;
 }
 </style>

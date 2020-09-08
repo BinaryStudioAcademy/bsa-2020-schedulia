@@ -10,7 +10,7 @@
                         <VExpansionPanelContent>
                             <VDivider class="mx-4"></VDivider>
                             <VRow>
-                                <VCol cols="6" offset-md="2" offset-sm="2">
+                                <VCol cols="7" offset-md="2" offset-sm="2">
                                     <CreateEventTypeForm
                                         :is-booking="true"
                                         @changePanel="panel = 1"
@@ -97,7 +97,7 @@ export default {
 
     data() {
         return {
-            panel: 1
+            panel: 0
         };
     },
 

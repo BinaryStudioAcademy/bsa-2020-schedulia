@@ -255,7 +255,8 @@ export default {
             setErrorNotification: notificationActions.SET_ERROR_NOTIFICATION
         }),
         ...mapActions('publicEvent', {
-            addPublicEvent: actions.ADD_PUBLIC_EVENT
+            addPublicEvent: actions.ADD_PUBLIC_EVENT,
+            setPublicEvent: actions.SET_PUBLIC_EVENT
         }),
         ...mapActions('eventTypes', {
             fetchCustomFields: eventTypesActions.FETCH_CUSTOM_FIELDS_BY_EVENT_ID
@@ -278,7 +279,11 @@ export default {
                     ).filter(field => {
                         return field.value;
                     });
-                    await this.addPublicEvent({
+                    this.setPublicEvent({
+                        start_date: this.startDateFormatted
+                    });
+
+                    const response = await this.addPublicEvent({
                         event_type_id: this.eventType.id,
                         invitee_name: this.meetingFormData.name,
                         invitee_email: this.meetingFormData.email,
@@ -286,10 +291,11 @@ export default {
                         timezone: this.publicEvent.timezone,
                         custom_field_values: customFieldValues
                     });
-
-                    this.$router.push({
-                        path: `/${this.eventType.owner.nickname}/${this.eventType.slug}/invitee/details`
-                    });
+                    if (response) {
+                        this.$router.push({
+                            path: `/${this.eventType.owner.nickname}/${this.eventType.slug}/invitee/details`
+                        });
+                    }
                 } catch (error) {
                     this.setErrorNotification(error);
                 }

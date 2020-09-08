@@ -50,9 +50,9 @@
                     <template v-slot:prepend-item>
                         <VListItem>
                             <VListItemContent>
-                                <VListItemTitle>{{
-                                    lang.CHOOSE_YOUR_TIMEZONE
-                                }}</VListItemTitle>
+                                <VListItemTitle>
+                                    {{ lang.CHOOSE_YOUR_TIMEZONE }}
+                                </VListItemTitle>
                                 <VTextField
                                     v-model="timezoneFieldSearch"
                                     label="Enter timezone"
@@ -123,7 +123,7 @@
 import moment from 'moment';
 import momentTimezones from 'moment-timezone';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
-import EventInfo from './EventInfo';
+import EventInfo from '@/components/public/calendar/EventInfo';
 import * as actions from '@/store/modules/publicEvent/types/actions';
 import * as getters from '@/store/modules/publicEvent/types/getters';
 import { mapActions, mapGetters } from 'vuex';

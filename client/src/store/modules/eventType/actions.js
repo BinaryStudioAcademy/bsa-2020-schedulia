@@ -9,6 +9,7 @@ import {
     eventTypeMapper,
     eventTypeFormMapper
 } from '@/store/modules/eventType/normalizer';
+import * as langGetters from '@/store/modules/i18n/types/getters';
 
 export default {
     [actions.GET_EVENT_TYPE_BY_ID]: async (context, id) => {
@@ -43,40 +44,44 @@ export default {
     [actions.CLEAR_SET_EVENT_TYPE]: async context => {
         context.commit(mutations.CLEAR_SET_EVENT_TYPE);
     },
-    [actions.ADD_EVENT_TYPE]: async (context, data) => {
+    [actions.ADD_EVENT_TYPE]: async ({ dispatch, rootGetters }, data) => {
         try {
             const eventType = await eventTypeService.addEventType(
                 eventTypeFormMapper(data)
             );
-            context.dispatch(
+            dispatch(
                 'notification/' + SET_SUCCESS_NOTIFICATION,
-                `Event Type ${data.name} created success`,
+                rootGetters[
+                    'i18n/' + langGetters.GET_LANGUAGE_CONSTANTS
+                ].EVENT_TYPE_CREATED.replace('_', data.name),
                 { root: true }
             );
             return Promise.resolve(eventTypeMapper(eventType));
         } catch (error) {
-            context.dispatch(
+            dispatch(
                 'notification/' + SET_ERROR_NOTIFICATION,
                 error?.response?.data?.message || error.message,
                 { root: true }
             );
         }
     },
-    [actions.EDIT_EVENT_TYPE]: async (context, data) => {
+    [actions.EDIT_EVENT_TYPE]: async ({ dispatch, rootGetters }, data) => {
         try {
             const eventType = await eventTypeService.editEventType(
                 data.id,
                 eventTypeFormMapper(data)
             );
 
-            context.dispatch(
+            dispatch(
                 'notification/' + SET_SUCCESS_NOTIFICATION,
-                `Event Type ${data.name} updated success`,
+                rootGetters[
+                    'i18n/' + langGetters.GET_LANGUAGE_CONSTANTS
+                ].EVENT_TYPE_UPDATED.replace('_', data.name),
                 { root: true }
             );
             return Promise.resolve(eventTypeMapper(eventType));
         } catch (error) {
-            context.dispatch(
+            dispatch(
                 'notification/' + SET_ERROR_NOTIFICATION,
                 error?.response?.data?.message || error.message,
                 { root: true }

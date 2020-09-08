@@ -1,7 +1,2 @@
 export const SET_EVENT_TYPE = 'SET_EVENT_TYPE';
 export const SET_PUBLIC_EVENT = 'SET_PUBLIC_EVENT';
-
-export const SET_INVITEE_NAME = 'SET_INVITEE_NAME';
-export const SET_INVITEE_EMAIL = 'SET_INVITEE_EMAIL';
-export const SET_START_DATE = 'SET_START_DATE';
-export const SET_TIMEZONE = 'SET_TIMEZONE';
