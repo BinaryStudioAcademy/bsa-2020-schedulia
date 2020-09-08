@@ -11,7 +11,6 @@ export const eventMapper = Event => ({
         .utc(Event.start_date)
         .tz(Event.timezone)
         .format(),
-    location: Event.location,
     timezone: Event.timezone,
     createdAt: Event.created_at,
     eventType: eventTypeMapper(Event.event_type)
@@ -38,7 +37,6 @@ export const eventApiMapper = Event => ({
         .tz(Event.timezone)
         .utc()
         .format('YYYY-MM-DD HH:mm:ss'),
-    location: Event.location,
     timezone: Event.timezone,
     event_type: eventTypeMapper(Event.eventType)
 });
