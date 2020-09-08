@@ -78,9 +78,9 @@
                                     {{ lang.INVITEE_TIME_ZONE }}
                                     <span>{{ scheduledEvent.timezone }}</span>
                                 </li>
-                                <li>
-                                    {{ lang.QUESTIONS }}
-                                    <span>{{ scheduledEvent.question }}</span>
+                                <li v-show="scheduledEvent.inviteeInformation">
+                                    {{ lang.INVITEE_INFORMATION }}
+                                    <span>{{ scheduledEvent.inviteeInformation }}</span>
                                 </li>
                                 <li class="created">
                                     {{ lang.CREATED }}
@@ -336,7 +336,6 @@ export default {
                 font-size: 14px;
                 line-height: 20px;
                 letter-spacing: 0.25px;
-                text-transform: capitalize;
                 color: #989898;
 
                 span {

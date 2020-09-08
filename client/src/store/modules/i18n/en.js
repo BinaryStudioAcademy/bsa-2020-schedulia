@@ -461,5 +461,6 @@ export default {
     INTEGRATIONS: 'Integrations',
 
     DISPLAY: 'Displaying',
-    EVENT: 'Event'
+    EVENT: 'Event',
+    INVITEE_INFORMATION: 'Invitee information'
 };

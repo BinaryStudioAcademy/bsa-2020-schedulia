@@ -369,5 +369,6 @@ export default {
     INTEGRATIONS: 'Інтеграції',
 
     DISPLAY: 'Відображенно',
-    EVENT: 'Події'
+    EVENT: 'Події',
+    INVITEE_INFORMATION: 'Інформація про запрошенного'
 };
