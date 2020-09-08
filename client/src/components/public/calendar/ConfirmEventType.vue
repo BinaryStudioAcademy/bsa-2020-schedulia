@@ -53,11 +53,11 @@
                     </VCol>
 
                     <VCol cols="12" sm="12" md="10" class="pa-0">
-                        <label for="additional-info">
+                        <label for="additionalInfo">
                             {{ lang.ADDITIONAL_INFO_DESCRIPTION }}
                         </label>
                         <VTextarea
-                            id="additional-info"
+                            id="additionalInfo"
                             :error-messages="additionalInfoErrors"
                             :value="meetingFormData.additionalInfo"
                             @blur="setPropertyInMeetingFormData"
@@ -143,7 +143,7 @@ const nameRequirements = helpers.regex(
 );
 const infoRequirements = helpers.regex(
     'symbols',
-    /^[a-zA-Zа-яА-ЯЇїІіЄєҐґ /|,._\\]{0,1000}$/
+    /^[a-zA-Zа-яА-ЯЇїІіЄєҐґёы0-9 !?;:"'%*()#№@$/&|+-=/<>^,._\\]{0,1000}$/
 );
 
 import EventInfo from './EventInfo';
@@ -291,10 +291,9 @@ export default {
                         timezone: this.publicEvent.timezone,
                         custom_field_values: customFieldValues
                     });
-
                     if (response) {
                         this.$router.push({
-                            path: `/${this.eventType.owner.nickname}/${this.eventType.id}/invitee/details`
+                            path: `/${this.eventType.owner.nickname}/${this.eventType.slug}/invitee/details`
                         });
                     }
                 } catch (error) {

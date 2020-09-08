@@ -10,6 +10,7 @@ use App\Repositories\ElasticSearch\Events\Criterion\EventEmailsCriterion;
 use App\Repositories\ElasticSearch\Events\Criterion\EventStatusCriterion;
 use App\Repositories\ElasticSearch\Events\Criterion\SearchStringCriterion;
 use App\Repositories\ElasticSearch\Events\Criterion\StartDateCriterion;
+use App\Repositories\ElasticSearch\Events\Criterion\TagsCriterion;
 use App\Repositories\ElasticSearch\Events\ElasticsearchEventAggregateRepository;
 use App\Repositories\ElasticSearch\Events\EventAggregateRepositoryInterface;
 use App\Repositories\ElasticSearch\Events\Criterion\OwnerCriterion;
@@ -40,6 +41,10 @@ final class GetEventCollectionAction
 
         if ($request->getEventStatus()) {
             $criteria[] = EventStatusCriterion::getCriteria($request->getEventStatus());
+        }
+
+        if ($request->getTags()) {
+            $criteria[] = TagsCriterion::getCriteria($request->getTags());
         }
 
         if ($request->getStartDate()) {

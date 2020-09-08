@@ -32,7 +32,7 @@
                     :key="eventType.id"
                 >
                     <RouterLink
-                        :to="`/${eventType.owner.nickname}/${eventType.id}`"
+                        :to="`/${eventType.owner.nickname}/${eventType.slug}`"
                     >
                         <UserEventType :event-type="eventType" />
                     </RouterLink>
@@ -53,22 +53,26 @@ export default {
     components: {
         UserEventType
     },
-    data: () => ({}),
+    data: () => ({
+        ownerName: ''
+    }),
     methods: {
         ...mapActions('eventTypes', {
             fetchEventTypesByNickname: actions.FETCH_EVENT_TYPES_BY_NICKNAME
         })
     },
     async mounted() {
-        await this.fetchEventTypesByNickname(this.userNickname);
+        const response = await this.fetchEventTypesByNickname(
+            this.userNickname
+        );
+        this.ownerName = response.owner;
     },
     computed: {
         userNickname() {
             return this.$route.params.nickname;
         },
         ...mapGetters('eventTypes', {
-            eventTypes: getters.GET_EVENT_TYPES_BY_NICKNAME,
-            ownerName: getters.GET_OWNER_NAME_BY_NICKNAME
+            eventTypes: getters.GET_EVENT_TYPES_BY_NICKNAME
         }),
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS

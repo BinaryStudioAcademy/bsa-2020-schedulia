@@ -89,7 +89,7 @@ export default {
                 case 'locationType':
                     data[property] = value;
                     this.showGeocoder = false;
-                    data['location'] = '';
+                    data['address'] = '';
                     data['coordinates'] = [];
                     if (!!value && value.title === 'address') {
                         this.showGeocoder = true;
@@ -147,6 +147,7 @@ export default {
                     result = 'indefinitely';
                     break;
             }
+            result += '.';
 
             return result;
         }

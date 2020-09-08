@@ -10,9 +10,17 @@ final class EventEmailsCriterion implements ElasticSearchCriterion
 {
     public static function getCriteria($eventEmails): array
     {
+        foreach ($eventEmails as $email) {
+            $criteria[] = [
+                'match_phrase' => [
+                    'invitee_email' => $email
+                ]
+            ];
+        }
+
         return [
-            'terms' => [
-                'invitee_email' => $eventEmails
+            'bool' => [
+                'should' => $criteria
             ]
         ];
     }

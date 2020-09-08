@@ -30,6 +30,7 @@ export default {
         this.input = document.createElement('input');
         this.input.setAttribute('placeholder', this.lang.PICK_NEEDED_LOCATION);
         this.input.setAttribute('type', 'search');
+        this.input.setAttribute('id', 'event-type-address-algolia');
         this.$el.appendChild(this.input);
 
         this.placesAutocomplete = places({
@@ -45,8 +46,8 @@ export default {
                 e.suggestion.latlng.lat,
                 e.suggestion.latlng.lng
             ];
-            this.changeEventTypeProperty('location', e.suggestion.value);
-            this.changeEventTypeProperty('coordinates', [lng, lat]);
+            this.$emit('changeLocation', e.suggestion.value);
+            this.$emit('changeCoordinates', [lng, lat]);
         });
     }
 };

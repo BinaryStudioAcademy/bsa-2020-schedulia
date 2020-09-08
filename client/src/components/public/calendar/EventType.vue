@@ -134,8 +134,8 @@ export default {
         EventInfo
     },
     async mounted() {
-        const eventType = await this.getEventTypeByIdAndNickname({
-            id: this.$route.params.id,
+        const eventType = await this.getEventTypeBySlugAndNickname({
+            slug: this.$route.params.slug,
             nickname: this.$route.params.nickname
         });
 
@@ -177,10 +177,7 @@ export default {
                         this.currentDayUnavailibilities = date.unavailable.map(
                             time =>
                                 moment
-                                    .tz(
-                                        `2010-10-10 ${time}`,
-                                        this.eventType.timezone
-                                    )
+                                    .tz(time, 'HH:mm', 'UTC')
                                     .clone()
                                     .tz(this.currentTimezone)
                                     .format('HH:mm')
@@ -215,7 +212,7 @@ export default {
         }),
         currentTimezoneStartTime() {
             return moment
-                .tz(this.eventType.startDate, this.eventType.timezone)
+                .tz(this.eventType.startDate, 'UTC')
                 .clone()
                 .tz(this.currentTimezone)
                 .format();
@@ -228,7 +225,7 @@ export default {
         currentTimezoneAvailabilities() {
             const formatTime = time => {
                 return moment
-                    .tz(time, this.eventType.timezone)
+                    .tz(time, 'UTC')
                     .clone()
                     .tz(this.currentTimezone)
                     .format('YYYY-MM-DD HH:mm:ss');
@@ -585,6 +582,8 @@ export default {
         ...mapActions('publicEvent', {
             getEventTypeByIdAndNickname:
                 actions.GET_EVENT_TYPE_BY_ID_AND_NICKNAME,
+            getEventTypeBySlugAndNickname:
+                actions.GET_EVENT_TYPE_BY_SLUG_AND_NICKNAME,
             setPublicEvent: actions.SET_PUBLIC_EVENT,
             getAvailabilitiesByMonth: actions.GET_AVAILABILITIES_BY_MONTH
         }),
@@ -613,7 +612,7 @@ export default {
             });
             this.$router.push({
                 path: `/${this.eventType.owner.nickname}/${
-                    this.eventType.id
+                    this.eventType.slug
                 }/${this.getStartDate(time)}`
             });
         },

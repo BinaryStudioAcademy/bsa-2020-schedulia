@@ -137,6 +137,8 @@ import FirstTitle from '@/components/events/CreateEventTypeTitle';
 import CreateEventTypeForm from '@/components/events/CreateEventTypeForm';
 import eventTypeMixin from '@/components/events/eventTypeMixin';
 import CreateEventTypeQuestions from '@/components/events/custom-fields/CreateEventTypeQuestions';
+import { mapActions } from 'vuex';
+import * as actionEventType from '@/store/modules/eventType/types/actions';
 export default {
     name: 'NewEventTypeAdditionalOptions',
     mixins: [eventTypeMixin],
@@ -148,11 +150,6 @@ export default {
         CreateEventTypeForm,
         CreateEventTypeQuestions
     },
-    data() {
-        return {
-            colorById: ''
-        };
-    },
     computed: {
         duration() {
             return (
@@ -161,6 +158,17 @@ export default {
                 this.lang.DURATION_MIN
             );
         }
+    },
+    methods: {
+        ...mapActions('eventType', {
+            getEventTypeById: actionEventType.GET_EVENT_TYPE_BY_ID
+        }),
+        fetchEventType() {
+            this.getEventTypeById(this.$route.params.id);
+        }
+    },
+    mounted() {
+        this.fetchEventType();
     }
 };
 </script>

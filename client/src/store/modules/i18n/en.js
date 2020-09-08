@@ -65,7 +65,7 @@ export default {
     NEW_PASSWORD: 'New password',
     NICKNAME: 'Nickname',
 
-    UPDATE: 'UPDATE',
+    UPDATE: 'Update',
     UKRAINIAN: 'Ukrainian',
 
     YOU_DONT_HAVE_ANY_CONNECTED_CALENDARS:
@@ -410,6 +410,11 @@ export default {
     PUBLIC_LINK_WAS_COPIED: 'Public Link was copied!',
     TAGS: 'Tags',
     ALL_TAGS: 'All Tags',
+
+    MY_ZOOM_ACCOUNT: 'My Zoom Account',
+    INCLUDE_ZOOM_MEETING:
+        'Automatically include Zoom meeting details in Schedulia events.',
+
     I_AM_UNAVAILABLE: "I'm unavailable",
     ERROR_404: 'Error 404',
     THE_PAGE_YOU_ARE_LOOKING_FOR_COULD_NOT_BE_FOUND:
@@ -418,6 +423,9 @@ export default {
         " Please make sure that you've typed in the URL correctly",
     PLEASE_RETYPE_ADDRESS_OR_RETURN_TO: 'Please retype address or return to',
     MAIN_PAGE: ' main page',
+
+    ACTIVATE_ZOOM: 'Activate zoom',
+
     CONNECT_SLACK: 'Connect Slack',
     INCOMING_WEBHOOK: 'Incoming Webhook',
     TO_YOUR: 'to your',
@@ -440,5 +448,18 @@ export default {
     NO_RESULT_MATCHING: 'No results matching',
     PRESS_ENTER_TO_CREATE: 'Press enter to create a new one tag',
     ADD_SOME_TAGS: 'Add some tags',
-    PROFILE_WAS_UPDATED: 'Profile was updated!'
+    PROFILE_WAS_UPDATED: 'Profile was updated!',
+    EVENT_TYPE_CREATED: 'Event Type _ created successfully',
+    EVENT_TYPE_UPDATED: 'Event Type _ updated successfully',
+    NO: 'No',
+
+    MY_WHALE_ACCOUNT: 'My Whale Account',
+    ACTIVATE_WHALE_ACCOUNT: 'Sign up Whale',
+    INCLUDE_WHALE_MEETING:
+        'Feel free to use Whale, a cloud-based video conferencing app with advanced abilities. To use Whale you have to sign up with the same email.',
+
+    INTEGRATIONS: 'Integrations',
+
+    DISPLAY: 'Displaying',
+    EVENT: 'Event'
 };

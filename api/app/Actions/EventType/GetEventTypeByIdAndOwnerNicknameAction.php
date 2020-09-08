@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions\EventType;
 
 use App\Exceptions\EventTypeNotFoundException;
+use App\Exceptions\User\UserNotFoundException;
 use App\Repositories\EventType\Criterion\IdCriterion;
 use App\Repositories\EventType\Criterion\OwnerCriterion;
 use App\Repositories\EventType\Criterion\ActiveCriterion;
@@ -30,6 +31,10 @@ final class GetEventTypeByIdAndOwnerNicknameAction
         $owner = $this->userRepository->findOneByCriteria(
             new NicknameCriterion($request->getNickname())
         );
+
+        if (is_null($owner)) {
+            throw new UserNotFoundException();
+        }
 
         $criteria = [
             new OwnerCriterion($owner->id),

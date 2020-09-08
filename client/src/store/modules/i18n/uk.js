@@ -330,6 +330,11 @@ export default {
     PLEASE_RETYPE_ADDRESS_OR_RETURN_TO:
         'Будь ласка, введіть адресу або поверніться на',
     MAIN_PAGE: ' головну сторінку',
+
+    MY_ZOOM_ACCOUNT: 'Мій Zoom Аккаунт',
+    INCLUDE_ZOOM_MEETING: 'Автоматично підключайте Zoom мітинги в Schedulia',
+    ACTIVATE_ZOOM: 'Активувати zoom',
+
     CONNECT_SLACK: 'Підключити Slack',
     INCOMING_WEBHOOK: 'Incoming Webhook',
     TO_YOUR: 'до вашого',
@@ -352,5 +357,17 @@ export default {
     NO_RESULT_MATCHING: 'Немає результатів за запитом',
     PRESS_ENTER_TO_CREATE: 'Натисніть Enter, щоб створити новий тег',
     ADD_SOME_TAGS: 'Додайте кілька тегів',
-    PROFILE_WAS_UPDATED: 'Профіль оновлено!'
+    PROFILE_WAS_UPDATED: 'Профіль оновлено!',
+    EVENT_TYPE_CREATED: 'Івент Тип _ успішно створино',
+    EVENT_TYPE_UPDATED: 'Івент Тип _ успішно оновлений',
+    NO: 'Ні',
+
+    MY_WHALE_ACCOUNT: 'Мій Whale Аккаунт',
+    ACTIVATE_WHALE_ACCOUNT: 'Увійти у whale',
+    INCLUDE_WHALE_MEETING:
+        'Автоматично підключайте Whale мітинги в Schedulia. Щоб користуватися Whale, вам потрібно зареєструватися за тією самою електронною адресою.',
+    INTEGRATIONS: 'Інтеграції',
+
+    DISPLAY: 'Відображенно',
+    EVENT: 'Події'
 };
