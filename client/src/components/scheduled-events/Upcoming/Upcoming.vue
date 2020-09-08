@@ -114,8 +114,8 @@ export default {
             });
 
             if (
-                    this.eventsPagination.currentPage <
-                    this.eventsPagination.lastPage
+                this.eventsPagination.currentPage <
+                this.eventsPagination.lastPage
             ) {
                 this.loadMoreActive = true;
             } else {

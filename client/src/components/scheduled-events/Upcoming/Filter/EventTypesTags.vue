@@ -80,7 +80,9 @@
                                                     checkbox.name
                                                 )
                                             "
-                                            @change="onChangeType(checkbox.name)"
+                                            @change="
+                                                onChangeType(checkbox.name)
+                                            "
                                         ></VCheckbox>
                                     </div>
                                     <VBtn
