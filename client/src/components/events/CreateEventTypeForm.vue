@@ -255,7 +255,6 @@ export default {
     },
     data() {
         return {
-            tags: ['Gaming', 'Programming', 'Vue', 'Vuetify'],
             search: null,
             cancelDialog: false,
             items: [
