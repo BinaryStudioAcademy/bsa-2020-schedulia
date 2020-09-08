@@ -30,6 +30,18 @@
                             <div class="user-name">
                                 {{ scheduledEvent.name }}
                             </div>
+                            <div class="event-type-tags">
+                                <VChip
+                                    v-for="(tag, index) in scheduledEvent
+                                        .eventType.tagChecks"
+                                    :key="index"
+                                    :to="{ query: { tags: [tag] } }"
+                                    class="mr-2 mt-2"
+                                    small
+                                >
+                                    {{ tag }}
+                                </VChip>
+                            </div>
                             <div class="event-type">
                                 {{ lang.EVENT_TYPE }}
                                 <span>{{ scheduledEvent.eventType.name }}</span>
