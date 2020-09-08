@@ -336,12 +336,14 @@ export default {
                 font-size: 14px;
                 line-height: 20px;
                 letter-spacing: 0.25px;
+                text-transform: capitalize;
                 color: #989898;
 
                 span {
                     display: block;
                     color: #2c2c2c;
                     font-size: 16px;
+                    text-transform: none;
                 }
             }
 
