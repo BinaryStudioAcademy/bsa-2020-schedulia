@@ -49,6 +49,7 @@ export default {
                 (prev, field) => ({
                     ...prev,
                     [field.id]: {
+                        id: field.id,
                         type: field.type,
                         name: field.name
                     }
@@ -80,6 +81,16 @@ export default {
         const customFields = { ...state.customFields };
         delete customFields[id];
         state.customFields = customFields;
+    },
+    [mutations.ADD_TO_DELETE_IDS]: (state, id) => {
+        if (!String(id).match(/.{1,8}-.{1,4}-.{1,4}-.{1,4}-.{1,12}/)) {
+            if (!state.toDeleteIds.includes(id)) {
+                state.toDeleteIds.push(id);
+            }
+        }
+    },
+    [mutations.CLEAR_TO_DELETE_IDS]: state => {
+        state.toDeleteIds = [];
     },
     [mutations.ADD_EVENT_TYPE]: (state, eventType) => {
         state.eventTypes = {
