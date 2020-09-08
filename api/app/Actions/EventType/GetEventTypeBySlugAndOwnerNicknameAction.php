@@ -48,5 +48,4 @@ final class GetEventTypeBySlugAndOwnerNicknameAction
 
         return new GetEventTypeBySlugAndOwnerNicknameResponse($eventType);
     }
-
 }
