@@ -4,7 +4,6 @@ export const eventTypeMapper = EventType => ({
     name: EventType.name,
     description: EventType.description || '',
     internalNote: EventType.internal_note,
-    location: EventType.location,
     locationType: locationTypeMapper(EventType.location_type),
     coordinates: EventType.coordinates || [],
     slug: EventType.slug,
@@ -22,8 +21,9 @@ export const eventTypeMapper = EventType => ({
         date: moment().format('YYYY-MM-DD')
     },
     createdAt: EventType.created_at,
-    chatito_workspace: EventType.chatito_workspace,
-    tagChecks: tagMapper(EventType.tags)
+    chatito_workspace: EventType.chatito_workspace
+    // tagChecks: tagMapper(EventType.tags)
+    // TODO: rename to 'tags' for correct cancelling
 });
 
 export const tagMapper = function(tags) {

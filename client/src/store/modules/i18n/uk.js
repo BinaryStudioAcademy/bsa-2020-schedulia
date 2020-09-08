@@ -330,6 +330,11 @@ export default {
     PLEASE_RETYPE_ADDRESS_OR_RETURN_TO:
         'Будь ласка, введіть адресу або поверніться на',
     MAIN_PAGE: ' головну сторінку',
+
+    MY_ZOOM_ACCOUNT: 'Мій zoom аккаунт',
+    INCLUDE_ZOOM_MEETING: 'Автоматично вмикайте Zoom мітинги в Schedulia',
+    ACTIVATE_ZOOM: 'Активувати zoom',
+
     CONNECT_SLACK: 'Підключити Slack',
     INCOMING_WEBHOOK: 'Incoming Webhook',
     TO_YOUR: 'до вашого',

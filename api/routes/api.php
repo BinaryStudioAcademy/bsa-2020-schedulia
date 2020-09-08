@@ -74,7 +74,7 @@ Route::group([
 Route::group([
     'prefix' => 'public'
 ], function () {
-    Route::get('/users/{nickname}/event-types/{id}', 'Api\\EventTypeController@getEventTypeByIdAndNickname');
+    Route::get('/users/{nickname}/event-types/{slug}', 'Api\\EventTypeController@getEventTypeBySlugAndNickname');
 });
 Route::get('/event-types/{id}/availabilities', 'Api\\EventTypeController@getAvailableTime');
 
