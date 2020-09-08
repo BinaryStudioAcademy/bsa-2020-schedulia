@@ -142,7 +142,6 @@ export default {
             const customFields = await eventTypesService.fetchCustomFieldsByEventTypeId(
                 eventTypeId
             );
-            console.log(customFields);
             if (!customFields.length) {
                 commit(mutations.CLEAR_CUSTOM_FIELDS);
             }

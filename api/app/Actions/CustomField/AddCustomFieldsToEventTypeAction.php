@@ -41,7 +41,7 @@ final class AddCustomFieldsToEventTypeAction
                 );
             }
         }
-        if(!empty($request->getToDeleteIds())) {
+        if (!empty($request->getToDeleteIds())) {
             foreach ($request->getToDeleteIds() as $customFieldId) {
                 $customFieldModelToDelete = $this->customFieldRepository->getById((int)$customFieldId);
                 if (!is_null($customFieldModelToDelete)) {

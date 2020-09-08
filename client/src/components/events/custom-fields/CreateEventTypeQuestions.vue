@@ -69,7 +69,8 @@ export default {
     methods: {
         ...mapActions('eventTypes', {
             saveCustomFields: actions.SAVE_CUSTOM_FIELDS,
-            fetchCustomFieldsByEventTypeId: actions.FETCH_CUSTOM_FIELDS_BY_EVENT_ID
+            fetchCustomFieldsByEventTypeId:
+                actions.FETCH_CUSTOM_FIELDS_BY_EVENT_ID
         }),
         async onSaveCustomFields() {
             await this.saveCustomFields({
