@@ -1,6 +1,7 @@
 export default {
     scheduledEventsFilterView: false,
     scheduledEvents: {},
+    scheduledEventsMap: [],
     eventEmails: {},
     eventsPagination: {
         currentPage: 0,

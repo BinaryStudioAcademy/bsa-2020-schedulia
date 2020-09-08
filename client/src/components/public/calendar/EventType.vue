@@ -50,9 +50,9 @@
                     <template v-slot:prepend-item>
                         <VListItem>
                             <VListItemContent>
-                                <VListItemTitle>{{
-                                    lang.CHOOSE_YOUR_TIMEZONE
-                                }}</VListItemTitle>
+                                <VListItemTitle>
+                                    {{ lang.CHOOSE_YOUR_TIMEZONE }}
+                                </VListItemTitle>
                                 <VTextField
                                     v-model="timezoneFieldSearch"
                                     label="Enter timezone"
@@ -177,7 +177,7 @@ export default {
                         this.currentDayUnavailibilities = date.unavailable.map(
                             time =>
                                 moment
-                                    .tz(`2010-10-10 ${time}`, 'UTC')
+                                    .tz(time, 'HH:mm', 'UTC')
                                     .clone()
                                     .tz(this.currentTimezone)
                                     .format('HH:mm')

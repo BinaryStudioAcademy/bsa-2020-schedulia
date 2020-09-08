@@ -1,29 +1,36 @@
-import moment from 'moment';
+import moment from 'moment-timezone';
 export const eventTypeMapper = EventType => ({
     id: EventType.id,
     name: EventType.name,
     description: EventType.description || '',
     internalNote: EventType.internal_note,
-    location: EventType.location,
     locationType: locationTypeMapper(EventType.location_type),
     coordinates: EventType.coordinates || [],
+    address: EventType.address,
     slug: EventType.slug,
     color: EventType.color,
     duration: EventType.duration,
     disabled: EventType.disabled,
     timezone: EventType.timezone,
     owner: userMapper(EventType.owner),
-    availabilities: availabilityMapper(EventType.availabilities),
+    availabilities: availabilityMapper(
+        EventType.availabilities,
+        EventType.timezone
+    ),
     radioTimeZone: 'Local',
     customDuration: 0,
-    dateRange: dateRangeMapper(EventType.availabilities),
-    availabilities_week_days: availabilitiesWeekDays(EventType.availabilities),
+    dateRange: dateRangeMapper(EventType.availabilities, EventType.timezone),
+    availabilities_week_days: availabilitiesWeekDays(
+        EventType.availabilities,
+        EventType.timezone
+    ),
     selectDay: {
         date: moment().format('YYYY-MM-DD')
     },
     createdAt: EventType.created_at,
-    chatito_workspace: EventType.chatito_workspace,
-    tagChecks: tagMapper(EventType.tags)
+    chatito_workspace: EventType.chatito_workspace
+    // tagChecks: tagMapper(EventType.tags)
+    // TODO: rename to 'tags' for correct cancelling
 });
 
 export const tagMapper = function(tags) {
@@ -44,13 +51,17 @@ export const userMapper = user => ({
     nickname: user.nickname
 });
 
-export const availabilityMapper = function(availabilities) {
+export const availabilityMapper = function(availabilities, timezone) {
     let result = {};
     for (let index in availabilities) {
         let availability = availabilities[index];
         if (availability['type'] === 'exact_date') {
-            let defaultStartDate = moment(availability['start_date']);
-            let defaultEndDate = moment(availability['end_date']);
+            let defaultStartDate = moment
+                .utc(availability['start_date'])
+                .tz(timezone);
+            let defaultEndDate = moment
+                .utc(availability['end_date'])
+                .tz(timezone);
             let date = defaultStartDate.format('YYYY-MM-DD');
             if (!Object.keys(result).includes(date)) {
                 result[date] = [];
@@ -69,8 +80,12 @@ export const availabilityMapper = function(availabilities) {
 };
 
 export const availabilityApiMapper = function(availability, timezone) {
-    let startDate = moment.utc(moment(availability.startDate), timezone);
-    let endDate = moment.utc(moment(availability.endDate), timezone);
+    let startDate = moment(availability.startDate)
+        .tz(timezone)
+        .utc();
+    let endDate = moment(availability.endDate)
+        .tz(timezone)
+        .utc();
     return {
         type: availability.type,
         start_date: startDate.format('YYYY-MM-DD HH:mm:ss'),
@@ -82,7 +97,7 @@ export const availabilityApiMapper = function(availability, timezone) {
 
 export const eventTypeFormMapper = eventTypeForm => ({
     name: eventTypeForm.name,
-    address: eventTypeForm.location,
+    address: eventTypeForm.address,
     location_type: eventTypeForm.locationType.key,
     coordinates: eventTypeCoordinates(eventTypeForm.coordinates),
     description: eventTypeForm.description,
@@ -120,12 +135,16 @@ export const eventTypeCoordinates = coordinate => ({
     lat: coordinate['lat'] || coordinate[1]
 });
 
-export const dateRangeMapper = function(availabilities) {
+export const dateRangeMapper = function(availabilities, timezone) {
     for (let index in availabilities) {
         let availability = availabilities[index];
         if (availability.type.includes('date_range')) {
-            let defaultStartDate = moment(availability.start_date);
-            let defaultEndDate = moment(availability.end_date);
+            let defaultStartDate = moment
+                .utc(availability['start_date'])
+                .tz(timezone);
+            let defaultEndDate = moment
+                .utc(availability['end_date'])
+                .tz(timezone);
             return {
                 type: availability.type,
                 scheduleType: 'period',
@@ -141,13 +160,17 @@ export const dateRangeMapper = function(availabilities) {
     }
 };
 
-export const availabilitiesWeekDays = function(availabilities) {
+export const availabilitiesWeekDays = function(availabilities, timezone) {
     let result = {};
     for (let index in availabilities) {
         let availability = availabilities[index];
         if (availability.type.includes('every_')) {
-            let defaultStartDate = moment(availability.start_date);
-            let defaultEndDate = moment(availability.end_date);
+            let defaultStartDate = moment
+                .utc(availability['start_date'])
+                .tz(timezone);
+            let defaultEndDate = moment
+                .utc(availability['end_date'])
+                .tz(timezone);
             let weekDay = availability.type.replace(/every_/, '');
             if (!Object.keys(result).includes(weekDay)) {
                 result[weekDay] = [];
@@ -164,9 +187,9 @@ export const availabilitiesWeekDays = function(availabilities) {
     return result;
 };
 
-export const locationTypeMapper = function(location) {
+export const locationTypeMapper = function(locationType) {
     let result = {};
-    switch (location) {
+    switch (locationType) {
         case 'address':
             result = {
                 key: 'address',
