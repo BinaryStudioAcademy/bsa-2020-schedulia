@@ -118,10 +118,10 @@ export default {
                 nickName
             );
             commit(mutations.SET_EVENT_TYPES_BY_NICKNAME, response.eventTypes);
-            commit(mutations.SET_OWNER_NAME_BY_NICKNAME, response.owner);
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });
+            return response;
         } catch (error) {
             dispatch(
                 'notification/' + notifyActions.SET_ERROR_NOTIFICATION,
