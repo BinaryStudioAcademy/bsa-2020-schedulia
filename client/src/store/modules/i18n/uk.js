@@ -362,5 +362,8 @@ export default {
     EVENT_TYPE_UPDATED: 'Івент Тип _ успішно оновлений',
     NO: 'Ні',
     DISPLAY: 'Відображенно',
-    EVENT: 'Події'
+    EVENT: 'Події',
+
+    YOU_HAVE_UNSAVED_CHANGES:
+        'Ви дійсно хочете залишити сторінку? У вас незбережені зміни!'
 };

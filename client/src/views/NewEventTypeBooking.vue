@@ -44,9 +44,10 @@
                                                 lang.WHEN_CAN_PEOPLE_BOOK_EVENT
                                             }}
                                         </VCardTitle>
-                                        <VCardSubtitle>
-                                            {{ duration }}, {{ dateDuration }}
-                                        </VCardSubtitle>
+                                        <VCardSubtitle
+                                            >{{ duration }},
+                                            {{ dateDuration }}</VCardSubtitle
+                                        >
                                     </div>
                                 </VCol>
                             </VRow>
@@ -101,12 +102,28 @@ export default {
         };
     },
 
+    mounted() {
+        this.setIsSaved(false);
+    },
+
     computed: {
         duration() {
             return (
                 (this.eventType.customDuration || this.eventType.duration) +
                 ' min'
             );
+        }
+    },
+    beforeRouteLeave(to, from, next) {
+        if (!this.isSaved) {
+            const answer = window.confirm(this.lang.YOU_HAVE_UNSAVED_CHANGES);
+            if (answer) {
+                next();
+            } else {
+                next(false);
+            }
+        } else {
+            next();
         }
     }
 };
