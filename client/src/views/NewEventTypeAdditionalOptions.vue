@@ -2,7 +2,7 @@
     <GeneralLayout>
         <VContainer>
             <VCard class="mt-7">
-                <VExpansionPanels accordion>
+                <VExpansionPanels accordion :value="panel">
                     <VExpansionPanel @change="panel = 0">
                         <VExpansionPanelHeader>
                             <FirstTitle></FirstTitle>
@@ -12,9 +12,9 @@
                             <VRow>
                                 <VCol cols="6" offset-md="2" offset-sm="2">
                                     <CreateEventTypeForm
-                                        :is-booking="true"
                                         @changePanel="panel = 1"
-                                    ></CreateEventTypeForm>
+                                    >
+                                    </CreateEventTypeForm>
                                 </VCol>
                             </VRow>
                         </VExpansionPanelContent>
@@ -142,6 +142,11 @@ import * as actionEventType from '@/store/modules/eventType/types/actions';
 export default {
     name: 'NewEventTypeAdditionalOptions',
     mixins: [eventTypeMixin],
+    data() {
+        return {
+            panel: null
+        };
+    },
     components: {
         GeneralLayout,
         NewEventTypeTitle,

@@ -362,5 +362,10 @@ export default {
     EVENT_TYPE_UPDATED: 'Івент Тип _ успішно оновлений',
     NO: 'Ні',
     DISPLAY: 'Відображенно',
-    EVENT: 'Події'
+    EVENT: 'Події',
+
+    REQUIRED_START_TIME: 'Будь ласка, виберіть час',
+    REQUIRED_END_TIME: 'Будь ласка, виберіть час',
+    INTERVALS_MUST: 'Інтервал повинен бути не менше _ хвилин.',
+    INTERVALS_OVERLAPPING: 'Інтервали перекриваються..'
 };

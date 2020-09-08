@@ -12,9 +12,9 @@
                             <VRow>
                                 <VCol cols="7" offset-md="2" offset-sm="2">
                                     <CreateEventTypeForm
-                                        :is-booking="true"
                                         @changePanel="panel = 1"
-                                    ></CreateEventTypeForm>
+                                    >
+                                    </CreateEventTypeForm>
                                 </VCol>
                             </VRow>
                         </VExpansionPanelContent>

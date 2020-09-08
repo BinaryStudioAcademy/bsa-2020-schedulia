@@ -453,5 +453,10 @@ export default {
     EVENT_TYPE_UPDATED: 'Event Type _ updated successfully',
     NO: 'No',
     DISPLAY: 'Displaying',
-    EVENT: 'Event'
+    EVENT: 'Event',
+
+    REQUIRED_START_TIME: 'Please select start time',
+    REQUIRED_END_TIME: 'Please select end time',
+    INTERVALS_MUST: 'Intervals must be at least _ minutes.',
+    INTERVALS_OVERLAPPING: 'Intervals are overlapping.'
 };

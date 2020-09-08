@@ -367,11 +367,7 @@ export default {
 
         clickNext() {
             if (this.$refs.form.validate()) {
-                if (this.isBooking) {
-                    this.$emit('changePanel');
-                } else {
-                    this.$router.push({ name: 'newEventTypeEdit' });
-                }
+                this.$emit('changePanel');
             }
         },
         getSlug(value) {
