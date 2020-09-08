@@ -263,7 +263,6 @@ export default {
                     event_status: this.$route.query.event_status,
                     tags: this.$route.query.tags,
                     search: this.$route.query.search,
-                    startDate: this.startDate
                 }
             });
             this.closeMenu();
