@@ -1,7 +1,7 @@
 <template>
     <GeneralLayout>
         <template v-slot:title>
-            {{ lang.CALENDAR_CONNECTIONS }}
+            {{ lang.INTEGRATIONS }}
         </template>
         <VRow>
             <ConnectedCalendars />

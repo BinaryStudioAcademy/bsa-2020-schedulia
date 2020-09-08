@@ -364,5 +364,7 @@ export default {
 
     MY_WHALE_ACCOUNT: 'Мій Whale Аккаунт',
     ACTIVATE_WHALE_ACCOUNT: 'Увійти у whale',
-    INCLUDE_WHALE_MEETING: 'Автоматично підключайте Whale мітинги в Schedulia'
+    INCLUDE_WHALE_MEETING:
+        'Автоматично підключайте Whale мітинги в Schedulia. Щоб користуватися Whale, вам потрібно зареєструватися за тією самою електронною адресою.',
+    INTEGRATIONS: 'Інтеграції'
 };

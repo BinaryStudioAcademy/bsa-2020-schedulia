@@ -454,7 +454,9 @@ export default {
     NO: 'No',
 
     MY_WHALE_ACCOUNT: 'My Whale Account',
-    ACTIVATE_WHALE_ACCOUNT: 'Sign in Whale',
+    ACTIVATE_WHALE_ACCOUNT: 'Sign up Whale',
     INCLUDE_WHALE_MEETING:
-        'Feel free to use Whale, a cloud-based video conferencing app with advanced abilities. For the first time you have to sign up before using Whale. '
+        'Feel free to use Whale, a cloud-based video conferencing app with advanced abilities. To use Whale you have to sign up with the same email.',
+
+    INTEGRATIONS: 'Integrations'
 };
