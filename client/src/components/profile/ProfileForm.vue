@@ -307,6 +307,9 @@ export default {
                 if (this.userProfile.nickname === this.user.nickname) {
                     delete newUserData.nickname;
                 }
+
+                delete newUserData.branding_logo;
+
                 let filteredUserData = {};
                 for (const propName in newUserData) {
                     if (newUserData[propName] !== '') {

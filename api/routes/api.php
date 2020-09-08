@@ -120,6 +120,7 @@ Route::group([
     'prefix' => '/files',
 ], function () {
     Route::post('/', 'UploadController@store');
+    Route::delete('/{type}', 'UploadController@delete');
 });
 
 Route::group([

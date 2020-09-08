@@ -1,9 +1,7 @@
 <template>
     <div class="event" :data-event-id="scheduledEvent.id">
         <VContainer class="event-date">
-            <span>
-                {{ getEventDate(scheduledEvent.startDate) }}
-            </span>
+            <span>{{ getEventDate(scheduledEvent.startDate) }}</span>
         </VContainer>
         <VExpansionPanels flat tile accordion>
             <VExpansionPanel>
@@ -24,9 +22,9 @@
                             </span>
                         </VCol>
                         <VCol sm="2">
-                            <VChip class="ma-2" :color="statusColor">
-                                {{ scheduledEvent.status }}
-                            </VChip>
+                            <VChip class="ma-2" :color="statusColor">{{
+                                scheduledEvent.status
+                            }}</VChip>
                         </VCol>
                         <VCol>
                             <div class="user-name">
@@ -34,9 +32,7 @@
                             </div>
                             <div class="event-type">
                                 {{ lang.EVENT_TYPE }}
-                                <span>
-                                    {{ scheduledEvent.eventType.name }}
-                                </span>
+                                <span>{{ scheduledEvent.eventType.name }}</span>
                             </div>
                         </VCol>
                     </VRow>
@@ -60,27 +56,19 @@
                             <ul>
                                 <li>
                                     {{ lang.EMAIL }}
-                                    <span>
-                                        {{ scheduledEvent.email }}
-                                    </span>
+                                    <span>{{ scheduledEvent.email }}</span>
                                 </li>
-                                <li v-show="scheduledEvent.location">
+                                <li v-show="scheduledEvent.address">
                                     {{ lang.LOCATION }}
-                                    <span>
-                                        {{ scheduledEvent.location }}
-                                    </span>
+                                    <span>{{ scheduledEvent.address }}</span>
                                 </li>
                                 <li>
                                     {{ lang.INVITEE_TIME_ZONE }}
-                                    <span>
-                                        {{ scheduledEvent.timezone }}
-                                    </span>
+                                    <span>{{ scheduledEvent.timezone }}</span>
                                 </li>
                                 <li>
                                     {{ lang.QUESTIONS }}
-                                    <span>
-                                        {{ scheduledEvent.question }}
-                                    </span>
+                                    <span>{{ scheduledEvent.question }}</span>
                                 </li>
                                 <li class="created">
                                     {{ lang.CREATED }}

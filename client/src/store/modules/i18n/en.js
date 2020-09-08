@@ -65,7 +65,7 @@ export default {
     NEW_PASSWORD: 'New password',
     NICKNAME: 'Nickname',
 
-    UPDATE: 'UPDATE',
+    UPDATE: 'Update',
     UKRAINIAN: 'Ukrainian',
 
     YOU_DONT_HAVE_ANY_CONNECTED_CALENDARS:
