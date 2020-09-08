@@ -31,7 +31,7 @@
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 
 import { mapGetters } from 'vuex';
-import * as getters from "../../store/modules/auth/types/getters";
+import * as getters from '../../store/modules/auth/types/getters';
 export default {
     name: 'ZoomIntegration',
 
@@ -41,14 +41,15 @@ export default {
         }),
         ...mapGetters('auth', {
             user: getters.GET_LOGGED_USER
-        }),
-
+        })
     },
 
     methods: {
         activateAccount() {
             window.location.replace(
-                process.env.VUE_APP_SOCIAL_AUTH_URL + '/meetings/zoom/redirect?user=' + this.user.id
+                process.env.VUE_APP_SOCIAL_AUTH_URL +
+                    '/meetings/zoom/redirect?user=' +
+                    this.user.id
             );
         }
     }
