@@ -77,10 +77,10 @@
                                             :label="checkbox.name"
                                             :input-value="
                                                 eventTypesTags.includes(
-                                                    checkbox.id
+                                                    checkbox.name
                                                 )
                                             "
-                                            @change="onChangeType(checkbox.id)"
+                                            @change="onChangeType(checkbox.name)"
                                         ></VCheckbox>
                                     </div>
                                     <VBtn
@@ -223,7 +223,7 @@ export default {
             let eventTypesTags = [];
 
             this.checkboxes.forEach(function(scheduledEventsTypeTags) {
-                eventTypesTags.push(scheduledEventsTypeTags.id);
+                eventTypesTags.push(scheduledEventsTypeTags.name);
             });
 
             this.eventTypesTags = eventTypesTags;
@@ -261,13 +261,13 @@ export default {
             this.closeMenu();
         },
 
-        onChangeType(id) {
-            if (this.eventTypesTags.includes(id)) {
+        onChangeType(name) {
+            if (this.eventTypesTags.includes(name)) {
                 this.eventTypesTags = this.eventTypesTags.filter(
-                    eventTypeTags => eventTypeTags !== id
+                    eventTypeTags => eventTypeTags !== name
                 );
             } else {
-                this.eventTypesTags = this.eventTypesTags.concat(id);
+                this.eventTypesTags = this.eventTypesTags.concat(name);
             }
         },
 
