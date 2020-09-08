@@ -82,7 +82,12 @@ export default {
                 page: this.page + 1,
                 sort: this.sort,
                 direction: this.direction,
-                startDate: this.startDate
+                startDate: this.startDate,
+                eventTypes: this.$route.query.event_types,
+                eventEmails: this.$route.query.event_emails,
+                eventStatus: this.$route.query.event_status,
+                tags: this.$route.query.tags,
+                searchString: this.$route.query.search
             });
 
             if (
@@ -93,24 +98,39 @@ export default {
             } else {
                 this.loadMoreActive = false;
             }
-        }
-    },
+        },
 
-    async mounted() {
-        try {
+        async setEvents() {
             await this.setScheduledEvents({
                 page: 1,
                 sort: this.sort,
                 direction: this.direction,
-                startDate: this.startDate
+                startDate: this.startDate,
+                eventTypes: this.$route.query.event_types,
+                eventEmails: this.$route.query.event_emails,
+                eventStatus: this.$route.query.event_status,
+                tags: this.$route.query.tags,
+                searchString: this.$route.query.search
             });
 
             if (
-                this.eventsPagination.currentPage <
-                this.eventsPagination.lastPage
+                    this.eventsPagination.currentPage <
+                    this.eventsPagination.lastPage
             ) {
                 this.loadMoreActive = true;
+            } else {
+                this.loadMoreActive = false;
             }
+        }
+    },
+
+    watch: {
+        $route: 'setEvents'
+    },
+
+    async mounted() {
+        try {
+            await this.setEvents();
         } catch (error) {
             this.setErrorNotification(error.message);
         }
