@@ -35,7 +35,8 @@ export default {
         selectDay: {
             date: now.format('YYYY-MM-DD')
         },
-        chatito_workspace: ''
+        chatito_workspace: '',
+        tagChecks: []
     },
     dayAvailabilities: [],
     visibleAvailabilityDialog: false,
