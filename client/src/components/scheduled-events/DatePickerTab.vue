@@ -45,7 +45,11 @@ export default {
     computed: {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
-        })
+        }),
+    },
+
+    created() {
+        this.dates = [this.$route.query.start_date, this.$route.query.end_date];
     },
 
     data: () => ({
