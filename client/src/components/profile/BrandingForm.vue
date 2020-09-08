@@ -79,6 +79,7 @@
                                     <div>
                                         <VBtn
                                             class="text cancel v-btn--flat v-btn--outlined"
+                                            :disabled="logoIsNew"
                                             @click="resetChanges"
                                         >
                                             {{ lang.CANCEL }}
@@ -99,6 +100,11 @@
                 </VCol>
             </VRow>
         </VCard>
+        <Alert
+            :visibility="alert.visibility"
+            :type="alert.type"
+            :message="alert.message"
+        />
     </VContainer>
 </template>
 
@@ -106,16 +112,23 @@
 import { mapActions, mapGetters } from 'vuex';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import Tooltip from '@/components/tooltip/TooltipIcon.vue';
+import Alert from '@/components/alert/Alert';
 
 export default {
     name: 'BrandingForm',
     components: {
-        Tooltip
+        Tooltip,
+        Alert
     },
     data: () => ({
         file: null,
         newLogo: null,
-        errorMessage: ''
+        errorMessage: '',
+        alert: {
+            type: 'success',
+            message: '',
+            visibility: false
+        }
     }),
 
     mounted() {
@@ -158,9 +171,19 @@ export default {
         async save() {
             try {
                 await this.saveBranding(this.file);
+
+                this.showAlert(this.lang.PROFILE_WAS_UPDATED);
             } catch (error) {
                 this.showErrorMessage(error.message);
             }
+        },
+
+        showAlert(message) {
+            this.alert.visibility = true;
+            this.alert.message = message;
+            setTimeout(() => {
+                this.alert.visibility = false;
+            }, 2000);
         },
 
         showErrorMessage(msg) {
