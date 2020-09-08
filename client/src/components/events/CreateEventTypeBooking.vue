@@ -58,9 +58,9 @@
                                     </div>
 
                                     <VSelect
-                                        :value="location"
+                                        :value="address"
                                         :items="items"
-                                        @change="changeLocation"
+                                        @change="changeAddress"
                                         outlined
                                         placeholder="Option"
                                         dense
@@ -875,7 +875,7 @@ export default {
             },
             form: {
                 name: '',
-                location: '',
+                address: '',
                 description: '',
                 slug: '',
                 color: '',
@@ -1068,8 +1068,8 @@ export default {
         name() {
             return this.form.name || this.eventTypeForm.name;
         },
-        location() {
-            return this.form.location || this.eventTypeForm.location;
+        address() {
+            return this.form.address || this.eventTypeForm.address;
         },
         description() {
             return this.form.description || this.eventTypeForm.description;
@@ -1131,8 +1131,8 @@ export default {
             this.form.name = val;
             this.changeSlug(val);
         },
-        changeLocation(val) {
-            this.form.location = val;
+        changeAddress(val) {
+            this.form.address = val;
         },
         changeDescription(val) {
             this.form.description = val;
@@ -1206,7 +1206,7 @@ export default {
                     ...this.form,
                     ...{
                         name: this.name,
-                        location: this.location,
+                        address: this.address,
                         description: this.description,
                         slug: this.slug,
                         color: this.color,

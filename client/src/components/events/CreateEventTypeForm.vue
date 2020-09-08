@@ -50,7 +50,7 @@
             <FindLocationForm
                 class="find-location-form"
                 v-if="showGeocoder"
-                @changeLocation="changeEventTypeProperty('location', $event)"
+                @changeLocation="changeEventTypeProperty('address', $event)"
                 @changeCoordinates="
                     changeEventTypeProperty('coordinates', $event)
                 "
@@ -123,9 +123,7 @@
                     <VListItemContent>
                         <VListItemTitle>
                             {{ lang.NO_RESULT_MATCHING }} "
-                            <strong>
-                                {{ search }}
-                            </strong>
+                            <strong>{{ search }}</strong>
                             ". {{ lang.PRESS_ENTER_TO_CREATE }}
                         </VListItemTitle>
                     </VListItemContent>
@@ -169,9 +167,9 @@
             </VRow>
         </div>
         <div>
-            <VBtn text outlined width="114" class="mr-3" @click="onCancel">{{
-                lang.CANCEL
-            }}</VBtn>
+            <VBtn text outlined width="114" class="mr-3" @click="onCancel">
+                {{ lang.CANCEL }}
+            </VBtn>
             <VBtn
                 @click="clickNext"
                 color="primary"
@@ -216,7 +214,7 @@
             <div class="set-location-container">
                 <h3 class="mb-4">{{ lang.SET_MEETING_LOCATION }}</h3>
                 <VTextField
-                    :value="data.location"
+                    :value="data.address"
                     @change="changeEventTypeProperty('location', $event)"
                     :placeholder="lang.ZOOM_CONFERENCE_LINK"
                     outlined

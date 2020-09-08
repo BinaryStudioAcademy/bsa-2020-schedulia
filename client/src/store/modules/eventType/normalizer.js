@@ -6,6 +6,7 @@ export const eventTypeMapper = EventType => ({
     internalNote: EventType.internal_note,
     locationType: locationTypeMapper(EventType.location_type),
     coordinates: EventType.coordinates || [],
+    address: EventType.address,
     slug: EventType.slug,
     color: EventType.color,
     duration: EventType.duration,
@@ -82,7 +83,7 @@ export const availabilityApiMapper = function(availability, timezone) {
 
 export const eventTypeFormMapper = eventTypeForm => ({
     name: eventTypeForm.name,
-    address: eventTypeForm.location,
+    address: eventTypeForm.address,
     location_type: eventTypeForm.locationType.key,
     coordinates: eventTypeCoordinates(eventTypeForm.coordinates),
     description: eventTypeForm.description,
@@ -164,9 +165,9 @@ export const availabilitiesWeekDays = function(availabilities) {
     return result;
 };
 
-export const locationTypeMapper = function(location) {
+export const locationTypeMapper = function(locationType) {
     let result = {};
-    switch (location) {
+    switch (locationType) {
         case 'address':
             result = {
                 key: 'address',
