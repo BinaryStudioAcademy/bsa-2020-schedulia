@@ -40,7 +40,7 @@ final class GetEventTypeBySlugAndOwnerNicknameAction
             new SlugCriterion($request->getSlug())
         ];
 
-        $eventType = $this->eventTypeRepository->findOneByCriteria($criteria);
+        $eventType = $this->eventTypeRepository->findOneByCriteria(...$criteria);
 
         if (is_null($eventType)) {
             throw new EventTypeNotFoundException();
