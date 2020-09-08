@@ -62,7 +62,9 @@ export default {
         })
     },
     async mounted() {
-        const response = await this.fetchEventTypesByNickname(this.userNickname);
+        const response = await this.fetchEventTypesByNickname(
+            this.userNickname
+        );
         this.ownerName = response.owner;
     },
     computed: {
