@@ -8,5 +8,6 @@ export default {
         state.visibleAvailabilityDialog,
     [types.GET_VISIBLE_TIME_ZONE_DIALOG]: state => state.visibleTimeZoneDialog,
     [types.GET_VISIBLE_DAY_AVAILABILITIES_DIALOG]: state =>
-        state.visibleDayAvailabilitiesDialog
+        state.visibleDayAvailabilitiesDialog,
+    [types.GET_IS_SAVED]: state => state.isSaved
 };

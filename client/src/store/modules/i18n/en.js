@@ -461,5 +461,8 @@ export default {
     INTEGRATIONS: 'Integrations',
 
     DISPLAY: 'Displaying',
-    EVENT: 'Event'
+    EVENT: 'Event',
+
+    YOU_HAVE_UNSAVED_CHANGES:
+        'Do you really want to leave? You have unsaved changes!'
 };
