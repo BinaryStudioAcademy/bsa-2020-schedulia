@@ -6,14 +6,13 @@ namespace App\Actions\EventType;
 
 use App\Exceptions\EventTypeNotFoundException;
 use App\Exceptions\User\UserNotFoundException;
-use App\Repositories\EventType\Criterion\IdCriterion;
 use App\Repositories\EventType\Criterion\OwnerCriterion;
-use App\Repositories\EventType\Criterion\ActiveCriterion;
+use App\Repositories\EventType\Criterion\SlugCriterion;
 use App\Repositories\EventType\EventTypeRepositoryInterface;
 use App\Repositories\User\Criterion\NicknameCriterion;
 use App\Repositories\User\UserRepositoryInterface;
 
-final class GetEventTypeByIdAndOwnerNicknameAction
+final class GetEventTypeBySlugAndOwnerNicknameAction
 {
     private EventTypeRepositoryInterface $eventTypeRepository;
     private UserRepositoryInterface $userRepository;
@@ -26,10 +25,10 @@ final class GetEventTypeByIdAndOwnerNicknameAction
         $this->userRepository = $userRepository;
     }
 
-    public function execute(GetEventTypeByIdAndOwnerNicknameRequest $request)
+    public function execute(GetEventTypeBySlugAndOwnerNicknameRequest $request)
     {
         $owner = $this->userRepository->findOneByCriteria(
-            new NicknameCriterion($request->getNickname())
+            new NicknameCriterion($request->getOwnerNickname())
         );
 
         if (is_null($owner)) {
@@ -38,15 +37,16 @@ final class GetEventTypeByIdAndOwnerNicknameAction
 
         $criteria = [
             new OwnerCriterion($owner->id),
-            new IdCriterion($request->getEventTypeId()),
+            new SlugCriterion($request->getSlug())
         ];
 
-        $eventType = $this->eventTypeRepository->findOneByCriteria(...$criteria);
+        $eventType = $this->eventTypeRepository->findOneByCriteria($criteria);
 
         if (is_null($eventType)) {
             throw new EventTypeNotFoundException();
         }
 
-        return new GetEventTypeByIdAndOwnerNicknameResponse($eventType);
+        return new GetEventTypeBySlugAndOwnerNicknameResponse($eventType);
     }
+
 }
