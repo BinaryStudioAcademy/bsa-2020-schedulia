@@ -15,5 +15,9 @@ export default {
     async getFile(name) {
         const response = await requestService.get('/files', name);
         return response?.data?.data;
+    },
+
+    async delete(type) {
+        return await requestService.delete(`/files/${type}`);
     }
 };
