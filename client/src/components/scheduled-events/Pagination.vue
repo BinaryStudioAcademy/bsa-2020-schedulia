@@ -2,16 +2,15 @@
     <VContainer class="scheduled-pagination">
         <VRow>
             <VCol class="text-right">
-                {{ lang.DISPLAYING }}
-                <span v-if="eventsPagination.total">
-                    1
+                {{ lang.DISPLAY }}
+                {{ totalOnThisPage() }}
+                {{ lang.OF }} {{ eventsPagination.total }}
+                <span v-if="eventsPagination.total === 1">
+                    {{ lang.EVENT }}
                 </span>
                 <span v-else>
-                    0
+                    {{ lang.EVENTS }}
                 </span>
-                –
-                {{ totalOnThisPage() }}
-                {{ lang.OF }} {{ eventsPagination.total }} {{ lang.EVENTS }}
             </VCol>
         </VRow>
     </VContainer>

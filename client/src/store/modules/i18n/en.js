@@ -65,7 +65,7 @@ export default {
     NEW_PASSWORD: 'New password',
     NICKNAME: 'Nickname',
 
-    UPDATE: 'UPDATE',
+    UPDATE: 'Update',
     UKRAINIAN: 'Ukrainian',
 
     YOU_DONT_HAVE_ANY_CONNECTED_CALENDARS:
@@ -458,5 +458,8 @@ export default {
     INCLUDE_WHALE_MEETING:
         'Feel free to use Whale, a cloud-based video conferencing app with advanced abilities. To use Whale you have to sign up with the same email.',
 
-    INTEGRATIONS: 'Integrations'
+    INTEGRATIONS: 'Integrations',
+
+    DISPLAY: 'Displaying',
+    EVENT: 'Event'
 };

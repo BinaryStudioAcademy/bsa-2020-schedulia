@@ -35,18 +35,26 @@ export default {
     async saveBranding({ commit, dispatch }, logo) {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
         try {
-            const response = await uploadFileService.upload(logo, 'branding');
+            let url = null;
 
-            const url = response?.url;
+            if (logo) {
+                const response = await uploadFileService.upload(
+                    logo,
+                    'branding'
+                );
 
-            if (url) {
-                profileService.saveBranding(url);
-                commit(UPDATE_BRANDING_LOGO, url);
+                url = response?.url;
+            } else {
+                await uploadFileService.delete('branding_logo');
             }
+
+            await profileService.saveBranding(url);
+            commit(UPDATE_BRANDING_LOGO, url);
+
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });
-            return response?.url;
+            return url;
         } catch (error) {
             dispatch('auth/' + authActions.CHECK_IF_UNAUTHORIZED, error, {
                 root: true
