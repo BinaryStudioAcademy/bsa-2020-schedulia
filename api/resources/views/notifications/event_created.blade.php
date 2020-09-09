@@ -18,11 +18,6 @@ A new event was scheduled.
 <b>Invitee TimeZone:</b><br>
 {{ $event->timezone }}
 
-@if($location)
-<b>Location:</b><br>
-{{ $location }}
-@endif
-
 @if(count($customFieldValues))
 <b>Questions:</b><br>
 @foreach($customFieldValues as $customFieldValue)
