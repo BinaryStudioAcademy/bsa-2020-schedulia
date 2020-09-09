@@ -9,7 +9,7 @@
         min-width="290px"
     >
         <template v-slot:activator="{ on, attrs }">
-            <VTab v-model="dates" v-bind="attrs" v-on="on">
+            <VTab v-bind="attrs" v-on="on" key="3">
                 {{ lang.DATE_RANGE }}
             </VTab>
         </template>
@@ -46,6 +46,10 @@ export default {
         ...mapGetters('i18n', {
             lang: i18nGetters.GET_LANGUAGE_CONSTANTS
         })
+    },
+
+    created() {
+        this.dates = [this.$route.query.start_date, this.$route.query.end_date];
     },
 
     data: () => ({

@@ -32,6 +32,7 @@ final class EventPresenter implements PresenterCollectionInterface
             'invitee_name' => $event->invitee_name,
             'invitee_email' => $event->invitee_email,
             'start_date' => (new Carbon($event->start_date))->toDateTimeString(),
+            'invitee_information' => $event->invitee_information,
             'location' => $event->location,
             'timezone' => $event->timezone,
             'status' => $event->status,

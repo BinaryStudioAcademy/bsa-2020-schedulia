@@ -5,7 +5,7 @@ export const eventMapper = Event => ({
     id: Event.id,
     name: Event.invitee_name,
     email: Event.invitee_email,
-    question: Event.invitee_question,
+    inviteeInformation: Event.invitee_information,
     status: Event.status,
     startDate: moment
         .utc(Event.start_date)

@@ -78,9 +78,11 @@
                                     {{ lang.INVITEE_TIME_ZONE }}
                                     <span>{{ scheduledEvent.timezone }}</span>
                                 </li>
-                                <li>
-                                    {{ lang.QUESTIONS }}
-                                    <span>{{ scheduledEvent.question }}</span>
+                                <li v-show="scheduledEvent.inviteeInformation">
+                                    {{ lang.INVITEE_INFORMATION }}
+                                    <span>{{
+                                        scheduledEvent.inviteeInformation
+                                    }}</span>
                                 </li>
                                 <li class="created">
                                     {{ lang.CREATED }}
@@ -343,6 +345,7 @@ export default {
                     display: block;
                     color: #2c2c2c;
                     font-size: 16px;
+                    text-transform: none;
                 }
             }
 

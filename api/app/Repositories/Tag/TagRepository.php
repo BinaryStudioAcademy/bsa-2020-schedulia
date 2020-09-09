@@ -26,7 +26,7 @@ final class TagRepository extends BaseRepository implements TagRepositoryInterfa
         }
 
         return $query
-            ->select('tags.*')
+            ->select('tags.name')
             ->get();
     }
 }

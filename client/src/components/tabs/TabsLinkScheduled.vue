@@ -54,10 +54,12 @@ export default {
     },
 
     created() {
-        if (this.$route.name === 'EventTypes') {
+        if (this.$route.name === 'Upcoming') {
             this.tab = 0;
-        } else if (this.$route.name === 'Upcoming') {
+        } else if (this.$route.name === 'Past') {
             this.tab = 1;
+        } else if (this.$route.name === 'DateRange') {
+            this.tab = 2;
         }
     }
 };

@@ -2,21 +2,21 @@
     <div>
         <Pagination />
         <VContainer class="container-content pagination">
-            <TabsLink class="scheduled-tabs" :tabs="tabs">
+            <TabsLinkScheduled class="scheduled-tabs" :tabs="tabs">
                 <template v-slot:left-side>
                     <DatePickerTab />
                 </template>
                 <template v-slot:right-side>
                     <FilterButton />
                 </template>
-            </TabsLink>
+            </TabsLinkScheduled>
             <Past />
         </VContainer>
     </div>
 </template>
 
 <script>
-import TabsLink from '@/components/tabs/TabsLink.vue';
+import TabsLinkScheduled from '@/components/tabs/TabsLinkScheduled.vue';
 import Past from './Past/Past';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import FilterButton from './FilterButton';
@@ -32,7 +32,7 @@ export default {
         Pagination,
         FilterButton,
         Past,
-        TabsLink
+        TabsLinkScheduled
     },
     data: () => ({}),
     computed: {
