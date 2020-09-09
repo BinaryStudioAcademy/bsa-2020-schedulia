@@ -9,5 +9,7 @@ export default {
     [types.GET_VISIBLE_TIME_ZONE_DIALOG]: state => state.visibleTimeZoneDialog,
     [types.GET_VISIBLE_DAY_AVAILABILITIES_DIALOG]: state =>
         state.visibleDayAvailabilitiesDialog,
+    [types.GET_INTERVALS_OVERLAPPING_ERROR]: state =>
+        state.intervalsOverlappingError,
     [types.GET_IS_SAVED]: state => state.isSaved
 };

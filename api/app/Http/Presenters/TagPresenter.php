@@ -13,7 +13,6 @@ final class TagPresenter implements PresenterCollectionInterface
     public function present(Tag $tag): array
     {
         return [
-            'id' => $tag->id,
             'name' => $tag->name,
         ];
     }

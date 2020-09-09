@@ -209,7 +209,7 @@ export default {
             this.eventTypesTagsChecked = this.eventTypesTags;
 
             await this.setEventTypesTags({
-                endDate: this.endDate
+                startDate: this.startDate
             });
         },
 
@@ -244,7 +244,7 @@ export default {
             this.clearSelectAll();
             this.setEventTypesTags({
                 searchString: searchString,
-                endDate: this.endDate
+                startDate: this.startDate
             });
         },
 

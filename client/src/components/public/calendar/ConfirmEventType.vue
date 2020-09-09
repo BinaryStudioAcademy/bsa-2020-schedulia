@@ -287,6 +287,8 @@ export default {
                         event_type_id: this.eventType.id,
                         invitee_name: this.meetingFormData.name,
                         invitee_email: this.meetingFormData.email,
+                        invitee_information: this.meetingFormData
+                            .additionalInfo,
                         start_date: this.dateInUTC,
                         timezone: this.publicEvent.timezone,
                         custom_field_values: customFieldValues

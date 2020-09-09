@@ -12,5 +12,6 @@ export default {
     [getters.GET_ALL_EVENT_TYPES_TAGS]: state =>
         Object.values(state.eventTypesTags).sort((a, b) => {
             return a.id - b.id;
-        })
+        }),
+    [getters.GET_TO_DELETE_IDS]: state => state.toDeleteIds
 };

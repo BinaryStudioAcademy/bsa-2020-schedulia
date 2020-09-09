@@ -142,6 +142,9 @@ export default {
             const customFields = await eventTypesService.fetchCustomFieldsByEventTypeId(
                 eventTypeId
             );
+            if (!customFields.length) {
+                commit(mutations.CLEAR_CUSTOM_FIELDS);
+            }
             commit(mutations.SET_CUSTOM_FIELDS, customFields);
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
@@ -160,17 +163,20 @@ export default {
     },
     [actions.DELETE_CUSTOM_FIELD]: ({ commit }, id) => {
         commit(mutations.DELETE_CUSTOM_FIELD, id);
+        commit(mutations.ADD_TO_DELETE_IDS, id);
     },
     [actions.SAVE_CUSTOM_FIELDS]: async (
         { commit, dispatch },
-        { id, custom_fields }
+        { id, custom_fields, to_delete_ids }
     ) => {
         commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
         try {
             await eventTypesService.saveCustomFieldsByEventTypeId(id, {
-                custom_fields: Object.values(custom_fields)
+                custom_fields: Object.values(custom_fields),
+                to_delete_ids
             });
             commit(mutations.CLEAR_CUSTOM_FIELDS);
+            commit(mutations.CLEAR_TO_DELETE_IDS);
             commit('loader/' + loaderMutations.SET_LOADING, false, {
                 root: true
             });
