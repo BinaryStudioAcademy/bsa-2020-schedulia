@@ -8,11 +8,13 @@ final class AddCustomFieldsToEventTypeRequest
 {
     private int $eventTypeId;
     private array $customFields;
+    private ?array $toDeleteIds;
 
-    public function __construct(int $eventTypeId, array $customFields)
+    public function __construct(int $eventTypeId, array $customFields, ?array $toDeleteIds)
     {
         $this->eventTypeId = $eventTypeId;
         $this->customFields = $customFields;
+        $this->toDeleteIds = $toDeleteIds;
     }
 
     public function getEventTypeId(): int
@@ -23,5 +25,10 @@ final class AddCustomFieldsToEventTypeRequest
     public function getCustomFields(): array
     {
         return $this->customFields;
+    }
+
+    public function getToDeleteIds(): ?array
+    {
+        return $this->toDeleteIds;
     }
 }

@@ -23,10 +23,12 @@ class CustomFieldTest extends TestCase
 
     private const CUSTOM_FIELDS_VALID = [
         [
+            'id' => 1,
             'name' => 'Field name',
             'type' => 'line'
         ],
         [
+            'id' => 1,
             'name' => 'Field name',
             'type' => 'line'
         ]
@@ -34,6 +36,7 @@ class CustomFieldTest extends TestCase
 
     private const CUSTOM_FIELDS_INVALID_TYPE = [
         [
+            'id' => 1,
             'name' => 'Field name',
             'type' => 'unknown'
         ]
@@ -41,6 +44,7 @@ class CustomFieldTest extends TestCase
 
     private const CUSTOM_FIELDS_WRONG_REQUEST_FIELDS_TYPES = [
         [
+            'id' => 1,
             'name' => [],
             'type' => 123
         ]
@@ -58,7 +62,9 @@ class CustomFieldTest extends TestCase
                 self::EVENT_TYPES_API_URL . '/'
                 . $eventType->id .
                 '/custom-fields',
-                ['custom_fields' => self::CUSTOM_FIELDS_VALID]
+                [
+                    'custom_fields' => self::CUSTOM_FIELDS_VALID
+                ]
             )
             ->assertStatus(JsonResponse::HTTP_NO_CONTENT);
     }

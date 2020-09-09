@@ -12,3 +12,5 @@ export const UPDATE_INTERNAL_NOTE = 'updateInternalNote';
 export const SET_EVENT_TYPES_TAGS = 'setEventTypesTags';
 export const CLEAR_EVENT_TYPES_TAGS = 'setSearchedEventTypesTags';
 export const CLEAR_CUSTOM_FIELDS = 'clearCustomFields';
+export const ADD_TO_DELETE_IDS = 'addToDeleteIds';
+export const CLEAR_TO_DELETE_IDS = 'clearToDeleteIds';

@@ -51,7 +51,6 @@ Route::group([
         Route::post('/{id}/clone', 'EventTypeController@cloneEventTypeById');
         Route::put('/{id}/internal-note', 'EventTypeController@updateInternalNoteById');
         Route::post('/{id}/custom-fields', 'EventTypeController@saveCustomFieldsByEventTypeId');
-        Route::put('/{id}/custom-fields', 'EventTypeController@updateCustomFieldsByEventTypeId');
         Route::delete('/{id}', 'EventTypeController@destroy');
     });
     Route::group([
