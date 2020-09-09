@@ -18,9 +18,9 @@ A new event was scheduled.
 <b>Invitee TimeZone:</b><br>
 {{ $event->timezone }}
 
-@if($location)
-<b>Location:</b><br>
-{{ $location }}
+@if($locationType)
+<b>{{ $locationType }}:</b><br>
+{{ $locationLink }}
 @endif
 
 @if(count($customFieldValues))

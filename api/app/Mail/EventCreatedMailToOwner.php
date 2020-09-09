@@ -40,6 +40,18 @@ class EventCreatedMailToOwner extends Mailable
     {
         $this->to($this->owner->getEmail());
 
+        $locationType = '';
+        $locationLink = '';
+        if ($this->event->zoom_meeting_link) {
+            $locationType = 'Zoom';
+            $locationLink = $this->event->zoom_meeting_link;
+        }
+
+        if ($this->event->whale_meeting_link) {
+            $locationType = 'Whale';
+            $locationLink = $this->event->whale_meeting_link;
+        }
+
         return $this
             ->subject("New Event: {$this->event->invitee_name},
                     {$this->event->start_date}, {$this->eventType->name}")
@@ -48,7 +60,8 @@ class EventCreatedMailToOwner extends Mailable
             'eventType' => $this->eventType,
             'user' => $this->owner,
             'customFieldValues' => $this->event->customFieldValues,
-            'location' => $this->event->location
+            'locationType' => $locationType,
+            'locationLink' => $locationLink,
         ]);
     }
 }
