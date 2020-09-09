@@ -21,11 +21,6 @@ You have been invited to an Event!
 <b>Event Date/Time:</b><br>
 {{ $event->start_date }}
 
-@if($locationType)
-<b>{{ $locationType }}:</b><br>
-{{ $locationLink }}
-@endif
-
 @if(count($customFieldValues))
 <b>Questions:</b><br>
 @foreach($customFieldValues as $customFieldValue)
