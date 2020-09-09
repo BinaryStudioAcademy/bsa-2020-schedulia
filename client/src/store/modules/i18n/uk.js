@@ -370,5 +370,7 @@ export default {
 
     DISPLAY: 'Відображенно',
     EVENT: 'Події',
-    INVITEE_INFORMATION: 'Інформація про запрошенного'
+    INVITEE_INFORMATION: 'Інформація про запрошенного',
+    YOU_HAVE_UNSAVED_CHANGES:
+        'Ви дійсно хочете залишити сторінку? У вас незбережені зміни!'
 };

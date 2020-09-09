@@ -462,5 +462,7 @@ export default {
 
     DISPLAY: 'Displaying',
     EVENT: 'Event',
-    INVITEE_INFORMATION: 'Invitee information'
+    INVITEE_INFORMATION: 'Invitee information',
+    YOU_HAVE_UNSAVED_CHANGES:
+        'Do you really want to leave? You have unsaved changes!'
 };

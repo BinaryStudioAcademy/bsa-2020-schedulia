@@ -46,5 +46,9 @@ export default {
 
     [mutations.SET_PROPERTY]: (state, { property, value }) => {
         state[property] = value;
+    },
+
+    [mutations.SET_IS_SAVED]: (state, value) => {
+        state.isSaved = value;
     }
 };
