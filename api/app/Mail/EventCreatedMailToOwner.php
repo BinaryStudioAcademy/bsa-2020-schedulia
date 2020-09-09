@@ -47,7 +47,8 @@ class EventCreatedMailToOwner extends Mailable
             'event' => $this->event,
             'eventType' => $this->eventType,
             'user' => $this->owner,
-            'customFieldValues' => $this->event->customFieldValues
+            'customFieldValues' => $this->event->customFieldValues,
+            'location' => $this->event->location
         ]);
     }
 }
