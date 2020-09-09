@@ -2,6 +2,7 @@
 
 namespace App\Actions\RoutersTester;
 
+use App\Exceptions\User\UserNotFoundException;
 use App\Repositories\User\Criterion\EmailCriterion;
 use App\Repositories\User\UserRepositoryInterface;
 
@@ -19,6 +20,10 @@ final class CheckNicknameByEmailAction
         $criteria = new EmailCriterion($request->getEmail());
 
         $user = $this->userRepository->findOneByCriteria($criteria);
+
+        if (!$user) {
+            throw new UserNotFoundException();
+        }
 
         return new CheckNicknameByEmailResponse($user->nickname);
     }
