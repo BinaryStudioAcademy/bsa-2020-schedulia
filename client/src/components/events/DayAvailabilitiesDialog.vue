@@ -1,173 +1,179 @@
 <template>
     <VDialog v-model="visible" width="380" persistent>
-        <VTabs
-            v-model="tab"
-            background-color="deep-purple accent-4"
-            class="day-availabilities"
-            dark
-        >
-            <VTabsSlider></VTabsSlider>
-            <VTabItem value="tab-edit-availability">
-                <VCard>
-                    <VRow justify="center">
-                        <VCardTitle class="headline">
-                            {{ lang.EDIT_AVAILABILITY }}
-                        </VCardTitle>
-                        <VCol cols="9">
-                            <VRow v-if="!isUnavailable" align="baseline">
-                                <VRow>
-                                    <VCol>
-                                        <label class="availability-label">
-                                            {{ lang.FROM }}
-                                        </label>
-                                    </VCol>
-                                    <VCol>
-                                        <label class="availability-label">
-                                            {{ lang.TO }}
-                                        </label>
-                                    </VCol>
-                                </VRow>
-                                <VRow
-                                    v-for="(availability,
-                                    index) in dayAvailabilitiesData"
-                                    :key="index"
-                                >
-                                    <TimeIntervalMenu
-                                        :index="index"
-                                        :availability="availability"
+        <VForm ref="day-availabilities">
+            <VTabs
+                v-model="tab"
+                background-color="deep-purple accent-4"
+                class="day-availabilities"
+                dark
+            >
+                <VTabsSlider></VTabsSlider>
+                <VTabItem value="tab-edit-availability">
+                    <VCard>
+                        <VRow justify="center">
+                            <VCardTitle class="headline">
+                                {{ lang.EDIT_AVAILABILITY }}
+                            </VCardTitle>
+                            <VCol cols="9">
+                                <VRow v-if="!isUnavailable" align="baseline">
+                                    <VRow>
+                                        <VCol>
+                                            <label class="availability-label">
+                                                {{ lang.FROM }}
+                                            </label>
+                                        </VCol>
+                                        <VCol>
+                                            <label class="availability-label">
+                                                {{ lang.TO }}
+                                            </label>
+                                        </VCol>
+                                    </VRow>
+                                    <VRow
+                                        v-for="(availability,
+                                        index) in dayAvailabilitiesData"
+                                        :key="index"
                                     >
-                                    </TimeIntervalMenu>
+                                        <TimeIntervalMenu
+                                            :index="index"
+                                            :availability="availability"
+                                            @clear-validate="clearValidate"
+                                        >
+                                        </TimeIntervalMenu>
+                                    </VRow>
                                 </VRow>
+                                <VRow v-else class="unavailable">
+                                    <span>{{ lang.UNAVAILABLE }}</span>
+                                </VRow>
+                            </VCol>
+                            <VRow class="button-wrapper">
+                                <VCol class="new-interval-wrapper">
+                                    <div
+                                        class="new-interval"
+                                        @click="addNewInterval"
+                                    >
+                                        + {{ lang.NEW_INTERVAL }}
+                                    </div>
+                                </VCol>
+                                <VCol class="button-unavailablev">
+                                    <div
+                                        class="button-unavailable"
+                                        @click="addUnavailable"
+                                    >
+                                        {{ lang.I_AM_UNAVAILABLE }}
+                                    </div>
+                                </VCol>
+                                <VCol class="apply-wrapper">
+                                    <VBtn
+                                        color="primary"
+                                        text
+                                        @click="applyDay"
+                                        class="button-apply-only"
+                                    >
+                                        {{ nameApplyButton }}
+                                    </VBtn>
+                                </VCol>
+                                <VCol class="apply-week-wrapper">
+                                    <VBtn
+                                        color="primary"
+                                        text
+                                        @click="applyDayWeek"
+                                        class="button-apply-week"
+                                    >
+                                        {{ nameApplyWeekDayButton }}
+                                    </VBtn>
+                                </VCol>
                             </VRow>
-                            <VRow v-else class="unavailable">
-                                <span>{{ lang.UNAVAILABLE }}</span>
-                            </VRow>
-                        </VCol>
-                        <VRow class="button-wrapper">
-                            <VCol class="new-interval-wrapper">
-                                <div
-                                    class="new-interval"
-                                    @click="addNewInterval"
-                                >
-                                    + {{ lang.NEW_INTERVAL }}
-                                </div>
-                            </VCol>
-                            <VCol class="button-unavailablev">
-                                <div
-                                    class="button-unavailable"
-                                    @click="addUnavailable"
-                                >
-                                    {{ lang.I_AM_UNAVAILABLE }}
-                                </div>
-                            </VCol>
-                            <VCol class="apply-wrapper">
-                                <VBtn
-                                    color="primary"
-                                    text
-                                    @click="applyDay"
-                                    class="button-apply-only"
-                                >
-                                    {{ nameApplyButton }}
-                                </VBtn>
-                            </VCol>
-                            <VCol class="apply-week-wrapper">
-                                <VBtn
-                                    color="primary"
-                                    text
-                                    @click="applyDayWeek"
-                                    class="button-apply-week"
-                                >
-                                    {{ nameApplyWeekDayButton }}
-                                </VBtn>
-                            </VCol>
                         </VRow>
-                    </VRow>
-                    <VCardActions class="action-button">
-                        <VBtn
-                            color="primary"
-                            text
-                            @click="applyOrMultiple"
-                            class="button-apply-multiple"
+                        <VCardActions class="action-button">
+                            <VBtn
+                                color="primary"
+                                text
+                                @click="applyOrMultiple"
+                                class="button-apply-multiple"
+                            >
+                                {{ lang.OR_APPLY_MULTIPLE }}
+                            </VBtn>
+                            <VBtn
+                                color="primary"
+                                text
+                                @click="cancel"
+                                class="button-cancel"
+                            >
+                                {{ lang.CANCEL }}
+                            </VBtn>
+                        </VCardActions>
+                    </VCard>
+                </VTabItem>
+                <VTabItem value="tab-multiple">
+                    <VCard>
+                        <VRow justify="center">
+                            <VIcon @click="tab = 'tab-edit-availability'"
+                                >mdi-arrow-left</VIcon
+                            >
+                            <VCardTitle class="headline">
+                                {{ lang.APPLY_MULTIPLE }}
+                            </VCardTitle>
+                        </VRow>
+                        <VRow class="radio-group-wrapper">
+                            <VRadioGroup :value="radio" @change="changeRadio">
+                                <VRadio
+                                    :label="lang.SPECIFIC_DATES"
+                                    value="specific-dates"
+                                ></VRadio>
+                                <VRadio
+                                    :label="lang.REPEATING_DAYS"
+                                    value="repeat-days"
+                                ></VRadio>
+                            </VRadioGroup>
+                        </VRow>
+                        <VRow
+                            v-if="radio === 'specific-dates'"
+                            class="date-picker"
                         >
-                            {{ lang.OR_APPLY_MULTIPLE }}
-                        </VBtn>
-                        <VBtn
-                            color="primary"
-                            text
-                            @click="cancel"
-                            class="button-cancel"
-                        >
-                            {{ lang.CANCEL }}
-                        </VBtn>
-                    </VCardActions>
-                </VCard>
-            </VTabItem>
-            <VTabItem value="tab-multiple">
-                <VCard>
-                    <VRow justify="center">
-                        <VIcon @click="tab = 'tab-edit-availability'"
-                            >mdi-arrow-left</VIcon
-                        >
-                        <VCardTitle class="headline">
-                            {{ lang.APPLY_MULTIPLE }}
-                        </VCardTitle>
-                    </VRow>
-                    <VRow class="radio-group-wrapper">
-                        <VRadioGroup :value="radio" @change="changeRadio">
-                            <VRadio
-                                :label="lang.SPECIFIC_DATES"
-                                value="specific-dates"
-                            ></VRadio>
-                            <VRadio
-                                :label="lang.REPEATING_DAYS"
-                                value="repeat-days"
-                            ></VRadio>
-                        </VRadioGroup>
-                    </VRow>
-                    <VRow v-if="radio === 'specific-dates'" class="date-picker">
-                        <VDatePicker
-                            :allowed-dates="allowedDates"
-                            :value="dates"
-                            @input="changeSelectDate"
-                            multiple
-                            no-title
-                            scrollable
-                        >
-                        </VDatePicker>
-                    </VRow>
-                    <VRow v-else class="checkbox-weekdays">
-                        <VCheckbox
-                            v-for="(day, id) in weekdays"
-                            :key="id"
-                            @change="changeWeekDays(day)"
-                            :value="day"
-                            :disabled="day === weekDayName"
-                            :input-value="selectedWeekDays"
-                            :label="day"
-                        >
-                        </VCheckbox>
-                    </VRow>
-                    <VCardActions class="action-button-multiple">
-                        <VBtn
-                            color="primary"
-                            text
-                            @click="applyMultiple"
-                            class="button-apply"
-                        >
-                            {{ lang.APPLY }}
-                        </VBtn>
-                        <VBtn
-                            color="primary"
-                            text
-                            @click="cancel"
-                            class="button-cancel"
-                        >
-                            {{ lang.CANCEL }}
-                        </VBtn>
-                    </VCardActions>
-                </VCard>
-            </VTabItem>
-        </VTabs>
+                            <VDatePicker
+                                :allowed-dates="allowedDates"
+                                :value="dates"
+                                @input="changeSelectDate"
+                                multiple
+                                no-title
+                                scrollable
+                            >
+                            </VDatePicker>
+                        </VRow>
+                        <VRow v-else class="checkbox-weekdays">
+                            <VCheckbox
+                                v-for="(day, id) in weekdays"
+                                :key="id"
+                                @change="changeWeekDays(day)"
+                                :value="day"
+                                :disabled="day === weekDayName"
+                                :input-value="selectedWeekDays"
+                                :label="day"
+                            >
+                            </VCheckbox>
+                        </VRow>
+                        <VCardActions class="action-button-multiple">
+                            <VBtn
+                                color="primary"
+                                text
+                                @click="applyMultiple"
+                                class="button-apply"
+                            >
+                                {{ lang.APPLY }}
+                            </VBtn>
+                            <VBtn
+                                color="primary"
+                                text
+                                @click="cancel"
+                                class="button-cancel"
+                            >
+                                {{ lang.CANCEL }}
+                            </VBtn>
+                        </VCardActions>
+                    </VCard>
+                </VTabItem>
+            </VTabs>
+        </VForm>
     </VDialog>
 </template>
 
@@ -177,6 +183,7 @@ import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
 import eventTypeMixin from '@/components/events/eventTypeMixin';
 import TimeIntervalMenu from '@/components/events/TimeIntervalMenu';
 import moment from 'moment';
+import _ from 'lodash';
 export default {
     name: 'DayAvailabilitiesDialog',
     components: { TimeIntervalMenu },
@@ -224,20 +231,25 @@ export default {
             this.setPropertyData('dayAvailabilities', [params]);
         },
         applyDayWeek() {
-            let params = {
-                ...this.data.availabilities_week_days
-            };
-            let weekDayName = this.weekDayName.toLowerCase();
-            params[weekDayName] = this.dayAvailabilitiesData.map(function(
-                availability
+            if (
+                this.$refs['day-availabilities'].validate() &&
+                this.checkDayAvailabilities()
             ) {
-                availability.type = `every_${weekDayName}`;
-                return availability;
-            });
-            this.changeEventTypeProperty('availabilities_week_days', {
-                ...params
-            });
-            this.cancel();
+                let params = {
+                    ...this.data.availabilities_week_days
+                };
+                let weekDayName = this.weekDayName.toLowerCase();
+                params[weekDayName] = this.dayAvailabilitiesData.map(function(
+                    availability
+                ) {
+                    availability.type = `every_${weekDayName}`;
+                    return availability;
+                });
+                this.changeEventTypeProperty('availabilities_week_days', {
+                    ...params
+                });
+                this.cancel();
+            }
         },
         applyOrMultiple() {
             this.tab = 'tab-multiple';
@@ -245,19 +257,27 @@ export default {
             this.dates.push(this.data.selectDay.date);
         },
         applyMultiple() {
+            if (
+                !this.$refs['day-availabilities'].validate() &&
+                this.checkDayAvailabilities()
+            ) {
+                this.tab = 'tab-edit-availability';
+                return;
+            }
             if (this.radio === 'repeat-days') {
-                let params = {
-                    ...this.data.availabilities_week_days
-                };
+                let params = _.cloneDeep(this.data.availabilities_week_days);
 
                 for (let index in this.selectedWeekDays) {
                     let weekDay = this.selectedWeekDays[index].toLowerCase();
-                    params[weekDay] = this.dayAvailabilitiesData.map(function(
-                        availability
-                    ) {
+                    let data = [];
+                    for (let i in this.dayAvailabilitiesData) {
+                        let availability = _.clone(
+                            this.dayAvailabilitiesData[i]
+                        );
                         availability.type = `every_${weekDay}`;
-                        return availability;
-                    });
+                        data.push(availability);
+                    }
+                    params[weekDay] = data;
                 }
                 this.changeEventTypeProperty('availabilities_week_days', {
                     ...params
@@ -282,13 +302,18 @@ export default {
             this.dates = [];
         },
         applyDay() {
-            let result = {};
-            result[this.data.selectDay.date] = this.dayAvailabilitiesData;
-            this.changeEventTypeProperty('availabilities', {
-                ...this.data.availabilities,
-                ...result
-            });
-            this.cancel();
+            if (
+                this.$refs['day-availabilities'].validate() &&
+                this.checkDayAvailabilities()
+            ) {
+                let result = {};
+                result[this.data.selectDay.date] = this.dayAvailabilitiesData;
+                this.changeEventTypeProperty('availabilities', {
+                    ...this.data.availabilities,
+                    ...result
+                });
+                this.cancel();
+            }
         },
         allowedDates(value) {
             let result = true;
@@ -317,6 +342,42 @@ export default {
         },
         changeSelectDate(value) {
             this.dates = value;
+        },
+        checkDayAvailabilities() {
+            let result = true;
+            let errorIds = [];
+            if (this.dayAvailabilitiesData.length === 1) {
+                this.setPropertyData('intervalsOverlappingError', []);
+            } else {
+                for (let index in this.dayAvailabilitiesData) {
+                    index = +index;
+                    let nexIndex = +index + 1;
+                    if (this.dayAvailabilitiesData.length > nexIndex) {
+                        if (
+                            moment(
+                                this.dayAvailabilitiesData[index]['endDate']
+                            ) >
+                            moment(
+                                this.dayAvailabilitiesData[nexIndex][
+                                    'startDate'
+                                ]
+                            )
+                        ) {
+                            result = false;
+                            errorIds.includes(index) || errorIds.push(index);
+                            errorIds.includes(nexIndex) ||
+                                errorIds.push(nexIndex);
+                        }
+                    }
+                }
+
+                this.setPropertyData('intervalsOverlappingError', errorIds);
+            }
+
+            return result;
+        },
+        clearValidate() {
+            this.$refs['day-availabilities'].resetValidation();
         }
     },
     computed: {

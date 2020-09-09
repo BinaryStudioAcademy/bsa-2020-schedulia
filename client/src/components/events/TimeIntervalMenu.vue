@@ -13,7 +13,9 @@
             >
                 <template v-slot:activator="{ on, attrs }">
                     <VTextField
+                        :rules="startTimeRules"
                         :value="availability.startTime"
+                        @focus="clearValidate"
                         readonly
                         v-bind="attrs"
                         v-on="on"
@@ -44,6 +46,8 @@
                 <template v-slot:activator="{ on, attrs }">
                     <VTextField
                         :value="availability.endTime"
+                        :rules="endTimeRules"
+                        @focus="clearValidate"
                         readonly
                         v-bind="attrs"
                         v-on="on"
@@ -69,6 +73,7 @@
 import eventTypeMixin from '@/components/events/eventTypeMixin';
 import { mapGetters } from 'vuex';
 import * as eventTypeGetters from '@/store/modules/eventType/types/getters';
+import moment from 'moment';
 export default {
     name: 'TimeIntervalMenu',
     mixins: [eventTypeMixin],
@@ -90,6 +95,10 @@ export default {
     },
 
     methods: {
+        clearValidate() {
+            this.$emit('clear-validate');
+            this.setPropertyData('intervalsOverlappingError', []);
+        },
         changeStartTimeMenu() {
             this.startTimeMenu = true;
         },
@@ -126,17 +135,63 @@ export default {
                 });
                 this.setPropertyData('dayAvailabilities', [...result]);
             }
+        },
+        validateDuration() {
+            let result = false;
+            if (!this.availability.startDate || !this.availability.endDate) {
+                return true;
+            }
+            if (
+                moment(this.availability.startDate).add(
+                    this.data.duration,
+                    'minutes'
+                ) < moment(this.availability.endDate)
+            ) {
+                result = true;
+            } else {
+                result = this.lang.INTERVALS_MUST.replace(
+                    '_',
+                    this.data.duration
+                );
+            }
+
+            return result;
         }
     },
     computed: {
         ...mapGetters('eventType', {
-            dayAvailabilities: eventTypeGetters.GET_DAY_AVAILABILITIES
+            dayAvailabilities: eventTypeGetters.GET_DAY_AVAILABILITIES,
+            getIntervalsOverlappingError:
+                eventTypeGetters.GET_INTERVALS_OVERLAPPING_ERROR
         }),
         getIndex() {
             return this.index;
         },
         dayAvailabilitiesData() {
             return this.dayAvailabilities;
+        },
+        startTimeRules() {
+            return [
+                v => !!v || this.lang.REQUIRED_START_TIME,
+                this.validateDuration(),
+                this.isIntervalsOverlappingError
+            ];
+        },
+        endTimeRules() {
+            return [
+                v => !!v || this.lang.REQUIRED_END_TIME,
+                this.validateDuration(),
+                this.isIntervalsOverlappingError
+            ];
+        },
+        isIntervalsOverlappingError() {
+            let result = false;
+            if (this.getIntervalsOverlappingError.length < 1) {
+                result = true;
+            } else if (this.getIntervalsOverlappingError.includes(this.index)) {
+                result = this.lang.INTERVALS_OVERLAPPING;
+            }
+            return result;
         }
     }
 };

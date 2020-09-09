@@ -463,6 +463,11 @@ export default {
     DISPLAY: 'Displaying',
     EVENT: 'Event',
 
+    REQUIRED_START_TIME: 'Please select start time',
+    REQUIRED_END_TIME: 'Please select end time',
+    INTERVALS_MUST: 'Intervals must be at least _ minutes.',
+    INTERVALS_OVERLAPPING: 'Intervals are overlapping.',
+
     YOU_HAVE_UNSAVED_CHANGES:
         'Do you really want to leave? You have unsaved changes!'
 };

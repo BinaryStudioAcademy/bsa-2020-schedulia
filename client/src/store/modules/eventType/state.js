@@ -43,5 +43,6 @@ export default {
     visibleTimeZoneDialog: false,
     visibleDayAvailabilitiesDialog: false,
     tagChecks: [],
+    intervalsOverlappingError: [],
     isSaved: false
 };
