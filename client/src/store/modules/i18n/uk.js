@@ -371,6 +371,10 @@ export default {
     DISPLAY: 'Відображенно',
     EVENT: 'Події',
     INVITEE_INFORMATION: 'Інформація про запрошенного',
+    REQUIRED_START_TIME: 'Будь ласка, виберіть час',
+    REQUIRED_END_TIME: 'Будь ласка, виберіть час',
+    INTERVALS_MUST: 'Інтервал повинен бути не менше _ хвилин.',
+    INTERVALS_OVERLAPPING: 'Інтервали перекриваються.',
     YOU_HAVE_UNSAVED_CHANGES:
         'Ви дійсно хочете залишити сторінку? У вас незбережені зміни!'
 };

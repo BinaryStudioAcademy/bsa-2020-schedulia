@@ -6,8 +6,6 @@ use App\Actions\CustomField\AddCustomFieldsToEventTypeAction;
 use App\Actions\CustomField\AddCustomFieldsToEventTypeRequest;
 use App\Actions\CustomField\GetCustomFieldCollectionByEventTypeIdAction;
 use App\Actions\CustomField\GetCustomFieldCollectionByEventTypeIdRequest;
-use App\Actions\CustomField\UpdateCustomFieldsToEventTypeAction;
-use App\Actions\CustomField\UpdateCustomFieldsToEventTypeRequest;
 use App\Actions\EventType\AddEventTypeAction;
 use App\Actions\EventType\AddEventTypeRequest;
 use App\Actions\EventType\ChangeDisabledByIdAction;
@@ -184,25 +182,12 @@ class EventTypeController extends ApiController
     public function saveCustomFieldsByEventTypeId(
         CustomFieldRequest $request,
         AddCustomFieldsToEventTypeAction $action
-    ): JsonResponse {
+    ) {
         $action->execute(
             new AddCustomFieldsToEventTypeRequest(
                 (int)$request->id,
-                $request->custom_fields
-            )
-        );
-
-        return $this->emptyResponse();
-    }
-
-    public function updateCustomFieldsByEventTypeId(
-        CustomFieldRequest $request,
-        UpdateCustomFieldsToEventTypeAction $action
-    ): JsonResponse {
-        $action->execute(
-            new UpdateCustomFieldsToEventTypeRequest(
-                (int)$request->id,
-                $request->custom_fields
+                $request->custom_fields,
+                $request->to_delete_ids
             )
         );
 
