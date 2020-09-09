@@ -8,8 +8,8 @@
                             <VTabs v-model="tab">
                                 <VTab
                                     v-for="item in tabs"
-                                    :key="item.tab"
-                                    :to="{ name: item.routeName }"
+                                    :key="item.id"
+                                    @click="routeTab(item.routeName)"
                                 >
                                     {{ item.title }}
                                 </VTab>
@@ -43,7 +43,23 @@ export default {
     },
     data: () => ({
         tab: null
-    })
+    }),
+
+    methods: {
+        routeTab(routeName) {
+            this.$router.push({
+                name: routeName
+            });
+        }
+    },
+
+    created() {
+        if (this.$route.name === "EventTypes") {
+            this.tab = 0;
+        } else if (this.$route.name === "Upcoming") {
+            this.tab = 1;
+        }
+    }
 };
 </script>
 
