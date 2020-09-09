@@ -32,6 +32,6 @@ export default {
 }
 
 .general-content {
-    min-height:680px;
+    min-height: 680px;
 }
 </style>
