@@ -43,7 +43,8 @@ export default {
 }
 .event-type-name,
 .description {
-    word-break: break-all;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 .description {
     text-overflow: ellipsis;
