@@ -35,7 +35,6 @@ final class GetTagsByEventDateRangeAction
             $endDate = Carbon::parse($request->getEndDate())->format('Y-m-d H:m');
 
             $criteria[] = new DateRangeCriterion($startDate, $endDate, $userId);
-
         } elseif ($request->getStartDate()) {
             $startDate = Carbon::parse($request->getStartDate())->format('Y-m-d H:m');
 
