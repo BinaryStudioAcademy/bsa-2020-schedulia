@@ -38,5 +38,4 @@ export const eventApiMapper = Event => ({
         .utc()
         .format('YYYY-MM-DD HH:mm:ss'),
     timezone: Event.timezone,
-    event_type: eventTypeMapper(Event.eventType)
 });
