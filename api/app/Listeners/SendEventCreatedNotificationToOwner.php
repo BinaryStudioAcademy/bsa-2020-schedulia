@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\EventCreated;
+use App\Jobs\SendNotificationToOwnerChatito;
 use App\Notifications\EventCreatedNotificationToOwnerChatito;
 use App\Notifications\EventCreatedNotificationToOwnerMail;
 use App\Notifications\EventCreatedNotificationToOwnerSlack;
@@ -32,7 +33,7 @@ class SendEventCreatedNotificationToOwner implements ShouldQueue
             $eventCreated->event->eventType->owner->notify(new EventCreatedNotificationToOwnerSlack($eventCreated->event));
         }
         if ($eventCreated->event->eventType->owner->chatito_active) {
-            new EventCreatedNotificationToOwnerChatito($eventCreated->event);
+            SendNotificationToOwnerChatito::dispatch($eventCreated->event);
         }
     }
 }
