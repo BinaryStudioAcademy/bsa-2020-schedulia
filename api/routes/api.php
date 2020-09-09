@@ -138,6 +138,7 @@ Route::group([
     'namespace' => 'Api\\',
 ], function () {
     Route::get('/users/{nickname}', 'UserController@checkNickname');
+    Route::get('/users/{nickname}/{slug}', 'UserController@checkNicknameSlug');
 });
 
 Route::group([

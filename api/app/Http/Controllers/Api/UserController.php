@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Actions\RoutersTester\CheckNicknameAction;
 use App\Actions\RoutersTester\CheckNicknameRequest;
+use App\Actions\RoutersTester\CheckNicknameSlugAction;
+use App\Actions\RoutersTester\CheckNicknameSlugRequest;
 use App\Actions\User\UpdateUserPasswordAction;
 use App\Actions\User\DeleteUserAction;
 use App\Actions\User\DeleteUserRequest;
@@ -78,6 +80,15 @@ class UserController extends ApiController
         CheckNicknameAction $action
     ) {
         $action->execute(new CheckNicknameRequest($nickname));
+        return $this->emptyResponse();
+    }
+
+    public function checkNicknameSlug(
+        string $nickname,
+        string $slug,
+        CheckNicknameSlugAction $action
+    ) {
+        $action->execute(new CheckNicknameSlugRequest($nickname, $slug));
         return $this->emptyResponse();
     }
 }
