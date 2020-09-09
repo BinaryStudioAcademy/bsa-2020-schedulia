@@ -32,6 +32,7 @@ class EventTypeDeletedToOwner extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage())
+                    ->subject("EventType was deleted!")
                     ->line(new HtmlString("Hi, <b>{$this->owner->name}</b>!"))
                     ->line(new HtmlString("EventType <u>{$this->eventTypeName}</u> was deleted, so all events was declined!"));
     }
