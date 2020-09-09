@@ -9,6 +9,6 @@ use App\Exceptions\ErrorCode;
 
 final class CoordinatesFieldIsRequiredException extends BaseException
 {
-    protected $message = "For 'location_type = address' field 'coordinates' is required!";
+    protected $message = "Please, choose address for your meeting";
     protected $code = ErrorCode::COORDINATES_FIELD_IS_REQUIRED;
 }
