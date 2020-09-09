@@ -9,7 +9,7 @@
         min-width="290px"
     >
         <template v-slot:activator="{ on, attrs }">
-            <VTab v-bind="attrs" v-on="on" key="3">
+            <VTab v-bind="attrs" v-on="on">
                 {{ lang.DATE_RANGE }}
             </VTab>
         </template>
