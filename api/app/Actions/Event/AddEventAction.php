@@ -37,6 +37,7 @@ final class AddEventAction
             $event->invitee_email = $request->getInviteeEmail();
             $event->start_date = $request->getStartDate();
             $event->timezone = $request->getTimezone();
+            $event->invitee_information = $request->getInviteeInformation();
 
             $this->eventRepository->save($event);
 

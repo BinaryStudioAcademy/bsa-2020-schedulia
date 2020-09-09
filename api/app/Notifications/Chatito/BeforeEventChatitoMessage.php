@@ -25,7 +25,7 @@ class BeforeEventChatitoMessage extends ChatitoMessage
             "{$this->user->name}<br><br>" .
             "<b>Organizator Email:</b><br>" .
             "{$this->user->email}<br><br>" .
-            "<b>Event Date/Time:</b><br>" .
+            "<b>Event Date/Time (UTC):</b><br>" .
             "{$this->event->start_date}<br><br>";
 
         if ($this->event->eventType->location_type == 'zoom') {

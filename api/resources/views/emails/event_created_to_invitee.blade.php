@@ -18,13 +18,8 @@ You have been invited to an Event!
 <b>Invitee Email (You):</b><br>
 {{ $inviteeEmail }}
 
-<b>Event Date/Time:</b><br>
+<b>Event Date/Time (UTC):</b><br>
 {{ $event->start_date }}
-
-@if($location)
-<b>Location:</b><br>
-{{ $location }}
-@endif
 
 @if(count($customFieldValues))
 <b>Questions:</b><br>

@@ -12,6 +12,7 @@ final class AddEventRequest
     private string $startDate;
     private string $timezone;
     private ?array $customFieldValues;
+    private ?string $inviteeInformation;
 
     public function __construct(
         int $eventTypeId,
@@ -19,7 +20,8 @@ final class AddEventRequest
         string $inviteeEmail,
         string $startDate,
         string $timezone,
-        ?array $customFieldValues
+        ?array $customFieldValues,
+        ?string $inviteeInformation
     ) {
         $this->eventTypeId = $eventTypeId;
         $this->inviteeName = $inviteeName;
@@ -27,6 +29,7 @@ final class AddEventRequest
         $this->startDate = $startDate;
         $this->timezone = $timezone;
         $this->customFieldValues = $customFieldValues;
+        $this->inviteeInformation = $inviteeInformation;
     }
 
     public function getEventTypeId(): int
@@ -57,5 +60,10 @@ final class AddEventRequest
     public function getCustomFieldValues(): ?array
     {
         return $this->customFieldValues;
+    }
+
+    public function getInviteeInformation(): ?string
+    {
+        return $this->inviteeInformation;
     }
 }
