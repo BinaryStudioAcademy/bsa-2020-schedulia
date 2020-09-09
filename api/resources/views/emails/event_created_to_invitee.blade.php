@@ -18,6 +18,11 @@ You have been invited to an Event!
 <b>Invitee Email (You):</b><br>
 {{ $inviteeEmail }}
 
+@if($inviteeInformation)
+<b>Invitee Information (You):</b><br>
+{{ $inviteeInformation }}
+@endif
+
 <b>Event Date/Time (UTC):</b><br>
 {{ $event->start_date }}
 
