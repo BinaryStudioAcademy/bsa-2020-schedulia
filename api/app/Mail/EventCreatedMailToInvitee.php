@@ -40,17 +40,6 @@ class EventCreatedMailToInvitee extends Mailable
      */
     public function build()
     {
-        $locationType = '';
-        $locationLink = '';
-        if ($this->event->zoom_meeting_link) {
-            $locationType = 'Zoom';
-            $locationLink = $this->event->zoom_meeting_link;
-        }
-
-        if ($this->event->whale_meeting_link) {
-            $locationType = 'Whale';
-            $locationLink = $this->event->whale_meeting_link;
-        }
         return $this
             ->subject("You have been invited to an event: {$this->eventType->name},
                     {$this->event->start_date}, {$this->owner->name}")
@@ -60,9 +49,7 @@ class EventCreatedMailToInvitee extends Mailable
                 'owner' => $this->owner,
                 'inviteeName' => $this->inviteeName,
                 'inviteeEmail' => $this->inviteeEmail,
-                'customFieldValues' => $this->event->customFieldValues,
-                'locationType' => $locationType,
-                'locationLink' => $locationLink,
+                'customFieldValues' => $this->event->customFieldValues
             ]);
     }
 }
