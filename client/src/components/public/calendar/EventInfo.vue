@@ -11,9 +11,9 @@
         </div>
         <div v-if="showLocation" class="event-info">
             <VIcon dark color="primary">mdi-map-marker</VIcon>
-            <span v-if="coords" @click="onOpenMap" class="map-address">{{
-                location
-            }}</span>
+            <span v-if="coords" @click="onOpenMap" class="map-address">
+                {{ location }}
+            </span>
             <span v-else>{{ location }}</span>
         </div>
         <div v-if="startDate" class="event-info">
@@ -83,8 +83,11 @@ export default {
         location() {
             if (this.locationType === 'address') {
                 return this.address;
+            } else if (this.locationType === 'zoom') {
+                return 'Zoom meeting';
+            } else {
+                return 'Whale meeting';
             }
-            return 'Zoom meeting';
         },
         coords() {
             return this.coordinates

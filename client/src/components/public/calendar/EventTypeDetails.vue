@@ -125,8 +125,11 @@ export default {
         location() {
             if (this.eventType.locationType === 'address') {
                 return this.eventType.address;
+            } else if (this.eventType.locationType === 'zoom') {
+                return 'Zoom meeting';
+            } else {
+                return 'Whale meeting';
             }
-            return 'Zoom meeting';
         }
     }
 };
