@@ -167,9 +167,9 @@
             </VRow>
         </div>
         <div>
-            <VBtn text outlined width="114" class="mr-3" @click="onCancel">{{
-                lang.CANCEL
-            }}</VBtn>
+            <VBtn text outlined width="114" class="mr-3" @click="onCancel">
+                {{ lang.CANCEL }}
+            </VBtn>
             <VBtn
                 @click="clickNext"
                 color="primary"
@@ -178,26 +178,6 @@
                 >{{ lang.NEXT }}</VBtn
             >
         </div>
-        <VDialog :value="showZoomDialog" max-width="390" persistent>
-            <div class="set-location-container">
-                <h3 class="mb-4">{{ lang.SET_MEETING_LOCATION }}</h3>
-                <VTextField
-                    :value="data.address"
-                    @change="changeEventTypeProperty('location', $event)"
-                    :placeholder="lang.ZOOM_CONFERENCE_LINK"
-                    outlined
-                    dense
-                    id="event-type-location-zoom"
-                ></VTextField>
-                <VBtn
-                    color="primary"
-                    class="white--text"
-                    width="114"
-                    @click="onCloseZoomDialog"
-                    >{{ lang.OK }}</VBtn
-                >
-            </div>
-        </VDialog>
     </VForm>
 </template>
 
@@ -241,7 +221,6 @@ export default {
                     icon: 'mdi-video'
                 }
             ],
-            showZoomDialog: false,
             colors: [
                 'yellow',
                 'red',
@@ -343,9 +322,6 @@ export default {
         },
         getSlug(value) {
             return value.replace(/\s/g, '-').toLowerCase();
-        },
-        onCloseZoomDialog() {
-            this.showZoomDialog = false;
         },
         onCancel() {
             this.$router.push({ name: 'EventTypes' });

@@ -94,8 +94,6 @@ export default {
                     data['coordinates'] = [];
                     if (!!value && value.title === 'address') {
                         this.showGeocoder = true;
-                    } else if (!!value && value.title === 'zoom') {
-                        this.showZoomDialog = true;
                     }
                     break;
                 default:
