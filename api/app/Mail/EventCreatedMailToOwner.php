@@ -19,11 +19,6 @@ class EventCreatedMailToOwner extends Mailable
     public EventType $eventType;
     public User $owner;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
     public function __construct(Event $event)
     {
         $this->event = $event;
@@ -31,11 +26,6 @@ class EventCreatedMailToOwner extends Mailable
         $this->owner = $event->eventType->owner;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
         $this->to($this->owner->getEmail());
