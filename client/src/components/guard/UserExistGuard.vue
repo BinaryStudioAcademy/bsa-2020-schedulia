@@ -4,16 +4,23 @@
 
 <script>
 import routersTesterService from '../../services/routersTester/routersTesterService';
-
+import requestService from '../../services/requestService';
 export default {
     name: 'UserExistGuard',
 
     async beforeRouteEnter(to, from, next) {
         try {
-            await routersTesterService.checkNickname(to.params.nickname);
-            next();
+            const response = await requestService.get(
+                '/users/email/' + to.params.nickname
+            );
+            next({ path: `${response.data}` });
         } catch (e) {
-            next({ name: 'Error404' });
+            try {
+                await routersTesterService.checkNickname(to.params.nickname);
+                next();
+            } catch (e) {
+                next({ name: 'Error404' });
+            }
         }
     }
 };

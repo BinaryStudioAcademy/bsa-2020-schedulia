@@ -1,7 +1,7 @@
 <template>
     <VDialog v-model="dialog" persistent max-width="500">
         <template v-slot:activator="{ on, attrs }">
-            <span v-bind="attrs" v-on="on">
+            <span v-bind="attrs" v-on="on" id="event-type-delete">
                 {{ lang.DELETE }}
             </span>
         </template>

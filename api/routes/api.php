@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -138,6 +139,7 @@ Route::group([
     'namespace' => 'Api\\',
 ], function () {
     Route::get('/users/{nickname}', 'UserController@checkNickname');
+    Route::get('/users/email/{email}', 'UserController@checkNicknameByEmail');
     Route::get('/users/{nickname}/{slug}', 'UserController@checkNicknameSlug');
 });
 
@@ -149,4 +151,8 @@ Route::group([
     Route::delete('/slack-notifications', 'SlackController@deleteSlackNotifications');
     Route::put('/slack-notifications', 'SlackController@changeActivitySlackNotifications');
     Route::put('/chatito-notifications', 'ChatitoController@changeActivity');
+});
+
+Route::get('/trigger-notifications', function () {
+    Artisan::call('schedule:run');
 });
