@@ -15,6 +15,11 @@ A new event was scheduled.
 <b>Invitee TimeZone:</b><br>
 {{ $event->timezone }}
 
+@if($inviteeInformation)
+<b>Invitee Information:</b><br>
+{{ $inviteeInformation }}
+@endif
+
 <b>Event Date/Time (UTC):</b><br>
 {{ $event->start_date }}
 
