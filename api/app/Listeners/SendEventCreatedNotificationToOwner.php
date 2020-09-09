@@ -3,12 +3,10 @@
 namespace App\Listeners;
 
 use App\Events\EventCreated;
-use App\Notifications\EventCreatedNotification;
 use App\Notifications\EventCreatedNotificationToOwnerChatito;
 use App\Notifications\EventCreatedNotificationToOwnerMail;
 use App\Notifications\EventCreatedNotificationToOwnerSlack;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class SendEventCreatedNotificationToOwner implements ShouldQueue
 {
