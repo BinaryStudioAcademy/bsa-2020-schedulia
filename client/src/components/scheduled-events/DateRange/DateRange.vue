@@ -137,24 +137,28 @@ export default {
         },
 
         formatDateRange(startDate, endDate) {
-            let dateStart = new Date(startDate);
-            let dateEnd = new Date(endDate);
+            if (startDate && endDate) {
+                let dateStart = new Date(startDate);
+                let dateEnd = new Date(endDate);
 
-            let dateStartYear = dateStart.getFullYear();
-            let dateEndYear = dateEnd.getFullYear();
+                let dateStartYear = dateStart.getFullYear();
+                let dateEndYear = dateEnd.getFullYear();
 
-            let dateStartMonth = this.getMonthName(dateStart, this.lang.LOCALIZATION);
-            let dateEndMonth = this.getMonthName(dateEnd, this.lang.LOCALIZATION);
+                let dateStartMonth = this.getMonthName(dateStart, this.lang.LOCALIZATION);
+                let dateEndMonth = this.getMonthName(dateEnd, this.lang.LOCALIZATION);
 
-            let dateStartDay = dateStart.getDate();
-            let dateEndDay = dateEnd.getDate();
+                let dateStartDay = dateStart.getDate();
+                let dateEndDay = dateEnd.getDate();
 
-            if (dateStartYear === dateEndYear) {
-                return dateStartMonth + ' ' + dateStartDay
-                        + ' - ' + dateEndMonth + ' ' + dateEndDay + ', ' + dateEndYear;
+                if (dateStartYear===dateEndYear) {
+                    return dateStartMonth + ' ' + dateStartDay
+                            + ' - ' + dateEndMonth + ' ' + dateEndDay + ', ' + dateEndYear;
+                } else {
+                    return dateStartMonth + ' ' + dateStartDay + ', ' + dateStartYear
+                            + ' - ' + dateEndMonth + ' ' + dateEndDay + ', ' + dateEndYear;
+                }
             } else {
-                return dateStartMonth + ' ' + dateStartDay + ', ' + dateStartYear
-                        + ' - ' + dateEndMonth + ' ' + dateEndDay + ', ' + dateEndYear;
+                return 'Today';
             }
         },
 
