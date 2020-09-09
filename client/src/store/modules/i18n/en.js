@@ -467,5 +467,6 @@ export default {
     INTERVALS_MUST: 'Intervals must be at least _ minutes.',
     INTERVALS_OVERLAPPING: 'Intervals are overlapping.',
     YOU_HAVE_UNSAVED_CHANGES:
-        'Do you really want to leave? You have unsaved changes!'
+        'Do you really want to leave? You have unsaved changes!',
+    TODAY_TO_INFINITY: 'From today to infinity'
 };
