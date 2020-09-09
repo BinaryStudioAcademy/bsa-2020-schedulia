@@ -6,7 +6,7 @@ namespace App\Actions\SocialAccount;
 
 class AuthResponse
 {
-    private string $urt;
+    private string $url;
     private ?array $data;
 
     public function __construct(string $url, array $data = [])
