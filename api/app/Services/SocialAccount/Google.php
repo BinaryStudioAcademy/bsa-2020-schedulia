@@ -12,6 +12,7 @@ use App\Contracts\CalendarEventInterface;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Calendar\DeleteEventInterface;
 use App\Services\Calendar\Google\GoogleCalendarEventPresenter;
+use Carbon\Carbon;
 use Illuminate\Config\Repository;
 use App\Contracts\CalendarService;
 use App\Contracts\SocialAccountService;
@@ -67,7 +68,7 @@ class Google implements SocialAccountService, CalendarService
 
             $token = $this->getAccessToken();
 
-            if (!$token) {
+            if (!$token || !$user) {
                 throw new GoogleOauthException();
             }
 
@@ -79,7 +80,7 @@ class Google implements SocialAccountService, CalendarService
             $socialAccount->account_id = $user->userId;
             $socialAccount->token = $token;
             $socialAccount->refresh_token = $token['refresh_token'];
-            $socialAccount->expires_in = '2020-08-27 22:57:59';
+            $socialAccount->expires_in = Carbon::now()->addSeconds($token['expires_in']);
 
             $socialAccount->save();
 

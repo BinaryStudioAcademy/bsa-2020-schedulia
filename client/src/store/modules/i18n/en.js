@@ -340,7 +340,6 @@ export default {
     FIELD_MUST_BE_VALUE_OR_MORE_THAN: ' must be value or more symbols',
     NEVERMIND: 'Nevermind',
     ARE_YOU_SURE: 'Are you sure?',
-    UNSAVE_CHANGES_WILL_BE_LOST: 'Any unsaved changes will be lost.',
     EXPLANATION_PASSWORD_RESET:
         'Go to the SignIn page and use your new password to authenticate on the site.',
     MORE: 'more',
@@ -468,5 +467,6 @@ export default {
     INTERVALS_MUST: 'Intervals must be at least _ minutes.',
     INTERVALS_OVERLAPPING: 'Intervals are overlapping.',
     YOU_HAVE_UNSAVED_CHANGES:
-        'Do you really want to leave? You have unsaved changes!'
+        'Do you really want to leave? You have unsaved changes!',
+    TODAY_TO_INFINITY: 'From today to infinity'
 };

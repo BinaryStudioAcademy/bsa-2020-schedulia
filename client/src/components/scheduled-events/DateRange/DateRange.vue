@@ -189,7 +189,7 @@ export default {
                     );
                 }
             } else {
-                return 'Today';
+                return this.lang.TODAY_TO_INFINITY;
             }
         },
 
