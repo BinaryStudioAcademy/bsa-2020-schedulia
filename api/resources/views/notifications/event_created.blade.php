@@ -12,11 +12,11 @@ A new event was scheduled.
 <b>Invitee Email:</b><br>
 {{ $event->invitee_email }}
 
-<b>Event Date/Time:</b><br>
-{{ $event->start_date }}
-
 <b>Invitee TimeZone:</b><br>
 {{ $event->timezone }}
+
+<b>Event Date/Time(UTC):</b><br>
+{{ $event->start_date }}
 
 @if(count($customFieldValues))
 <b>Questions:</b><br>
