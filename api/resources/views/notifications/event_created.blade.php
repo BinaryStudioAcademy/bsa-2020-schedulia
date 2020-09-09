@@ -15,7 +15,7 @@ A new event was scheduled.
 <b>Invitee TimeZone:</b><br>
 {{ $event->timezone }}
 
-<b>Event Date/Time(UTC):</b><br>
+<b>Event Date/Time (UTC):</b><br>
 {{ $event->start_date }}
 
 @if(count($customFieldValues))
