@@ -180,7 +180,12 @@ export default {
 .disabled-event span.internal-note {
     color: #e5e5e5;
 }
+.disabled-event .event-type-invitee img {
+    opacity: 0.5;
+}
+
 .internal-note {
+    word-break: break-all;
     color: gray;
     font-size: 14px;
 }
