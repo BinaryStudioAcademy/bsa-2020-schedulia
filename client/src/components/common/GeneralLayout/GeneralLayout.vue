@@ -5,7 +5,7 @@
             <Title>
                 <slot name="title"></slot>
             </Title>
-            <div class="content">
+            <div class="content general-content">
                 <slot></slot>
             </div>
         </VMain>
@@ -29,5 +29,9 @@ export default {
 <style lang="scss" scoped>
 .main {
     background-color: var(--v-background-base);
+}
+
+.general-content {
+    min-height:680px;
 }
 </style>
