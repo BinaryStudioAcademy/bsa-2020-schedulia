@@ -20,12 +20,9 @@
                     class="mr-6"
                     :rules="rules"
                     :id="'event-type-duration-' + n.id"
-                >
-                </VRadio>
+                ></VRadio>
             </VRadioGroup>
-            <p class="mr-3 app-text">
-                {{ lang.CUSTOM_DURATION }}
-            </p>
+            <p class="mr-3 app-text">{{ lang.CUSTOM_DURATION }}</p>
             <VTextField
                 :value="data.customDuration"
                 @change="changeEventTypeProperty('customDuration', $event)"
@@ -34,13 +31,10 @@
                 class="shrink ma-0 pa-0 custom-textfield"
                 placeholder="0"
                 id="event-type-duration-custom"
-            >
-            </VTextField>
+            ></VTextField>
         </VRow>
         <VRow class="mb-2">
-            <h3 class="app-label">
-                {{ lang.DATE_RANGE }}
-            </h3>
+            <h3 class="app-label">{{ lang.DATE_RANGE }}</h3>
         </VRow>
         <VRow class="mb-3" align="baseline">
             <p
@@ -59,15 +53,12 @@
                 dark
                 class="edit-button"
                 @click.stop="setPropertyData('visibleAvailabilityDialog', true)"
+                >{{ lang.EDIT }}</VBtn
             >
-                {{ lang.EDIT }}
-            </VBtn>
             <AvailabilityDialog></AvailabilityDialog>
         </VRow>
         <VRow class="mb-2">
-            <h3 class="app-label">
-                {{ lang.EVENT_TIME_ZONE }}
-            </h3>
+            <h3 class="app-label">{{ lang.EVENT_TIME_ZONE }}</h3>
         </VRow>
         <VRow>
             <p class="app-text">
@@ -79,9 +70,8 @@
                     dark
                     @click.stop="setPropertyData('visibleTimeZoneDialog', true)"
                     class="editTimeZoneButton ma-n2 pa-n3 edit-button"
+                    >{{ lang.EDIT }}</VBtn
                 >
-                    {{ lang.EDIT }}
-                </VBtn>
                 <TimeZoneDialog></TimeZoneDialog>
             </p>
         </VRow>
@@ -91,65 +81,33 @@
             </VSheet>
         </VRow>
         <VRow class="mb-2">
-            <h3 class="app-label">
-                {{ lang.AVAILABILITY }}
-            </h3>
+            <h3 class="app-label">{{ lang.AVAILABILITY }}</h3>
         </VRow>
         <VRow>
-            <p class="app-text">
-                {{ lang.SET_AVAILABLE_HOURS_TEXT }}
-            </p>
+            <p class="app-text">{{ lang.SET_AVAILABLE_HOURS_TEXT }}</p>
         </VRow>
 
         <VRow>
             <Calendar></Calendar>
         </VRow>
-        <VDialog :value="cancelDialog" width="380" persistent>
-            <VCard>
-                <VCardTitle class="mb-5">
-                    <VRow justify="center">
-                        <h3>{{ lang.ARE_YOU_SURE }}</h3>
-                    </VRow>
-                </VCardTitle>
-                <VCardText>
-                    <VRow justify="center">
-                        <p>{{ lang.UNSAVE_CHANGES_WILL_BE_LOST }}</p>
-                    </VRow>
-                </VCardText>
-                <VCardActions class="justify-center">
-                    <div class="mb-5">
-                        <VBtn
-                            text
-                            outlined
-                            width="114"
-                            @click="cancelConfirm"
-                            >{{ lang.YES }}</VBtn
-                        >
-                        <VBtn
-                            color="primary"
-                            class="white--text mr-3"
-                            width="114"
-                            @click="cancelDialog = false"
-                            >{{ lang.NO }}</VBtn
-                        >
-                    </div>
-                </VCardActions>
-            </VCard>
-        </VDialog>
 
         <VRow class="mt-10">
             <div>
-                <VBtn @click="onCancel" text outlined width="114" class="mr-3">
-                    {{ lang.CANCEL }}
-                </VBtn>
+                <VBtn
+                    @click="onCancel"
+                    text
+                    outlined
+                    width="114"
+                    class="mr-3"
+                    >{{ lang.CANCEL }}</VBtn
+                >
                 <VBtn
                     @click="saveEventType"
                     color="primary"
                     class="white--text"
                     width="114"
+                    >{{ lang.SAVE }}</VBtn
                 >
-                    {{ lang.SAVE }}
-                </VBtn>
             </div>
         </VRow>
     </VForm>
@@ -172,8 +130,7 @@ export default {
             availabilityIncrementsSelected: '',
             maxEventsPerDay: '',
             preventEventsHours: '',
-            tab: null,
-            cancelDialog: false
+            tab: null
         };
     },
 
@@ -269,10 +226,6 @@ export default {
             this.changeEventTypeProperty('availabilities', params);
         },
         onCancel() {
-            this.cancelDialog = true;
-        },
-        cancelConfirm() {
-            this.cancelDialog = false;
             this.$router.push({ name: 'EventTypes' });
         }
     },

@@ -167,9 +167,9 @@
             </VRow>
         </div>
         <div>
-            <VBtn text outlined width="114" class="mr-3" @click="onCancel">
-                {{ lang.CANCEL }}
-            </VBtn>
+            <VBtn text outlined width="114" class="mr-3" @click="onCancel">{{
+                lang.CANCEL
+            }}</VBtn>
             <VBtn
                 @click="clickNext"
                 color="primary"
@@ -178,38 +178,6 @@
                 >{{ lang.NEXT }}</VBtn
             >
         </div>
-        <VDialog :value="cancelDialog" width="380" persistent>
-            <VCard>
-                <VCardTitle class="mb-5">
-                    <VRow justify="center">
-                        <h3>{{ lang.ARE_YOU_SURE }}</h3>
-                    </VRow>
-                </VCardTitle>
-                <VCardText>
-                    <VRow justify="center">
-                        <p>{{ lang.UNSAVE_CHANGES_WILL_BE_LOST }}</p>
-                    </VRow>
-                </VCardText>
-                <VCardActions class="justify-center">
-                    <div class="mb-5">
-                        <VBtn
-                            text
-                            outlined
-                            width="114"
-                            @click="cancelConfirm"
-                            >{{ lang.YES }}</VBtn
-                        >
-                        <VBtn
-                            color="primary"
-                            class="white--text mr-3"
-                            width="114"
-                            @click="cancelDialog = false"
-                            >{{ lang.NO }}</VBtn
-                        >
-                    </div>
-                </VCardActions>
-            </VCard>
-        </VDialog>
         <VDialog :value="showZoomDialog" max-width="390" persistent>
             <div class="set-location-container">
                 <h3 class="mb-4">{{ lang.SET_MEETING_LOCATION }}</h3>
@@ -256,7 +224,6 @@ export default {
     data() {
         return {
             search: null,
-            cancelDialog: false,
             items: [
                 {
                     key: 'address',
@@ -381,10 +348,6 @@ export default {
             this.showZoomDialog = false;
         },
         onCancel() {
-            this.cancelDialog = true;
-        },
-        cancelConfirm() {
-            this.cancelDialog = false;
             this.$router.push({ name: 'EventTypes' });
         }
     }
