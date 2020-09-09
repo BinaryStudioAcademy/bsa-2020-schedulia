@@ -101,7 +101,7 @@
         ></VTextField>
 
         <div class="mb-2">
-            <label>{{ lang.EVENT_TAGS_LABEL }}</label>
+            <label>{{ lang.EVENT_TAGS_LABEL }} <span>{{ lang.EVENT_TAGS_MUST }}</span></label>
         </div>
 
         <VCombobox
@@ -384,5 +384,9 @@ export default {
 .set-location-container {
     background-color: white;
     padding: 30px 20px 15px 20px;
+}
+
+label span {
+    font-size: 11px;
 }
 </style>

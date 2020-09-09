@@ -469,5 +469,6 @@ export default {
     YOU_HAVE_UNSAVED_CHANGES:
         'Do you really want to leave? You have unsaved changes!',
     TODAY_TO_INFINITY: 'From today to infinity',
-    FIELD_MUST_START_WITH_HASH: 'must be start with # and not contain spaces'
+    FIELD_MUST_START_WITH_HASH: 'must be start with # and not contain spaces',
+    EVENT_TAGS_MUST: '(must start with # and not contain spaces)'
 };
