@@ -18,7 +18,7 @@ A new event was scheduled.
 <b>Invitee TimeZone:</b><br>
 {{ $event->timezone }}
 
-@if($customFieldValues)
+@if(count($customFieldValues))
 <b>Questions:</b><br>
 @foreach($customFieldValues as $customFieldValue)
 <u>{{ $customFieldValue->customField->name }}</u><br>
@@ -26,7 +26,7 @@ A new event was scheduled.
 @endforeach
 @endif
 
-@component('mail::button', ['url' => env('APP_URL'), 'color' => 'blue'])
+@component('mail::button', ['url' => env('APP_FRONTEND'), 'color' => 'blue'])
 Visit {{ env('APP_NAME') }}
 @endcomponent
 
