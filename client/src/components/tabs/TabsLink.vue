@@ -54,9 +54,9 @@ export default {
     },
 
     created() {
-        if (this.$route.name === "EventTypes") {
+        if (this.$route.name === 'EventTypes') {
             this.tab = 0;
-        } else if (this.$route.name === "Upcoming") {
+        } else if (this.$route.name === 'Upcoming') {
             this.tab = 1;
         }
     }

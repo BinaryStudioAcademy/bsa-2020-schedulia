@@ -7,9 +7,9 @@
                         <VCol class="text-left">
                             <VTabs v-model="tab">
                                 <VTab
-                                        v-for="item in tabs"
-                                        :key="item.id"
-                                        @click="routeTab(item.routeName)"
+                                    v-for="item in tabs"
+                                    :key="item.id"
+                                    @click="routeTab(item.routeName)"
                                 >
                                     {{ item.title }}
                                 </VTab>
@@ -28,59 +28,59 @@
 </template>
 
 <script>
-    import BorderBottom from '../common/GeneralLayout/BorderBottom';
+import BorderBottom from '../common/GeneralLayout/BorderBottom';
 
-    export default {
-        name: 'Tabs',
-        components: {
-            BorderBottom
-        },
-        props: {
-            tabs: {
-                type: Array,
-                required: true
-            }
-        },
-        data: () => ({
-            tab: null
-        }),
-
-        methods: {
-            routeTab(routeName) {
-                this.$router.push({
-                    name: routeName
-                });
-            }
-        },
-
-        created() {
-            if (this.$route.name === "Upcoming") {
-                this.tab = 0;
-            } else if (this.$route.name === "Past") {
-                this.tab = 1;
-            } else if (this.$route.name === "DateRange") {
-                this.tab = 2;
-            }
+export default {
+    name: 'Tabs',
+    components: {
+        BorderBottom
+    },
+    props: {
+        tabs: {
+            type: Array,
+            required: true
         }
-    };
+    },
+    data: () => ({
+        tab: null
+    }),
+
+    methods: {
+        routeTab(routeName) {
+            this.$router.push({
+                name: routeName
+            });
+        }
+    },
+
+    created() {
+        if (this.$route.name === 'Upcoming') {
+            this.tab = 0;
+        } else if (this.$route.name === 'Past') {
+            this.tab = 1;
+        } else if (this.$route.name === 'DateRange') {
+            this.tab = 2;
+        }
+    }
+};
 </script>
 
 <style lang="scss" scoped>
-    .tabs {
-        &__list {
-            width: 100%;
-            background: var(--v-background-lighten1);
-        }
-
-        &__container {
-            padding: 0;
-        }
-
-        .v-tab--active[aria-selected='false'] {
-            color: rgba(0, 0, 0, 0.54);
-        }
+.tabs {
+    &__list {
+        width: 100%;
+        background: var(--v-background-lighten1);
     }
-    .v-tab {
-        text-transform: none;
+
+    &__container {
+        padding: 0;
     }
+
+    .v-tab--active[aria-selected='false'] {
+        color: rgba(0, 0, 0, 0.54);
+    }
+}
+.v-tab {
+    text-transform: none;
+}
 </style>

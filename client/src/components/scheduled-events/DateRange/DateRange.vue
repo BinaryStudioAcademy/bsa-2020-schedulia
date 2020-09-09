@@ -4,7 +4,12 @@
         <BorderBottom />
         <div v-if="this.eventsPagination.total">
             <VContainer class="date-range">
-                {{ formatDateRange($route.query.start_date, $route.query.end_date) }}
+                {{
+                    formatDateRange(
+                        $route.query.start_date,
+                        $route.query.end_date
+                    )
+                }}
             </VContainer>
             <template v-for="scheduledEvent in scheduledEvents">
                 <Event
@@ -144,18 +149,44 @@ export default {
                 let dateStartYear = dateStart.getFullYear();
                 let dateEndYear = dateEnd.getFullYear();
 
-                let dateStartMonth = this.getMonthName(dateStart, this.lang.LOCALIZATION);
-                let dateEndMonth = this.getMonthName(dateEnd, this.lang.LOCALIZATION);
+                let dateStartMonth = this.getMonthName(
+                    dateStart,
+                    this.lang.LOCALIZATION
+                );
+                let dateEndMonth = this.getMonthName(
+                    dateEnd,
+                    this.lang.LOCALIZATION
+                );
 
                 let dateStartDay = dateStart.getDate();
                 let dateEndDay = dateEnd.getDate();
 
-                if (dateStartYear===dateEndYear) {
-                    return dateStartMonth + ' ' + dateStartDay
-                            + ' - ' + dateEndMonth + ' ' + dateEndDay + ', ' + dateEndYear;
+                if (dateStartYear === dateEndYear) {
+                    return (
+                        dateStartMonth +
+                        ' ' +
+                        dateStartDay +
+                        ' - ' +
+                        dateEndMonth +
+                        ' ' +
+                        dateEndDay +
+                        ', ' +
+                        dateEndYear
+                    );
                 } else {
-                    return dateStartMonth + ' ' + dateStartDay + ', ' + dateStartYear
-                            + ' - ' + dateEndMonth + ' ' + dateEndDay + ', ' + dateEndYear;
+                    return (
+                        dateStartMonth +
+                        ' ' +
+                        dateStartDay +
+                        ', ' +
+                        dateStartYear +
+                        ' - ' +
+                        dateEndMonth +
+                        ' ' +
+                        dateEndDay +
+                        ', ' +
+                        dateEndYear
+                    );
                 }
             } else {
                 return 'Today';
@@ -165,9 +196,7 @@ export default {
         getMonthName(dateStr, locale) {
             let date = new Date(dateStr);
             return date.toLocaleDateString(locale, { month: 'short' });
-        },
-
-
+        }
     },
 
     watch: {
@@ -185,9 +214,9 @@ export default {
 </script>
 
 <style scoped>
-    .date-range {
-        font-size: 17px;
-        padding: 20px 55px;
-        background-color: rgba(224, 224, 224, 0.4);
-    }
+.date-range {
+    font-size: 17px;
+    padding: 20px 55px;
+    background-color: rgba(224, 224, 224, 0.4);
+}
 </style>

@@ -80,7 +80,9 @@
                                 </li>
                                 <li v-show="scheduledEvent.inviteeInformation">
                                     {{ lang.INVITEE_INFORMATION }}
-                                    <span>{{ scheduledEvent.inviteeInformation }}</span>
+                                    <span>{{
+                                        scheduledEvent.inviteeInformation
+                                    }}</span>
                                 </li>
                                 <li class="created">
                                     {{ lang.CREATED }}
