@@ -26,7 +26,7 @@ A new event was scheduled.
 @endforeach
 @endif
 
-@component('mail::button', ['url' => env('APP_FRONTEND'), 'color' => 'blue'])
+@component('mail::button', ['url' => env('CLIENT_APP_URL'), 'color' => 'blue'])
 Visit {{ env('APP_NAME') }}
 @endcomponent
 
