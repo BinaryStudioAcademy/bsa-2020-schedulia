@@ -468,5 +468,6 @@ export default {
     INTERVALS_OVERLAPPING: 'Intervals are overlapping.',
     YOU_HAVE_UNSAVED_CHANGES:
         'Do you really want to leave? You have unsaved changes!',
-    TODAY_TO_INFINITY: 'From today to infinity'
+    TODAY_TO_INFINITY: 'From today to infinity',
+    FIELD_MUST_START_WITH_HASH: 'must be start with # and not contain spaces'
 };
