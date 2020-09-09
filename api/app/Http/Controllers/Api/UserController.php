@@ -87,8 +87,8 @@ class UserController extends ApiController
         string $email,
         CheckNicknameByEmailAction $action
     ) {
-         $response = $action->execute(new CheckNicknameByEmailRequest($email));
+        $response = $action->execute(new CheckNicknameByEmailRequest($email));
 
-         return $response->getNickname();
+        return $response->getNickname();
     }
 }
