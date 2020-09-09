@@ -101,7 +101,10 @@
         ></VTextField>
 
         <div class="mb-2">
-            <label>{{ lang.EVENT_TAGS_LABEL }} <span>{{ lang.EVENT_TAGS_MUST }}</span></label>
+            <label
+                >{{ lang.EVENT_TAGS_LABEL }}
+                <span>{{ lang.EVENT_TAGS_MUST }}</span></label
+            >
         </div>
 
         <VCombobox
@@ -234,22 +237,25 @@ export default {
             ],
             chatitoRules: [v => !!v || 'Please provide Chatito workspace name'],
             tagsRules: [
-                v => v.every(this.checkTagMinLength) ||
-                        this.lang.EVENT_TAGS_LABEL +
+                v =>
+                    v.every(this.checkTagMinLength) ||
+                    this.lang.EVENT_TAGS_LABEL +
                         ' ' +
                         this.lang.FIELD_MUST_BE_VALUE_OR_MORE_THAN.replace(
-                                'value',
-                                3
+                            'value',
+                            3
                         ),
-                v => v.every(this.checkTagMaxLength) ||
-                        this.lang.EVENT_TAGS_LABEL +
+                v =>
+                    v.every(this.checkTagMaxLength) ||
+                    this.lang.EVENT_TAGS_LABEL +
                         ' ' +
                         this.lang.FIELD_MUST_BE_LESS_THAN_VALUE.replace(
-                                'value',
-                                20
+                            'value',
+                            20
                         ),
-                v => v.every(this.checkTagHash) ||
-                        this.lang.EVENT_TAGS_LABEL +
+                v =>
+                    v.every(this.checkTagHash) ||
+                    this.lang.EVENT_TAGS_LABEL +
                         ' ' +
                         this.lang.FIELD_MUST_START_WITH_HASH
             ],
