@@ -24,5 +24,4 @@ class CheckNicknameSlugRequest
     {
         return $this->slug;
     }
-
 }
