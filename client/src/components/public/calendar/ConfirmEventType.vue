@@ -84,7 +84,7 @@
                             outlined
                             dense
                             @input="onInputCustomFields"
-                            @click="setInputCustomFields(id)"
+                            @focus="setInputCustomFields(id)"
                         ></VTextField>
                         <VTextarea
                             v-if="field.type === 'multiline'"
@@ -94,7 +94,7 @@
                             type="text"
                             height="100"
                             @input="onInputCustomFields"
-                            @click="setInputCustomFields(id)"
+                            @focus="setInputCustomFields(id)"
                         ></VTextarea>
                     </VCol>
                 </VCardText>
@@ -277,7 +277,7 @@ export default {
                     const customFieldValues = Object.values(
                         this.customFieldValues
                     ).filter(field => {
-                        return field.value;
+                        return field.value !== '';
                     });
                     this.setPublicEvent({
                         start_date: this.startDateFormatted
