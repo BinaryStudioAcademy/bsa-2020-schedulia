@@ -797,40 +797,6 @@
                 </VCard>
             </VDialog>
         </VRow>
-        <VRow>
-            <VDialog v-model="cancelDialog" width="380">
-                <VCard>
-                    <VCardTitle class="mb-5">
-                        <VRow justify="center">
-                            <h3>{{ lang.ARE_YOU_SURE }}</h3>
-                        </VRow>
-                    </VCardTitle>
-                    <VCardText>
-                        <VRow justify="center">
-                            <p>{{ lang.UNSAVE_CHANGES_WILL_BE_LOST }}</p>
-                        </VRow>
-                    </VCardText>
-                    <VCardActions class="justify-center">
-                        <div class="mb-5">
-                            <VBtn
-                                color="primary"
-                                class="white--text mr-3"
-                                width="114"
-                                :to="{ name: 'EventTypes' }"
-                                >{{ lang.YES }}</VBtn
-                            >
-                            <VBtn
-                                text
-                                outlined
-                                width="114"
-                                @click="cancelDialog = false"
-                                >{{ lang.NEVERMIND }}</VBtn
-                            >
-                        </div>
-                    </VCardActions>
-                </VCard>
-            </VDialog>
-        </VRow>
     </VContainer>
 </template>
 
@@ -852,7 +818,6 @@ export default {
     data() {
         return {
             customDuration: '',
-            cancelDialog: false,
             availabilityDialog: false,
             availabilityIncrementsSelected: '',
             maxEventsPerDay: '',
