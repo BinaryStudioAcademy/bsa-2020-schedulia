@@ -29,7 +29,7 @@
                                             <VImg
                                                 :src="newLogo"
                                                 max-height="300"
-                                                :contain=true
+                                                :contain="true"
                                                 position="left center"
                                             ></VImg>
                                         </div>
@@ -65,7 +65,9 @@
                                             accept="image/*"
                                             @change="updateImage"
                                         />
-
+                                        <VCol cols="12">
+                                            <VSpacer></VSpacer>
+                                        </VCol>
                                         <VAlert
                                             cols="12"
                                             type="error"
@@ -120,6 +122,7 @@ import Tooltip from '@/components/tooltip/TooltipIcon.vue';
 import Alert from '@/components/alert/Alert';
 import { validationMixin } from 'vuelidate';
 import { fileSize } from '@/validators/filesize';
+import { MAX_FILE_SIZE } from '@/config/file';
 
 export default {
     name: 'BrandingForm',
@@ -130,7 +133,7 @@ export default {
     mixins: [validationMixin],
     validations: {
         file: {
-            fileSize: fileSize({maxFileSizeKb: 100}),
+            fileSize: fileSize({ maxFileSizeKb: MAX_FILE_SIZE })
         }
     },
     data: () => ({
@@ -177,15 +180,24 @@ export default {
         },
 
         updateImage(event) {
-            this.$v.$touch();
             this.file = event.target.files[0];
-            this.newLogo = URL.createObjectURL(this.file);
+            if (this.$v.file.fileSize) {
+                this.newLogo = URL.createObjectURL(this.file);
+            } else {
+                this.showAlert(
+                    this.lang.FILE_MUST_BE_SMALLER_THAN_VALUE.replace(
+                        'value',
+                        MAX_FILE_SIZE
+                    ),
+                    'error'
+                );
+            }
         },
 
         async save() {
             try {
                 this.$v.$touch();
-                console.log(this.$v);
+
                 if (this.$v.$invalid) {
                     return;
                 }
@@ -197,9 +209,10 @@ export default {
             }
         },
 
-        showAlert(message) {
+        showAlert(message, type = 'success') {
             this.alert.visibility = true;
             this.alert.message = message;
+            this.alert.type = type;
             setTimeout(() => {
                 this.alert.visibility = false;
             }, 2000);

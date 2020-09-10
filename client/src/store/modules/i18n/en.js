@@ -85,6 +85,7 @@ export default {
     FIELD_IS_REQUIRED: 'field is required.',
     FIELD_MUST_BE_MORE_THAN_VALUE: ' must be more than value characters',
     FIELD_MUST_BE_LESS_THAN_VALUE: ' must be less than value characters',
+    FILE_MUST_BE_SMALLER_THAN_VALUE: 'File must be smaller than value kb',
     WRONG_EMAIL_FORMAT: 'Wrong Email format',
 
     LOGO_TITLE: 'Schedulia',
