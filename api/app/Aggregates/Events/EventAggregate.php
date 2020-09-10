@@ -17,6 +17,7 @@ class EventAggregate
     private ?string $location;
     private $createdAt;
     private string $status;
+    private ?string $inviteeInformation;
     private int $startDate;
     private int $eventTypeId;
     private int $eventTypeOwnerId;
@@ -31,6 +32,7 @@ class EventAggregate
         $this->location = $event->location;
         $this->createdAt = $event->created_at;
         $this->status = $event->status;
+        $this->inviteeInformation = $event->invitee_information;
         $this->startDate = Carbon::parse($event->start_date)->timestamp;
         $this->eventTypeId = $event->event_type_id;
         $this->eventTypeOwnerId = $event->eventType->owner_id;
@@ -52,6 +54,7 @@ class EventAggregate
             'location' => $this->location,
             'created_at' => $this->createdAt,
             'status' => $this->status,
+            'invitee_information' => $this->inviteeInformation,
             'start_date' => $this->startDate,
             'event_type_id' => $this->eventTypeId,
             'event_type_owner_id' => $this->eventTypeOwnerId,

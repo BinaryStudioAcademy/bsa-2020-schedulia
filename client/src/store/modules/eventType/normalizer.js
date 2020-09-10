@@ -29,7 +29,32 @@ export const eventTypeMapper = EventType => ({
     },
     createdAt: EventType.created_at,
     chatito_workspace: EventType.chatito_workspace,
-    tagChecks: tagMapper(EventType.tags)
+    tagChecks: tagMapper(EventType.tags),
+    customFields: customFieldsMapper(EventType.custom_fields)
+});
+
+export const customFieldsMapper = function(customFields) {
+    let result = {};
+
+    result = {
+        ...result,
+        ...customFields.reduce(
+            (prev, customField) => ({
+                ...prev,
+                [customField.id]: customFieldMapper(customField)
+            }),
+            {}
+        )
+    };
+
+    return result;
+};
+
+export const customFieldMapper = customField => ({
+    id: customField.id,
+    event_type_id: customField.event_type_id,
+    name: customField.name,
+    type: customField.type
 });
 
 export const tagMapper = function(tags) {
