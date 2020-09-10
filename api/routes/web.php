@@ -22,5 +22,3 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
 });
 Route::get('/meetings/zoom/redirect', 'Zoom\\ZoomController@redirectToZoom');
 Route::get('/meetings/zoom/callback', 'Zoom\\ZoomController@handleCallback');
-
-

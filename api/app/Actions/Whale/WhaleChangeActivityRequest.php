@@ -11,7 +11,7 @@ final class WhaleChangeActivityRequest
         $this->whaleActivity = $whaleActivity;
     }
 
-    public function getWhaleActivity():bool
+    public function getWhaleActivity(): bool
     {
         return $this->whaleActivity;
     }
