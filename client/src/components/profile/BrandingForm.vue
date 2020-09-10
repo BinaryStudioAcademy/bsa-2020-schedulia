@@ -26,7 +26,12 @@
                                 <VCol cols="12">
                                     <div>
                                         <div v-if="newLogo">
-                                            <VImg :src="newLogo"></VImg>
+                                            <VImg
+                                                :src="newLogo"
+                                                max-height="300"
+                                                contain="true"
+                                                position="left center"
+                                            ></VImg>
                                         </div>
                                         <div v-else>
                                             <VImg
@@ -37,7 +42,7 @@
                                         </div>
                                     </div>
                                     <VCol cols="12">
-                                        <VDivider></VDivider>
+                                        <VSpacer></VSpacer>
                                     </VCol>
                                     <div>
                                         <VBtn
