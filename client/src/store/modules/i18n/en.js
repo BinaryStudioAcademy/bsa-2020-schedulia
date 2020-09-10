@@ -85,6 +85,7 @@ export default {
     FIELD_IS_REQUIRED: 'field is required.',
     FIELD_MUST_BE_MORE_THAN_VALUE: ' must be more than value characters',
     FIELD_MUST_BE_LESS_THAN_VALUE: ' must be less than value characters',
+    FILE_MUST_BE_SMALLER_THAN_VALUE: 'File must be smaller than value kb',
     WRONG_EMAIL_FORMAT: 'Wrong Email format',
 
     LOGO_TITLE: 'Schedulia',
@@ -470,5 +471,8 @@ export default {
         'Do you really want to leave? You have unsaved changes!',
     TODAY_TO_INFINITY: 'From today to infinity',
 
-    DEACTIVATE: 'Deactivate'
+    DEACTIVATE: 'Deactivate',
+  
+    FIELD_MUST_START_WITH_HASH: 'must be start with # and not contain spaces',
+    EVENT_TAGS_MUST: '(must start with # and not contain spaces)'
 };

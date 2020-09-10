@@ -13,7 +13,34 @@ export const eventMapper = Event => ({
         .format(),
     timezone: Event.timezone,
     createdAt: Event.created_at,
+    customFieldValues: customFieldValuesMapper(Event.custom_field_values),
     eventType: eventTypeMapper(Event.event_type)
+});
+
+export const customFieldValuesMapper = function(customFieldValues) {
+    let result = {};
+
+    result = {
+        ...result,
+        ...customFieldValues.reduce(
+            (prev, customFieldValues) => ({
+                ...prev,
+                [customFieldValues.id]: customFieldValueMapper(
+                    customFieldValues
+                )
+            }),
+            {}
+        )
+    };
+
+    return result;
+};
+
+export const customFieldValueMapper = customFieldValue => ({
+    id: customFieldValue.id,
+    custom_field_id: customFieldValue.custom_field_id,
+    event_id: customFieldValue.event_id,
+    value: customFieldValue.value
 });
 
 export const eventPaginationMapper = Pagination => ({
