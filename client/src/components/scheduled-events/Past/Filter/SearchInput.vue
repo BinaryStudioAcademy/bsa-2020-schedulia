@@ -42,16 +42,21 @@ export default {
 
     methods: {
         onSearchInput(searchString) {
-            this.$router.push({
-                name: 'Past',
-                query: {
-                    event_types: this.$route.query.event_types,
-                    event_emails: this.$route.query.event_emails,
-                    event_status: this.$route.query.event_status,
-                    tags: this.$route.query.tags,
-                    search: searchString
-                }
-            });
+            clearTimeout(this.timer);
+            this.timer = setTimeout(
+                () =>
+                    this.$router.push({
+                        name: 'Past',
+                        query: {
+                            event_types: this.$route.query.event_types,
+                            event_emails: this.$route.query.event_emails,
+                            event_status: this.$route.query.event_status,
+                            tags: this.$route.query.tags,
+                            search: searchString
+                        }
+                    }),
+                1000
+            );
         },
 
         setSearchInput() {

@@ -140,6 +140,7 @@ Route::group([
 ], function () {
     Route::get('/users/{nickname}', 'UserController@checkNickname');
     Route::get('/users/email/{email}', 'UserController@checkNicknameByEmail');
+    Route::get('/users/{nickname}/{slug}', 'UserController@checkNicknameSlug');
 });
 
 Route::group([
