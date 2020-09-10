@@ -6,7 +6,7 @@
 import routersTesterService from '../../services/routersTester/routersTesterService';
 import requestService from '../../services/requestService';
 export default {
-    name: 'UseExistGuard',
+    name: 'UserExistGuard',
 
     async beforeRouteEnter(to, from, next) {
         try {
