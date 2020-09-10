@@ -170,7 +170,7 @@ export default {
 
             return (
                 moment(timeStart).format('hh:mmA') +
-                '-' +
+                ' - ' +
                 moment(timeEnd).format('hh:mmA')
             );
         },
