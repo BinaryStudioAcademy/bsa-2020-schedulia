@@ -11,8 +11,8 @@ final class ZoomChangeActivityRequest
         $this->zoomActivity = $zoomActivity;
     }
 
-     public function getZoomActivity(): bool
-     {
-         return $this->zoomActivity;
-     }
+    public function getZoomActivity(): bool
+    {
+        return $this->zoomActivity;
+    }
 }
