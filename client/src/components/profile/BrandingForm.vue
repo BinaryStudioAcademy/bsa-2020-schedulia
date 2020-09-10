@@ -29,7 +29,7 @@
                                             <VImg
                                                 :src="newLogo"
                                                 max-height="300"
-                                                contain="true"
+                                                :contain=true
                                                 position="left center"
                                             ></VImg>
                                         </div>
@@ -118,12 +118,20 @@ import { mapActions, mapGetters } from 'vuex';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import Tooltip from '@/components/tooltip/TooltipIcon.vue';
 import Alert from '@/components/alert/Alert';
+import { validationMixin } from 'vuelidate';
+import { fileSize } from '@/validators/filesize';
 
 export default {
     name: 'BrandingForm',
     components: {
         Tooltip,
         Alert
+    },
+    mixins: [validationMixin],
+    validations: {
+        file: {
+            fileSize: fileSize({maxFileSizeKb: 100}),
+        }
     },
     data: () => ({
         file: null,
@@ -169,12 +177,18 @@ export default {
         },
 
         updateImage(event) {
+            this.$v.$touch();
             this.file = event.target.files[0];
             this.newLogo = URL.createObjectURL(this.file);
         },
 
         async save() {
             try {
+                this.$v.$touch();
+                console.log(this.$v);
+                if (this.$v.$invalid) {
+                    return;
+                }
                 await this.saveBranding(this.file);
 
                 this.showAlert(this.lang.PROFILE_WAS_UPDATED);
