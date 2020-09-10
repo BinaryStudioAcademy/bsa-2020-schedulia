@@ -377,5 +377,7 @@ export default {
     INTERVALS_OVERLAPPING: 'Інтервали перекриваються.',
     YOU_HAVE_UNSAVED_CHANGES:
         'Ви дійсно хочете залишити сторінку? У вас незбережені зміни!',
-    TODAY_TO_INFINITY: 'Від сьогодні до нескінченності'
+    TODAY_TO_INFINITY: 'Від сьогодні до нескінченності',
+
+    DEACTIVATE: 'Деактивувати'
 };

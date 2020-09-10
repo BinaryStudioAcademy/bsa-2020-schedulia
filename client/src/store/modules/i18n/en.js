@@ -453,7 +453,7 @@ export default {
     NO: 'No',
 
     MY_WHALE_ACCOUNT: 'My Whale Account',
-    ACTIVATE_WHALE_ACCOUNT: 'Sign up Whale',
+    ACTIVATE_WHALE_ACCOUNT: 'Activate Whale',
     INCLUDE_WHALE_MEETING:
         'Feel free to use Whale, a cloud-based video conferencing app with advanced abilities. To use Whale you have to sign up with the same email.',
 
@@ -468,5 +468,7 @@ export default {
     INTERVALS_OVERLAPPING: 'Intervals are overlapping.',
     YOU_HAVE_UNSAVED_CHANGES:
         'Do you really want to leave? You have unsaved changes!',
-    TODAY_TO_INFINITY: 'From today to infinity'
+    TODAY_TO_INFINITY: 'From today to infinity',
+
+    DEACTIVATE: 'Deactivate'
 };

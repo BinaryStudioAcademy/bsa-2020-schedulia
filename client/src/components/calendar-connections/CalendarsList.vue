@@ -4,13 +4,11 @@
             <template v-slot:activator="{ on, attrs }">
                 <VBtn
                     class="ma-2"
-                    outlined
-                    color="indigo"
+                    color="green"
                     v-bind="attrs"
                     v-on="on"
                 >
-                    {{ lang.ADD_CALENDAR_ACCOUNT }}
-                    <VIcon right dark>mdi-plus</VIcon>
+                    <span class="calendar-account">{{ lang.ADD_CALENDAR_ACCOUNT }}</span>
                 </VBtn>
             </template>
 
@@ -66,4 +64,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.calendar-account {
+    color: white;
+}
+</style>
