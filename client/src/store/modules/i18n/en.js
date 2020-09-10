@@ -85,6 +85,7 @@ export default {
     FIELD_IS_REQUIRED: 'field is required.',
     FIELD_MUST_BE_MORE_THAN_VALUE: ' must be more than value characters',
     FIELD_MUST_BE_LESS_THAN_VALUE: ' must be less than value characters',
+    FILE_MUST_BE_SMALLER_THAN_VALUE: 'File must be smaller than value kb',
     WRONG_EMAIL_FORMAT: 'Wrong Email format',
 
     LOGO_TITLE: 'Schedulia',
@@ -453,7 +454,7 @@ export default {
     NO: 'No',
 
     MY_WHALE_ACCOUNT: 'My Whale Account',
-    ACTIVATE_WHALE_ACCOUNT: 'Sign up Whale',
+    ACTIVATE_WHALE_ACCOUNT: 'Activate Whale',
     INCLUDE_WHALE_MEETING:
         'Feel free to use Whale, a cloud-based video conferencing app with advanced abilities. To use Whale you have to sign up with the same email.',
 
@@ -469,6 +470,9 @@ export default {
     YOU_HAVE_UNSAVED_CHANGES:
         'Do you really want to leave? You have unsaved changes!',
     TODAY_TO_INFINITY: 'From today to infinity',
+
+    DEACTIVATE: 'Deactivate',
+
     FIELD_MUST_START_WITH_HASH: 'must be start with # and not contain spaces',
     EVENT_TAGS_MUST: '(must start with # and not contain spaces)'
 };

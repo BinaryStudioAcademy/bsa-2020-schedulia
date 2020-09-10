@@ -109,5 +109,19 @@ export default {
     },
     [mutations.UPDATE_PROFILE]: (state, userData) => {
         state.user = { ...state.user, ...userData };
+    },
+
+    [mutations.CHANGE_ZOOM_STATUS_ACTIVITY]: (state, value) => {
+        state.user = {
+            ...state.user,
+            zoom_active: value
+        };
+    },
+
+    [mutations.CHANGE_WHALE_STATUS_ACTIVITY]: (state, value) => {
+        state.user = {
+            ...state.user,
+            whale_active: value
+        };
     }
 };
