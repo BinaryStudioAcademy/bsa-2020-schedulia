@@ -13,8 +13,7 @@
                                 <VCol cols="7" offset-md="2" offset-sm="2">
                                     <CreateEventTypeForm
                                         @changePanel="panel = 1"
-                                    >
-                                    </CreateEventTypeForm>
+                                    ></CreateEventTypeForm>
                                 </VCol>
                             </VRow>
                         </VExpansionPanelContent>
@@ -44,10 +43,10 @@
                                                 lang.WHEN_CAN_PEOPLE_BOOK_EVENT
                                             }}
                                         </VCardTitle>
-                                        <VCardSubtitle
-                                            >{{ duration }},
-                                            {{ dateDuration }}</VCardSubtitle
-                                        >
+                                        <VCardSubtitle>
+                                            {{ duration }},
+                                            {{ dateDuration }}
+                                        </VCardSubtitle>
                                     </div>
                                 </VCol>
                             </VRow>
@@ -104,6 +103,9 @@ export default {
 
     mounted() {
         this.setIsSaved(false);
+        window.onbeforeunload = () => {
+            return true;
+        };
     },
 
     computed: {
@@ -118,6 +120,7 @@ export default {
         if (!this.isSaved) {
             const answer = window.confirm(this.lang.YOU_HAVE_UNSAVED_CHANGES);
             if (answer) {
+                window.onbeforeunload = null;
                 next();
             } else {
                 next(false);
