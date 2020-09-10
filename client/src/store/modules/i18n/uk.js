@@ -377,5 +377,7 @@ export default {
     INTERVALS_OVERLAPPING: 'Інтервали перекриваються.',
     YOU_HAVE_UNSAVED_CHANGES:
         'Ви дійсно хочете залишити сторінку? У вас незбережені зміни!',
-    TODAY_TO_INFINITY: 'Від сьогодні до нескінченності'
+    TODAY_TO_INFINITY: 'Від сьогодні до нескінченності',
+    FIELD_MUST_START_WITH_HASH: 'має починатись з # та не містити пробілів',
+    EVENT_TAGS_MUST: '(повинен починатися з # і не містити пробілів)'
 };

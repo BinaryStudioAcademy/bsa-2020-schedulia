@@ -101,10 +101,14 @@
         ></VTextField>
 
         <div class="mb-2">
-            <label>{{ lang.EVENT_TAGS_LABEL }}</label>
+            <label
+                >{{ lang.EVENT_TAGS_LABEL }}
+                <span>{{ lang.EVENT_TAGS_MUST }}</span></label
+            >
         </div>
 
         <VCombobox
+            :rules="tagsRules"
             :value="data.tagChecks"
             :items="setAllTags"
             :search-input.sync="search"
@@ -232,6 +236,29 @@ export default {
                 'dark_blue'
             ],
             chatitoRules: [v => !!v || 'Please provide Chatito workspace name'],
+            tagsRules: [
+                v =>
+                    v.every(this.checkTagMinLength) ||
+                    this.lang.EVENT_TAGS_LABEL +
+                        ' ' +
+                        this.lang.FIELD_MUST_BE_VALUE_OR_MORE_THAN.replace(
+                            'value',
+                            3
+                        ),
+                v =>
+                    v.every(this.checkTagMaxLength) ||
+                    this.lang.EVENT_TAGS_LABEL +
+                        ' ' +
+                        this.lang.FIELD_MUST_BE_LESS_THAN_VALUE.replace(
+                            'value',
+                            20
+                        ),
+                v =>
+                    v.every(this.checkTagHash) ||
+                    this.lang.EVENT_TAGS_LABEL +
+                        ' ' +
+                        this.lang.FIELD_MUST_START_WITH_HASH
+            ],
             nameRules: [
                 v => !!v || this.lang.PROVIDE_EVENT_NAME,
                 v =>
@@ -315,6 +342,18 @@ export default {
             setEventTypesTags: eventTypesActions.FETCH_EVENT_TYPES_TAGS
         }),
 
+        checkTagMinLength(tag) {
+            return tag.length > 2;
+        },
+
+        checkTagMaxLength(tag) {
+            return tag.length < 20;
+        },
+
+        checkTagHash(tag) {
+            return /^#[A-Za-z0-9_.]+$/.test(tag);
+        },
+
         clickNext() {
             if (this.$refs.form.validate()) {
                 this.$emit('changePanel');
@@ -351,5 +390,9 @@ export default {
 .set-location-container {
     background-color: white;
     padding: 30px 20px 15px 20px;
+}
+
+label span {
+    font-size: 11px;
 }
 </style>
