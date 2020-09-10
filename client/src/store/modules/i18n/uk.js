@@ -1,14 +1,14 @@
 export default {
-    ACCOUNT_IS_BEING_ACTIVATED: 'Ваш аккаунт активується ...',
-    ACCOUNT_SETTING: 'Налаштування аккаунту',
-    ACCOUNT_VERIFIED: 'Ваш аккаунт активовано. Будь ласка,',
+    ACCOUNT_IS_BEING_ACTIVATED: 'Ваш обліковий запис активується ...',
+    ACCOUNT_SETTING: 'Налаштування профілю',
+    ACCOUNT_VERIFIED: 'Ваш обліковий запис активовано. Будь ласка,',
     ACCOUNT_VERIFIED_REDIRECT:
         'Через 7 секунд вас буде переспрямовано на сторінку входу, або ви можете натиснути на ',
     ADDITIONAL_INFO: 'Додаткова інформація',
     ADDITIONAL_INFO_DESCRIPTION:
         'Будь ласка, поділіться будь-чим, що допоможе підготуватися до нашої зустрічі',
-    ADD_INTERNAL_NOTE: 'Додати внутрішню примітку',
-    ADD_TO_WEBSITE: 'Додати на веб-сайт',
+    ADD_INTERNAL_NOTE: 'Додати внутрішню замітку',
+    ADD_TO_WEBSITE: 'Додати на сайт',
     ADVANCED: 'Розширений',
     ALL_EVENT_TYPES: 'Усі типи подій',
     ALREADY_REGISTERED: 'Вже зареєстровані?',
@@ -16,12 +16,12 @@ export default {
     APR: 'Квітень',
     AUG: 'Серпень',
     AVAILABILITY: 'Доступність',
-    AVAILABILITY_INCREMENTS: 'Збільшення доступності',
+    AVAILABILITY_INCREMENTS: 'Додати доступність',
     AVAILABILITY_ITEMS_INDEFINITELY: 'Нескінченно',
     AVAILABILITY_ITEMS_PERIOD: 'Протягом періоду в декілька днів',
     AVAILABILITY_ITEMS_RANGE: 'За діапазоном дат',
     AVAILABILITY_RANGE:
-        'Вашим запрошеним буде запропоновано наявність у визначений діапазон дат.',
+        'Вашим запрошеним буде запропоновано визначений діапазон дат.',
     BACK: 'Назад',
     BRANDING: 'Брендинг',
     CALENDAR_INVITATION_HAS_BEEN_SENT:
@@ -47,7 +47,7 @@ export default {
     CREATE_EVENT_TYPE_SUBTITLE: 'Менеджер з продажу',
     CREATE_EVENT_TYPE_TITLE: 'Що це за подія?',
     CURRENT_PASSWORD: 'Поточний пароль',
-    CUSTOM_DURATION: 'Спеціальна тривалість',
+    CUSTOM_DURATION: 'Власна тривалість',
     DATE_FORMAT: 'Формат дати',
     DATE_RANGE: 'За проміжком часу',
     DAYS_FORMAT_ITEMS_BUSINESS: 'робочі дні',
@@ -62,14 +62,14 @@ export default {
         'Користувачі не зможуть запланувати подальші зустрічі з видаленими типами подій. Це вплине на попередньо заплановані зустрічі.',
     DISPLAYING: 'Відображення',
     DISCONNECT: 'Disconnect',
-    DURATION_MIN: 'хв',
+    DURATION_MIN: 'хв.',
     EDIT: 'Редагувати',
     EDIT_AVAILABILITY: 'Змінити доступність',
     EMAIL: 'Електронна адреса',
     EMAIL_IS_REQUIRED: 'Потрібна електронна адреса',
     ENGLISH: 'Англійська',
     ENTER_DETAILS: 'Введіть деталі',
-    ENTER_YOUR_EMAIL_ADDRESS: 'Введіть Вашу Email адресу',
+    ENTER_YOUR_EMAIL_ADDRESS: 'Введіть Вашу Електронну адресу',
     ERROR_IN_PASSWORD_RESET: 'Пароль не змінено.',
     EVENTS: 'Події',
     EVENTS_CAN_BE_SCHEDULED_OVER_60_DAYS:
@@ -85,26 +85,26 @@ export default {
     EVENT_TIME_ZONE_EXPLANATION:
         'Ви переглядаєте час за Східноєвропейським \n' +
         '                                            часовим поясом. Ваші запрошені будуть\n' +
-        '                                            бачити вашу доступність за їх місцевимl\n' +
+        '                                            бачити вашу доступність за їх місцевим\n' +
         '                                            часовим поясом.',
 
     EVENT_TYPE: 'Тип події',
     EVENT_TYPES: 'Типи подій',
     EXPLANATION_ERROR_PASSWORD_RESET:
-        'Час дії токена минув або ви не скопіювали весь запит. Перейдіть на сторінку скидання пароля і знову надішліть запит на скидання з коректною електронною адресою',
+        'Час дії токена минув або ви не скопіювали весь запит. Перейдіть на сторінку скидання пароля і знову надішліть запит на зміну з коректною електронною адресою',
     EXPLANATION_PASSWORD_RESET:
-        'Перейдіть на сторінку входу та використовуйте новий пароль для автентифікації на сайті.',
+        'Перейдіть на сторінку входу та використовуйте новий пароль для входу на сайт.',
     EXPORT: 'Експорт',
     FACEBOOK_ICON: 'f',
     FEB: 'Лютий',
     FIELD_IS_REQUIRED: "поле обов'язкове.",
     FIELD_MUST_BE_LESS_THAN_VALUE: ' має містити менше символів',
     FIELD_MUST_BE_MORE_THAN_VALUE: ' має містити більше символів',
-    FIFTEEN_MIN: '15 хв',
+    FIFTEEN_MIN: '15 хв.',
     FILTER: 'Фільтр',
-    FIVE_MIN: '5 хв',
+    FIVE_MIN: '5 хв.',
     FORGOT_PASSWORD: 'Забули пароль?',
-    FORTY_FIVE_MIN: '45 хв',
+    FORTY_FIVE_MIN: '45 хв.',
     FRI: 'Пт',
     FULL_NAME: "Повне ім'я",
     GERMAN: 'Німецька',
@@ -127,13 +127,13 @@ export default {
     LETTER_WITH_RESET_LINK_WAS_SENT:
         'Лист із посиланням для скидання був надісланий на вашу електронну адресу',
     LIMIT_THE_NUMBER_OF_EVENTS_TEXT:
-        'Використовуйте це для обмеження\n                                               кількість подій\n                                               що може бути\n                                               заплановано через день.',
+        'Використовуйте це для обмеження\n                                               кількості подій\n                                               що може бути\n                                               заплановано через день.',
     LOCAL: 'Місцевий',
     LOCATION: 'Розташування',
     LOCATION_LABEL: 'Розташування',
     LOCKED: 'Заблокований',
     LOCK_MEETING_TIME_RECOMMENDATION:
-        'Щоб Ви та Ваш запрошений користувач переконалися,\n                                                що погоджуєтесь на зустріч в той же час, ми\n                                                рекомендуємо "заблокувати"\n                                                час події до часового поясу в с\n                                                яку проводять зустріч.',
+        'Щоб Ви та Ваш запрошений користувач переконалися,\n                                                що погоджуєтесь на зустріч в той же час, ми\n                                                рекомендуємо "заблокувати"\n                                                час події в часовому поясі в \n                                                якому буде проходити зустріч.',
     LOGIN: 'Увійти',
     LOGO: 'Логотип',
     LOGOUT: 'Вийти',
@@ -147,11 +147,11 @@ export default {
     MENU: 'Меню',
     MENU_EDIT_EVENT_TYPE: 'Редагувати тип події',
     MENU_HOME: 'Головна',
-    MIN: 'Хв',
+    MIN: 'Хв.',
     MINIMUM_SCHEDULING_NOTICE: 'Мінімальні нотатки розкладу',
-    MINS: 'хв',
+    MINS: 'хв.',
     MON: 'Пн',
-    MUST_BE_VALID_EMAIL: 'Введіть коректну адресу електронної пошти',
+    MUST_BE_VALID_EMAIL: 'Введіть коректну електронну адресу',
     NAME: "Ім'я",
     NEW_EVENT_TYPE: 'Новий тип події',
     NEW_HERE: 'Вперше тут?',
@@ -197,7 +197,7 @@ export default {
     REMOVE: 'Видалити',
     REPEAT_NEW_PASSWORD: 'Повторіть новий пароль',
     REQUIRED: 'вимагається',
-    RESET_YOUR_PASSWORD: 'Скинути пароль',
+    RESET_YOUR_PASSWORD: 'Змінити пароль',
     SAT: 'Сб',
     SAVE: 'Зберегти зміни',
     SAVE_AND_CLOSE: 'Зберегти та закрити',
@@ -248,7 +248,7 @@ export default {
     WELCOME_MESSAGE: 'Привітання',
     WHEN_CAN_EVENTS_BE_SCHEDULED: 'Коли можна запланувати заходи?',
     WHEN_CAN_PEOPLE_BOOK_EVENT: 'Коли люди можуть забронювати цю подію?',
-    WRONG_EMAIL_FORMAT: 'Неправильний формат електронної пошти',
+    WRONG_EMAIL_FORMAT: 'Невірний формат електронної адреси',
     YES: 'Так',
     YOUR_EVENT_TYPE_IS: 'Ваш тип події:',
     YOUR_INVITEES_WILL_BE_OFFERED:
@@ -257,12 +257,12 @@ export default {
     YOU_DONT_HAVE_ANY_EVENT_TYPES: 'У вас ще немає типів подій.',
     YOU_LOG_IN_WITH_AN_EMAIL_ADDRESS: 'Ви входите з електронною адресою:',
     YOU_WILL_WANT_TO_ADD_EVENT_TYPE:
-        'Ви зможете додати тип події, щоб люди могли планувати з\n            вами.',
+        'Ви зможете додати тип події, щоб люди могли планувати\n            зустріч з вами.',
     YOU_CAN_CHANGE_LANGUAGE_TO: 'Ви можете змінити мову на',
     DISPLAY_LANGUAGE: 'Мова відображення',
     MY_CALENDAR_ACOOUNT: 'Мій обліковий запис календаря',
     CONNECT_YOUR_CALENDAR_TEXT:
-        'Підключіть свій календар, щоб повідомити Schedulia, коли ви доступні, і оновіть свій календар, як заплановані події.',
+        'Підключіть свій календар, щоб повідомити Schedulia, коли ви доступні, та автоматично додавати заплановані події.',
 
     YOU_DONT_HAVE_ANY_CONNECTED_CALENDARS:
         'У вас ще немає підключених календарів ',
@@ -291,14 +291,14 @@ export default {
     LOAD_MORE: 'Завантажити ще',
     PLEASE_WAIT_WHILE_WE_ARE_LOGGING_YOU_IN:
         'Будь ласка, зачекайте, поки ми реєструємо Вас...',
-    RESET: 'Скинути фільтр',
-    INVITEE_EMAILS: 'Emails у запросі ',
-    ALL_INVITEE_EMAILS: 'Відмітити усі Emails',
+    RESET: 'Відмінити фільтри',
+    INVITEE_EMAILS: 'Електронна адреса',
+    ALL_INVITEE_EMAILS: 'Вибрати усі електронні адреси',
     PICK_NEEDED_LOCATION: 'Виберіть потрібну локацію',
     ADDITIONAL_OPTIONS: 'Додаткові опції',
     QUESTIONS_TO_INVITEE: 'Запитання для запрошеного',
     NOW_YOU_CAN_ADD_CUSTOM_FIELDS:
-        'Тепер ви можете додати кілька спеціальних полів із запитаннями або щось подібне для своїх запрошених',
+        'Тепер ви можете додати кілька спеціальних полів із запитаннями або чимось подібним для своїх запрошених',
     PLEASE_SHARE_ANYTHING:
         'Будь ласка, поділіться будь-чим, що допоможе підготуватися до нашої зустрічі',
     DELETE_FIELD: 'Видалити поле',
@@ -315,10 +315,10 @@ export default {
         'Будь ласка, дотримуйтесь інструкцій, щоб додати подію до мого календаря.',
     NO_OPENINGS_AT_THE_MOMENT: 'Жодної доступної події на даний момент',
     NO_EVENTS_FOUND: 'Події не знайдено',
-    EDIT_INTERNAL_NOTE: 'Змінити внутрішню примітку',
-    INTERNAL_NOTE: 'Внутрішня примітка',
+    EDIT_INTERNAL_NOTE: 'Змінити внутрішню замітку',
+    INTERNAL_NOTE: 'Внутрішня замітку',
     INTERNAL_NOTE_DESCRIPTION:
-        'Напишіть релевантну інформацію про цей тип події, на яку ви можете посилатися пізніше.',
+        'Напишіть інформацію про цей тип події, на яку ви можете посилатися пізніше.',
     PUBLIC_LINK_WAS_COPIED: 'Публічне посилання було скопійоване!',
     TAGS: 'Теги',
     ALL_TAGS: 'Усі теги',
@@ -347,8 +347,8 @@ export default {
     NO_DATE_RANGE_EVENTS: 'У цьому діапазоні немає подій',
     ARE_YOU_SURE_YOU_REGISTERED_IN: 'Ви впевнені, що вже зареєстровані в',
     REGISTER_IF_YOU_DIDNT_IT_YET: 'Зареєструйтесь, якщо досі цього не зробили',
-    DISABLED: 'Не активний',
-    ACTIVE: 'Активний',
+    DISABLED: 'Не активований',
+    ACTIVE: 'Активований',
     ARE_YOU_SURE_YOU_WANT_TO_DELETE: 'Ви впевнені, що хочете видалити',
     NOTIFICATIONS: 'Сповіщення',
     CONFIRM_NEW_PASSWORD: 'Підтвердити новий пароль',
@@ -358,8 +358,8 @@ export default {
     PRESS_ENTER_TO_CREATE: 'Натисніть Enter, щоб створити новий тег',
     ADD_SOME_TAGS: 'Додайте кілька тегів',
     PROFILE_WAS_UPDATED: 'Профіль оновлено!',
-    EVENT_TYPE_CREATED: 'Івент Тип _ успішно створино',
-    EVENT_TYPE_UPDATED: 'Івент Тип _ успішно оновлений',
+    EVENT_TYPE_CREATED: 'Тип події _ успішно створено',
+    EVENT_TYPE_UPDATED: 'Тип події _ успішно оновлений',
     NO: 'Ні',
 
     MY_WHALE_ACCOUNT: 'Мій Whale Аккаунт',
@@ -371,11 +371,13 @@ export default {
     DISPLAY: 'Відображенно',
     EVENT: 'Події',
     INVITEE_INFORMATION: 'Інформація про запрошенного',
-    REQUIRED_START_TIME: 'Будь ласка, виберіть час',
-    REQUIRED_END_TIME: 'Будь ласка, виберіть час',
+    REQUIRED_START_TIME: 'Будь ласка, виберіть час початку',
+    REQUIRED_END_TIME: 'Будь ласка, виберіть час закінчення',
     INTERVALS_MUST: 'Інтервал повинен бути не менше _ хвилин.',
-    INTERVALS_OVERLAPPING: 'Інтервали перекриваються.',
+    INTERVALS_OVERLAPPING: 'Інтервали перетинаються.',
     YOU_HAVE_UNSAVED_CHANGES:
         'Ви дійсно хочете залишити сторінку? У вас незбережені зміни!',
-    TODAY_TO_INFINITY: 'Від сьогодні до нескінченності'
+    TODAY_TO_INFINITY: 'Від сьогодні до нескінченності',
+    FIELD_MUST_START_WITH_HASH: 'має починатись з # та не містити пробілів',
+    EVENT_TAGS_MUST: '(повинен починатися з # і не містити пробілів)'
 };

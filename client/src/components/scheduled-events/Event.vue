@@ -84,6 +84,17 @@
                                         scheduledEvent.inviteeInformation
                                     }}</span>
                                 </li>
+                                <li
+                                    v-for="customFieldValue in scheduledEvent.customFieldValues"
+                                    :key="customFieldValue.id"
+                                >
+                                    {{
+                                        scheduledEvent.eventType.customFields[
+                                            customFieldValue.custom_field_id
+                                        ].name
+                                    }}
+                                    <span>{{ customFieldValue.value }}</span>
+                                </li>
                                 <li class="created">
                                     {{ lang.CREATED }}
                                     {{
