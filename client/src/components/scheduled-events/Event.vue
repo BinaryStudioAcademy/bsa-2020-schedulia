@@ -110,6 +110,7 @@ import * as EventStatus from '@/store/modules/scheduledEvent/types/statuses';
 import { mapGetters, mapActions } from 'vuex';
 import EventTypesColor from '../common/EventTypesColor/EventTypesColor';
 import ConfirmDialog from '@/components/confirm/ConfirmDialog.vue';
+import moment from 'moment-timezone';
 
 export default {
     name: 'Event',
@@ -157,9 +158,9 @@ export default {
             timeEnd.setMinutes(timeEnd.getMinutes() + duration);
 
             return (
-                timeStart.toLocaleTimeString().slice(0, -6) +
+                moment(timeStart).format('hh:mmA') +
                 '-' +
-                timeEnd.toLocaleTimeString().slice(0, -6)
+                moment(timeEnd).format('hh:mmA')
             );
         },
 
