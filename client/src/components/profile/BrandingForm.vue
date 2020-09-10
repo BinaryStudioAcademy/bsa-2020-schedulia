@@ -28,8 +28,9 @@
                                         <div v-if="newLogo">
                                             <VImg
                                                 :src="newLogo"
-                                                max-height="300"
-                                                contain="true"
+                                                max-width="440"
+                                                max-height="220"
+                                                :contain="true"
                                                 position="left center"
                                             ></VImg>
                                         </div>
@@ -38,6 +39,10 @@
                                                 :src="
                                                     require('@/assets/images/no-image.png')
                                                 "
+                                                max-width="440"
+                                                max-height="220"
+                                                :contain="true"
+                                                position="left center"
                                             ></VImg>
                                         </div>
                                     </div>
@@ -65,7 +70,9 @@
                                             accept="image/*"
                                             @change="updateImage"
                                         />
-
+                                        <VCol cols="12">
+                                            <VSpacer></VSpacer>
+                                        </VCol>
                                         <VAlert
                                             cols="12"
                                             type="error"
@@ -118,12 +125,21 @@ import { mapActions, mapGetters } from 'vuex';
 import * as i18nGetters from '@/store/modules/i18n/types/getters';
 import Tooltip from '@/components/tooltip/TooltipIcon.vue';
 import Alert from '@/components/alert/Alert';
+import { validationMixin } from 'vuelidate';
+import { fileSize } from '@/validators/filesize';
+import { MAX_FILE_SIZE } from '@/config/file';
 
 export default {
     name: 'BrandingForm',
     components: {
         Tooltip,
         Alert
+    },
+    mixins: [validationMixin],
+    validations: {
+        file: {
+            fileSize: fileSize({ maxFileSizeKb: MAX_FILE_SIZE })
+        }
     },
     data: () => ({
         file: null,
@@ -170,11 +186,26 @@ export default {
 
         updateImage(event) {
             this.file = event.target.files[0];
-            this.newLogo = URL.createObjectURL(this.file);
+            if (this.$v.file.fileSize) {
+                this.newLogo = URL.createObjectURL(this.file);
+            } else {
+                this.showAlert(
+                    this.lang.FILE_MUST_BE_SMALLER_THAN_VALUE.replace(
+                        'value',
+                        MAX_FILE_SIZE
+                    ),
+                    'error'
+                );
+            }
         },
 
         async save() {
             try {
+                this.$v.$touch();
+
+                if (this.$v.$invalid) {
+                    return;
+                }
                 await this.saveBranding(this.file);
 
                 this.showAlert(this.lang.PROFILE_WAS_UPDATED);
@@ -183,9 +214,10 @@ export default {
             }
         },
 
-        showAlert(message) {
+        showAlert(message, type = 'success') {
             this.alert.visibility = true;
             this.alert.message = message;
+            this.alert.type = type;
             setTimeout(() => {
                 this.alert.visibility = false;
             }, 2000);

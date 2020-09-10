@@ -9,7 +9,7 @@
         <VRow>
             <ZoomIntegration />
         </VRow>
-        <VRow class="mb-5">
+        <VRow>
             <WhaleIntegration />
         </VRow>
     </GeneralLayout>

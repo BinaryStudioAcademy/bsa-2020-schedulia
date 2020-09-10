@@ -2,15 +2,10 @@
     <VRow justify="end" class="mr-2">
         <VMenu bottom origin="center center" transition="scale-transition">
             <template v-slot:activator="{ on, attrs }">
-                <VBtn
-                    class="ma-2"
-                    outlined
-                    color="indigo"
-                    v-bind="attrs"
-                    v-on="on"
-                >
-                    {{ lang.ADD_CALENDAR_ACCOUNT }}
-                    <VIcon right dark>mdi-plus</VIcon>
+                <VBtn class="ma-2" color="green" v-bind="attrs" v-on="on">
+                    <span class="calendar-account">{{
+                        lang.ADD_CALENDAR_ACCOUNT
+                    }}</span>
                 </VBtn>
             </template>
 
@@ -66,4 +61,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.calendar-account {
+    color: white;
+}
+</style>

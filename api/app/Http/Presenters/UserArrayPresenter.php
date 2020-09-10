@@ -27,7 +27,9 @@ final class UserArrayPresenter implements PresenterInterface
             'slack_webhook' => $user->slack_webhook,
             'slack_channel' => $user->slack_channel,
             'slack_active' => $user->slack_active,
-            'chatito_active' => $user->chatito_active
+            'chatito_active' => $user->chatito_active,
+            'zoom_active' => $user->zoom_active,
+            'whale_active' => $user->whale_active
         ];
     }
 }

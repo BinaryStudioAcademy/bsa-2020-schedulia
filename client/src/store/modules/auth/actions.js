@@ -200,5 +200,47 @@ export default {
                 root: true
             });
         }
+    },
+
+    [actions.CHANGE_ZOOM_STATUS_ACTIVITY]: async (
+        { commit, dispatch },
+        value
+    ) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+        try {
+            await notificationConnectionService.changeZoomActivity(value);
+            commit(mutations.CHANGE_ZOOM_STATUS_ACTIVITY, value.zoom_active);
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        } catch (error) {
+            dispatch(actions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        }
+    },
+
+    [actions.CHANGE_WHALE_STATUS_ACTIVITY]: async (
+        { commit, dispatch },
+        value
+    ) => {
+        commit('loader/' + loaderMutations.SET_LOADING, true, { root: true });
+        try {
+            await notificationConnectionService.changeWhaleActivity(value);
+            commit(mutations.CHANGE_WHALE_STATUS_ACTIVITY, value.whale_active);
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        } catch (error) {
+            dispatch(actions.CHECK_IF_UNAUTHORIZED, error, {
+                root: true
+            });
+            commit('loader/' + loaderMutations.SET_LOADING, false, {
+                root: true
+            });
+        }
     }
 };
