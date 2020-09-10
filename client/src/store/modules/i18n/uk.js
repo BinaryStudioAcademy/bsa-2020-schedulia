@@ -292,7 +292,7 @@ export default {
     PLEASE_WAIT_WHILE_WE_ARE_LOGGING_YOU_IN:
         'Будь ласка, зачекайте, поки ми реєструємо Вас...',
     RESET: 'Відмінити фільтри',
-    INVITEE_EMAILS: 'Єлектронна адреса',
+    INVITEE_EMAILS: 'Електронна адреса',
     ALL_INVITEE_EMAILS: 'Вибрати усі електронні адреси',
     PICK_NEEDED_LOCATION: 'Виберіть потрібну локацію',
     ADDITIONAL_OPTIONS: 'Додаткові опції',
