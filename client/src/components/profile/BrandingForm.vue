@@ -28,7 +28,8 @@
                                         <div v-if="newLogo">
                                             <VImg
                                                 :src="newLogo"
-                                                max-height="300"
+                                                max-width="440"
+                                                max-height="220"
                                                 :contain="true"
                                                 position="left center"
                                             ></VImg>
@@ -38,6 +39,10 @@
                                                 :src="
                                                     require('@/assets/images/no-image.png')
                                                 "
+                                                max-width="440"
+                                                max-height="220"
+                                                :contain="true"
+                                                position="left center"
                                             ></VImg>
                                         </div>
                                     </div>
