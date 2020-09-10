@@ -381,7 +381,7 @@ export default {
     TODAY_TO_INFINITY: 'Від сьогодні до нескінченності',
 
     DEACTIVATE: 'Деактивувати',
-  
+
     FIELD_MUST_START_WITH_HASH: 'має починатись з # та не містити пробілів',
     EVENT_TAGS_MUST: '(повинен починатися з # і не містити пробілів)'
 };

@@ -472,7 +472,7 @@ export default {
     TODAY_TO_INFINITY: 'From today to infinity',
 
     DEACTIVATE: 'Deactivate',
-  
+
     FIELD_MUST_START_WITH_HASH: 'must be start with # and not contain spaces',
     EVENT_TAGS_MUST: '(must start with # and not contain spaces)'
 };
