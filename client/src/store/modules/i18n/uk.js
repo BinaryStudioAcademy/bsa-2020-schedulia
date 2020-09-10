@@ -100,6 +100,7 @@ export default {
     FIELD_IS_REQUIRED: "поле обов'язкове.",
     FIELD_MUST_BE_LESS_THAN_VALUE: ' має містити менше символів',
     FIELD_MUST_BE_MORE_THAN_VALUE: ' має містити більше символів',
+    FILE_MUST_BE_SMALLER_THAN_VALUE: 'Файл має бути меньш ніж value kb',
     FIFTEEN_MIN: '15 хв.',
     FILTER: 'Фільтр',
     FIVE_MIN: '5 хв.',
