@@ -23,7 +23,8 @@ export default {
     name: 'SearchInput',
 
     data: () => ({
-        searchString: ''
+        searchString: '',
+        timer: null
     }),
 
     watch: {
@@ -42,18 +43,23 @@ export default {
 
     methods: {
         onSearchInput(searchString) {
-            this.$router.push({
-                name: 'DateRange',
-                query: {
-                    event_types: this.$route.query.event_types,
-                    event_emails: this.$route.query.event_emails,
-                    event_status: this.$route.query.event_status,
-                    tags: this.$route.query.tags,
-                    search: searchString,
-                    startDate: this.$route.query.start_date,
-                    endDate: this.$route.query.end_date
-                }
-            });
+            clearTimeout(this.timer);
+            this.timer = setTimeout(
+                () =>
+                    this.$router.push({
+                        name: 'DateRange',
+                        query: {
+                            event_types: this.$route.query.event_types,
+                            event_emails: this.$route.query.event_emails,
+                            event_status: this.$route.query.event_status,
+                            tags: this.$route.query.tags,
+                            search: searchString,
+                            startDate: this.$route.query.start_date,
+                            endDate: this.$route.query.end_date
+                        }
+                    }),
+                1000
+            );
         },
 
         setSearchInput() {

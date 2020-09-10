@@ -9,6 +9,7 @@
             dense
             no-resize
             outlined
+            :error-messages="errors"
         ></VTextarea>
     </div>
 </template>
@@ -22,7 +23,8 @@ export default {
             required: true
         },
         value: {},
-        defaultValue: {}
+        defaultValue: {},
+        errors: {}
     },
 
     computed: {

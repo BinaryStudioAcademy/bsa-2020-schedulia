@@ -60,6 +60,7 @@
                                             $event
                                         )
                                     "
+                                    :errors="welcomeErrors"
                                 />
 
                                 <ProfileSelect
@@ -172,7 +173,7 @@ import ProfileDisplayLanguage from './ProfileDisplayLanguage';
 import * as authActions from '@/store/modules/auth/types/actions';
 import * as authGetters from '@/store/modules/auth/types/getters';
 import { validationMixin } from 'vuelidate';
-import { required } from 'vuelidate/lib/validators';
+import { required, maxLength } from 'vuelidate/lib/validators';
 import Alert from '@/components/alert/Alert';
 
 export default {
@@ -190,7 +191,10 @@ export default {
     validations: {
         userProfile: {
             name: { required },
-            nickname: { required }
+            nickname: { required },
+            welcome_message: {
+                maxLength: maxLength(250)
+            }
         }
     },
     data: () => ({
@@ -257,7 +261,7 @@ export default {
         },
         nicknameErrors() {
             const errors = [];
-            if (!this.$v.userProfile.name.$dirty) {
+            if (!this.$v.userProfile.nickname.$dirty) {
                 return errors;
             }
             !this.$v.userProfile.nickname.required &&
@@ -265,6 +269,20 @@ export default {
                     this.lang.FIELD_IS_REQUIRED.replace(
                         'field',
                         this.lang.NICKNAME
+                    )
+                );
+            return errors;
+        },
+        welcomeErrors() {
+            const errors = [];
+            if (!this.$v.userProfile.welcome_message.$dirty) {
+                return errors;
+            }
+            !this.$v.userProfile.welcome_message.maxLength &&
+                errors.push(
+                    `${this.lang.WELCOME_MESSAGE} ${this.lang.FIELD_MUST_BE_LESS_THAN_VALUE}`.replace(
+                        'value',
+                        '250'
                     )
                 );
             return errors;
