@@ -13,3 +13,5 @@ export const CHANGE_SLACK_NOTIFICATIONS_ACTIVITY =
 export const CHANGE_CHATITO_NOTIFICATIONS_ACTIVITY =
     'changeChatitoNotificationsActivity';
 export const UPDATE_PROFILE = 'updateProfile';
+export const CHANGE_ZOOM_STATUS_ACTIVITY = 'changeZoomStatusActivity';
+export const CHANGE_WHALE_STATUS_ACTIVITY = 'changeWhaleStatusActivity';

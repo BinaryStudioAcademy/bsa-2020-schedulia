@@ -151,6 +151,8 @@ Route::group([
     Route::delete('/slack-notifications', 'SlackController@deleteSlackNotifications');
     Route::put('/slack-notifications', 'SlackController@changeActivitySlackNotifications');
     Route::put('/chatito-notifications', 'ChatitoController@changeActivity');
+    Route::put('/zoom-status', 'ZoomStatusController@changeActivity');
+    Route::put('/whale-status', 'WhaleStatusController@changeActivity');
 });
 
 Route::get('/trigger-notifications', function () {
