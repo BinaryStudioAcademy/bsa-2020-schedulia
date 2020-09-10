@@ -10,9 +10,9 @@
         <div class="event-type-main">
             <div class="event-type-content">
                 <h3 class="event-type-name">{{ eventType.name }}</h3>
-                <span class="event-type-about"
-                    >{{ eventType.duration }} {{ lang.MINS }}</span
-                >
+                <span class="event-type-about">
+                    {{ duration }} {{ lang.MINS }}
+                </span>
                 <span
                     class="d-block mt-3 internal-note"
                     v-if="eventType.internalNote"
@@ -129,6 +129,9 @@ export default {
                 return '#e5e5e5';
             }
             return this.eventType.color;
+        },
+        duration() {
+            return this.eventType.customDuration || this.eventType.duration;
         }
     }
 };
