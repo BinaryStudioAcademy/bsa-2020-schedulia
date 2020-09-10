@@ -6,7 +6,6 @@ use App\Actions\Zoom\ZoomCallbackAction;
 use App\Actions\Zoom\ZoomCallbackRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ZoomController extends Controller
 {
