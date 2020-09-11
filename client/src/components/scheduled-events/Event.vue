@@ -16,7 +16,8 @@
                                 {{
                                     getDurationTime(
                                         scheduledEvent.startDate,
-                                        scheduledEvent.eventType.duration
+                                        scheduledEvent.eventType.duration,
+                                        scheduledEvent.eventType.customDuration
                                     )
                                 }}
                             </span>
@@ -163,16 +164,26 @@ export default {
             updateEvent: actions.UPDATE_EVENT
         }),
 
-        getDurationTime(startDate, duration) {
+        getDurationTime(startDate, duration, customDuration) {
             let timeStart = new Date(startDate);
             let timeEnd = new Date(startDate);
-            timeEnd.setMinutes(timeEnd.getMinutes() + duration);
+
+            let eventDuration = this.getDuration(duration, customDuration);
+            timeEnd.setMinutes(timeEnd.getMinutes() + eventDuration);
 
             return (
                 moment(timeStart).format('hh:mmA') +
                 ' - ' +
                 moment(timeEnd).format('hh:mmA')
             );
+        },
+
+        getDuration(duration, customDuration) {
+            if (duration) {
+                return duration;
+            } else {
+                return customDuration;
+            }
         },
 
         getEventDate(startDate) {
