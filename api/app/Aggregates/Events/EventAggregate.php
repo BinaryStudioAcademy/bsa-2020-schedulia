@@ -35,8 +35,8 @@ class EventAggregate
         $this->inviteeInformation = $event->invitee_information;
         $this->startDate = Carbon::parse($event->start_date)->timestamp;
         $this->eventTypeId = $event->event_type_id;
-        $this->eventTypeOwnerId = $event->eventType->owner_id;
-        $this->eventTypeTagsId = $event->eventType->tags;
+        $this->eventTypeOwnerId = $event->eventType ? $event->eventType->owner_id : null;
+        $this->eventTypeTagsId = $event->eventType ? $event->eventType->tags : null;
     }
 
     public function getId(): int
