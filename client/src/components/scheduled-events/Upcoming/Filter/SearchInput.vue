@@ -76,4 +76,9 @@ export default {
     width: 150px;
     display: inline-flex;
 }
+@media screen and (max-width: 959px) {
+    .search-input {
+        width: 250px;
+    }
+}
 </style>

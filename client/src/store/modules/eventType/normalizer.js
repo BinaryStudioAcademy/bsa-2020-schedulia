@@ -9,7 +9,7 @@ export const eventTypeMapper = EventType => ({
     address: EventType.address,
     slug: EventType.slug,
     color: EventType.color,
-    duration: EventType.duration,
+    duration: durationMapper(EventType.duration, 'duration'),
     disabled: EventType.disabled,
     timezone: EventType.timezone,
     owner: userMapper(EventType.owner),
@@ -18,7 +18,7 @@ export const eventTypeMapper = EventType => ({
         EventType.timezone
     ),
     radioTimeZone: 'Local',
-    customDuration: 0,
+    customDuration: durationMapper(EventType.duration, 'customDuration'),
     dateRange: dateRangeMapper(EventType.availabilities, EventType.timezone),
     availabilities_week_days: availabilitiesWeekDays(
         EventType.availabilities,
@@ -223,6 +223,9 @@ export const locationTypeMapper = function(locationType) {
         case 'zoom':
             result = { key: 'zoom', title: 'zoom', icon: 'mdi-video-box' };
             break;
+        case 'whale':
+            result = { key: 'whale', title: 'whale', icon: 'mdi-video' };
+            break;
     }
 
     return result;
@@ -264,4 +267,16 @@ export const eventTypeDefaultMapper = function() {
         chatito_workspace: '',
         tagChecks: []
     };
+};
+
+export const durationMapper = function(value, type) {
+    let result = 0;
+    let defaultDuration = [15, 30, 45, 60];
+    if (type === 'duration' && defaultDuration.includes(value)) {
+        result = value;
+    } else if (type === 'customDuration' && !defaultDuration.includes(value)) {
+        result = value;
+    }
+
+    return result;
 };

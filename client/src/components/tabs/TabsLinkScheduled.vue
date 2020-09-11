@@ -3,20 +3,22 @@
         <div class="tabs__list">
             <VContainer class="tabs__container">
                 <VToolbar color="white" dense flat>
-                    <VRow align="end">
-                        <VCol class="text-left">
+                    <VRow align="end" class="tabs-row">
+                        <VCol class="text-left col-12 col-md-6 tabs-item">
                             <VTabs v-model="tab">
                                 <VTab
                                     v-for="item in tabs"
                                     :key="item.id"
                                     @click="routeTab(item.routeName)"
+                                    >{{ item.title }}</VTab
                                 >
-                                    {{ item.title }}
-                                </VTab>
                                 <slot name="left-side"></slot>
                             </VTabs>
                         </VCol>
-                        <VCol class="text-right" align-self="center">
+                        <VCol
+                            class="text-right col-12 col-md-6 tabs-item"
+                            align-self="center"
+                        >
                             <slot name="right-side"></slot>
                         </VCol>
                     </VRow>
@@ -65,22 +67,35 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.tabs {
-    &__list {
-        width: 100%;
-        background: var(--v-background-lighten1);
-    }
+<style scoped>
+.tabs__list {
+    width: 100%;
+    background: var(--v-background-lighten1);
+}
 
-    &__container {
-        padding: 0;
-    }
+.tabs__container {
+    padding: 0;
+}
 
-    .v-tab--active[aria-selected='false'] {
-        color: rgba(0, 0, 0, 0.54);
-    }
+.v-tab--active[aria-selected='false'] {
+    color: rgba(0, 0, 0, 0.54);
 }
 .v-tab {
     text-transform: none;
+}
+@media screen and (max-width: 959px) {
+    .tabs::v-deep .tabs__container {
+        padding: 0;
+        width: 100%;
+    }
+
+    .tabs-item {
+        padding: 0;
+    }
+
+    .tabs-row {
+        height: 140px;
+        background-color: #fff;
+    }
 }
 </style>

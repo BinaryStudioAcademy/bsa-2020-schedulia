@@ -10,9 +10,8 @@
                                     v-for="item in tabs"
                                     :key="item.id"
                                     @click="routeTab(item.routeName)"
+                                    >{{ item.title }}</VTab
                                 >
-                                    {{ item.title }}
-                                </VTab>
                                 <slot name="left-side"></slot>
                             </VTabs>
                         </VCol>

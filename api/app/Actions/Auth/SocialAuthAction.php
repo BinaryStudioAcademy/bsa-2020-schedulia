@@ -56,6 +56,7 @@ final class SocialAuthAction
     {
         $user = new User();
         $user->name = $socialUser->getName();
+        $user->nickname = strtolower(trim(str_replace(' ', '_', $socialUser->getName())));
         $user->email = $socialUser->getEmail();
         $user->email_verified_at = now();
         $user->password = Hash::make(Str::random(40));

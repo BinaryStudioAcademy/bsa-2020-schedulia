@@ -65,7 +65,7 @@ const routes = [
                 children: [
                     // There must be routes which need logged user
                     {
-                        path: '',
+                        path: '/',
                         name: 'EventTypes',
                         component: () => import('../views/EventTypes')
                     },
